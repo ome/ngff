@@ -2,13 +2,13 @@
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Your Spec Title</title>
+  <title>Next-generation file formats</title>
   <meta content="w3c/CG-DRAFT" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version ef9d3c0a, updated Fri Nov 13 17:14:48 2020 -0800" name="generator">
-  <link href="Your spec url" rel="canonical">
-  <meta content="2103f86c336c23b43c789cc5a89fd663a7eb5389" name="document-revision">
+  <link href="https://joshmoore.github.io/ngff" rel="canonical">
+  <meta content="5a7c9342bac1cfe7427690b1a540a547dc362e98" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -271,6 +271,65 @@ a.self-link::before            { content: "¶"; }
 .heading > a.self-link::before { content: "§"; }
 dfn > a.self-link::before      { content: "#"; }
 </style>
+<style>/* style-syntax-highlighting */
+
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+</style>
 <style>/* style-darkmode */
 
 @media (prefers-color-scheme: dark) {
@@ -391,16 +450,79 @@ dfn > a.self-link::before      { content: "#"; }
         --selflink-hover-text: white;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
+
+    c-[a] { color: #d33682 } /* Keyword.Declaration */
+    c-[b] { color: #d33682 } /* Keyword.Type */
+    c-[c] { color: #2aa198 } /* Comment */
+    c-[d] { color: #2aa198 } /* Comment.Multiline */
+    c-[e] { color: #268bd2 } /* Name.Attribute */
+    c-[f] { color: #b58900 } /* Name.Tag */
+    c-[g] { color: #cb4b16 } /* Name.Variable */
+    c-[k] { color: #d33682 } /* Keyword */
+    c-[l] { color: #657b83 } /* Literal */
+    c-[m] { color: #657b83 } /* Literal.Number */
+    c-[n] { color: #268bd2 } /* Name */
+    c-[o] { color: #657b83 } /* Operator */
+    c-[p] { color: #657b83 } /* Punctuation */
+    c-[s] { color: #6c71c4 } /* Literal.String */
+    c-[t] { color: #6c71c4 } /* Literal.String.Single */
+    c-[u] { color: #6c71c4 } /* Literal.String.Double */
+    c-[ch] { color: #2aa198 } /* Comment.Hashbang */
+    c-[cp] { color: #2aa198 } /* Comment.Preproc */
+    c-[cpf] { color: #2aa198 } /* Comment.PreprocFile */
+    c-[c1] { color: #2aa198 } /* Comment.Single */
+    c-[cs] { color: #2aa198 } /* Comment.Special */
+    c-[kc] { color: #d33682 } /* Keyword.Constant */
+    c-[kn] { color: #d33682 } /* Keyword.Namespace */
+    c-[kp] { color: #d33682 } /* Keyword.Pseudo */
+    c-[kr] { color: #d33682 } /* Keyword.Reserved */
+    c-[ld] { color: #657b83 } /* Literal.Date */
+    c-[nc] { color: #268bd2 } /* Name.Class */
+    c-[no] { color: #268bd2 } /* Name.Constant */
+    c-[nd] { color: #268bd2 } /* Name.Decorator */
+    c-[ni] { color: #268bd2 } /* Name.Entity */
+    c-[ne] { color: #268bd2 } /* Name.Exception */
+    c-[nf] { color: #268bd2 } /* Name.Function */
+    c-[nl] { color: #268bd2 } /* Name.Label */
+    c-[nn] { color: #268bd2 } /* Name.Namespace */
+    c-[py] { color: #268bd2 } /* Name.Property */
+    c-[ow] { color: #657b83 } /* Operator.Word */
+    c-[mb] { color: #657b83 } /* Literal.Number.Bin */
+    c-[mf] { color: #657b83 } /* Literal.Number.Float */
+    c-[mh] { color: #657b83 } /* Literal.Number.Hex */
+    c-[mi] { color: #657b83 } /* Literal.Number.Integer */
+    c-[mo] { color: #657b83 } /* Literal.Number.Oct */
+    c-[sa] { color: #6c71c4 } /* Literal.String.Affix */
+    c-[sb] { color: #6c71c4 } /* Literal.String.Backtick */
+    c-[sc] { color: #6c71c4 } /* Literal.String.Char */
+    c-[dl] { color: #6c71c4 } /* Literal.String.Delimiter */
+    c-[sd] { color: #6c71c4 } /* Literal.String.Doc */
+    c-[se] { color: #6c71c4 } /* Literal.String.Escape */
+    c-[sh] { color: #6c71c4 } /* Literal.String.Heredoc */
+    c-[si] { color: #6c71c4 } /* Literal.String.Interpol */
+    c-[sx] { color: #6c71c4 } /* Literal.String.Other */
+    c-[sr] { color: #6c71c4 } /* Literal.String.Regex */
+    c-[ss] { color: #6c71c4 } /* Literal.String.Symbol */
+    c-[fm] { color: #268bd2 } /* Name.Function.Magic */
+    c-[vc] { color: #cb4b16 } /* Name.Variable.Class */
+    c-[vg] { color: #cb4b16 } /* Name.Variable.Global */
+    c-[vi] { color: #cb4b16 } /* Name.Variable.Instance */
+    c-[vm] { color: #cb4b16 } /* Name.Variable.Magic */
+    c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
+}
 </style>
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
-   <h1 class="p-name no-ref" id="title">Your Spec Title</h1>
+   <h1 class="p-name no-ref" id="title">Next-generation file formats</h1>
    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2020-11-17">17 November 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
-     <dd><a class="u-url" href="Your spec url">Your spec url</a>
+     <dd><a class="u-url" href="https://joshmoore.github.io/ngff">https://joshmoore.github.io/ngff</a>
      <dt>Issue Tracking:
      <dd><a href="https://github.com/joshmoore/ngff/issues/">GitHub</a>
      <dt class="editor">Editor:
@@ -423,7 +545,19 @@ dfn > a.self-link::before      { content: "#"; }
   <nav data-fill-with="table-of-contents" id="toc">
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
-    <li><a href="#intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
+    <li>
+     <a href="#intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
+     <ol class="toc">
+      <li><a href="#on-disk-or-in-cloud-layout"><span class="secno">1.1</span> <span class="content">On-disk (or in-cloud) layout</span></a>
+      <li>
+       <a href="#metadata"><span class="secno">1.2</span> <span class="content">Metadata</span></a>
+       <ol class="toc">
+        <li><a href="#multiscales-metadata"><span class="secno">1.2.1</span> <span class="content">"multiscales" metadata</span></a>
+        <li><a href="#omero-metadata"><span class="secno">1.2.2</span> <span class="content">"omero" metadata</span></a>
+        <li><a href="#labels-metadata"><span class="secno">1.2.3</span> <span class="content">"labels" metadata</span></a>
+        <li><a href="#image-label-metadata"><span class="secno">1.2.4</span> <span class="content">"image-label" metadata</span></a>
+       </ol>
+     </ol>
     <li>
      <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
      <ol class="toc">
@@ -439,7 +573,165 @@ dfn > a.self-link::before      { content: "#"; }
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="intro"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#intro"></a></h2>
-   <p>Introduction here.</p>
+   <p>This document specifies one layout for images within Zarr files. The APIs and
+scripts provided by this repository will support one or more versions of this
+file, but they should all be considered internal investigations, not intended
+for public re-use.</p>
+   <h3 class="heading settled" data-level="1.1" id="on-disk-or-in-cloud-layout"><span class="secno">1.1. </span><span class="content">On-disk (or in-cloud) layout</span><a class="self-link" href="#on-disk-or-in-cloud-layout"></a></h3>
+<pre>
+.                             # Root folder, potentially in S3,
+│                             # with a flat list of images by image ID.
+│
+├── 123.zarr                  # One image (id=123) converted to Zarr.
+│
+└── 456.zarr                  # Another image (id=456) converted to Zarr.
+    │
+    ├── .zgroup               # Each image is a Zarr group, or a folder, of other groups and arrays.
+    ├── .zattrs               # Group level attributes are stored in the .zattrs file and include
+    │                         #  "multiscales" and "omero" below)
+    │
+    ├── 0                     # Each multiscale level is stored as a separate Zarr array,
+    │   ...                   # which is a folder containing chunk files which compose the array.
+    ├── n                     # The name of the array is arbitrary with the ordering defined by
+    │   │                     # by the "multiscales" metadata, but is often a sequence starting at 0.
+    │   │
+    │   ├── .zarray           # All image arrays are 5-dimensional
+    │   │                     # with dimension order (t, c, z, y, x).
+    │   │
+    │   ├── 0.0.0.0.0         # Chunks are stored with the flat directory layout.
+    │   │   ...               # Each dotted component of the chunk file represents
+    │   └── t.c.z.y.x         # a "chunk coordinate", where the maximum coordinate
+    │                         # will be `dimension_size / chunk_size`.
+    │
+    └── labels
+        │
+        ├── .zgroup           # The labels group is a container which holds a list of labels to make the objects easily discoverable
+        │
+        ├── .zattrs           # All labels will be listed in `.zattrs` e.g. `{ "labels": [ "original/0" ] }`
+        │                     # Each dimension of the label `(t, c, z, y, x)` should be either the same as the
+        │                     # corresponding dimension of the image, or `1` if that dimension of the label
+        │                     # is irrelevant.
+        │
+        └── original          # Intermediate folders are permitted but not necessary and currently contain no extra metadata.
+            │
+            └── 0             # Multiscale, labeled image. The name is unimportant but is registered in the "labels" group above.
+                ├── .zgroup   # Zarr Group which is both a multiscaled image as well as a labeled image.
+                ├── .zattrs   # Metadata of the related image and as well as display information under the "image-label" key.
+                │
+                ├── 0         # Each multiscale level is stored as a separate Zarr array, as above, but only integer values
+                │   ...       # are supported.
+                └── n
+
+
+</pre>
+   <h3 class="heading settled" data-level="1.2" id="metadata"><span class="secno">1.2. </span><span class="content">Metadata</span><a class="self-link" href="#metadata"></a></h3>
+   <p>The various `.zattrs` files throughout the above array hierarchy may contain metadata
+keys as specified below for discovering certain types of data, especially images.</p>
+   <h4 class="heading settled" data-level="1.2.1" id="multiscales-metadata"><span class="secno">1.2.1. </span><span class="content">"multiscales" metadata</span><a class="self-link" href="#multiscales-metadata"></a></h4>
+   <p>Metadata about the multiple resolution representations of the image can be
+found under the "multiscales" key in the group-level metadata.
+The specification for the multiscale (i.e. "resolution") metadata is provided
+in [zarr-specs#50](https://github.com/zarr-developers/zarr-specs/issues/50).
+If only one multiscale is provided, use it. Otherwise, the user can choose by
+name, using the first multiscale as a fallback:</p>
+<pre class="language-python highlight"><c- n>datasets</c-> <c- o>=</c-> <c- p>[]</c->
+<c- k>for</c-> <c- n>named</c-> <c- ow>in</c-> <c- n>multiscales</c-><c- p>:</c->
+    <c- k>if</c-> <c- n>named</c-><c- p>[</c-><c- u>"name"</c-><c- p>]</c-> <c- o>==</c-> <c- u>"3D"</c-><c- p>:</c->
+        <c- n>datasets</c-> <c- o>=</c-> <c- p>[</c-><c- n>x</c-><c- p>[</c-><c- u>"path"</c-><c- p>]</c-> <c- k>for</c-> <c- n>x</c-> <c- ow>in</c-> <c- n>named</c-><c- p>[</c-><c- u>"datasets"</c-><c- p>]]</c->
+        <c- k>break</c->
+<c- k>if</c-> <c- ow>not</c-> <c- n>datasets</c-><c- p>:</c->
+    <c- c1># Use the first by default. Or perhaps choose based on chunk size.</c->
+    <c- n>datasets</c-> <c- o>=</c-> <c- p>[</c-><c- n>x</c-><c- p>[</c-><c- u>"path"</c-><c- p>]</c-> <c- k>for</c-> <c- n>x</c-> <c- ow>in</c-> <c- n>multiscales</c-><c- p>[</c-><c- mi>0</c-><c- p>][</c-><c- u>"datasets"</c-><c- p>]]</c->
+</pre>
+   <p>The subresolutions in each multiscale are ordered from highest-resolution
+to lowest.</p>
+   <h4 class="heading settled" data-level="1.2.2" id="omero-metadata"><span class="secno">1.2.2. </span><span class="content">"omero" metadata</span><a class="self-link" href="#omero-metadata"></a></h4>
+   <p>Information specific to the channels of an image and how to render it
+can be found under the "omero" key in the group-level metadata:</p>
+<pre class="language-json highlight"><c- u>"id"</c->: <c- mi>1</c->,                              # ID in OMERO
+<c- u>"name"</c->: <c- u>"example.tif"</c->,                # Name as shown in the UI
+<c- u>"version"</c->: <c- u>"0.1"</c->,                     # Current version
+<c- u>"channels"</c->: <c- p>[</c->                         # Array matching the c dimension size
+    <c- p>{</c->
+        <c- f>"active"</c-><c- p>:</c-> <c- kc>true</c-><c- p>,</c->
+        <c- f>"coefficient"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+        <c- f>"color"</c-><c- p>:</c-> <c- u>"0000FF"</c-><c- p>,</c->
+        <c- f>"family"</c-><c- p>:</c-> <c- u>"linear"</c-><c- p>,</c->
+        <c- f>"inverted"</c-><c- p>:</c-> <c- kc>false</c-><c- p>,</c->
+        <c- f>"label"</c-><c- p>:</c-> <c- u>"LaminB1"</c-><c- p>,</c->
+        <c- f>"window"</c-><c- p>:</c-> <c- p>{</c->
+            <c- f>"end"</c-><c- p>:</c-> <c- mi>1500</c-><c- p>,</c->
+            <c- f>"max"</c-><c- p>:</c-> <c- mi>65535</c-><c- p>,</c->
+            <c- f>"min"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"start"</c-><c- p>:</c-> <c- mi>0</c->
+        <c- p>}</c->
+    <c- p>}</c->
+<c- p>]</c->,
+<c- u>"rdefs"</c->: <c- p>{</c->
+    <c- f>"defaultT"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->                    # First timepoint to show the user
+    <c- f>"defaultZ"</c-><c- p>:</c-> <c- mi>118</c-><c- p>,</c->                  # First Z section to show the user
+    <c- f>"model"</c-><c- p>:</c-> <c- u>"color"</c->                  # <c- u>"color"</c-> or <c- u>"greyscale"</c->
+<c- p>}</c->
+</pre>
+   <p>See https://docs.openmicroscopy.org/omero/5.6.1/developers/Web/WebGateway.html#imgdata
+for more information.</p>
+   <h4 class="heading settled" data-level="1.2.3" id="labels-metadata"><span class="secno">1.2.3. </span><span class="content">"labels" metadata</span><a class="self-link" href="#labels-metadata"></a></h4>
+   <p>The special group "labels" found under an image Zarr contains the key `labels` containing
+the paths to label objects which can be found underneath the group:</p>
+<pre class="language-json highlight"><c- p>{</c->
+  <c- f>"labels"</c-><c- p>:</c-> <c- p>[</c->
+    <c- u>"orphaned/0"</c->
+  <c- p>]</c->
+<c- p>}</c->
+</pre>
+   <p>Unlisted groups MAY be labels.</p>
+   <h4 class="heading settled" data-level="1.2.4" id="image-label-metadata"><span class="secno">1.2.4. </span><span class="content">"image-label" metadata</span><a class="self-link" href="#image-label-metadata"></a></h4>
+   <p>Groups containing the `image-label` dictionary represent an image segmentation
+in which each unique pixel value represents a separate segmented object.
+`image-label` groups MUST also contain `multiscales` metadata and the two
+"datasets" series MUST have the same number of entries.</p>
+   <p>The `colors` key defines a list of JSON objects describing the unique label
+values. Each entry in the list MUST contain the key "label-value" with the
+pixel value for that label. Additionally, the "rgba" key MAY be present, the
+value for which is an RGBA unsigned-int 4-tuple: `[uint8, uint8, uint8, uint8]`
+All `label-value`s must be unique. Clients who choose to not throw an error
+should ignore all except the _last_ entry.</p>
+   <p>Some implementations may represent overlapping labels by using a specially assigned
+value, for example the highest integer available in the pixel range.</p>
+   <p>The `source` key is an optional dictionary which contains information on the
+image the label is associated with. If included it MAY include a key `image`
+whose value is the relative path to a Zarr image group. The default value is
+"../../" since most labels are stored under a subgroup named "labels/" (see
+above).</p>
+<pre class="language-json highlight"><c- u>"image-label"</c->:
+  <c- p>{</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c-><c- p>,</c->
+    <c- f>"colors"</c-><c- p>:</c-> <c- p>[</c->
+      <c- p>{</c->
+        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+        <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>0</c-><c- p>]</c->
+      <c- p>},</c->
+      <c- p>{</c->
+        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>4</c-><c- p>,</c->
+        <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>0</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>128</c-><c- p>]</c->
+      <c- p>},</c->
+      ...
+      <c- p>]</c->
+    <c- p>}</c->,
+    <c- u>"source"</c->: <c- p>{</c->
+      <c- f>"image"</c-><c- p>:</c-> <c- u>"../../"</c->
+    <c- p>}</c->
+]
+</pre>
+   <p>| Revision   | Date         | Description                                |
+| ---------- | ------------ | ------------------------------------------ |
+| 0.1.3-dev4 | 2020-09-14   | Add the image-label object                 |
+| 0.1.3-dev3 | 2020-09-01   | Convert labels to multiscales              |
+| 0.1.3-dev2 | 2020-08-18   | Rename masks as labels                     |
+| 0.1.3-dev1 | 2020-07-07   | Add mask metadata                          |
+| 0.1.2      | 2020-05-07   | Add description of "omero" metadata        |
+| 0.1.1      | 2020-05-06   | Add info on the ordering of resolutions    |
+| 0.1.0      | 2020-04-20   | First version for internal demo            |</p>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
