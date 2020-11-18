@@ -6,6 +6,7 @@ Status:  LS-COMMIT
 Group: ome
 URL: https://joshmoore.github.io/ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
+Boilerplate: style-darkmode off
 Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
 Abstract: Community effort to design a new cloud-friendly "Next Generation" file format (NGFF)
 </pre>
