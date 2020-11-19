@@ -27,6 +27,34 @@ Status Text: (an "editor's draft") will not necessarily be supported.
 Introduction {#intro}
 =====================
 
+Bioimaging science is at a crossroads. Currently, the drive to acquire more,
+larger, preciser spatial measurements is unfortunately at odds with our ability
+to structure and share those measurements with others. During a global pandemic
+more than ever, we believe fervently that global, collaborative discovery as
+opposed to the post-publication, "data-on-request" mode of operation is the
+path forward. Bioimages should be shareable via open and commercial cloud
+resources without the need to download entire datasets.
+
+At the moment, that is not the norm. The plethora of data formats produced by
+imaging systems are ill-suited to the remote sharing. Individual scientists
+typically lack the infrastructure they need to host these data themselves. When
+they acquire images from elsewhere, time-consuming translations and data
+cleaning are needed to interpret findings. Those same costs are multiplied when
+gathering data into online repositories where curator time can be the limiting
+factor before publication is possible. Without a common effort, each lab or
+resource is left building the tools they need and maintaining that
+infrastructure often without dedicated funding.
+
+This document assumes that there are three keys to a workable solution:
+
+1. Converting all data out of proprietary formats rather than trying to
+   translate data on every access.
+2. Chunking the data so that manageable areas of large data are reference-able
+   online rather than downloading them entirely.
+3. Collaborating on a small number of container formats and conventions for
+   metadata rather than developing new versions to meet each individual
+   requirement.
+
 This document specifies one layout for images within Zarr files. The APIs and
 scripts provided by this repository will support one or more versions of this
 file, but they should all be considered internal investigations, not intended
