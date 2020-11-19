@@ -1,8 +1,8 @@
 <!doctype html><html lang="en">
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  <title>Next-generation file formats</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Next-generation file formats</title>
 <style data-fill-with="stylesheet">/******************************************************************************
  *                   Style sheet for the W3C specifications                   *
  *
@@ -1486,7 +1486,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version ef9d3c0a, updated Fri Nov 13 17:14:48 2020 -0800" name="generator">
   <link href="https://joshmoore.github.io/ngff" rel="canonical">
-  <meta content="96e727a7907e878767e2266f160ed2c4604e4462" name="document-revision">
+  <meta content="20d26f6b85f7a193fccfbc8ec238d83f39ed22c9" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1810,50 +1810,81 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </style>
  <body class="h-entry">
   <div class="head">
-   <p data-fill-with="logo"></p>
+    <img src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Commit Snapshot, <time class="dt-updated" datetime="2020-11-18">18 November 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2020-11-19">19 November 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://joshmoore.github.io/ngff">https://joshmoore.github.io/ngff</a>
      <dt>Issue Tracking:
+     <dd><a href="https://forum.image.sc/tag/ome-ngff">Forums</a>
      <dd><a href="https://github.com/joshmoore/ngff/issues/">GitHub</a>
      <dt class="editor">Editor:
      <dd class="editor p-author h-card vcard"><span class="p-name fn">Josh Moore</span> (<a class="p-org org" href="https://www.openmicroscopy.org">Open Microscopy Environment (OME)</a>)
     </dl>
    </div>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
-and related or neighboring rights to this work.
-In addition, as of 18 November 2020,
-the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
-which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
-Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
+   <p class="copyright" data-fill-with="copyright">Copyright © 2020 <a href="https://www.openmicroscopy.org/"><abbr title="Open Microscopy Environment">OME</abbr></a><sup>®</sup> (<a href="https://dundee.ac.uk/"><abbr title="University of Dundee">U. Dundee</abbr></a>).
+OME trademark rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>Community effort to design a new cloud-friendly "Next Generation" file format (NGFF)</p>
+   <p>Community effort to design a new cloud-friendly "Next Generation" file format (NGFF)
+
+More text here.
+This document specifies metadata specifications and conventions for structuring bioimaging data in <dfn data-dfn-type="dfn" data-noexport id="ngff"><abbr title="next-generation file formats">NGFF</abbr><a class="self-link" href="#ngff"></a></dfn>s.</p>
+  </div>
+  <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
+  <div data-fill-with="status">
+   <p></p>
+   <p>foo
+
+bar
+This work should be considered pre-alpha. Do not expect tools to be provided for upgrading
+data written with the current version.
+one layout for images within Zarr files. The APIs and
+scripts provided by this repository will support one or more versions of this
+file, but they should all be considered internal investigations, not intended
+for public re-use.</p>
   </div>
   <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
+    <li><a href="#intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
+    <li><a href="#on-disk"><span class="secno">2</span> <span class="content">On-disk (or in-cloud) layout</span></a>
     <li>
-     <a href="#intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
+     <a href="#metadata"><span class="secno">3</span> <span class="content">Metadata</span></a>
      <ol class="toc">
-      <li><a href="#on-disk"><span class="secno">1.1</span> <span class="content">On-disk (or in-cloud) layout {#on-disk}</span></a>
-      <li>
-       <a href="#metadata"><span class="secno">1.2</span> <span class="content">Metadata {#metadata}</span></a>
-       <ol class="toc">
-        <li><a href="#multiscale-md"><span class="secno">1.2.1</span> <span class="content">"multiscales" metadata {#multiscale-md}</span></a>
-        <li><a href="#omero-md"><span class="secno">1.2.2</span> <span class="content">"omero" metadata {#omero-md}</span></a>
-        <li><a href="#labels-md"><span class="secno">1.2.3</span> <span class="content">"labels" metadata {#labels-md}</span></a>
-        <li><a href="#label-md"><span class="secno">1.2.4</span> <span class="content">"image-label" metadata {#label-md}</span></a>
-       </ol>
+      <li><a href="#multiscale-md"><span class="secno">3.1</span> <span class="content">"multiscales" metadata</span></a>
+      <li><a href="#omero-md"><span class="secno">3.2</span> <span class="content">"omero" metadata</span></a>
+      <li><a href="#labels-md"><span class="secno">3.3</span> <span class="content">"labels" metadata</span></a>
+      <li><a href="#label-md"><span class="secno">3.4</span> <span class="content">"image-label" metadata</span></a>
      </ol>
-    <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
+    <li>
+     <a href="#to-be-completed"><span class="secno">4</span> <span class="content">To be completed</span></a>
+     <ol class="toc">
+      <li><a href="#specifications"><span class="secno">4.1</span> <span class="content">Specifications</span></a>
+      <li><a href="#usage-examples"><span class="secno">4.2</span> <span class="content">usage examples</span></a>
+      <li><a href="#plans"><span class="secno">4.3</span> <span class="content">Plans</span></a>
+      <li><a href="#acknowledgements"><span class="secno">4.4</span> <span class="content">Acknowledgements</span></a>
+      <li><a href="#funding"><span class="secno">4.5</span> <span class="content">Funding</span></a>
+      <li><a href="#webidl-jsonschema---https-wwww3org-tr-appmanifest-acknowledgements"><span class="secno">4.6</span> <span class="content">webIDL (jsonschema??) -  https://www.w3.org/TR/appmanifest/#acknowledgements</span></a>
+      <li><a href="#index----ditto"><span class="secno">4.7</span> <span class="content">Index -- ditto</span></a>
+     </ol>
+    <li>
+     <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
+     <ol class="toc">
+      <li><a href="#w3c-conventions"><span class="secno"></span> <span class="content">Document conventions</span></a>
+      <li><a href="#w3c-conformant-algorithms"><span class="secno"></span> <span class="content">Conformant Algorithms</span></a>
+     </ol>
+    <li>
+     <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
+     <ol class="toc">
+      <li><a href="#index-defined-here"><span class="secno"></span> <span class="content">Terms defined by this specification</span></a>
+     </ol>
     <li>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
      <ol class="toc">
@@ -1867,7 +1898,7 @@ Parts of this work may be from another specification document.  If so, those par
 scripts provided by this repository will support one or more versions of this
 file, but they should all be considered internal investigations, not intended
 for public re-use.</p>
-   <h3 class="heading settled" data-level="1.1" id="on-disk"><span class="secno">1.1. </span><span class="content">On-disk (or in-cloud) layout {#on-disk}</span><a class="self-link" href="#on-disk"></a></h3>
+   <h2 class="heading settled" data-level="2" id="on-disk"><span class="secno">2. </span><span class="content">On-disk (or in-cloud) layout</span><a class="self-link" href="#on-disk"></a></h2>
 <pre>
 .                             # Root folder, potentially in S3,
 │                             # with a flat list of images by image ID.
@@ -1914,10 +1945,10 @@ for public re-use.</p>
 
 
 </pre>
-   <h3 class="heading settled" data-level="1.2" id="metadata"><span class="secno">1.2. </span><span class="content">Metadata {#metadata}</span><a class="self-link" href="#metadata"></a></h3>
+   <h2 class="heading settled" data-level="3" id="metadata"><span class="secno">3. </span><span class="content">Metadata</span><a class="self-link" href="#metadata"></a></h2>
    <p>The various `.zattrs` files throughout the above array hierarchy may contain metadata
 keys as specified below for discovering certain types of data, especially images.</p>
-   <h4 class="heading settled" data-level="1.2.1" id="multiscale-md"><span class="secno">1.2.1. </span><span class="content">"multiscales" metadata {#multiscale-md}</span><a class="self-link" href="#multiscale-md"></a></h4>
+   <h3 class="heading settled" data-level="3.1" id="multiscale-md"><span class="secno">3.1. </span><span class="content">"multiscales" metadata</span><a class="self-link" href="#multiscale-md"></a></h3>
    <p>Metadata about the multiple resolution representations of the image can be
 found under the "multiscales" key in the group-level metadata.
 The specification for the multiscale (i.e. "resolution") metadata is provided
@@ -1935,7 +1966,7 @@ name, using the first multiscale as a fallback:</p>
 </pre>
    <p>The subresolutions in each multiscale are ordered from highest-resolution
 to lowest.</p>
-   <h4 class="heading settled" data-level="1.2.2" id="omero-md"><span class="secno">1.2.2. </span><span class="content">"omero" metadata {#omero-md}</span><a class="self-link" href="#omero-md"></a></h4>
+   <h3 class="heading settled" data-level="3.2" id="omero-md"><span class="secno">3.2. </span><span class="content">"omero" metadata</span><a class="self-link" href="#omero-md"></a></h3>
    <p>Information specific to the channels of an image and how to render it
 can be found under the "omero" key in the group-level metadata:</p>
 <pre class="language-json highlight"><c- u>"id"</c->: <c- mi>1</c->,                              # ID in OMERO
@@ -1965,7 +1996,7 @@ can be found under the "omero" key in the group-level metadata:</p>
 </pre>
    <p>See https://docs.openmicroscopy.org/omero/5.6.1/developers/Web/WebGateway.html#imgdata
 for more information.</p>
-   <h4 class="heading settled" data-level="1.2.3" id="labels-md"><span class="secno">1.2.3. </span><span class="content">"labels" metadata {#labels-md}</span><a class="self-link" href="#labels-md"></a></h4>
+   <h3 class="heading settled" data-level="3.3" id="labels-md"><span class="secno">3.3. </span><span class="content">"labels" metadata</span><a class="self-link" href="#labels-md"></a></h3>
    <p>The special group "labels" found under an image Zarr contains the key `labels` containing
 the paths to label objects which can be found underneath the group:</p>
 <pre class="language-json highlight"><c- p>{</c->
@@ -1975,7 +2006,7 @@ the paths to label objects which can be found underneath the group:</p>
 <c- p>}</c->
 </pre>
    <p>Unlisted groups MAY be labels.</p>
-   <h4 class="heading settled" data-level="1.2.4" id="label-md"><span class="secno">1.2.4. </span><span class="content">"image-label" metadata {#label-md}</span><a class="self-link" href="#label-md"></a></h4>
+   <h3 class="heading settled" data-level="3.4" id="label-md"><span class="secno">3.4. </span><span class="content">"image-label" metadata</span><a class="self-link" href="#label-md"></a></h3>
    <p>Groups containing the `image-label` dictionary represent an image segmentation
 in which each unique pixel value represents a separate segmented object.
 `image-label` groups MUST also contain `multiscales` metadata and the two
@@ -2049,153 +2080,74 @@ above).</p>
       <td>2020-04-20
       <td>First version for internal demo 
    </table>
+   <h2 class="heading settled" data-level="4" id="to-be-completed"><span class="secno">4. </span><span class="content">To be completed</span><a class="self-link" href="#to-be-completed"></a></h2>
+   <h3 class="heading settled" data-level="4.1" id="specifications"><span class="secno">4.1. </span><span class="content">Specifications</span><a class="self-link" href="#specifications"></a></h3>
+   <ul>
+    <li data-md>
+     <p>with links to image.sc</p>
+   </ul>
+   <h3 class="heading settled" data-level="4.2" id="usage-examples"><span class="secno">4.2. </span><span class="content">usage examples</span><a class="self-link" href="#usage-examples"></a></h3>
+   <ul>
+    <li data-md>
+     <p>(copy from image.sc post1s)</p>
+   </ul>
+   <h3 class="heading settled" data-level="4.3" id="plans"><span class="secno">4.3. </span><span class="content">Plans</span><a class="self-link" href="#plans"></a></h3>
+   <ul>
+    <li data-md>
+     <p>json-ld</p>
+   </ul>
+   <h3 class="heading settled" data-level="4.4" id="acknowledgements"><span class="secno">4.4. </span><span class="content">Acknowledgements</span><a class="self-link" href="#acknowledgements"></a></h3>
+   <h3 class="heading settled" data-level="4.5" id="funding"><span class="secno">4.5. </span><span class="content">Funding</span><a class="self-link" href="#funding"></a></h3>
+   <h3 class="heading settled" data-level="4.6" id="webidl-jsonschema---https-wwww3org-tr-appmanifest-acknowledgements"><span class="secno">4.6. </span><span class="content">webIDL (jsonschema??) -  https://www.w3.org/TR/appmanifest/#acknowledgements</span><a class="self-link" href="#webidl-jsonschema---https-wwww3org-tr-appmanifest-acknowledgements"></a></h3>
+   <h3 class="heading settled" data-level="4.7" id="index----ditto"><span class="secno">4.7. </span><span class="content">Index -- ditto</span><a class="self-link" href="#index----ditto"></a></h3>
   </main>
   <div data-fill-with="conformance">
-   <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
-   <p> Conformance requirements are expressed with a combination of descriptive assertions and RFC 2119 terminology.
-            The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL”
-            in the normative parts of this document
-            are to be interpreted as described in RFC 2119.
-            However, for readability,
-            these words do not appear in all uppercase letters in this specification. </p>
-   <p> All of the text of this specification is normative
-            except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a> </p>
-   <p> Examples in this specification are introduced with the words “for example”
-            or are set apart from the normative text with <code>class="example"</code>, like this: </p>
-   <div class="example" id="example-example"><a class="self-link" href="#example-example"></a> This is an example of an informative example. </div>
-   <p> Informative notes begin with the word “Note”
-            and are set apart from the normative text with <code>class="note"</code>, like this: </p>
-   <p class="note" role="note"> Note, this is an informative note. </p>
+   <h2 class="no-ref no-num heading settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
+   <h3 class="no-ref no-num heading settled" id="w3c-conventions"><span class="content">Document conventions</span><a class="self-link" href="#w3c-conventions"></a></h3>
+   <p>Conformance requirements are expressed
+    with a combination of descriptive assertions
+    and RFC 2119 terminology.
+    The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL”
+    in the normative parts of this document
+    are to be interpreted as described in RFC 2119.
+    However, for readability,
+    these words do not appear in all uppercase letters in this specification. </p>
+   <p>All of the text of this specification is normative
+    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a> </p>
+   <p>Examples in this specification are introduced with the words “for example”
+    or are set apart from the normative text
+    with <code>class="example"</code>,
+    like this: </p>
+   <div class="example" id="w3c-example">
+    <a class="self-link" href="#w3c-example"></a> 
+    <p>This is an example of an informative example. </p>
+   </div>
+   <p>Informative notes begin with the word “Note”
+    and are set apart from the normative text
+    with <code>class="note"</code>,
+    like this: </p>
+   <p class="note" role="note">Note, this is an informative note. </p>
+   <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
+   <p>Requirements phrased in the imperative as part of algorithms
+    (such as "strip any leading space characters"
+    or "return false and abort these steps")
+    are to be interpreted with the meaning of the key word
+    ("must", "should", "may", etc)
+    used in introducing the algorithm. </p>
+   <p>Conformance requirements phrased as algorithms or specific steps
+    can be implemented in any manner,
+    so long as the end result is equivalent.
+    In particular, the algorithms defined in this specification
+    are intended to be easy to understand
+    and are not intended to be performant.
+    Implementers are encouraged to optimize. </p>
   </div>
-<script>
-(function() {
-  "use strict";
-  var collapseSidebarText = '<span aria-hidden="true">←</span> '
-                          + '<span>Collapse Sidebar</span>';
-  var expandSidebarText   = '<span aria-hidden="true">→</span> '
-                          + '<span>Pop Out Sidebar</span>';
-  var tocJumpText         = '<span aria-hidden="true">↑</span> '
-                          + '<span>Jump to Table of Contents</span>';
-
-  var sidebarMedia = window.matchMedia('screen and (min-width: 78em)');
-  var autoToggle   = function(e){ toggleSidebar(e.matches) };
-  if(sidebarMedia.addListener) {
-    sidebarMedia.addListener(autoToggle);
-  }
-
-  function toggleSidebar(on) {
-    if (on == undefined) {
-      on = !document.body.classList.contains('toc-sidebar');
-    }
-
-    /* Don’t scroll to compensate for the ToC if we’re above it already. */
-    var headY = 0;
-    var head = document.querySelector('.head');
-    if (head) {
-      // terrible approx of "top of ToC"
-      headY += head.offsetTop + head.offsetHeight;
-    }
-    var skipScroll = window.scrollY < headY;
-
-    var toggle = document.getElementById('toc-toggle');
-    var tocNav = document.getElementById('toc');
-    if (on) {
-      var tocHeight = tocNav.offsetHeight;
-      document.body.classList.add('toc-sidebar');
-      document.body.classList.remove('toc-inline');
-      toggle.innerHTML = collapseSidebarText;
-      if (!skipScroll) {
-        window.scrollBy(0, 0 - tocHeight);
-      }
-      tocNav.focus();
-      sidebarMedia.addListener(autoToggle); // auto-collapse when out of room
-    }
-    else {
-      document.body.classList.add('toc-inline');
-      document.body.classList.remove('toc-sidebar');
-      toggle.innerHTML = expandSidebarText;
-      if (!skipScroll) {
-        window.scrollBy(0, tocNav.offsetHeight);
-      }
-      if (toggle.matches(':hover')) {
-        /* Unfocus button when not using keyboard navigation,
-           because I don’t know where else to send the focus. */
-        toggle.blur();
-      }
-    }
-  }
-
-  function createSidebarToggle() {
-    /* Create the sidebar toggle in JS; it shouldn’t exist when JS is off. */
-    var toggle = document.createElement('a');
-      /* This should probably be a button, but appearance isn’t standards-track.*/
-    toggle.id = 'toc-toggle';
-    toggle.class = 'toc-toggle';
-    toggle.href = '#toc';
-    toggle.innerHTML = collapseSidebarText;
-
-    sidebarMedia.addListener(autoToggle);
-    var toggler = function(e) {
-      e.preventDefault();
-      sidebarMedia.removeListener(autoToggle); // persist explicit off states
-      toggleSidebar();
-      return false;
-    }
-    toggle.addEventListener('click', toggler, false);
-
-
-    /* Get <nav id=toc-nav>, or make it if we don’t have one. */
-    var tocNav = document.getElementById('toc-nav');
-    if (!tocNav) {
-      tocNav = document.createElement('p');
-      tocNav.id = 'toc-nav';
-      /* Prepend for better keyboard navigation */
-      document.body.insertBefore(tocNav, document.body.firstChild);
-    }
-    /* While we’re at it, make sure we have a Jump to Toc link. */
-    var tocJump = document.getElementById('toc-jump');
-    if (!tocJump) {
-      tocJump = document.createElement('a');
-      tocJump.id = 'toc-jump';
-      tocJump.href = '#toc';
-      tocJump.innerHTML = tocJumpText;
-      tocNav.appendChild(tocJump);
-    }
-
-    tocNav.appendChild(toggle);
-  }
-
-  var toc = document.getElementById('toc');
-  if (toc) {
-    createSidebarToggle();
-    toggleSidebar(sidebarMedia.matches);
-
-    /* If the sidebar has been manually opened and is currently overlaying the text
-       (window too small for the MQ to add the margin to body),
-       then auto-close the sidebar once you click on something in there. */
-    toc.addEventListener('click', function(e) {
-      if(e.target.tagName.toLowerCase() == "a" && document.body.classList.contains('toc-sidebar') && !sidebarMedia.matches) {
-        toggleSidebar(false);
-      }
-    }, false);
-  }
-  else {
-    console.warn("Can’t find Table of Contents. Please use <nav id='toc'> around the ToC.");
-  }
-
-  /* Wrap tables in case they overflow */
-  var tables = document.querySelectorAll(':not(.overlarge) > table.data, :not(.overlarge) > table.index');
-  var numTables = tables.length;
-  for (var i = 0; i < numTables; i++) {
-    var table = tables[i];
-    var wrapper = document.createElement('div');
-    wrapper.className = 'overlarge';
-    table.parentNode.insertBefore(wrapper, table);
-    wrapper.appendChild(table);
-  }
-
-})();
-</script>
+<script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
+  <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
+  <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
+  <ul class="index">
+   <li><a href="#ngff">NGFF</a><span>, in §Unnumbered section</span>
+  </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
