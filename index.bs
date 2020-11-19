@@ -2,13 +2,29 @@
 Title: Next-generation file formats
 Shortname: ome-ngff
 Level: 1
-Status:  LS-COMMIT
+Status: LS-COMMIT
+Status: w3c/ED
 Group: ome
 URL: https://joshmoore.github.io/ngff
+Repository: https://github.com/joshmoore/ngff
+Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
 Boilerplate: style-darkmode off
+Local Boilerplate: header yes
 Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
 Abstract: Community effort to design a new cloud-friendly "Next Generation" file format (NGFF)
+Abstract: More text here.
+Abstract: This document specifies metadata specifications and conventions for structuring bioimaging data in 
+Abstract: <dfn><abbr title="next-generation file formats">NGFF</abbr></dfn>s. 
+Status Text: foo
+Status Text: bar
+Status Text: This work should be considered pre-alpha. Do not expect tools to be provided for upgrading
+Status Text:  data written with the current version.
+Status Text: one layout for images within Zarr files. The APIs and
+Status Text: scripts provided by this repository will support one or more versions of this
+Status Text: file, but they should all be considered internal investigations, not intended
+Status Text: for public re-use.
+
 </pre>
 
 Introduction {#intro}
@@ -19,7 +35,8 @@ scripts provided by this repository will support one or more versions of this
 file, but they should all be considered internal investigations, not intended
 for public re-use.
 
-## On-disk (or in-cloud) layout {#on-disk}
+On-disk (or in-cloud) layout {#on-disk}
+=======================================
 
 ```
 
@@ -69,12 +86,14 @@ for public re-use.
 
 ```
 
-## Metadata {#metadata}
+Metadata {#metadata}
+====================
 
 The various `.zattrs` files throughout the above array hierarchy may contain metadata
 keys as specified below for discovering certain types of data, especially images.
 
-### "multiscales" metadata {#multiscale-md}
+"multiscales" metadata {#multiscale-md}
+---------------------------------------
 
 Metadata about the multiple resolution representations of the image can be
 found under the "multiscales" key in the group-level metadata.
@@ -97,7 +116,8 @@ if not datasets:
 The subresolutions in each multiscale are ordered from highest-resolution
 to lowest.
 
-###  "omero" metadata {#omero-md}
+"omero" metadata {#omero-md}
+----------------------------
 
 Information specific to the channels of an image and how to render it
 can be found under the "omero" key in the group-level metadata:
@@ -132,7 +152,8 @@ can be found under the "omero" key in the group-level metadata:
 See https://docs.openmicroscopy.org/omero/5.6.1/developers/Web/WebGateway.html#imgdata
 for more information.
 
-### "labels" metadata {#labels-md}
+"labels" metadata {#labels-md}
+------------------------------
 
 The special group "labels" found under an image Zarr contains the key `labels` containing
 the paths to label objects which can be found underneath the group:
@@ -147,7 +168,8 @@ the paths to label objects which can be found underneath the group:
 
 Unlisted groups MAY be labels.
 
-### "image-label" metadata {#label-md}
+"image-label" metadata {#label-md}
+----------------------------------
 
 Groups containing the `image-label` dictionary represent an image segmentation
 in which each unique pixel value represents a separate segmented object.
@@ -238,3 +260,48 @@ above).
     <td>First version for internal demo            </td>
   </tr>
 </table>
+
+# To be completed
+## Specifications
+
+- with links to image.sc
+
+## usage examples
+
+- (copy from image.sc post1s)
+
+## Plans
+
+- json-ld
+
+## Acknowledgements
+## Funding
+## webIDL (jsonschema??) -  https://www.w3.org/TR/appmanifest/#acknowledgements
+## Index -- ditto
+
+<pre class="biblio">
+{
+  "imagesc26952": {
+    "href": "https://forum.image.sc/t/ome-s-position-regarding-file-formats/26952",
+    "title": "OME’s position regarding file formats",
+    "authors": [
+      "OME Team"
+    ],
+    "status": "Informational",
+    "publisher": "OME",
+    "id": "imagesc26952",
+    "date": "19 June 2020"
+  },
+  "blogNov2020": {
+    "href": "https://blog.openmicroscopy.org/file-formats/community/2020/11/04/zarr-data/",
+    "title": "Public OME-Zarr data (Nov. 2020)",
+    "authors": [
+      "OME Team"
+    ],
+    "status": "Informational",
+    "publisher": "OME",
+    "id": "blogNov2020",
+    "date": "04 November 2020"
+  }
+}
+</pre>
