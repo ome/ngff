@@ -18,5 +18,5 @@ jobs:
       - uses: w3c/spec-prod@v1
         with:
           GH_PAGES_BRANCH: gh-pages
-          VALIDATE_LINKS: false
-          VALIDATE_MARKUP: false
+          VALIDATE_LINKS: true
+          VALIDATE_MARKUP: true
