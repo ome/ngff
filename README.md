@@ -1,6 +1,6 @@
 # ome-ngff
 
-Specifications for next-generation file formats (NGFF).
+Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.
 
 Specifications are written in markdown, or technically
 [bikeshed](https://github.com/tabatkins/bikeshed) -- a markdown document, with

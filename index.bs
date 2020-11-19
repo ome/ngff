@@ -1,5 +1,5 @@
 <pre class='metadata'>
-Title: Next-generation file formats
+Title: Next-generation file formats (NGFF)
 Shortname: ome-ngff
 Level: 1
 Status: LS-COMMIT
@@ -11,19 +11,16 @@ Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
 Boilerplate: style-darkmode off
 Local Boilerplate: header yes
+
 Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
-Abstract: Community effort to design a new cloud-friendly "Next Generation" file format (NGFF)
-Abstract: More text here.
-Abstract: This document specifies metadata specifications and conventions for structuring bioimaging data in 
-Abstract: <dfn><abbr title="next-generation file formats">NGFF</abbr></dfn>s. 
-Status Text: foo
-Status Text: bar
-Status Text: This work should be considered pre-alpha. Do not expect tools to be provided for upgrading
-Status Text:  data written with the current version.
-Status Text: one layout for images within Zarr files. The APIs and
-Status Text: scripts provided by this repository will support one or more versions of this
-Status Text: file, but they should all be considered internal investigations, not intended
-Status Text: for public re-use.
+
+Abstract: This document contains next-generation file format (NGFF)
+Abstract: specifications for storing bioimaging data in the cloud.
+Abstract: All specifications are submitted to the https://image.sc community for review.
+
+Status Text: The current released version of this specification is **0.1**. Migration scripts
+Status Text: will be provided between numbered versions. Data written with the latest changes
+Status Text: (an "editor's draft") will not necessarily be supported.
 
 </pre>
 
