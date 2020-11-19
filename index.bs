@@ -9,19 +9,15 @@ URL: https://joshmoore.github.io/ngff
 Repository: https://github.com/joshmoore/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
-Boilerplate: style-darkmode off
 Local Boilerplate: header yes
-
+Boilerplate: style-darkmode off
 Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
-
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
-
 Status Text: The current released version of this specification is 0.1. Migration scripts
 Status Text: will be provided between numbered versions. Data written with the latest changes
 Status Text: (an "editor's draft") will not necessarily be supported.
-
 </pre>
 
 Introduction {#intro}
@@ -47,18 +43,45 @@ infrastructure often without dedicated funding.
 
 This document assumes that there are three keys to a workable solution:
 
-1. Converting all data out of proprietary formats rather than trying to
-   translate data on every access.
-2. Chunking the data so that manageable areas of large data are reference-able
-   online rather than downloading them entirely.
-3. Collaborating on a small number of container formats and conventions for
-   metadata rather than developing new versions to meet each individual
-   requirement.
+1. Converting all data out of proprietary formats rather than trying to translate data on every access.
+2. Chunking the data so that manageable areas of large data are reference-able online rather than downloading them entirely.
+3. Collaborating on a small number of container formats and conventions for metadata rather than developing new versions to meet each individual requirement.
 
 This document specifies one layout for images within Zarr files. The APIs and
 scripts provided by this repository will support one or more versions of this
 file, but they should all be considered internal investigations, not intended
 for public re-use.
+
+Why "next generation"? {#ngff}
+------------------------------
+
+A short description of what is needed for an imaging format is "a hierarchy
+of n-dimensional (dense) arrays with metadata". This combination of features
+is certainly provided by <dfn><abbr title="Hierarchical Data Format 5">HDF5</abbr></dfn>
+from the <a href="https://www.hdfgroup.org">HDF Group</a>, which a number of
+bioimaging formats do use. HDF5 and other larger binary structures, however,
+are ill-suited for storage in the cloud where accessing individual segments,
+or "chunks", of data by name rather than seeking through a large file is at
+the heart of parallelization.
+
+As a result, a number of formats have been developed more recently which provide
+the basic data structure of an HDF5 file, but do so in a more cloud-friendly way.
+
+<!--
+Zarr {#zarr} 
+
+N5 {#n5}
+
+Eventually, of course, these files will no longer be next-generation and we will
+need to change the name ...
+
+
+The specification 
+https://github.com/saalfeldlab/n5#file-system-specification
+
+https://zarr-specs.readthedocs.io/en/core-protocol-v3.0-dev/protocol/core/v3.0.html
+assumes a file format
+-->
 
 On-disk (or in-cloud) layout {#on-disk}
 =======================================
@@ -286,23 +309,6 @@ above).
   </tr>
 </table>
 
-# To be completed
-## Specifications
-
-- with links to image.sc
-
-## usage examples
-
-- (copy from image.sc post1s)
-
-## Plans
-
-- json-ld
-
-## Acknowledgements
-## Funding
-## webIDL (jsonschema??) -  https://www.w3.org/TR/appmanifest/#acknowledgements
-## Index -- ditto
 
 <pre class="biblio">
 {
@@ -327,6 +333,18 @@ above).
     "publisher": "OME",
     "id": "blogNov2020",
     "date": "04 November 2020"
+  },
+  "zarr": {
+    "id": "zarr",
+    "href": "https://doi.org/10.5281/zenodo.4069231",
+    "title": "Zarr: An implementation of chunked, compressed, N-dimensional arrays for Python.",
+    "status": "Informational",
+    "publisher": "Zenodo",
+    "authors": [
+      "Alistair Miles",
+      "et al"
+    ],
+    "date": "06 October 2020"
   }
 }
 </pre>
