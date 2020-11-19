@@ -19,4 +19,4 @@ jobs:
         with:
           GH_PAGES_BRANCH: gh-pages
           VALIDATE_LINKS: true
-          VALIDATE_MARKUP: true
+          VALIDATE_MARKUP: false
