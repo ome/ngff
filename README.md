@@ -18,8 +18,5 @@ commit to automatically convert to respec/html, via bikeshed.
 
 ## Citing
 
-Next-generation file format (NGFF) specifications for storing bioimaging data
-in the cloud. Josh Moore, et al. Editors. Open Microscopy Environment
-Consortium, 20 November 2020. This edition of the specification (0.1) is
-https://ngff.openmicroscopy.org/0.1. The latest edition of NGFF is available at
-https://ngff.openmicroscopy.org. (edited)
+Please see https://ngff.openmicroscopy.org/latest#citing for the latest
+citation.
