@@ -20,3 +20,4 @@ jobs:
           GH_PAGES_BRANCH: gh-pages
           VALIDATE_LINKS: true
           VALIDATE_MARKUP: false
+          TOOLCHAIN: bikeshed
