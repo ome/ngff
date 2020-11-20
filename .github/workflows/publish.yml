@@ -21,3 +21,4 @@ jobs:
           VALIDATE_LINKS: true
           VALIDATE_MARKUP: false
           TOOLCHAIN: bikeshed
+          SOURCE: latest/index.bs
