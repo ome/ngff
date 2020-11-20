@@ -5,8 +5,8 @@ Level: 1
 Status: LS-COMMIT
 Status: w3c/ED
 Group: ome
-URL: https://joshmoore.github.io/ngff
-Repository: https://github.com/joshmoore/ngff
+URL: https://ome.github.io/ngff
+Repository: https://github.com/ome/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
 Local Boilerplate: header yes
