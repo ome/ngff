@@ -99,7 +99,8 @@ is represented here as it would appear locally but could equally
 be stored on a web server to be accessed via HTTP or in object storage
 like S3 or GCS.
 
-### Images
+Images {#image-layout}
+----------------------
 
 The following layout describes the expected Zarr hierarchy for images with
 multiple levels of resolutions and optionally associated labels.
@@ -149,25 +150,26 @@ multiple levels of resolutions and optionally associated labels.
                 └── n
 ```
 
-### High-content screening
+High-content screening {#hcs-layout}
+------------------------------------
 
 The following layout describes the hierarchy for a high-content screening
 dataset. There are exactly four levels of hierarchies above the images:
 
 - the top-level group defines a single plate and MUST implement the plate
-  specification defined below
+    specification defined below
 - the second group defines all acquisitions performed on the plate. If 
-  only one acquisition was performed, a single group must be used.
+    only one acquisition was performed, a single group must be used.
 - the third group defines all the rows available for an acquisition. The group
-  name must match the name of one of the row objects defined in the plate 
-  metadata.
+    name must match the name of one of the row objects defined in the plate 
+    metadata.
 - the fourth group defines all the wells available for a given row. The group
-  name must match the name of one of the columd objects defined in the plate 
-  metadata. The well group MUST implement the well specification defined below
+    name must match the name of one of the columd objects defined in the plate 
+    metadata. The well group MUST implement the well specification defined below
 - the fifth group defined all the individual fields of views for a given well.
-  The fields of views are images, SHOULD implement the "multiscales"
-  specification, MAY implement the "omero" specification and MAY contain 
-  labels.
+    The fields of views are images, SHOULD implement the "multiscales"
+    specification, MAY implement the "omero" specification and MAY contain 
+    labels.
 
 ```
 .                                # Root folder, potentially in S3,
@@ -207,6 +209,7 @@ dataset. There are exactly four levels of hierarchies above the images:
     │   └── H
     ├── ...                       # Acquisitions
     └── l
+```
 
 Metadata {#metadata}
 ====================
@@ -400,7 +403,8 @@ For example the following JSON object defines a plate with one acquisition and
   }
 ```
 
-### "well" metadata
+"well" metadata {#well-md}
+--------------------------
 
 For high-content screening datasets, the metadata about all fields of views
 under a given  well can be found under the "well" key in the attributes of the
