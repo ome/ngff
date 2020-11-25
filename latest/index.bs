@@ -153,62 +153,46 @@ multiple levels of resolutions and optionally associated labels.
 High-content screening {#hcs-layout}
 ------------------------------------
 
-The following layout describes the hierarchy for a high-content screening
-dataset. There are exactly four levels of hierarchies above the images:
+The following specification defines the hierarchy for a high-content screening
+dataset. Three groups must be defined above the images:
 
-- the top-level group defines a single plate and MUST implement the plate
-    specification defined below
-- the second group defines all acquisitions performed on the plate. If 
-    only one acquisition was performed, a single group must be used.
-- the third group defines all the rows available for an acquisition. The group
-    name must match the name of one of the row objects defined in the plate 
-    metadata.
-- the fourth group defines all the wells available for a given row. The group
-    name must match the name of one of the columd objects defined in the plate 
-    metadata. The well group MUST implement the well specification defined below
-- the fifth group defined all the individual fields of views for a given well.
-    The fields of views are images, SHOULD implement the "multiscales"
-    specification, MAY implement the "omero" specification and MAY contain 
-    labels.
+-   the group above the images defines the well and MUST implement the
+    [well specification](#well-md). All images contained in a well are fields
+    of view of the same well
+-   the group above the well defines a row of wells
+-   the group above the well row defines an entire plate i.e. a two-dimensional
+    collection of wells organized in rows and columns. It MUST implement the
+    [plate specification](#plate-md)
+
 
 ```
-.                                # Root folder, potentially in S3,
+.                             # Root folder, potentially in S3,
 │
-├── 123.zarr                     # One image (id=123) converted to Zarr.
-│
-└── 5966.zarr                     # One plate (id=5966) converted to Zarr
+└── 5966.zarr                 # One plate (id=5966) converted to Zarr
     ├── .zgroup
-    ├── .zattrs                   # Implements "plate" specification
-    │
-    ├── 2020-10-10                # First acquisition
-    │   │
+    ├── .zattrs               # Implements "plate" specification
+    ├── A                     # First row of the plate
     │   ├── .zgroup
     │   ├── .zattrs
     │   │
-    │   ├── A                     # First row of acquisition 2020-10-10
+    │   ├── 1                 # First column of row A
     │   │   ├── .zgroup
-    │   │   ├── .zattrs
+    │   │   ├── .zattrs       # Implements "well" specification
     │   │   │
-    │   │   ├── 1                 # First column of row A
-    │   │   │   ├── .zgroup
-    │   │   │   ├── .zattrs       # Implements "well" specification
+    │   │   ├── 0             # First field of view of well A1
     │   │   │   │
-    │   │   │   ├── 0       # First field of view of well A1
-    │   │   │   │   │
-    │   │   │   │   ├── .zgroup
-    │   │   │   │   ├── .zattrs   # Implements "multiscales", "omero"
-    │   │   │   │   ├── 0
-    │   │   │   │   │   ...       # Resolution levels
-    │   │   │   │   ├── n
-    │   │   │   │   └── labels
-    │   │   │   ├── ...           # Fields of view
-    │   │   │   └── m
-    │   │   ├── ...               # Columns
-    │   │   └── 12
-    │   ├── ...                   # Rows
-    │   └── H
-    ├── ...                       # Acquisitions
-    └── l
+    │   │   │   ├── .zgroup
+    │   │   │   ├── .zattrs   # Implements "multiscales", "omero"
+    │   │   │   ├── 0
+    │   │   │   │   ...       # Resolution levels
+    │   │   │   ├── n
+    │   │   │   └── labels    # Labels (optional)
+    │   │   ├── ...           # Fields of view
+    │   │   └── m
+    │   ├── ...               # Columns
+    │   └── 12
+    ├── ...                   # Rows
+    └── H
 ```
 
 Metadata {#metadata}
