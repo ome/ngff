@@ -333,6 +333,80 @@ above).
 ]
 ```
 
+"plate" metadata {#plate-md}
+----------------------------
+
+For high-content screening datasets, the plate layout can be found under the
+custom attributes of the plate group under the `plate` key.
+
+plateAcquisitions
+  A list of JSON objects defining the acquisitions for a given plate.
+  Each acquisition object MUST contain a `path` key identifying the path to the
+  acquisition group.
+
+rows
+  An integer defining the number of rows i.e. the first dimension of
+  a two-dimensional array of wells.
+
+row_names
+  A list of strings defining the names of the rows
+
+rows
+  An integer defining the number of columns i.e. the first dimension of
+  a two-dimensional array of wells.
+
+column_names
+  A list of strings defining the names of the columns
+
+images
+  A list of JSON objects defining the images (or well samples) containing in
+  the plate.
+  Each image object MUST contain a `path` key identifying the path to the
+  individual image.
+
+
+For example the following JSON object encodes a plate with one acquisition and
+6 wells containing up to two fields of view each.
+
+```json
+"plate":
+  {
+    "rows": 2,
+    "columns": 3,
+    "row_names": ["A", "B"],
+    "column_names": ["1", "2", "3"],
+    "plateAcquisitions": [
+        {"path": "2020-10-10"}
+    ],
+    "images": [
+        {
+            "path": "2020-10-10/A/1/Field_1"
+        },
+        {
+            "path": "2020-10-10/A/1/Field_2"
+        },
+        {
+            "path": "2020-10-10/A/2/Field_1"
+        },
+        {
+            "path": "2020-10-10/A/2/Field_2"
+        },
+        {
+            "path": "2020-10-10/A/3/Field_1"
+        },
+        {
+            "path": "2020-10-10/B/1/Field_1"
+        },
+        {
+            "path": "2020-10-10/B/2/Field_1"
+        },
+        {
+            "path": "2020-10-10/B/3/Field_1"
+        }
+    ]
+  }
+```
+
 Citing {#citing}
 ================
 
@@ -353,6 +427,11 @@ Version History {#history}
       <td>Description</td>
     </tr>
   </thead>
+  <tr>
+    <td>0.1.3-dev5</td>
+    <td>TBD</td>
+    <td>Add the HCS specification                  </td>
+  </tr>
   <tr>
     <td>0.1.3-dev4</td>
     <td>2020-09-14</td>
