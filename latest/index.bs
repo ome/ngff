@@ -151,18 +151,22 @@ multiple levels of resolutions and optionally associated labels.
 
 ### High-content screening
 
-The following layout should describe the hierarchy for a high-content screening
+The following layout describes the hierarchy for a high-content screening
 dataset. There are exactly four levels of hierarchies above the images:
 
-- the top-level group defines the plate, it MUST implement the plate
+- the top-level group defines a single plate and MUST implement the plate
   specification defined below
-- the second group defines all acquisitions performed on a single plate. If
+- the second group defines all acquisitions performed on the plate. If 
   only one acquisition was performed, a single group must be used.
-- the third group defines all the well rows available for an acquisition
-- the fourth group defines all the well columns available for a given well row
+- the third group defines all the rows available for an acquisition. The group
+  name must match the name of one of the row objects defined in the plate 
+  metadata.
+- the fourth group defines all the wells available for a given row. The group
+  name must match the name of one of the columd objects defined in the plate 
+  metadata. The well group MUST implement the well specification defined below
 - the fifth group defined all the individual fields of views for a given well.
   The fields of views are images, SHOULD implement the "multiscales"
-  specification, MAY implement the "omero" specification and MAY contain
+  specification, MAY implement the "omero" specification and MAY contain 
   labels.
 
 ```
@@ -185,9 +189,9 @@ dataset. There are exactly four levels of hierarchies above the images:
     │   │   │
     │   │   ├── 1                 # First column of row A
     │   │   │   ├── .zgroup
-    │   │   │   ├── .zattrs
+    │   │   │   ├── .zattrs       # Implements "well" specification
     │   │   │   │
-    │   │   │   ├── Field_1       # First field of view of well A1
+    │   │   │   ├── 0       # First field of view of well A1
     │   │   │   │   │
     │   │   │   │   ├── .zgroup
     │   │   │   │   ├── .zattrs   # Implements "multiscales", "omero"
@@ -196,7 +200,7 @@ dataset. There are exactly four levels of hierarchies above the images:
     │   │   │   │   ├── n
     │   │   │   │   └── labels
     │   │   │   ├── ...           # Fields of view
-    │   │   │   └── Field_m
+    │   │   │   └── m
     │   │   ├── ...               # Columns
     │   │   └── 12
     │   ├── ...                   # Rows
@@ -342,65 +346,88 @@ custom attributes of the plate group under the `plate` key.
 <dl>
   <dt><strong>name</strong></dt>
   <dd>A string defining the name of the plate.</dd>
-  <dt><strong>plateAcquisitions</strong></dt>
+  <dt><strong>acquisitions</strong></dt>
   <dd>A list of JSON objects defining the acquisitions for a given plate.
-      Each acquisition object MUST contain a `path` key identifying the path
-      to the acquisition group.</dd>
+      Each acquisition object MUST contain a `path` key identifying the path 
+      to the acquisition subgroup.</dd>
   <dt><strong>rows</strong></dt>
-  <dd>An integer defining the number of rows i.e. the first dimension of
-      a two-dimensional array of wells.</dd>
-  <dt><strong>row_names</strong></dt>
-  <dd>A list of strings defining the names of the rows</dd>
-  <dt><strong>rows</strong></dt>
-  <dd>An integer defining the number of columns i.e. the first dimension of
-      a two-dimensional array of wells.</dd>
-  <dt><strong>column_names</strong></dt>
-  <dd>A list of strings defining the names of the columns</dd>
-  <dt><strong>images</strong></dt>
-  <dd>A list of JSON objects defining the images (or well samples) containing      in the plate.
-      Each image object MUST contain a `path` key identifying the path to the
-      individual image.</dd>
+  <dd>A list of JSON defining the rows of the plate. Each row object defines
+      the properties of the row at the index of the object in the list. If
+      not empty, it MUST contain a `name` key specifying the row name.</dd>
+  <dt><strong>columns</strong></dt>
+  <dd>A list of JSON defining the columns of the plate. Each column object
+      defines the properties of the column at the index of the object in the
+      list. If not empty, it MUST contain a `name` key specifying the column
+      name.</dd>
+  <dt><strong>field_count</strong></dt>
+  <dd>An integer defining the maximum number of fields per view across all
+      wells.</dd>
+  <dt><strong>wells</strong></dt>
+  <dd>A list of JSON objects defining the wells of the plate. Each well object 
+      MUST contain a `path` key identifying the path to the well subgroup.</dd>
 </dl>
 
-For example the following JSON object encodes a plate with one acquisition and
-6 wells containing up to two fields of view each.
+For example the following JSON object defines a plate with one acquisition and
+6 wells (2 rows and 3 columns), containing up to three fields of view each.
 
 ```json
-"plate":
-  {
+"plate": {
+    "acquisitions": [{"path": "0"}],
+    "columns": [{"name": "1" }, {"name": "2" }, {"name": "3" }],
+    "field_count": 3,
     "name": "test",
-    "rows": 2,
-    "columns": 3,
-    "row_names": ["A", "B"],
-    "column_names": ["1", "2", "3"],
-    "plateAcquisitions": [
-        {"path": "2020-10-10"}
-    ],
+    "rows": [{"name": "A" }, {"name": "B" }],
+    "wells": [
+        {
+            "path": "2020-10-10/A/1"
+        },
+        {
+            "path": "2020-10-10/A/2"
+        },
+        {
+            "path": "2020-10-10/A/3"
+        },
+        {
+            "path": "2020-10-10/B/1"
+        },
+        {
+            "path": "2020-10-10/B/2"
+        },
+        {
+            "path": "2020-10-10/B/3"
+        }
+    ]
+  }
+```
+
+### "well" metadata
+
+For high-content screening datasets, the metadata about all fields of views
+under a given  well can be found under the "well" key in the attributes of the
+well group.
+
+<dl>
+  <dt><strong>images</strong></dt>
+  <dd>A list of JSON objects defining the fields of views for a given well.
+      Each object MUST contain a `path` key identifying the path to the
+      field of view.</dd>
+</dl>
+
+For example the following JSON object defines a well with three fields of
+views:
+
+```json
+"well": {
     "images": [
         {
-            "path": "2020-10-10/A/1/Field_1"
+            "path": "0"
         },
         {
-            "path": "2020-10-10/A/1/Field_2"
+            "path": "1"
         },
         {
-            "path": "2020-10-10/A/2/Field_1"
+            "path": "2"
         },
-        {
-            "path": "2020-10-10/A/2/Field_2"
-        },
-        {
-            "path": "2020-10-10/A/3/Field_1"
-        },
-        {
-            "path": "2020-10-10/B/1/Field_1"
-        },
-        {
-            "path": "2020-10-10/B/2/Field_1"
-        },
-        {
-            "path": "2020-10-10/B/3/Field_1"
-        }
     ]
   }
 ```
