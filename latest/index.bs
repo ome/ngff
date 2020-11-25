@@ -339,31 +339,26 @@ above).
 For high-content screening datasets, the plate layout can be found under the
 custom attributes of the plate group under the `plate` key.
 
-plateAcquisitions
-  A list of JSON objects defining the acquisitions for a given plate.
-  Each acquisition object MUST contain a `path` key identifying the path to the
-  acquisition group.
-
-rows
-  An integer defining the number of rows i.e. the first dimension of
-  a two-dimensional array of wells.
-
-row_names
-  A list of strings defining the names of the rows
-
-rows
-  An integer defining the number of columns i.e. the first dimension of
-  a two-dimensional array of wells.
-
-column_names
-  A list of strings defining the names of the columns
-
-images
-  A list of JSON objects defining the images (or well samples) containing in
-  the plate.
-  Each image object MUST contain a `path` key identifying the path to the
-  individual image.
-
+<dl>
+  <dt><strong>plateAcquisitions</strong></dt>
+  <dd>A list of JSON objects defining the acquisitions for a given plate.
+      Each acquisition object MUST contain a `path` key identifying the path
+      to the acquisition group.</dd>
+  <dt><strong>rows</strong></dt>
+  <dd>An integer defining the number of rows i.e. the first dimension of
+      a two-dimensional array of wells.</dd>
+  <dt><strong>row_names</strong></dt>
+  <dd>A list of strings defining the names of the rows</dd>
+  <dt><strong>rows</strong></dt>
+  <dd>An integer defining the number of columns i.e. the first dimension of
+      a two-dimensional array of wells.</dd>
+  <dt><strong>column_names</strong></dt>
+  <dd>A list of strings defining the names of the columns</dd>
+  <dt><strong>images</strong></dt>
+  <dd>A list of JSON objects defining the images (or well samples) containing      in the plate.
+      Each image object MUST contain a `path` key identifying the path to the
+      individual image.</dd>
+</dl>
 
 For example the following JSON object encodes a plate with one acquisition and
 6 wells containing up to two fields of view each.
