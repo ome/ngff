@@ -357,6 +357,8 @@ custom attributes of the plate group under the `plate` key.
       defines the properties of the row at the index of the object in the
       list. If not empty, it MUST contain a `name` key specifying the row
       name.</dd>
+  <dt><strong>version</strong></dt>
+  <dd>A string defining the version of the specification.</dd>
   <dt><strong>wells</strong></dt>
   <dd>A list of JSON objects defining the wells of the plate. Each well object 
       MUST contain a `path` key identifying the path to the well subgroup.</dd>
@@ -440,6 +442,8 @@ well group.
       SHOULD contain an `acquisition` key identifying the id of the 
       acquisition which must match one of acquisition JSON objects defined in
       the plate metadata.</dd>
+  <dt><strong>version</strong></dt>
+  <dd>A string defining the version of the specification.</dd>
 </dl>
 
 For example the following JSON object defines a well with four fields of
