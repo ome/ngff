@@ -543,11 +543,6 @@ Version History {#history}
     <td>Add labels specification                   </td>
   </tr>
   <tr>
-    <td>0.1.3-dev1</td>
-    <td>2020-07-07</td>
-    <td>Add mask metadata                          </td>
-  </tr>
-  <tr>
     <td>0.1.2     </td>
     <td>2020-05-07</td>
     <td>Add description of "omero" metadata        </td>
