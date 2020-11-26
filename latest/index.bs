@@ -174,7 +174,6 @@ dataset. Three groups must be defined above the images:
     ├── .zattrs               # Implements "plate" specification
     ├── A                     # First row of the plate
     │   ├── .zgroup
-    │   ├── .zattrs
     │   │
     │   ├── 1                 # First column of row A
     │   │   ├── .zgroup
