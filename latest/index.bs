@@ -404,6 +404,7 @@ For example the following JSON object defines a plate with two acquisition and
             "name": "B"
         }
     ],
+    "version": "0.1",
     "wells": [
         {
             "path": "2020-10-10/A/1"
@@ -469,7 +470,8 @@ the last two fields of view were part of the second acquisition.
             "acquisition": 2,
             "path": "3"
         }
-    ]
+    ],
+    "version": "0.1"
   }
 ```
 
