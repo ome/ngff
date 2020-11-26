@@ -334,24 +334,26 @@ custom attributes of the plate group under the `plate` key.
   <dt><strong>name</strong></dt>
   <dd>A string defining the name of the plate.</dd>
   <dt><strong>acquisitions</strong></dt>
-  <dd>A list of JSON objects defining the acquisitions for a given plate.
-      Each acquisition object MUST contain an `id` key providing an unique
-      identifier within the context of the plate to which fields of view can
-      refer to. It SHOULD contain  a `name` key identifying the name of the
-      acquisition. It SHOULD contain a `maximumfieldcount` key indicating the
-      maximum number of fields of view for the acquisition. It MAY contain a
-      `description` key providing a description for the acquisition. It MAY
-      contain a `startime` and/or `endtime` key specifying the start and/or
-      end timestamp of the acquisition using an epoch string.</dd>
+  <dd>An optional list of JSON objects defining the acquisitions for a given
+      plate. Each acquisition object MUST contain an `id` key providing an
+      unique identifier within the context of the plate to which fields of
+      view can refer to. It SHOULD contain  a `name` key identifying the name
+      of the acquisition. It SHOULD contain a `maximumfieldcount` key
+      indicating the maximum number of fields of view for the acquisition. It
+      MAY contain a `description` key providing a description for the
+      acquisition. It MAY contain a `startime` and/or `endtime` key specifying
+      the start and/or end timestamp of the acquisition using an epoch
+      string.</dd>
   <dt><strong>rows</strong></dt>
-  <dd>A list of JSON defining the rows of the plate. Each row object defines
-      the properties of the row at the index of the object in the list. If
-      not empty, it MUST contain a `name` key specifying the row name.</dd>
-  <dt><strong>columns</strong></dt>
-  <dd>A list of JSON defining the columns of the plate. Each column object
-      defines the properties of the column at the index of the object in the
-      list. If not empty, it MUST contain a `name` key specifying the column
+  <dd>A list of JSON objects defining the rows of the plate. Each row object
+      defines the properties of the row at the index of the object in the
+      list. If not empty, it MUST contain a `name` key specifying the row
       name.</dd>
+  <dt><strong>columns</strong></dt>
+  <dd>A list of JSON objects defining the columns of the plate. Each column
+      object defines the properties of the column at the index of the object
+      in the list. If not empty, it MUST contain a `name` key specifying the
+      column name.</dd>
   <dt><strong>field_count</strong></dt>
   <dd>An integer defining the maximum number of fields per view across all
       wells.</dd>
