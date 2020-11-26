@@ -17,8 +17,9 @@ Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
-Status Text: The current released version of this specification is 0.1. Migration scripts
-Status Text: will be provided between numbered versions. Data written with the latest changes
+Status Text: The current released version of this specification is
+Status Text: <a href="../0.1/index.html">0.1</a>. Migration scripts
+Status Text: will be provided between numbered versions. Data written with these latest changes
 Status Text: (an "editor's draft") will not necessarily be supported.
 </pre>
 
