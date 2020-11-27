@@ -1486,7 +1486,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version c5172e83, updated Fri Nov 20 15:35:20 2020 -0800" name="generator">
   <link href="https://ngff.openmicroscopy.org/0.1/" rel="canonical">
-  <meta content="f1c800125518b2ad650f46566208a25411bc15ca" name="document-revision">
+  <meta content="37f0223549adb79315760608796fcdaba7ae1bc3" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1812,7 +1812,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Final Community Group Report, <time class="dt-updated" datetime="2020-11-26">26 November 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Final Community Group Report, <time class="dt-updated" datetime="2020-11-27">27 November 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1820,8 +1820,9 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <dt>Issue Tracking:
      <dd><a href="https://forum.image.sc/tag/ome-ngff">Forums</a>
      <dd><a href="https://github.com/ome/ngff/issues/">GitHub</a>
-     <dt class="editor">Editor:
+     <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard"><span class="p-name fn">Josh Moore</span> (<a class="p-org org" href="https://www.openmicroscopy.org">Open Microscopy Environment (OME)</a>)
+     <dd class="editor p-author h-card vcard"><span class="p-name fn">Sébastien Besson</span> (<a class="p-org org" href="https://www.openmicroscopy.org">Open Microscopy Environment (OME)</a>)
     </dl>
    </div>
    <div data-fill-with="warning"></div>
@@ -1854,7 +1855,12 @@ will be provided between numbered versions. Data written with the latest version
       <li><a href="#why-ngff"><span class="secno">1.1</span> <span class="content">Why "<span><abbr title="Next-generation file-format">NGFF</abbr></span>"?</span></a>
       <li><a href="#ome-ngff"><span class="secno">1.2</span> <span class="content">OME-NGFF</span></a>
      </ol>
-    <li><a href="#on-disk"><span class="secno">2</span> <span class="content">On-disk (or in-cloud) layout</span></a>
+    <li>
+     <a href="#on-disk"><span class="secno">2</span> <span class="content">On-disk (or in-cloud) layout</span></a>
+     <ol class="toc">
+      <li><a href="#image-layout"><span class="secno">2.1</span> <span class="content">Images</span></a>
+      <li><a href="#hcs-layout"><span class="secno">2.2</span> <span class="content">High-content screening</span></a>
+     </ol>
     <li>
      <a href="#metadata"><span class="secno">3</span> <span class="content">Metadata</span></a>
      <ol class="toc">
@@ -1862,9 +1868,12 @@ will be provided between numbered versions. Data written with the latest version
       <li><a href="#omero-md"><span class="secno">3.2</span> <span class="content">"omero" metadata</span></a>
       <li><a href="#labels-md"><span class="secno">3.3</span> <span class="content">"labels" metadata</span></a>
       <li><a href="#label-md"><span class="secno">3.4</span> <span class="content">"image-label" metadata</span></a>
+      <li><a href="#plate-md"><span class="secno">3.5</span> <span class="content">"plate" metadata</span></a>
+      <li><a href="#well-md"><span class="secno">3.6</span> <span class="content">"well" metadata</span></a>
      </ol>
-    <li><a href="#citing"><span class="secno">4</span> <span class="content">Citing</span></a>
-    <li><a href="#history"><span class="secno">5</span> <span class="content">Version History</span></a>
+    <li><a href="#implementations"><span class="secno">4</span> <span class="content">Implementations</span></a>
+    <li><a href="#citing"><span class="secno">5</span> <span class="content">Citing</span></a>
+    <li><a href="#history"><span class="secno">6</span> <span class="content">Version History</span></a>
     <li>
      <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
      <ol class="toc">
@@ -1940,6 +1949,9 @@ understanding the following metadata sections easier. The hierarchy
 is represented here as it would appear locally but could equally
 be stored on a web server to be accessed via HTTP or in object storage
 like S3 or GCS.</p>
+   <h3 class="heading settled" data-level="2.1" id="image-layout"><span class="secno">2.1. </span><span class="content">Images</span><a class="self-link" href="#image-layout"></a></h3>
+   <p>The following layout describes the expected Zarr hierarchy for images with
+multiple levels of resolutions and optionally associated labels.</p>
 <pre>.                             # Root folder, potentially in S3,
 │                             # with a flat list of images by image ID.
 │
@@ -1982,6 +1994,46 @@ like S3 or GCS.</p>
                 ├── 0         # Each multiscale level is stored as a separate Zarr array, as above, but only integer values
                 │   ...       # are supported.
                 └── n
+</pre>
+   <h3 class="heading settled" data-level="2.2" id="hcs-layout"><span class="secno">2.2. </span><span class="content">High-content screening</span><a class="self-link" href="#hcs-layout"></a></h3>
+   <p>The following specification defines the hierarchy for a high-content screening
+dataset. Three groups must be defined above the images:</p>
+   <ul>
+    <li data-md>
+     <p>the group above the images defines the well and MUST implement the <a href="#well-md">well specification</a>. All images contained in a well are fields
+of view of the same well</p>
+    <li data-md>
+     <p>the group above the well defines a row of wells</p>
+    <li data-md>
+     <p>the group above the well row defines an entire plate i.e. a two-dimensional
+collection of wells organized in rows and columns. It MUST implement the <a href="#plate-md">plate specification</a></p>
+   </ul>
+<pre>.                             # Root folder, potentially in S3,
+│
+└── 5966.zarr                 # One plate (id=5966) converted to Zarr
+    ├── .zgroup
+    ├── .zattrs               # Implements "plate" specification
+    ├── A                     # First row of the plate
+    │   ├── .zgroup
+    │   │
+    │   ├── 1                 # First column of row A
+    │   │   ├── .zgroup
+    │   │   ├── .zattrs       # Implements "well" specification
+    │   │   │
+    │   │   ├── 0             # First field of view of well A1
+    │   │   │   │
+    │   │   │   ├── .zgroup
+    │   │   │   ├── .zattrs   # Implements "multiscales", "omero"
+    │   │   │   ├── 0
+    │   │   │   │   ...       # Resolution levels
+    │   │   │   ├── n
+    │   │   │   └── labels    # Labels (optional)
+    │   │   ├── ...           # Fields of view
+    │   │   └── m
+    │   ├── ...               # Columns
+    │   └── 12
+    ├── ...                   # Rows
+    └── H
 </pre>
    <h2 class="heading settled" data-level="3" id="metadata"><span class="secno">3. </span><span class="content">Metadata</span><a class="self-link" href="#metadata"></a></h2>
    <p>The various <code>.zattrs</code> files throughout the above array hierarchy may contain metadata
@@ -2079,11 +2131,169 @@ above).</p>
     <c- p>}</c->
 ]
 </pre>
-   <h2 class="heading settled" data-level="4" id="citing"><span class="secno">4. </span><span class="content">Citing</span><a class="self-link" href="#citing"></a></h2>
+   <h3 class="heading settled" data-level="3.5" id="plate-md"><span class="secno">3.5. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
+   <p>For high-content screening datasets, the plate layout can be found under the
+custom attributes of the plate group under the <code>plate</code> key.</p>
+   <dl>
+    <dt><strong>acquisitions</strong>
+    <dd>An optional list of JSON objects defining the acquisitions for a given
+      plate. Each acquisition object MUST contain an <code>id</code> key providing an
+      unique identifier within the context of the plate to which fields of
+      view can refer to. It SHOULD contain  a <code>name</code> key identifying the name
+      of the acquisition. It SHOULD contain a <code>maximumfieldcount</code> key
+      indicating the maximum number of fields of view for the acquisition. It
+      MAY contain a <code>description</code> key providing a description for the
+      acquisition. It MAY contain a <code>startime</code> and/or <code>endtime</code> key specifying
+      the start and/or end timestamp of the acquisition using an epoch
+      string.
+    <dt><strong>columns</strong>
+    <dd>A list of JSON objects defining the columns of the plate. Each column
+      object defines the properties of the column at the index of the object
+      in the list. If not empty, it MUST contain a <code>name</code> key specifying the
+      column name.
+    <dt><strong>field_count</strong>
+    <dd>An integer defining the maximum number of fields per view across all
+      wells.
+    <dt><strong>name</strong>
+    <dd>A string defining the name of the plate.
+    <dt><strong>rows</strong>
+    <dd>A list of JSON objects defining the rows of the plate. Each row object
+      defines the properties of the row at the index of the object in the
+      list. If not empty, it MUST contain a <code>name</code> key specifying the row
+      name.
+    <dt><strong>version</strong>
+    <dd>A string defining the version of the specification.
+    <dt><strong>wells</strong>
+    <dd>A list of JSON objects defining the wells of the plate. Each well object 
+      MUST contain a <code>path</code> key identifying the path to the well subgroup.
+   </dl>
+   <p>For example the following JSON object defines a plate with two acquisition and
+6 wells (2 rows and 3 columns), containing up 2 fields of view per acquistion.</p>
+<pre class="language-json highlight"><c- u>"plate"</c->: <c- p>{</c->
+    <c- f>"acquisitions"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"Meas_01(2012-07-31_10-41-12)"</c-><c- p>,</c->
+            <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343731272000</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"id"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+            <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"Meas_02(201207-31_11-56-41)"</c-><c- p>,</c->
+            <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343735801000</c->
+        <c- p>}</c->
+    <c- p>],</c->
+    <c- f>"columns"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"1"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"2"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"3"</c->
+        <c- p>}</c->
+    <c- p>],</c->
+    <c- f>"field_count"</c-><c- p>:</c-> <c- mi>4</c-><c- p>,</c->
+    <c- f>"name"</c-><c- p>:</c-> <c- u>"test"</c-><c- p>,</c->
+    <c- f>"rows"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"A"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
+        <c- p>}</c->
+    <c- p>],</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c-><c- p>,</c->
+    <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/A/1"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/A/2"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/A/3"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/B/1"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/B/2"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/B/3"</c->
+        <c- p>}</c->
+    <c- p>]</c->
+  <c- p>}</c->
+</pre>
+   <h3 class="heading settled" data-level="3.6" id="well-md"><span class="secno">3.6. </span><span class="content">"well" metadata</span><a class="self-link" href="#well-md"></a></h3>
+   <p>For high-content screening datasets, the metadata about all fields of views
+under a given  well can be found under the "well" key in the attributes of the
+well group.</p>
+   <dl>
+    <dt><strong>images</strong>
+    <dd>A list of JSON objects defining the fields of views for a given well.
+      Each object MUST contain a <code>path</code> key identifying the path to the
+      field of view. If multiple acquisitions were performed in the plate, it  
+      SHOULD contain an <code>acquisition</code> key identifying the id of the 
+      acquisition which must match one of acquisition JSON objects defined in
+      the plate metadata.
+    <dt><strong>version</strong>
+    <dd>A string defining the version of the specification.
+   </dl>
+   <p>For example the following JSON object defines a well with four fields of
+views. The first two fields of view were part of the first acquisition while
+the last two fields of view were part of the second acquisition.</p>
+<pre class="language-json highlight"><c- u>"well"</c->: <c- p>{</c->
+    <c- f>"images"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"2"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"3"</c->
+        <c- p>}</c->
+    <c- p>],</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c->
+  <c- p>}</c->
+</pre>
+   <h2 class="heading settled" data-level="4" id="implementations"><span class="secno">4. </span><span class="content">Implementations</span><a class="self-link" href="#implementations"></a></h2>
+   <p>Projects which support reading and/or writing OME-NGFF data include:</p>
+   <dl>
+    <dt><strong><a href="https://github.com/ome/omero-ms-zarr">omero-ms-zarr</a></strong>
+    <dd>A microservice for OMERO.server that converts images stored in OMERO to OME Zarr files on the fly, served via a web API.
+    <dt><strong><a href="https://github.com/IDR/idr-zarr-tools">idr-zarr-tools</a></strong>
+    <dd>A full workflow demonstrating the conversion of IDR images to OME Zarr images on S3.
+    <dt><strong><a href="https://github.com/ome/omero-cli-zarr">OMERO CLI Zarr plugin</a></strong>
+    <dd>An OMERO CLI plugin that converts images stored in OMERO.server into a local Zarr file.
+    <dt><strong><a href="https://github.com/ome/ome-zarr-py">ome-zarr-py</a></strong>
+    <dd>A napari plugin for reading ome-zarr files.
+    <dt><strong><a href="https://github.com/glencoesoftware/bioformats2raw">bioformats2raw</a></strong>
+    <dd>A performant, Bio-Formats image file format converter.
+    <dt><strong><a href="https://github.com/hms-dbmi/vizarr/">vizarr</a></strong>
+    <dd>A minimal, purely client-side program for viewing Zarr-based images with Viv &amp; ImJoy.
+   </dl>
+   <p><img alt="Diagram of related projects" src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png"></p>
+   <p>All implementations prevent an equivalent representation of a dataset which can be downloaded or uploaded freely. An interactive
+version of this diagram is available from the <a href="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/">OME2020 Workshop</a>.
+Mouseover the blackboxes representing the implementations above to get a quick tip on how to use them.</p>
+   <p class="note" role="note"><span>Note:</span> If you would like to see your project listed, please open an issue or PR on the <a href="https://github.com/ome/ngff">ome/ngff</a> repository.</p>
+   <h2 class="heading settled" data-level="5" id="citing"><span class="secno">5. </span><span class="content">Citing</span><a class="self-link" href="#citing"></a></h2>
    <p><a href="https://ngff.openmicroscopy.org/0.1">Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a> J. Moore, <em>et al</em>. Editors. Open Microscopy Environment Consortium, 20 November 2020.
 This edition of the specification is <a href="https://ngff.openmicroscopy.org/0.1/]">https://ngff.openmicroscopy.org/0.1/</a>.
 The latest edition is available at <a href="https://ngff.openmicroscopy.org/latest/">https://ngff.openmicroscopy.org/latest/</a>. <a href="https://doi.org/10.5281/zenodo.4282107">(doi:10.5281/zenodo.4282107)</a></p>
-   <h2 class="heading settled" data-level="5" id="history"><span class="secno">5. </span><span class="content">Version History</span><a class="self-link" href="#history"></a></h2>
+   <h2 class="heading settled" data-level="6" id="history"><span class="secno">6. </span><span class="content">Version History</span><a class="self-link" href="#history"></a></h2>
    <table>
     <thead>
      <tr>
@@ -2092,21 +2302,13 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
       <td>Description
     <tbody>
      <tr>
-      <td>0.1.3-dev4
+      <td>0.1.4
+      <td>2020-11-26
+      <td>Add HCS specification 
+     <tr>
+      <td>0.1.3
       <td>2020-09-14
-      <td>Add the image-label object 
-     <tr>
-      <td>0.1.3-dev3
-      <td>2020-09-01
-      <td>Convert labels to multiscales 
-     <tr>
-      <td>0.1.3-dev2
-      <td>2020-08-18
-      <td>Rename masks as labels 
-     <tr>
-      <td>0.1.3-dev1
-      <td>2020-07-07
-      <td>Add mask metadata 
+      <td>Add labels specification 
      <tr>
       <td>0.1.2 
       <td>2020-05-07
