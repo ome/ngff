@@ -296,6 +296,12 @@ should ignore all except the _last_ entry.
 Some implementations may represent overlapping labels by using a specially assigned
 value, for example the highest integer available in the pixel range.
 
+The `properties` key defines a list of JSON objects which also describes the unique 
+label values. Each entry in the list MUST contain the key "label-value" with the 
+pixel value for that label. Additionally, an arbitrary number of key-value pairs 
+MAY be present for each label value denoting associated metadata. Not all label 
+values must share the same key-value pairs within the properties list.
+
 The `source` key is an optional dictionary which contains information on the
 image the label is associated with. If included it MAY include a key `image`
 whose value is the relative path to a Zarr image group. The default value is
@@ -317,11 +323,24 @@ above).
         "rgba": [0, 255, 255, 128]
       },
       ...
+      ],
+    "properties": [
+      {
+        "label-value": 1,
+        "area (pixels)": 1200,
+        "class": "foo"
+
+      },
+      {
+        "label-value": 4,
+        "area (pixels)": 1650
+      },
+      ...
       ]
-    },
-    "source": {
-      "image": "../../"
-    }
+  },
+  "source": {
+    "image": "../../"
+  }
 ]
 ```
 
