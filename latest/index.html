@@ -1486,7 +1486,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version c5172e83, updated Fri Nov 20 15:35:20 2020 -0800" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="37f0223549adb79315760608796fcdaba7ae1bc3" name="document-revision">
+  <meta content="f0046874b8bd74cfa8ebd4172a0e9ced00661f14" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1812,7 +1812,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2020-11-27">27 November 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2020-11-30">30 November 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2106,6 +2106,11 @@ value for which is an RGBA unsigned-int 4-tuple: <code>[uint8, uint8, uint8, uin
 should ignore all except the _last_ entry.</p>
    <p>Some implementations may represent overlapping labels by using a specially assigned
 value, for example the highest integer available in the pixel range.</p>
+   <p>The <code>properties</code> key defines a list of JSON objects which also describes the unique
+label values. Each entry in the list MUST contain the key "label-value" with the 
+pixel value for that label. Additionally, an arbitrary number of key-value pairs 
+MAY be present for each label value denoting associated metadata. Not all label 
+values must share the same key-value pairs within the properties list.</p>
    <p>The <code>source</code> key is an optional dictionary which contains information on the
 image the label is associated with. If included it MAY include a key <code>image</code> whose value is the relative path to a Zarr image group. The default value is
 "../../" since most labels are stored under a subgroup named "labels/" (see
@@ -2123,11 +2128,24 @@ above).</p>
         <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>0</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>128</c-><c- p>]</c->
       <c- p>},</c->
       ...
+      <c- p>],</c->
+    <c- f>"properties"</c-><c- p>:</c-> <c- p>[</c->
+      <c- p>{</c->
+        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+        <c- f>"area (pixels)"</c-><c- p>:</c-> <c- mi>1200</c-><c- p>,</c->
+        <c- f>"class"</c-><c- p>:</c-> <c- u>"foo"</c->
+
+      <c- p>},</c->
+      <c- p>{</c->
+        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>4</c-><c- p>,</c->
+        <c- f>"area (pixels)"</c-><c- p>:</c-> <c- mi>1650</c->
+      <c- p>},</c->
+      ...
       <c- p>]</c->
-    <c- p>}</c->,
-    <c- u>"source"</c->: <c- p>{</c->
-      <c- f>"image"</c-><c- p>:</c-> <c- u>"../../"</c->
-    <c- p>}</c->
+  <c- p>}</c->,
+  <c- u>"source"</c->: <c- p>{</c->
+    <c- f>"image"</c-><c- p>:</c-> <c- u>"../../"</c->
+  <c- p>}</c->
 ]
 </pre>
    <h3 class="heading settled" data-level="3.5" id="plate-md"><span class="secno">3.5. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
