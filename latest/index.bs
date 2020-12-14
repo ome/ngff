@@ -366,7 +366,8 @@ custom attributes of the plate group under the `plate` key.
   <dd>A list of JSON objects defining the columns of the plate. Each column
       object defines the properties of the column at the index of the object
       in the list. If not empty, it MUST contain a `name` key specifying the
-      column name.</dd>
+      column name. Each column in the physical plate MUST be defined, even
+      if no wells in the column are defined.</dd>
   <dt><strong>field_count</strong></dt>
   <dd>An integer defining the maximum number of fields per view across all
       wells.</dd>
@@ -376,7 +377,8 @@ custom attributes of the plate group under the `plate` key.
   <dd>A list of JSON objects defining the rows of the plate. Each row object
       defines the properties of the row at the index of the object in the
       list. If not empty, it MUST contain a `name` key specifying the row
-      name.</dd>
+      name. Each row in the physical plate MUST be defined, even if no wells
+      in the row are defined.</dd>
   <dt><strong>version</strong></dt>
   <dd>A string defining the version of the specification.</dd>
   <dt><strong>wells</strong></dt>
@@ -384,8 +386,8 @@ custom attributes of the plate group under the `plate` key.
       MUST contain a `path` key identifying the path to the well subgroup.</dd>
 </dl>
 
-For example the following JSON object defines a plate with two acquisition and
-6 wells (2 rows and 3 columns), containing up 2 fields of view per acquistion.
+For example the following JSON object defines a plate with two acquisitions and
+6 wells (2 rows and 3 columns), containing up to 2 fields of view per acquisition.
 
 ```json
 "plate": {
@@ -448,11 +450,102 @@ For example the following JSON object defines a plate with two acquisition and
   }
 ```
 
+The following JSON object defines a sparse plate with one acquisition and
+2 wells in a 96 well plate, containing one field of view per acquisition.
+
+```json
+"plate": {
+    "acquisitions": [
+        {
+            "id": 1,
+            "maximumfieldcount": 1,
+            "name": "single acquisition",
+            "starttime": 1343731272000
+        },
+    ],
+    "columns": [
+        {
+            "name": "1"
+        },
+        {
+            "name": "2"
+        },
+        {
+            "name": "3"
+        },
+        {
+            "name": "4"
+        },
+        {
+            "name": "5"
+        },
+        {
+            "name": "6"
+        },
+        {
+            "name": "7"
+        },
+        {
+            "name": "8"
+        },
+        {
+            "name": "9"
+        },
+        {
+            "name": "10"
+        },
+        {
+            "name": "11"
+        },
+        {
+            "name": "12"
+        }
+    ],
+    "field_count": 1,
+    "name": "sparse test",
+    "rows": [
+        {
+            "name": "A"
+        },
+        {
+            "name": "B"
+        },
+        {
+            "name": "C"
+        },
+        {
+            "name": "D"
+        },
+        {
+            "name": "E"
+        },
+        {
+            "name": "F"
+        },
+        {
+            "name": "G"
+        },
+        {
+            "name": "H"
+        }
+    ],
+    "version": "0.1",
+    "wells": [
+        {
+            "path": "C/5"
+        },
+        {
+            "path": "D/7"
+        }
+    ]
+  }
+```
+
 "well" metadata {#well-md}
 --------------------------
 
 For high-content screening datasets, the metadata about all fields of views
-under a given  well can be found under the "well" key in the attributes of the
+under a given well can be found under the "well" key in the attributes of the
 well group.
 
 <dl>
@@ -460,7 +553,7 @@ well group.
   <dd>A list of JSON objects defining the fields of views for a given well.
       Each object MUST contain a `path` key identifying the path to the
       field of view. If multiple acquisitions were performed in the plate, it  
-      SHOULD contain an `acquisition` key identifying the id of the 
+      MUST contain an `acquisition` key identifying the id of the 
       acquisition which must match one of acquisition JSON objects defined in
       the plate metadata.</dd>
   <dt><strong>version</strong></dt>
@@ -468,7 +561,7 @@ well group.
 </dl>
 
 For example the following JSON object defines a well with four fields of
-views. The first two fields of view were part of the first acquisition while
+view. The first two fields of view were part of the first acquisition while
 the last two fields of view were part of the second acquisition.
 
 ```json
@@ -493,6 +586,26 @@ the last two fields of view were part of the second acquisition.
     ],
     "version": "0.1"
   }
+```
+
+The following JSON object defines a well with two fields of view in a plate with
+four acquisitions. The first field is part of the first acquisition, and the second
+field is part of the last acquisition.
+
+```json
+"well": {
+    "images": [
+        {
+            "acquisition": 0,
+            "path": "0"
+        },
+        {
+            "acquisition": 3,
+            "path": "1"
+        }
+    ],
+    "version": "0.1"
+}
 ```
 
 Implementations {#implementations}
