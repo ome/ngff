@@ -1,6 +1,6 @@
 # ome-ngff
 
-Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.
+[Next-generation file format (NGFF) specifications](https://ngff.openmicroscopy.org/latest/) for storing bioimaging data in the cloud.
 
 ## Editing
 
