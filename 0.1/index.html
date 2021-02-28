@@ -1484,9 +1484,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version c5172e83, updated Fri Nov 20 15:35:20 2020 -0800" name="generator">
+  <meta content="Bikeshed version b94c7e755, updated Fri Feb 19 16:28:59 2021 -0800" name="generator">
   <link href="https://ngff.openmicroscopy.org/0.1/" rel="canonical">
-  <meta content="f0046874b8bd74cfa8ebd4172a0e9ced00661f14" name="document-revision">
+  <meta content="f8254d8d2739a08e7973a3a20af212b9fbff6d5e" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1812,7 +1812,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Final Community Group Report, <time class="dt-updated" datetime="2020-11-30">30 November 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Final Community Group Report, <time class="dt-updated" datetime="2021-02-28">28 February 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1826,7 +1826,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </dl>
    </div>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright">Copyright © 2020 <a href="https://www.openmicroscopy.org/"><abbr title="Open Microscopy Environment">OME</abbr></a><sup>®</sup> (<a href="https://dundee.ac.uk/"><abbr title="University of Dundee">U. Dundee</abbr></a>).
+   <p class="copyright" data-fill-with="copyright">Copyright © 2021 <a href="https://www.openmicroscopy.org/"><abbr title="Open Microscopy Environment">OME</abbr></a><sup>®</sup> (<a href="https://dundee.ac.uk/"><abbr title="University of Dundee">U. Dundee</abbr></a>).
 OME trademark rules apply. </p>
    <hr title="Separator for header">
   </div>
@@ -2059,10 +2059,10 @@ to lowest.</p>
    <h3 class="heading settled" data-level="3.2" id="omero-md"><span class="secno">3.2. </span><span class="content">"omero" metadata</span><a class="self-link" href="#omero-md"></a></h3>
    <p>Information specific to the channels of an image and how to render it
 can be found under the "omero" key in the group-level metadata:</p>
-<pre class="language-json highlight"><c- u>"id"</c->: <c- mi>1</c->,                              # ID in OMERO
-<c- u>"name"</c->: <c- u>"example.tif"</c->,                # Name as shown in the UI
-<c- u>"version"</c->: <c- u>"0.1"</c->,                     # Current version
-<c- u>"channels"</c->: <c- p>[</c->                         # Array matching the c dimension size
+<pre class="language-json highlight"><c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->                              # ID i<c- kc>n</c-> OMERO
+<c- f>"name"</c-><c- p>:</c-> <c- u>"example.tif"</c-><c- p>,</c->                # Name as show<c- kc>n</c-> i<c- kc>n</c-> <c- kc>t</c->he UI
+<c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c-><c- p>,</c->                     # Curre<c- kc>nt</c-> versio<c- kc>n</c->
+<c- f>"channels"</c-><c- p>:</c-> <c- p>[</c->                         # Array ma<c- kc>t</c->chi<c- kc>n</c->g <c- kc>t</c->he c dime<c- kc>ns</c->io<c- kc>n</c-> size
     <c- p>{</c->
         <c- f>"active"</c-><c- p>:</c-> <c- kc>true</c-><c- p>,</c->
         <c- f>"coefficient"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
@@ -2077,10 +2077,10 @@ can be found under the "omero" key in the group-level metadata:</p>
             <c- f>"start"</c-><c- p>:</c-> <c- mi>0</c->
         <c- p>}</c->
     <c- p>}</c->
-<c- p>]</c->,
-<c- u>"rdefs"</c->: <c- p>{</c->
-    <c- f>"defaultT"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->                    # First timepoint to show the user
-    <c- f>"defaultZ"</c-><c- p>:</c-> <c- mi>118</c-><c- p>,</c->                  # First Z section to show the user
+<c- p>],</c->
+<c- f>"rdefs"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"defaultT"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->                    # Firs<c- kc>t</c-> <c- kc>t</c->imepoi<c- kc>nt</c-> <c- kc>t</c->o show <c- kc>t</c->he user
+    <c- f>"defaultZ"</c-><c- p>:</c-> <c- mi>118</c-><c- p>,</c->                  # Firs<c- kc>t</c-> Z sec<c- kc>t</c->io<c- kc>n</c-> <c- kc>t</c->o show <c- kc>t</c->he user
     <c- f>"model"</c-><c- p>:</c-> <c- u>"color"</c->                  # <c- u>"color"</c-> or <c- u>"greyscale"</c->
 <c- p>}</c->
 </pre>
@@ -2111,7 +2111,7 @@ value, for example the highest integer available in the pixel range.</p>
 image the label is associated with. If included it MAY include a key <code>image</code> whose value is the relative path to a Zarr image group. The default value is
 "../../" since most labels are stored under a subgroup named "labels/" (see
 above).</p>
-<pre class="language-json highlight"><c- u>"image-label"</c->:
+<pre class="language-json highlight"><c- f>"image-label"</c-><c- p>:</c->
   <c- p>{</c->
     <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c-><c- p>,</c->
     <c- f>"colors"</c-><c- p>:</c-> <c- p>[</c->
@@ -2125,11 +2125,11 @@ above).</p>
       <c- p>},</c->
       ...
       <c- p>]</c->
-    <c- p>}</c->,
-    <c- u>"source"</c->: <c- p>{</c->
+    <c- p>},</c->
+    <c- f>"source"</c-><c- p>:</c-> <c- p>{</c->
       <c- f>"image"</c-><c- p>:</c-> <c- u>"../../"</c->
     <c- p>}</c->
-]
+<c- p>]</c->
 </pre>
    <h3 class="heading settled" data-level="3.5" id="plate-md"><span class="secno">3.5. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
    <p>For high-content screening datasets, the plate layout can be found under the
@@ -2169,7 +2169,7 @@ custom attributes of the plate group under the <code>plate</code> key.</p>
    </dl>
    <p>For example the following JSON object defines a plate with two acquisition and
 6 wells (2 rows and 3 columns), containing up 2 fields of view per acquistion.</p>
-<pre class="language-json highlight"><c- u>"plate"</c->: <c- p>{</c->
+<pre class="language-json highlight"><c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
     <c- f>"acquisitions"</c-><c- p>:</c-> <c- p>[</c->
         <c- p>{</c->
             <c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
@@ -2246,7 +2246,7 @@ well group.</p>
    <p>For example the following JSON object defines a well with four fields of
 views. The first two fields of view were part of the first acquisition while
 the last two fields of view were part of the second acquisition.</p>
-<pre class="language-json highlight"><c- u>"well"</c->: <c- p>{</c->
+<pre class="language-json highlight"><c- f>"well"</c-><c- p>:</c-> <c- p>{</c->
     <c- f>"images"</c-><c- p>:</c-> <c- p>[</c->
         <c- p>{</c->
             <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
