@@ -124,8 +124,8 @@ multiple levels of resolutions and optionally associated labels.
     ├── n                     # The name of the array is arbitrary with the ordering defined by
     │   │                     # by the "multiscales" metadata, but is often a sequence starting at 0.
     │   │
-    │   ├── .zarray           # All image arrays are 5-dimensional
-    │   │                     # with dimension order (t, c, z, y, x).
+    │   ├── .zarray           # All image arrays are up to 5-dimensional with dimension order (t, c, z, y, x).
+    │   │                     # An image without time dimension has axes (c, z, y, x) etc.
     │   │
     │   ├── 0.0.0.0.0         # Chunks are stored with the flat directory layout.
     │   │   ...               # Each dotted component of the chunk file represents
