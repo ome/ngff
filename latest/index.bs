@@ -383,7 +383,10 @@ custom attributes of the plate group under the `plate` key.
   <dd>A string defining the version of the specification.</dd>
   <dt><strong>wells</strong></dt>
   <dd>A list of JSON objects defining the wells of the plate. Each well object 
-      MUST contain a `path` key identifying the path to the well subgroup.</dd>
+      MUST contain a `path` key identifying the path to the well subgroup.
+      Each well object MUST contain both a `row_index` key identifying the index into
+      the `rows` list and a `column_index` key indentifying the index into
+      the `columns` list. `row_index` and `column_index` MUST be 0-based.</dd>
 </dl>
 
 For example the following JSON object defines a plate with two acquisitions and
@@ -429,22 +432,34 @@ For example the following JSON object defines a plate with two acquisitions and
     "version": "0.1",
     "wells": [
         {
-            "path": "2020-10-10/A/1"
+            "path": "2020-10-10/A/1",
+            "row_index": 0,
+            "column_index": 0
         },
         {
             "path": "2020-10-10/A/2"
+            "row_index": 0,
+            "column_index": 1
         },
         {
             "path": "2020-10-10/A/3"
+            "row_index": 0,
+            "column_index": 2
         },
         {
             "path": "2020-10-10/B/1"
+            "row_index": 1,
+            "column_index": 0
         },
         {
             "path": "2020-10-10/B/2"
+            "row_index": 1,
+            "column_index": 1
         },
         {
             "path": "2020-10-10/B/3"
+            "row_index": 1,
+            "column_index": 2
         }
     ]
   }
@@ -533,9 +548,13 @@ The following JSON object defines a sparse plate with one acquisition and
     "wells": [
         {
             "path": "C/5"
+            "row_index": 2,
+            "column_index": 4
         },
         {
             "path": "D/7"
+            "row_index": 3,
+            "column_index": 6
         }
     ]
   }
