@@ -209,9 +209,9 @@ Metadata about the multiple resolution representations of the image can be
 found under the "multiscales" key in the group-level metadata.
 "multiscales" contains a list of dictionaries where each entry describes a multiscale image.
 
-"multiscales" MUST contain the field "datasets", which is a list of dictionaries describing
-the arrays storing the individual resolution levels. Each dictionary in "datasets" MUST
-contain the field "path", whose value contains the path to the array for this resolution relative
+Each "multiscales" dictionary MUST contain the field "datasets", which is a list of dictionaries describing
+the arrays storing the individual resolution levels.
+Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
 
 It MUST contain the field "axes", which is a list of dimension names of the axes.
@@ -238,7 +238,7 @@ It SHOULD contain the field "metadata", which contains a dictionary with additio
                 {"path": "2"}
             ],
             "axes": [
-                "t", "c", "z", "y", "z"
+                "t", "c", "z", "y", "x"
             ],
             "type": "gaussian",
             "metadata": {                                       # the fields in metadata depend on the downscaling implementation
