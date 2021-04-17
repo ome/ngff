@@ -1,0 +1,21 @@
+{
+    "multiscales": [
+        {
+            "version": "0.2",
+            "name": "example",
+            "datasets": [
+                {"path": "0"},
+                {"path": "1"},
+                {"path": "2"}
+            ],
+            "type": "gaussian",
+            "metadata": {
+                "method": "skimage.transform.pyramid_gaussian",
+                "version": "0.16.1",
+                "args": "[true]",
+                "kwargs": {"multichannel": true}
+            }
+        }
+    ]
+}
+

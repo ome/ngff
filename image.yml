@@ -1,0 +1,65 @@
+$base: "https://ngff.openmicroscopy.org/latest/"
+
+$namespaces:
+  ngff:  "https://ngff.openmicroscopy.org/latest/"
+
+$graph:
+
+- name: VersionedType
+  doc: |
+    Opaque version. Note: likely to deprecate or remove in favor of a context version.
+  type: record
+  abstract: true
+  fields:
+    - name: version
+      type: string
+
+- name: DatasetMetadata
+  doc: |
+    Optional information about a Dataset.
+  type: record
+  extends: [VersionedType]
+  fields:
+    args:
+      # FIXME this should be an array
+      type: string
+    kwargs:
+      type: Any
+    method:
+      type: string
+
+- name: Dataset
+  doc: |
+    One array series in descending order of size.
+  type: record
+  fields:
+    path:
+      type: string
+
+- name: Multiscale
+  doc: |
+    Identifies pyramid-like collections of arrays.
+  type: record
+  extends: [VersionedType]
+  fields:
+    name:
+      type: string
+    datasets:
+      type:
+        type: array
+        items: Dataset
+    metadata:
+      type: DatasetMetadata
+    type:
+      type: string
+
+- name: Image
+  doc: |
+    OME:Image
+  type: record
+  documentRoot: true
+  fields:
+    multiscales:
+      type:
+        type: array
+        items: Multiscale
