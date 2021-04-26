@@ -234,9 +234,6 @@ It SHOULD contain the field "metadata", which contains a dictionary with additio
                 {"path": "1"},
                 {"path": "2"}
             ],
-            "axes": [
-                "t", "c", "z", "y", "x"
-            ],
             "type": "gaussian",
             "metadata": {                                       # the fields in metadata depend on the downscaling implementation
                 "method": "skimage.transform.pyramid_gaussian", # here, the paramters passed to the skimage function are given
