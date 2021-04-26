@@ -207,8 +207,48 @@ keys as specified below for discovering certain types of data, especially images
 
 Metadata about the multiple resolution representations of the image can be
 found under the "multiscales" key in the group-level metadata.
-The specification for the multiscale (i.e. "resolution") metadata is provided
-in [zarr-specs#50](https://github.com/zarr-developers/zarr-specs/issues/50).
+
+"multiscales" contains a list of dictionaries where each entry describes a multiscale image.
+
+Each "multiscales" dictionary MUST contain the field "datasets", which is a list of dictionaries describing
+the arrays storing the individual resolution levels.
+Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
+to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
+
+It SHOULD contain the field "name".
+
+It SHOULD contain the field "version", which indicates the version of the
+multiscale metadata of this image (current version is 0.2).
+
+It SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
+It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
+
+```json
+{
+    "multiscales": [
+        {
+            "version": "0.2",
+            "name": "example",
+            "datasets": [
+                {"path": "0"},
+                {"path": "1"},
+                {"path": "2"}
+            ],
+            "axes": [
+                "t", "c", "z", "y", "x"
+            ],
+            "type": "gaussian",
+            "metadata": {                                       # the fields in metadata depend on the downscaling implementation
+                "method": "skimage.transform.pyramid_gaussian", # here, the paramters passed to the skimage function are given
+                "version": "0.16.1",
+                "args": "[true]",
+                "kwargs": {"multichannel": true}
+            }
+        }
+    ]
+}
+```
+
 If only one multiscale is provided, use it. Otherwise, the user can choose by
 name, using the first multiscale as a fallback:
 
@@ -222,9 +262,6 @@ if not datasets:
     # Use the first by default. Or perhaps choose based on chunk size.
     datasets = [x["path"] for x in multiscales[0]["datasets"]]
 ```
-
-The subresolutions in each multiscale are ordered from highest-resolution
-to lowest.
 
 "omero" metadata {#omero-md}
 ----------------------------
