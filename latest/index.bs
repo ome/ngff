@@ -215,6 +215,10 @@ the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
 
+It MUST contain the field "axes", which is a list of dimension names of the axes.
+The values MUST be unique and one of `{"t", "c", "z", "y", "x"}`.
+The number of values MUST be the same as the number of dimensions of the arrays corresponding to this image.
+
 It SHOULD contain the field "name".
 
 It SHOULD contain the field "version", which indicates the version of the
