@@ -210,7 +210,7 @@ found under the "multiscales" key in the group-level metadata.
 
 "multiscales" contains a list of dictionaries where each entry describes a multiscale image.
 
-Each "multiscales" dictionary MUST contain the field "datasets", which is a list of dictionaries describing
+Each dictionary contained in the list MUST contain the field "datasets", which is a list of dictionaries describing
 the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
@@ -221,6 +221,7 @@ It SHOULD contain the field "version", which indicates the version of the
 multiscale metadata of this image (current version is 0.2).
 
 It SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
+
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
 
 ```json
@@ -233,9 +234,6 @@ It SHOULD contain the field "metadata", which contains a dictionary with additio
                 {"path": "0"},
                 {"path": "1"},
                 {"path": "2"}
-            ],
-            "axes": [
-                "t", "c", "z", "y", "x"
             ],
             "type": "gaussian",
             "metadata": {                                       # the fields in metadata depend on the downscaling implementation
