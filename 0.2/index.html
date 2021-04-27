@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 	}
 </style>
   <meta content="Bikeshed version c6f50773a, updated Fri Apr 16 16:45:47 2021 -0700" name="generator">
-  <link href="https://ngff.openmicroscopy.org/0.1/" rel="canonical">
+  <link href="https://ngff.openmicroscopy.org/0.2/" rel="canonical">
   <meta content="8429d5b6a359e81fa416b01061ca4452c45bc0c3" name="document-revision">
 <style>/* style-autolinks */
 
@@ -1820,7 +1820,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
-     <dd><a class="u-url" href="https://ngff.openmicroscopy.org/0.1/">https://ngff.openmicroscopy.org/0.1/</a>
+     <dd><a class="u-url" href="https://ngff.openmicroscopy.org/0.2/">https://ngff.openmicroscopy.org/0.2/</a>
      <dt>Issue Tracking:
      <dd><a href="https://forum.image.sc/tag/ome-ngff">Forums</a>
      <dd><a href="https://github.com/ome/ngff/issues/">GitHub</a>
@@ -1844,7 +1844,7 @@ All specifications are submitted to the https://image.sc community for review.</
   <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
    <p></p>
-   <p>This is the 0.1 release of this specification. Migration scripts
+   <p>This is the 0.2 release of this specification. Migration scripts
 
 will be provided between numbered versions. Data written with the latest version
 (an "editor’s draft") will not necessarily be supported.</p>
@@ -1975,10 +1975,11 @@ multiple levels of resolutions and optionally associated labels.</p>
     │   ├── .zarray           # All image arrays are 5-dimensional
     │   │                     # with dimension order (t, c, z, y, x).
     │   │
-    │   ├── 0.0.0.0.0         # Chunks are stored with the flat directory layout.
-    │   │   ...               # Each dotted component of the chunk file represents
-    │   └── t.c.z.y.x         # a "chunk coordinate", where the maximum coordinate
-    │                         # will be &lt;code data-opaque bs-autolink-syntax='`dimension_size / chunk_size`'>dimension_size / chunk_size&lt;/code>.
+    │   └─ t                  # Chunks are stored with the nested directory layout.
+    │      └─ c               # All but the last chunk element are stored as directories.
+    │         └─ z            # The terminal chunk is a file. Together the directory and file names
+    │            └─ y         # provide the "chunk coordinate" (t, c, z, y, x), where the maximum coordinate
+    │               └─ x      # will be &lt;code data-opaque bs-autolink-syntax='`dimension_size / chunk_size`'>dimension_size / chunk_size&lt;/code>.
     │
     └── labels
         │
@@ -2044,10 +2045,39 @@ collection of wells organized in rows and columns. It MUST implement the <a href
 keys as specified below for discovering certain types of data, especially images.</p>
    <h3 class="heading settled" data-level="3.1" id="multiscale-md"><span class="secno">3.1. </span><span class="content">"multiscales" metadata</span><a class="self-link" href="#multiscale-md"></a></h3>
    <p>Metadata about the multiple resolution representations of the image can be
-found under the "multiscales" key in the group-level metadata.
-The specification for the multiscale (i.e. "resolution") metadata is provided
-in <a href="https://github.com/zarr-developers/zarr-specs/issues/50">zarr-specs#50</a>.
-If only one multiscale is provided, use it. Otherwise, the user can choose by
+found under the "multiscales" key in the group-level metadata.</p>
+   <p>"multiscales" contains a list of dictionaries where each entry describes a multiscale image.</p>
+   <p>Each dictionary contained in the list MUST contain the field "datasets", which is a list of dictionaries describing
+the arrays storing the individual resolution levels.
+Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
+to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.</p>
+   <p>It SHOULD contain the field "name".</p>
+   <p>It SHOULD contain the field "version", which indicates the version of the
+multiscale metadata of this image (current version is 0.2).</p>
+   <p>It SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.</p>
+   <p>It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.</p>
+<pre class="language-json highlight"><c- p>{</c->
+    <c- f>"multiscales"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"version"</c-><c- p>:</c-> <c- u>"0.2"</c-><c- p>,</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"example"</c-><c- p>,</c->
+            <c- f>"datasets"</c-><c- p>:</c-> <c- p>[</c->
+                <c- p>{</c-><c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c-><c- p>},</c->
+                <c- p>{</c-><c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c-><c- p>},</c->
+                <c- p>{</c-><c- f>"path"</c-><c- p>:</c-> <c- u>"2"</c-><c- p>}</c->
+            <c- p>],</c->
+            <c- f>"type"</c-><c- p>:</c-> <c- u>"gaussian"</c-><c- p>,</c->
+            <c- f>"metadata"</c-><c- p>:</c-> <c- p>{</c->                                       # <c- kc>t</c->he <c- kc>f</c->ields i<c- kc>n</c-> me<c- kc>ta</c->da<c- kc>ta</c-> depe<c- kc>n</c->d o<c- kc>n</c-> <c- kc>t</c->he dow<c- kc>ns</c->cali<c- kc>n</c->g impleme<c- kc>ntat</c->io<c- kc>n</c->
+                <c- f>"method"</c-><c- p>:</c-> <c- u>"skimage.transform.pyramid_gaussian"</c-><c- p>,</c-> # here<c- p>,</c-> <c- kc>t</c->he param<c- kc>ters</c-> passed <c- kc>t</c->o <c- kc>t</c->he skimage <c- kc>fun</c->c<c- kc>t</c->io<c- kc>n</c-> are give<c- kc>n</c->
+                <c- f>"version"</c-><c- p>:</c-> <c- u>"0.16.1"</c-><c- p>,</c->
+                <c- f>"args"</c-><c- p>:</c-> <c- u>"[true]"</c-><c- p>,</c->
+                <c- f>"kwargs"</c-><c- p>:</c-> <c- p>{</c-><c- f>"multichannel"</c-><c- p>:</c-> <c- kc>true</c-><c- p>}</c->
+            <c- p>}</c->
+        <c- p>}</c->
+    <c- p>]</c->
+<c- p>}</c->
+</pre>
+   <p>If only one multiscale is provided, use it. Otherwise, the user can choose by
 name, using the first multiscale as a fallback:</p>
 <pre class="language-python highlight"><c- n>datasets</c-> <c- o>=</c-> <c- p>[]</c->
 <c- k>for</c-> <c- n>named</c-> <c- ow>in</c-> <c- n>multiscales</c-><c- p>:</c->
@@ -2058,14 +2088,12 @@ name, using the first multiscale as a fallback:</p>
     <c- c1># Use the first by default. Or perhaps choose based on chunk size.</c->
     <c- n>datasets</c-> <c- o>=</c-> <c- p>[</c-><c- n>x</c-><c- p>[</c-><c- u>"path"</c-><c- p>]</c-> <c- k>for</c-> <c- n>x</c-> <c- ow>in</c-> <c- n>multiscales</c-><c- p>[</c-><c- mi>0</c-><c- p>][</c-><c- u>"datasets"</c-><c- p>]]</c->
 </pre>
-   <p>The subresolutions in each multiscale are ordered from highest-resolution
-to lowest.</p>
    <h3 class="heading settled" data-level="3.2" id="omero-md"><span class="secno">3.2. </span><span class="content">"omero" metadata</span><a class="self-link" href="#omero-md"></a></h3>
    <p>Information specific to the channels of an image and how to render it
 can be found under the "omero" key in the group-level metadata:</p>
 <pre class="language-json highlight"><c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->                              # ID i<c- kc>n</c-> OMERO
 <c- f>"name"</c-><c- p>:</c-> <c- u>"example.tif"</c-><c- p>,</c->                # Name as show<c- kc>n</c-> i<c- kc>n</c-> <c- kc>t</c->he UI
-<c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c-><c- p>,</c->                     # Curre<c- kc>nt</c-> versio<c- kc>n</c->
+<c- f>"version"</c-><c- p>:</c-> <c- u>"0.2"</c-><c- p>,</c->                     # Curre<c- kc>nt</c-> versio<c- kc>n</c->
 <c- f>"channels"</c-><c- p>:</c-> <c- p>[</c->                         # Array ma<c- kc>t</c->chi<c- kc>n</c->g <c- kc>t</c->he c dime<c- kc>ns</c->io<c- kc>n</c-> size
     <c- p>{</c->
         <c- f>"active"</c-><c- p>:</c-> <c- kc>true</c-><c- p>,</c->
@@ -2111,13 +2139,18 @@ value for which is an RGBA unsigned-int 4-tuple: <code>[uint8, uint8, uint8, uin
 should ignore all except the _last_ entry.</p>
    <p>Some implementations may represent overlapping labels by using a specially assigned
 value, for example the highest integer available in the pixel range.</p>
+   <p>The <code>properties</code> key defines a list of JSON objects which also describes the unique
+label values. Each entry in the list MUST contain the key "label-value" with the 
+pixel value for that label. Additionally, an arbitrary number of key-value pairs 
+MAY be present for each label value denoting associated metadata. Not all label 
+values must share the same key-value pairs within the properties list.</p>
    <p>The <code>source</code> key is an optional dictionary which contains information on the
 image the label is associated with. If included it MAY include a key <code>image</code> whose value is the relative path to a Zarr image group. The default value is
 "../../" since most labels are stored under a subgroup named "labels/" (see
 above).</p>
 <pre class="language-json highlight"><c- f>"image-label"</c-><c- p>:</c->
   <c- p>{</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c-><c- p>,</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.2"</c-><c- p>,</c->
     <c- f>"colors"</c-><c- p>:</c-> <c- p>[</c->
       <c- p>{</c->
         <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
@@ -2128,11 +2161,24 @@ above).</p>
         <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>0</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>128</c-><c- p>]</c->
       <c- p>},</c->
       ...
+      <c- p>],</c->
+    <c- f>"properties"</c-><c- p>:</c-> <c- p>[</c->
+      <c- p>{</c->
+        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+        <c- f>"area (pixels)"</c-><c- p>:</c-> <c- mi>1200</c-><c- p>,</c->
+        <c- f>"class"</c-><c- p>:</c-> <c- u>"foo"</c->
+
+      <c- p>},</c->
+      <c- p>{</c->
+        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>4</c-><c- p>,</c->
+        <c- f>"area (pixels)"</c-><c- p>:</c-> <c- mi>1650</c->
+      <c- p>},</c->
+      ...
       <c- p>]</c->
-    <c- p>},</c->
-    <c- f>"source"</c-><c- p>:</c-> <c- p>{</c->
-      <c- f>"image"</c-><c- p>:</c-> <c- u>"../../"</c->
-    <c- p>}</c->
+  <c- p>},</c->
+  <c- f>"source"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"image"</c-><c- p>:</c-> <c- u>"../../"</c->
+  <c- p>}</c->
 <c- p>]</c->
 </pre>
    <h3 class="heading settled" data-level="3.5" id="plate-md"><span class="secno">3.5. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
@@ -2209,7 +2255,7 @@ custom attributes of the plate group under the <code>plate</code> key.</p>
             <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
         <c- p>}</c->
     <c- p>],</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c-><c- p>,</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.2"</c-><c- p>,</c->
     <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
         <c- p>{</c->
             <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/A/1"</c->
@@ -2269,7 +2315,7 @@ the last two fields of view were part of the second acquisition.</p>
             <c- f>"path"</c-><c- p>:</c-> <c- u>"3"</c->
         <c- p>}</c->
     <c- p>],</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.2"</c->
   <c- p>}</c->
 </pre>
    <h2 class="heading settled" data-level="4" id="implementations"><span class="secno">4. </span><span class="content">Implementations</span><a class="self-link" href="#implementations"></a></h2>
@@ -2294,8 +2340,8 @@ version of this diagram is available from the <a href="https://downloads.openmic
 Mouseover the blackboxes representing the implementations above to get a quick tip on how to use them.</p>
    <p class="note" role="note"><span>Note:</span> If you would like to see your project listed, please open an issue or PR on the <a href="https://github.com/ome/ngff">ome/ngff</a> repository.</p>
    <h2 class="heading settled" data-level="5" id="citing"><span class="secno">5. </span><span class="content">Citing</span><a class="self-link" href="#citing"></a></h2>
-   <p><a href="https://ngff.openmicroscopy.org/0.1">Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a> J. Moore, <em>et al</em>. Editors. Open Microscopy Environment Consortium, 20 November 2020.
-This edition of the specification is <a href="https://ngff.openmicroscopy.org/0.1/]">https://ngff.openmicroscopy.org/0.1/</a>.
+   <p><a href="https://ngff.openmicroscopy.org/0.2">Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a> J. Moore, <em>et al</em>. Editors. Open Microscopy Environment Consortium, 20 November 2020.
+This edition of the specification is <a href="https://ngff.openmicroscopy.org/0.2/]">https://ngff.openmicroscopy.org/0.2/</a>.
 The latest edition is available at <a href="https://ngff.openmicroscopy.org/latest/">https://ngff.openmicroscopy.org/latest/</a>. <a href="https://doi.org/10.5281/zenodo.4282107">(doi:10.5281/zenodo.4282107)</a></p>
    <h2 class="heading settled" data-level="6" id="history"><span class="secno">6. </span><span class="content">Version History</span><a class="self-link" href="#history"></a></h2>
    <table>
@@ -2305,6 +2351,10 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
       <td>Date
       <td>Description
     <tbody>
+     <tr>
+      <td>0.2.0
+      <td>2021-03-29
+      <td>Change chunk dimension separator to "/" 
      <tr>
       <td>0.1.4
       <td>2020-11-26
