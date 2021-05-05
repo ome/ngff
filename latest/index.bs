@@ -123,7 +123,7 @@ multiple levels of resolutions and optionally associated labels.
     ├── n                     # The name of the array is arbitrary with the ordering defined by
     │   │                     # by the "multiscales" metadata, but is often a sequence starting at 0.
     │   │
-    │   ├── .zarray           # All image arrays are 5-dimensional
+    │   ├── .zarray           # All image arrays must be up to 5-dimensional
     │   │                     # with dimension order (t, c, z, y, x).
     │   │
     │   └─ t                  # Chunks are stored with the nested directory layout.
