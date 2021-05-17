@@ -116,7 +116,8 @@ multiple levels of resolutions and optionally associated labels.
     │
     ├── .zgroup               # Each image is a Zarr group, or a folder, of other groups and arrays.
     ├── .zattrs               # Group level attributes are stored in the .zattrs file and include
-    │                         #  "multiscales" and "omero" below)
+    │                         # "multiscales" and "omero" (see below). In addition, the group level attributes
+    │                         # must also contain "_ARRAY_DIMENSIONS" if this group directly contains multi-scale arrays.
     │
     ├── 0                     # Each multiscale level is stored as a separate Zarr array,
     │   ...                   # which is a folder containing chunk files which compose the array.
@@ -218,6 +219,8 @@ to the current zarr group. The "path"s MUST be ordered from largest (i.e. highes
 It MUST contain the field "axes", which is a list of dimension names of the axes.
 The values MUST be unique and one of `{"t", "c", "z", "y", "x"}`.
 The number of values MUST be the same as the number of dimensions of the arrays corresponding to this image.
+In addition, the "axes" values MUST be repeated in the field "_ARRAY_DIMENSIONS" of the top-level group for the arrays containing
+the multiscale data. This ensures compatibility with the [xarray zarr encoding](http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding).
 
 It SHOULD contain the field "name".
 
