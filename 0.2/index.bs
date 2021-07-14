@@ -537,20 +537,23 @@ Projects which support reading and/or writing OME-NGFF data include:
 
 <dl>
 
+  <dt><strong>[bigdataviewer-ome-zarr](https://github.com/mobie/bigdataviewer-ome-zarr)</strong></dt>
+  <dd>Fiji-plugin for reading OME-Zarr.</dd>
+
+  <dt><strong>[bioformats2raw](https://github.com/glencoesoftware/bioformats2raw)</strong></dt>
+  <dd>A performant, Bio-Formats image file format converter.</dd>
+
   <dt><strong>[omero-ms-zarr](https://github.com/ome/omero-ms-zarr)</strong></dt>
-  <dd>A microservice for OMERO.server that converts images stored in OMERO to OME Zarr files on the fly, served via a web API.</dd>
+  <dd>A microservice for OMERO.server that converts images stored in OMERO to OME-Zarr files on the fly, served via a web API.</dd>
 
   <dt><strong>[idr-zarr-tools](https://github.com/IDR/idr-zarr-tools)</strong></dt>
-  <dd>A full workflow demonstrating the conversion of IDR images to OME Zarr images on S3.</dd>
+  <dd>A full workflow demonstrating the conversion of IDR images to OME-Zarr images on S3.</dd>
 
   <dt><strong>[OMERO CLI Zarr plugin](https://github.com/ome/omero-cli-zarr)</strong></dt>
   <dd>An OMERO CLI plugin that converts images stored in OMERO.server into a local Zarr file.</dd>
 
   <dt><strong>[ome-zarr-py](https://github.com/ome/ome-zarr-py)</strong></dt>
   <dd>A napari plugin for reading ome-zarr files.</dd>
-
-  <dt><strong>[bioformats2raw](https://github.com/glencoesoftware/bioformats2raw)</strong></dt>
-  <dd>A performant, Bio-Formats image file format converter.</dd>
 
   <dt><strong>[vizarr](https://github.com/hms-dbmi/vizarr/)</strong></dt>
   <dd>A minimal, purely client-side program for viewing Zarr-based images with Viv & ImJoy.</dd>
