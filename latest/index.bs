@@ -561,7 +561,6 @@ Projects which support reading and/or writing OME-NGFF data include:
 
 </dl>
 
-
 <img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png"
     alt="Diagram of related projects"/>
 
