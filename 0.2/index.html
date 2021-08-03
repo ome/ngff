@@ -598,7 +598,6 @@
 	a[href]:focus,
 	a[href]:hover {
 		text-decoration-thickness: 2px;
-		text-decoratin
 	}
 	a[href]:active {
 		color: #c00;
@@ -1488,9 +1487,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version c6f50773a, updated Fri Apr 16 16:45:47 2021 -0700" name="generator">
+  <meta content="Bikeshed version 59d067506, updated Fri Jul 23 15:43:29 2021 -0700" name="generator">
   <link href="https://ngff.openmicroscopy.org/0.2/" rel="canonical">
-  <meta content="8429d5b6a359e81fa416b01061ca4452c45bc0c3" name="document-revision">
+  <meta content="4f8065a7ab70f88f8e3d0ac049be5647a30550ab" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1816,7 +1815,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Final Community Group Report, <time class="dt-updated" datetime="2021-04-27">27 April 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Final Community Group Report, <time class="dt-updated" datetime="2021-08-03">3 August 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2321,16 +2320,18 @@ the last two fields of view were part of the second acquisition.</p>
    <h2 class="heading settled" data-level="4" id="implementations"><span class="secno">4. </span><span class="content">Implementations</span><a class="self-link" href="#implementations"></a></h2>
    <p>Projects which support reading and/or writing OME-NGFF data include:</p>
    <dl>
+    <dt><strong><a href="https://github.com/mobie/bigdataviewer-ome-zarr">bigdataviewer-ome-zarr</a></strong>
+    <dd>Fiji-plugin for reading OME-Zarr.
+    <dt><strong><a href="https://github.com/glencoesoftware/bioformats2raw">bioformats2raw</a></strong>
+    <dd>A performant, Bio-Formats image file format converter.
     <dt><strong><a href="https://github.com/ome/omero-ms-zarr">omero-ms-zarr</a></strong>
-    <dd>A microservice for OMERO.server that converts images stored in OMERO to OME Zarr files on the fly, served via a web API.
+    <dd>A microservice for OMERO.server that converts images stored in OMERO to OME-Zarr files on the fly, served via a web API.
     <dt><strong><a href="https://github.com/IDR/idr-zarr-tools">idr-zarr-tools</a></strong>
-    <dd>A full workflow demonstrating the conversion of IDR images to OME Zarr images on S3.
+    <dd>A full workflow demonstrating the conversion of IDR images to OME-Zarr images on S3.
     <dt><strong><a href="https://github.com/ome/omero-cli-zarr">OMERO CLI Zarr plugin</a></strong>
     <dd>An OMERO CLI plugin that converts images stored in OMERO.server into a local Zarr file.
     <dt><strong><a href="https://github.com/ome/ome-zarr-py">ome-zarr-py</a></strong>
     <dd>A napari plugin for reading ome-zarr files.
-    <dt><strong><a href="https://github.com/glencoesoftware/bioformats2raw">bioformats2raw</a></strong>
-    <dd>A performant, Bio-Formats image file format converter.
     <dt><strong><a href="https://github.com/hms-dbmi/vizarr/">vizarr</a></strong>
     <dd>A minimal, purely client-side program for viewing Zarr-based images with Viv &amp; ImJoy.
    </dl>
@@ -2340,7 +2341,7 @@ version of this diagram is available from the <a href="https://downloads.openmic
 Mouseover the blackboxes representing the implementations above to get a quick tip on how to use them.</p>
    <p class="note" role="note"><span>Note:</span> If you would like to see your project listed, please open an issue or PR on the <a href="https://github.com/ome/ngff">ome/ngff</a> repository.</p>
    <h2 class="heading settled" data-level="5" id="citing"><span class="secno">5. </span><span class="content">Citing</span><a class="self-link" href="#citing"></a></h2>
-   <p><a href="https://ngff.openmicroscopy.org/0.2">Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a> J. Moore, <em>et al</em>. Editors. Open Microscopy Environment Consortium, 20 November 2020.
+   <p><a href="https://ngff.openmicroscopy.org/0.2">Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a> J. Moore, <em>et al</em>. Editors. Open Microscopy Environment Consortium, 29 March, 2021.
 This edition of the specification is <a href="https://ngff.openmicroscopy.org/0.2/]">https://ngff.openmicroscopy.org/0.2/</a>.
 The latest edition is available at <a href="https://ngff.openmicroscopy.org/latest/">https://ngff.openmicroscopy.org/latest/</a>. <a href="https://doi.org/10.5281/zenodo.4282107">(doi:10.5281/zenodo.4282107)</a></p>
    <h2 class="heading settled" data-level="6" id="history"><span class="secno">6. </span><span class="content">Version History</span><a class="self-link" href="#history"></a></h2>
@@ -2429,7 +2430,7 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-rfc2119">[RFC2119]
-   <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
+   <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
