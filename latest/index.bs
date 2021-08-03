@@ -19,7 +19,7 @@ Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
 Status Text: The current released version of this specification is
-Status Text: <a href="../0.1/index.html">0.1</a>. Migration scripts
+Status Text: <a href="../0.2/index.html">0.2</a>. Migration scripts
 Status Text: will be provided between numbered versions. Data written with these latest changes
 Status Text: (an "editor's draft") will not necessarily be supported.
 </pre>
@@ -127,10 +127,11 @@ multiple levels of resolutions and optionally associated labels.
     │   ├── .zarray           # All image arrays are 5-dimensional
     │   │                     # with dimension order (t, c, z, y, x).
     │   │
-    │   ├── 0.0.0.0.0         # Chunks are stored with the flat directory layout.
-    │   │   ...               # Each dotted component of the chunk file represents
-    │   └── t.c.z.y.x         # a "chunk coordinate", where the maximum coordinate
-    │                         # will be `dimension_size / chunk_size`.
+    │   └─ t                  # Chunks are stored with the nested directory layout.
+    │      └─ c               # All but the last chunk element are stored as directories.
+    │         └─ z            # The terminal chunk is a file. Together the directory and file names
+    │            └─ y         # provide the "chunk coordinate" (t, c, z, y, x), where the maximum coordinate
+    │               └─ x      # will be `dimension_size / chunk_size`.
     │
     └── labels
         │
@@ -207,8 +208,46 @@ keys as specified below for discovering certain types of data, especially images
 
 Metadata about the multiple resolution representations of the image can be
 found under the "multiscales" key in the group-level metadata.
-The specification for the multiscale (i.e. "resolution") metadata is provided
-in [zarr-specs#50](https://github.com/zarr-developers/zarr-specs/issues/50).
+
+"multiscales" contains a list of dictionaries where each entry describes a multiscale image.
+
+Each dictionary contained in the list MUST contain the field "datasets", which is a list of dictionaries describing
+the arrays storing the individual resolution levels.
+Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
+to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
+
+It SHOULD contain the field "name".
+
+It SHOULD contain the field "version", which indicates the version of the
+multiscale metadata of this image (current version is 0.2).
+
+It SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
+
+It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
+
+```json
+{
+    "multiscales": [
+        {
+            "version": "0.2",
+            "name": "example",
+            "datasets": [
+                {"path": "0"},
+                {"path": "1"},
+                {"path": "2"}
+            ],
+            "type": "gaussian",
+            "metadata": {                                       # the fields in metadata depend on the downscaling implementation
+                "method": "skimage.transform.pyramid_gaussian", # here, the paramters passed to the skimage function are given
+                "version": "0.16.1",
+                "args": "[true]",
+                "kwargs": {"multichannel": true}
+            }
+        }
+    ]
+}
+```
+
 If only one multiscale is provided, use it. Otherwise, the user can choose by
 name, using the first multiscale as a fallback:
 
@@ -223,9 +262,6 @@ if not datasets:
     datasets = [x["path"] for x in multiscales[0]["datasets"]]
 ```
 
-The subresolutions in each multiscale are ordered from highest-resolution
-to lowest.
-
 "omero" metadata {#omero-md}
 ----------------------------
 
@@ -235,7 +271,7 @@ can be found under the "omero" key in the group-level metadata:
 ```json
 "id": 1,                              # ID in OMERO
 "name": "example.tif",                # Name as shown in the UI
-"version": "0.1",                     # Current version
+"version": "0.2",                     # Current version
 "channels": [                         # Array matching the c dimension size
     {
         "active": true,
@@ -312,7 +348,7 @@ above).
 ```json
 "image-label":
   {
-    "version": "0.1",
+    "version": "0.2",
     "colors": [
       {
         "label-value": 1,
@@ -424,7 +460,7 @@ For example the following JSON object defines a plate with two acquisition and
             "name": "B"
         }
     ],
-    "version": "0.1",
+    "version": "0.2",
     "wells": [
         {
             "path": "2020-10-10/A/1"
@@ -491,7 +527,7 @@ the last two fields of view were part of the second acquisition.
             "path": "3"
         }
     ],
-    "version": "0.1"
+    "version": "0.2"
   }
 ```
 
@@ -502,20 +538,23 @@ Projects which support reading and/or writing OME-NGFF data include:
 
 <dl>
 
+  <dt><strong>[bigdataviewer-ome-zarr](https://github.com/mobie/bigdataviewer-ome-zarr)</strong></dt>
+  <dd>Fiji-plugin for reading OME-Zarr.</dd>
+
+  <dt><strong>[bioformats2raw](https://github.com/glencoesoftware/bioformats2raw)</strong></dt>
+  <dd>A performant, Bio-Formats image file format converter.</dd>
+
   <dt><strong>[omero-ms-zarr](https://github.com/ome/omero-ms-zarr)</strong></dt>
-  <dd>A microservice for OMERO.server that converts images stored in OMERO to OME Zarr files on the fly, served via a web API.</dd>
+  <dd>A microservice for OMERO.server that converts images stored in OMERO to OME-Zarr files on the fly, served via a web API.</dd>
 
   <dt><strong>[idr-zarr-tools](https://github.com/IDR/idr-zarr-tools)</strong></dt>
-  <dd>A full workflow demonstrating the conversion of IDR images to OME Zarr images on S3.</dd>
+  <dd>A full workflow demonstrating the conversion of IDR images to OME-Zarr images on S3.</dd>
 
   <dt><strong>[OMERO CLI Zarr plugin](https://github.com/ome/omero-cli-zarr)</strong></dt>
   <dd>An OMERO CLI plugin that converts images stored in OMERO.server into a local Zarr file.</dd>
 
   <dt><strong>[ome-zarr-py](https://github.com/ome/ome-zarr-py)</strong></dt>
   <dd>A napari plugin for reading ome-zarr files.</dd>
-
-  <dt><strong>[bioformats2raw](https://github.com/glencoesoftware/bioformats2raw)</strong></dt>
-  <dd>A performant, Bio-Formats image file format converter.</dd>
 
   <dt><strong>[vizarr](https://github.com/hms-dbmi/vizarr/)</strong></dt>
   <dd>A minimal, purely client-side program for viewing Zarr-based images with Viv & ImJoy.</dd>
@@ -534,9 +573,9 @@ Note: If you would like to see your project listed, please open an issue or PR o
 Citing {#citing}
 ================
 
-[Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.](https://ngff.openmicroscopy.org/0.1)
-J. Moore, *et al*. Editors. Open Microscopy Environment Consortium, 20 November 2020.
-This edition of the specification is [https://ngff.openmicroscopy.org/0.1/](https://ngff.openmicroscopy.org/0.1/]).
+[Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.](https://ngff.openmicroscopy.org/0.2)
+J. Moore, *et al*. Editors. Open Microscopy Environment Consortium, 29 March, 2021.
+This edition of the specification is [https://ngff.openmicroscopy.org/0.2/](https://ngff.openmicroscopy.org/0.2/]).
 The latest edition is available at [https://ngff.openmicroscopy.org/latest/](https://ngff.openmicroscopy.org/latest/).
 [(doi:10.5281/zenodo.4282107)](https://doi.org/10.5281/zenodo.4282107)
 
@@ -551,6 +590,11 @@ Version History {#history}
       <td>Description</td>
     </tr>
   </thead>
+  <tr>
+    <td>0.2.0</td>
+    <td>2021-03-29</td>
+    <td>Change chunk dimension separator to "/"   </td>
+  </tr>
   <tr>
     <td>0.1.4</td>
     <td>2020-11-26</td>
