@@ -12,7 +12,7 @@
  *   - .toc for the Table of Contents (<ol class="toc">)
  *     + <span class="secno"> for the section numbers
  *   - #toc for the Table of Contents (<nav id="toc">)
- *   - ul.index for Indices (<a href="#ref">term</a><span>, in §N.M</span>)
+ *   - ul.index for Indices (<a href="#ref">term</a><span>, in § N.M</span>)
  *   - table.index for Index Tables (e.g. for properties or elements)
  *
  * Structural Markup
@@ -1487,9 +1487,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 59d067506, updated Fri Jul 23 15:43:29 2021 -0700" name="generator">
+  <meta content="Bikeshed version 4f053d00e, updated Tue Aug 10 14:13:32 2021 -0700" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="4f8065a7ab70f88f8e3d0ac049be5647a30550ab" name="document-revision">
+  <meta content="2986bbe3e3863bf298109a104e495bea80afc765" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1815,7 +1815,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-03">3 August 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-24">24 August 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1826,6 +1826,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard"><span class="p-name fn">Josh Moore</span> (<a class="p-org org" href="https://www.openmicroscopy.org">Open Microscopy Environment (OME)</a>)
      <dd class="editor p-author h-card vcard"><span class="p-name fn">Sébastien Besson</span> (<a class="p-org org" href="https://www.openmicroscopy.org">Open Microscopy Environment (OME)</a>)
+     <dd class="editor p-author h-card vcard"><span class="p-name fn">Constantin Pape</span> (<a class="p-org org" href="https://www.embl.org/sites/heidelberg/">European Molecular Biology Laboratory (EMBL)</a>)
     </dl>
    </div>
    <div data-fill-with="warning"></div>
@@ -1843,7 +1844,7 @@ All specifications are submitted to the https://image.sc community for review.</
   <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
    <p></p>
-   <p>The current released version of this specification is <a href="../0.2/index.html">0.2</a>. Migration scripts
+   <p>The current released version of this specification is <a href="../0.3/index.html">0.3</a>. Migration scripts
 will be provided between numbered versions. Data written with these latest changes
 (an "editor’s draft") will not necessarily be supported.</p>
   </div>
@@ -1963,14 +1964,15 @@ multiple levels of resolutions and optionally associated labels.</p>
     │
     ├── .zgroup               # Each image is a Zarr group, or a folder, of other groups and arrays.
     ├── .zattrs               # Group level attributes are stored in the .zattrs file and include
-    │                         #  "multiscales" and "omero" below)
+    │                         # "multiscales" and "omero" (see below). In addition, the group level attributes
+    │                         # must also contain "_ARRAY_DIMENSIONS" if this group directly contains multi-scale arrays.
     │
     ├── 0                     # Each multiscale level is stored as a separate Zarr array,
     │   ...                   # which is a folder containing chunk files which compose the array.
     ├── n                     # The name of the array is arbitrary with the ordering defined by
     │   │                     # by the "multiscales" metadata, but is often a sequence starting at 0.
     │   │
-    │   ├── .zarray           # All image arrays are 5-dimensional
+    │   ├── .zarray           # All image arrays must be up to 5-dimensional
     │   │                     # with dimension order (t, c, z, y, x).
     │   │
     │   └─ t                  # Chunks are stored with the nested directory layout.
@@ -2049,20 +2051,29 @@ found under the "multiscales" key in the group-level metadata.</p>
 the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.</p>
+   <p>It MUST contain the field "axes", which is a list of dimension names of the axes.
+The values MUST be unique and one of <code>{"t", "c", "z", "y", "x"}</code>.
+The number of values MUST be the same as the number of dimensions of the arrays corresponding to this image.
+In addition, the "axes" values MUST be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups
+(i.e. groups containing arrays with the multiscale data).
+This ensures compatibility with the <a href="http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding">xarray zarr encoding</a>.</p>
    <p>It SHOULD contain the field "name".</p>
    <p>It SHOULD contain the field "version", which indicates the version of the
-multiscale metadata of this image (current version is 0.2).</p>
+multiscale metadata of this image (current version is 0.3).</p>
    <p>It SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.</p>
    <p>It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.</p>
 <pre class="language-json highlight"><c- p>{</c->
     <c- f>"multiscales"</c-><c- p>:</c-> <c- p>[</c->
         <c- p>{</c->
-            <c- f>"version"</c-><c- p>:</c-> <c- u>"0.2"</c-><c- p>,</c->
+            <c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c-><c- p>,</c->
             <c- f>"name"</c-><c- p>:</c-> <c- u>"example"</c-><c- p>,</c->
             <c- f>"datasets"</c-><c- p>:</c-> <c- p>[</c->
                 <c- p>{</c-><c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c-><c- p>},</c->
                 <c- p>{</c-><c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c-><c- p>},</c->
                 <c- p>{</c-><c- f>"path"</c-><c- p>:</c-> <c- u>"2"</c-><c- p>}</c->
+            <c- p>],</c->
+            <c- f>"axes"</c-><c- p>:</c-> <c- p>[</c->
+                <c- u>"t"</c-><c- p>,</c-> <c- u>"c"</c-><c- p>,</c-> <c- u>"z"</c-><c- p>,</c-> <c- u>"y"</c-><c- p>,</c-> <c- u>"x"</c->
             <c- p>],</c->
             <c- f>"type"</c-><c- p>:</c-> <c- u>"gaussian"</c-><c- p>,</c->
             <c- f>"metadata"</c-><c- p>:</c-> <c- p>{</c->                                       # <c- kc>t</c->he <c- kc>f</c->ields i<c- kc>n</c-> me<c- kc>ta</c->da<c- kc>ta</c-> depe<c- kc>n</c->d o<c- kc>n</c-> <c- kc>t</c->he dow<c- kc>ns</c->cali<c- kc>n</c->g impleme<c- kc>ntat</c->io<c- kc>n</c->
@@ -2091,7 +2102,7 @@ name, using the first multiscale as a fallback:</p>
 can be found under the "omero" key in the group-level metadata:</p>
 <pre class="language-json highlight"><c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->                              # ID i<c- kc>n</c-> OMERO
 <c- f>"name"</c-><c- p>:</c-> <c- u>"example.tif"</c-><c- p>,</c->                # Name as show<c- kc>n</c-> i<c- kc>n</c-> <c- kc>t</c->he UI
-<c- f>"version"</c-><c- p>:</c-> <c- u>"0.2"</c-><c- p>,</c->                     # Curre<c- kc>nt</c-> versio<c- kc>n</c->
+<c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c-><c- p>,</c->                     # Curre<c- kc>nt</c-> versio<c- kc>n</c->
 <c- f>"channels"</c-><c- p>:</c-> <c- p>[</c->                         # Array ma<c- kc>t</c->chi<c- kc>n</c->g <c- kc>t</c->he c dime<c- kc>ns</c->io<c- kc>n</c-> size
     <c- p>{</c->
         <c- f>"active"</c-><c- p>:</c-> <c- kc>true</c-><c- p>,</c->
@@ -2148,7 +2159,7 @@ image the label is associated with. If included it MAY include a key <code>image
 above).</p>
 <pre class="language-json highlight"><c- f>"image-label"</c-><c- p>:</c->
   <c- p>{</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.2"</c-><c- p>,</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c-><c- p>,</c->
     <c- f>"colors"</c-><c- p>:</c-> <c- p>[</c->
       <c- p>{</c->
         <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
@@ -2253,7 +2264,7 @@ custom attributes of the plate group under the <code>plate</code> key.</p>
             <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
         <c- p>}</c->
     <c- p>],</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.2"</c-><c- p>,</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c-><c- p>,</c->
     <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
         <c- p>{</c->
             <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/A/1"</c->
@@ -2313,7 +2324,7 @@ the last two fields of view were part of the second acquisition.</p>
             <c- f>"path"</c-><c- p>:</c-> <c- u>"3"</c->
         <c- p>}</c->
     <c- p>],</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.2"</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c->
   <c- p>}</c->
 </pre>
    <h2 class="heading settled" data-level="4" id="implementations"><span class="secno">4. </span><span class="content">Implementations</span><a class="self-link" href="#implementations"></a></h2>
@@ -2340,8 +2351,8 @@ version of this diagram is available from the <a href="https://downloads.openmic
 Mouseover the blackboxes representing the implementations above to get a quick tip on how to use them.</p>
    <p class="note" role="note"><span>Note:</span> If you would like to see your project listed, please open an issue or PR on the <a href="https://github.com/ome/ngff">ome/ngff</a> repository.</p>
    <h2 class="heading settled" data-level="5" id="citing"><span class="secno">5. </span><span class="content">Citing</span><a class="self-link" href="#citing"></a></h2>
-   <p><a href="https://ngff.openmicroscopy.org/0.2">Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a> J. Moore, <em>et al</em>. Editors. Open Microscopy Environment Consortium, 29 March, 2021.
-This edition of the specification is <a href="https://ngff.openmicroscopy.org/0.2/]">https://ngff.openmicroscopy.org/0.2/</a>.
+   <p><a href="https://ngff.openmicroscopy.org/0.3">Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a> J. Moore, <em>et al</em>. Editors. Open Microscopy Environment Consortium, 24 August 2021.
+This edition of the specification is <a href="https://ngff.openmicroscopy.org/0.3/]">https://ngff.openmicroscopy.org/0.3/</a>.
 The latest edition is available at <a href="https://ngff.openmicroscopy.org/latest/">https://ngff.openmicroscopy.org/latest/</a>. <a href="https://doi.org/10.5281/zenodo.4282107">(doi:10.5281/zenodo.4282107)</a></p>
    <h2 class="heading settled" data-level="6" id="history"><span class="secno">6. </span><span class="content">Version History</span><a class="self-link" href="#history"></a></h2>
    <table>
@@ -2351,6 +2362,10 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
       <td>Date
       <td>Description
     <tbody>
+     <tr>
+      <td>0.3.0
+      <td>2021-08-24
+      <td>Add axes field to multiscale metadata 
      <tr>
       <td>0.2.0
       <td>2021-03-29
@@ -2422,21 +2437,21 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#hdf5">HDF5</a><span>, in §1.1</span>
-   <li><a href="#ngff">NGFF</a><span>, in §1.1</span>
+   <li><a href="#hdf5">HDF5</a><span>, in § 1.1</span>
+   <li><a href="#ngff">NGFF</a><span>, in § 1.1</span>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-rfc2119">[RFC2119]
-   <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
+   <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
    <dt id="biblio-n5">[N5]
-   <dd>John A. Bogovic; et al. <a href="https://github.com/saalfeldlab/n5/issues/62">N5---a scalable Java API for hierarchies of chunked n-dimensional tensors and structured meta-data</a>. 2020. Informational. URL: <a href="https://github.com/saalfeldlab/n5/issues/62">https://github.com/saalfeldlab/n5/issues/62</a>
+   <dd>John A. Bogovic; et al. <a href="https://github.com/saalfeldlab/n5/issues/62"><cite>N5---a scalable Java API for hierarchies of chunked n-dimensional tensors and structured meta-data</cite></a>. 2020. Informational. URL: <a href="https://github.com/saalfeldlab/n5/issues/62">https://github.com/saalfeldlab/n5/issues/62</a>
    <dt id="biblio-ome-zarr-py">[OME-ZARR-PY]
-   <dd>OME; et al. <a href="https://doi.org/10.5281/zenodo.4113931">ome-zarr-py: Experimental implementation of next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a>. 06 October 2020. Informational. URL: <a href="https://doi.org/10.5281/zenodo.4113931">https://doi.org/10.5281/zenodo.4113931</a>
+   <dd>OME; et al. <a href="https://doi.org/10.5281/zenodo.4113931"><cite>ome-zarr-py: Experimental implementation of next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</cite></a>. 06 October 2020. Informational. URL: <a href="https://doi.org/10.5281/zenodo.4113931">https://doi.org/10.5281/zenodo.4113931</a>
    <dt id="biblio-zarr">[ZARR]
-   <dd>Alistair Miles; et al. <a href="https://doi.org/10.5281/zenodo.4069231">Zarr: An implementation of chunked, compressed, N-dimensional arrays for Python.</a>. 06 October 2020. Informational. URL: <a href="https://doi.org/10.5281/zenodo.4069231">https://doi.org/10.5281/zenodo.4069231</a>
+   <dd>Alistair Miles; et al. <a href="https://doi.org/10.5281/zenodo.4069231"><cite>Zarr: An implementation of chunked, compressed, N-dimensional arrays for Python.</cite></a>. 06 October 2020. Informational. URL: <a href="https://doi.org/10.5281/zenodo.4069231">https://doi.org/10.5281/zenodo.4069231</a>
   </dl>
