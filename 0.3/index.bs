@@ -2,10 +2,9 @@
 Title: Next-generation file formats (NGFF)
 Shortname: ome-ngff
 Level: 1
-Status: LS-COMMIT
-Status: w3c/ED
+Status: w3c/CG-FINAL
 Group: ome
-URL: https://ngff.openmicroscopy.org/latest/
+URL: https://ngff.openmicroscopy.org/0.3/
 Repository: https://github.com/ome/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
@@ -19,11 +18,11 @@ Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://ww
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
-Status Text: The current released version of this specification is
-Status Text: <a href="../0.3/index.html">0.3</a>. Migration scripts
-Status Text: will be provided between numbered versions. Data written with these latest changes
+Status Text: This is the 0.3 release of this specification. Migration scripts
+Status Text: will be provided between numbered versions. Data written with the latest version
 Status Text: (an "editor's draft") will not necessarily be supported.
 </pre>
+
 
 Introduction {#intro}
 =====================
@@ -550,23 +549,20 @@ Projects which support reading and/or writing OME-NGFF data include:
 
 <dl>
 
-  <dt><strong>[bigdataviewer-ome-zarr](https://github.com/mobie/bigdataviewer-ome-zarr)</strong></dt>
-  <dd>Fiji-plugin for reading OME-Zarr.</dd>
-
-  <dt><strong>[bioformats2raw](https://github.com/glencoesoftware/bioformats2raw)</strong></dt>
-  <dd>A performant, Bio-Formats image file format converter.</dd>
-
   <dt><strong>[omero-ms-zarr](https://github.com/ome/omero-ms-zarr)</strong></dt>
-  <dd>A microservice for OMERO.server that converts images stored in OMERO to OME-Zarr files on the fly, served via a web API.</dd>
+  <dd>A microservice for OMERO.server that converts images stored in OMERO to OME Zarr files on the fly, served via a web API.</dd>
 
   <dt><strong>[idr-zarr-tools](https://github.com/IDR/idr-zarr-tools)</strong></dt>
-  <dd>A full workflow demonstrating the conversion of IDR images to OME-Zarr images on S3.</dd>
+  <dd>A full workflow demonstrating the conversion of IDR images to OME Zarr images on S3.</dd>
 
   <dt><strong>[OMERO CLI Zarr plugin](https://github.com/ome/omero-cli-zarr)</strong></dt>
   <dd>An OMERO CLI plugin that converts images stored in OMERO.server into a local Zarr file.</dd>
 
   <dt><strong>[ome-zarr-py](https://github.com/ome/ome-zarr-py)</strong></dt>
   <dd>A napari plugin for reading ome-zarr files.</dd>
+
+  <dt><strong>[bioformats2raw](https://github.com/glencoesoftware/bioformats2raw)</strong></dt>
+  <dd>A performant, Bio-Formats image file format converter.</dd>
 
   <dt><strong>[vizarr](https://github.com/hms-dbmi/vizarr/)</strong></dt>
   <dd>A minimal, purely client-side program for viewing Zarr-based images with Viv & ImJoy.</dd>
@@ -586,7 +582,7 @@ Citing {#citing}
 ================
 
 [Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.](https://ngff.openmicroscopy.org/0.3)
-J. Moore, *et al*. Editors. Open Microscopy Environment Consortium, 24 August 2021.
+J. Moore, *et al*. Editors. Open Microscopy Environment Consortium, 20 November 2020.
 This edition of the specification is [https://ngff.openmicroscopy.org/0.3/](https://ngff.openmicroscopy.org/0.3/]).
 The latest edition is available at [https://ngff.openmicroscopy.org/latest/](https://ngff.openmicroscopy.org/latest/).
 [(doi:10.5281/zenodo.4282107)](https://doi.org/10.5281/zenodo.4282107)
