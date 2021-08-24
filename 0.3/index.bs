@@ -598,6 +598,11 @@ Version History {#history}
     </tr>
   </thead>
   <tr>
+    <td>0.3.0</td>
+    <td>2021-08-24</td>
+    <td>Add axes field to multiscale metadata     </td>
+  </tr>
+  <tr>
     <td>0.2.0</td>
     <td>2021-03-29</td>
     <td>Change chunk dimension separator to "/"   </td>

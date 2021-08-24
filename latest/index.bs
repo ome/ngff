@@ -2,7 +2,8 @@
 Title: Next-generation file formats (NGFF)
 Shortname: ome-ngff
 Level: 1
-Status: w3c/CG-FINAL
+Status: LS-COMMIT
+Status: w3c/ED
 Group: ome
 URL: https://ngff.openmicroscopy.org/latest/
 Repository: https://github.com/ome/ngff
@@ -17,11 +18,11 @@ Editor: Sébastien Besson, Open Microscopy Environment (OME) https://www.openmic
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
-Status Text: This is the 0.3 release of this specification. Migration scripts
-Status Text: will be provided between numbered versions. Data written with the latest version
+Status Text: The current released version of this specification is
+Status Text: <a href="../0.3/index.html">0.3</a>. Migration scripts
+Status Text: will be provided between numbered versions. Data written with these latest changes
 Status Text: (an "editor's draft") will not necessarily be supported.
 </pre>
-
 
 Introduction {#intro}
 =====================
@@ -597,6 +598,11 @@ Version History {#history}
       <td>Description</td>
     </tr>
   </thead>
+  <tr>
+    <td>0.3.0</td>
+    <td>2021-08-24</td>
+    <td>Add axes field to multiscale metadata     </td>
+  </tr>
   <tr>
     <td>0.2.0</td>
     <td>2021-03-29</td>
