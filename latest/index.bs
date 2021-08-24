@@ -15,6 +15,7 @@ Boilerplate: style-darkmode off
 Markup Shorthands: markdown yes
 Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
 Editor: Sébastien Besson, Open Microscopy Environment (OME) https://www.openmicroscopy.org
+Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
