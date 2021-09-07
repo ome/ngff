@@ -219,11 +219,14 @@ Each dictionary in "datasets" MUST contain the field "path", whose value contain
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
 
 It MUST contain the field "axes", which is a list of dimension names of the axes.
-The values MUST be unique and one of `{"t", "c", "z", "y", "x"}`.
-The number of values MUST be the same as the number of dimensions of the arrays corresponding to this image.
-In addition, the "axes" values MUST be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups
-(i.e. groups containing arrays with the multiscale data).
+The values provide axes labels and MUST be unique, the number of values MUST be the same as the number of dimensions of the arrays corresponding to this image.
+In addition, the "axes" values MUST be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups (i.e. groups containing arrays with the multiscale data).
 This ensures compatibility with the [xarray zarr encoding](http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding).
+
+It MUST contain the field "axes_types", which is a list that describes the semantic type of each axis. It MUST contain only the elements "space", "time" and "channel" and MUST have the same length as "axes".
+These types are hints TODO
+
+It MUST contain the field "units" TODO
 
 It SHOULD contain the field "name".
 
