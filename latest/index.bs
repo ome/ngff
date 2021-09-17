@@ -573,6 +573,8 @@ Projects which support reading and/or writing OME-NGFF data include:
 
 </dl>
 
+Note: If you would like to see your project listed, please open an issue or PR on the [ome/ngff](https://github.com/ome/ngff) repository.
+
 <img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png"
     alt="Diagram of related projects"/>
 
@@ -580,7 +582,48 @@ All implementations prevent an equivalent representation of a dataset which can 
 version of this diagram is available from the [OME2020 Workshop](https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/).
 Mouseover the blackboxes representing the implementations above to get a quick tip on how to use them.
 
-Note: If you would like to see your project listed, please open an issue or PR on the [ome/ngff](https://github.com/ome/ngff) repository.
+<table>
+<thead>
+<tr>
+<th></th>
+<th><span>Spec 0.3</span></th>
+<th><span>Spec 0.2</span></th>
+<th><span>Spec 0.1</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>bioformats2raw</span></td>
+<td></td>
+<td><span>0.3.0 (write)</span></td>
+<td><span>0.3.0 (write)</span></td>
+</tr>
+<tr>
+<td><span>omero-cli-zarr</span></td>
+<td><span>0.1.0 (write)</span></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><span>omero-ms-zarr</span></td>
+<td></td>
+<td><span>0.2.0 (write)</span></td>
+<td><span>0.2.0 (write)</span></td>
+</tr>
+<tr>
+<td><span>ome-zarr-py</span></td>
+<td><span>0.1.0 (r/w)</span></td>
+<td><span>0.0.18 (r/w)</span></td>
+<td></td>
+</tr>
+<tr>
+<td><span>vizarr</span></td>
+<td><span>0.3.0 (read)</span></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
 Citing {#citing}
 ================
