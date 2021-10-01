@@ -234,11 +234,6 @@ It MUST contain the field "axes", see [[#axes-md]] and the length of the lists i
 The "labels" list must be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups (i.e. groups containing arrays with the multiscale data).
 This ensures compatibility with the [xarray zarr encoding](http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding).
 
-It MUST contain the field "axes_types", which is a list that describes the semantic type of each axis. It MUST contain only the elements "space", "time" and "channel" and MUST have the same length as "axes".
-These types are hints TODO
-
-It MUST contain the field "units" TODO
-
 It SHOULD contain the field "name".
 
 It SHOULD contain the field "version", which indicates the version of the
