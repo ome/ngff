@@ -205,6 +205,18 @@ Metadata {#metadata}
 The various `.zattrs` files throughout the above array hierarchy may contain metadata
 keys as specified below for discovering certain types of data, especially images.
 
+"axes" metadata {#axes-md}
+--------------------------
+
+Describes axes of a physical coordinate space. It is a dictionary, which MUST contain the fields:
+- "labels": list of strings that specify the name per dimension. The values MUST be unique.
+- "types": list of strings that specify the type per dimension. The values SHOULD be one of "space", "channel", "time" or "". Use "" if none of the other options apply.
+- "units": list of strings that specify the unit per dimension.
+
+The three lists MUST have the same length.
+If part of [[#multiscale-md]], the length MUST be equal to the array.
+
+
 "multiscales" metadata {#multiscale-md}
 ---------------------------------------
 
@@ -218,9 +230,8 @@ the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
 
-It MUST contain the field "axes", which is a list of dimension names of the axes.
-The values provide axes labels and MUST be unique, the number of values MUST be the same as the number of dimensions of the arrays corresponding to this image.
-In addition, the "axes" values MUST be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups (i.e. groups containing arrays with the multiscale data).
+It MUST contain the field "axes", see [[#axes-md]] and the length of the lists in "axes" must be equal to the number of dimensions in the array.
+The "labels" list must be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups (i.e. groups containing arrays with the multiscale data).
 This ensures compatibility with the [xarray zarr encoding](http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding).
 
 It MUST contain the field "axes_types", which is a list that describes the semantic type of each axis. It MUST contain only the elements "space", "time" and "channel" and MUST have the same length as "axes".
