@@ -210,7 +210,7 @@ keys as specified below for discovering certain types of data, especially images
 
 Describes axes of a physical coordinate space. It is a dictionary, which MUST contain the fields:
 - "labels": list of strings that specify the name per dimension. The values MUST be unique.
-- "types": list of strings that specify the type per dimension. The values SHOULD be one of "space", "channel", "time" or "". Use "" if none of the other options apply.
+- "types": list of strings that specify the type per dimension. The values SHOULD be one of "space", "channel", "time".
 - "units": list of strings that specify the unit per dimension.
 
 The three lists MUST have the same length.
