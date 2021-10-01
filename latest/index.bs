@@ -233,7 +233,7 @@ Additional fields are defined by the column "fields".
 | `d_field`     | `"path:str"` | deformation / displacement field storing one offset for each grid coordinate, `path` points to the array in this container that stores the field |
 | `p_field`     | `"path:str"` | position field storing one absolute position for each grid coordinate,  `path` points to the array in this container that stores the field |
 
-In addition, the field "axesIndices" MAY be given to specify the subset of axes that the transformation is applied to. If given, the other axes are left unchanged. If not given, the transformation is applied to all axes. The length of "axesIndices" MUST be equal to the dimensionality of the transformation. If "axesIndices" are not given, the dimensionality of the transformation MUST be equal to the number of dimensions of the array.
+In addition, the field "axiIndices" MAY be given to specify the subset of axes that the transformation is applied to, leaving other axes unchanged. If not given, the transformation is applied to all axes. The length of "axisIndices" MUST be equal to the dimensionality of the transformation. If "axisIndices" are not given, the dimensionality of the transformation MUST be equal to the number of dimensions of the array.
 
 
 "multiscales" metadata {#multiscale-md}
@@ -249,7 +249,7 @@ the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
 All arrays MUST have the same number of dimensions and MUST NOT have more than 5 dimensions.
-Each dictionary MAY contain the field "transformation", see [[#trafo-md]], to specify a transformation from data coordinates to the physical cordinates (as specified by "axes").
+Each dictionary MAY contain the field "transformations", which contains a list of [[#trafo-md]] that specify the transformation from data coordinates to the physical cordinates (as specified by "axes"). The transformations are applied sequentially and in order.
 If not given, the identity transformation is assumed.
 
 It MUST contain the field "axes", see [[#axes-md]] and the length of the lists in "axes" must be equal to the number of dimensions in the array.
