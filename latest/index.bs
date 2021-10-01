@@ -229,6 +229,7 @@ Each dictionary contained in the list MUST contain the field "datasets", which i
 the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
+All arrays MUST have the same number of dimensions and MUST NOT have more than 5 dimensions.
 
 It MUST contain the field "axes", see [[#axes-md]] and the length of the lists in "axes" must be equal to the number of dimensions in the array.
 The "labels" list must be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups (i.e. groups containing arrays with the multiscale data).
