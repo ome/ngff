@@ -217,6 +217,10 @@ The three lists MUST have the same length.
 If part of [[#multiscale-md]], the length MUST be equal to the array.
 
 
+"transformation" metadata {#trafo-md}
+-------------------------------------
+
+
 "multiscales" metadata {#multiscale-md}
 ---------------------------------------
 
@@ -233,6 +237,9 @@ to the current zarr group. The "path"s MUST be ordered from largest (i.e. highes
 It MUST contain the field "axes", see [[#axes-md]] and the length of the lists in "axes" must be equal to the number of dimensions in the array.
 The "labels" list must be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups (i.e. groups containing arrays with the multiscale data).
 This ensures compatibility with the [xarray zarr encoding](http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding).
+
+It MAY contain the field "transformation", see [[#trafo-md]], to specify a transformation from data coordinates to the physical cordinates (as specified by "axes").
+If not given, the identity transformation is assumed.
 
 It SHOULD contain the field "name".
 
