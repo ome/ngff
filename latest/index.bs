@@ -168,8 +168,9 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         ├── .zgroup           # The table group MAY be in an image, labels, or points group.
         ├── .zattrs              
         │
-        ├── X                 # You MAY add an zarr array `X`. This can be chunked as the user desires,
-        │   │                 
+        ├── X                 # You MAY add an zarr array `X`.
+        │   │                 # `X` MUST not be a complex type (i.e., MUST be a single type)
+        │   │                 # `X` MAY be chunked as the user desires.
         │   ├── .zarray
         │   ├── 0.0
         │   │   ...
