@@ -210,7 +210,7 @@ keys as specified below for discovering certain types of data, especially images
 
 Describes axes of a physical coordinate space. It is a dictionary, which MUST contain the fields:
 - "labels": list of strings that specify the name per dimension. The values MUST be unique.
-- "types": list of strings that specify the type per dimension. The values SHOULD be one of "space", "channel", "time" or "". Use "" if none of the other options apply.
+- "types": list of strings that specify the type per dimension. The values SHOULD be one of "space", "channel", "time".
 - "units": list of strings that specify the unit per dimension.
 
 The three lists MUST have the same length.
@@ -233,6 +233,7 @@ Each dictionary contained in the list MUST contain the field "datasets", which i
 the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
+All arrays MUST have the same number of dimensions and MUST NOT have more than 5 dimensions.
 
 It MUST contain the field "axes", see [[#axes-md]] and the length of the lists in "axes" must be equal to the number of dimensions in the array.
 The "labels" list must be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups (i.e. groups containing arrays with the multiscale data).
