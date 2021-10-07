@@ -233,7 +233,7 @@ Additional fields are defined by the column "fields".
 | `d_field`     | `"path:str"` | deformation / displacement field storing one offset for each grid coordinate, `path` points to the array in this container that stores the field |
 | `p_field`     | `"path:str"` | position field storing one absolute position for each grid coordinate,  `path` points to the array in this container that stores the field |
 
-In addition, the field "axiIndices" MAY be given to specify the subset of axes that the transformation is applied to, leaving other axes unchanged. If not given, the transformation is applied to all axes. The length of "axisIndices" MUST be equal to the dimensionality of the transformation. If "axisIndices" are not given, the dimensionality of the transformation MUST be equal to the number of dimensions of the array.
+In addition, the field "axisIndices" MAY be given to specify the subset of axes that the transformation is applied to, leaving other axes unchanged. If not given, the transformation is applied to all axes. The length of "axisIndices" MUST be equal to the dimensionality of the transformation. If "axisIndices" are not given, the dimensionality of the transformation MUST be equal to the number of dimensions of the array.
 
 
 "multiscales" metadata {#multiscale-md}
