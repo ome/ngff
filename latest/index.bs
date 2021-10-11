@@ -249,8 +249,9 @@ the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
 All arrays MUST have the same number of dimensions and MUST NOT have more than 5 dimensions.
-Each dictionary MAY contain the field "transformations", which contains a list of [[#trafo-md]] that specify the transformation from data coordinates to the physical cordinates (as specified by "axes"). The transformations are applied sequentially and in order.
-If not given, the identity transformation is assumed.
+Each dictionary MAY contain the field "transformations", which contains a list of [[#trafo-md]] that specify the transformation from data coordinates to the physical cordinates (as specified by "axes"). 
+If given, the transformations MUST only be of type `identity`, `translation` or `scale`. This restriction ensures a simple mapping from data space to physical space and in particular that the voxel size can be directly read if a "scale" transformation is give.
+The transformations are applied sequentially and in order. If not given, the identity transformation is assumed.
 
 It MUST contain the field "axes", see [[#axes-md]] and the length of the lists in "axes" must be equal to the number of dimensions in the array.
 The "labels" list must be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups (i.e. groups containing arrays with the multiscale data).
