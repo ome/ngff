@@ -157,6 +157,32 @@ multiple levels of resolutions and optionally associated labels.
 
 
 
+Collections {#collections}
+--------------------------
+
+This specifies a collection of Images. Currently this spec is very simple, but it
+is planned to extend the collection spec to support more use-cases, including replacing the
+HCS spec (see below). A collection is defined in a group above the images:
+
+
+```
+.                             # Root folder, potentially in S3,
+│
+└── my_collection             # A collection group
+    ├── .zgroup
+    ├── .zattrs               # Implements "collection" specification
+    ├── image1                # An Image in the collection
+    │   ├── .zgroup
+    │   ├── .zattrs           # Implements "multiscales", "omero"
+    │   ├── 0
+    │   │   ...       # Resolution levels
+    │   ├── n
+    │   └── labels    # Labels (optional)
+    ├── path/to/image2        # Images can be nested in sub-directories
+    │   ├── .zgroup
+    │   ├── .zattrs           # Implements "multiscales", "omero"
+```
+
 High-content screening {#hcs-layout}
 ------------------------------------
 
@@ -392,6 +418,43 @@ above).
     "image": "../../"
   }
 ]
+```
+
+"collection" metadata {#collection-md}
+--------------------------------------
+
+The custom attributes of the collection group MUST specify the type with
+`"@type": "collection"`.
+
+<dl>
+  <dt><strong>@type</strong></dt>
+  <dd>This MUST be "collection" and is used to identify a collection</dd>
+  <dt><strong>name</strong></dt>
+  <dd>An optional name MAY be specified for the collection</dd>
+  <dt><strong>images</strong></dt>
+  <dd>
+    The images dictionary MUST be defined. Each key MUST be a path to
+    an Image object. The path MAY include directories if desired to allow
+    organisation of images in a file system. The value of each item is a dictionary
+    that is currently empty, except for an optional `properties` dictionary for
+    custom properties of the image. Additional attributes will be added to
+    the image dictionary in future as the spec matures.
+  </dd>
+</dl>
+
+For example, the following JSON defines a collection of 2 images:
+
+```json
+"@type": "collection",
+"name": "My Image Collection",
+"images": {
+  "image1": {
+    "properties": {
+      "custom_key": "custom_value"
+    }
+  },
+  "path/to/image2": {}
+}
 ```
 
 "plate" metadata {#plate-md}
