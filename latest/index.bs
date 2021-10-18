@@ -259,7 +259,7 @@ The transformations MUST only be of type `identity`, `translation`, `scale` or `
 The list MUST contain at most one "scale" transformation per dimensioon, which specifies the size of one physical unit for that dimension.
 The transformations in the list are applied sequentially and in order. If not given, the identity transformation is assumed.
 
-It MAY contain the field "transformations" with a list of [[#trafo-md]], describing transformations that are applied in the same manner to each resolution level, following the same rules as "transformations" in "datasets".
+It MAY contain the field "transformations" with a list of [[#trafo-md]], describing transformations that are applied in to each resolution level, following the same rules as "transformations" in "datasets". These transformations are applied after the per resolution level transformations specified in "datasets".
 
 It SHOULD contain the field "name".
 
