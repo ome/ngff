@@ -216,6 +216,27 @@ keys as specified below for discovering certain types of data, especially images
 If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
 
+"transformation" metadata {#trafo-md}
+-------------------------------------
+
+Describes a transformation, e.g. to transform the discrete data space of an array to the physical space.
+It is a dictionary, which MUST contain the field "type".
+The value of "type" MUST be one of the elements of the `type` column in the table below.
+Additional fields are defined by the column `fields`.
+
+| type          | fields | description |
+|-              |-       |-            |
+| `identity`    |        | identity transformation, is the default transformation and is typically not explicitly defined |
+| `translation` | one of: `"translation":List[float]`, `"path":str` | translation vector, stored either as a list of floats (`"translation"`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
+| `scale`       | one of: `"scale":List[float]`, `"path":str` | scale vector, stored either as a list of floats (`scale`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
+| `rotation`    | one of: `"rotation": List[float], "path:str"` | rotation vector, stored either as a list of floats (`rotation`) pr as binary data at a location in this container (`path`). The length of the vector must either be one for a rotation in two dimensions or three for a rotation in three dimenions. In 3d, the rotation angles are given in the order TODO. |
+
+In addition, the field "axisIndices" MAY be given to specify the subset of axes that the transformation is applied to, leaving other axes unchanged. If not given, the transformation is applied to all axes. The length of "axisIndices" MUST be equal to the dimensionality of the transformation. If "axisIndices" are not given, the dimensionality of the transformation MUST be equal to the number of dimensions of the space that the transformation is applied to.
+If given, "axisIndices" MUST be given in increasing order.
+
+If transformations are stored in a list, e.g. as part of [[#multiscale-md]] metadata, they are always applied sequentally and in order.
+
+
 "multiscales" metadata {#multiscale-md}
 ---------------------------------------
 
@@ -224,15 +245,21 @@ found under the "multiscales" key in the group-level metadata.
 
 "multiscales" contains a list of dictionaries where each entry describes a multiscale image.
 
-Each dictionary contained in the list MUST contain the field "datasets", which is a list of dictionaries describing
+Each dictionary MUST contain the field "axes", see [[#axes-md]].
+The values of the "name" field must be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups (i.e. groups containing arrays with the multiscale data).
+This ensures compatibility with the [xarray zarr encoding](http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding).
+
+It MUST contain the field "datasets", which is a list of dictionaries describing
 the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
 All arrays MUST have the same number of dimensions and MUST NOT have more than 5 dimensions.
+Each dictionary MAY contain the field "transformations", which contains a list of [[#trafo-md]] that specifies the transfromation from the data coordinate space to the physical coordinate space (as specified by "axes") for this resolution level.
+The transformations MUST only be of type `identity`, `translation`, `scale` or `rotation`. This restrictions ensures a simple mapping from data space to physical space.
+The list MUST contain at most one "scale" transformation per dimensioon, which specifies the size of one physical unit for that dimension.
+The transformations in the list are applied sequentially and in order. If not given, the identity transformation is assumed.
 
-It MUST contain the field "axes", see [[#axes-md]].
-The values of the "name" field must be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups (i.e. groups containing arrays with the multiscale data).
-This ensures compatibility with the [xarray zarr encoding](http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding).
+It MAY contain the field "transformations" with a list of [[#trafo-md]], describing transformations that are applied in the same manner to each resolution level, following the same rules as "transformations" in "datasets".
 
 It SHOULD contain the field "name".
 
@@ -243,17 +270,12 @@ It SHOULD contain the field "type", which gives the type of downscaling method u
 
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
 
-```json
+```
 {
     "multiscales": [
         {
             "version": "0.3",
             "name": "example",
-            "datasets": [
-                {"path": "0"},
-                {"path": "1"},
-                {"path": "2"}
-            ],
             "axes": [
                 {"name": "t", "type": "time", "unit": "millisecond"},
                 {"name": "c", "type": "channel"},
@@ -261,6 +283,21 @@ It SHOULD contain the field "metadata", which contains a dictionary with additio
                 {"name": "y", "type": "space", "unit": "micrometer"},
                 {"name": "x", "type": "space", "unit": "micrometer"}
             ],
+            "datasets": [
+                {
+                    "path": "0",
+                    "transformations": [{"type": "scale", "scale": [0.5, 0.5, 0.5], "axisIndices": [2, 3, 4]}]  # the voxel size for the first scale level (0.5 micrometer)
+                }
+                {
+                    "path": "1",
+                    "transformations": [{"type": "scale", "scale": [1.0, 1.0, 1.0], "axisIndices": [2, 3, 4]}]  # the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)
+                },
+                {
+                    "path": "2",
+                    "transformations": [{"type": "scale", "scale": [2.0, 2.0, 2.0], "axisIndices": [2, 3, 4]}]  # the voxel size for the second scale level (downscaled by a factor of 4 -> 2 micrometer)
+                }
+            ],
+            "transformations": [{"type": "scale", "scale": [0.1], "axisIndices": [0]],  # the time unit (0.1 milliseconds), which is the same for each scale level
             "type": "gaussian",
             "metadata": {                                       # the fields in metadata depend on the downscaling implementation
                 "method": "skimage.transform.pyramid_gaussian", # here, the paramters passed to the skimage function are given
