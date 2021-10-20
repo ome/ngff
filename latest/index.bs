@@ -218,7 +218,7 @@ The following describes the expected layout for point annotations in OME-NGFF. P
         ├── .zattrs              
         │
         ├── X                 # You MUST add an zarr array `X`.
-        │   │                 # `X` MUST contain the coordinates for the points.
+        │   │                 # `X` MUST contain the coordinates for the points. The 
         │   │                 # `X` MAY contain data in addition to the coordinates.
         │   │                 # `X` MAY be chunked as the user desires.
         │   ├── .zarray
@@ -242,7 +242,7 @@ The following describes the expected layout for point annotations in OME-NGFF. P
         │       └─ 0
         └── var               # You MUST add a var group container. The var group holds a table of annotations on the columns in X.
             |                 # The var group MUST contain a column called `column_name` that annotates what each column in X contains.
-            |                 # The `column_name` column must annotate the columns in X containing coordinates with 0_p, 1_p, ..., n_p.
+            |                 # The `column_name` column MUST annotate the columns in X containing coordinates with the axes labels defined in [[#axes-md]].
             │                 # The rows in var MUST be index-matched to the columns in X. 
             |
             ├── .zattrs       # `.zattrs` MUST contain `"_index"`, which is the name of the column in obs to be used as the index.           
