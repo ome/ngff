@@ -6,15 +6,19 @@ $namespaces:
 
 $graph:
 
-- $import: image.yml
-
 - name: Collection
-  doc: |
-    OME:Collection
   type: record
   documentRoot: true
   fields:
-    items:
+    images:
       type:
         type: array
-        items: Image
+        items: ImageItem
+
+- name: ImageItem
+  type: record
+  fields:
+  - name: path
+    type: string
+    jsonldPredicate:
+      _type: "@id"

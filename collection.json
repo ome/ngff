@@ -1,5 +1,10 @@
 {
-    "items": [
-        {"$import": "image.json"}
+    "images": [
+        {
+            "path": "image.json"
+        },
+        {
+            "path": "image2.json"
+        }
     ]
 }
