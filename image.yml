@@ -21,8 +21,9 @@ $graph:
   extends: [VersionedType]
   fields:
     args:
-      # FIXME this should be an array
-      type: string
+      type:
+        type: array
+        items: string
     kwargs:
       type: Any
     method:

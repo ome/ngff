@@ -4,7 +4,7 @@
             "version": "0.2",
             "name": "example",
             "datasets": [
-                {"path": "0"},
+                {"$import": "array.json"},
                 {"path": "1"},
                 {"path": "2"}
             ],
@@ -12,7 +12,7 @@
             "metadata": {
                 "method": "skimage.transform.pyramid_gaussian",
                 "version": "0.16.1",
-                "args": "[true]",
+                "args": ["true", "false"],
                 "kwargs": {"multichannel": true}
             }
         }

@@ -1,0 +1,20 @@
+
+$base: "https://ngff.openmicroscopy.org/latest/"
+
+$namespaces:
+  ngff:  "https://ngff.openmicroscopy.org/latest/"
+
+$graph:
+
+- $import: image.yml
+
+- name: Collection
+  doc: |
+    OME:Collection
+  type: record
+  documentRoot: true
+  fields:
+    items:
+      type:
+        type: array
+        items: Image
