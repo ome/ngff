@@ -1,10 +1,13 @@
 {
-    "images": [
+    "datasetName": "MY images",
+    "items": [
         {
-            "path": "image.json"
+            "path": "image.json",
+            "name": "my image"
         },
         {
-            "path": "image2.json"
+            "path": "image2.json",
+            "name": "another Image"
         }
     ]
 }

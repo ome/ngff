@@ -10,15 +10,37 @@ $graph:
   type: record
   documentRoot: true
   fields:
-    images:
+    items:
       type:
         type: array
         items: ImageItem
 
-- name: ImageItem
+- name: ImageCollection
+  type: record
+  extends: [Collection]
+  documentRoot: true
+  fields:
+  - name: datasetName
+    type: string
+
+- name: ListItem
   type: record
   fields:
   - name: path
     type: string
     jsonldPredicate:
       _type: "@id"
+
+- name: ImageItem
+  type: record
+  extends: [ListItem]
+  fields:
+  - name: name
+    type: string
+
+- name: LabelItem
+  type: record
+  extends: [ListItem]
+  fields:
+  - name: labelname
+    type: string
