@@ -49,10 +49,14 @@ $graph:
       type:
         type: array
         items: Dataset
-    metadata:
+    metadata?:
       type: DatasetMetadata
-    type:
+    type?:
       type: string
+    axes:
+      type:
+        type: array
+        items: string
 
 - name: Image
   doc: |

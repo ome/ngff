@@ -10,21 +10,27 @@ $graph:
   type: record
   documentRoot: true
   fields:
-    items:
-      type:
-        type: array
-        items: ImageItem
+  - name: items
+    type:
+      type: array
+      items: ListItem
 
 - name: ImageCollection
   type: record
   extends: [Collection]
   documentRoot: true
+  # Any ListItems in Collection should be ImageItems in ImageCollection
+  specialize:
+    ListItem: ImageItem
   fields:
   - name: datasetName
     type: string
 
 - name: ListItem
   type: record
+  # Need 'abstract' so that Collection can contain subclasses of ListItem.
+  # without it, Collection MUST contain instances of ListItem.
+  abstract: true
   fields:
   - name: path
     type: string

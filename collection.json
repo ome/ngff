@@ -1,5 +1,5 @@
 {
-    "datasetName": "MY images",
+    "datasetName": "With datasetName this MUST be an ImageCollection",
     "items": [
         {
             "path": "image.json",
@@ -7,7 +7,7 @@
         },
         {
             "path": "image2.json",
-            "name": "another Image"
+            "labelname": "With labelname, this is a Label. Invalid in an ImageCollection"
         }
     ]
 }
