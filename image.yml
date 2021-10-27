@@ -29,6 +29,61 @@ $graph:
     method:
       type: string
 
+- name: OmeroMetadata
+  doc: |
+    Optional rendering info for an Image.
+  type: record
+  extends: [VersionedType]
+  fields:
+    channels:
+      type:
+        type: array
+        items: ChannelMetadata
+    id: int
+    rdefs:
+      type: RdefMetadata
+
+- name: ChannelMetadata
+  doc: |
+    Rendering info for a Channel.
+  type: record
+  fields:
+    active: boolean?
+    coefficient: float?
+    color: string?
+    family: string?
+    inverted: boolean?
+    label: string?
+    window: WindowMetadata
+
+- name: WindowMetadata
+  doc: |
+    Rendering Window for a Channel.
+  type: record
+  fields:
+    start: float
+    end: float
+    min: float?
+    max: float?
+
+- name: RdefMetadata
+  doc: |
+    Rendering Rdef for an Image.
+  type: record
+  fields:
+    defaultT: int
+    defaultZ: int
+    model: string
+
+# This causes "SchemaException: Predicate collision on name" with Multiscale/name
+# - name: CreatorMetadata
+#   doc: |
+#     Creator info for an Image.
+#   type: record
+#   extends: [VersionedType]
+#   fields:
+#     name: string
+
 - name: Dataset
   doc: |
     One array series in descending order of size.
@@ -43,20 +98,20 @@ $graph:
   type: record
   extends: [VersionedType]
   fields:
-    name:
-      type: string
-    datasets:
-      type:
-        type: array
-        items: Dataset
-    metadata?:
-      type: DatasetMetadata
-    type?:
-      type: string
-    axes:
-      type:
-        type: array
-        items: string
+  - name: name
+    type: [string, "null"]
+  - name: datasets
+    type:
+      type: array
+      items: Dataset
+  - name: metadata
+    type: [DatasetMetadata, "null"]
+  - name: type
+    type: [string, "null"]
+  - name: axes
+    type:
+      type: array
+      items: string
 
 - name: Image
   doc: |
@@ -68,3 +123,6 @@ $graph:
       type:
         type: array
         items: Multiscale
+    omero:
+      type: [OmeroMetadata, "null"]
+    # _creator: [CreatorMetadata, "null"]
