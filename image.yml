@@ -111,7 +111,14 @@ $graph:
   - name: axes
     type:
       type: array
-      items: string
+      items:
+        type: enum
+        symbols:
+          - x
+          - y
+          - z
+          - c
+          - t
 
 - name: Image
   doc: |
