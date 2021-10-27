@@ -133,3 +133,61 @@ $graph:
     omero:
       type: [OmeroMetadata, "null"]
     # _creator: [CreatorMetadata, "null"]
+
+- name: Label
+  doc: |
+    OME:Label
+  type: record
+  extends: [Image]
+  documentRoot: true
+  fields:
+    image-label: LabelMetadata
+
+- name: LabelMetadata
+  doc: |
+    Metadata for a Label
+  type: record
+  extends: [VersionedType]
+  fields:
+    source: SourceMetadata
+    colors:
+      type:
+        type: array
+        items: LabelColor
+    properties:
+      type:
+        type: array
+        items: LabelValueMetadata
+
+- name: SourceMetadata
+  doc: |
+    Source Image for a Label
+  type: record
+  fields:
+    image: string
+
+- name: LabelValueMetadata
+  doc: |
+    Specifies metadata for a specified label-value
+  type: record
+  abstract: true
+  fields:
+    label-value: int
+
+- name: LabelColor
+  doc: |
+    Specifies a color for a specified label-value
+  type: record
+  extends: [LabelValueMetadata]
+  fields:
+    rgba:
+      type:
+        type: array
+        items: int
+
+- name: LabelProperties
+  doc: |
+    Somewhere to store custom key-value pairs
+  type: record
+  extends: [LabelValueMetadata]
+  # How to do custom fields? - (anything goes)
