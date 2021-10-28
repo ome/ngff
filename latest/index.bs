@@ -216,13 +216,13 @@ keys as specified below for discovering certain types of data, especially images
 If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
 
-"transformation" metadata {#trafo-md}
+"transformations" metadata {#trafo-md}
 -------------------------------------
 
-Describes a transformation, e.g. to transform the discrete data space of an array to the physical space.
-It is a dictionary, which MUST contain the field "type".
+"transformations" describes a series of transformations, e.g. to map discrete data space of an array to the corresponding physical space.
+It is a list of dictionaries. Each entry describes a single transformation and MUST contain the field "type".
 The value of "type" MUST be one of the elements of the `type` column in the table below.
-Additional fields are defined by the column `fields`.
+Additional fields for the entry depend on "type" and are defined by the column `fields`.
 
 | type          | fields | description |
 |-              |-       |-            |
@@ -233,7 +233,7 @@ Additional fields are defined by the column `fields`.
 In addition, the field "axisIndices" MAY be given to specify the subset of axes that the transformation is applied to, leaving other axes unchanged. If not given, the transformation is applied to all axes. The length of "axisIndices" MUST be equal to the dimensionality of the transformation. If "axisIndices" are not given, the dimensionality of the transformation MUST be equal to the number of dimensions of the space that the transformation is applied to.
 If given, "axisIndices" MUST be given in increasing order.
 
-If transformations are stored in a list, e.g. as part of [[#multiscale-md]] metadata, they are always applied sequentally and in order.
+The transformations in the list are applied sequentally and in order.
 
 
 "multiscales" metadata {#multiscale-md}
@@ -253,17 +253,16 @@ the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
 All arrays MUST have the same number of dimensions and MUST NOT have more than 5 dimensions.
-Each dictionary MAY contain the field "transformations", which contains a list of [[#trafo-md]] that specifies the transformation from the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
-The transformations MUST only be of type `identity`, `translation` or `scale`.
-The list MUST contain at most one `scale` transformation per axis taht specifies the size in physical units.
-It also MUST contain at most one `translation` per axis that specifies the offset in physical units.
-If both `scale` and `translation` are given `translation` must be listed after `scale` to ensure that it is given in physical coordinates.
-The transformations in the list are applied sequentially and in order. If not given, the identity transformation is assumed.
+Each dictionary MAY contain the field "transformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
+The transformations are defined according to [[#trafo-md]]. In addition, the transformation types MUST only be `identity`, `translation` or `scale`.
+They MUST contain at most one `scale` transformation per axis that specifies the pixel size in physical units.
+It also MUST contain at most one `translation` per axis that specifies the offset from the origin in physical units.
+If both `scale` and `translation` are given `translation` must be listed after `scale` to ensure that it is given in physical coordinates. If "transformations" is not given, the identity transformation is assumed.
 The requirements (only `scale` and `translation`, restrictions on order) are in place to provide a simple mapping from data coordinates to physical coordinates while
 being compatible with the general transformation spec.
 
-It MAY contain the field "transformations" containing a list of [[#trafo-md]], describing transformations that are applied to each resolution level. 
-The transformations MUST follow the same rules about allowed values and order of `scale` and `translation` as in "datasets".
+It MAY contain the field "transformations", describing transformations that are applied to each resolution level.
+The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:transformations".
 These transformations are applied after the per resolution level transformations specified in "datasets". They can for example be used to specify the `scale` for a dimension that is the same for all resolutions.
 
 It SHOULD contain the field "name".
