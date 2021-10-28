@@ -239,20 +239,22 @@ The transformations in the list are applied sequentally and in order.
 "multiscales" metadata {#multiscale-md}
 ---------------------------------------
 
-Metadata about the multiple resolution representations of the image can be
-found under the "multiscales" key in the group-level metadata.
+Metadata about an image can be found under the "multiscales" key in the group-level metadata. Here, image refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes. It is stored in a multiple resolution representation.
 
 "multiscales" contains a list of dictionaries where each entry describes a multiscale image.
 
 Each dictionary MUST contain the field "axes", see [[#axes-md]].
-The values of the "name" field must be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups (i.e. groups containing arrays with the multiscale data).
+The length of "axes" must be between 2 and 5 and MUST be equal to the dimensionality of the zarr arrays storing the image data (see "datasets:path").
+The "axes" MUST contain 2 or 3 entries of "type:space" and MAY contain one additional entry of "type:time" and MAY contain one additional entry of "type:channel" or a null / custom type.
+The order of the entries MUST correspond to the order of dimensions of the zarr arrays. In addition, the entries MUST be ordered by "type" where the "time" axis must come first (if present), followed by the  "channel" or custom axis (if present) and the axes of type "space".
+The values of the "name" fields must be given as a list in the field "_ARRAY_DIMENSIONS" in the attributes (.zattr) of the zarr arrays.
 This ensures compatibility with the [xarray zarr encoding](http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding).
+E.g. for "axes: [{"name": "x"}, {"name": "y"}, {"name": z}]", the zarr arrays must contain "{"_ARRAY_DIMENSIONS": ["x", "y", "z"]}" in their attributes.
 
-It MUST contain the field "datasets", which is a list of dictionaries describing
-the arrays storing the individual resolution levels.
+It MUST contain the field "datasets", which is a list of dictionaries describing the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
-All arrays MUST have the same number of dimensions and MUST NOT have more than 5 dimensions.
+All arrays MUST have the same number of dimensions and MUST NOT have more than 5 dimensions. The number of dimensions and order MUST correspond to number and order of "axes".
 Each dictionary MAY contain the field "transformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
 The transformations are defined according to [[#trafo-md]]. In addition, the transformation types MUST only be `identity`, `translation` or `scale`.
 They MUST contain at most one `scale` transformation per axis that specifies the pixel size in physical units.
