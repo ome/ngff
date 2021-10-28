@@ -210,7 +210,7 @@ keys as specified below for discovering certain types of data, especially images
 
 "axes" describes the dimensions of a physical coordinate space. It is a list of dictionaries, where each dictionary describes an dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.
-- SHOULD contain the field "type" to specify the type of this dimension. The value SHOULD be one of "space", "channel" or "time".
+- SHOULD contain the field "type" to specify the type of this dimension. The value SHOULD be one of "space", "channel" or "time". If "type" is not given, it is assumed to be "null", i.e. unkown or not represented by the spec yet.
 - SHOULD contain the field "unit" to specify the physical unit of this dimension. The value SHOULD be a valid unit according to UDUNITS-2.
 
 If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
