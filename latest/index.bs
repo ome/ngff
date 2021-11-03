@@ -172,7 +172,7 @@ dataset. Three groups must be defined above the images:
     [plate specification](#plate-md)
 
 
-```
+<pre>
 .                             # Root folder, potentially in S3,
 │
 └── 5966.zarr                 # One plate (id=5966) converted to Zarr
@@ -199,7 +199,7 @@ dataset. Three groups must be defined above the images:
     │   └── 12
     ├── ...                   # Rows
     └── H
-```
+</pre>
 
 Metadata {#metadata}
 ====================
