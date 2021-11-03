@@ -108,7 +108,7 @@ Images {#image-layout}
 The following layout describes the expected Zarr hierarchy for images with
 multiple levels of resolutions and optionally associated labels.
 
-```
+<pre>
 .                             # Root folder, potentially in S3,
 │                             # with a flat list of images by image ID.
 │
@@ -153,7 +153,9 @@ multiple levels of resolutions and optionally associated labels.
                 ├── 0         # Each multiscale level is stored as a separate Zarr array, as above, but only integer values
                 │   ...       # are supported.
                 └── n
-```
+</pre>
+
+
 
 High-content screening {#hcs-layout}
 ------------------------------------
@@ -344,10 +346,10 @@ should ignore all except the _last_ entry.
 Some implementations may represent overlapping labels by using a specially assigned
 value, for example the highest integer available in the pixel range.
 
-The `properties` key defines a list of JSON objects which also describes the unique 
-label values. Each entry in the list MUST contain the key "label-value" with the 
-pixel value for that label. Additionally, an arbitrary number of key-value pairs 
-MAY be present for each label value denoting associated metadata. Not all label 
+The `properties` key defines a list of JSON objects which also describes the unique
+label values. Each entry in the list MUST contain the key "label-value" with the
+pixel value for that label. Additionally, an arbitrary number of key-value pairs
+MAY be present for each label value denoting associated metadata. Not all label
 values must share the same key-value pairs within the properties list.
 
 The `source` key is an optional dictionary which contains information on the
@@ -428,7 +430,7 @@ custom attributes of the plate group under the `plate` key.
   <dt><strong>version</strong></dt>
   <dd>A string defining the version of the specification.</dd>
   <dt><strong>wells</strong></dt>
-  <dd>A list of JSON objects defining the wells of the plate. Each well object 
+  <dd>A list of JSON objects defining the wells of the plate. Each well object
       MUST contain a `path` key identifying the path to the well subgroup.</dd>
 </dl>
 
@@ -507,8 +509,8 @@ well group.
   <dt><strong>images</strong></dt>
   <dd>A list of JSON objects defining the fields of views for a given well.
       Each object MUST contain a `path` key identifying the path to the
-      field of view. If multiple acquisitions were performed in the plate, it  
-      SHOULD contain an `acquisition` key identifying the id of the 
+      field of view. If multiple acquisitions were performed in the plate, it
+      SHOULD contain an `acquisition` key identifying the id of the
       acquisition which must match one of acquisition JSON objects defined in
       the plate metadata.</dd>
   <dt><strong>version</strong></dt>
