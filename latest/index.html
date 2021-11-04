@@ -1487,9 +1487,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 4f053d00e, updated Tue Aug 10 14:13:32 2021 -0700" name="generator">
+  <meta content="Bikeshed version 83b904c2e, updated Wed Nov 3 17:20:53 2021 -0700" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="5b9d2b23d021331b847074ff678cd368de32d95a" name="document-revision">
+  <meta content="b5a1f6cd83941e12ce9f12cb015ac8697bbbe764" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1690,6 +1690,16 @@ figcaption {
 figcaption:not(.no-marker)::before {
     content: "Figure " counter(figure) " ";
 }</style>
+<style>/* style-issues */
+
+a[href].issue-return {
+    float: right;
+    float: inline-end;
+    color: var(--issueheading-text);
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1815,7 +1825,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-09-01">1 September 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-11-04">4 November 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1979,15 +1989,15 @@ multiple levels of resolutions and optionally associated labels.</p>
     │      └─ c               # All but the last chunk element are stored as directories.
     │         └─ z            # The terminal chunk is a file. Together the directory and file names
     │            └─ y         # provide the "chunk coordinate" (t, c, z, y, x), where the maximum coordinate
-    │               └─ x      # will be &lt;code data-opaque bs-autolink-syntax='`dimension_size / chunk_size`'>dimension_size / chunk_size&lt;/code>.
+    │               └─ x      # will be <code>dimension_size / chunk_size</code>.
     │
     └── labels
         │
         ├── .zgroup           # The labels group is a container which holds a list of labels to make the objects easily discoverable
         │
-        ├── .zattrs           # All labels will be listed in &lt;code data-opaque bs-autolink-syntax='`.zattrs`'>.zattrs&lt;/code> e.g. &lt;code data-opaque bs-autolink-syntax='`{ &amp;quot;labels&amp;quot;: [ &amp;quot;original/0&amp;quot; ] }`'>{ "labels": [ "original/0" ] }&lt;/code>
-        │                     # Each dimension of the label &lt;code data-opaque bs-autolink-syntax='`(t, c, z, y, x)`'>(t, c, z, y, x)&lt;/code> should be either the same as the
-        │                     # corresponding dimension of the image, or &lt;code data-opaque bs-autolink-syntax='`1`'>1&lt;/code> if that dimension of the label
+        ├── .zattrs           # All labels will be listed in <code>.zattrs</code> e.g. <code>{ "labels": [ "original/0" ] }</code>
+        │                     # Each dimension of the label <code>(t, c, z, y, x)</code> should be either the same as the
+        │                     # corresponding dimension of the image, or <code>1</code> if that dimension of the label
         │                     # is irrelevant.
         │
         └── original          # Intermediate folders are permitted but not necessary and currently contain no extra metadata.
@@ -2149,9 +2159,9 @@ should ignore all except the _last_ entry.</p>
    <p>Some implementations may represent overlapping labels by using a specially assigned
 value, for example the highest integer available in the pixel range.</p>
    <p>The <code>properties</code> key defines a list of JSON objects which also describes the unique
-label values. Each entry in the list MUST contain the key "label-value" with the 
-pixel value for that label. Additionally, an arbitrary number of key-value pairs 
-MAY be present for each label value denoting associated metadata. Not all label 
+label values. Each entry in the list MUST contain the key "label-value" with the
+pixel value for that label. Additionally, an arbitrary number of key-value pairs
+MAY be present for each label value denoting associated metadata. Not all label
 values must share the same key-value pairs within the properties list.</p>
    <p>The <code>source</code> key is an optional dictionary which contains information on the
 image the label is associated with. If included it MAY include a key <code>image</code> whose value is the relative path to a Zarr image group. The default value is
@@ -2223,7 +2233,7 @@ custom attributes of the plate group under the <code>plate</code> key.</p>
     <dt><strong>version</strong>
     <dd>A string defining the version of the specification.
     <dt><strong>wells</strong>
-    <dd>A list of JSON objects defining the wells of the plate. Each well object 
+    <dd>A list of JSON objects defining the wells of the plate. Each well object
       MUST contain a <code>path</code> key identifying the path to the well subgroup.
    </dl>
    <p>For example the following JSON object defines a plate with two acquisition and
@@ -2295,8 +2305,8 @@ well group.</p>
     <dt><strong>images</strong>
     <dd>A list of JSON objects defining the fields of views for a given well.
       Each object MUST contain a <code>path</code> key identifying the path to the
-      field of view. If multiple acquisitions were performed in the plate, it  
-      SHOULD contain an <code>acquisition</code> key identifying the id of the 
+      field of view. If multiple acquisitions were performed in the plate, it
+      SHOULD contain an <code>acquisition</code> key identifying the id of the
       acquisition which must match one of acquisition JSON objects defined in
       the plate metadata.
     <dt><strong>version</strong>
