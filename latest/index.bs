@@ -107,6 +107,8 @@ Images {#image-layout}
 
 The following layout describes the expected Zarr hierarchy for images with
 multiple levels of resolutions and optionally associated labels.
+Note that the number of dimensions is variable between 2 and 5 and that axis names are arbitrary, see [[#multiscale-md]] for details.
+For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x`.
 
 ```
 .                             # Root folder, potentially in S3,
@@ -127,7 +129,7 @@ multiple levels of resolutions and optionally associated labels.
     │   │                     # by the "multiscales" metadata, but is often a sequence starting at 0.
     │   │
     │   ├── .zarray           # All image arrays must be up to 5-dimensional
-    │   │                     # with dimension order (t, c, z, y, x).
+    │   │                     # with the axis of type time before type channel, before spatial axes.
     │   │
     │   └─ t                  # Chunks are stored with the nested directory layout.
     │      └─ c               # All but the last chunk element are stored as directories.
@@ -231,7 +233,7 @@ Additional fields for the entry depend on "type" and are defined by the column `
 | `scale`       | one of: `"scale":List[float]`, `"path":str` | scale vector, stored either as a list of floats (`scale`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
 
 In addition, the field "axisIndices" MAY be given to specify the subset of axes that the transformation is applied to, leaving other axes unchanged. If not given, the transformation is applied to all axes. The length of "axisIndices" MUST be equal to the dimensionality of the transformation. If "axisIndices" are not given, the dimensionality of the transformation MUST be equal to the number of dimensions of the space that the transformation is applied to.
-If given, "axisIndices" MUST be given in increasing order.
+If given, "axisIndices" MUST be given in increasing order. It uses zero-based indexing.
 
 The transformations in the list are applied sequentally and in order.
 
@@ -247,9 +249,10 @@ Each dictionary MUST contain the field "axes", see [[#axes-md]].
 The length of "axes" must be between 2 and 5 and MUST be equal to the dimensionality of the zarr arrays storing the image data (see "datasets:path").
 The "axes" MUST contain 2 or 3 entries of "type:space" and MAY contain one additional entry of "type:time" and MAY contain one additional entry of "type:channel" or a null / custom type.
 The order of the entries MUST correspond to the order of dimensions of the zarr arrays. In addition, the entries MUST be ordered by "type" where the "time" axis must come first (if present), followed by the  "channel" or custom axis (if present) and the axes of type "space".
+If there are three spatial axes where two correspond to the image plane ("yx") and images are stacked along the other (anisotropic) axis ("z"), the spatial axes SHOULD be ordered as "zyx".
 The values of the "name" fields must be given as a list in the field "_ARRAY_DIMENSIONS" in the attributes (.zattr) of the zarr arrays.
 This ensures compatibility with the [xarray zarr encoding](http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding).
-E.g. for "axes: [{"name": "x"}, {"name": "y"}, {"name": z}]", the zarr arrays must contain "{"_ARRAY_DIMENSIONS": ["x", "y", "z"]}" in their attributes.
+E.g. for "axes: [{"name": "z"}, {"name": "y"}, {"name": x}]", the zarr arrays must contain "{"_ARRAY_DIMENSIONS": ["z", "y", "x"]}" in their attributes.
 
 It MUST contain the field "datasets", which is a list of dictionaries describing the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
