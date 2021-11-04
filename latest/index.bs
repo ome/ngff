@@ -227,7 +227,7 @@ The value of "type" MUST be one of the elements of the `type` column in the tabl
 Additional fields for the entry depend on "type" and are defined by the column `fields`.
 
 | type          | fields | description |
-|-              |-       |-            |
+| ------------- | ------ |------------ |
 | `identity`    |        | identity transformation, is the default transformation and is typically not explicitly defined |
 | `translation` | one of: `"translation":List[float]`, `"path":str` | translation vector, stored either as a list of floats (`"translation"`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
 | `scale`       | one of: `"scale":List[float]`, `"path":str` | scale vector, stored either as a list of floats (`scale`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
