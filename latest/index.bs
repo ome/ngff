@@ -545,6 +545,13 @@ the last two fields of view were part of the second acquisition.
   }
 ```
 
+Specification naming style {#naming-style}
+==========================================
+
+Multi-word keys in this specification should use the `camelCase` style.
+NB: some parts of the specification don't obey this convention as they
+were added before this was adopted, but they should be updated in due course.
+
 Implementations {#implementations}
 ==================================
 
