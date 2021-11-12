@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "http://localhost:8000/image.schema",
+  "title": "NGFF Image",
+  "description": "JSON from OME-NGFF .zattrs",
+  "type": "object",
+  "properties": {
+    "multiscales": {
+      "description": "The multiscale datasets for this image",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "datasets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string"
+                }
+              },
+              "required": ["path"]
+            }
+          },
+          "axes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "version", "name", "datasets", "axes"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "omero": {
+      "$ref": "http://localhost:8000/omero.schema.json"
+    }
+  },
+  "required": [ "multiscales" ]
+}

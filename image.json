@@ -1,10 +1,10 @@
 {
     "multiscales": [
         {
-            "version": "0.2",
+            "version": "0.3",
             "name": "example",
             "datasets": [
-                {"$import": "array.json"},
+                {"path": "path/to/0"},
                 {"path": "1"},
                 {"path": "2"}
             ],
@@ -19,6 +19,24 @@
                 "z", "y", "x"
             ]
         }
-    ]
+    ],
+    "omero": {
+        "channels": [
+            {
+                "active": true,
+                "coefficient": 1.0,
+                "color": "0000FF",
+                "family": "linear",
+                "inverted": false,
+                "label": "1234",
+                "window": {
+                    "end": 1765.0,
+                    "max": 2555.0,
+                    "min": 5.0,
+                    "start": 0.0
+                }
+            }
+        ]
+    }
 }
 
