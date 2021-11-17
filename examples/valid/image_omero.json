@@ -34,6 +34,8 @@
         }
     ],
     "omero": {
+        "id": 1,
+        "version": "0.3",
         "channels": [
             {
                 "active": true,
@@ -48,6 +50,11 @@
                     "start": 0.0
                 }
             }
-        ]
+        ],
+        "rdefs": {
+            "defaultZ": 0,
+            "defaultT": 0,
+            "model": "color"
+        }
     }
 }
