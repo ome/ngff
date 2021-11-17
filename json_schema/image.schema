@@ -47,7 +47,59 @@
       "uniqueItems": true
     },
     "omero": {
-      "$ref": "http://localhost:8000/omero.schema.json"
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "window": {
+                "type": "object",
+                "properties": {
+                  "end": {
+                    "type": "number"
+                  },
+                  "max": {
+                    "type": "number"
+                  },
+                  "min": {
+                    "type": "number"
+                  },
+                  "start": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "start",
+                  "min",
+                  "end",
+                  "max"
+                ]
+              },
+              "label": {
+                "type": "string"
+              },
+              "family": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "window",
+              "color"
+            ]
+          }
+        }
+      },
+      "required": [
+        "channels"
+      ]
     }
   },
   "required": [ "multiscales" ]
