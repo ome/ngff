@@ -1,0 +1,14 @@
+{
+    "multiscales": [
+        {
+            "version": "0.3",
+            "name": "example",
+            "datasets": [],
+            "axes": [
+                "z",
+                "y",
+                "x"
+            ]
+        }
+    ]
+}

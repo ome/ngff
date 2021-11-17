@@ -4,19 +4,32 @@
             "version": "0.3",
             "name": "example",
             "datasets": [
-                {"path": "path/to/0"},
-                {"path": "1"},
-                {"path": "2"}
+                {
+                    "path": "path/to/0"
+                },
+                {
+                    "path": "1"
+                },
+                {
+                    "path": "2"
+                }
             ],
             "type": "gaussian",
             "metadata": {
                 "method": "skimage.transform.pyramid_gaussian",
                 "version": "0.16.1",
-                "args": ["true", "false"],
-                "kwargs": {"multichannel": true}
+                "args": [
+                    "true",
+                    "false"
+                ],
+                "kwargs": {
+                    "multichannel": true
+                }
             },
             "axes": [
-                "z", "y", "x"
+                "z",
+                "y",
+                "x"
             ]
         }
     ],
@@ -24,7 +37,6 @@
         "channels": [
             {
                 "active": true,
-                "coefficient": 1.0,
                 "color": "0000FF",
                 "family": "linear",
                 "inverted": false,
@@ -39,4 +51,3 @@
         ]
     }
 }
-

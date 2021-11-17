@@ -21,7 +21,7 @@
                         "required": ["start", "min", "end",  "max"]
                     },
                     "label": {"type": "string"},
-                    "family": { "type": "string"},
+                    "family": {"type": "string"},
                     "color": {"type": "string"},
                     "active": {"type": "boolean"}
                 },

@@ -1,0 +1,13 @@
+{
+    "multiscales": [
+        {
+            "version": "0.3",
+            "name": "example",
+            "axes": [
+                "z",
+                "y",
+                "x"
+            ]
+        }
+    ]
+}
