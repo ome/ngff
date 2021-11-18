@@ -1,6 +1,8 @@
 {
+    "@type": "ngff:Image",
     "multiscales": [
         {
+            "@type": "ngff:Multiscale",
             "name": "example",
             "datasets": [
                 {

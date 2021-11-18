@@ -1,6 +1,9 @@
 {
+    "@id": "#my-image",
+    "@type": "ngff:Image",
     "multiscales": [
         {
+            "@id": "#my-pyramid",
             "version": "0.3",
             "name": "example",
             "datasets": [
@@ -34,6 +37,7 @@
         }
     ],
     "omero": {
+        "@type": "ngff:omero",
         "id": 1,
         "version": "0.3",
         "channels": [

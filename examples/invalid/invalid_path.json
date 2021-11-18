@@ -1,13 +1,16 @@
 {
+    "@type": "ngff:Image",
     "multiscales": [
         {
             "version": "0.3",
             "name": "example",
             "datasets": [
                 {
+                    "@type": "ngff:Dataset",
                     "path": "path/to/0"
                 },
                 {
+                    "@type": "ngff:Dataset",
                     "path": 0
                 }
             ],
