@@ -37,7 +37,6 @@
         }
     ],
     "omero": {
-        "@type": "ngff:omero",
         "id": 1,
         "version": "0.3",
         "channels": [

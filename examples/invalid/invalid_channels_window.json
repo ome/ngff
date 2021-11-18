@@ -19,14 +19,12 @@
     "omero": {
         "channels": [
             {
-                "@type": "ngff:Channel",
                 "active": true,
                 "coefficient": 1.0,
                 "color": "ff0000",
                 "family": "linear",
                 "label": "1234",
                 "window": {
-                    "@type": "ngff:Window",
                     "end": "100",
                     "max": 2555.0,
                     "min": 5.0,

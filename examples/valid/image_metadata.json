@@ -4,7 +4,6 @@
     "multiscales": [
         {
             "@id": "inner",
-            "@type": "ngff:Multiscale",
             "version": "0.3",
             "name": "example",
             "datasets": [

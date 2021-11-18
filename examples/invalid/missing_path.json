@@ -6,11 +6,9 @@
             "name": "example",
             "datasets": [
                 {
-                    "@type": "ngff:Dataset",
                     "foo": "path/to/0"
                 },
                 {
-                    "@type": "ngff:Dataset",
                     "path": "1"
                 }
             ],

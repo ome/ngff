@@ -4,13 +4,11 @@
     "multiscales": [
         {
             "@id": "#my-pyramid",
-            "@type": "ngff:Multiscale",
             "version": "0.3",
             "name": "example",
             "datasets": [
                 {
                     "@id": "#my-full-resolution",
-                    "@type": "ngff:Dataset",
                     "path": "path/to/0"
                 }
             ],

@@ -19,7 +19,6 @@
     "omero": {
         "channels": [
             {
-                "@type": "ngff:Channel",
                 "active": true,
                 "coefficient": 1.0,
                 "color": 255,
