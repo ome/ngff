@@ -3,9 +3,11 @@ import json
 import glob
 
 import pytest
+
 from jsonschema import validate as js_valid
 from jsonschema.exceptions import ValidationError as JSErr
 
+from pyld import jsonld
 from pyshacl import validate as ld_valid
 from rdflib import Graph
 
@@ -92,7 +94,7 @@ def method(request):
                 data_graph=d,
                 shacl_graph=s,
                 advanced=True,
-                debug=True,
+                debug=False,
                 allow_warnings=True,
             )
 
@@ -103,11 +105,24 @@ def method(request):
 
 
 def modify(data):
+    print("BEFORE", data)
     data = json.loads(data)
-    #DISABLED: data = walk(data)
+
+    # Can be used to wrap collections
+    # DISABLED: data = walk(data)
+
+    # Framing can be used to inject @type attributes
+    with open("frame.json") as o:
+        frame = json.load(o)
+    options = dict()
+    data["@context"] = frame["@context"]
+    data = jsonld.frame(
+        data,
+        frame,
+        options)
     data= {"@context": "http://localhost:8000/context.json#", "@graph": data}
     data = json.dumps(data, indent=4)  ## TODO: Seems wasteful
-    print(data)
+    print("AFTER", data)
     return data
 
 

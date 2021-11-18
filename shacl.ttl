@@ -188,24 +188,24 @@ schema:Channel_Shape a sh:NodeShape;
   ].
 
 schema:window_Shape a sh:NodeShape;
-  sh:targetClass ngff:window;
+  sh:targetClass ngff:Window;
   sh:property [
     sh:path ngff:end;
-    sh:datatype xsd:decimal;
+    sh:datatype xsd:double;
     sh:minCount 1;
   ];
   sh:property [
     sh:path ngff:max;
-    sh:datatype xsd:decimal;
+    sh:datatype xsd:double;
     sh:minCount 1;
   ];
   sh:property [
     sh:path ngff:min;
-    sh:datatype xsd:decimal;
+    sh:datatype xsd:double;
     sh:minCount 1;
   ];
   sh:property [
     sh:path ngff:start;
-    sh:datatype xsd:decimal;
+    sh:datatype xsd:double;
     sh:minCount 1;
   ].
