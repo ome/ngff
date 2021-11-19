@@ -14,9 +14,6 @@
           "name": {
             "type": "string"
           },
-          "version": {
-            "type": "string"
-          },
           "datasets": {
             "type": "array",
             "minItems": 1,
@@ -29,18 +26,45 @@
               },
               "required": ["path"]
             }
-          },
-          "axes": {
-            "type": "array",
-            "minItems": 2,
-            "items": {
-              "type": "string",
-              "pattern": "^[xyzct]$"
-            }
           }
         },
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "version": {
+                "type": "string",
+                "enum": [
+                  "0.3"
+                ]
+              },
+              "axes": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "string",
+                  "pattern": "^[xyzct]$"
+                }
+              }
+            },
+            "required": [
+              "axes"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "version": {
+                "type": "string",
+                "enum": [
+                  "0.2"
+                ]
+              }
+            }
+          }
+        ],
         "required": [
-          "version", "name", "datasets", "axes"
+          "name", "datasets"
         ]
       },
       "minItems": 1,

@@ -5,21 +5,14 @@ $namespaces:
 
 $graph:
 
-- name: VersionedType
-  doc: |
-    Opaque version. Note: likely to deprecate or remove in favor of a context version.
-  type: record
-  abstract: true
-  fields:
-    - name: version
-      type: string
-
 - name: DatasetMetadata
   doc: |
     Optional information about a Dataset.
   type: record
-  extends: [VersionedType]
   fields:
+    version:
+      type: string
+      jsonldPredicate: '#version'
     args:
       type:
         type: array
@@ -33,8 +26,10 @@ $graph:
   doc: |
     Optional rendering info for an Image.
   type: record
-  extends: [VersionedType]
   fields:
+    version:
+      type: string
+      jsonldPredicate: '#version'
     channels:
       type:
         type: array
@@ -80,7 +75,6 @@ $graph:
 #   doc: |
 #     Creator info for an Image.
 #   type: record
-#   extends: [VersionedType]
 #   fields:
 #     name: string
 
@@ -96,7 +90,7 @@ $graph:
   doc: |
     Identifies pyramid-like collections of arrays.
   type: record
-  extends: [VersionedType]
+  abstract: true
   fields:
   - name: name
     type: [string, "null"]
@@ -108,6 +102,30 @@ $graph:
     type: [DatasetMetadata, "null"]
   - name: type
     type: [string, "null"]
+
+
+- name: MultiscaleV2
+  type: record
+  extends: [Multiscale]
+  fields:
+  - name: version
+    jsonldPredicate: '#version'
+    type:
+      type: enum
+      symbols:
+        - "0.2"
+
+
+- name: MultiscaleV3
+  type: record
+  extends: [Multiscale]
+  fields:
+  - name: version
+    jsonldPredicate: '#version'
+    type:
+      type: enum
+      symbols:
+        - "0.3"
   - name: axes
     type:
       type: array
@@ -147,8 +165,10 @@ $graph:
   doc: |
     Metadata for a Label
   type: record
-  extends: [VersionedType]
   fields:
+    version:
+      type: string
+      jsonldPredicate: '#version'
     source: SourceMetadata
     colors:
       type:
