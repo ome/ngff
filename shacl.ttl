@@ -81,7 +81,7 @@ schema:Multiscale_Shape a sh:NodeShape;
     sh:property [
       sh:path ([sh:zeroOrMorePath rdf:rest] rdf:first);
     ];
-    sh:minCount 1;
+    sh:minCount 2;
     sh:pattern "^[xyzct]$";
     sh:datatype xsd:string;
   ] ;
