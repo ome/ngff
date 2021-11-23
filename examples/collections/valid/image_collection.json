@@ -1,0 +1,22 @@
+{
+    "@context": {
+        "@vocab": "http://test.org/"
+    },
+    "@id": "https://www.ome.org/myImageCollection",
+    "@type": "ImageCollection",
+    "name": "My Images. ONLY contains Images",
+    "items": [
+        {
+            "@id": "image/123.zarr",
+            "@type": "Image"
+        },
+        {
+            "@id": "images/456/",
+            "@type": "Image"
+        },
+        {
+            "@id": "cells.zarr",
+            "@type": "Image"
+        }
+    ]
+}
