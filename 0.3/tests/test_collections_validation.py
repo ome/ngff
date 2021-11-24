@@ -51,7 +51,7 @@ def method(request):
 
     # if request.param == "jsonschema":
 
-    with open('json_schema/collection.schema') as f:
+    with open('schemas/json_schema/collection.schema') as f:
         schema = json.loads(f.read())
 
     def f(path):

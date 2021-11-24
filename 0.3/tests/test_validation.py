@@ -25,7 +25,20 @@ class LDErr(Exception):
     pass
 
 
-def test_json(method, testfile):
+@pytest.fixture(scope="session")
+def httpserver_listen_address():
+    return ("127.0.0.1", 8000)
+
+
+def test_json(method, testfile, httpserver):
+
+    for uri, filename in (
+        ("/context.json", "schemas/jsonld/context.json"),
+        ("/image.schema", "schemas/json_schema/image.schema"),
+    ):
+        with open(filename) as o:
+            httpserver.expect_request(uri).respond_with_data(o.read())
+
     if "invalid" in testfile:
         with pytest.raises((JSErr, LDErr, SaladErr)):
             method(testfile)
@@ -54,7 +67,7 @@ def method(request):
 
     if request.param == "jsonschema":
 
-        with open('json_schema/image.schema') as f:
+        with open('schemas/json_schema/image.schema') as f:
             schema = json.loads(f.read())
 
         def json_schema(path):
@@ -74,7 +87,7 @@ def method(request):
         return salad
 
     else:
-        with open('shacl.ttl') as f:
+        with open('schemas/jsonld/shacl.ttl') as f:
             shacl = f.read()
 
         def jsonld(path):
@@ -119,7 +132,7 @@ def modify(data):
     # DISABLED: data = walk(data)
 
     # Framing can be used to inject @type attributes
-    with open("frame.json") as o:
+    with open("schemas/jsonld/frame.json") as o:
         frame = json.load(o)
     options = dict()
     data["@context"] = frame["@context"]

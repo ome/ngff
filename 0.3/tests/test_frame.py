@@ -3,7 +3,7 @@ from pprint import pprint
 from pyld import jsonld
 
 
-with open("frame.json") as o:
+with open("schemas/jsonld/frame.json") as o:
     frame = json.load(o)
 
 
@@ -29,7 +29,7 @@ def test_insertion():
 
 def test_pass_context():
     pprint(data)
-    with open("json_schema/context.json") as o:
+    with open("schemas/jsonld/context.json") as o:
         context = json.load(o)
     r = frame_with_options(data, frame, options={
             "context": context,
