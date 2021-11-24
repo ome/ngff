@@ -44,10 +44,10 @@ def test_json(method, testfile, httpserver):
             method(testfile)
             if "invalid_axes_order" in testfile:
                 pytest.skip("not supported")
-            elif "json_schema" in method.__name__ and "v0.2" in testfile:
-                pytest.skip("not supported")
 
     else:
+        if "jsonld" in method.__name__ and "v0.2" in testfile:
+            pytest.skip("not supported")
         method(testfile)
 
 
