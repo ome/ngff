@@ -1,0 +1,21 @@
+name: Validation
+on:
+  push:
+  pull_request:
+
+jobs:
+
+  validate:
+    name: Validation
+    strategy:
+      matrix:
+        ngff-version:
+          - '0.3'
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - run: python -mpip install --upgrade wheel tox
+      - run: cd {{ngff-version}} && tox
