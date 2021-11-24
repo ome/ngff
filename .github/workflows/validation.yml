@@ -18,4 +18,4 @@ jobs:
         with:
           python-version: '3.9'
       - run: python -mpip install --upgrade wheel tox
-      - run: cd {{ngff-version}} && tox
+      - run: cd ${{ngff-version}} && tox
