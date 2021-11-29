@@ -23,6 +23,7 @@
       "items": {
          "name": "The Images in the Collection",
          "type": "array",
+         "minItems": 1,
          "items": {
             "type": "object",
             "required": ["path", "@type"],
