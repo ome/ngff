@@ -423,21 +423,18 @@ above).
 "collection" metadata {#collection-md}
 --------------------------------------
 
-The custom attributes of the collection group MUST specify the type with
-`"@type": "Collection"`.
+A collection group MUST specify the type as `"@type": "ImageCollection"`.
 
 <dl>
   <dt><strong>@type</strong></dt>
-  <dd>This MUST be "Collection" and is used to identify a collection</dd>
+  <dd>This MUST be "ImageCollection" and is used to identify a collection of Images</dd>
   <dt><strong>name</strong></dt>
   <dd>An optional name MAY be specified for the collection</dd>
   <dt><strong>images</strong></dt>
   <dd>
-    The images dictionary MUST be defined. Each key MUST be a path to
+    The items list MUST be defined. Each item MUST contain a path to
     an Image object. The path MAY include directories if desired to allow
-    organisation of images in a file system. The value of each item is a dictionary
-    that is currently empty, except for an optional `properties` dictionary for
-    custom properties of the image. Additional attributes will be added to
+    organisation of images in a file system. Additional attributes will be added to
     the image dictionary in future as the spec matures.
   </dd>
 </dl>
@@ -445,15 +442,18 @@ The custom attributes of the collection group MUST specify the type with
 For example, the following JSON defines a collection of 2 images:
 
 ```json
-"@type": "Collection",
-"name": "My Image Collection",
-"images": {
-  "image1": {
-    "properties": {
-      "custom_key": "custom_value"
+{
+  "@type": "ImageCollection",
+  "items": [
+    {
+      "@type": "Image",
+      "path": "image1"
+    },
+    {
+      "@type": "Image",
+      "path": "path/to/image2"
     }
-  },
-  "path/to/image2": {}
+  ]
 }
 ```
 
