@@ -1,0 +1,13 @@
+{
+    "@type": "ImageCollection",
+    "items": [
+        {
+            "@type": "Image",
+            "path": "image1"
+        },
+        {
+            "@type": "Image",
+            "path": "path/to/image2"
+        }
+    ]
+}

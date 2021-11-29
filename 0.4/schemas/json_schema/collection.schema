@@ -1,0 +1,42 @@
+{
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "$id": "collection.schema",
+   "name": "JSON Schema for NGFF Image Collection",
+   "description": "Validates an Image Collection",
+   "type": "object",
+   "required": [
+      "@type",
+      "items"
+   ],
+   "properties": {
+      "@type": {
+         "name": "The collection type",
+         "description": "required and must be ImageCollection",
+         "type": "string",
+         "format": "regex",
+         "pattern": "^ImageCollection$"
+      },
+      "name": {
+         "name": "Name of the collection",
+         "type": "string"
+      },
+      "items": {
+         "name": "The Images in the Collection",
+         "type": "array",
+         "items": {
+            "type": "object",
+            "required": ["path", "@type"],
+            "properties": {
+               "@type": {
+                  "type": "string",
+                  "format": "regex",
+                  "pattern": "^Image$"
+               },
+               "path": {
+                  "type": "string"
+               }
+            }
+         }
+      }
+   }
+}
