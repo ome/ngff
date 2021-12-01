@@ -61,8 +61,7 @@ schema:Multiscale_Shape a sh:NodeShape;
   sh:property [
     sh:path ngff:version;
     sh:datatype xsd:string;
-    sh:minCount 1;
-    sh:hasValue "0.3";
+    sh:pattern "0.3";
   ];
 
   sh:property [

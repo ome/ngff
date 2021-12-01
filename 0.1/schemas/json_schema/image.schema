@@ -46,7 +46,7 @@
           }
         },
         "required": [
-          "version", "datasets"
+          "datasets"
         ]
       },
       "minItems": 1,
