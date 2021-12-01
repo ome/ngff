@@ -10,6 +10,8 @@ jobs:
     strategy:
       matrix:
         ngff:
+          - '0.1'
+          - '0.2'
           - '0.3'
     runs-on: ubuntu-20.04
     steps:
