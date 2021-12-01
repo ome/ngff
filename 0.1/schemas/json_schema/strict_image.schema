@@ -5,6 +5,7 @@
                 "required": [
                     "version",
                     "name",
+                    "type",
                     "metadata",
                     "datasets"
                 ]
@@ -12,7 +13,6 @@
         }
     },
     "required": [
-        "multiscales",
-        "omero"
+        "multiscales"
     ]
 }
