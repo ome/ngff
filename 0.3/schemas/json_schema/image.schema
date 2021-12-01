@@ -43,7 +43,7 @@
           }
         },
         "required": [
-          "version", "name", "datasets", "axes"
+          "version", "datasets", "axes"
         ]
       },
       "minItems": 1,

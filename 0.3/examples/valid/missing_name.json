@@ -6,9 +6,6 @@
             "datasets": [
                 {
                     "path": "path/to/0"
-                },
-                {
-                    "path": 0
                 }
             ],
             "type": "gaussian",

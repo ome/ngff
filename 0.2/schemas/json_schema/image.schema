@@ -35,7 +35,7 @@
           }
         },
         "required": [
-          "version", "name", "datasets"
+          "version", "datasets"
         ]
       },
       "minItems": 1,
