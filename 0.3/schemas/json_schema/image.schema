@@ -26,45 +26,24 @@
               },
               "required": ["path"]
             }
-          }
-        },
-        "oneOf": [
-          {
-            "type": "object",
-            "properties": {
-              "version": {
-                "type": "string",
-                "enum": [
-                  "0.3"
-                ]
-              },
-              "axes": {
-                "type": "array",
-                "minItems": 2,
-                "items": {
-                  "type": "string",
-                  "pattern": "^[xyzct]$"
-                }
-              }
-            },
-            "required": [
-              "axes"
+          },
+          "version": {
+            "type": "string",
+            "enum": [
+              "0.3"
             ]
           },
-          {
-            "type": "object",
-            "properties": {
-              "version": {
-                "type": "string",
-                "enum": [
-                  "0.2"
-                ]
-              }
+          "axes": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "string",
+              "pattern": "^[xyzct]$"
             }
           }
-        ],
+        },
         "required": [
-          "name", "datasets"
+          "version", "name", "datasets", "axes"
         ]
       },
       "minItems": 1,
