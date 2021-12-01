@@ -46,8 +46,6 @@ def test_json(method, testfile, httpserver):
                 pytest.skip("not supported")
 
     else:
-        if "jsonld" in method.__name__ and "v0.2" in testfile:
-            pytest.skip("not supported")
         method(testfile)
 
 

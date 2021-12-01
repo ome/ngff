@@ -17,7 +17,18 @@
                     "path": "2"
                 }
             ],
-            "type": "gaussian"
+            "type": "gaussian",
+            "metadata": {
+                "method": "skimage.transform.pyramid_gaussian",
+                "version": "0.16.1",
+                "args": [
+                    "true",
+                    "false"
+                ],
+                "kwargs": {
+                    "multichannel": true
+                }
+            }
         }
     ],
     "omero": {

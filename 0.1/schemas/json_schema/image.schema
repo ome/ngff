@@ -32,10 +32,21 @@
             "enum": [
               "0.1"
             ]
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "method": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
           }
         },
         "required": [
-          "version", "name", "datasets"
+          "version", "datasets"
         ]
       },
       "minItems": 1,

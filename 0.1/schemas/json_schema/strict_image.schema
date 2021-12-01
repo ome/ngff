@@ -1,0 +1,18 @@
+{
+    "properties": {
+        "multiscales": {
+            "items": {
+                "required": [
+                    "version",
+                    "name",
+                    "metadata",
+                    "datasets"
+                ]
+            }
+        }
+    },
+    "required": [
+        "multiscales",
+        "omero"
+    ]
+}
