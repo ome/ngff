@@ -156,7 +156,7 @@ High-content screening {#hcs-layout}
 ------------------------------------
 
 The following specification defines the hierarchy for a high-content screening
-dataset. Three groups must be defined above the images:
+dataset. Three groups MUST be defined above the images:
 
 -   the group above the images defines the well and MUST implement the
     [well specification](#well-md). All images contained in a well are fields
@@ -165,6 +165,9 @@ dataset. Three groups must be defined above the images:
 -   the group above the well row defines an entire plate i.e. a two-dimensional
     collection of wells organized in rows and columns. It MUST implement the
     [plate specification](#plate-md)
+
+A well row group MUST NOT be present if there are no images in the well row.
+A well group MUST NOT be present if there are no images in the well.
 
 
 ```
@@ -365,9 +368,9 @@ custom attributes of the plate group under the `plate` key.
   <dt><strong>columns</strong></dt>
   <dd>A list of JSON objects defining the columns of the plate. Each column
       object defines the properties of the column at the index of the object
-      in the list. If not empty, it MUST contain a `name` key specifying the
-      column name. Each column in the physical plate MUST be defined, even
-      if no wells in the column are defined.</dd>
+      in the list. Each column in the physical plate MUST be defined, even
+      if no wells in the column are defined. Each defined column MUST contain
+      a `name` key specifying the column name.</dd>
   <dt><strong>field_count</strong></dt>
   <dd>An integer defining the maximum number of fields per view across all
       wells.</dd>
@@ -376,14 +379,17 @@ custom attributes of the plate group under the `plate` key.
   <dt><strong>rows</strong></dt>
   <dd>A list of JSON objects defining the rows of the plate. Each row object
       defines the properties of the row at the index of the object in the
-      list. If not empty, it MUST contain a `name` key specifying the row
-      name. Each row in the physical plate MUST be defined, even if no wells
-      in the row are defined.</dd>
+      list. Each row in the physical plate MUST be defined, even if no wells
+      in the row are defined. Each defined row MUST contain a `name` key
+      specifying the row name.</dd>
   <dt><strong>version</strong></dt>
   <dd>A string defining the version of the specification.</dd>
   <dt><strong>wells</strong></dt>
   <dd>A list of JSON objects defining the wells of the plate. Each well object 
       MUST contain a `path` key identifying the path to the well subgroup.
+      The `path` MUST consist of a `name` in the `rows` list, a file separator (`/`),
+      and a `name` from the `columns` list, in that order. The `path` MUST NOT contain
+      additional leading or trailing directories.
       Each well object MUST contain both a `row_index` key identifying the index into
       the `rows` list and a `column_index` key indentifying the index into
       the `columns` list. `row_index` and `column_index` MUST be 0-based.</dd>
@@ -432,32 +438,32 @@ For example the following JSON object defines a plate with two acquisitions and
     "version": "0.1",
     "wells": [
         {
-            "path": "2020-10-10/A/1",
+            "path": "A/1",
             "row_index": 0,
             "column_index": 0
         },
         {
-            "path": "2020-10-10/A/2"
+            "path": "A/2"
             "row_index": 0,
             "column_index": 1
         },
         {
-            "path": "2020-10-10/A/3"
+            "path": "A/3"
             "row_index": 0,
             "column_index": 2
         },
         {
-            "path": "2020-10-10/B/1"
+            "path": "B/1"
             "row_index": 1,
             "column_index": 0
         },
         {
-            "path": "2020-10-10/B/2"
+            "path": "B/2"
             "row_index": 1,
             "column_index": 1
         },
         {
-            "path": "2020-10-10/B/3"
+            "path": "B/3"
             "row_index": 1,
             "column_index": 2
         }
