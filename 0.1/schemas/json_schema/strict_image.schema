@@ -1,15 +1,18 @@
 {
-    "properties": {
+  "allOf": [
+    {
+      "$ref": "http://localhost:8000/image.schema"
+    },
+    {
+      "properties": {
         "multiscales": {
-            "items": {
-                "required": [
-                    "version",
-                    "name",
-                    "type",
-                    "metadata",
-                    "datasets"
-                ]
-            }
+          "items": {
+            "required": [
+              "version", "metadata", "type"
+            ]
+          }
         }
+      }
     }
+  ]
 }

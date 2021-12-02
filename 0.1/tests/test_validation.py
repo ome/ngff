@@ -9,6 +9,11 @@ from jsonschema.validators import validator_for
 from jsonschema.exceptions import ValidationError
 
 
+@pytest.fixture(scope="session")
+def httpserver_listen_address():
+    return ("127.0.0.1", 8000)
+
+
 def files():
     return list(glob.glob(f"examples/*/valid/*.json")) + \
         list(glob.glob(f"examples/*/invalid/*.json"))
@@ -35,7 +40,13 @@ def test_json(testfile):
 
 
 @pytest.mark.parametrize("testfile", strict(), ids=ids(strict()))
-def test_strict_rules(testfile):
+def test_strict_rules(testfile, httpserver):
+
+    for uri, filename in (
+        ("/image.schema", "schemas/json_schema/image.schema"),
+    ):
+        with open(filename) as o:
+            httpserver.expect_request(uri).respond_with_data(o.read())
 
     test_json, schema = load_instance_and_schema(testfile, strict=True)
 
@@ -65,9 +76,10 @@ def load_instance_and_schema(path, strict=False):
     schema = load_json('schemas/json_schema/' + schema_name)
 
     strict_path = 'schemas/json_schema/strict_' + schema_name
-    if strict and os.path.exists(strict_path):
-        strict_rules = load_json(strict_path)
-        schema = merge(schema, strict_rules)
+    if strict and schema_name == "image.schema":
+        schema = load_json(strict_path)
+        # If the schema were using an external URL, could point at local image.schema
+        # schema['allOf'][0]['$ref'] = "http://localhost:8000/image.schema"
 
     return (test_json, schema)
 
