@@ -88,18 +88,3 @@ def load_json(path):
     with open(path) as f:
         json_data = json.loads(f.read())
     return json_data
-
-
-def merge(destination, source):
-    """
-    deep merge of source into destination dict
-    https://stackoverflow.com/questions/20656135/python-deep-merge-dictionary-data
-    """
-    for key, value in source.items():
-        if isinstance(value, dict):
-            node = destination.setdefault(key, {})
-            merge(node, value)
-        else:
-            destination[key] = value
-
-    return destination
