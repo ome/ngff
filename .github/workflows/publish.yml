@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - uses: joshmoore/spec-prod@main
+      - uses: joshmoore/spec-prod@0_3
         with:
           GH_PAGES_BRANCH: gh-pages
           VALIDATE_LINKS: false

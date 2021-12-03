@@ -2,10 +2,9 @@
 Title: Next-generation file formats (NGFF)
 Shortname: ome-ngff
 Level: 1
-Status: LS-COMMIT
-Status: w3c/ED
+Status: w3c/CG-FINAL
 Group: ome
-URL: https://ngff.openmicroscopy.org/latest/
+URL: https://ngff.openmicroscopy.org/0.2/
 Repository: https://github.com/ome/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
@@ -15,13 +14,11 @@ Boilerplate: style-darkmode off
 Markup Shorthands: markdown yes
 Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
 Editor: Sébastien Besson, Open Microscopy Environment (OME) https://www.openmicroscopy.org
-Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
-Status Text: The current released version of this specification is
-Status Text: <a href="../0.3/index.html">0.3</a>. Migration scripts
-Status Text: will be provided between numbered versions. Data written with these latest changes
+Status Text: This is the 0.2 release of this specification. Migration scripts
+Status Text: will be provided between numbered versions. Data written with the latest version
 Status Text: (an "editor's draft") will not necessarily be supported.
 </pre>
 
@@ -108,7 +105,7 @@ Images {#image-layout}
 The following layout describes the expected Zarr hierarchy for images with
 multiple levels of resolutions and optionally associated labels.
 
-<pre>
+```
 .                             # Root folder, potentially in S3,
 │                             # with a flat list of images by image ID.
 │
@@ -118,15 +115,14 @@ multiple levels of resolutions and optionally associated labels.
     │
     ├── .zgroup               # Each image is a Zarr group, or a folder, of other groups and arrays.
     ├── .zattrs               # Group level attributes are stored in the .zattrs file and include
-    │                         # "multiscales" and "omero" (see below). In addition, the group level attributes
-    │                         # must also contain "_ARRAY_DIMENSIONS" if this group directly contains multi-scale arrays.
+    │                         #  "multiscales" and "omero" below)
     │
     ├── 0                     # Each multiscale level is stored as a separate Zarr array,
     │   ...                   # which is a folder containing chunk files which compose the array.
     ├── n                     # The name of the array is arbitrary with the ordering defined by
     │   │                     # by the "multiscales" metadata, but is often a sequence starting at 0.
     │   │
-    │   ├── .zarray           # All image arrays must be up to 5-dimensional
+    │   ├── .zarray           # All image arrays are 5-dimensional
     │   │                     # with dimension order (t, c, z, y, x).
     │   │
     │   └─ t                  # Chunks are stored with the nested directory layout.
@@ -153,15 +149,13 @@ multiple levels of resolutions and optionally associated labels.
                 ├── 0         # Each multiscale level is stored as a separate Zarr array, as above, but only integer values
                 │   ...       # are supported.
                 └── n
-</pre>
-
-
+```
 
 High-content screening {#hcs-layout}
 ------------------------------------
 
 The following specification defines the hierarchy for a high-content screening
-dataset. Three groups MUST be defined above the images:
+dataset. Three groups must be defined above the images:
 
 -   the group above the images defines the well and MUST implement the
     [well specification](#well-md). All images contained in a well are fields
@@ -171,11 +165,8 @@ dataset. Three groups MUST be defined above the images:
     collection of wells organized in rows and columns. It MUST implement the
     [plate specification](#plate-md)
 
-A well row group MUST NOT be present if there are no images in the well row.
-A well group MUST NOT be present if there are no images in the well.
 
-
-<pre>
+```
 .                             # Root folder, potentially in S3,
 │
 └── 5966.zarr                 # One plate (id=5966) converted to Zarr
@@ -202,7 +193,7 @@ A well group MUST NOT be present if there are no images in the well.
     │   └── 12
     ├── ...                   # Rows
     └── H
-</pre>
+```
 
 Metadata {#metadata}
 ====================
@@ -223,17 +214,10 @@ the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
 
-It MUST contain the field "axes", which is a list of dimension names of the axes.
-The values MUST be unique and one of `{"t", "c", "z", "y", "x"}`.
-The number of values MUST be the same as the number of dimensions of the arrays corresponding to this image.
-In addition, the "axes" values MUST be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups
-(i.e. groups containing arrays with the multiscale data).
-This ensures compatibility with the [xarray zarr encoding](http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding).
-
 It SHOULD contain the field "name".
 
 It SHOULD contain the field "version", which indicates the version of the
-multiscale metadata of this image (current version is 0.3).
+multiscale metadata of this image (current version is 0.2).
 
 It SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
 
@@ -243,15 +227,12 @@ It SHOULD contain the field "metadata", which contains a dictionary with additio
 {
     "multiscales": [
         {
-            "version": "0.3",
+            "version": "0.2",
             "name": "example",
             "datasets": [
                 {"path": "0"},
                 {"path": "1"},
                 {"path": "2"}
-            ],
-            "axes": [
-                "t", "c", "z", "y", "x"
             ],
             "type": "gaussian",
             "metadata": {                                       # the fields in metadata depend on the downscaling implementation
@@ -288,7 +269,7 @@ can be found under the "omero" key in the group-level metadata:
 ```json
 "id": 1,                              # ID in OMERO
 "name": "example.tif",                # Name as shown in the UI
-"version": "0.3",                     # Current version
+"version": "0.2",                     # Current version
 "channels": [                         # Array matching the c dimension size
     {
         "active": true,
@@ -349,10 +330,10 @@ should ignore all except the _last_ entry.
 Some implementations may represent overlapping labels by using a specially assigned
 value, for example the highest integer available in the pixel range.
 
-The `properties` key defines a list of JSON objects which also describes the unique
-label values. Each entry in the list MUST contain the key "label-value" with the
-pixel value for that label. Additionally, an arbitrary number of key-value pairs
-MAY be present for each label value denoting associated metadata. Not all label
+The `properties` key defines a list of JSON objects which also describes the unique 
+label values. Each entry in the list MUST contain the key "label-value" with the 
+pixel value for that label. Additionally, an arbitrary number of key-value pairs 
+MAY be present for each label value denoting associated metadata. Not all label 
 values must share the same key-value pairs within the properties list.
 
 The `source` key is an optional dictionary which contains information on the
@@ -365,7 +346,7 @@ above).
 ```json
 "image-label":
   {
-    "version": "0.3",
+    "version": "0.2",
     "colors": [
       {
         "label-value": 1,
@@ -418,9 +399,8 @@ custom attributes of the plate group under the `plate` key.
   <dt><strong>columns</strong></dt>
   <dd>A list of JSON objects defining the columns of the plate. Each column
       object defines the properties of the column at the index of the object
-      in the list. Each column in the physical plate MUST be defined, even
-      if no wells in the column are defined. Each defined column MUST contain
-      a `name` key specifying the column name.</dd>
+      in the list. If not empty, it MUST contain a `name` key specifying the
+      column name.</dd>
   <dt><strong>field_count</strong></dt>
   <dd>An integer defining the maximum number of fields per view across all
       wells.</dd>
@@ -429,24 +409,17 @@ custom attributes of the plate group under the `plate` key.
   <dt><strong>rows</strong></dt>
   <dd>A list of JSON objects defining the rows of the plate. Each row object
       defines the properties of the row at the index of the object in the
-      list. Each row in the physical plate MUST be defined, even if no wells
-      in the row are defined. Each defined row MUST contain a `name` key
-      specifying the row name.</dd>
+      list. If not empty, it MUST contain a `name` key specifying the row
+      name.</dd>
   <dt><strong>version</strong></dt>
   <dd>A string defining the version of the specification.</dd>
   <dt><strong>wells</strong></dt>
-  <dd>A list of JSON objects defining the wells of the plate. Each well object
-      MUST contain a `path` key identifying the path to the well subgroup.
-      The `path` MUST consist of a `name` in the `rows` list, a file separator (`/`),
-      and a `name` from the `columns` list, in that order. The `path` MUST NOT contain
-      additional leading or trailing directories.
-      Each well object MUST contain both a `row_index` key identifying the index into
-      the `rows` list and a `column_index` key indentifying the index into
-      the `columns` list. `row_index` and `column_index` MUST be 0-based.</dd>
+  <dd>A list of JSON objects defining the wells of the plate. Each well object 
+      MUST contain a `path` key identifying the path to the well subgroup.</dd>
 </dl>
 
-For example the following JSON object defines a plate with two acquisitions and
-6 wells (2 rows and 3 columns), containing up to 2 fields of view per acquisition.
+For example the following JSON object defines a plate with two acquisition and
+6 wells (2 rows and 3 columns), containing up 2 fields of view per acquistion.
 
 ```json
 "plate": {
@@ -485,132 +458,25 @@ For example the following JSON object defines a plate with two acquisitions and
             "name": "B"
         }
     ],
-    "version": "0.3",
+    "version": "0.2",
     "wells": [
         {
-            "path": "A/1",
-            "row_index": 0,
-            "column_index": 0
+            "path": "2020-10-10/A/1"
         },
         {
-            "path": "A/2"
-            "row_index": 0,
-            "column_index": 1
+            "path": "2020-10-10/A/2"
         },
         {
-            "path": "A/3"
-            "row_index": 0,
-            "column_index": 2
+            "path": "2020-10-10/A/3"
         },
         {
-            "path": "B/1"
-            "row_index": 1,
-            "column_index": 0
+            "path": "2020-10-10/B/1"
         },
         {
-            "path": "B/2"
-            "row_index": 1,
-            "column_index": 1
+            "path": "2020-10-10/B/2"
         },
         {
-            "path": "B/3"
-            "row_index": 1,
-            "column_index": 2
-        }
-    ]
-  }
-```
-
-The following JSON object defines a sparse plate with one acquisition and
-2 wells in a 96 well plate, containing one field of view per acquisition.
-
-```json
-"plate": {
-    "acquisitions": [
-        {
-            "id": 1,
-            "maximumfieldcount": 1,
-            "name": "single acquisition",
-            "starttime": 1343731272000
-        },
-    ],
-    "columns": [
-        {
-            "name": "1"
-        },
-        {
-            "name": "2"
-        },
-        {
-            "name": "3"
-        },
-        {
-            "name": "4"
-        },
-        {
-            "name": "5"
-        },
-        {
-            "name": "6"
-        },
-        {
-            "name": "7"
-        },
-        {
-            "name": "8"
-        },
-        {
-            "name": "9"
-        },
-        {
-            "name": "10"
-        },
-        {
-            "name": "11"
-        },
-        {
-            "name": "12"
-        }
-    ],
-    "field_count": 1,
-    "name": "sparse test",
-    "rows": [
-        {
-            "name": "A"
-        },
-        {
-            "name": "B"
-        },
-        {
-            "name": "C"
-        },
-        {
-            "name": "D"
-        },
-        {
-            "name": "E"
-        },
-        {
-            "name": "F"
-        },
-        {
-            "name": "G"
-        },
-        {
-            "name": "H"
-        }
-    ],
-    "version": "0.1",
-    "wells": [
-        {
-            "path": "C/5"
-            "row_index": 2,
-            "column_index": 4
-        },
-        {
-            "path": "D/7"
-            "row_index": 3,
-            "column_index": 6
+            "path": "2020-10-10/B/3"
         }
     ]
   }
@@ -620,15 +486,15 @@ The following JSON object defines a sparse plate with one acquisition and
 --------------------------
 
 For high-content screening datasets, the metadata about all fields of views
-under a given well can be found under the "well" key in the attributes of the
+under a given  well can be found under the "well" key in the attributes of the
 well group.
 
 <dl>
   <dt><strong>images</strong></dt>
   <dd>A list of JSON objects defining the fields of views for a given well.
       Each object MUST contain a `path` key identifying the path to the
-      field of view. If multiple acquisitions were performed in the plate, it
-      MUST contain an `acquisition` key identifying the id of the
+      field of view. If multiple acquisitions were performed in the plate, it  
+      SHOULD contain an `acquisition` key identifying the id of the 
       acquisition which must match one of acquisition JSON objects defined in
       the plate metadata.</dd>
   <dt><strong>version</strong></dt>
@@ -636,7 +502,7 @@ well group.
 </dl>
 
 For example the following JSON object defines a well with four fields of
-view. The first two fields of view were part of the first acquisition while
+views. The first two fields of view were part of the first acquisition while
 the last two fields of view were part of the second acquisition.
 
 ```json
@@ -659,36 +525,9 @@ the last two fields of view were part of the second acquisition.
             "path": "3"
         }
     ],
-    "version": "0.3"
+    "version": "0.2"
   }
 ```
-
-The following JSON object defines a well with two fields of view in a plate with
-four acquisitions. The first field is part of the first acquisition, and the second
-field is part of the last acquisition.
-
-```json
-"well": {
-    "images": [
-        {
-            "acquisition": 0,
-            "path": "0"
-        },
-        {
-            "acquisition": 3,
-            "path": "1"
-        }
-    ],
-    "version": "0.1"
-}
-```
-
-Specification naming style {#naming-style}
-==========================================
-
-Multi-word keys in this specification should use the `camelCase` style.
-NB: some parts of the specification don't obey this convention as they
-were added before this was adopted, but they should be updated in due course.
 
 Implementations {#implementations}
 ==================================
@@ -732,9 +571,9 @@ Note: If you would like to see your project listed, please open an issue or PR o
 Citing {#citing}
 ================
 
-[Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.](https://ngff.openmicroscopy.org/0.3)
-J. Moore, *et al*. Editors. Open Microscopy Environment Consortium, 24 August 2021.
-This edition of the specification is [https://ngff.openmicroscopy.org/0.3/](https://ngff.openmicroscopy.org/0.3/]).
+[Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.](https://ngff.openmicroscopy.org/0.2)
+J. Moore, *et al*. Editors. Open Microscopy Environment Consortium, 29 March, 2021.
+This edition of the specification is [https://ngff.openmicroscopy.org/0.2/](https://ngff.openmicroscopy.org/0.2/]).
 The latest edition is available at [https://ngff.openmicroscopy.org/latest/](https://ngff.openmicroscopy.org/latest/).
 [(doi:10.5281/zenodo.4282107)](https://doi.org/10.5281/zenodo.4282107)
 
@@ -749,11 +588,6 @@ Version History {#history}
       <td>Description</td>
     </tr>
   </thead>
-  <tr>
-    <td>0.3.0</td>
-    <td>2021-08-24</td>
-    <td>Add axes field to multiscale metadata     </td>
-  </tr>
   <tr>
     <td>0.2.0</td>
     <td>2021-03-29</td>
