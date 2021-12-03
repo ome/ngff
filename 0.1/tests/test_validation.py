@@ -4,12 +4,12 @@ import glob
 
 import pytest
 
-from jsonschema import validate
+from jsonschema import validate, RefResolver
 from jsonschema.validators import validator_for
 from jsonschema.exceptions import ValidationError
 
 
-IMAGE_SCHEMA_KEY = "/image.schema"
+IMAGE_SCHEMA_KEY = "https://ngff.openmicroscopy.org/0.1/schemas/image.schema"
 
 
 def files():
@@ -37,6 +37,18 @@ def test_json(testfile):
         validate(instance=test_json, schema=schema)
 
 
+class LocalRefResolver(RefResolver):
+
+    def resolve_from_url(self, url):
+        # Use remote URL to generate local path
+        url = url.replace("https://ngff.openmicroscopy.org/0.1/schemas", "schemas/json_schema")
+        # Load local document and cache it
+        document = load_json(url)
+        self.store[url] = document
+        # This will use the cached document, resolve fragment etc.
+        return super(LocalRefResolver, self).resolve_from_url(url)
+
+
 @pytest.mark.parametrize("testfile", strict(), ids=ids(strict()))
 def test_strict_rules(testfile):
 
@@ -45,10 +57,11 @@ def test_strict_rules(testfile):
     # Check for all validation errors without throwing exception
     cls = validator_for(schema)
     cls.check_schema(schema)
-    validator = cls(schema)
-    # Manually populate the URL resolver, so it doesn't try to load invalid URL
-    image_schema = load_json('schemas/json_schema/image.schema')
-    validator.resolver.store.update({IMAGE_SCHEMA_KEY: image_schema})
+
+    # Use our local resolver subclass to resolve local documents
+    localResolver = LocalRefResolver.from_schema(schema)
+    validator = cls(schema, localResolver)
+
     warnings = list(validator.iter_errors(test_json))
     for warning in warnings:
         print("WARNING", warning.message)
@@ -73,8 +86,6 @@ def load_instance_and_schema(path, strict=False):
     if strict and schema_name == "image.schema":
         strict_path = 'schemas/json_schema/strict_' + schema_name
         schema = load_json(strict_path)
-        # Replace external URL, with ref to schema we cached above
-        schema['allOf'][0]['$ref'] = IMAGE_SCHEMA_KEY
 
     return (test_json, schema)
 

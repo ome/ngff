@@ -1,7 +1,7 @@
 {
   "allOf": [
     {
-      "$ref": "FIXME! https://ngff.openmicroscopy.org/0.1/schemas/image.schema"
+      "$ref": "https://ngff.openmicroscopy.org/0.1/schemas/image.schema"
     },
     {
       "properties": {
