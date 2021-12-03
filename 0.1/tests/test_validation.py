@@ -39,14 +39,13 @@ def test_json(testfile):
 
 class LocalRefResolver(RefResolver):
 
-    def resolve_from_url(self, url):
+    def resolve_remote(self, url):
         # Use remote URL to generate local path
-        url = url.replace("https://ngff.openmicroscopy.org/0.1/schemas", "schemas/json_schema")
+        url = url.replace("https://ngff.openmicroscopy.org/0.1/", "")
         # Load local document and cache it
         document = load_json(url)
         self.store[url] = document
-        # This will use the cached document, resolve fragment etc.
-        return super(LocalRefResolver, self).resolve_from_url(url)
+        return document
 
 
 @pytest.mark.parametrize("testfile", strict(), ids=ids(strict()))
