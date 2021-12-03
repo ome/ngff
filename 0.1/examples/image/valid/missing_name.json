@@ -8,7 +8,11 @@
                     "path": "path/to/0"
                 }
             ],
-            "type": "gaussian"
+            "type": "gaussian",
+            "metadata": {
+                "method": "skimage.transform.pyramid_gaussian",
+                "version": "0.16.1"
+            }
         }
     ]
 }

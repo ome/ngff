@@ -8,7 +8,7 @@
         "multiscales": {
           "items": {
             "required": [
-              "version", "metadata", "type"
+              "version", "metadata", "type", "name"
             ]
           }
         }
