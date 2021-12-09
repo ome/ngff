@@ -171,8 +171,8 @@ dataset. Three groups MUST be defined above the images:
     collection of wells organized in rows and columns. It MUST implement the
     [plate specification](#plate-md)
 
-A well row group MUST NOT be present if there are no images in the well row.
-A well group MUST NOT be present if there are no images in the well.
+A well row group SHOULD NOT be present if there are no images in the well row.
+A well group SHOULD NOT be present if there are no images in the well.
 
 
 <pre>
@@ -420,7 +420,11 @@ custom attributes of the plate group under the `plate` key.
       object defines the properties of the column at the index of the object
       in the list. Each column in the physical plate MUST be defined, even
       if no wells in the column are defined. Each defined column MUST contain
-      a `name` key specifying the column name.</dd>
+      a `name` key specifying the column name. The `name` MUST contain only
+      alphanumeric characters, MUST be case-sensitive, and MUST NOT be a
+      duplicate of any other `name` in the `columns` list. Care SHOULD be
+      taken to avoid collisions on case-insensitive filesystems
+      (e.g. avoid using both `Aa` and `aA`).</dd>
   <dt><strong>field_count</strong></dt>
   <dd>An integer defining the maximum number of fields per view across all
       wells.</dd>
@@ -431,7 +435,11 @@ custom attributes of the plate group under the `plate` key.
       defines the properties of the row at the index of the object in the
       list. Each row in the physical plate MUST be defined, even if no wells
       in the row are defined. Each defined row MUST contain a `name` key
-      specifying the row name.</dd>
+      specifying the row name. The `name` MUST contain only alphanumeric
+      characters, MUST be case-sensitive, and MUST NOT be a duplicate
+      of any other `name` in the `rows` list. Care SHOULD be taken to avoid
+      collisions on case-insensitive filesystems (e.g. avoid using both `Aa`
+      and `aA`).</dd>
   <dt><strong>version</strong></dt>
   <dd>A string defining the version of the specification.</dd>
   <dt><strong>wells</strong></dt>
@@ -442,7 +450,9 @@ custom attributes of the plate group under the `plate` key.
       additional leading or trailing directories.
       Each well object MUST contain both a `rowIndex` key identifying the index into
       the `rows` list and a `columnIndex` key indentifying the index into
-      the `columns` list. `rowIndex` and `columnIndex` MUST be 0-based.</dd>
+      the `columns` list. `rowIndex` and `columnIndex` MUST be 0-based.
+      The `rowIndex`, `columnIndex`, and `path` MUST all refer to the same
+      row/column pair.</dd>
 </dl>
 
 For example the following JSON object defines a plate with two acquisitions and
