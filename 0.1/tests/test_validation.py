@@ -80,10 +80,10 @@ def load_instance_and_schema(path, strict=False):
     else:
         raise Exception("No schema found")
 
-    schema = load_json('schemas/json_schema/' + schema_name)
+    schema = load_json('schemas/' + schema_name)
 
     if strict and schema_name == "image.schema":
-        strict_path = 'schemas/json_schema/strict_' + schema_name
+        strict_path = 'schemas/strict_' + schema_name
         schema = load_json(strict_path)
 
     return (test_json, schema)

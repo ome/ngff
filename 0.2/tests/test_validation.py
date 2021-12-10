@@ -35,6 +35,6 @@ def json_schema(path):
         else:
             raise Exception("No schema found")
 
-    with open('schemas/json_schema/' + schema_name) as f:
+    with open('schemas/' + schema_name) as f:
         schema = json.loads(f.read())
     validate(instance=test_json, schema=schema)
