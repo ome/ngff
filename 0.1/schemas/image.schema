@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "http://localhost:8000/image.schema",
+  "$id": "https://ngff.openmicroscopy.org/0.1/schemas/image.schema",
   "title": "NGFF Image",
   "description": "JSON from OME-NGFF .zattrs",
   "type": "object",
@@ -26,45 +26,27 @@
               },
               "required": ["path"]
             }
-          }
-        },
-        "oneOf": [
-          {
-            "type": "object",
-            "properties": {
-              "version": {
-                "type": "string",
-                "enum": [
-                  "0.3"
-                ]
-              },
-              "axes": {
-                "type": "array",
-                "minItems": 2,
-                "items": {
-                  "type": "string",
-                  "pattern": "^[xyzct]$"
-                }
-              }
-            },
-            "required": [
-              "axes"
+          },
+          "version": {
+            "type": "string",
+            "enum": [
+              "0.1"
             ]
           },
-          {
+          "metadata": {
             "type": "object",
             "properties": {
+              "method": {
+                "type": "string"
+              },
               "version": {
-                "type": "string",
-                "enum": [
-                  "0.2"
-                ]
+                "type": "string"
               }
             }
           }
-        ],
+        },
         "required": [
-          "name", "datasets"
+          "datasets"
         ]
       },
       "minItems": 1,

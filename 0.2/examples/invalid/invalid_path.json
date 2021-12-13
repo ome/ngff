@@ -7,6 +7,9 @@
             "datasets": [
                 {
                     "path": "path/to/0"
+                },
+                {
+                    "path": 0
                 }
             ]
         }

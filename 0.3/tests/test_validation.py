@@ -15,12 +15,6 @@ from schema_salad.schema import load_schema, load_and_validate
 from schema_salad.exceptions import ValidationException as SaladErr
 
 
-# NB: Need to have contents of /json_schema served at localhost:8000
-# so that http://localhost:8000/omero.schema.json is valid
-
-# cd json_schema
-# python -m http.server
-
 class LDErr(Exception):
     pass
 
@@ -34,7 +28,7 @@ def test_json(method, testfile, httpserver):
 
     for uri, filename in (
         ("/context.json", "schemas/jsonld/context.json"),
-        ("/image.schema", "schemas/json_schema/image.schema"),
+        ("/image.schema", "schemas/image.schema"),
     ):
         with open(filename) as o:
             httpserver.expect_request(uri).respond_with_data(o.read())
@@ -46,8 +40,6 @@ def test_json(method, testfile, httpserver):
                 pytest.skip("not supported")
 
     else:
-        if "jsonld" in method.__name__ and "v0.2" in testfile:
-            pytest.skip("not supported")
         method(testfile)
 
 
@@ -69,7 +61,7 @@ def method(request):
 
     if request.param == "jsonschema":
 
-        with open('schemas/json_schema/image.schema') as f:
+        with open('schemas/image.schema') as f:
             schema = json.loads(f.read())
 
         def json_schema(path):
