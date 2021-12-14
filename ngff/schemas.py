@@ -31,7 +31,6 @@ def get_schema(version: str, strict: bool = False) -> Dict:
     schema_name = "strict_image.schema" if strict else "image.schema"
     curr_dir = os.path.dirname(__file__)
     # The paths here match the paths in the ngff repo (and public schemas)
-    print('curr_dir', curr_dir)
     path = os.path.join(
         curr_dir, "..", version, "schemas", schema_name
     )

@@ -23,6 +23,7 @@ setup(
     url="https://github.com/ome/ngff",
     description="Next-Generation File Format: spec and schemas",
     long_description=read("README.md"),
+    long_description_content_type="text/markdown",
     packages=["ngff"],
     py_modules=["ngff"],
     python_requires=">=3.6",
