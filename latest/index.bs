@@ -263,8 +263,9 @@ to the current zarr group. The "path"s MUST be ordered from largest (i.e. highes
 Each "datasets" dictionary MUST have the same number of dimensions and MUST NOT have more than 5 dimensions. The number of dimensions and order MUST correspond to number and order of "axes".
 Each dictionary MAY contain the field "coordinateTransformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
 The transformations are defined according to [[#trafo-md]]. The transformation types MUST only be `identity`, `translation` or `scale`.
-They MUST contain at most one `scale` transformation per axis that specifies the pixel size in physical units.
-It also MUST contain at most one `translation` per axis that specifies the offset from the origin in physical units.
+They MUST contain at most one `scale` transformation that specifies the pixel size in physical units or time duration.
+It also MUST contain at most one `translation` that specifies the offset from the origin in physical units.
+The length of the `scale` and/or `translation` array MUST be the same as the length of "axes".
 If both `scale` and `translation` are given `translation` must be listed after `scale` to ensure that it is given in physical coordinates. If "coordinateTransformations" is not given, the identity transformation is assumed.
 The requirements (only `scale` and `translation`, restrictions on order) are in place to provide a simple mapping from data coordinates to physical coordinates while
 being compatible with the general transformation spec.
