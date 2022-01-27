@@ -222,10 +222,11 @@ keys as specified below for discovering certain types of data, especially images
 If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
 
-"transformations" metadata {#trafo-md}
+"coordinateTransformations" metadata {#trafo-md}
 -------------------------------------
 
-"transformations" describes a series of transformations, e.g. to map discrete data space of an array to the corresponding physical space.
+"coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
+For example, to map a discrete data space of an array to the corresponding physical space.
 It is a list of dictionaries. Each entry describes a single transformation and MUST contain the field "type".
 The value of "type" MUST be one of the elements of the `type` column in the table below.
 Additional fields for the entry depend on "type" and are defined by the column `fields`.
@@ -263,16 +264,16 @@ Each dictionary in "datasets" MUST contain the field "path", whose value contain
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
 
 Each "datasets" dictionary MUST have the same number of dimensions and MUST NOT have more than 5 dimensions. The number of dimensions and order MUST correspond to number and order of "axes".
-Each dictionary MAY contain the field "transformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
+Each dictionary MAY contain the field "coordinateTransformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
 The transformations are defined according to [[#trafo-md]]. In addition, the transformation types MUST only be `identity`, `translation` or `scale`.
 They MUST contain at most one `scale` transformation per axis that specifies the pixel size in physical units.
 It also MUST contain at most one `translation` per axis that specifies the offset from the origin in physical units.
-If both `scale` and `translation` are given `translation` must be listed after `scale` to ensure that it is given in physical coordinates. If "transformations" is not given, the identity transformation is assumed.
+If both `scale` and `translation` are given `translation` must be listed after `scale` to ensure that it is given in physical coordinates. If "coordinateTransformations" is not given, the identity transformation is assumed.
 The requirements (only `scale` and `translation`, restrictions on order) are in place to provide a simple mapping from data coordinates to physical coordinates while
 being compatible with the general transformation spec.
 
-Each "multiscales" dictionary MAY contain the field "transformations", describing transformations that are applied to each resolution level.
-The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:transformations".
+Each "multiscales" dictionary MAY contain the field "coordinateTransformations", describing transformations that are applied to each resolution level.
+The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations".
 These transformations are applied after the per resolution level transformations specified in "datasets". They can for example be used to specify the `scale` for a dimension that is the same for all resolutions.
 
 Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain the field "version", which indicates the version of the multiscale metadata of this image (current version is 0.4).
