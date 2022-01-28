@@ -102,6 +102,8 @@ is represented here as it would appear locally but could equally
 be stored on a web server to be accessed via HTTP or in object storage
 like S3 or GCS.
 
+OME-Zarr is an implementation of the OME-NGFF specification using the Zarr format. Arrays MUST be defined and stored in a hierarchical organization defined by to the [version 2 of the Zarr specification ](https://zarr.readthedocs.io/en/stable/spec/v2.html). OME-NGFF metadata MUST be stored as attributes in the corresponding Zarr groups.
+
 Images {#image-layout}
 ----------------------
 
