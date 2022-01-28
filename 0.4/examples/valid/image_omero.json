@@ -1,0 +1,113 @@
+{
+    "multiscales": [
+        {
+            "axes": [
+                {
+                    "name": "t",
+                    "type": "time"
+                },
+                {
+                    "name": "c",
+                    "type": "channel"
+                },
+                {
+                    "name": "z",
+                    "type": "space",
+                    "units": "micrometer"
+                },
+                {
+                    "name": "y",
+                    "type": "space",
+                    "units": "micrometer"
+                },
+                {
+                    "name": "x",
+                    "type": "space",
+                    "units": "micrometer"
+                }
+            ],
+            "datasets": [
+                {
+                    "path": "0",
+                    "transformations": [
+                        {
+                            "scale": [
+                                1,
+                                1,
+                                0.5,
+                                0.13,
+                                0.13
+                            ],
+                            "type": "scale"
+                        },
+                        {
+                            "translation": [
+                                0,
+                                9,
+                                0.5,
+                                25.74,
+                                21.58
+                            ],
+                            "type": "translation"
+                        }
+                    ]
+                },
+                {
+                    "path": "1",
+                    "transformations": [
+                        {
+                            "scale": [
+                                1,
+                                1,
+                                1,
+                                0.26,
+                                0.26
+                            ],
+                            "type": "scale"
+                        }
+                    ]
+                }
+            ],
+            "version": "0.4"
+        }
+    ],
+    "omero": {
+        "channels": [
+            {
+                "active": true,
+                "coefficient": 1.0,
+                "color": "00FF00",
+                "family": "linear",
+                "inverted": false,
+                "label": "FITC",
+                "window": {
+                    "end": 813.0,
+                    "max": 870.0,
+                    "min": 102.0,
+                    "start": 82.0
+                }
+            },
+            {
+                "active": true,
+                "coefficient": 1.0,
+                "color": "FF0000",
+                "family": "linear",
+                "inverted": false,
+                "label": "RD-TR-PE",
+                "window": {
+                    "end": 815.0,
+                    "max": 441.0,
+                    "min": 129.0,
+                    "start": 78.0
+                }
+            }
+        ],
+        "id": 1,
+        "rdefs": {
+            "defaultT": 0,
+            "defaultZ": 2,
+            "model": "color"
+        },
+        "version": "0.4"
+    }
+}

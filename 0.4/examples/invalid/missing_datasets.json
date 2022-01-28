@@ -1,0 +1,21 @@
+{
+    "@type": "ngff:Image",
+    "multiscales": [
+        {
+            "version": "0.4",
+            "name": "example",
+            "axes": [
+                {
+                    "name": "y",
+                    "type": "space",
+                    "units": "micrometer"
+                },
+                {
+                    "name": "x",
+                    "type": "space",
+                    "units": "micrometer"
+                }
+            ]
+        }
+    ]
+}

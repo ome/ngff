@@ -1,0 +1,40 @@
+{
+    "@id": "top",
+    "@type": "ngff:Image",
+    "multiscales": [
+        {
+            "@id": "inner",
+            "version": "0.4",
+            "name": "example",
+            "datasets": [
+                {
+                    "path": "path/to/0"
+                }
+            ],
+            "type": "gaussian",
+            "metadata": {
+                "method": "skimage.transform.pyramid_gaussian",
+                "version": "0.16.1",
+                "args": [
+                    "true",
+                    "false"
+                ],
+                "kwargs": {
+                    "multichannel": true
+                }
+            },
+            "axes": [
+                {
+                    "name": "y",
+                    "type": "space",
+                    "units": "micrometer"
+                },
+                {
+                    "name": "x",
+                    "type": "space",
+                    "units": "micrometer"
+                }
+            ]
+        }
+    ]
+}

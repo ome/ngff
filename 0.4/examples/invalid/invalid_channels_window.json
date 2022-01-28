@@ -1,0 +1,43 @@
+{
+    "@type": "ngff:Image",
+    "multiscales": [
+        {
+            "version": "0.4",
+            "name": "example",
+            "datasets": [
+                {
+                    "path": "path/to/0"
+                }
+            ],
+            "axes": [
+                {
+                    "name": "y",
+                    "type": "space",
+                    "units": "micrometer"
+                },
+                {
+                    "name": "x",
+                    "type": "space",
+                    "units": "micrometer"
+                }
+            ]
+        }
+    ],
+    "omero": {
+        "channels": [
+            {
+                "active": true,
+                "coefficient": 1.0,
+                "color": "ff0000",
+                "family": "linear",
+                "label": "1234",
+                "window": {
+                    "end": "100",
+                    "max": 2555.0,
+                    "min": 5.0,
+                    "start": 0.0
+                }
+            }
+        ]
+    }
+}
