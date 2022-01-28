@@ -17,15 +17,16 @@ install_requires += (["jsonschema"],)
 
 
 setup(
-    name="ngff",
+    name="ome-ngff",
     version="0.0.4dev",
     author="The Open Microscopy Team",
     url="https://github.com/ome/ngff",
-    description="Next-Generation File Format: spec and schemas",
+    description="OME Next-Generation File Format: spec and schemas",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
-    packages=["ngff"],
-    py_modules=["ngff"],
+    packages=["ome_ngff"],
+    py_modules=["ome_ngff"],
+    # include_package_data = True, 
     python_requires=">=3.6",
     install_requires=install_requires,
     classifiers=[

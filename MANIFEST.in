@@ -1,0 +1,2 @@
+recursive-exclude examples *
+global-include image.schema
