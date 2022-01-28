@@ -4,7 +4,7 @@
             "axes": [
                 {
                     "name": "y",
-                    "type": "invalid",
+                    "type": "space",
                     "units": "micrometer"
                 },
                 {
@@ -22,7 +22,7 @@
                                 1,
                                 1
                             ],
-                            "type": "scale"
+                            "type": "translation"
                         }
                     ]
                 }

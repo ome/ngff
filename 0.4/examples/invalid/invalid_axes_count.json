@@ -3,7 +3,7 @@
         {
             "axes": [
                 {
-                    "name": "x",
+                    "name": "y",
                     "type": "space",
                     "units": "micrometer"
                 }
@@ -14,8 +14,8 @@
                     "transformations": [
                         {
                             "scale": [
-                                0.13,
-                                0.13
+                                1,
+                                1
                             ],
                             "type": "scale"
                         }

@@ -3,20 +3,6 @@
         {
             "axes": [
                 {
-                    "name": "t",
-                    "type": "time",
-                    "units": "second"
-                },
-                {
-                    "name": "c",
-                    "type": "channel"
-                },
-                {
-                    "name": "z",
-                    "type": "space",
-                    "units": "micrometer"
-                },
-                {
                     "name": "y",
                     "type": "space",
                     "units": "micrometer"
@@ -32,7 +18,7 @@
                     "path": "0",
                     "transformations": [
                         {
-                            "scale": [1, 1, 0.5, 0.13, 0.13],
+                            "scale": [1, 1],
                             "type": "scale"
                         }
                     ]

@@ -4,7 +4,7 @@
             "axes": [
                 {
                     "name": "y",
-                    "type": "invalid",
+                    "type": "space",
                     "units": "micrometer"
                 },
                 {
@@ -15,16 +15,7 @@
             ],
             "datasets": [
                 {
-                    "path": "0",
-                    "transformations": [
-                        {
-                            "scale": [
-                                1,
-                                1
-                            ],
-                            "type": "scale"
-                        }
-                    ]
+                    "path": "0"
                 }
             ],
             "version": "0.4"

@@ -5,7 +5,13 @@
             "version": "0.4",
             "datasets": [
                 {
-                    "path": "path/to/0"
+                    "path": "path/to/0",
+                    "transformations": [
+                        {
+                            "type": "scale",
+                            "scale": [1, 1]
+                        }
+                    ]
                 }
             ],
             "type": "gaussian",
