@@ -169,6 +169,21 @@
                     }
                   },
                   "required": ["name", "type"]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "not": {
+                        "enum": ["space", "time", "channel"]
+                      }
+                    }
+                  },
+                  "required": ["name"]
                 }
               ]
             }
