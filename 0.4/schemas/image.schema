@@ -23,7 +23,7 @@
                 "path": {
                   "type": "string"
                 },
-                "transformations": {
+                "coordinateTransformations": {
                   "type": "array",
                   "minItems": 1,
                   "items": {
@@ -70,7 +70,7 @@
                   }
                 }
               },
-              "required": ["path", "transformations"]
+              "required": ["path", "coordinateTransformations"]
             }
           },
           "version": {

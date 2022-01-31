@@ -9,7 +9,7 @@
             "datasets": [
                 {
                     "path": "path/to/0",
-                    "transformations": [
+                    "coordinateTransformations": [
                         {
                             "type": "scale",
                             "scale": [1, 1]

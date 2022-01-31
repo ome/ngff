@@ -29,7 +29,7 @@
             "datasets": [
                 {
                     "path": "0",
-                    "transformations": [
+                    "coordinateTransformations": [
                         {
                             "scale": [
                                 1,
@@ -54,7 +54,7 @@
                 },
                 {
                     "path": "1",
-                    "transformations": [
+                    "coordinateTransformations": [
                         {
                             "scale": [
                                 1,

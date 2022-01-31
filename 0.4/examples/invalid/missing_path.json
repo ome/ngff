@@ -15,7 +15,7 @@
             ],
             "datasets": [
                 {
-                    "transformations": [
+                    "coordinateTransformations": [
                         {
                             "scale": [
                                 1,

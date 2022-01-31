@@ -4,7 +4,7 @@
             "datasets": [
                 {
                     "path": "0",
-                    "transformations": [
+                    "coordinateTransformations": [
                         {
                             "scale": [
                                 1,
