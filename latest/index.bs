@@ -212,9 +212,10 @@ keys as specified below for discovering certain types of data, especially images
 "axes" metadata {#axes-md}
 --------------------------
 
-"axes" describes the dimensions of a physical coordinate space. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
+"axes" describes the dimensions of a coordinate space. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.
 - SHOULD contain the field "type". It SHOULD be one of "space", "time" or "channel", but MAY take other values for custom axis types that are not part of this specification yet.
+- MAY contain the field "discrete". The value MUST be a boolean, and is `true` if the axis represents a discrete dimension.
 - SHOULD contain the field "unit" to specify the physical unit of this dimension. The value SHOULD be one of the following strings, which are valid units according to UDUNITS-2.
     - Units for "space" axes: 'angstrom', 'attometer', 'centimeter', 'decimeter', 'exameter', 'femtometer', 'foot', 'gigameter', 'hectometer', 'inch', 'kilometer', 'megameter', 'meter', 'micrometer', 'mile', 'millimeter', 'nanometer', 'parsec', 'petameter', 'picometer', 'terameter', 'yard', 'yoctometer', 'yottameter', 'zeptometer', 'zettameter'
     - Units for "time" axes: 'attosecond', 'centisecond', 'day', 'decisecond', 'exasecond', 'femtosecond', 'gigasecond', 'hectosecond', 'hour', 'kilosecond', 'megasecond', 'microsecond', 'millisecond', 'minute', 'nanosecond', 'petasecond', 'picosecond', 'second', 'terasecond', 'yoctosecond', 'yottasecond', 'zeptosecond', 'zettasecond'
@@ -222,11 +223,47 @@ keys as specified below for discovering certain types of data, especially images
 If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
 
+"space" metadata {#space-md}
+--------------------------
+
+A "space" is a collection of dimensions / "axes" with a name.  Each space dictionary:
+- MUST contain the field "name", that gives the space name. The values MUST be non-empty and unique.
+- MUST contain the field "axes", whose value is a valid set of "axes".
+- SHOULD be such that the "type" of all "axes" in the list are identical.
+
+```
+{
+    "name" : "volume_micrometers",
+    "axes" : [
+        {"name": "z", "type": "space", "unit": "micrometer"},
+        {"name": "y", "type": "space", "unit": "micrometer"},
+        {"name": "x", "type": "space", "unit": "micrometer"}
+    ]
+}
+```
+
+### "Array space"
+
+"Array space" is the unique space whose name is the empty string. The array data of every dataset is in "Array
+space." Therefore, the dimensionality of "array space" varies according to its corresponding dataset.
+In [[#trafo-md]], there SHOULD exist at least one transformation whose "input_space" is the empty string, i.e.
+"array space."
+
+
 "transformations" metadata {#trafo-md}
 -------------------------------------
 
 "transformations" describes a series of transformations, e.g. to map discrete data space of an array to the corresponding physical space.
-It is a list of dictionaries. Each entry describes a single transformation and MUST contain the field "type".
+It is a list of dictionaries. Each transformation dictionary:
+
+- MUST contain the field "type".
+- MUST contain any other fields required by the given "type" (see table below).
+- MUST contain the field "name".
+- SHOULD require the field "input_space".
+- MUST require the field "output_space".
+- the value of "output_space" SHOULD not be the empty string.
+
+
 The value of "type" MUST be one of the elements of the `type` column in the table below.
 Additional fields for the entry depend on "type" and are defined by the column `fields`.
 
@@ -235,9 +272,6 @@ Additional fields for the entry depend on "type" and are defined by the column `
 | `identity`    |        | identity transformation, is the default transformation and is typically not explicitly defined |
 | `translation` | one of: `"translation":List[float]`, `"path":str` | translation vector, stored either as a list of floats (`"translation"`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
 | `scale`       | one of: `"scale":List[float]`, `"path":str` | scale vector, stored either as a list of floats (`scale`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
-
-In addition, the field "axisIndices" MAY be given to specify the subset of axes that the transformation is applied to, leaving other axes unchanged. If not given, the transformation is applied to all axes. The length of "axisIndices" MUST be equal to the dimensionality of the transformation. If "axisIndices" are not given, the dimensionality of the transformation MUST be equal to the number of dimensions of the space that the transformation is applied to.
-If given, "axisIndices" MUST be given in increasing order. It uses zero-based indexing.
 
 The transformations in the list are applied sequentally and in order.
 
