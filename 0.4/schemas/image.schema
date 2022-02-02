@@ -38,7 +38,10 @@
           },
           "axes": {
             "$ref": "#/$defs/axes"
-          }
+          },
+          "coordinateTransformations": {
+            "$ref": "#/$defs/coordinateTransformations"
+                }
         },
         "required": [
           "datasets", "axes"
