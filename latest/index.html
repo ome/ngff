@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="279b74df595d65870f911c2e4d613eb51dbdf2e2" name="document-revision">
+  <meta content="18fc37b23cf536d5accacf9a166c8ade7fda2ad8" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -2088,11 +2088,26 @@ For example, to map a discrete data space of an array to the corresponding physi
 It is a list of dictionaries. Each entry describes a single transformation and MUST contain the field "type".
 The value of "type" MUST be one of the elements of the <code>type</code> column in the table below.
 Additional fields for the entry depend on "type" and are defined by the column <code>fields</code>.</p>
-   <p>| type          | fields | description |
-| ------------- | ------ |------------ |
-| <code>identity</code> |        | identity transformation, is the default transformation and is typically not explicitly defined |
-| <code>translation</code> | one of: <code>"translation":List[float]</code>, <code>"path":str</code> | translation vector, stored either as a list of floats (<code>"translation"</code>) or as binary data at a location in this container (<code>path</code>). The length of vector defines number of dimensions. |
-| <code>scale</code> | one of: <code>"scale":List[float]</code>, <code>"path":str</code> | scale vector, stored either as a list of floats (<code>scale</code>) or as binary data at a location in this container (<code>path</code>). The length of vector defines number of dimensions. |</p>
+   <table>
+    <tbody>
+     <tr>
+      <th><code>identity</code> 
+      <td>
+      <td>identity transformation, is the default transformation and is typically not explicitly defined 
+     <tr>
+      <th><code>translation</code> 
+      <td> one of: <code>"translation":List[float]</code>, <code>"path":str</code> 
+      <td>translation vector, stored either as a list of floats (<code>"translation"</code>) or as binary data at a location in this container (<code>path</code>). The length of vector defines number of dimensions. | 
+     <tr>
+      <th><code>scale</code> 
+      <td> one of: <code>"scale":List[float]</code>, <code>"path":str</code> 
+      <td>scale vector, stored either as a list of floats (<code>scale</code>) or as binary data at a location in this container (<code>path</code>). The length of vector defines number of dimensions. | 
+    <thead>
+     <tr>
+      <th>type
+      <th>fields
+      <th>description 
+   </table>
    <p>The transformations in the list are applied sequentially and in order.</p>
    <h3 class="heading settled" data-level="3.3" id="multiscale-md"><span class="secno">3.3. </span><span class="content">"multiscales" metadata</span><a class="self-link" href="#multiscale-md"></a></h3>
    <p>Metadata about an image can be found under the "multiscales" key in the group-level metadata. Here, image refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes. It is stored in a multiple resolution representation.</p>
