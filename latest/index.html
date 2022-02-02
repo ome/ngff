@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="90de9f1c440bf7dccaac34fcfceb5785fc09ada5" name="document-revision">
+  <meta content="416a377af7069696a24eeb6e99ae17e6fad3cf79" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1825,7 +1825,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2022-01-27">27 January 2022</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2022-02-02">2 February 2022</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2017,7 +2017,7 @@ For this example we assume an image with 5 dimensions and axes called <code>t,c,
 </pre>
    <h3 class="heading settled" data-level="2.2" id="hcs-layout"><span class="secno">2.2. </span><span class="content">High-content screening</span><a class="self-link" href="#hcs-layout"></a></h3>
    <p>The following specification defines the hierarchy for a high-content screening
-dataset. Three groups must be defined above the images:</p>
+dataset. Three groups MUST be defined above the images:</p>
    <ul>
     <li data-md>
      <p>the group above the images defines the well and MUST implement the <a href="#well-md">well specification</a>. All images contained in a well are fields
@@ -2028,6 +2028,8 @@ of view of the same well</p>
      <p>the group above the well row defines an entire plate i.e. a two-dimensional
 collection of wells organized in rows and columns. It MUST implement the <a href="#plate-md">plate specification</a></p>
    </ul>
+   <p>A well row group SHOULD NOT be present if there are no images in the well row.
+A well group SHOULD NOT be present if there are no images in the well.</p>
 <pre>.                             # Root folder, potentially in S3,
 │
 └── 5966.zarr                 # One plate (id=5966) converted to Zarr
@@ -2276,8 +2278,13 @@ custom attributes of the plate group under the <code>plate</code> key.</p>
     <dt><strong>columns</strong>
     <dd>A list of JSON objects defining the columns of the plate. Each column
       object defines the properties of the column at the index of the object
-      in the list. If not empty, it MUST contain a <code>name</code> key specifying the
-      column name.
+      in the list. Each column in the physical plate MUST be defined, even
+      if no wells in the column are defined. Each defined column MUST contain
+      a <code>name</code> key specifying the column name. The <code>name</code> MUST contain only
+      alphanumeric characters, MUST be case-sensitive, and MUST NOT be a
+      duplicate of any other <code>name</code> in the <code>columns</code> list. Care SHOULD be
+      taken to avoid collisions on case-insensitive filesystems
+      (e.g. avoid using both <code>Aa</code> and <code>aA</code>).
     <dt><strong>field_count</strong>
     <dd>An integer defining the maximum number of fields per view across all
       wells.
@@ -2286,16 +2293,28 @@ custom attributes of the plate group under the <code>plate</code> key.</p>
     <dt><strong>rows</strong>
     <dd>A list of JSON objects defining the rows of the plate. Each row object
       defines the properties of the row at the index of the object in the
-      list. If not empty, it MUST contain a <code>name</code> key specifying the row
-      name.
+      list. Each row in the physical plate MUST be defined, even if no wells
+      in the row are defined. Each defined row MUST contain a <code>name</code> key
+      specifying the row name. The <code>name</code> MUST contain only alphanumeric
+      characters, MUST be case-sensitive, and MUST NOT be a duplicate
+      of any other <code>name</code> in the <code>rows</code> list. Care SHOULD be taken to avoid
+      collisions on case-insensitive filesystems (e.g. avoid using both <code>Aa</code> and <code>aA</code>).
     <dt><strong>version</strong>
     <dd>A string defining the version of the specification.
     <dt><strong>wells</strong>
     <dd>A list of JSON objects defining the wells of the plate. Each well object
       MUST contain a <code>path</code> key identifying the path to the well subgroup.
+      The <code>path</code> MUST consist of a <code>name</code> in the <code>rows</code> list, a file separator (<code>/</code>),
+      and a <code>name</code> from the <code>columns</code> list, in that order. The <code>path</code> MUST NOT contain
+      additional leading or trailing directories.
+      Each well object MUST contain both a <code>rowIndex</code> key identifying the index into
+      the <code>rows</code> list and a <code>columnIndex</code> key indentifying the index into
+      the <code>columns</code> list. <code>rowIndex</code> and <code>columnIndex</code> MUST be 0-based.
+      The <code>rowIndex</code>, <code>columnIndex</code>, and <code>path</code> MUST all refer to the same
+      row/column pair.
    </dl>
-   <p>For example the following JSON object defines a plate with two acquisition and
-6 wells (2 rows and 3 columns), containing up 2 fields of view per acquistion.</p>
+   <p>For example the following JSON object defines a plate with two acquisitions and
+6 wells (2 rows and 3 columns), containing up to 2 fields of view per acquisition.</p>
 <pre class="language-json highlight"><c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
     <c- f>"acquisitions"</c-><c- p>:</c-> <c- p>[</c->
         <c- p>{</c->
@@ -2335,43 +2354,147 @@ custom attributes of the plate group under the <code>plate</code> key.</p>
     <c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c-><c- p>,</c->
     <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
         <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/A/1"</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"A/1"</c-><c- p>,</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>0</c->
         <c- p>},</c->
         <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/A/2"</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"A/2"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>1</c->
         <c- p>},</c->
         <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/A/3"</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"A/3"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>2</c->
         <c- p>},</c->
         <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/B/1"</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"B/1"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>0</c->
         <c- p>},</c->
         <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/B/2"</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"B/2"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>1</c->
         <c- p>},</c->
         <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/B/3"</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"B/3"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>2</c->
+        <c- p>}</c->
+    <c- p>]</c->
+  <c- p>}</c->
+</pre>
+   <p>The following JSON object defines a sparse plate with one acquisition and
+2 wells in a 96 well plate, containing one field of view per acquisition.</p>
+<pre class="language-json highlight"><c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"acquisitions"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"single acquisition"</c-><c- p>,</c->
+            <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343731272000</c->
+        <c- p>},</c->
+    <c- p>],</c->
+    <c- f>"columns"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"1"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"2"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"3"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"4"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"5"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"6"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"7"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"8"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"9"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"10"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"11"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"12"</c->
+        <c- p>}</c->
+    <c- p>],</c->
+    <c- f>"field_count"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+    <c- f>"name"</c-><c- p>:</c-> <c- u>"sparse test"</c-><c- p>,</c->
+    <c- f>"rows"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"A"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"C"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"D"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"E"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"F"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"G"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"H"</c->
+        <c- p>}</c->
+    <c- p>],</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c-><c- p>,</c->
+    <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"C/5"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>4</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"D/7"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>6</c->
         <c- p>}</c->
     <c- p>]</c->
   <c- p>}</c->
 </pre>
    <h3 class="heading settled" data-level="3.8" id="well-md"><span class="secno">3.8. </span><span class="content">"well" metadata</span><a class="self-link" href="#well-md"></a></h3>
    <p>For high-content screening datasets, the metadata about all fields of views
-under a given  well can be found under the "well" key in the attributes of the
+under a given well can be found under the "well" key in the attributes of the
 well group.</p>
    <dl>
     <dt><strong>images</strong>
     <dd>A list of JSON objects defining the fields of views for a given well.
       Each object MUST contain a <code>path</code> key identifying the path to the
       field of view. If multiple acquisitions were performed in the plate, it
-      SHOULD contain an <code>acquisition</code> key identifying the id of the
+      MUST contain an <code>acquisition</code> key identifying the id of the
       acquisition which must match one of acquisition JSON objects defined in
       the plate metadata.
     <dt><strong>version</strong>
     <dd>A string defining the version of the specification.
    </dl>
    <p>For example the following JSON object defines a well with four fields of
-views. The first two fields of view were part of the first acquisition while
+view. The first two fields of view were part of the first acquisition while
 the last two fields of view were part of the second acquisition.</p>
 <pre class="language-json highlight"><c- f>"well"</c-><c- p>:</c-> <c- p>{</c->
     <c- f>"images"</c-><c- p>:</c-> <c- p>[</c->
@@ -2394,6 +2517,23 @@ the last two fields of view were part of the second acquisition.</p>
     <c- p>],</c->
     <c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c->
   <c- p>}</c->
+</pre>
+   <p>The following JSON object defines a well with two fields of view in a plate with
+four acquisitions. The first field is part of the first acquisition, and the second
+field is part of the last acquisition.</p>
+<pre class="language-json highlight"><c- f>"well"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"images"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c->
+        <c- p>}</c->
+    <c- p>],</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c->
+<c- p>}</c->
 </pre>
    <h2 class="heading settled" data-level="4" id="naming-style"><span class="secno">4. </span><span class="content">Specification naming style</span><a class="self-link" href="#naming-style"></a></h2>
    <p>Multi-word keys in this specification should use the <code>camelCase</code> style.
