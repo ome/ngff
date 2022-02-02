@@ -137,45 +137,7 @@
               },
               "type": {
                 "type": "string",
-                "enum": ["space"]
-              },
-              "units": {
-                "type": "string",
-                "enum": [
-                  "angstrom", "attometer", "centimeter", "decimeter", "exameter", "femtometer", "foot", "gigameter", "hectometer", "inch", "kilometer", "megameter", "meter", "micrometer", "mile", "millimeter", "nanometer", "parsec", "petameter", "picometer", "terameter", "yard", "yoctometer", "yottameter", "zeptometer", "zettameter"
-                ]
-              }
-            },
-            "required": ["name", "type"]
-          },
-          {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string",
-                "enum": ["time"]
-              },
-              "units": {
-                "type": "string",
-                "enum": [
-                  "attosecond", "centisecond", "day", "decisecond", "exasecond", "femtosecond", "gigasecond", "hectosecond", "hour", "kilosecond", "megasecond", "microsecond", "millisecond", "minute", "nanosecond", "petasecond", "picosecond", "second", "terasecond", "yoctosecond", "yottasecond", "zeptosecond", "zettasecond"
-                ]
-              }
-            },
-            "required": ["name", "type"]
-          },
-          {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string",
-                "enum": ["channel"]
+                "enum": ["channel", "time", "space"]
               }
             },
             "required": ["name", "type"]

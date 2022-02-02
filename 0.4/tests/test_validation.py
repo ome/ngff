@@ -9,6 +9,7 @@ from jsonschema.exceptions import ValidationError
 
 def files():
     return list(glob.glob(f"examples/valid/*.json")) + \
+        list(glob.glob(f"examples/valid_if_not_strict/*.json")) + \
         list(glob.glob(f"examples/invalid/*.json"))
 
 def ids():
@@ -18,7 +19,7 @@ def ids():
 @pytest.mark.parametrize("testfile", files(), ids=ids())
 def test_json(testfile):
 
-    if "invalid" in testfile:
+    if "examples/invalid/" in testfile:
         with pytest.raises(ValidationError):
             json_schema(testfile)
     else:
