@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="a894f90897b62edf13d73f9072bf41565892925e" name="document-revision">
+  <meta content="279b74df595d65870f911c2e4d613eb51dbdf2e2" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1878,7 +1878,7 @@ will be provided between numbered versions. Data written with these latest chang
      <a href="#metadata"><span class="secno">3</span> <span class="content">Metadata</span></a>
      <ol class="toc">
       <li><a href="#axes-md"><span class="secno">3.1</span> <span class="content">"axes" metadata</span></a>
-      <li><a href="#trafo-md"><span class="secno">3.2</span> <span class="content">"transformations" metadata</span></a>
+      <li><a href="#trafo-md"><span class="secno">3.2</span> <span class="content">"coordinateTransformations" metadata</span></a>
       <li><a href="#multiscale-md"><span class="secno">3.3</span> <span class="content">"multiscales" metadata</span></a>
       <li><a href="#omero-md"><span class="secno">3.4</span> <span class="content">"omero" metadata</span></a>
       <li><a href="#labels-md"><span class="secno">3.5</span> <span class="content">"labels" metadata</span></a>
@@ -2082,8 +2082,9 @@ keys as specified below for discovering certain types of data, especially images
      </ul>
    </ul>
    <p>If part of <a href="#multiscale-md">§ 3.3 "multiscales" metadata</a>, the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.</p>
-   <h3 class="heading settled" data-level="3.2" id="trafo-md"><span class="secno">3.2. </span><span class="content">"transformations" metadata</span><a class="self-link" href="#trafo-md"></a></h3>
-   <p>"transformations" describes a series of transformations, e.g. to map discrete data space of an array to the corresponding physical space.
+   <h3 class="heading settled" data-level="3.2" id="trafo-md"><span class="secno">3.2. </span><span class="content">"coordinateTransformations" metadata</span><a class="self-link" href="#trafo-md"></a></h3>
+   <p>"coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
+For example, to map a discrete data space of an array to the corresponding physical space.
 It is a list of dictionaries. Each entry describes a single transformation and MUST contain the field "type".
 The value of "type" MUST be one of the elements of the <code>type</code> column in the table below.
 Additional fields for the entry depend on "type" and are defined by the column <code>fields</code>.</p>
@@ -2092,9 +2093,7 @@ Additional fields for the entry depend on "type" and are defined by the column <
 | <code>identity</code> |        | identity transformation, is the default transformation and is typically not explicitly defined |
 | <code>translation</code> | one of: <code>"translation":List[float]</code>, <code>"path":str</code> | translation vector, stored either as a list of floats (<code>"translation"</code>) or as binary data at a location in this container (<code>path</code>). The length of vector defines number of dimensions. |
 | <code>scale</code> | one of: <code>"scale":List[float]</code>, <code>"path":str</code> | scale vector, stored either as a list of floats (<code>scale</code>) or as binary data at a location in this container (<code>path</code>). The length of vector defines number of dimensions. |</p>
-   <p>In addition, the field "axisIndices" MAY be given to specify the subset of axes that the transformation is applied to, leaving other axes unchanged. If not given, the transformation is applied to all axes. The length of "axisIndices" MUST be equal to the dimensionality of the transformation. If "axisIndices" are not given, the dimensionality of the transformation MUST be equal to the number of dimensions of the space that the transformation is applied to.
-If given, "axisIndices" MUST be given in increasing order. It uses zero-based indexing.</p>
-   <p>The transformations in the list are applied sequentally and in order.</p>
+   <p>The transformations in the list are applied sequentially and in order.</p>
    <h3 class="heading settled" data-level="3.3" id="multiscale-md"><span class="secno">3.3. </span><span class="content">"multiscales" metadata</span><a class="self-link" href="#multiscale-md"></a></h3>
    <p>Metadata about an image can be found under the "multiscales" key in the group-level metadata. Here, image refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes. It is stored in a multiple resolution representation.</p>
    <p>"multiscales" contains a list of dictionaries where each entry describes a multiscale image.</p>
@@ -2110,16 +2109,15 @@ E.g. for "axes: [{"name": "z"}, {"name": "y"}, {"name": x}]", the zarr arrays mu
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.</p>
    <p>Each "datasets" dictionary MUST have the same number of dimensions and MUST NOT have more than 5 dimensions. The number of dimensions and order MUST correspond to number and order of "axes".
-Each dictionary MAY contain the field "transformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
-The transformations are defined according to <a href="#trafo-md">§ 3.2 "transformations" metadata</a>. In addition, the transformation types MUST only be <code>identity</code>, <code>translation</code> or <code>scale</code>.
-They MUST contain at most one <code>scale</code> transformation per axis that specifies the pixel size in physical units.
-It also MUST contain at most one <code>translation</code> per axis that specifies the offset from the origin in physical units.
-If both <code>scale</code> and <code>translation</code> are given <code>translation</code> must be listed after <code>scale</code> to ensure that it is given in physical coordinates. If "transformations" is not given, the identity transformation is assumed.
-The requirements (only <code>scale</code> and <code>translation</code>, restrictions on order) are in place to provide a simple mapping from data coordinates to physical coordinates while
-being compatible with the general transformation spec.</p>
-   <p>Each "multiscales" dictionary MAY contain the field "transformations", describing transformations that are applied to each resolution level.
-The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:transformations".
-These transformations are applied after the per resolution level transformations specified in "datasets". They can for example be used to specify the <code>scale</code> for a dimension that is the same for all resolutions.</p>
+Each dictionary MUST contain the field "coordinateTransformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
+The transformations are defined according to <a href="#trafo-md">§ 3.2 "coordinateTransformations" metadata</a>. The transformation MUST only be of type <code>translation</code> or <code>scale</code>.
+They MUST contain exactly one <code>scale</code> transformation that specifies the pixel size in physical units or time duration. If scaling information is not available or applicable for one of the axes set it to 1.
+It MAY contain exactly one <code>translation</code> that specifies the offset from the origin in physical units. If <code>translation</code> is given it MUST be listed after <code>scale</code> to ensure that it is given in physical coordinates.
+The length of the <code>scale</code> and <code>translation</code> array MUST be the same as the length of "axes".
+The requirements (only <code>scale</code> and <code>translation</code>, restrictions on order) are in place to provide a simple mapping from data coordinates to physical coordinates while being compatible with the general transformation spec.</p>
+   <p>Each "multiscales" dictionary MAY contain the field "coordinateTransformations", describing transformations that are applied to all resolution levels in the same manner.
+The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.
+They can for example be used to specify the <code>scale</code> for a dimension that is the same for all resolutions.</p>
    <p>Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain the field "version", which indicates the version of the multiscale metadata of this image (current version is 0.4).</p>
    <p>Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.</p>
@@ -2138,18 +2136,18 @@ It SHOULD contain the field "metadata", which contains a dictionary with additio
             "datasets": [
                 {
                     "path": "0",
-                    "transformations": [{"type": "scale", "scale": [0.5, 0.5, 0.5], "axisIndices": [2, 3, 4]}]  # the voxel size for the first scale level (0.5 micrometer)
+                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 0.5, 0.5, 0.5]}]  # the voxel size for the first scale level (0.5 micrometer)
                 }
                 {
                     "path": "1",
-                    "transformations": [{"type": "scale", "scale": [1.0, 1.0, 1.0], "axisIndices": [2, 3, 4]}]  # the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)
+                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 1.0, 1.0, 1.0]}]  # the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)
                 },
                 {
                     "path": "2",
-                    "transformations": [{"type": "scale", "scale": [2.0, 2.0, 2.0], "axisIndices": [2, 3, 4]}]  # the voxel size for the second scale level (downscaled by a factor of 4 -> 2 micrometer)
+                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 2.0, 2.0, 2.0]}]  # the voxel size for the second scale level (downscaled by a factor of 4 -> 2 micrometer)
                 }
             ],
-            "transformations": [{"type": "scale", "scale": [0.1], "axisIndices": [0]],  # the time unit (0.1 milliseconds), which is the same for each scale level
+            "coordinateTransformations": [{"type": "scale", "scale": [0.1, 1.0, 1.0, 1.0, 1.0]],  # the time unit (0.1 milliseconds), which is the same for each scale level
             "type": "gaussian",
             "metadata": {                                       # the fields in metadata depend on the downscaling implementation
                 "method": "skimage.transform.pyramid_gaussian", # here, the paramters passed to the skimage function are given
