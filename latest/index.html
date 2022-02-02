@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="416a377af7069696a24eeb6e99ae17e6fad3cf79" name="document-revision">
+  <meta content="a894f90897b62edf13d73f9072bf41565892925e" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1965,6 +1965,11 @@ understanding the following metadata sections easier. The hierarchy
 is represented here as it would appear locally but could equally
 be stored on a web server to be accessed via HTTP or in object storage
 like S3 or GCS.</p>
+   <p>OME-Zarr is an implementation of the OME-NGFF specification using the Zarr
+format. Arrays MUST be defined and stored in a hierarchical organization as
+defined by the <a href="https://zarr.readthedocs.io/en/stable/spec/v2.html">version 2 of the Zarr specification </a>.
+OME-NGFF metadata MUST be stored as attributes in the corresponding Zarr
+groups.</p>
    <h3 class="heading settled" data-level="2.1" id="image-layout"><span class="secno">2.1. </span><span class="content">Images</span><a class="self-link" href="#image-layout"></a></h3>
    <p>The following layout describes the expected Zarr hierarchy for images with
 multiple levels of resolutions and optionally associated labels.
