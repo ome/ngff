@@ -24,7 +24,12 @@
                     ]
                 }
             ],
-            "version": "0.4"
+            "version": "0.4",
+            "name": "simple_image",
+            "type": "foo",
+            "metadata": {
+                "key": "value"
+            }
         }
     ]
 }
