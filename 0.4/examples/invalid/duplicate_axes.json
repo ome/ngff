@@ -5,7 +5,7 @@
                 {
                     "name": "x",
                     "type": "space",
-                    "units": "meter"
+                    "units": "micrometer"
                 },
                 {
                     "name": "x",
@@ -19,8 +19,8 @@
                     "coordinateTransformations": [
                         {
                             "scale": [
-                                0.13,
-                                0.13
+                                1,
+                                1
                             ],
                             "type": "scale"
                         }

@@ -108,6 +108,7 @@
   "$defs": {
     "axes": {
       "type": "array",
+      "uniqueItems": true,
       "minItems": 2,
       "maxItems": 5,
       "contains": {
