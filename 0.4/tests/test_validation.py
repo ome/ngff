@@ -20,26 +20,26 @@ resolver = RefResolver.from_schema(image_schema, store=schema_store)
 validator = Draft202012Validator(image_schema, resolver=resolver)
 strict_validator = Draft202012Validator(strict_image_schema, resolver=resolver)
 
+valid_strict_files = list(glob.glob("examples/valid_strict/*.json"))
 valid_files = list(glob.glob("examples/valid/*.json"))
 invalid_files = list(glob.glob("examples/invalid/*.json"))
-valid_not_strict_files = list(glob.glob("examples/valid_if_not_strict/*.json"))
 
 
 def ids(files):
     return [str(x).split("/")[-1][0:-5] for x in files]
 
 
-@pytest.mark.parametrize("testfile", valid_files, ids=ids(valid_files))
-def test_valid(testfile):
+@pytest.mark.parametrize(
+    "testfile", valid_strict_files, ids=ids(valid_strict_files))
+def test_valid_strict(testfile):
     with open(testfile) as f:
         json_file = json.load(f)
         validator.validate(json_file)
         strict_validator.validate(json_file)
 
 
-@pytest.mark.parametrize(
-    "testfile", valid_not_strict_files, ids=ids(valid_not_strict_files))
-def test_valid_not_strict_files(testfile):
+@pytest.mark.parametrize("testfile", valid_files, ids=ids(valid_files))
+def test_valid_files(testfile):
     with open(testfile) as f:
         json_file = json.load(f)
         validator.validate(json_file)
