@@ -264,7 +264,7 @@ Each "datasets" dictionary MUST have the same number of dimensions and MUST NOT 
 Each dictionary MUST contain the field "coordinateTransformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
 The transformations are defined according to [[#trafo-md]]. The transformation MUST only be of type `translation` or `scale`.
 They MUST contain exactly one `scale` transformation that specifies the pixel size in physical units or time duration. If scaling information is not available or applicable for one of the axes set it to 1.
-It MAY contain exactly one `translation` that specifies the offset from the origin in physical units. If `translation` is given it must be listed after `scale` to ensure that it is given in physical coordinates.
+It MAY contain exactly one `translation` that specifies the offset from the origin in physical units. If `translation` is given it MUST be listed after `scale` to ensure that it is given in physical coordinates.
 The length of the `scale` and `translation` array MUST be the same as the length of "axes".
 The requirements (only `scale` and `translation`, restrictions on order) are in place to provide a simple mapping from data coordinates to physical coordinates while being compatible with the general transformation spec.
 
