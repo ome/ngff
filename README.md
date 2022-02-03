@@ -27,6 +27,7 @@ Commits on GitHub can be viewed using web services from the W3C:
 
 * Make new changes to `latest/index.bs`
 * Update changelog at the bottom of `latest/index.bs`
+* Find references to previous version and _in most cases_, bump to the current version.
 * On completion:
   - copy `latest/index.bs` to `$VERSION/index.bs`
   - update the head matter with the new release version
