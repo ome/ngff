@@ -32,6 +32,7 @@ Commits on GitHub can be viewed using web services from the W3C:
   - copy `latest/index.bs` to `$VERSION/index.bs`
   - update the head matter with the new release version
   - copy `latest/copyright.include` to `$VERSION/copyright.include`
+* Update https://github.com/ome/spec-prod for the new version
 
 ## Citing
 
