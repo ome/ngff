@@ -53,3 +53,5 @@ def test_invalid(testfile):
         json_file = json.load(f)
         with pytest.raises(ValidationError):
             validator.validate(json_file)
+        with pytest.raises(ValidationError):
+            strict_validator.validate(json_file)
