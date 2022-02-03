@@ -23,6 +23,8 @@ strict_validator = Draft202012Validator(strict_image_schema, resolver=resolver)
 valid_strict_files = list(glob.glob("examples/valid_strict/*.json"))
 valid_files = list(glob.glob("examples/valid/*.json"))
 invalid_files = list(glob.glob("examples/invalid/*.json"))
+invalid_but_dont_fail_files = list(
+    glob.glob("examples/invalid_but_dont_fail/*.json"))
 
 
 def ids(files):
@@ -49,6 +51,19 @@ def test_valid_files(testfile):
 
 @pytest.mark.parametrize("testfile", invalid_files, ids=ids(invalid_files))
 def test_invalid(testfile):
+    with open(testfile) as f:
+        json_file = json.load(f)
+        with pytest.raises(ValidationError):
+            validator.validate(json_file)
+        with pytest.raises(ValidationError):
+            strict_validator.validate(json_file)
+
+
+@pytest.mark.xfail
+@pytest.mark.parametrize(
+    "testfile", invalid_but_dont_fail_files,
+    ids=ids(invalid_but_dont_fail_files))
+def test_invalid_but_dontfail(testfile):
     with open(testfile) as f:
         json_file = json.load(f)
         with pytest.raises(ValidationError):
