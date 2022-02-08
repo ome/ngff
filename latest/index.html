@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="1848aff766d2a485a468e1cd03d754805153b25b" name="document-revision">
+  <meta content="a5162078c93ca7f11249523435e4d13b8d9f4c12" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1854,7 +1854,7 @@ All specifications are submitted to the https://image.sc community for review.</
   <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
    <p></p>
-   <p>The current released version of this specification is <a href="../0.3/index.html">0.3</a>. Migration scripts
+   <p>The current released version of this specification is <a href="../0.4/index.html">0.4</a>. Migration scripts
 will be provided between numbered versions. Data written with these latest changes
 (an "editor’s draft") will not necessarily be supported.</p>
   </div>
@@ -2187,7 +2187,7 @@ name, using the first multiscale as a fallback:</p>
 can be found under the "omero" key in the group-level metadata:</p>
 <pre class="language-json highlight"><c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->                              # ID i<c- kc>n</c-> OMERO
 <c- f>"name"</c-><c- p>:</c-> <c- u>"example.tif"</c-><c- p>,</c->                # Name as show<c- kc>n</c-> i<c- kc>n</c-> <c- kc>t</c->he UI
-<c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c-><c- p>,</c->                     # Curre<c- kc>nt</c-> versio<c- kc>n</c->
+<c- f>"version"</c-><c- p>:</c-> <c- u>"0.4"</c-><c- p>,</c->                     # Curre<c- kc>nt</c-> versio<c- kc>n</c->
 <c- f>"channels"</c-><c- p>:</c-> <c- p>[</c->                         # Array ma<c- kc>t</c->chi<c- kc>n</c->g <c- kc>t</c->he c dime<c- kc>ns</c->io<c- kc>n</c-> size
     <c- p>{</c->
         <c- f>"active"</c-><c- p>:</c-> <c- kc>true</c-><c- p>,</c->
@@ -2244,7 +2244,7 @@ image the label is associated with. If included it MAY include a key <code>image
 above).</p>
 <pre class="language-json highlight"><c- f>"image-label"</c-><c- p>:</c->
   <c- p>{</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c-><c- p>,</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.4"</c-><c- p>,</c->
     <c- f>"colors"</c-><c- p>:</c-> <c- p>[</c->
       <c- p>{</c->
         <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
@@ -2366,7 +2366,7 @@ custom attributes of the plate group under the <code>plate</code> key.</p>
             <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
         <c- p>}</c->
     <c- p>],</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c-><c- p>,</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.4"</c-><c- p>,</c->
     <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
         <c- p>{</c->
             <c- f>"path"</c-><c- p>:</c-> <c- u>"A/1"</c-><c- p>,</c->
@@ -2530,7 +2530,7 @@ the last two fields of view were part of the second acquisition.</p>
             <c- f>"path"</c-><c- p>:</c-> <c- u>"3"</c->
         <c- p>}</c->
     <c- p>],</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.4"</c->
   <c- p>}</c->
 </pre>
    <p>The following JSON object defines a well with two fields of view in a plate with
@@ -2578,8 +2578,8 @@ version of this diagram is available from the <a href="https://downloads.openmic
 Mouseover the blackboxes representing the implementations above to get a quick tip on how to use them.</p>
    <p class="note" role="note"><span>Note:</span> If you would like to see your project listed, please open an issue or PR on the <a href="https://github.com/ome/ngff">ome/ngff</a> repository.</p>
    <h2 class="heading settled" data-level="6" id="citing"><span class="secno">6. </span><span class="content">Citing</span><a class="self-link" href="#citing"></a></h2>
-   <p><a href="https://ngff.openmicroscopy.org/0.3">Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a> J. Moore, <em>et al</em>. Editors. Open Microscopy Environment Consortium, 24 August 2021.
-This edition of the specification is <a href="https://ngff.openmicroscopy.org/0.3/]">https://ngff.openmicroscopy.org/0.3/</a>.
+   <p><a href="https://ngff.openmicroscopy.org/0.4">Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a> J. Moore, <em>et al</em>. Editors. Open Microscopy Environment Consortium, 8 February 2022.
+This edition of the specification is <a href="https://ngff.openmicroscopy.org/0.4/]">https://ngff.openmicroscopy.org/0.4/</a>.
 The latest edition is available at <a href="https://ngff.openmicroscopy.org/latest/">https://ngff.openmicroscopy.org/latest/</a>. <a href="https://doi.org/10.5281/zenodo.4282107">(doi:10.5281/zenodo.4282107)</a></p>
    <h2 class="heading settled" data-level="7" id="history"><span class="secno">7. </span><span class="content">Version History</span><a class="self-link" href="#history"></a></h2>
    <table>
@@ -2589,6 +2589,14 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
       <td>Date
       <td>Description
     <tbody>
+     <tr>
+      <td>0.4.0
+      <td>2022-02-08
+      <td>multiscales: add axes type, units and coordinateTransformations
+     <tr>
+      <td>0.4.0
+      <td>2022-02-08
+      <td>plate: add rowIndex/columnIndex 
      <tr>
       <td>0.3.0
       <td>2021-08-24

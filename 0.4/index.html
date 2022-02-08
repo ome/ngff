@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-final" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
-  <link href="https://ngff.openmicroscopy.org/0.3/" rel="canonical">
+  <link href="https://ngff.openmicroscopy.org/0.4/" rel="canonical">
   <meta content="a5162078c93ca7f11249523435e4d13b8d9f4c12" name="document-revision">
 <style>/* style-autolinks */
 
@@ -350,14 +350,14 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <div data-fill-with="spec-metadata">
      <dl>
       <dt>This version:
-      <dd><a class="u-url" href="https://ngff.openmicroscopy.org/0.3/">https://ngff.openmicroscopy.org/0.3/</a>
+      <dd><a class="u-url" href="https://ngff.openmicroscopy.org/0.4/">https://ngff.openmicroscopy.org/0.4/</a>
       <dt>Issue Tracking:
       <dd><a href="https://forum.image.sc/tag/ome-ngff">Forums</a>
       <dd><a href="https://github.com/ome/ngff/issues/">GitHub</a>
       <dt class="editor">Editors:
-      <dd class="editor p-author h-card vcard"><span class="p-name fn">Josh Moore</span> (<a class="p-org org" href="https://www.openmicroscopy.org">Open Microscopy Environment (OME)</a>)
-      <dd class="editor p-author h-card vcard"><span class="p-name fn">Sébastien Besson</span> (<a class="p-org org" href="https://www.openmicroscopy.org">Open Microscopy Environment (OME)</a>)
-      <dd class="editor p-author h-card vcard"><span class="p-name fn">Constantin Pape</span> (<a class="p-org org" href="https://www.embl.org/sites/heidelberg/">European Molecular Biology Laboratory (EMBL)</a>)
+      <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://orcid.org/0000-0003-4028-811X">Josh Moore</a> (<a class="p-org org" href="https://www.dundee.ac.uk">University of Dundee (UoD)</a>)
+      <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://orcid.org/0000-0001-8783-1429">Sébastien Besson</a> (<a class="p-org org" href="https://www.dundee.ac.uk">University of Dundee (UoD)</a>)
+      <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://orcid.org/0000-0001-6562-7187">Constantin Pape</a> (<a class="p-org org" href="https://www.embl.org/sites/heidelberg/">European Molecular Biology Laboratory (EMBL)</a>)
      </dl>
     </div>
    </details>
@@ -376,7 +376,7 @@ All specifications are submitted to the https://image.sc community for review.</
   <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
    <p></p>
-   <p>This is the 0.3 release of this specification. Migration scripts
+   <p>This is the 0.4 release of this specification. Migration scripts
 
 will be provided between numbered versions. Data written with the latest version
 (an "editor’s draft") will not necessarily be supported.</p>
@@ -400,16 +400,19 @@ will be provided between numbered versions. Data written with the latest version
     <li>
      <a href="#metadata"><span class="secno">3</span> <span class="content">Metadata</span></a>
      <ol class="toc">
-      <li><a href="#multiscale-md"><span class="secno">3.1</span> <span class="content">"multiscales" metadata</span></a>
-      <li><a href="#omero-md"><span class="secno">3.2</span> <span class="content">"omero" metadata</span></a>
-      <li><a href="#labels-md"><span class="secno">3.3</span> <span class="content">"labels" metadata</span></a>
-      <li><a href="#label-md"><span class="secno">3.4</span> <span class="content">"image-label" metadata</span></a>
-      <li><a href="#plate-md"><span class="secno">3.5</span> <span class="content">"plate" metadata</span></a>
-      <li><a href="#well-md"><span class="secno">3.6</span> <span class="content">"well" metadata</span></a>
+      <li><a href="#axes-md"><span class="secno">3.1</span> <span class="content">"axes" metadata</span></a>
+      <li><a href="#trafo-md"><span class="secno">3.2</span> <span class="content">"coordinateTransformations" metadata</span></a>
+      <li><a href="#multiscale-md"><span class="secno">3.3</span> <span class="content">"multiscales" metadata</span></a>
+      <li><a href="#omero-md"><span class="secno">3.4</span> <span class="content">"omero" metadata</span></a>
+      <li><a href="#labels-md"><span class="secno">3.5</span> <span class="content">"labels" metadata</span></a>
+      <li><a href="#label-md"><span class="secno">3.6</span> <span class="content">"image-label" metadata</span></a>
+      <li><a href="#plate-md"><span class="secno">3.7</span> <span class="content">"plate" metadata</span></a>
+      <li><a href="#well-md"><span class="secno">3.8</span> <span class="content">"well" metadata</span></a>
      </ol>
-    <li><a href="#implementations"><span class="secno">4</span> <span class="content">Implementations</span></a>
-    <li><a href="#citing"><span class="secno">5</span> <span class="content">Citing</span></a>
-    <li><a href="#history"><span class="secno">6</span> <span class="content">Version History</span></a>
+    <li><a href="#naming-style"><span class="secno">4</span> <span class="content">Specification naming style</span></a>
+    <li><a href="#implementations"><span class="secno">5</span> <span class="content">Implementations</span></a>
+    <li><a href="#citing"><span class="secno">6</span> <span class="content">Citing</span></a>
+    <li><a href="#history"><span class="secno">7</span> <span class="content">Version History</span></a>
     <li>
      <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
      <ol class="toc">
@@ -485,9 +488,16 @@ understanding the following metadata sections easier. The hierarchy
 is represented here as it would appear locally but could equally
 be stored on a web server to be accessed via HTTP or in object storage
 like S3 or GCS.</p>
+   <p>OME-Zarr is an implementation of the OME-NGFF specification using the Zarr
+format. Arrays MUST be defined and stored in a hierarchical organization as
+defined by the <a href="https://zarr.readthedocs.io/en/stable/spec/v2.html">version 2 of the Zarr specification </a>.
+OME-NGFF metadata MUST be stored as attributes in the corresponding Zarr
+groups.</p>
    <h3 class="heading settled" data-level="2.1" id="image-layout"><span class="secno">2.1. </span><span class="content">Images</span><a class="self-link" href="#image-layout"></a></h3>
    <p>The following layout describes the expected Zarr hierarchy for images with
-multiple levels of resolutions and optionally associated labels.</p>
+multiple levels of resolutions and optionally associated labels.
+Note that the number of dimensions is variable between 2 and 5 and that axis names are arbitrary, see <a href="#multiscale-md">§ 3.3 "multiscales" metadata</a> for details.
+For this example we assume an image with 5 dimensions and axes called <code>t,c,z,y,x</code>.</p>
 <pre>.                             # Root folder, potentially in S3,
 │                             # with a flat list of images by image ID.
 │
@@ -506,21 +516,21 @@ multiple levels of resolutions and optionally associated labels.</p>
     │   │                     # by the "multiscales" metadata, but is often a sequence starting at 0.
     │   │
     │   ├── .zarray           # All image arrays must be up to 5-dimensional
-    │   │                     # with dimension order (t, c, z, y, x).
+    │   │                     # with the axis of type time before type channel, before spatial axes.
     │   │
     │   └─ t                  # Chunks are stored with the nested directory layout.
     │      └─ c               # All but the last chunk element are stored as directories.
     │         └─ z            # The terminal chunk is a file. Together the directory and file names
     │            └─ y         # provide the "chunk coordinate" (t, c, z, y, x), where the maximum coordinate
-    │               └─ x      # will be &lt;code data-opaque bs-autolink-syntax='`dimension_size / chunk_size`'>dimension_size / chunk_size&lt;/code>.
+    │               └─ x      # will be <code>dimension_size / chunk_size</code>.
     │
     └── labels
         │
         ├── .zgroup           # The labels group is a container which holds a list of labels to make the objects easily discoverable
         │
-        ├── .zattrs           # All labels will be listed in &lt;code data-opaque bs-autolink-syntax='`.zattrs`'>.zattrs&lt;/code> e.g. &lt;code data-opaque bs-autolink-syntax='`{ &amp;quot;labels&amp;quot;: [ &amp;quot;original/0&amp;quot; ] }`'>{ "labels": [ "original/0" ] }&lt;/code>
-        │                     # Each dimension of the label &lt;code data-opaque bs-autolink-syntax='`(t, c, z, y, x)`'>(t, c, z, y, x)&lt;/code> should be either the same as the
-        │                     # corresponding dimension of the image, or &lt;code data-opaque bs-autolink-syntax='`1`'>1&lt;/code> if that dimension of the label
+        ├── .zattrs           # All labels will be listed in <code>.zattrs</code> e.g. <code>{ "labels": [ "original/0" ] }</code>
+        │                     # Each dimension of the label <code>(t, c, z, y, x)</code> should be either the same as the
+        │                     # corresponding dimension of the image, or <code>1</code> if that dimension of the label
         │                     # is irrelevant.
         │
         └── original          # Intermediate folders are permitted but not necessary and currently contain no extra metadata.
@@ -535,7 +545,7 @@ multiple levels of resolutions and optionally associated labels.</p>
 </pre>
    <h3 class="heading settled" data-level="2.2" id="hcs-layout"><span class="secno">2.2. </span><span class="content">High-content screening</span><a class="self-link" href="#hcs-layout"></a></h3>
    <p>The following specification defines the hierarchy for a high-content screening
-dataset. Three groups must be defined above the images:</p>
+dataset. Three groups MUST be defined above the images:</p>
    <ul>
     <li data-md>
      <p>the group above the images defines the well and MUST implement the <a href="#well-md">well specification</a>. All images contained in a well are fields
@@ -546,6 +556,8 @@ of view of the same well</p>
      <p>the group above the well row defines an entire plate i.e. a two-dimensional
 collection of wells organized in rows and columns. It MUST implement the <a href="#plate-md">plate specification</a></p>
    </ul>
+   <p>A well row group SHOULD NOT be present if there are no images in the well row.
+A well group SHOULD NOT be present if there are no images in the well.</p>
 <pre>.                             # Root folder, potentially in S3,
 │
 └── 5966.zarr                 # One plate (id=5966) converted to Zarr
@@ -576,48 +588,111 @@ collection of wells organized in rows and columns. It MUST implement the <a href
    <h2 class="heading settled" data-level="3" id="metadata"><span class="secno">3. </span><span class="content">Metadata</span><a class="self-link" href="#metadata"></a></h2>
    <p>The various <code>.zattrs</code> files throughout the above array hierarchy may contain metadata
 keys as specified below for discovering certain types of data, especially images.</p>
-   <h3 class="heading settled" data-level="3.1" id="multiscale-md"><span class="secno">3.1. </span><span class="content">"multiscales" metadata</span><a class="self-link" href="#multiscale-md"></a></h3>
-   <p>Metadata about the multiple resolution representations of the image can be
-found under the "multiscales" key in the group-level metadata.</p>
+   <h3 class="heading settled" data-level="3.1" id="axes-md"><span class="secno">3.1. </span><span class="content">"axes" metadata</span><a class="self-link" href="#axes-md"></a></h3>
+   <p>"axes" describes the dimensions of a physical coordinate space. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:</p>
+   <ul>
+    <li data-md>
+     <p>MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.</p>
+    <li data-md>
+     <p>SHOULD contain the field "type". It SHOULD be one of "space", "time" or "channel", but MAY take other values for custom axis types that are not part of this specification yet.</p>
+    <li data-md>
+     <p>SHOULD contain the field "unit" to specify the physical unit of this dimension. The value SHOULD be one of the following strings, which are valid units according to UDUNITS-2.</p>
+     <ul>
+      <li data-md>
+       <p>Units for "space" axes: <a class="property css" data-link-type="property">angstrom</a>, <a class="property css" data-link-type="property">attometer</a>, <a class="property css" data-link-type="property">centimeter</a>, <a class="property css" data-link-type="property">decimeter</a>, <a class="property css" data-link-type="property">exameter</a>, <a class="property css" data-link-type="property">femtometer</a>, <a class="property css" data-link-type="property">foot</a>, <a class="property css" data-link-type="property">gigameter</a>, <a class="property css" data-link-type="property">hectometer</a>, <a class="property css" data-link-type="property">inch</a>, <a class="property css" data-link-type="property">kilometer</a>, <a class="property css" data-link-type="property">megameter</a>, <a class="property css" data-link-type="property">meter</a>, <a class="property css" data-link-type="property">micrometer</a>, <a class="property css" data-link-type="property">mile</a>, <a class="property css" data-link-type="property">millimeter</a>, <a class="property css" data-link-type="property">nanometer</a>, <a class="property css" data-link-type="property">parsec</a>, <a class="property css" data-link-type="property">petameter</a>, <a class="property css" data-link-type="property">picometer</a>, <a class="property css" data-link-type="property">terameter</a>, <a class="property css" data-link-type="property">yard</a>, <a class="property css" data-link-type="property">yoctometer</a>, <a class="property css" data-link-type="property">yottameter</a>, <a class="property css" data-link-type="property">zeptometer</a>, <a class="property css" data-link-type="property">zettameter</a></p>
+      <li data-md>
+       <p>Units for "time" axes: <a class="property css" data-link-type="property">attosecond</a>, <a class="property css" data-link-type="property">centisecond</a>, <a class="property css" data-link-type="property">day</a>, <a class="property css" data-link-type="property">decisecond</a>, <a class="property css" data-link-type="property">exasecond</a>, <a class="property css" data-link-type="property">femtosecond</a>, <a class="property css" data-link-type="property">gigasecond</a>, <a class="property css" data-link-type="property">hectosecond</a>, <a class="property css" data-link-type="property">hour</a>, <a class="property css" data-link-type="property">kilosecond</a>, <a class="property css" data-link-type="property">megasecond</a>, <a class="property css" data-link-type="property">microsecond</a>, <a class="property css" data-link-type="property">millisecond</a>, <a class="property css" data-link-type="property">minute</a>, <a class="property css" data-link-type="property">nanosecond</a>, <a class="property css" data-link-type="property">petasecond</a>, <a class="property css" data-link-type="property">picosecond</a>, <a class="property css" data-link-type="property">second</a>, <a class="property css" data-link-type="property">terasecond</a>, <a class="property css" data-link-type="property">yoctosecond</a>, <a class="property css" data-link-type="property">yottasecond</a>, <a class="property css" data-link-type="property">zeptosecond</a>, <a class="property css" data-link-type="property">zettasecond</a></p>
+     </ul>
+   </ul>
+   <p>If part of <a href="#multiscale-md">§ 3.3 "multiscales" metadata</a>, the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.</p>
+   <h3 class="heading settled" data-level="3.2" id="trafo-md"><span class="secno">3.2. </span><span class="content">"coordinateTransformations" metadata</span><a class="self-link" href="#trafo-md"></a></h3>
+   <p>"coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
+For example, to map a discrete data space of an array to the corresponding physical space.
+It is a list of dictionaries. Each entry describes a single transformation and MUST contain the field "type".
+The value of "type" MUST be one of the elements of the <code>type</code> column in the table below.
+Additional fields for the entry depend on "type" and are defined by the column <code>fields</code>.</p>
+   <table>
+    <tbody>
+     <tr>
+      <th><code>identity</code> 
+      <td>
+      <td>identity transformation, is the default transformation and is typically not explicitly defined 
+     <tr>
+      <th><code>translation</code> 
+      <td> one of: <code>"translation":List[float]</code>, <code>"path":str</code> 
+      <td>translation vector, stored either as a list of floats (<code>"translation"</code>) or as binary data at a location in this container (<code>path</code>). The length of vector defines number of dimensions. | 
+     <tr>
+      <th><code>scale</code> 
+      <td> one of: <code>"scale":List[float]</code>, <code>"path":str</code> 
+      <td>scale vector, stored either as a list of floats (<code>scale</code>) or as binary data at a location in this container (<code>path</code>). The length of vector defines number of dimensions. | 
+    <thead>
+     <tr>
+      <th>type
+      <th>fields
+      <th>description 
+   </table>
+   <p>The transformations in the list are applied sequentially and in order.</p>
+   <h3 class="heading settled" data-level="3.3" id="multiscale-md"><span class="secno">3.3. </span><span class="content">"multiscales" metadata</span><a class="self-link" href="#multiscale-md"></a></h3>
+   <p>Metadata about an image can be found under the "multiscales" key in the group-level metadata. Here, image refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes. It is stored in a multiple resolution representation.</p>
    <p>"multiscales" contains a list of dictionaries where each entry describes a multiscale image.</p>
-   <p>Each dictionary contained in the list MUST contain the field "datasets", which is a list of dictionaries describing
-the arrays storing the individual resolution levels.
+   <p>Each "multiscales" dictionary MUST contain the field "axes", see <a href="#axes-md">§ 3.1 "axes" metadata</a>.
+The length of "axes" must be between 2 and 5 and MUST be equal to the dimensionality of the zarr arrays storing the image data (see "datasets:path").
+The "axes" MUST contain 2 or 3 entries of "type:space" and MAY contain one additional entry of "type:time" and MAY contain one additional entry of "type:channel" or a null / custom type.
+The order of the entries MUST correspond to the order of dimensions of the zarr arrays. In addition, the entries MUST be ordered by "type" where the "time" axis must come first (if present), followed by the  "channel" or custom axis (if present) and the axes of type "space".
+If there are three spatial axes where two correspond to the image plane ("yx") and images are stacked along the other (anisotropic) axis ("z"), the spatial axes SHOULD be ordered as "zyx".</p>
+   <p>Each "multiscales" dictionary MUST contain the field "datasets", which is a list of dictionaries describing the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.</p>
-   <p>It MUST contain the field "axes", which is a list of dimension names of the axes.
-The values MUST be unique and one of <code>{"t", "c", "z", "y", "x"}</code>.
-The number of values MUST be the same as the number of dimensions of the arrays corresponding to this image.
-In addition, the "axes" values MUST be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups
-(i.e. groups containing arrays with the multiscale data).
-This ensures compatibility with the <a href="http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding">xarray zarr encoding</a>.</p>
-   <p>It SHOULD contain the field "name".</p>
-   <p>It SHOULD contain the field "version", which indicates the version of the
-multiscale metadata of this image (current version is 0.3).</p>
-   <p>It SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.</p>
-   <p>It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.</p>
-<pre class="language-json highlight"><c- p>{</c->
-    <c- f>"multiscales"</c-><c- p>:</c-> <c- p>[</c->
-        <c- p>{</c->
-            <c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c-><c- p>,</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"example"</c-><c- p>,</c->
-            <c- f>"datasets"</c-><c- p>:</c-> <c- p>[</c->
-                <c- p>{</c-><c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c-><c- p>},</c->
-                <c- p>{</c-><c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c-><c- p>},</c->
-                <c- p>{</c-><c- f>"path"</c-><c- p>:</c-> <c- u>"2"</c-><c- p>}</c->
-            <c- p>],</c->
-            <c- f>"axes"</c-><c- p>:</c-> <c- p>[</c->
-                <c- u>"t"</c-><c- p>,</c-> <c- u>"c"</c-><c- p>,</c-> <c- u>"z"</c-><c- p>,</c-> <c- u>"y"</c-><c- p>,</c-> <c- u>"x"</c->
-            <c- p>],</c->
-            <c- f>"type"</c-><c- p>:</c-> <c- u>"gaussian"</c-><c- p>,</c->
-            <c- f>"metadata"</c-><c- p>:</c-> <c- p>{</c->                                       # <c- kc>t</c->he <c- kc>f</c->ields i<c- kc>n</c-> me<c- kc>ta</c->da<c- kc>ta</c-> depe<c- kc>n</c->d o<c- kc>n</c-> <c- kc>t</c->he dow<c- kc>ns</c->cali<c- kc>n</c->g impleme<c- kc>ntat</c->io<c- kc>n</c->
-                <c- f>"method"</c-><c- p>:</c-> <c- u>"skimage.transform.pyramid_gaussian"</c-><c- p>,</c-> # here<c- p>,</c-> <c- kc>t</c->he param<c- kc>ters</c-> passed <c- kc>t</c->o <c- kc>t</c->he skimage <c- kc>fun</c->c<c- kc>t</c->io<c- kc>n</c-> are give<c- kc>n</c->
-                <c- f>"version"</c-><c- p>:</c-> <c- u>"0.16.1"</c-><c- p>,</c->
-                <c- f>"args"</c-><c- p>:</c-> <c- u>"[true]"</c-><c- p>,</c->
-                <c- f>"kwargs"</c-><c- p>:</c-> <c- p>{</c-><c- f>"multichannel"</c-><c- p>:</c-> <c- kc>true</c-><c- p>}</c->
-            <c- p>}</c->
-        <c- p>}</c->
-    <c- p>]</c->
-<c- p>}</c->
+   <p>Each "datasets" dictionary MUST have the same number of dimensions and MUST NOT have more than 5 dimensions. The number of dimensions and order MUST correspond to number and order of "axes".
+Each dictionary MUST contain the field "coordinateTransformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
+The transformations are defined according to <a href="#trafo-md">§ 3.2 "coordinateTransformations" metadata</a>. The transformation MUST only be of type <code>translation</code> or <code>scale</code>.
+They MUST contain exactly one <code>scale</code> transformation that specifies the pixel size in physical units or time duration. If scaling information is not available or applicable for one of the axes set it to 1.
+It MAY contain exactly one <code>translation</code> that specifies the offset from the origin in physical units. If <code>translation</code> is given it MUST be listed after <code>scale</code> to ensure that it is given in physical coordinates.
+The length of the <code>scale</code> and <code>translation</code> array MUST be the same as the length of "axes".
+The requirements (only <code>scale</code> and <code>translation</code>, restrictions on order) are in place to provide a simple mapping from data coordinates to physical coordinates while being compatible with the general transformation spec.</p>
+   <p>Each "multiscales" dictionary MAY contain the field "coordinateTransformations", describing transformations that are applied to all resolution levels in the same manner.
+The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.
+They can for example be used to specify the <code>scale</code> for a dimension that is the same for all resolutions.</p>
+   <p>Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain the field "version", which indicates the version of the multiscale metadata of this image (current version is 0.4).</p>
+   <p>Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
+It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.</p>
+<pre>{
+    "multiscales": [
+        {
+            "version": "0.4",
+            "name": "example",
+            "axes": [
+                {"name": "t", "type": "time", "unit": "millisecond"},
+                {"name": "c", "type": "channel"},
+                {"name": "z", "type": "space", "unit": "micrometer"},
+                {"name": "y", "type": "space", "unit": "micrometer"},
+                {"name": "x", "type": "space", "unit": "micrometer"}
+            ],
+            "datasets": [
+                {
+                    "path": "0",
+                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 0.5, 0.5, 0.5]}]  # the voxel size for the first scale level (0.5 micrometer)
+                }
+                {
+                    "path": "1",
+                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 1.0, 1.0, 1.0]}]  # the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)
+                },
+                {
+                    "path": "2",
+                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 2.0, 2.0, 2.0]}]  # the voxel size for the second scale level (downscaled by a factor of 4 -> 2 micrometer)
+                }
+            ],
+            "coordinateTransformations": [{"type": "scale", "scale": [0.1, 1.0, 1.0, 1.0, 1.0]],  # the time unit (0.1 milliseconds), which is the same for each scale level
+            "type": "gaussian",
+            "metadata": {                                       # the fields in metadata depend on the downscaling implementation
+                "method": "skimage.transform.pyramid_gaussian", # here, the paramters passed to the skimage function are given
+                "version": "0.16.1",
+                "args": "[true]",
+                "kwargs": {"multichannel": true}
+            }
+        }
+    ]
+}
 </pre>
    <p>If only one multiscale is provided, use it. Otherwise, the user can choose by
 name, using the first multiscale as a fallback:</p>
@@ -630,12 +705,12 @@ name, using the first multiscale as a fallback:</p>
     <c- c1># Use the first by default. Or perhaps choose based on chunk size.</c->
     <c- n>datasets</c-> <c- o>=</c-> <c- p>[</c-><c- n>x</c-><c- p>[</c-><c- u>"path"</c-><c- p>]</c-> <c- k>for</c-> <c- n>x</c-> <c- ow>in</c-> <c- n>multiscales</c-><c- p>[</c-><c- mi>0</c-><c- p>][</c-><c- u>"datasets"</c-><c- p>]]</c->
 </pre>
-   <h3 class="heading settled" data-level="3.2" id="omero-md"><span class="secno">3.2. </span><span class="content">"omero" metadata</span><a class="self-link" href="#omero-md"></a></h3>
+   <h3 class="heading settled" data-level="3.4" id="omero-md"><span class="secno">3.4. </span><span class="content">"omero" metadata</span><a class="self-link" href="#omero-md"></a></h3>
    <p>Information specific to the channels of an image and how to render it
 can be found under the "omero" key in the group-level metadata:</p>
 <pre class="language-json highlight"><c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->                              # ID i<c- kc>n</c-> OMERO
 <c- f>"name"</c-><c- p>:</c-> <c- u>"example.tif"</c-><c- p>,</c->                # Name as show<c- kc>n</c-> i<c- kc>n</c-> <c- kc>t</c->he UI
-<c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c-><c- p>,</c->                     # Curre<c- kc>nt</c-> versio<c- kc>n</c->
+<c- f>"version"</c-><c- p>:</c-> <c- u>"0.4"</c-><c- p>,</c->                     # Curre<c- kc>nt</c-> versio<c- kc>n</c->
 <c- f>"channels"</c-><c- p>:</c-> <c- p>[</c->                         # Array ma<c- kc>t</c->chi<c- kc>n</c->g <c- kc>t</c->he c dime<c- kc>ns</c->io<c- kc>n</c-> size
     <c- p>{</c->
         <c- f>"active"</c-><c- p>:</c-> <c- kc>true</c-><c- p>,</c->
@@ -660,7 +735,7 @@ can be found under the "omero" key in the group-level metadata:</p>
 </pre>
    <p>See https://docs.openmicroscopy.org/omero/5.6.1/developers/Web/WebGateway.html#imgdata
 for more information.</p>
-   <h3 class="heading settled" data-level="3.3" id="labels-md"><span class="secno">3.3. </span><span class="content">"labels" metadata</span><a class="self-link" href="#labels-md"></a></h3>
+   <h3 class="heading settled" data-level="3.5" id="labels-md"><span class="secno">3.5. </span><span class="content">"labels" metadata</span><a class="self-link" href="#labels-md"></a></h3>
    <p>The special group "labels" found under an image Zarr contains the key <code>labels</code> containing
 the paths to label objects which can be found underneath the group:</p>
 <pre class="language-json highlight"><c- p>{</c->
@@ -670,7 +745,7 @@ the paths to label objects which can be found underneath the group:</p>
 <c- p>}</c->
 </pre>
    <p>Unlisted groups MAY be labels.</p>
-   <h3 class="heading settled" data-level="3.4" id="label-md"><span class="secno">3.4. </span><span class="content">"image-label" metadata</span><a class="self-link" href="#label-md"></a></h3>
+   <h3 class="heading settled" data-level="3.6" id="label-md"><span class="secno">3.6. </span><span class="content">"image-label" metadata</span><a class="self-link" href="#label-md"></a></h3>
    <p>Groups containing the <code>image-label</code> dictionary represent an image segmentation
 in which each unique pixel value represents a separate segmented object. <code>image-label</code> groups MUST also contain <code>multiscales</code> metadata and the two
 "datasets" series MUST have the same number of entries.</p>
@@ -682,9 +757,9 @@ should ignore all except the _last_ entry.</p>
    <p>Some implementations may represent overlapping labels by using a specially assigned
 value, for example the highest integer available in the pixel range.</p>
    <p>The <code>properties</code> key defines a list of JSON objects which also describes the unique
-label values. Each entry in the list MUST contain the key "label-value" with the 
-pixel value for that label. Additionally, an arbitrary number of key-value pairs 
-MAY be present for each label value denoting associated metadata. Not all label 
+label values. Each entry in the list MUST contain the key "label-value" with the
+pixel value for that label. Additionally, an arbitrary number of key-value pairs
+MAY be present for each label value denoting associated metadata. Not all label
 values must share the same key-value pairs within the properties list.</p>
    <p>The <code>source</code> key is an optional dictionary which contains information on the
 image the label is associated with. If included it MAY include a key <code>image</code> whose value is the relative path to a Zarr image group. The default value is
@@ -692,7 +767,7 @@ image the label is associated with. If included it MAY include a key <code>image
 above).</p>
 <pre class="language-json highlight"><c- f>"image-label"</c-><c- p>:</c->
   <c- p>{</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c-><c- p>,</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.4"</c-><c- p>,</c->
     <c- f>"colors"</c-><c- p>:</c-> <c- p>[</c->
       <c- p>{</c->
         <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
@@ -723,7 +798,7 @@ above).</p>
   <c- p>}</c->
 <c- p>]</c->
 </pre>
-   <h3 class="heading settled" data-level="3.5" id="plate-md"><span class="secno">3.5. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
+   <h3 class="heading settled" data-level="3.7" id="plate-md"><span class="secno">3.7. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
    <p>For high-content screening datasets, the plate layout can be found under the
 custom attributes of the plate group under the <code>plate</code> key.</p>
    <dl>
@@ -741,8 +816,13 @@ custom attributes of the plate group under the <code>plate</code> key.</p>
     <dt><strong>columns</strong>
     <dd>A list of JSON objects defining the columns of the plate. Each column
       object defines the properties of the column at the index of the object
-      in the list. If not empty, it MUST contain a <code>name</code> key specifying the
-      column name.
+      in the list. Each column in the physical plate MUST be defined, even
+      if no wells in the column are defined. Each defined column MUST contain
+      a <code>name</code> key specifying the column name. The <code>name</code> MUST contain only
+      alphanumeric characters, MUST be case-sensitive, and MUST NOT be a
+      duplicate of any other <code>name</code> in the <code>columns</code> list. Care SHOULD be
+      taken to avoid collisions on case-insensitive filesystems
+      (e.g. avoid using both <code>Aa</code> and <code>aA</code>).
     <dt><strong>field_count</strong>
     <dd>An integer defining the maximum number of fields per view across all
       wells.
@@ -751,16 +831,28 @@ custom attributes of the plate group under the <code>plate</code> key.</p>
     <dt><strong>rows</strong>
     <dd>A list of JSON objects defining the rows of the plate. Each row object
       defines the properties of the row at the index of the object in the
-      list. If not empty, it MUST contain a <code>name</code> key specifying the row
-      name.
+      list. Each row in the physical plate MUST be defined, even if no wells
+      in the row are defined. Each defined row MUST contain a <code>name</code> key
+      specifying the row name. The <code>name</code> MUST contain only alphanumeric
+      characters, MUST be case-sensitive, and MUST NOT be a duplicate
+      of any other <code>name</code> in the <code>rows</code> list. Care SHOULD be taken to avoid
+      collisions on case-insensitive filesystems (e.g. avoid using both <code>Aa</code> and <code>aA</code>).
     <dt><strong>version</strong>
     <dd>A string defining the version of the specification.
     <dt><strong>wells</strong>
-    <dd>A list of JSON objects defining the wells of the plate. Each well object 
+    <dd>A list of JSON objects defining the wells of the plate. Each well object
       MUST contain a <code>path</code> key identifying the path to the well subgroup.
+      The <code>path</code> MUST consist of a <code>name</code> in the <code>rows</code> list, a file separator (<code>/</code>),
+      and a <code>name</code> from the <code>columns</code> list, in that order. The <code>path</code> MUST NOT contain
+      additional leading or trailing directories.
+      Each well object MUST contain both a <code>rowIndex</code> key identifying the index into
+      the <code>rows</code> list and a <code>columnIndex</code> key indentifying the index into
+      the <code>columns</code> list. <code>rowIndex</code> and <code>columnIndex</code> MUST be 0-based.
+      The <code>rowIndex</code>, <code>columnIndex</code>, and <code>path</code> MUST all refer to the same
+      row/column pair.
    </dl>
-   <p>For example the following JSON object defines a plate with two acquisition and
-6 wells (2 rows and 3 columns), containing up 2 fields of view per acquistion.</p>
+   <p>For example the following JSON object defines a plate with two acquisitions and
+6 wells (2 rows and 3 columns), containing up to 2 fields of view per acquisition.</p>
 <pre class="language-json highlight"><c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
     <c- f>"acquisitions"</c-><c- p>:</c-> <c- p>[</c->
         <c- p>{</c->
@@ -797,46 +889,150 @@ custom attributes of the plate group under the <code>plate</code> key.</p>
             <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
         <c- p>}</c->
     <c- p>],</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c-><c- p>,</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.4"</c-><c- p>,</c->
     <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
         <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/A/1"</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"A/1"</c-><c- p>,</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>0</c->
         <c- p>},</c->
         <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/A/2"</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"A/2"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>1</c->
         <c- p>},</c->
         <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/A/3"</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"A/3"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>2</c->
         <c- p>},</c->
         <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/B/1"</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"B/1"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>0</c->
         <c- p>},</c->
         <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/B/2"</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"B/2"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>1</c->
         <c- p>},</c->
         <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"2020-10-10/B/3"</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"B/3"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>2</c->
         <c- p>}</c->
     <c- p>]</c->
   <c- p>}</c->
 </pre>
-   <h3 class="heading settled" data-level="3.6" id="well-md"><span class="secno">3.6. </span><span class="content">"well" metadata</span><a class="self-link" href="#well-md"></a></h3>
+   <p>The following JSON object defines a sparse plate with one acquisition and
+2 wells in a 96 well plate, containing one field of view per acquisition.</p>
+<pre class="language-json highlight"><c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"acquisitions"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"single acquisition"</c-><c- p>,</c->
+            <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343731272000</c->
+        <c- p>},</c->
+    <c- p>],</c->
+    <c- f>"columns"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"1"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"2"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"3"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"4"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"5"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"6"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"7"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"8"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"9"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"10"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"11"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"12"</c->
+        <c- p>}</c->
+    <c- p>],</c->
+    <c- f>"field_count"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+    <c- f>"name"</c-><c- p>:</c-> <c- u>"sparse test"</c-><c- p>,</c->
+    <c- f>"rows"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"A"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"C"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"D"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"E"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"F"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"G"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"H"</c->
+        <c- p>}</c->
+    <c- p>],</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c-><c- p>,</c->
+    <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"C/5"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>4</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- f>"D/7"</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>6</c->
+        <c- p>}</c->
+    <c- p>]</c->
+  <c- p>}</c->
+</pre>
+   <h3 class="heading settled" data-level="3.8" id="well-md"><span class="secno">3.8. </span><span class="content">"well" metadata</span><a class="self-link" href="#well-md"></a></h3>
    <p>For high-content screening datasets, the metadata about all fields of views
-under a given  well can be found under the "well" key in the attributes of the
+under a given well can be found under the "well" key in the attributes of the
 well group.</p>
    <dl>
     <dt><strong>images</strong>
     <dd>A list of JSON objects defining the fields of views for a given well.
       Each object MUST contain a <code>path</code> key identifying the path to the
-      field of view. If multiple acquisitions were performed in the plate, it  
-      SHOULD contain an <code>acquisition</code> key identifying the id of the 
+      field of view. If multiple acquisitions were performed in the plate, it
+      MUST contain an <code>acquisition</code> key identifying the id of the
       acquisition which must match one of acquisition JSON objects defined in
       the plate metadata.
     <dt><strong>version</strong>
     <dd>A string defining the version of the specification.
    </dl>
    <p>For example the following JSON object defines a well with four fields of
-views. The first two fields of view were part of the first acquisition while
+view. The first two fields of view were part of the first acquisition while
 the last two fields of view were part of the second acquisition.</p>
 <pre class="language-json highlight"><c- f>"well"</c-><c- p>:</c-> <c- p>{</c->
     <c- f>"images"</c-><c- p>:</c-> <c- p>[</c->
@@ -857,22 +1053,45 @@ the last two fields of view were part of the second acquisition.</p>
             <c- f>"path"</c-><c- p>:</c-> <c- u>"3"</c->
         <c- p>}</c->
     <c- p>],</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.3"</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.4"</c->
   <c- p>}</c->
 </pre>
-   <h2 class="heading settled" data-level="4" id="implementations"><span class="secno">4. </span><span class="content">Implementations</span><a class="self-link" href="#implementations"></a></h2>
+   <p>The following JSON object defines a well with two fields of view in a plate with
+four acquisitions. The first field is part of the first acquisition, and the second
+field is part of the last acquisition.</p>
+<pre class="language-json highlight"><c- f>"well"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"images"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c->
+        <c- p>},</c->
+        <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c->
+        <c- p>}</c->
+    <c- p>],</c->
+    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c->
+<c- p>}</c->
+</pre>
+   <h2 class="heading settled" data-level="4" id="naming-style"><span class="secno">4. </span><span class="content">Specification naming style</span><a class="self-link" href="#naming-style"></a></h2>
+   <p>Multi-word keys in this specification should use the <code>camelCase</code> style.
+NB: some parts of the specification don’t obey this convention as they
+were added before this was adopted, but they should be updated in due course.</p>
+   <h2 class="heading settled" data-level="5" id="implementations"><span class="secno">5. </span><span class="content">Implementations</span><a class="self-link" href="#implementations"></a></h2>
    <p>Projects which support reading and/or writing OME-NGFF data include:</p>
    <dl>
+    <dt><strong><a href="https://github.com/mobie/bigdataviewer-ome-zarr">bigdataviewer-ome-zarr</a></strong>
+    <dd>Fiji-plugin for reading OME-Zarr.
+    <dt><strong><a href="https://github.com/glencoesoftware/bioformats2raw">bioformats2raw</a></strong>
+    <dd>A performant, Bio-Formats image file format converter.
     <dt><strong><a href="https://github.com/ome/omero-ms-zarr">omero-ms-zarr</a></strong>
-    <dd>A microservice for OMERO.server that converts images stored in OMERO to OME Zarr files on the fly, served via a web API.
+    <dd>A microservice for OMERO.server that converts images stored in OMERO to OME-Zarr files on the fly, served via a web API.
     <dt><strong><a href="https://github.com/IDR/idr-zarr-tools">idr-zarr-tools</a></strong>
-    <dd>A full workflow demonstrating the conversion of IDR images to OME Zarr images on S3.
+    <dd>A full workflow demonstrating the conversion of IDR images to OME-Zarr images on S3.
     <dt><strong><a href="https://github.com/ome/omero-cli-zarr">OMERO CLI Zarr plugin</a></strong>
     <dd>An OMERO CLI plugin that converts images stored in OMERO.server into a local Zarr file.
     <dt><strong><a href="https://github.com/ome/ome-zarr-py">ome-zarr-py</a></strong>
     <dd>A napari plugin for reading ome-zarr files.
-    <dt><strong><a href="https://github.com/glencoesoftware/bioformats2raw">bioformats2raw</a></strong>
-    <dd>A performant, Bio-Formats image file format converter.
     <dt><strong><a href="https://github.com/hms-dbmi/vizarr/">vizarr</a></strong>
     <dd>A minimal, purely client-side program for viewing Zarr-based images with Viv &amp; ImJoy.
    </dl>
@@ -881,11 +1100,11 @@ the last two fields of view were part of the second acquisition.</p>
 version of this diagram is available from the <a href="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/">OME2020 Workshop</a>.
 Mouseover the blackboxes representing the implementations above to get a quick tip on how to use them.</p>
    <p class="note" role="note"><span>Note:</span> If you would like to see your project listed, please open an issue or PR on the <a href="https://github.com/ome/ngff">ome/ngff</a> repository.</p>
-   <h2 class="heading settled" data-level="5" id="citing"><span class="secno">5. </span><span class="content">Citing</span><a class="self-link" href="#citing"></a></h2>
-   <p><a href="https://ngff.openmicroscopy.org/0.3">Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a> J. Moore, <em>et al</em>. Editors. Open Microscopy Environment Consortium, 20 November 2020.
-This edition of the specification is <a href="https://ngff.openmicroscopy.org/0.3/]">https://ngff.openmicroscopy.org/0.3/</a>.
+   <h2 class="heading settled" data-level="6" id="citing"><span class="secno">6. </span><span class="content">Citing</span><a class="self-link" href="#citing"></a></h2>
+   <p><a href="https://ngff.openmicroscopy.org/0.4">Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a> J. Moore, <em>et al</em>. Editors. Open Microscopy Environment Consortium, 8 February 2022.
+This edition of the specification is <a href="https://ngff.openmicroscopy.org/0.4/]">https://ngff.openmicroscopy.org/0.4/</a>.
 The latest edition is available at <a href="https://ngff.openmicroscopy.org/latest/">https://ngff.openmicroscopy.org/latest/</a>. <a href="https://doi.org/10.5281/zenodo.4282107">(doi:10.5281/zenodo.4282107)</a></p>
-   <h2 class="heading settled" data-level="6" id="history"><span class="secno">6. </span><span class="content">Version History</span><a class="self-link" href="#history"></a></h2>
+   <h2 class="heading settled" data-level="7" id="history"><span class="secno">7. </span><span class="content">Version History</span><a class="self-link" href="#history"></a></h2>
    <table>
     <thead>
      <tr>
@@ -893,6 +1112,14 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
       <td>Date
       <td>Description
     <tbody>
+     <tr>
+      <td>0.4.0
+      <td>2022-02-08
+      <td>multiscales: add axes type, units and coordinateTransformations
+     <tr>
+      <td>0.4.0
+      <td>2022-02-08
+      <td>plate: add rowIndex/columnIndex 
      <tr>
       <td>0.3.0
       <td>2021-08-24
