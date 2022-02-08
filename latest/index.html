@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="d973d475976ecce20eb8d9e8e1a7128b4f9f564a" name="document-revision">
+  <meta content="1848aff766d2a485a468e1cd03d754805153b25b" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -2116,10 +2116,7 @@ Additional fields for the entry depend on "type" and are defined by the column <
 The length of "axes" must be between 2 and 5 and MUST be equal to the dimensionality of the zarr arrays storing the image data (see "datasets:path").
 The "axes" MUST contain 2 or 3 entries of "type:space" and MAY contain one additional entry of "type:time" and MAY contain one additional entry of "type:channel" or a null / custom type.
 The order of the entries MUST correspond to the order of dimensions of the zarr arrays. In addition, the entries MUST be ordered by "type" where the "time" axis must come first (if present), followed by the  "channel" or custom axis (if present) and the axes of type "space".
-If there are three spatial axes where two correspond to the image plane ("yx") and images are stacked along the other (anisotropic) axis ("z"), the spatial axes SHOULD be ordered as "zyx".
-The values of the "name" fields must be given as a list in the field "_ARRAY_DIMENSIONS" in the attributes (.zattr) of the zarr arrays.
-This ensures compatibility with the <a href="http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding">xarray zarr encoding</a>.
-E.g. for "axes: [{"name": "z"}, {"name": "y"}, {"name": x}]", the zarr arrays must contain "{"_ARRAY_DIMENSIONS": ["z", "y", "x"]}" in their attributes.</p>
+If there are three spatial axes where two correspond to the image plane ("yx") and images are stacked along the other (anisotropic) axis ("z"), the spatial axes SHOULD be ordered as "zyx".</p>
    <p>Each "multiscales" dictionary MUST contain the field "datasets", which is a list of dictionaries describing the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.</p>
