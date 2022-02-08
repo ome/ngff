@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - uses: ome/spec-prod@main
+      - uses: ome/spec-prod@v3
         with:
           GH_PAGES_BRANCH: gh-pages
           VALIDATE_LINKS: false
