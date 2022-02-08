@@ -285,45 +285,11 @@ Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain
 Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
 
-```
-{
-    "multiscales": [
-        {
-            "version": "0.4",
-            "name": "example",
-            "axes": [
-                {"name": "t", "type": "time", "unit": "millisecond"},
-                {"name": "c", "type": "channel"},
-                {"name": "z", "type": "space", "unit": "micrometer"},
-                {"name": "y", "type": "space", "unit": "micrometer"},
-                {"name": "x", "type": "space", "unit": "micrometer"}
-            ],
-            "datasets": [
-                {
-                    "path": "0",
-                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 0.5, 0.5, 0.5]}]  # the voxel size for the first scale level (0.5 micrometer)
-                }
-                {
-                    "path": "1",
-                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 1.0, 1.0, 1.0]}]  # the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)
-                },
-                {
-                    "path": "2",
-                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 2.0, 2.0, 2.0]}]  # the voxel size for the second scale level (downscaled by a factor of 4 -> 2 micrometer)
-                }
-            ],
-            "coordinateTransformations": [{"type": "scale", "scale": [0.1, 1.0, 1.0, 1.0, 1.0]],  # the time unit (0.1 milliseconds), which is the same for each scale level
-            "type": "gaussian",
-            "metadata": {                                       # the fields in metadata depend on the downscaling implementation
-                "method": "skimage.transform.pyramid_gaussian", # here, the paramters passed to the skimage function are given
-                "version": "0.16.1",
-                "args": "[true]",
-                "kwargs": {"multichannel": true}
-            }
-        }
-    ]
-}
-```
+<pre class=include-code>
+path: examples/valid_strict/multiscales_example.json
+highlight: json
+</pre>
+
 
 If only one multiscale is provided, use it. Otherwise, the user can choose by
 name, using the first multiscale as a fallback:
