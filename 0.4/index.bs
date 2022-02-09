@@ -3,9 +3,9 @@ Title: Next-generation file formats (NGFF)
 Shortname: ome-ngff
 Level: 1
 Status: LS-COMMIT
-Status: w3c/ED
+Status: w3c/CG-FINAL
 Group: ome
-URL: https://ngff.openmicroscopy.org/latest/
+URL: https://ngff.openmicroscopy.org/0.4/
 Repository: https://github.com/ome/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
@@ -13,16 +13,14 @@ Local Boilerplate: header yes
 Local Boilerplate: copyright yes
 Boilerplate: style-darkmode off
 Markup Shorthands: markdown yes
-Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
-Editor: Sébastien Besson, Open Microscopy Environment (OME) https://www.openmicroscopy.org
-Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/
-Editor: John Bogovic, Hughes Medical Institute Janelia (HHMI) https://www.janelia.org/ 
+Editor: Josh Moore, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0003-4028-811X
+Editor: Sébastien Besson, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0001-8783-1429
+Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/, https://orcid.org/0000-0001-6562-7187
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
-Status Text: The current released version of this specification is
-Status Text: <a href="../0.3/index.html">0.3</a>. Migration scripts
-Status Text: will be provided between numbered versions. Data written with these latest changes
+Status Text: This is the 0.4 release of this specification. Migration scripts
+Status Text: will be provided between numbered versions. Data written with the latest version
 Status Text: (an "editor's draft") will not necessarily be supported.
 </pre>
 
@@ -171,7 +169,7 @@ High-content screening {#hcs-layout}
 ------------------------------------
 
 The following specification defines the hierarchy for a high-content screening
-dataset. Three groups must be defined above the images:
+dataset. Three groups MUST be defined above the images:
 
 -   the group above the images defines the well and MUST implement the
     [well specification](#well-md). All images contained in a well are fields
@@ -180,6 +178,9 @@ dataset. Three groups must be defined above the images:
 -   the group above the well row defines an entire plate i.e. a two-dimensional
     collection of wells organized in rows and columns. It MUST implement the
     [plate specification](#plate-md)
+
+A well row group SHOULD NOT be present if there are no images in the well row.
+A well group SHOULD NOT be present if there are no images in the well.
 
 
 <pre>
@@ -220,10 +221,9 @@ keys as specified below for discovering certain types of data, especially images
 "axes" metadata {#axes-md}
 --------------------------
 
-"axes" describes the dimensions of a coordinate space. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
+"axes" describes the dimensions of a physical coordinate space. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.
 - SHOULD contain the field "type". It SHOULD be one of "space", "time" or "channel", but MAY take other values for custom axis types that are not part of this specification yet.
-- MAY contain the field "discrete". The value MUST be a boolean, and is `true` if the axis represents a discrete dimension.
 - SHOULD contain the field "unit" to specify the physical unit of this dimension. The value SHOULD be one of the following strings, which are valid units according to UDUNITS-2.
     - Units for "space" axes: 'angstrom', 'attometer', 'centimeter', 'decimeter', 'exameter', 'femtometer', 'foot', 'gigameter', 'hectometer', 'inch', 'kilometer', 'megameter', 'meter', 'micrometer', 'mile', 'millimeter', 'nanometer', 'parsec', 'petameter', 'picometer', 'terameter', 'yard', 'yoctometer', 'yottameter', 'zeptometer', 'zettameter'
     - Units for "time" axes: 'attosecond', 'centisecond', 'day', 'decisecond', 'exasecond', 'femtosecond', 'gigasecond', 'hectosecond', 'hour', 'kilosecond', 'megasecond', 'microsecond', 'millisecond', 'minute', 'nanosecond', 'petasecond', 'picosecond', 'second', 'terasecond', 'yoctosecond', 'yottasecond', 'zeptosecond', 'zettasecond'
@@ -231,46 +231,14 @@ keys as specified below for discovering certain types of data, especially images
 If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
 
-"space" metadata {#space-md}
---------------------------
-
-A "space" is a collection of dimensions / "axes" with a name.  Each space dictionary:
-- MUST contain the field "name", that gives the space name. The values MUST be non-empty and unique.
-- MUST contain the field "axes", whose value is a valid set of "axes".
-- SHOULD be such that the "type" of all "axes" in the list are identical.
-
-```
-{
-    "name" : "volume_micrometers",
-    "axes" : [
-        {"name": "z", "type": "space", "unit": "micrometer"},
-        {"name": "y", "type": "space", "unit": "micrometer"},
-        {"name": "x", "type": "space", "unit": "micrometer"}
-    ]
-}
-```
-
-### "Array space"
-
-"Array space" is the unique space whose name is the empty string. The array data of every dataset is in "Array
-space." Therefore, the dimensionality of "array space" varies according to its corresponding dataset.
-In [[#trafo-md]], there SHOULD exist at least one transformation whose "input_space" is the empty string, i.e.
-"array space."
-
-
-"transformations" metadata {#trafo-md}
+"coordinateTransformations" metadata {#trafo-md}
 -------------------------------------
 
 "coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
 For example, to map a discrete data space of an array to the corresponding physical space.
-It is a list of dictionaries. Each entry describes a single transformation, and
-
-- MUST contain the field "name".
-- MUST contain the field "type".
-- MUST contain any other fields required by the given "type" (see table below).
-- SHOULD contain the field "input_space".
-- MUST contain the field "output_space".
-- the value of "output_space" SHOULD not be the empty string.
+It is a list of dictionaries. Each entry describes a single transformation and MUST contain the field "type".
+The value of "type" MUST be one of the elements of the `type` column in the table below.
+Additional fields for the entry depend on "type" and are defined by the column `fields`.
 
 <table>
   <tr><th>`identity`    <td>                                                   <td>identity transformation, is the default transformation and is typically not explicitly defined
@@ -279,45 +247,8 @@ It is a list of dictionaries. Each entry describes a single transformation, and
  <thead>
    <tr><th>type<th>fields<th>description
 </table>
-The transformations in the list are applied sequentally and in order.
 
-### Forward and inverse
-
-Specified coordinate transforms are in the "forward" direction. They represent functions
-from *points* in the input space to *points* in the output space. For example, the transformation `"ij2xy"`
-
-```json
-{
-    "name": "ij2xy",
-    "type": "scale",
-    "scale": [2, 0.5]
-    "input_axes" : ["i", "j"]
-    "output_axes" : ["x", "y"]
-}
-```
-
-represents the function:
-
-```
-x = 2 * i
-y = 0.5 * j
-```
-
-When rendering images and interpolating, implementations may need the "inverse" transformation - from output to
-input space. Inverse transformations will not be explicitly specified when they can be computed in closed form from the
-forward transformation. Inverse transformations used for image rendering should be specified using the `inverse`
-transformation type, for example:
-
-```json
-{
-    "name": "nonlinear-inverse",
-    "type": "displacement_field",
-    "path": "/path/to/my/transform",
-    "input_axes" : ["i", "j"],
-    "output_axes" : ["x", "y"],
-    "inverse" : true
-}
-```
+The transformations in the list are applied sequentially and in order.
 
 
 "multiscales" metadata {#multiscale-md}
