@@ -16,6 +16,7 @@ Markup Shorthands: markdown yes
 Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
 Editor: Sébastien Besson, Open Microscopy Environment (OME) https://www.openmicroscopy.org
 Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/
+Editor: John Bogovic, Hughes Medical Institute Janelia (HHMI) https://www.janelia.org/ 
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
@@ -256,11 +257,11 @@ In [[#trafo-md]], there SHOULD exist at least one transformation whose "input_sp
 "transformations" describes a series of transformations, e.g. to map discrete data space of an array to the corresponding physical space.
 It is a list of dictionaries. Each transformation dictionary:
 
+- MUST contain the field "name".
 - MUST contain the field "type".
 - MUST contain any other fields required by the given "type" (see table below).
-- MUST contain the field "name".
-- SHOULD require the field "input_space".
-- MUST require the field "output_space".
+- SHOULD contain the field "input_space".
+- MUST contain the field "output_space".
 - the value of "output_space" SHOULD not be the empty string.
 
 
@@ -274,6 +275,44 @@ Additional fields for the entry depend on "type" and are defined by the column `
 | `scale`       | one of: `"scale":List[float]`, `"path":str` | scale vector, stored either as a list of floats (`scale`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
 
 The transformations in the list are applied sequentally and in order.
+
+### Forward and inverse coordate transformations 
+
+Specified coordinate transforms are in the "forward" direction. They represent functions
+from *points* in the input space to *points* in the output space. For example, the transformation `"ij2xy"`
+
+```json
+{
+    "name": "ij2xy",
+    "type": "scale",
+    "scale": [2, 0.5]
+    "input_axes" : ["i", "j"]
+    "output_axes" : ["x", "y"]
+}
+```
+
+represents the function:
+
+```
+x = 2 * i
+y = 0.5 * j
+```
+
+When rendering images and interpolating, implementations may need the "inverse" transformation - from output to
+input space. Inverse transformations will not be explicitly specified when they can be computed in closed form from the
+forward transformation. Inverse transformations used for image rendering should be specified using the `inverse`
+transformation type, for example:
+
+```json
+{
+    "name": "nonlinear-inverse",
+    "type": "displacement_field",
+    "path": "/path/to/my/transform",
+    "input_axes" : ["i", "j"],
+    "output_axes" : ["x", "y"],
+    "inverse" : true
+}
+```
 
 
 "multiscales" metadata {#multiscale-md}
