@@ -250,9 +250,20 @@ A "space" is a collection of dimensions / "axes" with a name.  Each space dictio
 }
 ```
 
+### Pixel coordinate convention
+
+**The pixel center is the origin of the continuous coordinate system.**
+
+It is vital to consistently define relationship between the discrete/arrray and continuous/interpolated
+coordinate systems. A pixel is the continuous region (rectangle) that corresponds to a single sample
+in the discrete array, i.e., the area corresponding to nearest-neighbor interpolation of that sample.
+The center of the pixel corresponding to the discrete origin `(0,0)` is the origin of the continuous space
+`(0.0, 0.0)` when the transformation is the identity. See chapter 4 and figure 4.1 of the ITK Software Guide [[itk]].
+
+
 ### "Array space"
 
-"Array space" is the unique space whose name is the empty string. The array data of every dataset is in "Array
+"Array space" is the unique space whose name is the empty string (`""`) or `null`. The array data of every dataset is in "Array
 space." Therefore, the dimensionality of "array space" varies according to its corresponding dataset.
 In [[#trafo-md]], there SHOULD exist at least one transformation whose "input_space" is the empty string, i.e.
 "array space."
@@ -265,17 +276,19 @@ In [[#trafo-md]], there SHOULD exist at least one transformation whose "input_sp
 For example, to map a discrete data space of an array to the corresponding physical space.
 It is a list of dictionaries. Each entry describes a single transformation, and
 
-- MUST contain the field "name".
+- MUST contain the field "name". The values MUST be unique across all "name" fields for coordinate transformations.
 - MUST contain the field "type".
 - MUST contain any other fields required by the given "type" (see table below).
-- SHOULD contain the field "input_space".
-- MUST contain the field "output_space".
+- SHOULD contain exactly one of the fields "input_space" or "input_axes".
+- MUST contain exactly one of the fields "output_space" or "output_axes".
+- OPTIONAL contain the field "inverse".
 - the value of "output_space" SHOULD not be the empty string.
 
 <table>
   <tr><th>`identity`    <td>                                                   <td>identity transformation, is the default transformation and is typically not explicitly defined
-  <tr><th>`translation` <td> one of: `"translation":List[float]`, `"path":str` <td>translation vector, stored either as a list of floats (`"translation"`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
-  <tr><th>`scale`       <td> one of: `"scale":List[float]`, `"path":str`       <td>scale vector, stored either as a list of floats (`scale`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
+  <tr><th>`translation` <td> one of: <br>`"translation":List[float]`, <br>`"path":str` <td>translation vector, stored either as a list of floats (`"translation"`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
+  <tr><th>`scale`       <td> one of: <br>`"scale":List[float]`, <br>`"path":str`       <td>scale vector, stored either as a list of floats (`scale`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions.
+  <tr><th>`affine`       <td> one of: <br>`"affine":List[float]`, <br>`"path":str`     <td>affine transformation matrix defined as list consisting of n sets of n + 1 scalar numbers, stored either as a number[] (affine) or as binary data at a location in this container (path). If both are present, path is preferred. n is number of dimensions
  <thead>
    <tr><th>type<th>fields<th>description
 </table>
@@ -997,6 +1010,20 @@ Version History {#history}
       "et al"
     ],
     "date": "06 October 2020"
+  },
+  "itk":{
+    "id": "itk-book",
+    "href": "https://itk.org/ItkSoftwareGuide.pdf",
+    "title": "The ITK Software Guide",
+    "status": "Informational",
+    "publisher": "ITK",
+    "authors": [
+      "Hans J. Johnson",
+      "Matthew M. McCormick",
+      "Luis Ibanez",
+      "Insight Software Consortium"
+    ],
+    "date": "16 April 2021"
   }
 }
 </pre>
