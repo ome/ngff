@@ -6,9 +6,9 @@
   <meta content="w3c/CG-FINAL" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-final" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
+  <meta content="Bikeshed version fb1e763a4, updated Tue Mar 1 13:13:50 2022 -0800" name="generator">
   <link href="https://ngff.openmicroscopy.org/0.4/" rel="canonical">
-  <meta content="a5162078c93ca7f11249523435e4d13b8d9f4c12" name="document-revision">
+  <meta content="047bc0b8ec5cf5ab0f1dd2174e1baa1772a93928" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -344,7 +344,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-FINAL">Final Community Group Report</a>, <time class="dt-updated" datetime="2022-02-08">8 February 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-FINAL">Final Community Group Report</a>, <time class="dt-updated" datetime="2022-03-08">8 March 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -644,9 +644,9 @@ If there are three spatial axes where two correspond to the image plane ("yx") a
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.</p>
    <p>Each "datasets" dictionary MUST have the same number of dimensions and MUST NOT have more than 5 dimensions. The number of dimensions and order MUST correspond to number and order of "axes".
-Each dictionary MUST contain the field "coordinateTransformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
+Each dictionary in "datasets" MUST contain the field "coordinateTransformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
 The transformations are defined according to <a href="#trafo-md">§ 3.2 "coordinateTransformations" metadata</a>. The transformation MUST only be of type <code>translation</code> or <code>scale</code>.
-They MUST contain exactly one <code>scale</code> transformation that specifies the pixel size in physical units or time duration. If scaling information is not available or applicable for one of the axes set it to 1.
+They MUST contain exactly one <code>scale</code> transformation that specifies the pixel size in physical units or time duration. If scaling information is not available or applicable for one of the axes, the value MUST express the scaling factor between the current resolution and the first resolution for the given axis, defaulting to 1.0 if there is no downsampling along the axis.
 It MAY contain exactly one <code>translation</code> that specifies the offset from the origin in physical units. If <code>translation</code> is given it MUST be listed after <code>scale</code> to ensure that it is given in physical coordinates.
 The length of the <code>scale</code> and <code>translation</code> array MUST be the same as the length of "axes".
 The requirements (only <code>scale</code> and <code>translation</code>, restrictions on order) are in place to provide a simple mapping from data coordinates to physical coordinates while being compatible with the general transformation spec.</p>
