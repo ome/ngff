@@ -13,18 +13,30 @@
             "datasets": [
                 {
                     "path": "0",
-                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 0.5, 0.5, 0.5]}]
+                    "coordinateTransformations": [{
+                        "type": "scale",
+                        "scale": [1.0, 1.0, 0.5, 0.5, 0.5]
+                    }]
                 },
                 {
                     "path": "1",
-                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 1.0, 1.0, 1.0]}]
+                    "coordinateTransformations": [{
+                        "type": "scale",
+                        "scale": [1.0, 1.0, 1.0, 1.0, 1.0]
+                    }]
                 },
                 {
                     "path": "2",
-                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 2.0, 2.0, 2.0]}]
+                    "coordinateTransformations": [{
+                        "type": "scale",
+                        "scale": [1.0, 1.0, 2.0, 2.0, 2.0]
+                    }]
                 }
             ],
-            "coordinateTransformations": [{"type": "scale", "scale": [0.1, 1.0, 1.0, 1.0, 1.0]}],
+            "coordinateTransformations": [{
+                "type": "scale",
+                "scale": [0.1, 1.0, 1.0, 1.0, 1.0]
+            }],
             "type": "gaussian",
             "metadata": {
                 "method": "skimage.transform.pyramid_gaussian",
