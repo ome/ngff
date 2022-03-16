@@ -92,6 +92,16 @@ of bioimaging data, whether during acquisition or sharing in the cloud.
 Note: The following text makes use of OME-Zarr [[ome-zarr-py]], the current prototype implementation,
 for all examples.
 
+Document conventions
+--------------------
+
+The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”,
+“RECOMMENDED”, “MAY”, and “OPTIONAL” are to be interpreted as described in
+[RFC 2119](https://tools.ietf.org/html/rfc2119).
+
+Some of the JSON examples in this document include commments. However, this only for
+clarity purposes and comments SHOULD NOT be included in JSON objects.
+
 On-disk (or in-cloud) layout {#on-disk}
 =======================================
 
