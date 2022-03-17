@@ -99,7 +99,7 @@ The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL 
 “RECOMMENDED”, “MAY”, and “OPTIONAL” are to be interpreted as described in
 [RFC 2119](https://tools.ietf.org/html/rfc2119).
 
-Some of the JSON examples in this document include commments. However, this only for
+Some of the JSON examples in this document include commments. However, these are only for
 clarity purposes and comments MUST NOT be included in JSON objects.
 
 On-disk (or in-cloud) layout {#on-disk}
