@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version fb1e763a4, updated Tue Mar 1 13:13:50 2022 -0800" name="generator">
   <link href="https://ngff.openmicroscopy.org/0.4/" rel="canonical">
-  <meta content="047bc0b8ec5cf5ab0f1dd2174e1baa1772a93928" name="document-revision">
+  <meta content="8dec6918ee6630f43f339b281b66043e0a797ca4" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -344,7 +344,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-FINAL">Final Community Group Report</a>, <time class="dt-updated" datetime="2022-03-08">8 March 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-FINAL">Final Community Group Report</a>, <time class="dt-updated" datetime="2022-03-18">18 March 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -390,6 +390,7 @@ will be provided between numbered versions. Data written with the latest version
      <ol class="toc">
       <li><a href="#why-ngff"><span class="secno">1.1</span> <span class="content">Why "<span><abbr title="Next-generation file-format">NGFF</abbr></span>"?</span></a>
       <li><a href="#ome-ngff"><span class="secno">1.2</span> <span class="content">OME-NGFF</span></a>
+      <li><a href="#document-conventions"><span class="secno">1.3</span> <span class="content">Document conventions</span></a>
      </ol>
     <li>
      <a href="#on-disk"><span class="secno">2</span> <span class="content">On-disk (or in-cloud) layout</span></a>
@@ -482,6 +483,11 @@ applicable, and this will simply be the most efficient, common, and useful repre
 of bioimaging data, whether during acquisition or sharing in the cloud.</p>
    <p class="note" role="note"><span>Note:</span> The following text makes use of OME-Zarr <a data-link-type="biblio" href="#biblio-ome-zarr-py">[ome-zarr-py]</a>, the current prototype implementation,
 for all examples.</p>
+   <h3 class="heading settled" data-level="1.3" id="document-conventions"><span class="secno">1.3. </span><span class="content">Document conventions</span><a class="self-link" href="#document-conventions"></a></h3>
+   <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”,
+“RECOMMENDED”, “MAY”, and “OPTIONAL” are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
+   <p>Some of the JSON examples in this document include commments. However, these are only for
+clarity purposes and comments MUST NOT be included in JSON objects.</p>
    <h2 class="heading settled" data-level="2" id="on-disk"><span class="secno">2. </span><span class="content">On-disk (or in-cloud) layout</span><a class="self-link" href="#on-disk"></a></h2>
    <p>An overview of the layout of an OME-Zarr fileset should make
 understanding the following metadata sections easier. The hierarchy
@@ -656,44 +662,60 @@ They can for example be used to specify the <code>scale</code> for a dimension t
    <p>Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain the field "version", which indicates the version of the multiscale metadata of this image (current version is 0.4).</p>
    <p>Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.</p>
-<pre>{
-    "multiscales": [
-        {
-            "version": "0.4",
-            "name": "example",
-            "axes": [
-                {"name": "t", "type": "time", "unit": "millisecond"},
-                {"name": "c", "type": "channel"},
-                {"name": "z", "type": "space", "unit": "micrometer"},
-                {"name": "y", "type": "space", "unit": "micrometer"},
-                {"name": "x", "type": "space", "unit": "micrometer"}
-            ],
-            "datasets": [
-                {
-                    "path": "0",
-                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 0.5, 0.5, 0.5]}]  # the voxel size for the first scale level (0.5 micrometer)
-                }
-                {
-                    "path": "1",
-                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 1.0, 1.0, 1.0]}]  # the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)
-                },
-                {
-                    "path": "2",
-                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 2.0, 2.0, 2.0]}]  # the voxel size for the second scale level (downscaled by a factor of 4 -> 2 micrometer)
-                }
-            ],
-            "coordinateTransformations": [{"type": "scale", "scale": [0.1, 1.0, 1.0, 1.0, 1.0]],  # the time unit (0.1 milliseconds), which is the same for each scale level
-            "type": "gaussian",
-            "metadata": {                                       # the fields in metadata depend on the downscaling implementation
-                "method": "skimage.transform.pyramid_gaussian", # here, the paramters passed to the skimage function are given
-                "version": "0.16.1",
-                "args": "[true]",
-                "kwargs": {"multichannel": true}
-            }
-        }
-    ]
-}
-</pre>
+<pre class="include-code highlight"><c- p>{</c->
+    <c- f>"multiscales"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+            <c- f>"version"</c-><c- p>:</c-> <c- u>"0.4"</c-><c- p>,</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"example"</c-><c- p>,</c->
+            <c- f>"axes"</c-><c- p>:</c-> <c- p>[</c->
+                <c- p>{</c-><c- f>"name"</c-><c- p>:</c-> <c- u>"t"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"time"</c-><c- p>,</c-> <c- f>"unit"</c-><c- p>:</c-> <c- u>"millisecond"</c-><c- p>},</c->
+                <c- p>{</c-><c- f>"name"</c-><c- p>:</c-> <c- u>"c"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"channel"</c-><c- p>},</c->
+                <c- p>{</c-><c- f>"name"</c-><c- p>:</c-> <c- u>"z"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"space"</c-><c- p>,</c-> <c- f>"unit"</c-><c- p>:</c-> <c- u>"micrometer"</c-><c- p>},</c->
+                <c- p>{</c-><c- f>"name"</c-><c- p>:</c-> <c- u>"y"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"space"</c-><c- p>,</c-> <c- f>"unit"</c-><c- p>:</c-> <c- u>"micrometer"</c-><c- p>},</c->
+                <c- p>{</c-><c- f>"name"</c-><c- p>:</c-> <c- u>"x"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"space"</c-><c- p>,</c-> <c- f>"unit"</c-><c- p>:</c-> <c- u>"micrometer"</c-><c- p>}</c->
+            <c- p>],</c->
+            <c- f>"datasets"</c-><c- p>:</c-> <c- p>[</c->
+                <c- p>{</c->
+                    <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c-><c- p>,</c->
+                    <c- f>"coordinateTransformations"</c-><c- p>:</c-> <c- p>[{</c->
+                        // <c- kc>t</c->he voxel size <c- kc>f</c->or <c- kc>t</c->he <c- kc>f</c->irs<c- kc>t</c-> scale level (<c- mf>0.5</c-> microme<c- kc>ter</c->)
+                        <c- f>"type"</c-><c- p>:</c-> <c- u>"scale"</c-><c- p>,</c->
+                        <c- f>"scale"</c-><c- p>:</c-> <c- p>[</c-><c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>0.5</c-><c- p>,</c-> <c- mf>0.5</c-><c- p>,</c-> <c- mf>0.5</c-><c- p>]</c->
+                    <c- p>}]</c->
+                <c- p>},</c->
+                <c- p>{</c->
+                    <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c-><c- p>,</c->
+                    <c- f>"coordinateTransformations"</c-><c- p>:</c-> <c- p>[{</c->
+                        // <c- kc>t</c->he voxel size <c- kc>f</c->or <c- kc>t</c->he seco<c- kc>n</c->d scale level (dow<c- kc>ns</c->caled by a <c- kc>fa</c->c<c- kc>t</c->or o<c- kc>f</c-> <c- mi>2</c-> <c- mi>-</c->> <c- mi>1</c-> microme<c- kc>ter</c->)
+                        <c- f>"type"</c-><c- p>:</c-> <c- u>"scale"</c-><c- p>,</c->
+                        <c- f>"scale"</c-><c- p>:</c-> <c- p>[</c-><c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>]</c->
+                    <c- p>}]</c->
+                <c- p>},</c->
+                <c- p>{</c->
+                    <c- f>"path"</c-><c- p>:</c-> <c- u>"2"</c-><c- p>,</c->
+                    <c- f>"coordinateTransformations"</c-><c- p>:</c-> <c- p>[{</c->
+                        // <c- kc>t</c->he voxel size <c- kc>f</c->or <c- kc>t</c->he <c- kc>t</c->hird scale level (dow<c- kc>ns</c->caled by a <c- kc>fa</c->c<c- kc>t</c->or o<c- kc>f</c-> <c- mi>4</c-> <c- mi>-</c->> <c- mi>2</c-> microme<c- kc>ter</c->)
+                        <c- f>"type"</c-><c- p>:</c-> <c- u>"scale"</c-><c- p>,</c->
+                        <c- f>"scale"</c-><c- p>:</c-> <c- p>[</c-><c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>2.0</c-><c- p>,</c-> <c- mf>2.0</c-><c- p>,</c-> <c- mf>2.0</c-><c- p>]</c->
+                    <c- p>}]</c->
+                <c- p>}</c->
+            <c- p>],</c->
+            <c- f>"coordinateTransformations"</c-><c- p>:</c-> <c- p>[{</c->
+                // <c- kc>t</c->he <c- kc>t</c->ime u<c- kc>n</c->i<c- kc>t</c-> (<c- mf>0.1</c-> milliseco<c- kc>n</c->ds)<c- p>,</c-> which is <c- kc>t</c->he same <c- kc>f</c->or each scale level
+                <c- f>"type"</c-><c- p>:</c-> <c- u>"scale"</c-><c- p>,</c->
+                <c- f>"scale"</c-><c- p>:</c-> <c- p>[</c-><c- mf>0.1</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>]</c->
+            <c- p>}],</c->
+            <c- f>"type"</c-><c- p>:</c-> <c- u>"gaussian"</c-><c- p>,</c->
+            <c- f>"metadata"</c-><c- p>:</c-> <c- p>{</c->
+                <c- f>"description"</c-><c- p>:</c-> <c- u>"the fields in metadata depend on the downscaling implementation. Here, the parameters passed to the skimage function are given"</c-><c- p>,</c->
+                <c- f>"method"</c-><c- p>:</c-> <c- u>"skimage.transform.pyramid_gaussian"</c-><c- p>,</c->
+                <c- f>"version"</c-><c- p>:</c-> <c- u>"0.16.1"</c-><c- p>,</c->
+                <c- f>"args"</c-><c- p>:</c-> <c- u>"[true]"</c-><c- p>,</c->
+                <c- f>"kwargs"</c-><c- p>:</c-> <c- p>{</c-><c- f>"multichannel"</c-><c- p>:</c-> <c- kc>true</c-><c- p>}</c->
+            <c- p>}</c->
+        <c- p>}</c->
+    <c- p>]</c->
+<c- p>}</c-></pre>
    <p>If only one multiscale is provided, use it. Otherwise, the user can choose by
 name, using the first multiscale as a fallback:</p>
 <pre class="language-python highlight"><c- n>datasets</c-> <c- o>=</c-> <c- p>[]</c->
