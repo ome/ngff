@@ -35,9 +35,10 @@ def ids(files):
     "testfile", valid_strict_files, ids=ids(valid_strict_files))
 def test_valid_strict(testfile):
     with open(testfile) as f:
-        json_file = json.load(f)
-        validator.validate(json_file)
-        strict_validator.validate(json_file)
+        data = ''.join(line for line in f if not line.lstrip().startswith('//'))
+        jsondata = json.loads(data)
+        validator.validate(jsondata)
+        strict_validator.validate(jsondata)
 
 
 @pytest.mark.parametrize("testfile", valid_files, ids=ids(valid_files))
