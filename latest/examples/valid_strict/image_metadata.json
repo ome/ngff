@@ -4,7 +4,7 @@
     "multiscales": [
         {
             "@id": "inner",
-            "version": "0.4",
+            "version": "0.5-dev",
             "name": "example",
             "datasets": [
                 {

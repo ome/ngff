@@ -68,7 +68,7 @@
                     ]
                 }
             ],
-            "version": "0.4",
+            "version": "0.5-dev",
             "name": "image_with_omero_metadata",
             "type": "foo",
             "metadata": {
@@ -113,6 +113,6 @@
             "defaultZ": 2,
             "model": "color"
         },
-        "version": "0.4"
+        "version": "0.5-dev"
     }
 }

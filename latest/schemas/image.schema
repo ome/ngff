@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ngff.openmicroscopy.org/0.4/schemas/image.schema",
+  "$id": "https://ngff.openmicroscopy.org/latest/schemas/image.schema",
   "title": "NGFF Image",
   "description": "JSON from OME-NGFF .zattrs",
   "type": "object",
@@ -33,7 +33,7 @@
           "version": {
             "type": "string",
             "enum": [
-              "0.4"
+              "0.5-dev"
             ]
           },
           "axes": {
