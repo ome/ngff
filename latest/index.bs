@@ -326,7 +326,7 @@ can be found under the "omero" key in the group-level metadata:
 ```json
 "id": 1,                              # ID in OMERO
 "name": "example.tif",                # Name as shown in the UI
-"version": "0.4",                     # Current version
+"version": "0.5-dev",                 # Current version
 "channels": [                         # Array matching the c dimension size
     {
         "active": true,
@@ -403,7 +403,7 @@ above).
 ```json
 "image-label":
   {
-    "version": "0.4",
+    "version": "0.5-dev",
     "colors": [
       {
         "label-value": 1,
@@ -533,7 +533,7 @@ For example the following JSON object defines a plate with two acquisitions and
             "name": "B"
         }
     ],
-    "version": "0.4",
+    "version": "0.5-dev",
     "wells": [
         {
             "path": "A/1",
@@ -707,7 +707,7 @@ the last two fields of view were part of the second acquisition.
             "path": "3"
         }
     ],
-    "version": "0.4"
+    "version": "0.5-dev"
   }
 ```
 
