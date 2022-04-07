@@ -100,6 +100,14 @@ The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL 
 “RECOMMENDED”, “MAY”, and “OPTIONAL” are to be interpreted as described in
 [RFC 2119](https://tools.ietf.org/html/rfc2119).
 
+<p>
+<dfn>Transitional</dfn> metadata is added to the specification with the
+intention of removing it in the future. Implementations may be expected (MUST) or
+encouraged (SHOULD) support the reading of the data, but writing will usually
+be optional (MAY). Examples of transitional metadata include custom additions by
+implementations that are later submitted as a formal specification. (See [[#bf2raw]])
+</p>
+
 Some of the JSON examples in this document include commments. However, these are only for
 clarity purposes and comments MUST NOT be included in JSON objects.
 
@@ -241,9 +249,28 @@ keys as specified below for discovering certain types of data, especially images
 
 If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
+"bioformats2raw.layout" (transitional) {#bf2raw}
+------------------------------------------------
+
+[=Transitional=] "bioformats2raw.layout" metadata identifies a group which implicitly describes a series of images.
+The need for the collection stems from the common "multi-image file" scenario in microscopy. Parsers like Bio-Formats
+define a strict, stable ordering of the images in a single container that can be used to refer to them by other tools.
+In order to capture that information within an OME-NGFF dataset, `bioformats2raw` internally introduced a wrapping
+layer. An upcoming NGFF specification will replace this layout with explicit metadata.
+
+Conforming groups:
+- MUST have the value "3" for the "bioformats2raw.layout" key at the top of the hierarchy.
+- MUST store separate "multiscales" images in consecutively numbered groups starting from 0 (i.e. "0/", "1/", "2/", "3/", ...).
+- MAY have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml".
+
+Conforming readers:
+- SHOULD parse all images.
+- MAY choose to show all images within the collection or offer the user a choice of images, as with <dfn export="true"><abbr title="High-content screening">HCS</abbr></dfn> plates.
+- MAY ignore other groups or arrays under the root of the hierarchy.
+
 
 "coordinateTransformations" metadata {#trafo-md}
--------------------------------------
+------------------------------------------------
 
 "coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
 For example, to map a discrete data space of an array to the corresponding physical space.
