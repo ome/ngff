@@ -1,0 +1,36 @@
+{
+    "multiscales": [
+        {
+            "axes": [
+                {
+                    "name": "t",
+                    "type": "time"
+                },
+                {
+                    "name": "c",
+                    "type": "channel"
+                },
+                {
+                    "name": "x",
+                    "type": "space"
+                }
+            ],
+            "datasets": [
+                {
+                    "path": "0",
+                    "coordinateTransformations": [
+                        {
+                            "scale": [
+                                1,
+                                1,
+                                1
+                            ],
+                            "type": "scale"
+                        }
+                    ]
+                }
+            ],
+            "version": "0.5-dev"
+        }
+    ]
+}

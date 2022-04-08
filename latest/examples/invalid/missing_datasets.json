@@ -1,0 +1,20 @@
+{
+    "multiscales": [
+        {
+            "axes": [
+                {
+                    "name": "y",
+                    "type": "space",
+                    "units": "micrometer"
+                },
+                {
+                    "name": "x",
+                    "type": "space",
+                    "units": "micrometer"
+                }
+            ],
+            "version": "0.5-dev"
+        }
+    ]
+}
+
