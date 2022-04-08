@@ -258,8 +258,14 @@ define a strict, stable ordering of the images in a single container that can be
 In order to capture that information within an OME-NGFF dataset, `bioformats2raw` internally introduced a wrapping
 layer. An upcoming NGFF specification will replace this layout with explicit metadata.
 
-Conforming groups:
-- MUST have the value "3" for the "bioformats2raw.layout" key at the top of the hierarchy.
+Conforming groups MUST have the value "3" for the "bioformats2raw.layout" key in their `.zattrs` metadata at the top of the hierarchy:
+
+<pre class=include-code>
+path: examples/valid_strict/bioformats2raw_layout.json
+highlight: json
+</pre>
+
+Additionally:
 - MUST store separate "multiscales" images in consecutively numbered groups starting from 0 (i.e. "0/", "1/", "2/", "3/", ...).
 - MAY have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml".
 
