@@ -270,8 +270,8 @@ Additionally:
 - MAY have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml".
 
 Conforming readers:
-- SHOULD parse all images.
-- MAY choose to show all images within the collection or offer the user a choice of images, as with <dfn export="true"><abbr title="High-content screening">HCS</abbr></dfn> plates.
+- SHOULD detect the presence of more than one image and make users aware of the fact;
+- MAY choose to show all images within the collection or offer the user a choice of images, as with <dfn export="true"><abbr title="High-content screening">HCS</abbr></dfn> plates;
 - MAY ignore other groups or arrays under the root of the hierarchy.
 
 
