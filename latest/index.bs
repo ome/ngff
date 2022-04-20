@@ -266,8 +266,9 @@ highlight: json
 </pre>
 
 Additionally:
-- MUST store separate "multiscales" images in consecutively numbered groups starting from 0 (i.e. "0/", "1/", "2/", "3/", ...).
-- MAY have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml".
+- MUST store separate "multiscales" images in consecutively numbered groups starting from 0 (i.e. "0/", "1/", "2/", "3/", ...);
+- MAY have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml";
+- if so, MUST represent every "multiscales" group as exactly one OME-XML "Image" in the same order as the group numbers.
 
 Conforming readers:
 - SHOULD detect the presence of more than one image and make users aware of the fact;
