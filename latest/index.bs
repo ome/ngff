@@ -295,6 +295,11 @@ Each "multiscales" dictionary:
 
  * SHOULD contain the field "name" which is informative to users but not sufficient for unique identifiation.
 
+ * SHOULD contain the field "uuid" which is a
+   [RFC 4122](https://www.ietf.org/rfc/rfc4122.txt) compliant
+   string representation of a universally unique identifier, e.g., "urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6" and SHOULD use
+   a compliant generator to minimize potential conflicts.
+
 * SHOULD contain the field "version", which indicates the version of the
   multiscale metadata of this image (current version is [NGFFVERSION]).
 
