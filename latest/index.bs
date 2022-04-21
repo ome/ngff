@@ -261,7 +261,7 @@ layer. An upcoming NGFF specification will replace this layout with explicit met
 Conforming groups MUST have the value "3" for the "bioformats2raw.layout" key in their `.zattrs` metadata at the top of the hierarchy:
 
 <pre class=include-code>
-path: examples/valid_strict/bioformats2raw_layout.json
+path: examples/bf2raw/bioformats2raw_layout.json
 highlight: json
 </pre>
 
