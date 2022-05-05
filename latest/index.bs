@@ -234,39 +234,61 @@ If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number 
 "space" metadata {#space-md}
 --------------------------
 
-A "space" is a collection of dimensions / "axes" with a name.  Each space dictionary:
+A "space" is a collection of "axes" / dimensions with a name and defines a coordinate system.  Each space:
 - MUST contain the field "name", that gives the space name. The values MUST be non-empty and unique.
 - MUST contain the field "axes", whose value is a valid set of "axes".
-- SHOULD be such that the "type" of all "axes" in the list are identical.
 
 ```
 {
     "name" : "volume_micrometers",
     "axes" : [
-        {"name": "z", "type": "space", "unit": "micrometer"},
+        {"name": "x", "type": "space", "unit": "micrometer"},
         {"name": "y", "type": "space", "unit": "micrometer"},
-        {"name": "x", "type": "space", "unit": "micrometer"}
+        {"name": "z", "type": "space", "unit": "micrometer"}
     ]
 }
 ```
 
-### Pixel coordinate convention
+Order of the `"axes"` list matters and defines the index of each dimension and coordinates for points in that
+space. For the above example, the `"x"` dimension is the first dimension.
 
-**The pixel center is the origin of the continuous coordinate system.**
+
+### "Array space" and indexing
+
+"Array space" is a default space for every array whose parameters need not be explicitly defined.
+Its name is the path to the array in the container, its axes have `"type":"array"`, are unitless, and have
+default "name"s: the ith axis has `"name":"dim_i"`. For example, a 3D array space at path `/my/data/array` is:
+
+```
+{
+    "name" : "/my/data/array",
+    "axes" : [
+        {"name": "dim_0", "type": "array", "unit": ""},
+        {"name": "dim_1", "type": "array", "unit": ""},
+        {"name": "dim_2", "type": "array", "unit": ""}
+    ]
+}
+```
+
+though this object should not and need not explicitly appear in metadata. The dimensionality of each varies
+according to its corresponding array.
+
+The axis with name `"dim_0"` is the first element of the `"axes"` list and corresponds to the
+"first dimension" of the array, where "first dimension" is defined by the byte order.  As described in the [zarr
+array metadata](https://zarr.readthedocs.io/en/stable/spec/v2.html#arrays), the first dimension of an array "C"
+("F") order vary slowest (fastest).
+
+
+### Coordinate convention
+
+**The pixel/voxel center is the origin of the continuous coordinate system.**
 
 It is vital to consistently define relationship between the discrete/arrray and continuous/interpolated
-coordinate systems. A pixel is the continuous region (rectangle) that corresponds to a single sample
-in the discrete array, i.e., the area corresponding to nearest-neighbor interpolation of that sample.
-The center of the pixel corresponding to the discrete origin `(0,0)` is the origin of the continuous space
-`(0.0, 0.0)` when the transformation is the identity. See chapter 4 and figure 4.1 of the ITK Software Guide [[itk]].
-
-
-### "Array space"
-
-"Array space" is the unique space whose name is the empty string (`""`) or `null`. The array data of every dataset is in "Array
-space." Therefore, the dimensionality of "array space" varies according to its corresponding dataset.
-In [[#trafo-md]], there SHOULD exist at least one transformation whose "input_space" is the empty string, i.e.
-"array space."
+coordinate systems. A pixel/voxel is the continuous region (rectangle) that corresponds to a single sample
+in the discrete array, i.e., the area corresponding to nearest-neighbor (NN) interpolation of that sample.
+The center of a 2d pixel corresponding to the origin `(0,0)` in the discrete array is the origin of the continuous space
+`(0.0, 0.0)` (when the transformation is the identity). The continuous rectangle of the pixel is given by the
+half-open interval `[-0.5, 0.5) x [-0.5, 0.5)`. See chapter 4 and figure 4.1 of the ITK Software Guide [[itk]].
 
 
 "transformations" metadata {#trafo-md}
@@ -274,34 +296,93 @@ In [[#trafo-md]], there SHOULD exist at least one transformation whose "input_sp
 
 "coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
 For example, to map a discrete data space of an array to the corresponding physical space.
-It is a list of dictionaries. Each entry describes a single transformation, and
+It is a list of objects. Each entry describes a single transformation, and
 
-- MUST contain the field "name". The values MUST be unique across all "name" fields for coordinate transformations.
 - MUST contain the field "type".
 - MUST contain any other fields required by the given "type" (see table below).
-- SHOULD contain exactly one of the fields "input_space" or "input_axes".
 - MUST contain exactly one of the fields "output_space" or "output_axes".
-- OPTIONAL contain the field "inverse".
-- the value of "output_space" SHOULD not be the empty string.
+- SHOULD contain exactly one of the fields "input_space" or "input_axes".
+- MAY contain the field "name". Its value MUST be unique across all "name" fields for coordinate transformations.
 
 <table>
   <tr><th>`identity`    <td>                                                   <td>identity transformation, is the default transformation and is typically not explicitly defined
   <tr><th>`translation` <td> one of: <br>`"translation":List[float]`, <br>`"path":str` <td>translation vector, stored either as a list of floats (`"translation"`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
   <tr><th>`scale`       <td> one of: <br>`"scale":List[float]`, <br>`"path":str`       <td>scale vector, stored either as a list of floats (`scale`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions.
   <tr><th>`affine`       <td> one of: <br>`"affine":List[float]`, <br>`"path":str`     <td>affine transformation matrix defined as list consisting of n sets of n + 1 scalar numbers, stored either as a number[] (affine) or as binary data at a location in this container (path). If both are present, path is preferred. n is number of dimensions
+  <tr><th>`sequence`
+    <td> `"transformations":List[Transformation]`
+    <td>A sequence of transformations, Applying the sequence applies the composition of all transforms in the
+    list, in order. An empty sequence is the identity transformation. |
+  <tr><th>`displacement_field`
+    <td>`"url":str`<br>`"path":str`<br>"interpolation":str
+    <td>Displacement field transformation in this container (path) or another container located at (url).
+  <tr><th>`coordinate_field`
+    <td>`"url":str`<br>`"path":str`<br>"interpolation":str
+    <td>Coordinate field transformation in this container (path) or another container located at (url).
+  <tr><th>`inverse_of`
+    <td>`"transform":Transform`
+    <td>The inverse of a transformation. Useful if a transform is not closed-form invertible.  See Forward and inverse for details and examples.
+  <tr><th>`bijection`
+    <td>`"forward":Transform`<br>`"inverse":Transform`
+    <td>Explicitly define an invertible transformation by providing a forward transformation and its inverse.
  <thead>
    <tr><th>type<th>fields<th>description
 </table>
+
 The transformations in the list are applied sequentally and in order.
 
-### Forward and inverse
 
-Specified coordinate transforms are in the "forward" direction. They represent functions
-from *points* in the input space to *points* in the output space. For example, the transformation `"ij2xy"`
+### Details
+
+#### Affine
+
+Affine transformations from N-dimensions to M-dimensions are represented at `(N)x(M+1)` matrices in homogeneous coordinates and stored as flat arrays
+(row-major).
+
+A 2D-2D example:
+```json
+{
+    "type": "affine",
+    "affine": [1, 2, 3, 4, 5, 6],
+    "input_axes" : ["i", "j"],
+    "output_axes" : ["x", "y"]
+}
+```
+
+defines the function:
+
+```
+x = 1*i + 2*j + 3
+y = 4*i + 5*j + 6
+```
+
+A 2D - 3D example:
+```json
+{
+    "type": "affine",
+    "affine": [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "input_axes" : ["i", "j"],
+    "output_axes" : ["x", "y", "z"]
+}
+```
+
+defines the function:
+
+```
+x = 1*i + 2*j + 3
+y = 4*i + 5*j + 6
+z = 7*i + 8*j + 9
+```
+
+
+### Points, coordinates, direction, and indexing
+
+Coordinate transformations are are functions of *points* in the input space to *points* in the output space. We call this the "forward" direction.
+Points are ordered lists of coordinates, where a coordinate is the location/value of that point along its corresponding axis.
+The indexes of axis dimensions correspond to indexes into transformation parameter arrays. For example, the transformation: 
 
 ```json
 {
-    "name": "ij2xy",
     "type": "scale",
     "scale": [2, 0.5]
     "input_axes" : ["i", "j"]
@@ -309,26 +390,28 @@ from *points* in the input space to *points* in the output space. For example, t
 }
 ```
 
-represents the function:
+defines the function:
 
 ```
 x = 2 * i
 y = 0.5 * j
 ```
 
-When rendering images and interpolating, implementations may need the "inverse" transformation - from output to
+i.e., the mapping from the first input axis to the first output axis is determined by the first scale parameter.
+
+When rendering transformed images and interpolating, implementations may need the "inverse" transformation - from output to
 input space. Inverse transformations will not be explicitly specified when they can be computed in closed form from the
 forward transformation. Inverse transformations used for image rendering should be specified using the `inverse`
 transformation type, for example:
 
 ```json
 {
-    "name": "nonlinear-inverse",
-    "type": "displacement_field",
-    "path": "/path/to/my/transform",
-    "input_axes" : ["i", "j"],
-    "output_axes" : ["x", "y"],
-    "inverse" : true
+    "type": "inverse_of",
+    "transformation" : {
+        "name": "nonlinear-inverse",
+        "type": "displacement_field",
+        "path": "/path/to/my/transform",
+    }
 }
 ```
 
