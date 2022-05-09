@@ -1,4 +1,5 @@
 {
     "@type": "ngff:Image",
-    "multiscales": []
+    "multiscales": [],
+    "valid": false
 }

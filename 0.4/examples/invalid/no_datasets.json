@@ -16,5 +16,6 @@
             "datasets": [],
             "version": "0.4"
         }
-    ]
+    ],
+    "valid": false
 }
