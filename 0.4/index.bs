@@ -296,7 +296,7 @@ Each "multiscales" dictionary SHOULD contain the field "type", which gives the t
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
 
 <pre class=include-code>
-path: examples/multiscales_example.json
+path: examples/image/multiscales_example.json
 highlight: json
 </pre>
 
