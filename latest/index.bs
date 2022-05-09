@@ -253,7 +253,8 @@ Order of the `"axes"` list matters and defines the index of each dimension and c
 space. For the above example, the `"x"` dimension is the first dimension.
 
 
-### "Array space" and indexing
+### Array space and indexing {#array-space}
+
 
 "Array space" is a default space for every array whose parameters need not be explicitly defined.
 Its name is the path to the array in the container, its axes have `"type":"array"`, are unitless, and have
@@ -300,8 +301,8 @@ It is a list of objects. Each entry describes a single transformation, and
 
 - MUST contain the field "type".
 - MUST contain any other fields required by the given "type" (see table below).
-- MUST contain exactly one of the fields "output_space" or "output_axes".
-- SHOULD contain exactly one of the fields "input_space" or "input_axes".
+- MUST contain exactly one of the fields "outputSpace" or "outputAxes".
+- SHOULD contain exactly one of the fields "inputSpace" or "inputAxes".
 - MAY contain the field "name". Its value MUST be unique across all "name" fields for coordinate transformations.
 
 <table>
@@ -313,13 +314,13 @@ It is a list of objects. Each entry describes a single transformation, and
     <td> `"transformations":List[Transformation]`
     <td>A sequence of transformations, Applying the sequence applies the composition of all transforms in the
     list, in order. An empty sequence is the identity transformation. |
-  <tr><th>`displacement_field`
+  <tr><th>`displacementField`
     <td>`"url":str`<br>`"path":str`<br>"interpolation":str
     <td>Displacement field transformation in this container (path) or another container located at (url).
-  <tr><th>`coordinate_field`
+  <tr><th>`coordinateField`
     <td>`"url":str`<br>`"path":str`<br>"interpolation":str
     <td>Coordinate field transformation in this container (path) or another container located at (url).
-  <tr><th>`inverse_of`
+  <tr><th>`inverseOf`
     <td>`"transform":Transform`
     <td>The inverse of a transformation. Useful if a transform is not closed-form invertible.  See Forward and inverse for details and examples.
   <tr><th>`bijection`
@@ -330,6 +331,63 @@ It is a list of objects. Each entry describes a single transformation, and
 </table>
 
 The transformations in the list are applied sequentally and in order.
+
+### Spaces and axes
+
+Every coordinate transformation MUST specify its output coordinate system, either using `outputSpace` to
+specify the name of an output space, or by using `outputAxes` to specify a list of axis names.  Every
+coordinate transformation SHOULD specify its input coordinate system, similarly either using `inputSpace` to
+`inputAxes`. If neither `inputSpace` nor `inputAxes` are provided, the transformation's input
+is in [array-space](#array-space).
+
+Coordinate transformations may be defined as sequences of transformations, each of which applies to a subspace.
+Which subspace should be defined using the `"inputAxes"` and `"outputAxes"` fields. An axis name MUST appear
+in exactly one `"outputAxis"` lists.
+
+A simple, contrived example
+```json
+{
+    "type" : "sequence",
+    "transformations" : [
+        {
+            "type": "scale",
+            "scale" : [ 0.5, 0.5 ],
+            "inputAxes: ["dim_1", "dim_2"],
+            "outputAxes: ["x", "y"],
+        },
+        {
+            "type": "scale",
+            "scale" : [ 2 ],
+            "inputAxes: ["dim_0"],
+            "outputAxes: ["t"],
+        }
+    ]
+}
+```
+
+```json
+{
+    "type" : "sequence",
+    "transformations" : [
+        {
+            "type": "inverseOf",
+            "transformation" : {
+                "name": "nonlinear-inverse",
+                "type": "displacementField",
+                "path": "/path/to/my/transform",
+                "inputAxes: ["i", "j"],
+                "outputAxes: ["x", "y"],
+            },
+        },
+        {
+            "type": "scale",
+            "scale" : [ 2 ]
+            "inputAxes: ["k"],
+            "outputAxes: ["z"],
+        }
+    ]
+}
+```
 
 
 ### Details
@@ -344,8 +402,8 @@ A 2D-2D example:
 {
     "type": "affine",
     "affine": [1, 2, 3, 4, 5, 6],
-    "input_axes" : ["i", "j"],
-    "output_axes" : ["x", "y"]
+    "inputAxes" : ["i", "j"],
+    "outputAxes" : ["x", "y"]
 }
 ```
 
@@ -361,8 +419,8 @@ A 2D - 3D example:
 {
     "type": "affine",
     "affine": [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    "input_axes" : ["i", "j"],
-    "output_axes" : ["x", "y", "z"]
+    "inputAxes" : ["i", "j"],
+    "outputAxes" : ["x", "y", "z"]
 }
 ```
 
@@ -385,8 +443,8 @@ The indexes of axis dimensions correspond to indexes into transformation paramet
 {
     "type": "scale",
     "scale": [2, 0.5]
-    "input_axes" : ["i", "j"]
-    "output_axes" : ["x", "y"]
+    "inputAxes" : ["i", "j"]
+    "outputAxes" : ["x", "y"]
 }
 ```
 
@@ -406,10 +464,10 @@ transformation type, for example:
 
 ```json
 {
-    "type": "inverse_of",
+    "type": "inverseOf",
     "transformation" : {
         "name": "nonlinear-inverse",
-        "type": "displacement_field",
+        "type": "displacementField",
         "path": "/path/to/my/transform",
     }
 }
