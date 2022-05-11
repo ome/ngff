@@ -289,16 +289,17 @@ The length of the `scale` and `translation` array MUST be the same as the length
 The requirements (only `scale` and `translation`, restrictions on order) are in place to provide a simple mapping from data coordinates to physical coordinates while being compatible with the general transformation spec.
 
 Each "multiscales" dictionary:
- * MAY contain the field "coordinateTransformations", describing transformations that are applied to all resolution levels in the same manner.
-   The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.
-   They can for example be used to specify the `scale` for a dimension that is the same for all resolutions.
 
- * SHOULD contain the field "name" which is informative to users but not sufficient for unique identifiation.
+* MAY contain the field "coordinateTransformations", describing transformations that are applied to all resolution levels in the same manner.
+  The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.
+  They can for example be used to specify the `scale` for a dimension that is the same for all resolutions.
 
- * SHOULD contain the field "uuid" which is a
-   [RFC 4122](https://www.ietf.org/rfc/rfc4122.txt) compliant
-   string representation of a universally unique identifier, e.g., "urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6" and SHOULD use
-   a compliant generator to minimize potential conflicts.
+* SHOULD contain the field "name" which is informative to users but not sufficient for unique identifiation.
+
+* SHOULD contain the field "uuid" which is a
+  [RFC 4122](https://www.ietf.org/rfc/rfc4122.txt) compliant
+  string representation of a universally unique identifier, e.g., "urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6" and SHOULD use
+  a compliant generator to minimize potential conflicts.
 
 * SHOULD contain the field "version", which indicates the version of the
   multiscale metadata of this image (current version is [NGFFVERSION]).
