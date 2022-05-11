@@ -256,17 +256,18 @@ If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number 
 [=Transitional=] "bioformats2raw.layout" metadata identifies a group which implicitly describes a series of images.
 The need for the collection stems from the common "multi-image file" scenario in microscopy. Parsers like Bio-Formats
 define a strict, stable ordering of the images in a single container that can be used to refer to them by other tools.
-In order to capture that information within an OME-NGFF dataset, `bioformats2raw` internally introduced a wrapping
-layer. An upcoming NGFF specification will replace this layout with explicit metadata.
 
-Conforming groups MUST have the value "3" for the "bioformats2raw.layout" key in their `.zattrs` metadata at the top of the hierarchy:
+In order to capture that information within an OME-NGFF dataset, `bioformats2raw` internally introduced a wrapping layer.
+The bioformats2raw layout can be found in NGFF versions v0.2, v0.3, and v0.4. An upcoming NGFF specification will replace
+this layout with explicit metadata.
 
 <pre class=include-code>
 path: examples/bf2raw/bioformats2raw_layout.json
 highlight: json
 </pre>
 
-Additionally:
+Conforming groups:
+- MUST have the value "3" for the "bioformats2raw.layout" key in their `.zattrs` metadata at the top of the hierarchy:
 - MUST store separate "multiscales" images in consecutively numbered groups starting from 0 (i.e. "0/", "1/", "2/", "3/", ...);
 - MAY have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml";
 - if so, MUST represent every "multiscales" group as exactly one OME-XML "Image" in the same order as the group numbers.
