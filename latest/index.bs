@@ -290,25 +290,26 @@ The requirements (only `scale` and `translation`, restrictions on order) are in 
 
 Each "multiscales" dictionary:
 
-* MAY contain the field "coordinateTransformations", describing transformations that are applied to all resolution levels in the same manner.
-  The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.
-  They can for example be used to specify the `scale` for a dimension that is the same for all resolutions.
+* MAY contain the field "coordinateTransformations", describing transformations that are applied to all resolution levels in the same manner.  
+The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.  
+They can for example be used to specify the `scale` for a dimension that is the same for all resolutions.
 
 * SHOULD contain the field "name" which is informative to users but not sufficient for unique identifiation.
 
-* SHOULD contain the field "uuid" which is a
-  [RFC 4122](https://www.ietf.org/rfc/rfc4122.txt) compliant
-  string representation of a universally unique identifier, e.g., "urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6" and SHOULD use
-  a compliant generator to minimize potential conflicts.
+* SHOULD contain the field "uuid" which is a  
+[RFC 4122](https://www.ietf.org/rfc/rfc4122.txt) compliant  
+string representation of a universally unique identifier,  
+ke.g., "urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6" and SHOULD use  
+a compliant generator to minimize potential conflicts.
 
-* SHOULD contain the field "version", which indicates the version of the
-  multiscale metadata of this image (current version is [NGFFVERSION]).
+* SHOULD contain the field "version", which indicates the version of the  
+multiscale metadata of this image (current version is [NGFFVERSION]).
 
-* SHOULD contain the field "type", which gives the type of downscaling method
-  used to generate the multiscale image pyramid.
+* SHOULD contain the field "type", which gives the type of downscaling method  
+used to generate the multiscale image pyramid.
 
-* SHOULD contain the field "metadata", which contains a dictionary with
-  additional information about the downscaling method.
+* SHOULD contain the field "metadata", which contains a dictionary with  
+additional information about the downscaling method.
 
 <pre class=include-code>
 path: examples/valid_strict/multiscales_example.json
