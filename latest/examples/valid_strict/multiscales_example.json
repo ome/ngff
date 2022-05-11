@@ -2,6 +2,7 @@
     "multiscales": [
         {
             "version": "0.5-dev",
+            "uuid": "urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
             "name": "example",
             "axes": [
                 {"name": "t", "type": "time", "unit": "millisecond"},
