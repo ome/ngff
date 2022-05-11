@@ -9,7 +9,7 @@
         "multiscales": {
           "items": {
             "required": [
-              "version", "metadata", "type", "name"
+              "version", "metadata", "type", "name", "uuid"
             ]
           }
         }
