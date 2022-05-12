@@ -110,7 +110,7 @@
           }
         ]
       },
-      "valid": "TBD"
+      "valid": true
     },
     {
       "formerly": "valid_strict/multiscales_transformations.json",
@@ -162,7 +162,7 @@
           }
         ]
       },
-      "valid": "TBD"
+      "valid": true
     },
     {
       "formerly": "valid_strict/image_metadata.json",
@@ -216,7 +216,7 @@
           }
         ]
       },
-      "valid": "TBD"
+      "valid": true
     },
     {
       "formerly": "valid_strict/image.json",
@@ -259,7 +259,7 @@
           }
         ]
       },
-      "valid": "TBD"
+      "valid": true
     },
     {
       "formerly": "valid_strict/image_omero.json",
@@ -382,7 +382,7 @@
           "version": "0.5-dev"
         }
       },
-      "valid": "TBD"
+      "valid": true
     }
   ]
 }
