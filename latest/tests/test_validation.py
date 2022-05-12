@@ -6,7 +6,7 @@ from typing import List
 
 import pytest
 
-from jsonschema import RefResolver, Draft7Validator
+from jsonschema import RefResolver, Draft202012Validator as Validator
 from jsonschema.exceptions import ValidationError
 
 
@@ -35,7 +35,7 @@ def pytest_generate_tests(metafunc):
         what should be run. It is assumed that all files are valid and complete
         so that they can be wholly included into the specification. The
         .config.json file in each directory defines which schema will be used.
-    
+
     Validation:
         These test consumes https://github.com/json-schema-org/JSON-Schema-Test-Suite#structure-of-a-test
         styled JSON tests. Metadata in each test defines which schema is used
@@ -81,5 +81,5 @@ def suite(request):
 
 def test_run(suite):
     resolver = RefResolver.from_schema(suite.schema, store=suite.schema_store)
-    validator = Draft7Validator(suite.schema, resolver=resolver)
+    validator = Validator(suite.schema, resolver=resolver)
     suite.validate(validator)
