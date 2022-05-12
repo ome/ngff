@@ -1143,44 +1143,6 @@
         ]
       },
       "valid": false
-    },
-    {
-      "formerly": "invalid_but_dont_fail/duplicate_axes_name.json",
-      "description": "TBD",
-      "data": {
-        "multiscales": [
-          {
-            "axes": [
-              {
-                "name": "x",
-                "type": "space",
-                "units": "meter"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "units": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
-                  {
-                    "scale": [
-                      0.13,
-                      0.13
-                    ],
-                    "type": "scale"
-                  }
-                ]
-              }
-            ],
-            "version": "0.5-dev"
-          }
-        ]
-      },
-      "valid": false
     }
   ]
 }
