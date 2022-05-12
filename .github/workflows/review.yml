@@ -13,6 +13,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
-          prnumber="$(basename $(dirname $GITHUB_REF))"
+          prnumber="$(basename $(dirname ${{GITHUB_REF}}))"
           gh release create "$tagname" *.png
           gh pr comment ${prnumber} -b "Review latest: http://api.csswg.org/bikeshed/?url=https://raw.githubusercontent.com/${github.repository}}/${{github.ref_name}}/latest/index.bs"
