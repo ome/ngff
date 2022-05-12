@@ -1,9 +1,8 @@
-"""
-This test consumes https://github.com/json-schema-org/JSON-Schema-Test-Suite#structure-of-a-test
-styled JSON tests.
-"""
 import json
 import glob
+
+from dataclasses import dataclass
+from typing import List
 
 import pytest
 
@@ -11,18 +10,68 @@ from jsonschema import RefResolver, Draft7Validator
 from jsonschema.exceptions import ValidationError
 
 
+@dataclass
+class Suite:
+    schema:  dict
+    schema_store: dict
+    data: dict
+    valid: bool = True
+
+    def validate(self, validator) -> None:
+        if not self.valid:
+            with pytest.raises(ValidationError):
+                validator.validate(self.data)
+        else:
+            validator.validate(self.data)
+
+
 def pytest_generate_tests(metafunc):
+    """
+    Generates tests for the examples/ as well as tests/ subdirectories.
+
+    Examples:
+        These tests evalute all of the files under the examples/ directory
+        using the configuration in the provided config file in order detect
+        what should be run. It is assumed that all files are valid and complete
+        so that they can be wholly included into the specification. The
+        .config.json file in each directory defines which schema will be used.
+    
+    Validation:
+        These test consumes https://github.com/json-schema-org/JSON-Schema-Test-Suite#structure-of-a-test
+        styled JSON tests. Metadata in each test defines which schema is used
+        and whether or not the block is considered valid.
+    """
     if "suite" in metafunc.fixturenames:
-        suites = []
-        ids = []
+        suites: List[Schema] = []
+        ids: List[str] = []
+
+        # Validation
         for filename in glob.glob("tests/*.json"):
-            ids.append(str(filename).split("/")[-1][0:-5])
             with open(filename) as o:
+                suite = json.load(o)
+            schema = suite["schema"]
+            with open(schema["id"]) as f:
+                schema = json.load(f)
+            for test in suite["tests"]:
+                ids.append("validate_" + str(test["formerly"]).split("/")[-1][0:-5])
+                suites.append(Suite(schema, {schema["$id"]: schema}, test["data"], test["valid"]))
+
+        # Examples
+        for config_filename in glob.glob("examples/*/.config.json"):
+            with open(config_filename) as o:
                 data = json.load(o)
             schema = data["schema"]
-            for test in data["tests"]:
-                suites.append((schema, test))
-        metafunc.parametrize("suite", suites, indirect=True)
+            with open(schema) as f:
+                schema = json.load(f)
+            for filename in glob.glob("examples/*/*.json"):
+                with open(filename) as f:
+                    # Strip comments
+                    data = ''.join(line for line in f if not line.lstrip().startswith('//'))
+                    data = json.loads(data)
+                ids.append("example_" + str(filename).split("/")[-1][0:-5])
+                suites.append(Suite(schema, {schema["$id"]: schema}, data, True))  # Assume true
+
+        metafunc.parametrize("suite", suites, ids=ids, indirect=True)
 
 
 @pytest.fixture
@@ -31,21 +80,6 @@ def suite(request):
 
 
 def test_run(suite):
-    schema, test = suite
-
-    # Load schema
-    # Currently missing the "id" field
-    with open(schema["id"]) as f:
-        schema = json.load(f)
-    schema_store = {
-        schema['$id']: schema
-    }
-    resolver = RefResolver.from_schema(schema, store=schema_store)
-    validator = Draft7Validator(schema, resolver=resolver)
-
-    # Load data and test
-    jsondata = test["data"]
-    valid = test["valid"]
-    if not valid:
-        with pytest.raises(ValidationError):
-            validator.validate(jsondata)
+    resolver = RefResolver.from_schema(suite.schema, store=suite.schema_store)
+    validator = Draft7Validator(suite.schema, resolver=resolver)
+    suite.validate(validator)
