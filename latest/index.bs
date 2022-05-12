@@ -222,7 +222,7 @@ keys as specified below for discovering certain types of data, especially images
 
 "axes" describes the dimensions of a coordinate space. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.
-- SHOULD contain the field "type". It SHOULD be one of "space", "time" or "channel", but MAY take other values for custom axis types that are not part of this specification yet.
+- SHOULD contain the field "type". It SHOULD be one of "space", "time", "channel", "coordinate", or "displacement" but MAY take other values for custom axis types that are not part of this specification yet.
 - MAY contain the field "discrete". The value MUST be a boolean, and is `true` if the axis represents a discrete dimension.
 - SHOULD contain the field "unit" to specify the physical unit of this dimension. The value SHOULD be one of the following strings, which are valid units according to UDUNITS-2.
     - Units for "space" axes: 'angstrom', 'attometer', 'centimeter', 'decimeter', 'exameter', 'femtometer', 'foot', 'gigameter', 'hectometer', 'inch', 'kilometer', 'megameter', 'meter', 'micrometer', 'mile', 'millimeter', 'nanometer', 'parsec', 'petameter', 'picometer', 'terameter', 'yard', 'yoctometer', 'yottameter', 'zeptometer', 'zettameter'
@@ -315,10 +315,10 @@ It is a list of objects. Each entry describes a single transformation, and
     <td>A sequence of transformations, Applying the sequence applies the composition of all transforms in the
     list, in order. An empty sequence is the identity transformation. |
   <tr><th>`displacementField`
-    <td>`"url":str`<br>`"path":str`<br>"interpolation":str
+    <td>`"url":str`<br>`"path":str`<br>`"interpolation":str`
     <td>Displacement field transformation in this container (path) or another container located at (url).
   <tr><th>`coordinateField`
-    <td>`"url":str`<br>`"path":str`<br>"interpolation":str
+    <td>`"url":str`<br>`"path":str`<br>`"interpolation":str`
     <td>Coordinate field transformation in this container (path) or another container located at (url).
   <tr><th>`inverseOf`
     <td>`"transform":Transform`
@@ -392,9 +392,9 @@ A simple, contrived example
 
 ### Details
 
-#### Affine
+#### affine
 
-Affine transformations from N-dimensions to M-dimensions are represented at `(N)x(M+1)` matrices in homogeneous coordinates and stored as flat arrays
+`affine` transformations from N-dimensions to M-dimensions are represented at `(N)x(M+1)` matrices in homogeneous coordinates and stored as flat arrays
 (row-major).
 
 A 2D-2D example:
@@ -430,6 +430,89 @@ defines the function:
 x = 1*i + 2*j + 3
 y = 4*i + 5*j + 6
 z = 7*i + 8*j + 9
+```
+
+#### coordinateField and displacementField
+
+`coordinateField` and `displacementField` transformations store coordinates or displacements in an array. Applying the transformation amounts
+to looking up the appropriate locations in the array, and interpolating. Metadata for these coordinate
+transforms have the following field: 
+
+<dl>
+  <dt><strong>path</strong></dt>
+  <dd>  The location of the coordinate array in this (or another) containter.</dd>
+  <dt><strong>url</strong></dt>
+  <dd>  An optional URL to the container in which the coordinate field array is stored. If not provided 
+        the provided `path` MUST exist in this container.</dd>
+  <dt><strong>interpolation</strong></dt>
+  <dd>  The `interpolation` attributes MAY be provided. It's value indicates
+        the interpolation to use if transforing points not on the array's discrete grid.
+        Values could be:
+        <ul>
+            <li><code>linear</code> (default)</li>
+            <li><code>nearest</code></li>
+            <li><code>cubic</code></li>
+        </ul></dd>
+</dl>
+
+The array data at `path` MUST define space and coordinate transform metadata:
+
+* space metadata MUST have exactly one axis with `"type" : "coordinate"`
+* Every axis in the `coordinateTransform`'s `inputSpace` MUST appear in the space
+* The array dimension corresponding to the coordinate axis MUST have length greater than or equal to the dimensionality of the `coordinateTransform` `outputSpace`
+* SHOULD have `name` equal to the `name` of the corresponding `coordinateTransform`.
+
+For a `coordinateField`:
+
+* If a `coordinateField`s input space has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(ni + 1)`.
+* space metadata MUST have exactly one axis with `"type" : "coordinate"`
+
+For a `displacementField`:
+* space metadata MUST have exactly one axis with `"type" : "displacement"`
+* `inputSpace` and `outputSpace` 
+
+
+A simple 1D example, 
+```
+{
+    "name" : "a coordinate field transform",
+    "type": "coordinateField",
+    "path" : "coordinates",
+    "inputAxes" : ["i"],
+    "outputAxes" : ["x"],
+    "interpolation" : "nearest"
+}
+```
+
+if the arrray in `coordinates` contains the data: `[-9, 9, 0]`, then this metadata defines the function:
+
+```
+x = 
+    if ( i < 0.5 ) -9
+    else if ( i < 1.5 ) 9
+    else 0
+```
+
+Example metadata for the array data at path `coordinates` above:
+
+```
+{
+    "spaces" : [
+        {
+            "name" : "a coordinate field transform",
+            "axes" : [
+                { "label": "i", "type": "space", "discrete": true },
+                { "label": "c", "type": "coordinate", "discrete": true }
+            ]
+        } 
+    ],
+    "transformations" : [
+        {
+            "type" : "identity",
+            "outputSpace" : "my coordinate field transform"
+        }
+    ]
+}
 ```
 
 
