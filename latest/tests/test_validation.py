@@ -14,7 +14,9 @@ from jsonschema.exceptions import ValidationError
 def pytest_generate_tests(metafunc):
     if "suite" in metafunc.fixturenames:
         suites = []
+        ids = []
         for filename in glob.glob("tests/*.json"):
+            ids.append(str(filename).split("/")[-1][0:-5])
             with open(filename) as o:
                 data = json.load(o)
             schema = data["schema"]
