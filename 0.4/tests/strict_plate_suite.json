@@ -32,40 +32,6 @@
       "valid": true
     },
     {
-      "formerly": "plate/strict_acquisitions",
-      "data": {
-        "plate": {
-          "acquisitions": [
-            {
-              "id": 0,
-              "name": "0",
-              "maximumfieldcount": 1
-            }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "name": "test plate",
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "version": "0.4",
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
-        }
-      },
-      "valid": true
-    },
-    {
       "formerly": "plate/missing_name",
       "data": {
         "plate": {
@@ -118,7 +84,7 @@
       "valid": false
     },
     {
-      "formerly": "plate/strict_acquisition",
+      "formerly": "plate/strict_acquisitions",
       "data": {
         "plate": {
           "acquisitions": [
