@@ -220,9 +220,9 @@ keys as specified below for discovering certain types of data, especially images
 "axes" metadata {#axes-md}
 --------------------------
 
-"axes" describes the dimensions of a coordinate space. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
+"axes" describes the dimensions of a coordinate systems. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.
-- SHOULD contain the field "type". It SHOULD be one of "space", "time", "channel", "coordinate", or "displacement" but MAY take other values for custom axis types that are not part of this specification yet.
+- SHOULD contain the field "type". It SHOULD be one of "array", "space", "time", "channel", "coordinate", or "displacement" but MAY take other values for custom axis types that are not part of this specification yet.
 - MAY contain the field "discrete". The value MUST be a boolean, and is `true` if the axis represents a discrete dimension.
 - SHOULD contain the field "unit" to specify the physical unit of this dimension. The value SHOULD be one of the following strings, which are valid units according to UDUNITS-2.
     - Units for "space" axes: 'angstrom', 'attometer', 'centimeter', 'decimeter', 'exameter', 'femtometer', 'foot', 'gigameter', 'hectometer', 'inch', 'kilometer', 'megameter', 'meter', 'micrometer', 'mile', 'millimeter', 'nanometer', 'parsec', 'petameter', 'picometer', 'terameter', 'yard', 'yoctometer', 'yottameter', 'zeptometer', 'zettameter'
@@ -253,31 +253,53 @@ Order of the `"axes"` list matters and defines the index of each dimension and c
 space. For the above example, the `"x"` dimension is the first dimension.
 
 
-### Array space and indexing {#array-space}
+### Array space and indexing
 
-
-"Array space" is a default space for every array whose parameters need not be explicitly defined.
+Every array has a default coordinate system we call "array space" whose parameters need not be explicitly defined.
 Its name is the path to the array in the container, its axes have `"type":"array"`, are unitless, and have
-default "name"s: the ith axis has `"name":"dim_i"`. For example, a 3D array space at path `/my/data/array` is:
+default "name"s. The ith axis has `"name":"dim_i"`. For example, a 3D array space at path `/my/data/array` is:
 
 ```
 {
     "name" : "/my/data/array",
     "axes" : [
-        {"name": "dim_0", "type": "array", "unit": ""},
-        {"name": "dim_1", "type": "array", "unit": ""},
-        {"name": "dim_2", "type": "array", "unit": ""}
+        {"name": "dim_0", "type": "array"},
+        {"name": "dim_1", "type": "array"},
+        {"name": "dim_2", "type": "array"}
     ]
 }
 ```
 
-though this object should not and need not explicitly appear in metadata. The dimensionality of each varies
-according to its corresponding array.
+though this object should not and need not explicitly appear in metadata. The dimensionality of each array space 
+equals the dimensionality of its corresponding zarr array.
 
-The axis with name `"dim_0"` is the first element of the `"axes"` list and corresponds to the
-"first dimension" of the array, where "first dimension" is defined by the byte order.  As described in the [zarr
-array metadata](https://zarr.readthedocs.io/en/stable/spec/v2.html#arrays), the first dimension of an array "C"
-("F") order vary slowest (fastest).
+The axis with name `"dim_0"` is the first element of the `"axes"` list. The axes and their order align with the
+`shape` attribute in the zarr array attributes (in `.zarray`), and whose data depends on the byte order used to
+store chunks.
+
+and corresponds to the
+"first dimension" of the array, where the "first dimension" corresponds to the first element of
+the `shape` attribute in the `.zarray` zarr attributes, and whose data depends on the byte order used to store
+chunks. As described in the [zarr array metadata](https://zarr.readthedocs.io/en/stable/spec/v2.html#arrays),
+the last dimension of an array in "C" order (row-major) are stored contiguously. For an array in "F"
+(column-major) order, the elements of the first dimension are stored contiguously.
+
+For example, if `/my/data/array/.zarray` contains:
+
+```json
+{
+    "chunks": [ 4, 3, 5 ],
+    "compressor": null,
+    "dtype": "|u1",
+    "fill_value": 0,
+    "filters": null,
+    "order": "C",
+    "shape": [ 4, 3, 5 ],
+    "zarr_format": 2
+}
+```
+
+Then `dim_0` has length 4, `dim_1` has length 3, and `dim_2` has length 5.
 
 
 ### Coordinate convention
@@ -338,7 +360,7 @@ Every coordinate transformation MUST specify its output coordinate system, eithe
 specify the name of an output space, or by using `outputAxes` to specify a list of axis names.  Every
 coordinate transformation SHOULD specify its input coordinate system, similarly either using `inputSpace` to
 `inputAxes`. If neither `inputSpace` nor `inputAxes` are provided, the transformation's input
-is in [array-space](#array-space).
+is in array-space.
 
 Coordinate transformations may be defined as sequences of transformations, each of which applies to a subspace.
 Which subspace should be defined using the `"inputAxes"` and `"outputAxes"` fields. An axis name MUST appear
