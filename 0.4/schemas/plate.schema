@@ -73,7 +73,8 @@
               "name"
             ]
           },
-          "minItems": 1
+          "minItems": 1,
+          "uniqueItems": true
         },
         "rows": {
           "description": "The rows of the plate",
@@ -91,7 +92,8 @@
               "name"
             ]
           },
-          "minItems": 1
+          "minItems": 1,
+          "uniqueItems": true
         },
         "wells": {
           "description": "The wells of the plate",
@@ -119,7 +121,8 @@
               "path", "rowIndex", "columnIndex"
             ]
           },
-          "minItems": 1
+          "minItems": 1,
+          "uniqueItems": true
         }
       },
       "required": [

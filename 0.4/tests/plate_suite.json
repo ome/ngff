@@ -101,6 +101,34 @@
       "valid": false
     },
     {
+      "formerly": "plate/duplicate_rows",
+      "data": {
+        "plate": {
+          "columns": [
+            {
+              "name": "A"
+            }
+          ],
+          "rows": [
+            {
+              "name": "1"
+            },
+            {
+              "name": "1"
+            }
+          ],
+          "wells": [
+            {
+              "path": "A/1",
+              "rowIndex": 0,
+              "columnIndex": 0
+            }
+          ]
+        }
+      },
+      "valid": false
+    },
+    {
       "formerly": "plate/missing_columns",
       "data": {
         "plate": {
@@ -125,6 +153,34 @@
       "data": {
         "plate": {
           "columns": [],
+          "rows": [
+            {
+              "name": "1"
+            }
+          ],
+          "wells": [
+            {
+              "path": "A/1",
+              "rowIndex": 0,
+              "columnIndex": 0
+            }
+          ]
+        }
+      },
+      "valid": false
+    },
+    {
+      "formerly": "plate/duplicate_columns",
+      "data": {
+        "plate": {
+          "columns": [
+            {
+              "name": "A"
+            },
+            {
+              "name": "A"
+            }
+          ],
           "rows": [
             {
               "name": "1"
@@ -174,6 +230,39 @@
             }
           ],
           "wells": {}
+        }
+      },
+      "valid": false
+    },
+    {
+      "formerly": "plate/duplicate_rows",
+      "data": {
+        "plate": {
+          "columns": [
+            {
+              "name": "A"
+            },
+            {
+              "name": "A"
+            }
+          ],
+          "rows": [
+            {
+              "name": "1"
+            }
+          ],
+          "wells": [
+            {
+              "path": "A/1",
+              "rowIndex": 0,
+              "columnIndex": 0
+            },
+            {
+              "path": "A/1",
+              "rowIndex": 0,
+              "columnIndex": 0
+            }
+          ]
         }
       },
       "valid": false
