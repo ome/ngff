@@ -495,7 +495,7 @@ For example the following JSON object defines a plate with two acquisitions and
 6 wells (2 rows and 3 columns), containing up to 2 fields of view per acquisition.
 
 <pre class=include-code>
-path: examples/plate_strict/plates_6wells.json
+path: examples/plate_strict/plate_6wells.json
 highlight: json
 </pre>
 
@@ -503,7 +503,7 @@ The following JSON object defines a sparse plate with one acquisition and
 2 wells in a 96 well plate, containing one field of view per acquisition.
 
 <pre class=include-code>
-path: examples/plate_strict/plates_2wells.json
+path: examples/plate_strict/plate_2wells.json
 highlight: json
 </pre>
 
