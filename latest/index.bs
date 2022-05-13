@@ -271,18 +271,12 @@ default "name"s. The ith axis has `"name":"dim_i"`. For example, a 3D array spac
 ```
 
 though this object should not and need not explicitly appear in metadata. The dimensionality of each array space 
-equals the dimensionality of its corresponding zarr array.
-
-The axis with name `"dim_0"` is the first element of the `"axes"` list. The axes and their order align with the
-`shape` attribute in the zarr array attributes (in `.zarray`), and whose data depends on the byte order used to
-store chunks.
-
-and corresponds to the
-"first dimension" of the array, where the "first dimension" corresponds to the first element of
-the `shape` attribute in the `.zarray` zarr attributes, and whose data depends on the byte order used to store
-chunks. As described in the [zarr array metadata](https://zarr.readthedocs.io/en/stable/spec/v2.html#arrays),
-the last dimension of an array in "C" order (row-major) are stored contiguously. For an array in "F"
-(column-major) order, the elements of the first dimension are stored contiguously.
+equals the dimensionality of its corresponding zarr array.  The axis with name `"dim_i"` is the ith element of
+the `"axes"` list. The axes and their order align with the `shape` attribute in the zarr array attributes (in
+`.zarray`), and whose data depends on the byte order used to store chunks. As described in the [zarr array
+metadata](https://zarr.readthedocs.io/en/stable/spec/v2.html#arrays), the last dimension of an array in "C"
+order (row-major) are stored contiguously. For an array in "F" (column-major) order, the elements of the first
+dimension are stored contiguously.
 
 For example, if `/my/data/array/.zarray` contains:
 
