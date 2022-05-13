@@ -1,0 +1,25 @@
+{
+  "$id": "https://ngff.openmicroscopy.org/0.4/schemas/strict_plate.schema",
+  "allOf": [
+    {
+      "$ref": "https://ngff.openmicroscopy.org/0.4/schemas/plate.schema"
+    },
+    {
+      "properties": {
+        "plate": {
+          "items": {
+            "required": [
+              "acquisitions",
+              "columns",
+              "field_count",
+              "name",
+              "rows",
+              "version",
+              "wells"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
