@@ -7,17 +7,20 @@
     {
       "properties": {
         "plate": {
-          "items": {
-            "required": [
-              "acquisitions",
-              "columns",
-              "field_count",
-              "name",
-              "rows",
-              "version",
-              "wells"
-            ]
-          }
+          "properties": {
+            "acquisitions": {
+              "items": {
+                "required": [
+                  "name",
+                  "maximumfieldcount"
+                ]
+              }
+            }
+          },
+          "required": [
+            "name",
+            "version"
+          ]
         }
       }
     }

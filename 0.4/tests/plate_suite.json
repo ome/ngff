@@ -1,5 +1,5 @@
 {
-  "description": "TBD",
+  "description": "Tests for the plate JSON schema",
   "schema": {
     "id": "schemas/plate.schema"
   },
