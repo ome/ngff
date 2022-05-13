@@ -1,5 +1,6 @@
 import json
 import glob
+import os
 
 from dataclasses import dataclass
 from typing import List
@@ -63,7 +64,8 @@ def pytest_generate_tests(metafunc):
             schema = data["schema"]
             with open(schema) as f:
                 schema = json.load(f)
-            for filename in glob.glob("examples/*/*.json"):
+            example_folder = os.path.dirname(config_filename)
+            for filename in glob.glob(f"{example_folder}/*.json"):
                 with open(filename) as f:
                     # Strip comments
                     data = ''.join(line for line in f if not line.lstrip().startswith('//'))
