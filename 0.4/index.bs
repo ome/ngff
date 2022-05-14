@@ -530,49 +530,19 @@ For example the following JSON object defines a well with four fields of
 view. The first two fields of view were part of the first acquisition while
 the last two fields of view were part of the second acquisition.
 
-```json
-"well": {
-    "images": [
-        {
-            "acquisition": 1,
-            "path": "0"
-        },
-        {
-            "acquisition": 1,
-            "path": "1"
-        },
-        {
-            "acquisition": 2,
-            "path": "2"
-        },
-        {
-            "acquisition": 2,
-            "path": "3"
-        }
-    ],
-    "version": "0.4"
-  }
-```
+<pre class=include-code>
+path: examples/well_strict/well_4fields.json
+highlight: json
+</pre>
 
 The following JSON object defines a well with two fields of view in a plate with
 four acquisitions. The first field is part of the first acquisition, and the second
 field is part of the last acquisition.
 
-```json
-"well": {
-    "images": [
-        {
-            "acquisition": 0,
-            "path": "0"
-        },
-        {
-            "acquisition": 3,
-            "path": "1"
-        }
-    ],
-    "version": "0.1"
-}
-```
+<pre class=include-code>
+path: examples/well_strict/well_2fields.json
+highlight: json
+</pre>
 
 Specification naming style {#naming-style}
 ==========================================
