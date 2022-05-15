@@ -320,6 +320,7 @@ It is a list of objects. Each entry describes a single transformation, and
 - MUST contain exactly one of the fields "outputSpace" or "outputAxes".
 - SHOULD contain exactly one of the fields "inputSpace" or "inputAxes".
 - MAY contain the field "name". Its value MUST be unique across all "name" fields for coordinate transformations.
+- Parameter values MUST be compatible with input and output space dimensionality (see details).
 
 <table>
   <tr><th>`identity`    <td>                                                   <td>identity transformation, is the default transformation and is typically not explicitly defined
@@ -410,8 +411,21 @@ A simple, contrived example
 
 #### affine
 
-`affine` transformations from N-dimensions to M-dimensions are represented at `(N)x(M+1)` matrices in homogeneous coordinates and stored as flat arrays
-(row-major).
+`affine` transformations from N-dimensional inputs to M-dimensional outputs are represented at `(N)x(M+1)` matrices in homogeneous coordinates.
+The matrix may be stored as a 2D array or as a 1D array (row-major).
+
+<dl>
+  <dt><strong>path</strong></dt>
+  <dd>  The path to an array containing the affine parameters.
+	The array at this path MUST be 1D or 2D. If 1D, its length MUST be `N*(M+1)`.
+	If 2D, its shape MUST be `N x M+1`.</dd>
+  <dt><strong>url</strong></dt>
+  <dd>  An optional URL to the container in which the affine array is stored. If not provided,
+        the provided `path` MUST exist in this container.</dd>
+  <dt><strong>affine</strong></dt>
+  <dd> 	The affine parameters stored in JSON. If stored as a flat list of numbers the list MUST be length `N*(M+1)`.
+	If stored as a list of lists, the outer list MUST be length `N`, and inner lists MUST be length `(M+1)`.</dd>
+</dl>
 
 A 2D-2D example:
 ```json
@@ -448,6 +462,82 @@ y = 4*i + 5*j + 6
 z = 7*i + 8*j + 9
 ```
 
+The same transformation may also be written as:
+```json
+{
+    "type": "affine",
+    "affine": [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+    "inputAxes" : ["i", "j"],
+    "outputAxes" : ["x", "y", "z"]
+}
+```
+
+#### scale
+
+`scale` transformations are special cases of affine transformations. When possible, a 
+scale transformation should be preferred to its equivalent affine.
+
+<dl>
+  <dt><strong>path</strong></dt>
+  <dd>  The path to an array containing the affine parameters.
+	The array at this path MUST be 1D, and its length MUST be `N`.</dd>
+  <dt><strong>url</strong></dt>
+  <dd>  An optional URL to the container in which the affine array is stored. If not provided,
+        the provided `path` MUST exist in this container.</dd>
+  <dt><strong>scale</strong></dt>
+  <dd> 	The scale parameters stored as a JSON  list of numbers. The list MUST have length `N`.</dd>
+</dl>
+
+For example
+```json
+{
+    "type": "scale",
+    "scale": [3, 2],
+    "inputAxes" : ["i", "j"],
+    "outputAxes" : ["x", "y"]
+}
+```
+
+defines the function:
+
+```
+x = 3 * i
+y = 2 * j
+```
+
+#### translation
+
+`translation` transformations are special cases of affine transformations. When possible, a 
+translation transformation should be preferred to its equivalent affine.
+
+<dl>
+  <dt><strong>path</strong></dt>
+  <dd>  The path to an array containing the affine parameters.
+	The array at this path MUST be 1D, and its length MUST be `N`.</dd>
+  <dt><strong>url</strong></dt>
+  <dd>  An optional URL to the container in which the affine array is stored. If not provided,
+        the provided `path` MUST exist in this container.</dd>
+  <dt><strong>scale</strong></dt>
+  <dd> 	The scale parameters stored as a JSON  list of numbers. The list MUST have length `N`.</dd>
+</dl>
+
+For example
+```json
+{
+    "type": "translation",
+    "translation": [9, -1],
+    "inputAxes" : ["i", "j"],
+    "outputAxes" : ["x", "y"]
+}
+```
+
+defines the function:
+
+```
+x = i + 9 
+y = j - 1
+```
+
 #### coordinateField and displacementField
 
 `coordinateField` and `displacementField` transformations store coordinates or displacements in an array. Applying the transformation amounts
@@ -458,7 +548,7 @@ transforms have the following field:
   <dt><strong>path</strong></dt>
   <dd>  The location of the coordinate array in this (or another) containter.</dd>
   <dt><strong>url</strong></dt>
-  <dd>  An optional URL to the container in which the coordinate field array is stored. If not provided 
+  <dd>  An optional URL to the container in which the coordinate field array is stored. If not provided,
         the provided `path` MUST exist in this container.</dd>
   <dt><strong>interpolation</strong></dt>
   <dd>  The `interpolation` attributes MAY be provided. It's value indicates
@@ -485,10 +575,9 @@ For a `coordinateField`:
 
 For a `displacementField`:
 * space metadata MUST have exactly one axis with `"type" : "displacement"`
-* `inputSpace` and `outputSpace` 
+* `inputSpace` and `outputSpace` MUST have an equal number of dimensions.
 
-
-A simple 1D example, 
+For example, in 1D:
 ```
 {
     "name" : "a coordinate field transform",
@@ -525,11 +614,55 @@ Example metadata for the array data at path `coordinates` above:
     "transformations" : [
         {
             "type" : "identity",
-            "outputSpace" : "my coordinate field transform"
+            "outputSpace" : "a coordinate field transform"
         }
     ]
 }
 ```
+
+A 1D example displacement field:
+```
+{
+    "name" : "a displacement field transform",
+    "type": "displacementField",
+    "path" : "displacements",
+    "inputAxes" : ["x"],
+    "outputAxes" : ["y"],
+    "interpolation" : "linear"
+}
+```
+
+if the arrray in `displacements` contains the data: `[-1, 0, 1]`.
+
+Example metadata for the array data at path `displacements` above:
+
+```
+{
+    "spaces" : [
+        {
+            "name" : "a coordinate field transform",
+            "axes" : [
+                { "label": "x", "type": "space", "unit" : "nanometer" },
+                { "label": "d", "type": "displacement", "discrete": true }
+            ]
+        } 
+    ],
+    "transformations" : [
+        {
+            "type" : "scale",
+            "scale" : [2, 1],
+            "outputSpace" : "a displacement field transform"
+        }
+    ]
+}
+```
+
+This transformation maps the point `[1.0]` to the point `[0.5]`. A scale
+transformation maps the array coordinates to the "x" axis. Using the inverse
+of the scale transform, we see that we need the position `0.5` in array coordinates.
+The transformation specifies linear interpolation, which in this case yields
+`(0.5 * -1) + (0.5 * 0) = -0.5`. That value gives us the displacement of the
+input point, hence the output is `1.0 + (-0.5) = 0.5`.
 
 
 ### Points, coordinates, direction, and indexing
