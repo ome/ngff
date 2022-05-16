@@ -238,7 +238,7 @@ A "space" is a collection of "axes" / dimensions with a name and defines a coord
 - MUST contain the field "name", that gives the space name. The values MUST be non-empty and unique.
 - MUST contain the field "axes", whose value is a valid set of "axes".
 
-```
+```json
 {
     "name" : "volume_micrometers",
     "axes" : [
@@ -259,7 +259,7 @@ Every array has a default coordinate system we call "array space" whose paramete
 Its name is the path to the array in the container, its axes have `"type":"array"`, are unitless, and have
 default "name"s. The ith axis has `"name":"dim_i"`. For example, a 3D array space at path `/my/data/array` is:
 
-```
+```json
 {
     "name" : "/my/data/array",
     "axes" : [
@@ -323,10 +323,10 @@ It is a list of objects. Each entry describes a single transformation, and
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
 
 <table>
-  <tr><th>`identity`    <td>                                                   <td>identity transformation, is the default transformation and is typically not explicitly defined
-  <tr><th>`translation` <td> one of: <br>`"translation":List[float]`, <br>`"path":str` <td>translation vector, stored either as a list of floats (`"translation"`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
-  <tr><th>`scale`       <td> one of: <br>`"scale":List[float]`, <br>`"path":str`       <td>scale vector, stored either as a list of floats (`scale`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions.
-  <tr><th>`affine`       <td> one of: <br>`"affine":List[float]`, <br>`"path":str`     <td>affine transformation matrix defined as list consisting of n sets of n + 1 scalar numbers, stored either as a number[] (affine) or as binary data at a location in this container (path). If both are present, path is preferred. n is number of dimensions
+  <tr><th>`identity`    <td>                                                   <td>The identity transformation is the default transformation and is typically not explicitly defined
+  <tr><th>`translation` <td> one of: <br>`"translation":List[number]`, <br>`"path":str` <td>translation vector, stored either as a list of numbers (`"translation"`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
+  <tr><th>`scale`       <td> one of: <br>`"scale":List[number]`, <br>`"path":str`       <td>scale vector, stored either as a list of numbers (`scale`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions.
+  <tr><th>`affine`       <td> one of: <br>`"affine":List[number]`, <br>`"path":str`     <td>affine transformation matrix defined as list consisting of n sets of n + 1 numbers, stored either as a number[] (affine) or as binary data at a location in this container (path). If both are present, path is preferred. n is number of dimensions
   <tr><th>`sequence`
     <td> `"transformations":List[Transformation]`
     <td>A sequence of transformations, Applying the sequence applies the composition of all transforms in the
@@ -343,6 +343,10 @@ It is a list of objects. Each entry describes a single transformation, and
   <tr><th>`bijection`
     <td>`"forward":Transform`<br>`"inverse":Transform`
     <td>Explicitly define an invertible transformation by providing a forward transformation and its inverse.
+  <tr><th>`dimensionWise`
+    <td>`"transformations":List[Transformation]`
+    <td>Define a high dimensional transformation using lower dimensional transformations on subsets of
+    dimensions.
  <thead>
    <tr><th>type<th>fields<th>description
 </table>
@@ -361,7 +365,7 @@ Coordinate transformations may be defined as sequences of transformations, each 
 Which subspace should be defined using the `"inputAxes"` and `"outputAxes"` fields. An axis name MUST appear
 in exactly one `"outputAxis"` lists.
 
-A simple, contrived example
+A simple example
 ```json
 {
     "type" : "sequence",
@@ -663,6 +667,96 @@ of the scale transform, we see that we need the position `0.5` in array coordina
 The transformation specifies linear interpolation, which in this case yields
 `(0.5 * -1) + (0.5 * 0) = -0.5`. That value gives us the displacement of the
 input point, hence the output is `1.0 + (-0.5) = 0.5`.
+
+
+#### dimensionWise
+
+`dimensionWise` transformations build a high dimensional transformation using lower dimensional transformations
+on subsets of dimensions.
+
+<dl>
+  <dt><strong>transformations</strong></dt>
+  <dd>  A list of transformations, each of which applies to a subset of input and output dimensions (axes). 
+        Every transformation in this list MUST have the fields `inputAxes` and `outputAxes` fields.
+        Every axis name in `inputAxes` MUST appear in this parent objects `inputSpace` axes.
+        Every axis in the parent `dimensionWise`'s `outputSpace` MUST appear in exactly one 
+        of its child transformations' `outputAxes`.
+        </dd>
+</dl>
+
+This is a valid `dimensionWise` transformation:
+
+```json
+{
+    "spaces" : [
+        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j"} ] },
+        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"} ] }
+    ],
+    "transforms" : [
+        {
+            "name: "in2out",
+            "type: "dimensionWise",
+            "inputSpace" : "in",
+            "outputSpace" : "out",
+            "transformations" : [
+                { "type" : "coordinateField", "path" : "/coordinates", "inputAxes" : ["i"], "outputAxes" : ["x"]}
+                { "type" : "scale", "scale" : [2.0], "inputAxes" : ["j"], "outputAxes" : ["y"]}
+            ]
+        }
+    ]
+}
+```
+
+This is also a valid transformation:
+
+```json
+{
+    "spaces" : [
+        { "name" : "in", "axes" : [ {"name" : "0"}, {"name" : "1"}, {"name" : "2"}, {"name" : "3"}] },
+        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"}, {"name" : "z"}  ] }
+    ],
+    "transforms" : [
+        {
+            "name: "in2out",
+            "type: "dimensionWise",
+            "inputSpace" : "in",
+            "outputSpace" : "out",
+            "transformations" : [
+                { "type" : "coordinateField", "path" : "/coordinates", "inputAxes" : ["0","3" ], "outputAxes" : ["y", "x"]}
+                { "type" : "scale", "scale" : [2.0], "inputAxes" : ["1"], "outputAxes" : ["z"]}
+            ]
+        }
+    ]
+}
+```
+
+
+This is an invalid `dimensionWise` transform:
+
+```json
+{
+    "spaces" : [
+        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j"} ] },
+        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"} ] }
+    ],
+    "transforms" : [
+        {
+            "name: "in2out",
+            "type: "dimensionWise",
+            "inputSpace" : "in",
+            "outputSpace" : "out",
+            "transformations" : [
+                { "type" : "coordinateField", "path" : "/coordinates", "inputAxes" : ["i"], "outputAxes" : ["z"]}
+                { "type" : "scale", "scale" : [2.0], "inputAxes" : ["0"], "outputAxes" : ["y"]}
+            ]
+        }
+    ]
+}
+```
+
+for two reasons. First because inputAxis "0" used by the scale transformation is not an axis of the `dimensionWise` transformation's
+`inputSpace`. Second, the "x" axis of the `outputSpace` does not appear in the `outputAxes` of any child
+transformation.
 
 
 ### Points, coordinates, direction, and indexing
