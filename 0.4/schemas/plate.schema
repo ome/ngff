@@ -29,12 +29,12 @@
                 "type": "string"
               },
               "starttime": {
-                "description": "The start timestamp of the acquisition",
+                "description": "The start timestamp of the acquisition, expressed as epoch time i.e. the number seconds since the Epoch",
                 "type": "integer",
                 "minimum": 0
               },
               "endtime": {
-                "description": "The end timestamp of the acquisition",
+                "description": "The end timestamp of the acquisition, expressed as epoch time i.e. the number seconds since the Epoch",
                 "type": "integer",
                 "minimum": 0
               }
@@ -52,7 +52,7 @@
           ]
         },
         "field_count": {
-          "description": "The maximum number of fields per view across all well",
+          "description": "The maximum number of fields per view across all wells",
           "type": "integer",
           "exclusiveMinimum": 0
         },
