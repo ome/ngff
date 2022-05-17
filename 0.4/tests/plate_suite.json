@@ -574,6 +574,36 @@
       "valid": false
     },
     {
+      "formerly": "plate/negative_acquisition_id",
+      "data": {
+        "plate": {
+          "acquisitions": [
+            {
+              "id": -1
+            }
+          ],
+          "columns": [
+            {
+              "name": "A"
+            }
+          ],
+          "rows": [
+            {
+              "name": "1"
+            }
+          ],
+          "wells": [
+            {
+              "path": "A/1",
+              "rowIndex": 0,
+              "columnIndex": 0
+            }
+          ]
+        }
+      },
+      "valid": false
+    },
+    {
       "formerly": "plate/non_integer_acquisition_maximumfieldcount",
       "data": {
         "plate": {
@@ -667,6 +697,37 @@
       "valid": false
     },
     {
+      "formerly": "plate/acquisition_negative_starttime",
+      "data": {
+        "plate": {
+          "acquisitions": [
+            {
+              "id": 0,
+              "starttime": -1
+            }
+          ],
+          "columns": [
+            {
+              "name": "A"
+            }
+          ],
+          "rows": [
+            {
+              "name": "1"
+            }
+          ],
+          "wells": [
+            {
+              "path": "A/1",
+              "rowIndex": 0,
+              "columnIndex": 0
+            }
+          ]
+        }
+      },
+      "valid": false
+    },
+    {
       "formerly": "plate/acquisition_noninteger_endtime",
       "data": {
         "plate": {
@@ -674,6 +735,37 @@
             {
               "id": 0,
               "endtime": "2022-05-13T13:48:06+00:00"
+            }
+          ],
+          "columns": [
+            {
+              "name": "A"
+            }
+          ],
+          "rows": [
+            {
+              "name": "1"
+            }
+          ],
+          "wells": [
+            {
+              "path": "A/1",
+              "rowIndex": 0,
+              "columnIndex": 0
+            }
+          ]
+        }
+      },
+      "valid": false
+    },
+    {
+      "formerly": "plate/negative_endtime",
+      "data": {
+        "plate": {
+          "acquisitions": [
+            {
+              "id": 0,
+              "endtime": -1
             }
           ],
           "columns": [

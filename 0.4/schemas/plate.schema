@@ -16,7 +16,8 @@
             "properties": {
               "id": {
                 "description": "A unique identifier within the context of the plate",
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "maximumfieldcount": {
                 "description": "The maximum number of fields of view for the acquisition",
@@ -29,11 +30,13 @@
               },
               "starttime": {
                 "description": "The start timestamp of the acquisition",
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "endtime": {
                 "description": "The end timestamp of the acquisition",
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             },
             "required": [
