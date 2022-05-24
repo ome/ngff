@@ -92,6 +92,16 @@ of bioimaging data, whether during acquisition or sharing in the cloud.
 Note: The following text makes use of OME-Zarr [[ome-zarr-py]], the current prototype implementation,
 for all examples.
 
+Document conventions
+--------------------
+
+The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”,
+“RECOMMENDED”, “MAY”, and “OPTIONAL” are to be interpreted as described in
+[RFC 2119](https://tools.ietf.org/html/rfc2119).
+
+Some of the JSON examples in this document include commments. However, these are only for
+clarity purposes and comments MUST NOT be included in JSON objects.
+
 On-disk (or in-cloud) layout {#on-disk}
 =======================================
 
@@ -269,9 +279,9 @@ Each dictionary in "datasets" MUST contain the field "path", whose value contain
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
 
 Each "datasets" dictionary MUST have the same number of dimensions and MUST NOT have more than 5 dimensions. The number of dimensions and order MUST correspond to number and order of "axes".
-Each dictionary MUST contain the field "coordinateTransformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
+Each dictionary in "datasets" MUST contain the field "coordinateTransformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
 The transformations are defined according to [[#trafo-md]]. The transformation MUST only be of type `translation` or `scale`.
-They MUST contain exactly one `scale` transformation that specifies the pixel size in physical units or time duration. If scaling information is not available or applicable for one of the axes set it to 1.
+They MUST contain exactly one `scale` transformation that specifies the pixel size in physical units or time duration. If scaling information is not available or applicable for one of the axes, the value MUST express the scaling factor between the current resolution and the first resolution for the given axis, defaulting to 1.0 if there is no downsampling along the axis.
 It MAY contain exactly one `translation` that specifies the offset from the origin in physical units. If `translation` is given it MUST be listed after `scale` to ensure that it is given in physical coordinates.
 The length of the `scale` and `translation` array MUST be the same as the length of "axes".
 The requirements (only `scale` and `translation`, restrictions on order) are in place to provide a simple mapping from data coordinates to physical coordinates while being compatible with the general transformation spec.
@@ -285,45 +295,11 @@ Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain
 Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
 
-```
-{
-    "multiscales": [
-        {
-            "version": "0.4",
-            "name": "example",
-            "axes": [
-                {"name": "t", "type": "time", "unit": "millisecond"},
-                {"name": "c", "type": "channel"},
-                {"name": "z", "type": "space", "unit": "micrometer"},
-                {"name": "y", "type": "space", "unit": "micrometer"},
-                {"name": "x", "type": "space", "unit": "micrometer"}
-            ],
-            "datasets": [
-                {
-                    "path": "0",
-                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 0.5, 0.5, 0.5]}]  # the voxel size for the first scale level (0.5 micrometer)
-                }
-                {
-                    "path": "1",
-                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 1.0, 1.0, 1.0]}]  # the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)
-                },
-                {
-                    "path": "2",
-                    "coordinateTransformations": [{"type": "scale", "scale": [1.0, 1.0, 2.0, 2.0, 2.0]}]  # the voxel size for the second scale level (downscaled by a factor of 4 -> 2 micrometer)
-                }
-            ],
-            "coordinateTransformations": [{"type": "scale", "scale": [0.1, 1.0, 1.0, 1.0, 1.0]],  # the time unit (0.1 milliseconds), which is the same for each scale level
-            "type": "gaussian",
-            "metadata": {                                       # the fields in metadata depend on the downscaling implementation
-                "method": "skimage.transform.pyramid_gaussian", # here, the paramters passed to the skimage function are given
-                "version": "0.16.1",
-                "args": "[true]",
-                "kwargs": {"multichannel": true}
-            }
-        }
-    ]
-}
-```
+<pre class=include-code>
+path: examples/multiscales_strict/multiscales_example.json
+highlight: json
+</pre>
+
 
 If only one multiscale is provided, use it. Otherwise, the user can choose by
 name, using the first multiscale as a fallback:
@@ -518,173 +494,18 @@ custom attributes of the plate group under the `plate` key.
 For example the following JSON object defines a plate with two acquisitions and
 6 wells (2 rows and 3 columns), containing up to 2 fields of view per acquisition.
 
-```json
-"plate": {
-    "acquisitions": [
-        {
-            "id": 1,
-            "maximumfieldcount": 2,
-            "name": "Meas_01(2012-07-31_10-41-12)",
-            "starttime": 1343731272000
-        },
-        {
-            "id": 2,
-            "maximumfieldcount": 2,
-            "name": "Meas_02(201207-31_11-56-41)",
-            "starttime": 1343735801000
-        }
-    ],
-    "columns": [
-        {
-            "name": "1"
-        },
-        {
-            "name": "2"
-        },
-        {
-            "name": "3"
-        }
-    ],
-    "field_count": 4,
-    "name": "test",
-    "rows": [
-        {
-            "name": "A"
-        },
-        {
-            "name": "B"
-        }
-    ],
-    "version": "0.4",
-    "wells": [
-        {
-            "path": "A/1",
-            "rowIndex": 0,
-            "columnIndex": 0
-        },
-        {
-            "path": "A/2"
-            "rowIndex": 0,
-            "columnIndex": 1
-        },
-        {
-            "path": "A/3"
-            "rowIndex": 0,
-            "columnIndex": 2
-        },
-        {
-            "path": "B/1"
-            "rowIndex": 1,
-            "columnIndex": 0
-        },
-        {
-            "path": "B/2"
-            "rowIndex": 1,
-            "columnIndex": 1
-        },
-        {
-            "path": "B/3"
-            "rowIndex": 1,
-            "columnIndex": 2
-        }
-    ]
-  }
-```
+<pre class=include-code>
+path: examples/plate_strict/plate_6wells.json
+highlight: json
+</pre>
 
 The following JSON object defines a sparse plate with one acquisition and
 2 wells in a 96 well plate, containing one field of view per acquisition.
 
-```json
-"plate": {
-    "acquisitions": [
-        {
-            "id": 1,
-            "maximumfieldcount": 1,
-            "name": "single acquisition",
-            "starttime": 1343731272000
-        },
-    ],
-    "columns": [
-        {
-            "name": "1"
-        },
-        {
-            "name": "2"
-        },
-        {
-            "name": "3"
-        },
-        {
-            "name": "4"
-        },
-        {
-            "name": "5"
-        },
-        {
-            "name": "6"
-        },
-        {
-            "name": "7"
-        },
-        {
-            "name": "8"
-        },
-        {
-            "name": "9"
-        },
-        {
-            "name": "10"
-        },
-        {
-            "name": "11"
-        },
-        {
-            "name": "12"
-        }
-    ],
-    "field_count": 1,
-    "name": "sparse test",
-    "rows": [
-        {
-            "name": "A"
-        },
-        {
-            "name": "B"
-        },
-        {
-            "name": "C"
-        },
-        {
-            "name": "D"
-        },
-        {
-            "name": "E"
-        },
-        {
-            "name": "F"
-        },
-        {
-            "name": "G"
-        },
-        {
-            "name": "H"
-        }
-    ],
-    "version": "0.1",
-    "wells": [
-        {
-            "path": "C/5"
-            "rowIndex": 2,
-            "columnIndex": 4
-        },
-        {
-            "path": "D/7"
-            "rowIndex": 3,
-            "columnIndex": 6
-        }
-    ]
-  }
-```
+<pre class=include-code>
+path: examples/plate_strict/plate_2wells.json
+highlight: json
+</pre>
 
 "well" metadata {#well-md}
 --------------------------
@@ -709,49 +530,19 @@ For example the following JSON object defines a well with four fields of
 view. The first two fields of view were part of the first acquisition while
 the last two fields of view were part of the second acquisition.
 
-```json
-"well": {
-    "images": [
-        {
-            "acquisition": 1,
-            "path": "0"
-        },
-        {
-            "acquisition": 1,
-            "path": "1"
-        },
-        {
-            "acquisition": 2,
-            "path": "2"
-        },
-        {
-            "acquisition": 2,
-            "path": "3"
-        }
-    ],
-    "version": "0.4"
-  }
-```
+<pre class=include-code>
+path: examples/well_strict/well_4fields.json
+highlight: json
+</pre>
 
 The following JSON object defines a well with two fields of view in a plate with
 four acquisitions. The first field is part of the first acquisition, and the second
 field is part of the last acquisition.
 
-```json
-"well": {
-    "images": [
-        {
-            "acquisition": 0,
-            "path": "0"
-        },
-        {
-            "acquisition": 3,
-            "path": "1"
-        }
-    ],
-    "version": "0.1"
-}
-```
+<pre class=include-code>
+path: examples/well_strict/well_2fields.json
+highlight: json
+</pre>
 
 Specification naming style {#naming-style}
 ==========================================

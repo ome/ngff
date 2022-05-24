@@ -1,6 +1,5 @@
 import json
 import glob
-import os
 
 from dataclasses import dataclass
 from typing import List
@@ -10,15 +9,11 @@ import pytest
 from jsonschema import RefResolver, Draft202012Validator as Validator
 from jsonschema.exceptions import ValidationError
 
-schema_store = {}
-for schema_filename in glob.glob("schemas/*"):
-    with open(schema_filename) as f:
-        schema = json.load(f)
-        schema_store[schema["$id"]] = schema
 
 @dataclass
 class Suite:
     schema:  dict
+    schema_store: dict
     data: dict
     valid: bool = True
 
@@ -59,7 +54,7 @@ def pytest_generate_tests(metafunc):
                 schema = json.load(f)
             for test in suite["tests"]:
                 ids.append("validate_" + str(test["formerly"]).split("/")[-1][0:-5])
-                suites.append(Suite(schema, test["data"], test["valid"]))
+                suites.append(Suite(schema, {schema["$id"]: schema}, test["data"], test["valid"]))
 
         # Examples
         for config_filename in glob.glob("examples/*/.config.json"):
@@ -68,14 +63,13 @@ def pytest_generate_tests(metafunc):
             schema = data["schema"]
             with open(schema) as f:
                 schema = json.load(f)
-            example_folder = os.path.dirname(config_filename)
-            for filename in glob.glob(f"{example_folder}/*.json"):
+            for filename in glob.glob("examples/*/*.json"):
                 with open(filename) as f:
                     # Strip comments
                     data = ''.join(line for line in f if not line.lstrip().startswith('//'))
                     data = json.loads(data)
                 ids.append("example_" + str(filename).split("/")[-1][0:-5])
-                suites.append(Suite(schema, data, True))  # Assume true
+                suites.append(Suite(schema, {schema["$id"]: schema}, data, True))  # Assume true
 
         metafunc.parametrize("suite", suites, ids=ids, indirect=True)
 
@@ -86,6 +80,6 @@ def suite(request):
 
 
 def test_run(suite):
-    resolver = RefResolver.from_schema(suite.schema, store=schema_store)
+    resolver = RefResolver.from_schema(suite.schema, store=suite.schema_store)
     validator = Validator(suite.schema, resolver=resolver)
     suite.validate(validator)
