@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version fdd5936bf, updated Tue May 24 14:57:39 2022 -0700" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="52ccf2319e8ac251fa6c884bcff3652620b57e18" name="document-revision">
+  <meta content="1b9ef48a63bf90ca5aa0d42694a25a6514fd661d" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1825,7 +1825,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2022-05-25">25 May 2022</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2022-05-26">26 May 2022</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2352,168 +2352,172 @@ custom attributes of the plate group under the <code>plate</code> key.</p>
    </dl>
    <p>For example the following JSON object defines a plate with two acquisitions and
 6 wells (2 rows and 3 columns), containing up to 2 fields of view per acquisition.</p>
-<pre class="language-json highlight"><c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
-    <c- f>"acquisitions"</c-><c- p>:</c-> <c- p>[</c->
-        <c- p>{</c->
-            <c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-            <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"Meas_01(2012-07-31_10-41-12)"</c-><c- p>,</c->
-            <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343731272000</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"id"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
-            <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"Meas_02(201207-31_11-56-41)"</c-><c- p>,</c->
-            <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343735801000</c->
-        <c- p>}</c->
-    <c- p>],</c->
-    <c- f>"columns"</c-><c- p>:</c-> <c- p>[</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"1"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"2"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"3"</c->
-        <c- p>}</c->
-    <c- p>],</c->
-    <c- f>"field_count"</c-><c- p>:</c-> <c- mi>4</c-><c- p>,</c->
-    <c- f>"name"</c-><c- p>:</c-> <c- u>"test"</c-><c- p>,</c->
-    <c- f>"rows"</c-><c- p>:</c-> <c- p>[</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"A"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
-        <c- p>}</c->
-    <c- p>],</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c-><c- p>,</c->
-    <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
-        <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"A/1"</c-><c- p>,</c->
-            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
-            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>0</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- f>"A/2"</c->
-            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
-            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>1</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- f>"A/3"</c->
-            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
-            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>2</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- f>"B/1"</c->
-            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>0</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- f>"B/2"</c->
-            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>1</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- f>"B/3"</c->
-            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>2</c->
-        <c- p>}</c->
-    <c- p>]</c->
-  <c- p>}</c->
+<pre class="include-code highlight"><c- p>{</c->
+    <c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
+        <c- f>"acquisitions"</c-><c- p>:</c-> <c- p>[</c->
+            <c- p>{</c->
+                <c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+                <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"Meas_01(2012-07-31_10-41-12)"</c-><c- p>,</c->
+                <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343731272000</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"id"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+                <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"Meas_02(201207-31_11-56-41)"</c-><c- p>,</c->
+                <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343735801000</c->
+            <c- p>}</c->
+        <c- p>],</c->
+        <c- f>"columns"</c-><c- p>:</c-> <c- p>[</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"1"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"2"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"3"</c->
+            <c- p>}</c->
+        <c- p>],</c->
+        <c- f>"field_count"</c-><c- p>:</c-> <c- mi>4</c-><c- p>,</c->
+        <c- f>"name"</c-><c- p>:</c-> <c- u>"test"</c-><c- p>,</c->
+        <c- f>"rows"</c-><c- p>:</c-> <c- p>[</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"A"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
+            <c- p>}</c->
+        <c- p>],</c->
+        <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c-><c- p>,</c->
+        <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
+            <c- p>{</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"A/1"</c-><c- p>,</c->
+                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>0</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"A/2"</c-><c- p>,</c->
+                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>1</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"A/3"</c-><c- p>,</c->
+                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>2</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"B/1"</c-><c- p>,</c->
+                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>0</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"B/2"</c-><c- p>,</c->
+                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>1</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"B/3"</c-><c- p>,</c->
+                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>2</c->
+            <c- p>}</c->
+        <c- p>]</c->
+    <c- p>}</c->
+<c- p>}</c->
 </pre>
    <p>The following JSON object defines a sparse plate with one acquisition and
 2 wells in a 96 well plate, containing one field of view per acquisition.</p>
-<pre class="language-json highlight"><c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
-    <c- f>"acquisitions"</c-><c- p>:</c-> <c- p>[</c->
-        <c- p>{</c->
-            <c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-            <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"single acquisition"</c-><c- p>,</c->
-            <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343731272000</c->
-        <c- p>},</c->
-    <c- p>],</c->
-    <c- f>"columns"</c-><c- p>:</c-> <c- p>[</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"1"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"2"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"3"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"4"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"5"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"6"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"7"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"8"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"9"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"10"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"11"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"12"</c->
-        <c- p>}</c->
-    <c- p>],</c->
-    <c- f>"field_count"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-    <c- f>"name"</c-><c- p>:</c-> <c- u>"sparse test"</c-><c- p>,</c->
-    <c- f>"rows"</c-><c- p>:</c-> <c- p>[</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"A"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"C"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"D"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"E"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"F"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"G"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"H"</c->
-        <c- p>}</c->
-    <c- p>],</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c-><c- p>,</c->
-    <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
-        <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- f>"C/5"</c->
-            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
-            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>4</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- f>"D/7"</c->
-            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
-            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>6</c->
-        <c- p>}</c->
-    <c- p>]</c->
-  <c- p>}</c->
+<pre class="include-code highlight"><c- p>{</c->
+    <c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
+        <c- f>"acquisitions"</c-><c- p>:</c-> <c- p>[</c->
+            <c- p>{</c->
+                <c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+                <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"single acquisition"</c-><c- p>,</c->
+                <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343731272000</c->
+            <c- p>}</c->
+        <c- p>],</c->
+        <c- f>"columns"</c-><c- p>:</c-> <c- p>[</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"1"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"2"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"3"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"4"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"5"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"6"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"7"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"8"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"9"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"10"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"11"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"12"</c->
+            <c- p>}</c->
+        <c- p>],</c->
+        <c- f>"field_count"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+        <c- f>"name"</c-><c- p>:</c-> <c- u>"sparse test"</c-><c- p>,</c->
+        <c- f>"rows"</c-><c- p>:</c-> <c- p>[</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"A"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"C"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"D"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"E"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"F"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"G"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"name"</c-><c- p>:</c-> <c- u>"H"</c->
+            <c- p>}</c->
+        <c- p>],</c->
+        <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c-><c- p>,</c->
+        <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
+            <c- p>{</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"C/5"</c-><c- p>,</c->
+                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>4</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"D/7"</c-><c- p>,</c->
+                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>6</c->
+            <c- p>}</c->
+        <c- p>]</c->
+    <c- p>}</c->
+<c- p>}</c->
 </pre>
    <h3 class="heading settled" data-level="3.8" id="well-md"><span class="secno">3.8. </span><span class="content">"well" metadata</span><a class="self-link" href="#well-md"></a></h3>
    <p>For high-content screening datasets, the metadata about all fields of views
@@ -2533,45 +2537,47 @@ well group.</p>
    <p>For example the following JSON object defines a well with four fields of
 view. The first two fields of view were part of the first acquisition while
 the last two fields of view were part of the second acquisition.</p>
-<pre class="language-json highlight"><c- f>"well"</c-><c- p>:</c-> <c- p>{</c->
-    <c- f>"images"</c-><c- p>:</c-> <c- p>[</c->
-        <c- p>{</c->
-            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"2"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"3"</c->
-        <c- p>}</c->
-    <c- p>],</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c->
-  <c- p>}</c->
-</pre>
+<pre class="include-code highlight"><c- p>{</c->
+    <c- f>"well"</c-><c- p>:</c-> <c- p>{</c->
+        <c- f>"images"</c-><c- p>:</c-> <c- p>[</c->
+            <c- p>{</c->
+                <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"2"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"3"</c->
+            <c- p>}</c->
+        <c- p>],</c->
+        <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c->
+    <c- p>}</c->
+<c- p>}</c-></pre>
    <p>The following JSON object defines a well with two fields of view in a plate with
 four acquisitions. The first field is part of the first acquisition, and the second
 field is part of the last acquisition.</p>
-<pre class="language-json highlight"><c- f>"well"</c-><c- p>:</c-> <c- p>{</c->
-    <c- f>"images"</c-><c- p>:</c-> <c- p>[</c->
-        <c- p>{</c->
-            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c->
-        <c- p>},</c->
-        <c- p>{</c->
-            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
-            <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c->
-        <c- p>}</c->
-    <c- p>],</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.1"</c->
-<c- p>}</c->
-</pre>
+<pre class="include-code highlight"><c- p>{</c->
+    <c- f>"well"</c-><c- p>:</c-> <c- p>{</c->
+        <c- f>"images"</c-><c- p>:</c-> <c- p>[</c->
+            <c- p>{</c->
+                <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c->
+            <c- p>},</c->
+            <c- p>{</c->
+                <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+                <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c->
+            <c- p>}</c->
+        <c- p>],</c->
+        <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c->
+    <c- p>}</c->
+<c- p>}</c-></pre>
    <h2 class="heading settled" data-level="4" id="naming-style"><span class="secno">4. </span><span class="content">Specification naming style</span><a class="self-link" href="#naming-style"></a></h2>
    <p>Multi-word keys in this specification should use the <code>camelCase</code> style.
 NB: some parts of the specification don’t obey this convention as they
