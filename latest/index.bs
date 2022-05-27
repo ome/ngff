@@ -444,7 +444,7 @@ custom attributes of the plate group under the `plate` key in the group-level me
 The `plate` dictionary MAY contain an `acquisitions` key whose value MUST be a list of
 JSON objects defining the acquisitions for a given plate to which wells can refer to. Each
 acquisition object MUST contain an `id` key whose value MUST be an unique integer identifier
-greater than of equal to 0 within the context of the plate to which fields of view can refer
+greater than or equal to 0 within the context of the plate to which fields of view can refer
 to (see #well-md).
 Each acquisition object SHOULD contain a `name` key whose value MUST be a string identifying
 the name of the acquisition. Each acquisition object SHOULD contain a `maximumfieldcount`
@@ -479,7 +479,7 @@ other `name` in the `rows` list. Care SHOULD be taken to avoid collisions on
 case-insensitive filesystems (e.g. avoid using both `Aa` and `aA`).
 
 The `plate` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
-version of the plate specificaton.
+version of the plate specification.
 
 The `plate` dictionary MUST contain a `wells` key whose value MUST be a list of JSON objects
 defining the wells of the plate. Each well object MUST contain a `path` key whose value MUST
