@@ -442,32 +442,33 @@ custom attributes of the plate group under the `plate` key in the group-level me
 The `plate` dictionary MAY contain an `acquisitions` key whose value MUST be a list of
 JSON objects defining the acquisitions for a given plate to which wells can refer to. Each
 acquisition object MUST contain an `id` key whose value MUST be an unique integer identifier
-within the context of the plate to which fields of view can refer to (see #well-md).
+greater than of equal to 0 within the context of the plate to which fields of view can refer
+to (see #well-md).
 Each acquisition object SHOULD contain a `name` key whose value MUST be a string identifying
 the name of the acquisition. Each acquisition object SHOULD contain a `maximumfieldcount`
-key whose value MUST be an integer indicating the maximum number of fields of view for the
+key whose value MUST be a positive integer indicating the maximum number of fields of view for the
 acquisition. Each acquisition object MAY contain a `description` key whose value MUST be a
 string specifying a description for the acquisition. Each acquisition object MAY contain
-a `startime` and/or `endtime` key whose values MUST be integer epoch timestamps specifying
+a `starttime` and/or `endtime` key whose values MUST be integer epoch timestamps specifying
 the start and/or end timestamp of the acquisition.
 
 The `plate` dictionary MUST contain a `columns` key whose value MUST be a list of JSON objects
-defining the columns of the plate. Each column object object defines the properties of
+defining the columns of the plate. Each column object defines the properties of
 the column at the index of the object in the list. Each column in the physical plate
 MUST be defined, even if no wells in the column are defined. Each column object MUST
-contain a `name` key whole value is a string specifying the column name. The `name` MUST
+contain a `name` key whose value is a string specifying the column name. The `name` MUST
 contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a duplicate of any
 other `name` in the `columns` list. Care SHOULD be taken to avoid collisions on
 case-insensitive filesystems (e.g. avoid using both `Aa` and `aA`).
 
-The `plate` dictionary SHOULD contain a `field_count` key whose value MUST be an integer
+The `plate` dictionary SHOULD contain a `field_count` key whose value MUST be a positive integer
 defining the maximum number of fields per view across all wells.
 
 The `plate` dictionary SHOULD contain a `name` key whose value MUST be a string defining the
 name of the plate.
 
 The `plate` dictionary MUST contain a `rows` key whose value MUST be a list of JSON objects
-defining the rows of the plate. Each row object object defines the properties of
+defining the rows of the plate. Each row object defines the properties of
 the row at the index of the object in the list. Each row in the physical plate
 MUST be defined, even if no wells in the row are defined. Each defined row MUST
 contain a `name` key whose value MUST be a string defining the row name. The `name` MUST
@@ -513,10 +514,11 @@ well group.
 
 The `well` dictionary MUST contain an `images` key whose value MUST be a list of JSON objects
 specifying all fields of views for a given well. Each image object MUST contain a
-`path` key whose value MUST be a string specifying the path to the field of view. If multiple
-acquisitions were performed in the plate, it MUST contain an `acquisition` key whose value
-MUST be an integer identifying the acquisition which MUST match one of acquisition JSON
-objects defined in the plate metadata (see #plate-md).
+`path` key whose value MUST be a string specifying the path to the field of view. The `path`
+MUST contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a duplicate
+of any other `path` in the `images` list. If multiple acquisitions were performed in the plate,
+it MUST contain an `acquisition` key whose value MUST be an integer identifying the acquisition
+which MUST match one of the acquisition JSON objects defined in the plate metadata (see #plate-md).
 
 The `well` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
 version of the well specificaton.
