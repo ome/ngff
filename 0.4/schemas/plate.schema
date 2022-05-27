@@ -28,6 +28,10 @@
                 "description": "The name of the acquisition",
                 "type": "string"
               },
+              "description": {
+                "description": "The description of the acquisition",
+                "type": "string"
+              },
               "starttime": {
                 "description": "The start timestamp of the acquisition, expressed as epoch time i.e. the number seconds since the Epoch",
                 "type": "integer",
