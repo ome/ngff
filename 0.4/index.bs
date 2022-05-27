@@ -521,7 +521,7 @@ it MUST contain an `acquisition` key whose value MUST be an integer identifying 
 which MUST match one of the acquisition JSON objects defined in the plate metadata (see #plate-md).
 
 The `well` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
-version of the well specificaton.
+version of the well specification.
 
 For example the following JSON object defines a well with four fields of
 view. The first two fields of view were part of the first acquisition while
