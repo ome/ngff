@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ngff.openmicroscopy.org/0.2/schemas/plate.schema",
-  "title": "NGFF Plate",
+  "title": "OME-NGFF plate schema",
   "description": "JSON from OME-NGFF Plate .zattrs",
   "type": "object",
   "properties": {
