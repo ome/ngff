@@ -21,6 +21,6 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             #### Automated Review URLs
-            * [render latest/index.bs](http://api.csswg.org/bikeshed/?url=https://raw.githubusercontent.com/ome/ngff/${{ github.event.pull_request.base.sha }}/latest/index.bs)
-            * [diff latest modified](https://services.w3.org/htmldiff?doc1=https%3A%2F%2Fngff.openmicroscopy.org%2Flatest%2F&doc2=http%3A%2F%2Fapi.csswg.org%2Fbikeshed%2F%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fome%2Fngff%2F${{  github.event.pull_request.base.sha }}%2Flatest%2Findex.bs)
+            * [render latest/index.bs](http://api.csswg.org/bikeshed/?url=https://raw.githubusercontent.com/ome/ngff/${{ github.event.pull_request.head.ref }}/latest/index.bs)
+            * [diff latest modified](https://services.w3.org/htmldiff?doc1=https%3A%2F%2Fngff.openmicroscopy.org%2Flatest%2F&doc2=http%3A%2F%2Fapi.csswg.org%2Fbikeshed%2F%3Furl%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fome%2Fngff%2F${{  github.event.pull_request.head.ref }}%2Flatest%2Findex.bs)
           edit-mode: replace
