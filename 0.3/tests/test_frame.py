@@ -7,7 +7,7 @@ with open("schemas/jsonld/frame.json") as o:
     frame = json.load(o)
 
 
-with open("examples/valid/image_metadata.json") as o:
+with open("examples/image/valid/image_metadata.json") as o:
     data = json.load(o)
 
 
