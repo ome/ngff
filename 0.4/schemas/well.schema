@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/0.4/schemas/well.schema",
+  "title": "OME-NGFF well schema",
+  "description": "JSON from OME-NGFF .zattrs",
+  "type": "object",
+  "properties": {
+    "well": {
+      "type": "object",
+      "properties": {
+        "images": {
+          "description": "The fields of view for this well",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "acquisition": {
+                "description": "A unique identifier within the context of the plate",
+                "type": "integer"
+              },
+              "path": {
+                "description": "The path for this field of view subgroup",
+                "type": "string",
+                "pattern": "^[A-Za-z0-9]+$"
+              }
+            },
+            "required": [
+              "path"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "version": {
+          "description": "The version of the specification",
+          "type": "string",
+          "enum": [
+            "0.4"
+          ]
+        }
+      },
+      "required": [
+        "images"
+      ]
+    }
+  }
+}

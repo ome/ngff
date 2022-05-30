@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/0.4/schemas/plate.schema",
+  "title": "OME-NGFF plate schema",
+  "description": "JSON from OME-NGFF .zattrs",
+  "type": "object",
+  "properties": {
+    "plate": {
+      "type": "object",
+      "properties": {
+        "acquisitions": {
+          "description": "The acquisitions for this plate",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "A unique identifier within the context of the plate",
+                "type": "integer",
+                "minimum": 0
+              },
+              "maximumfieldcount": {
+                "description": "The maximum number of fields of view for the acquisition",
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              "name": {
+                "description": "The name of the acquisition",
+                "type": "string"
+              },
+              "description": {
+                "description": "The description of the acquisition",
+                "type": "string"
+              },
+              "starttime": {
+                "description": "The start timestamp of the acquisition, expressed as epoch time i.e. the number seconds since the Epoch",
+                "type": "integer",
+                "minimum": 0
+              },
+              "endtime": {
+                "description": "The end timestamp of the acquisition, expressed as epoch time i.e. the number seconds since the Epoch",
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        "version": {
+          "description": "The version of the specification",
+          "type": "string",
+          "enum": [
+            "0.4"
+          ]
+        },
+        "field_count": {
+          "description": "The maximum number of fields per view across all wells",
+          "type": "integer",
+          "exclusiveMinimum": 0
+        },
+        "name": {
+          "description": "The name of the plate",
+          "type": "string"
+        },
+        "columns": {
+          "description": "The columns of the plate",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "The column name",
+                "type": "string",
+                "pattern": "^[A-Za-z0-9]+$"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "rows": {
+          "description": "The rows of the plate",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "The row name",
+                "type": "string",
+                "pattern": "^[A-Za-z0-9]+$"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "wells": {
+          "description": "The wells of the plate",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "description": "The path to the well subgroup",
+                "type": "string",
+                "pattern": "^[A-Za-z0-9]+/[A-Za-z0-9]+$"
+              },
+              "rowIndex": {
+                "description": "The index of the well in the rows list",
+                "type": "integer",
+                "minimum": 0
+              },
+              "columnIndex": {
+                "description": "The index of the well in the columns list",
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "path", "rowIndex", "columnIndex"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "columns", "rows", "wells"
+      ]
+    }
+  }
+}
