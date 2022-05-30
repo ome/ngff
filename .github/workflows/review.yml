@@ -1,0 +1,16 @@
+---
+ name: Add review url
+
+ on:
+   pull_request:
+
+ jobs:
+   build:
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v2
+       - name: Add comment to PR
+         env:
+           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+         run: |
+           echo no op to enable the workflow
