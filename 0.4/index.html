@@ -6,9 +6,9 @@
   <meta content="w3c/CG-FINAL" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-final" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version fdd5936bf, updated Tue May 24 14:57:39 2022 -0700" name="generator">
+  <meta content="Bikeshed version 37b7e7e68, updated Fri May 27 15:08:11 2022 -0700" name="generator">
   <link href="https://ngff.openmicroscopy.org/0.4/" rel="canonical">
-  <meta content="ff6317039dfc037749c28f6563492a9745525674" name="document-revision">
+  <meta content="e26e20663f0f0e839c185bbf2c558fa760d252c3" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -344,7 +344,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-FINAL">Final Community Group Report</a>, <time class="dt-updated" datetime="2022-05-26">26 May 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-FINAL">Final Community Group Report</a>, <time class="dt-updated" datetime="2022-05-30">30 May 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -822,57 +822,48 @@ above).</p>
 </pre>
    <h3 class="heading settled" data-level="3.7" id="plate-md"><span class="secno">3.7. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
    <p>For high-content screening datasets, the plate layout can be found under the
-custom attributes of the plate group under the <code>plate</code> key.</p>
-   <dl>
-    <dt><strong>acquisitions</strong>
-    <dd>An optional list of JSON objects defining the acquisitions for a given
-      plate. Each acquisition object MUST contain an <code>id</code> key providing an
-      unique identifier within the context of the plate to which fields of
-      view can refer to. It SHOULD contain  a <code>name</code> key identifying the name
-      of the acquisition. It SHOULD contain a <code>maximumfieldcount</code> key
-      indicating the maximum number of fields of view for the acquisition. It
-      MAY contain a <code>description</code> key providing a description for the
-      acquisition. It MAY contain a <code>startime</code> and/or <code>endtime</code> key specifying
-      the start and/or end timestamp of the acquisition using an epoch
-      string.
-    <dt><strong>columns</strong>
-    <dd>A list of JSON objects defining the columns of the plate. Each column
-      object defines the properties of the column at the index of the object
-      in the list. Each column in the physical plate MUST be defined, even
-      if no wells in the column are defined. Each defined column MUST contain
-      a <code>name</code> key specifying the column name. The <code>name</code> MUST contain only
-      alphanumeric characters, MUST be case-sensitive, and MUST NOT be a
-      duplicate of any other <code>name</code> in the <code>columns</code> list. Care SHOULD be
-      taken to avoid collisions on case-insensitive filesystems
-      (e.g. avoid using both <code>Aa</code> and <code>aA</code>).
-    <dt><strong>field_count</strong>
-    <dd>An integer defining the maximum number of fields per view across all
-      wells.
-    <dt><strong>name</strong>
-    <dd>A string defining the name of the plate.
-    <dt><strong>rows</strong>
-    <dd>A list of JSON objects defining the rows of the plate. Each row object
-      defines the properties of the row at the index of the object in the
-      list. Each row in the physical plate MUST be defined, even if no wells
-      in the row are defined. Each defined row MUST contain a <code>name</code> key
-      specifying the row name. The <code>name</code> MUST contain only alphanumeric
-      characters, MUST be case-sensitive, and MUST NOT be a duplicate
-      of any other <code>name</code> in the <code>rows</code> list. Care SHOULD be taken to avoid
-      collisions on case-insensitive filesystems (e.g. avoid using both <code>Aa</code> and <code>aA</code>).
-    <dt><strong>version</strong>
-    <dd>A string defining the version of the specification.
-    <dt><strong>wells</strong>
-    <dd>A list of JSON objects defining the wells of the plate. Each well object
-      MUST contain a <code>path</code> key identifying the path to the well subgroup.
-      The <code>path</code> MUST consist of a <code>name</code> in the <code>rows</code> list, a file separator (<code>/</code>),
-      and a <code>name</code> from the <code>columns</code> list, in that order. The <code>path</code> MUST NOT contain
-      additional leading or trailing directories.
-      Each well object MUST contain both a <code>rowIndex</code> key identifying the index into
-      the <code>rows</code> list and a <code>columnIndex</code> key indentifying the index into
-      the <code>columns</code> list. <code>rowIndex</code> and <code>columnIndex</code> MUST be 0-based.
-      The <code>rowIndex</code>, <code>columnIndex</code>, and <code>path</code> MUST all refer to the same
-      row/column pair.
-   </dl>
+custom attributes of the plate group under the <code>plate</code> key in the group-level metadata.</p>
+   <p>The <code>plate</code> dictionary MAY contain an <code>acquisitions</code> key whose value MUST be a list of
+JSON objects defining the acquisitions for a given plate to which wells can refer to. Each
+acquisition object MUST contain an <code>id</code> key whose value MUST be an unique integer identifier
+greater than or equal to 0 within the context of the plate to which fields of view can refer
+to (see #well-md).
+Each acquisition object SHOULD contain a <code>name</code> key whose value MUST be a string identifying
+the name of the acquisition. Each acquisition object SHOULD contain a <code>maximumfieldcount</code> key whose value MUST be a positive integer indicating the maximum number of fields of view for the
+acquisition. Each acquisition object MAY contain a <code>description</code> key whose value MUST be a
+string specifying a description for the acquisition. Each acquisition object MAY contain
+a <code>starttime</code> and/or <code>endtime</code> key whose values MUST be integer epoch timestamps specifying
+the start and/or end timestamp of the acquisition.</p>
+   <p>The <code>plate</code> dictionary MUST contain a <code>columns</code> key whose value MUST be a list of JSON objects
+defining the columns of the plate. Each column object defines the properties of
+the column at the index of the object in the list. Each column in the physical plate
+MUST be defined, even if no wells in the column are defined. Each column object MUST
+contain a <code>name</code> key whose value is a string specifying the column name. The <code>name</code> MUST
+contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a duplicate of any
+other <code>name</code> in the <code>columns</code> list. Care SHOULD be taken to avoid collisions on
+case-insensitive filesystems (e.g. avoid using both <code>Aa</code> and <code>aA</code>).</p>
+   <p>The <code>plate</code> dictionary SHOULD contain a <code>field_count</code> key whose value MUST be a positive integer
+defining the maximum number of fields per view across all wells.</p>
+   <p>The <code>plate</code> dictionary SHOULD contain a <code>name</code> key whose value MUST be a string defining the
+name of the plate.</p>
+   <p>The <code>plate</code> dictionary MUST contain a <code>rows</code> key whose value MUST be a list of JSON objects
+defining the rows of the plate. Each row object defines the properties of
+the row at the index of the object in the list. Each row in the physical plate
+MUST be defined, even if no wells in the row are defined. Each defined row MUST
+contain a <code>name</code> key whose value MUST be a string defining the row name. The <code>name</code> MUST
+contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a duplicate of any
+other <code>name</code> in the <code>rows</code> list. Care SHOULD be taken to avoid collisions on
+case-insensitive filesystems (e.g. avoid using both <code>Aa</code> and <code>aA</code>).</p>
+   <p>The <code>plate</code> dictionary SHOULD contain a <code>version</code> key whose value MUST be a string specifying the
+version of the plate specificaton.</p>
+   <p>The <code>plate</code> dictionary MUST contain a <code>wells</code> key whose value MUST be a list of JSON objects
+defining the wells of the plate. Each well object MUST contain a <code>path</code> key whose value MUST
+be a string specifying the path to the well subgroup. The <code>path</code> MUST consist of a <code>name</code> in
+the <code>rows</code> list, a file separator (<code>/</code>), and a <code>name</code> from the <code>columns</code> list, in that order.
+The <code>path</code> MUST NOT contain additional leading or trailing directories.
+Each well object MUST contain both a <code>rowIndex</code> key whose value MUST be an integer identifying
+the index into the <code>rows</code> list and a <code>columnIndex</code> key whose value MUST be an integer indentifying
+the index into the <code>columns</code> list. <code>rowIndex</code> and <code>columnIndex</code> MUST be 0-based. The <code>rowIndex</code>, <code>columnIndex</code>, and <code>path</code> MUST all refer to the same row/column pair.</p>
    <p>For example the following JSON object defines a plate with two acquisitions and
 6 wells (2 rows and 3 columns), containing up to 2 fields of view per acquisition.</p>
 <pre class="include-code highlight"><c- p>{</c->
@@ -1046,17 +1037,13 @@ custom attributes of the plate group under the <code>plate</code> key.</p>
    <p>For high-content screening datasets, the metadata about all fields of views
 under a given well can be found under the "well" key in the attributes of the
 well group.</p>
-   <dl>
-    <dt><strong>images</strong>
-    <dd>A list of JSON objects defining the fields of views for a given well.
-      Each object MUST contain a <code>path</code> key identifying the path to the
-      field of view. If multiple acquisitions were performed in the plate, it
-      MUST contain an <code>acquisition</code> key identifying the id of the
-      acquisition which must match one of acquisition JSON objects defined in
-      the plate metadata.
-    <dt><strong>version</strong>
-    <dd>A string defining the version of the specification.
-   </dl>
+   <p>The <code>well</code> dictionary MUST contain an <code>images</code> key whose value MUST be a list of JSON objects
+specifying all fields of views for a given well. Each image object MUST contain a <code>path</code> key whose value MUST be a string specifying the path to the field of view. The <code>path</code> MUST contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a duplicate
+of any other <code>path</code> in the <code>images</code> list. If multiple acquisitions were performed in the plate,
+it MUST contain an <code>acquisition</code> key whose value MUST be an integer identifying the acquisition
+which MUST match one of the acquisition JSON objects defined in the plate metadata (see #plate-md).</p>
+   <p>The <code>well</code> dictionary SHOULD contain a <code>version</code> key whose value MUST be a string specifying the
+version of the well specification.</p>
    <p>For example the following JSON object defines a well with four fields of
 view. The first two fields of view were part of the first acquisition while
 the last two fields of view were part of the second acquisition.</p>
