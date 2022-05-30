@@ -439,59 +439,57 @@ above).
 ----------------------------
 
 For high-content screening datasets, the plate layout can be found under the
-custom attributes of the plate group under the `plate` key.
+custom attributes of the plate group under the `plate` key in the group-level metadata.
 
-<dl>
-  <dt><strong>acquisitions</strong></dt>
-  <dd>An optional list of JSON objects defining the acquisitions for a given
-      plate. Each acquisition object MUST contain an `id` key providing an
-      unique identifier within the context of the plate to which fields of
-      view can refer to. It SHOULD contain  a `name` key identifying the name
-      of the acquisition. It SHOULD contain a `maximumfieldcount` key
-      indicating the maximum number of fields of view for the acquisition. It
-      MAY contain a `description` key providing a description for the
-      acquisition. It MAY contain a `startime` and/or `endtime` key specifying
-      the start and/or end timestamp of the acquisition using an epoch
-      string.</dd>
-  <dt><strong>columns</strong></dt>
-  <dd>A list of JSON objects defining the columns of the plate. Each column
-      object defines the properties of the column at the index of the object
-      in the list. Each column in the physical plate MUST be defined, even
-      if no wells in the column are defined. Each defined column MUST contain
-      a `name` key specifying the column name. The `name` MUST contain only
-      alphanumeric characters, MUST be case-sensitive, and MUST NOT be a
-      duplicate of any other `name` in the `columns` list. Care SHOULD be
-      taken to avoid collisions on case-insensitive filesystems
-      (e.g. avoid using both `Aa` and `aA`).</dd>
-  <dt><strong>field_count</strong></dt>
-  <dd>An integer defining the maximum number of fields per view across all
-      wells.</dd>
-  <dt><strong>name</strong></dt>
-  <dd>A string defining the name of the plate.</dd>
-  <dt><strong>rows</strong></dt>
-  <dd>A list of JSON objects defining the rows of the plate. Each row object
-      defines the properties of the row at the index of the object in the
-      list. Each row in the physical plate MUST be defined, even if no wells
-      in the row are defined. Each defined row MUST contain a `name` key
-      specifying the row name. The `name` MUST contain only alphanumeric
-      characters, MUST be case-sensitive, and MUST NOT be a duplicate
-      of any other `name` in the `rows` list. Care SHOULD be taken to avoid
-      collisions on case-insensitive filesystems (e.g. avoid using both `Aa`
-      and `aA`).</dd>
-  <dt><strong>version</strong></dt>
-  <dd>A string defining the version of the specification.</dd>
-  <dt><strong>wells</strong></dt>
-  <dd>A list of JSON objects defining the wells of the plate. Each well object
-      MUST contain a `path` key identifying the path to the well subgroup.
-      The `path` MUST consist of a `name` in the `rows` list, a file separator (`/`),
-      and a `name` from the `columns` list, in that order. The `path` MUST NOT contain
-      additional leading or trailing directories.
-      Each well object MUST contain both a `rowIndex` key identifying the index into
-      the `rows` list and a `columnIndex` key indentifying the index into
-      the `columns` list. `rowIndex` and `columnIndex` MUST be 0-based.
-      The `rowIndex`, `columnIndex`, and `path` MUST all refer to the same
-      row/column pair.</dd>
-</dl>
+The `plate` dictionary MAY contain an `acquisitions` key whose value MUST be a list of
+JSON objects defining the acquisitions for a given plate to which wells can refer to. Each
+acquisition object MUST contain an `id` key whose value MUST be an unique integer identifier
+greater than or equal to 0 within the context of the plate to which fields of view can refer
+to (see #well-md).
+Each acquisition object SHOULD contain a `name` key whose value MUST be a string identifying
+the name of the acquisition. Each acquisition object SHOULD contain a `maximumfieldcount`
+key whose value MUST be a positive integer indicating the maximum number of fields of view for the
+acquisition. Each acquisition object MAY contain a `description` key whose value MUST be a
+string specifying a description for the acquisition. Each acquisition object MAY contain
+a `starttime` and/or `endtime` key whose values MUST be integer epoch timestamps specifying
+the start and/or end timestamp of the acquisition.
+
+The `plate` dictionary MUST contain a `columns` key whose value MUST be a list of JSON objects
+defining the columns of the plate. Each column object defines the properties of
+the column at the index of the object in the list. Each column in the physical plate
+MUST be defined, even if no wells in the column are defined. Each column object MUST
+contain a `name` key whose value is a string specifying the column name. The `name` MUST
+contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a duplicate of any
+other `name` in the `columns` list. Care SHOULD be taken to avoid collisions on
+case-insensitive filesystems (e.g. avoid using both `Aa` and `aA`).
+
+The `plate` dictionary SHOULD contain a `field_count` key whose value MUST be a positive integer
+defining the maximum number of fields per view across all wells.
+
+The `plate` dictionary SHOULD contain a `name` key whose value MUST be a string defining the
+name of the plate.
+
+The `plate` dictionary MUST contain a `rows` key whose value MUST be a list of JSON objects
+defining the rows of the plate. Each row object defines the properties of
+the row at the index of the object in the list. Each row in the physical plate
+MUST be defined, even if no wells in the row are defined. Each defined row MUST
+contain a `name` key whose value MUST be a string defining the row name. The `name` MUST
+contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a duplicate of any
+other `name` in the `rows` list. Care SHOULD be taken to avoid collisions on
+case-insensitive filesystems (e.g. avoid using both `Aa` and `aA`).
+
+The `plate` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
+version of the plate specification.
+
+The `plate` dictionary MUST contain a `wells` key whose value MUST be a list of JSON objects
+defining the wells of the plate. Each well object MUST contain a `path` key whose value MUST
+be a string specifying the path to the well subgroup. The `path` MUST consist of a `name` in
+the `rows` list, a file separator (`/`), and a `name` from the `columns` list, in that order.
+The `path` MUST NOT contain additional leading or trailing directories.
+Each well object MUST contain both a `rowIndex` key whose value MUST be an integer identifying
+the index into the `rows` list and a `columnIndex` key whose value MUST be an integer indentifying
+the index into the `columns` list. `rowIndex` and `columnIndex` MUST be 0-based. The
+`rowIndex`, `columnIndex`, and `path` MUST all refer to the same row/column pair.
 
 For example the following JSON object defines a plate with two acquisitions and
 6 wells (2 rows and 3 columns), containing up to 2 fields of view per acquisition.
@@ -516,17 +514,16 @@ For high-content screening datasets, the metadata about all fields of views
 under a given well can be found under the "well" key in the attributes of the
 well group.
 
-<dl>
-  <dt><strong>images</strong></dt>
-  <dd>A list of JSON objects defining the fields of views for a given well.
-      Each object MUST contain a `path` key identifying the path to the
-      field of view. If multiple acquisitions were performed in the plate, it
-      MUST contain an `acquisition` key identifying the id of the
-      acquisition which must match one of acquisition JSON objects defined in
-      the plate metadata.</dd>
-  <dt><strong>version</strong></dt>
-  <dd>A string defining the version of the specification.</dd>
-</dl>
+The `well` dictionary MUST contain an `images` key whose value MUST be a list of JSON objects
+specifying all fields of views for a given well. Each image object MUST contain a
+`path` key whose value MUST be a string specifying the path to the field of view. The `path`
+MUST contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a duplicate
+of any other `path` in the `images` list. If multiple acquisitions were performed in the plate,
+it MUST contain an `acquisition` key whose value MUST be an integer identifying the acquisition
+which MUST match one of the acquisition JSON objects defined in the plate metadata (see #plate-md).
+
+The `well` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
+version of the well specification.
 
 For example the following JSON object defines a well with four fields of
 view. The first two fields of view were part of the first acquisition while
