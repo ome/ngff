@@ -1,0 +1,17 @@
+{
+  "$id": "https://ngff.openmicroscopy.org/0.4/schemas/strict_well.schema",
+  "allOf": [
+    {
+      "$ref": "https://ngff.openmicroscopy.org/0.4/schemas/well.schema"
+    },
+    {
+      "properties": {
+        "well": {
+          "required": [
+            "version"
+          ]
+        }
+      }
+    }
+  ]
+}
