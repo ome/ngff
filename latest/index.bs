@@ -275,7 +275,7 @@ Conforming groups:
 - if so, MUST represent every "multiscales" group as exactly one OME-XML "Image" in the same order as the group numbers.
 
 <pre>
-series.ome.zarr           # One converted fileset from bioformats2raw
+series.ome.zarr               # One converted fileset from bioformats2raw
     ├── .zgroup
     ├── .zattrs               # Contains "bioformats2raw.layout" metadata
     ├── OME                   # Special group for containing OME metadata
