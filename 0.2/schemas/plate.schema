@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ngff.openmicroscopy.org/0.1/schemas/plate.schema",
+  "$id": "https://ngff.openmicroscopy.org/0.2/schemas/plate.schema",
   "title": "OME-NGFF plate schema",
   "description": "JSON from OME-NGFF Plate .zattrs",
   "type": "object",
@@ -11,7 +11,7 @@
         "version": {
           "type": "string",
           "enum": [
-            "0.1"
+            "0.2"
           ]
         },
         "name": {
@@ -78,10 +78,10 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number"
+                "type": "integer"
               },
               "maximumfieldcount": {
-                "type": "number"
+                "type": "integer"
               },
               "name": {
                 "type": "string"
@@ -90,7 +90,14 @@
                 "type": "string"
               },
               "starttime": {
-                "type": "number"
+                "description": "The start timestamp of the acquisition, expressed as epoch time i.e. the number seconds since the Epoch",
+                "type": "integer",
+                "minimum": 0
+              },
+              "endtime": {
+                "description": "The end timestamp of the acquisition, expressed as epoch time i.e. the number seconds since the Epoch",
+                "type": "integer",
+                "minimum": 0
               }
             },
             "required": [

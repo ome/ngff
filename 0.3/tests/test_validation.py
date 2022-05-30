@@ -44,8 +44,8 @@ def test_json(method, testfile, httpserver):
 
 
 def files():
-    return list(glob.glob(f"examples/valid/*.json")) + \
-        list(glob.glob(f"examples/invalid/*.json"))
+    return list(glob.glob(f"examples/*/valid/*.json")) + \
+        list(glob.glob(f"examples/*/invalid/*.json"))
 
 def ids():
     return [str(x).split("/")[-1][0:-5] for x in files()]
@@ -61,10 +61,17 @@ def method(request):
 
     if request.param == "jsonschema":
 
-        with open('schemas/image.schema') as f:
-            schema = json.loads(f.read())
-
         def json_schema(path):
+            print("json_schema", path)
+            schemaName = None
+            for name in ['image', 'plate', 'well']:
+                if name in path:
+                    schemaName = name
+            if schemaName is None:
+                raise Exception("No schema found")
+            with open(f'schemas/{schemaName}.schema') as f:
+                schema = json.loads(f.read())
+
             with open(path) as f:
                 test_json = json.loads(f.read())
             return js_valid(instance=test_json, schema=schema)
