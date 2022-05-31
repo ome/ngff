@@ -8,8 +8,8 @@ from jsonschema.exceptions import ValidationError
 
 
 def files():
-    return list(glob.glob(f"examples/valid/*.json")) + \
-        list(glob.glob(f"examples/invalid/*.json"))
+    return list(glob.glob(f"examples/*/valid/*.json")) + \
+        list(glob.glob(f"examples/*/invalid/*.json"))
 
 def ids():
     return [str(x).split("/")[-1][0:-5] for x in files()]
@@ -32,6 +32,10 @@ def json_schema(path):
         # we don't have @type in this version
         if "multiscales" in test_json:
             schema_name = "image.schema"
+        elif "plate" in test_json:
+            schema_name = "plate.schema"
+        elif "well" in test_json:
+            schema_name = "well.schema"
         else:
             raise Exception("No schema found")
 

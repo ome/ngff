@@ -77,6 +77,8 @@ def load_instance_and_schema(path, strict=False):
         schema_name = "image.schema"
     elif "plate" in test_json:
         schema_name = "plate.schema"
+    elif "well" in test_json:
+        schema_name = "well.schema"
     else:
         raise Exception("No schema found")
 
