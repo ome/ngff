@@ -263,7 +263,7 @@ A "space" is a collection of "axes" / dimensions with a name and defines a coord
 }
 ```
 
-Order of the `"axes"` list matters and defines the index of each dimension and coordinates for points in that
+Order of the `"axes"` list matters and defines the index of each array dimension and coordinates for "points" in that
 space. For the above example, the `"x"` dimension is the first dimension.
 
 
@@ -331,8 +331,8 @@ It is a list of objects. Each entry describes a single transformation, and
 
 - MUST contain the field "type".
 - MUST contain any other fields required by the given "type" (see table below).
-- MUST contain exactly one of the fields "outputSpace" or "outputAxes".
-- SHOULD contain exactly one of the fields "inputSpace" or "inputAxes".
+- MUST contain the field "output".
+- SHOULD contain the field "input".
 - MAY contain the field "name". Its value MUST be unique across all "name" fields for coordinate transformations.
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
 
@@ -376,8 +376,8 @@ coordinate transformation SHOULD specify its input coordinate system, similarly 
 is in array-space.
 
 Coordinate transformations may be defined as sequences of transformations, each of which applies to a subspace.
-Which subspace should be defined using the `"inputAxes"` and `"outputAxes"` fields. An axis name MUST appear
-in exactly one `"outputAxis"` lists.
+Which subspace should be defined by providing arrays of strings as the values for the `"input"` and `"output"`
+fields. An axis name MUST appear in exactly one `"output"` lists.
 
 A simple example
 ```json
@@ -387,14 +387,14 @@ A simple example
         {
             "type": "scale",
             "scale" : [ 0.5, 0.5 ],
-            "inputAxes: ["dim_1", "dim_2"],
-            "outputAxes: ["x", "y"],
+            "input" : ["dim_1", "dim_2"],
+            "output" : ["x", "y"],
         },
         {
             "type": "scale",
             "scale" : [ 2 ],
-            "inputAxes: ["dim_0"],
-            "outputAxes: ["t"],
+            "input" : ["dim_0"],
+            "output" : ["t"],
         }
     ]
 }
@@ -410,15 +410,15 @@ A simple example
                 "name": "nonlinear-inverse",
                 "type": "displacementField",
                 "path": "/path/to/my/transform",
-                "inputAxes: ["i", "j"],
-                "outputAxes: ["x", "y"],
+                "input" : ["i", "j"],
+                "output" : ["x", "y"],
             },
         },
         {
             "type": "scale",
             "scale" : [ 2 ]
-            "inputAxes: ["k"],
-            "outputAxes: ["z"],
+            "input" : ["k"],
+            "output" : ["z"],
         }
     ]
 }
@@ -426,6 +426,13 @@ A simple example
 
 
 ### Details
+
+Input and output dimensionality may be determined by the value of the "input" and "output" fields, respectively. If the value
+of "input" is an array, it's length gives the input dimension, otherwise the length of "axes" for the coordinate
+system with the name of the "input" value gives the input dimension.  If the value of "input" is an array, it's
+length gives the input imension, otherwise it is given by the length of "axes" for the coordinate system with
+the name of the "input".  If the value of "output" is an array, it's length gives the output dimension,
+otherwise it is given by the length of "axes" for the coordinate system with the name of the "output".
 
 #### affine
 
@@ -450,8 +457,8 @@ A 2D-2D example:
 {
     "type": "affine",
     "affine": [1, 2, 3, 4, 5, 6],
-    "inputAxes" : ["i", "j"],
-    "outputAxes" : ["x", "y"]
+    "input" : ["i", "j"],
+    "output" : ["x", "y"]
 }
 ```
 
@@ -467,8 +474,8 @@ A 2D - 3D example:
 {
     "type": "affine",
     "affine": [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    "inputAxes" : ["i", "j"],
-    "outputAxes" : ["x", "y", "z"]
+    "input" : ["i", "j"],
+    "output" : ["x", "y", "z"]
 }
 ```
 
@@ -485,15 +492,16 @@ The same transformation may also be written as:
 {
     "type": "affine",
     "affine": [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
-    "inputAxes" : ["i", "j"],
-    "outputAxes" : ["x", "y", "z"]
+    "input" : ["i", "j"],
+    "output" : ["x", "y", "z"]
 }
 ```
 
 #### scale
 
 `scale` transformations are special cases of affine transformations. When possible, a 
-scale transformation should be preferred to its equivalent affine.
+scale transformation should be preferred to its equivalent affine. Input and output dimensionality MUST be
+identical and MUST equal the the length of the "scale" array.
 
 <dl>
   <dt><strong>path</strong></dt>
@@ -511,8 +519,8 @@ For example
 {
     "type": "scale",
     "scale": [3, 2],
-    "inputAxes" : ["i", "j"],
-    "outputAxes" : ["x", "y"]
+    "input" : ["i", "j"],
+    "output" : ["x", "y"]
 }
 ```
 
@@ -526,7 +534,8 @@ y = 2 * j
 #### translation
 
 `translation` transformations are special cases of affine transformations. When possible, a 
-translation transformation should be preferred to its equivalent affine.
+translation transformation should be preferred to its equivalent affine. Input and output dimensionality MUST be
+identical and MUST equal the the length of the "translation" array.
 
 <dl>
   <dt><strong>path</strong></dt>
@@ -544,8 +553,8 @@ For example
 {
     "type": "translation",
     "translation": [9, -1],
-    "inputAxes" : ["i", "j"],
-    "outputAxes" : ["x", "y"]
+    "input" : ["i", "j"],
+    "output" : ["x", "y"]
 }
 ```
 
@@ -583,7 +592,7 @@ The array data at `path` MUST define space and coordinate transform metadata:
 
 * space metadata MUST have exactly one axis with `"type" : "coordinate"`
 * Every axis in the `coordinateTransform`'s `inputSpace` MUST appear in the space
-* The array dimension corresponding to the coordinate axis MUST have length greater than or equal to the dimensionality of the `coordinateTransform` `outputSpace`
+* The array dimension corresponding to the coordinate axis MUST have length greater than or equal to the dimensionality of the `coordinateTransform` `output`
 * SHOULD have `name` equal to the `name` of the corresponding `coordinateTransform`.
 
 For a `coordinateField`:
@@ -593,7 +602,7 @@ For a `coordinateField`:
 
 For a `displacementField`:
 * space metadata MUST have exactly one axis with `"type" : "displacement"`
-* `inputSpace` and `outputSpace` MUST have an equal number of dimensions.
+* `input` and `output` MUST have an equal number of dimensions.
 
 For example, in 1D:
 ```
@@ -601,8 +610,8 @@ For example, in 1D:
     "name" : "a coordinate field transform",
     "type": "coordinateField",
     "path" : "coordinates",
-    "inputAxes" : ["i"],
-    "outputAxes" : ["x"],
+    "input" : ["i"],
+    "output" : ["x"],
     "interpolation" : "nearest"
 }
 ```
@@ -632,7 +641,7 @@ Example metadata for the array data at path `coordinates` above:
     "transformations" : [
         {
             "type" : "identity",
-            "outputSpace" : "a coordinate field transform"
+            "output" : "a coordinate field transform"
         }
     ]
 }
@@ -644,8 +653,8 @@ A 1D example displacement field:
     "name" : "a displacement field transform",
     "type": "displacementField",
     "path" : "displacements",
-    "inputAxes" : ["x"],
-    "outputAxes" : ["y"],
+    "input" : ["x"],
+    "output" : ["y"],
     "interpolation" : "linear"
 }
 ```
@@ -669,7 +678,7 @@ Example metadata for the array data at path `displacements` above:
         {
             "type" : "scale",
             "scale" : [2, 1],
-            "outputSpace" : "a displacement field transform"
+            "output" : "a displacement field transform"
         }
     ]
 }
@@ -692,9 +701,9 @@ on subsets of dimensions.
   <dt><strong>transformations</strong></dt>
   <dd>  A list of transformations, each of which applies to a subset of input and output dimensions (axes). 
         Every transformation in this list MUST have the fields `inputAxes` and `outputAxes` fields.
-        Every axis name in `inputAxes` MUST appear in this parent objects `inputSpace` axes.
+        Every axis name in `input` MUST appear in this parent objects `input` axes.
         Every axis in the parent `dimensionWise`'s `outputSpace` MUST appear in exactly one 
-        of its child transformations' `outputAxes`.
+        of its child transformations' `output`.
         </dd>
 </dl>
 
@@ -710,8 +719,8 @@ This is a valid `dimensionWise` transformation:
         {
             "name: "in2out",
             "type: "dimensionWise",
-            "inputSpace" : "in",
-            "outputSpace" : "out",
+            "input" : "in",
+            "output" : "out",
             "transformations" : [
                 { "type" : "coordinateField", "path" : "/coordinates", "inputAxes" : ["i"], "outputAxes" : ["x"]}
                 { "type" : "scale", "scale" : [2.0], "inputAxes" : ["j"], "outputAxes" : ["y"]}
@@ -733,11 +742,11 @@ This is also a valid transformation:
         {
             "name: "in2out",
             "type: "dimensionWise",
-            "inputSpace" : "in",
-            "outputSpace" : "out",
+            "input" : "in",
+            "output" : "out",
             "transformations" : [
-                { "type" : "coordinateField", "path" : "/coordinates", "inputAxes" : ["0","3" ], "outputAxes" : ["y", "x"]}
-                { "type" : "scale", "scale" : [2.0], "inputAxes" : ["1"], "outputAxes" : ["z"]}
+                { "type" : "coordinateField", "path" : "/coordinates", "input" : ["0","3" ], "output" : ["y", "x"]}
+                { "type" : "scale", "scale" : [2.0], "input" : ["1"], "output" : ["z"]}
             ]
         }
     ]
@@ -757,20 +766,19 @@ This is an invalid `dimensionWise` transform:
         {
             "name: "in2out",
             "type: "dimensionWise",
-            "inputSpace" : "in",
-            "outputSpace" : "out",
+            "input" : "in",
+            "output" : "out",
             "transformations" : [
-                { "type" : "coordinateField", "path" : "/coordinates", "inputAxes" : ["i"], "outputAxes" : ["z"]}
-                { "type" : "scale", "scale" : [2.0], "inputAxes" : ["0"], "outputAxes" : ["y"]}
+                { "type" : "coordinateField", "path" : "/coordinates", "input" : ["i"], "output" : ["z"]}
+                { "type" : "scale", "scale" : [2.0], "input" : ["0"], "output" : ["y"]}
             ]
         }
     ]
 }
 ```
 
-for two reasons. First because inputAxis "0" used by the scale transformation is not an axis of the `dimensionWise` transformation's
-`inputSpace`. Second, the "x" axis of the `outputSpace` does not appear in the `outputAxes` of any child
-transformation.
+for two reasons. First because input"0" used by the scale transformation is not an axis of the `dimensionWise` transformation's
+`input`. Second, the "x" axis of the `output` does not appear in the `output` of any child transformation.
 
 
 ### Points, coordinates, direction, and indexing
@@ -783,8 +791,8 @@ The indexes of axis dimensions correspond to indexes into transformation paramet
 {
     "type": "scale",
     "scale": [2, 0.5]
-    "inputAxes" : ["i", "j"]
-    "outputAxes" : ["x", "y"]
+    "input" : ["i", "j"]
+    "output" : ["x", "y"]
 }
 ```
 
