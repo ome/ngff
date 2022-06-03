@@ -325,10 +325,8 @@ half-open interval `[-0.5, 0.5) x [-0.5, 0.5)`. See chapter 4 and figure 4.1 of 
 "coordinateTransformations" metadata {#trafo-md}
 -------------------------------------
 
-"coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
+"coordinateTransformations" describe map between two coordinate spaces (defined by "axes").
 For example, to map a discrete data space of an array to the corresponding physical space.
-It is a list of objects. Each entry describes a single transformation, and
-
 Coordinate transforms are in the "forward" direction. They represent functions from *points* in the
 input space to *points* in the output space. Implementations SHOULD be able to compute and apply the inverse
 of some coordinate transformations (see the Details section below will note those transform types).
