@@ -322,29 +322,51 @@ The center of a 2d pixel corresponding to the origin `(0,0)` in the discrete arr
 half-open interval `[-0.5, 0.5) x [-0.5, 0.5)`. See chapter 4 and figure 4.1 of the ITK Software Guide [[itk]].
 
 
-"transformations" metadata {#trafo-md}
+"coordinateTransformations" metadata {#trafo-md}
 -------------------------------------
 
 "coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
 For example, to map a discrete data space of an array to the corresponding physical space.
 It is a list of objects. Each entry describes a single transformation, and
 
+Coordinate transforms are in the "forward" direction. They represent functions from *points* in the
+input space to *points* in the output space. Implementations SHOULD be able to compute and apply the inverse
+of some coordinate transformations (see the Details section below will note those transform types).
+
+
 - MUST contain the field "type".
 - MUST contain any other fields required by the given "type" (see table below).
-- MUST contain the field "output".
-- SHOULD contain the field "input".
+- MUST contain the field "output", unless part of a `sequence` (see details).
+- SHOULD contain the field "input", unless part of a `sequence` (see details).
 - MAY contain the field "name". Its value MUST be unique across all "name" fields for coordinate transformations.
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
 
 <table>
-  <tr><th>`identity`    <td>                                                   <td>The identity transformation is the default transformation and is typically not explicitly defined
-  <tr><th>`translation` <td> one of: <br>`"translation":List[number]`, <br>`"path":str` <td>translation vector, stored either as a list of numbers (`"translation"`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
-  <tr><th>`scale`       <td> one of: <br>`"scale":List[number]`, <br>`"path":str`       <td>scale vector, stored either as a list of numbers (`scale`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions.
-  <tr><th>`affine`       <td> one of: <br>`"affine":List[number]`, <br>`"path":str`     <td>affine transformation matrix defined as list consisting of n sets of n + 1 numbers, stored either as a number[] (affine) or as binary data at a location in this container (path). If both are present, path is preferred. n is number of dimensions
+  <tr><th>`identity`
+    <td> 
+    <td>The identity transformation is the default transformation and is typically not explicitly defined.
+  <tr><th>`translation`
+    <td> one of: <br>`"translation":List[number]`, <br>`"path":str`
+    <td>translation vector, stored either as a list of numbers (`"translation"`) or as binary data at a location
+    in this container (`path`).
+  <tr><th>`scale`
+    <td> one of: <br>`"scale":List[number]`, <br>`"path":str`
+    <td>scale vector, stored either as a list of numbers (`scale`) or as binary data at a location in this
+    container (`path`).
+  <tr><th>`affine`
+    <td> one of: <br>`"affine":List[number]`, <br>`"path":str`
+    <td>affine transformation matrix stored as a flat array stored either with json uing the affine field
+    or as binary data at a location in this container (path). If both are present, path is
+    preferred.
+  <tr><th>`rotation`
+    <td> one of: <br>`"rotation":List[number]`, <br>`"path":str`
+    <td>rotation transformation matrix stored as a flat array stored either with json uing the rotation field
+    or as binary data at a location in this container (path). If both are present, path is
+    preferred.
   <tr><th>`sequence`
     <td> `"transformations":List[Transformation]`
     <td>A sequence of transformations, Applying the sequence applies the composition of all transforms in the
-    list, in order. An empty sequence is the identity transformation. |
+    list, in order. An empty sequence is the identity transformation.
   <tr><th>`displacementField`
     <td>`"url":str`<br>`"path":str`<br>`"interpolation":str`
     <td>Displacement field transformation in this container (path) or another container located at (url).
@@ -365,64 +387,13 @@ It is a list of objects. Each entry describes a single transformation, and
    <tr><th>type<th>fields<th>description
 </table>
 
-The transformations in the list are applied sequentally and in order.
 
-### Spaces and axes
+Conforming readers:
+- SHOULD be able to apply transformations to points
+- MAY enable applying transformations to points
+- MAY enable applying transformations to images
 
-Every coordinate transformation MUST specify its output coordinate system, either using `outputSpace` to
-specify the name of an output space, or by using `outputAxes` to specify a list of axis names.  Every
-coordinate transformation SHOULD specify its input coordinate system, similarly either using `inputSpace` to
-`inputAxes`. If neither `inputSpace` nor `inputAxes` are provided, the transformation's input
-is in array-space.
 
-Coordinate transformations may be defined as sequences of transformations, each of which applies to a subspace.
-Which subspace should be defined by providing arrays of strings as the values for the `"input"` and `"output"`
-fields. An axis name MUST appear in exactly one `"output"` lists.
-
-A simple example
-```json
-{
-    "type" : "sequence",
-    "transformations" : [
-        {
-            "type": "scale",
-            "scale" : [ 0.5, 0.5 ],
-            "input" : ["dim_1", "dim_2"],
-            "output" : ["x", "y"],
-        },
-        {
-            "type": "scale",
-            "scale" : [ 2 ],
-            "input" : ["dim_0"],
-            "output" : ["t"],
-        }
-    ]
-}
-```
-
-```json
-{
-    "type" : "sequence",
-    "transformations" : [
-        {
-            "type": "inverseOf",
-            "transformation" : {
-                "name": "nonlinear-inverse",
-                "type": "displacementField",
-                "path": "/path/to/my/transform",
-                "input" : ["i", "j"],
-                "output" : ["x", "y"],
-            },
-        },
-        {
-            "type": "scale",
-            "scale" : [ 2 ]
-            "input" : ["k"],
-            "output" : ["z"],
-        }
-    ]
-}
-```
 
 
 ### Details
@@ -434,108 +405,17 @@ length gives the input imension, otherwise it is given by the length of "axes" f
 the name of the "input".  If the value of "output" is an array, it's length gives the output dimension,
 otherwise it is given by the length of "axes" for the coordinate system with the name of the "output".
 
-#### affine
+#### identity
 
-`affine` transformations from N-dimensional inputs to M-dimensional outputs are represented at `(N)x(M+1)` matrices in homogeneous coordinates.
-The matrix may be stored as a 2D array or as a 1D array (row-major).
-
-<dl>
-  <dt><strong>path</strong></dt>
-  <dd>  The path to an array containing the affine parameters.
-	The array at this path MUST be 1D or 2D. If 1D, its length MUST be `N*(M+1)`.
-	If 2D, its shape MUST be `N x M+1`.</dd>
-  <dt><strong>url</strong></dt>
-  <dd>  An optional URL to the container in which the affine array is stored. If not provided,
-        the provided `path` MUST exist in this container.</dd>
-  <dt><strong>affine</strong></dt>
-  <dd> 	The affine parameters stored in JSON. If stored as a flat list of numbers the list MUST be length `N*(M+1)`.
-	If stored as a list of lists, the outer list MUST be length `N`, and inner lists MUST be length `(M+1)`.</dd>
-</dl>
-
-A 2D-2D example:
-```json
-{
-    "type": "affine",
-    "affine": [1, 2, 3, 4, 5, 6],
-    "input" : ["i", "j"],
-    "output" : ["x", "y"]
-}
-```
-
-defines the function:
-
-```
-x = 1*i + 2*j + 3
-y = 4*i + 5*j + 6
-```
-
-A 2D - 3D example:
-```json
-{
-    "type": "affine",
-    "affine": [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    "input" : ["i", "j"],
-    "output" : ["x", "y", "z"]
-}
-```
-
-defines the function:
-
-```
-x = 1*i + 2*j + 3
-y = 4*i + 5*j + 6
-z = 7*i + 8*j + 9
-```
-
-The same transformation may also be written as:
-```json
-{
-    "type": "affine",
-    "affine": [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
-    "input" : ["i", "j"],
-    "output" : ["x", "y", "z"]
-}
-```
-
-#### scale
-
-`scale` transformations are special cases of affine transformations. When possible, a 
-scale transformation should be preferred to its equivalent affine. Input and output dimensionality MUST be
-identical and MUST equal the the length of the "scale" array.
-
-<dl>
-  <dt><strong>path</strong></dt>
-  <dd>  The path to an array containing the affine parameters.
-	The array at this path MUST be 1D, and its length MUST be `N`.</dd>
-  <dt><strong>url</strong></dt>
-  <dd>  An optional URL to the container in which the affine array is stored. If not provided,
-        the provided `path` MUST exist in this container.</dd>
-  <dt><strong>scale</strong></dt>
-  <dd> 	The scale parameters stored as a JSON  list of numbers. The list MUST have length `N`.</dd>
-</dl>
-
-For example
-```json
-{
-    "type": "scale",
-    "scale": [3, 2],
-    "input" : ["i", "j"],
-    "output" : ["x", "y"]
-}
-```
-
-defines the function:
-
-```
-x = 3 * i
-y = 2 * j
-```
+`identity` transformation maps input coordinates to output coordinates without modification. `identity`
+transformations are invertible.
 
 #### translation
 
 `translation` transformations are special cases of affine transformations. When possible, a 
 translation transformation should be preferred to its equivalent affine. Input and output dimensionality MUST be
-identical and MUST equal the the length of the "translation" array.
+identical and MUST equal the the length of the "translation" array. `translation` transformations are
+invertible.
 
 <dl>
   <dt><strong>path</strong></dt>
@@ -565,11 +445,150 @@ x = i + 9
 y = j - 1
 ```
 
+#### scale
+
+`scale` transformations are special cases of affine transformations. When possible, a scale transformation
+should be preferred to its equivalent affine. Input and output dimensionality MUST be identical and MUST equal
+the the length of the "scale" array. Values in the `scale` array SHOULD be non-zero; in that case, `scale`
+transformations are invertible.
+
+<dl>
+  <dt><strong>path</strong></dt>
+  <dd>  The path to an array containing the affine parameters.
+	The array at this path MUST be 1D, and its length MUST be `N`.</dd>
+  <dt><strong>url</strong></dt>
+  <dd>  An optional URL to the container in which the affine array is stored. If not provided,
+        the provided `path` MUST exist in this container.</dd>
+  <dt><strong>scale</strong></dt>
+  <dd> 	The scale parameters stored as a JSON  list of numbers. The list MUST have length `N`.</dd>
+</dl>
+
+For example
+```json
+{
+    "type": "scale",
+    "scale": [3, 2],
+    "input" : ["i", "j"],
+    "output" : ["x", "y"]
+}
+```
+
+defines the function:
+
+```
+x = 3 * i
+y = 2 * j
+```
+
+#### affine
+
+`affine` transformations from N-dimensional inputs to M-dimensional outputs are represented at `(N)x(M+1)`
+matrices in homogeneous coordinates. This transformation type is invertible when `N` equals `M`.
+The matrix may be stored as a 2D array or as a 1D array (row-major).
+
+<dl>
+  <dt><strong>path</strong></dt>
+  <dd>  The path to an array containing the affine parameters.
+	The array at this path MUST be 1D or 2D. If 1D, its length MUST be `N*(M+1)`.
+	If 2D, its shape MUST be `N x M+1`.</dd>
+  <dt><strong>url</strong></dt>
+  <dd>  An optional URL to the container in which the affine array is stored. If not provided,
+        the provided `path` MUST exist in this container.</dd>
+  <dt><strong>affine</strong></dt>
+  <dd> 	The affine parameters stored in JSON. If stored as a flat list of numbers the list MUST be length `N*(M+1)`.
+	If stored as a list of lists, the outer list MUST be length `N`, and inner lists MUST be length `(M+1)`.</dd>
+</dl>
+
+<div class=example>
+    A 2D-2D example:
+    ```json
+    {
+        "type": "affine",
+        "affine": [1, 2, 3, 4, 5, 6],
+        "input" : ["i", "j"],
+        "output" : ["x", "y"]
+    }
+    ```
+
+    defines the function:
+
+    ```
+    x = 1*i + 2*j + 3
+    y = 4*i + 5*j + 6
+    ```
+</div>
+
+<div class=example>
+    An example with two dimensional inputs and three dimensional outputs.
+    ```json
+    {
+        "type": "affine",
+        "affine": [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        "input" : ["i", "j"],
+        "output" : ["x", "y", "z"]
+    }
+    ```
+
+    defines the function:
+
+    ```
+    x = 1*i + 2*j + 3
+    y = 4*i + 5*j + 6
+    z = 7*i + 8*j + 9
+    ```
+
+    The same transformation may also be written as:
+    ```json
+    {
+        "type": "affine",
+        "affine": [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+        "input" : ["i", "j"],
+        "output" : ["x", "y", "z"]
+    }
+    ```
+</div>
+
+
+#### sequence
+
+A `sequence` transformation consist of an ordered array of coordinate transformations.
+`sequence` transformations are invertible if and only if every coordinate transform in the array
+is invertible.
+
+The `input` and `output` fields MAY be omitted for transformations that are in the list
+of transformations of a `sequence`.
+
+<div class=example>
+For example, this sequence:
+```json
+{
+    "type" : "sequence",
+    "transformations" : [
+        { "type": "translation", "translation" : [0.1, 0.9] },
+        { "type": "scale", "scale" : [2, 3] }
+    ]
+    "input" : ["i", "j"],
+    "output" : ["x", "y"]
+}
+```
+
+describes the function
+
+```
+x = (i + 0.1) * 2
+y = (j + 0.9) * 3
+```
+
+</div>
+
+
+
 #### coordinateField and displacementField
 
-`coordinateField` and `displacementField` transformations store coordinates or displacements in an array. Applying the transformation amounts
-to looking up the appropriate locations in the array, and interpolating. Metadata for these coordinate
-transforms have the following field: 
+`coordinateField` and `displacementField` transformations store coordinates or displacements in an array.
+Applying the transformation amounts to looking up the appropriate locations in the array, and interpolating.
+`coordinateField` and `displacementField` transformations are note invertible in general, but implementations
+MAY approximate their inverses. Metadata for these coordinate transforms have the following field: 
 
 <dl>
   <dt><strong>path</strong></dt>
@@ -591,7 +610,7 @@ transforms have the following field:
 The array data at `path` MUST define space and coordinate transform metadata:
 
 * space metadata MUST have exactly one axis with `"type" : "coordinate"`
-* Every axis in the `coordinateTransform`'s `inputSpace` MUST appear in the space
+* Every axis name in the `coordinateTransform`'s `input` MUST appear in the space
 * The array dimension corresponding to the coordinate axis MUST have length greater than or equal to the dimensionality of the `coordinateTransform` `output`
 * SHOULD have `name` equal to the `name` of the corresponding `coordinateTransform`.
 
@@ -700,9 +719,9 @@ on subsets of dimensions.
 <dl>
   <dt><strong>transformations</strong></dt>
   <dd>  A list of transformations, each of which applies to a subset of input and output dimensions (axes). 
-        Every transformation in this list MUST have the fields `inputAxes` and `outputAxes` fields.
-        Every axis name in `input` MUST appear in this parent objects `input` axes.
-        Every axis in the parent `dimensionWise`'s `outputSpace` MUST appear in exactly one 
+        The values of `input` and `output` fields MUST be an array of strings.
+        Every axis name in `input` MUST appear in this parent object's `input` axes.
+        Every axis name in the parent dimensionWise's output MUST appear in exactly one 
         of its child transformations' `output`.
         </dd>
 </dl>
@@ -820,6 +839,65 @@ transformation type, for example:
     }
 }
 ```
+
+### Spaces and axes
+
+Every coordinate transformation MUST specify its output coordinate system using `output` to with a string value
+corresponding to the name of an output space or with an array of strings to provide a list of axis names.
+Similarly, every coordinate transformation SHOULD specify its input coordinate system either using `input`. If
+`input` is not provided the transformation's input is in array-space.
+
+Coordinate transformations may be defined as sequences of transformations, each of which applies to a subspace.
+Which subspace should be defined by providing arrays of strings as the values for the `input` and `output`
+fields. An axis name MUST appear in exactly one `output` lists.
+
+
+<div class=example>
+A simple example
+```json
+{
+    "type" : "sequence",
+    "transformations" : [
+        {
+            "type": "scale",
+            "scale" : [ 0.5, 0.5 ],
+            "input" : ["dim_1", "dim_2"],
+            "output" : ["x", "y"],
+        },
+        {
+            "type": "scale",
+            "scale" : [ 2 ],
+            "input" : ["dim_0"],
+            "output" : ["t"],
+        }
+    ]
+}
+```
+
+```json
+{
+    "type" : "sequence",
+    "transformations" : [
+        {
+            "type": "inverseOf",
+            "transformation" : {
+                "name": "nonlinear-inverse",
+                "type": "displacementField",
+                "path": "/path/to/my/transform",
+                "input" : ["i", "j"],
+                "output" : ["x", "y"],
+            },
+        },
+        {
+            "type": "scale",
+            "scale" : [ 2 ]
+            "input" : ["k"],
+            "output" : ["z"],
+        }
+    ]
+}
+```
+</div>
 
 
 "multiscales" metadata {#multiscale-md}
