@@ -356,13 +356,12 @@ of some coordinate transformations (see the Details section below will note thos
   <tr><th>`affine`
     <td> one of: <br>`"affine":List[number]`, <br>`"path":str`
     <td>affine transformation matrix stored as a flat array stored either with json uing the affine field
-    or as binary data at a location in this container (path). If both are present, path is
-    preferred.
+    or as binary data at a location in this container (path). If both are present, the binary values at path should be used.
   <tr><th>`rotation`
     <td> one of: <br>`"rotation":List[number]`, <br>`"path":str`
-    <td>rotation transformation matrix stored as a flat array stored either with json uing the rotation field
-    or as binary data at a location in this container (path). If both are present, path is
-    preferred.
+    <td>rotation transformation matrix stored as an array stored either
+        with json or as binary data at a location in this container (path).
+        If both are present, the binary parameters at path are used.
   <tr><th>`sequence`
     <td> `"transformations":List[Transformation]`
     <td>A sequence of transformations, Applying the sequence applies the composition of all transforms in the
@@ -448,7 +447,7 @@ y = j - 1
 #### scale
 
 `scale` transformations are special cases of affine transformations. When possible, a scale transformation
-should be preferred to its equivalent affine. Input and output dimensionality MUST be identical and MUST equal
+SHOULD be defined to its equivalent affine. Input and output dimensionality MUST be identical and MUST equal
 the the length of the "scale" array. Values in the `scale` array SHOULD be non-zero; in that case, `scale`
 transformations are invertible.
 
@@ -495,8 +494,10 @@ The matrix may be stored as a 2D array or as a 1D array (row-major).
   <dd>  An optional URL to the container in which the affine array is stored. If not provided,
         the provided `path` MUST exist in this container.</dd>
   <dt><strong>affine</strong></dt>
-  <dd> 	The affine parameters stored in JSON. If stored as a flat list of numbers the list MUST be length `N*(M+1)`.
-	If stored as a list of lists, the outer list MUST be length `N`, and inner lists MUST be length `(M+1)`.</dd>
+  <dd> 	The affine parameters stored in JSON. The matrix may be stored
+        as a row-major flat list of numbers the list MUST be length `N*(M+1)`.  If stored as a list of
+        lists, the outer list MUST be length `N`, and all inner lists MUST be
+        length `(M+1)`. In this case, inner lists contain rows of the matrix.  </dd>
 </dl>
 
 <div class=example>
@@ -545,6 +546,51 @@ The matrix may be stored as a 2D array or as a 1D array (row-major).
         "input" : ["i", "j"],
         "output" : ["x", "y", "z"]
     }
+    ```
+</div>
+
+
+#### rotation
+
+`rotation` transformations are special cases of affine transformations.
+When possible, a rotation transformation SHOULD be defined rather than
+its equivalent affine. Input and output dimensionality (N) MUST be
+identical and greater than 1. Rotations are stored as `NxN` matrices,
+see below, and MUST have determinant equal to one, with orthonormal rows
+and columns. `rotation` transformations are invertible.
+
+<dl>
+  <dt><strong>path</strong></dt>
+  <dd>  The path to an array containing the affine parameters.
+	The array at this path MUST be 1D or 2D. If 1D, its length MUST be `N*N`.
+	If 2D, its shape MUST be `N x N`.</dd>
+  <dt><strong>url</strong></dt>
+  <dd>  An optional URL to the container in which the affine array is stored. If not provided,
+        the provided `path` MUST exist in this container.</dd>
+  <dt><strong>rotation</strong></dt>
+  <dd>The rotation parameters stored in JSON. The matrix may be stored
+  as a row-major flat list of numbers. Int that case, the list MUST be
+  length `N*N`. The matrix may bes stored a list of lists, the outer list MUST be
+  length `N`, and all inner lists MUST be length `N`. In this case,
+  inner lists contain rows of the matrix. </dd>
+</dl>
+
+<div class=example>
+    A 2D example
+    ```json
+    {
+        "type": "rotation",
+        "affine": [0, 1, 1, 0],
+        "input" : ["i", "j"],
+        "output" : ["x", "y"]
+    }
+    ```
+
+    defines the function:
+
+    ```
+    x = 0*i + 1*j
+    y = 1*i + 0*j
     ```
 </div>
 
