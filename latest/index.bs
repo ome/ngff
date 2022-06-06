@@ -364,10 +364,10 @@ of some coordinate transformations (see the Details section below will note thos
     <td> `"transformations":List[Transformation]`
     <td>A sequence of transformations, Applying the sequence applies the composition of all transforms in the
     list, in order. An empty sequence is the identity transformation.
-  <tr><th>`displacementField`
+  <tr><th>`displacements`
     <td>`"url":str`<br>`"path":str`<br>`"interpolation":str`
     <td>Displacement field transformation in this container (path) or another container located at (url).
-  <tr><th>`coordinateField`
+  <tr><th>`coordinates`
     <td>`"url":str`<br>`"path":str`<br>`"interpolation":str`
     <td>Coordinate field transformation in this container (path) or another container located at (url).
   <tr><th>`inverseOf`
@@ -593,6 +593,10 @@ and columns. `rotation` transformations are invertible.
 </div>
 
 
+#### inverseOf
+
+A
+
 #### sequence
 
 A `sequence` transformation consist of an ordered array of coordinate transformations.
@@ -627,11 +631,11 @@ y = (j + 0.9) * 3
 
 
 
-#### coordinateField and displacementField
+#### coordinates and displacements
 
-`coordinateField` and `displacementField` transformations store coordinates or displacements in an array.
+`coordinates` and `displacements` transformations store coordinates or displacements in an array.
 Applying the transformation amounts to looking up the appropriate locations in the array, and interpolating.
-`coordinateField` and `displacementField` transformations are note invertible in general, but implementations
+`coordinates` and `displacements` transformations are note invertible in general, but implementations
 MAY approximate their inverses. Metadata for these coordinate transforms have the following field: 
 
 <dl>
@@ -658,12 +662,12 @@ The array data at `path` MUST define space and coordinate transform metadata:
 * The array dimension corresponding to the coordinate axis MUST have length greater than or equal to the dimensionality of the `coordinateTransform` `output`
 * SHOULD have `name` equal to the `name` of the corresponding `coordinateTransform`.
 
-For a `coordinateField`:
+For `coordinates`:
 
-* If a `coordinateField`s input space has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(ni + 1)`.
+* If a `coordinates`' input space has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(ni + 1)`.
 * space metadata MUST have exactly one axis with `"type" : "coordinate"`
 
-For a `displacementField`:
+For `displacements`:
 * space metadata MUST have exactly one axis with `"type" : "displacement"`
 * `input` and `output` MUST have an equal number of dimensions.
 
@@ -671,7 +675,7 @@ For example, in 1D:
 ```
 {
     "name" : "a coordinate field transform",
-    "type": "coordinateField",
+    "type": "coordinates",
     "path" : "coordinates",
     "input" : ["i"],
     "output" : ["x"],
@@ -714,7 +718,7 @@ A 1D example displacement field:
 ```
 {
     "name" : "a displacement field transform",
-    "type": "displacementField",
+    "type": "displacements",
     "path" : "displacements",
     "input" : ["x"],
     "output" : ["y"],
@@ -785,7 +789,7 @@ This is a valid `dimensionWise` transformation:
             "input" : "in",
             "output" : "out",
             "transformations" : [
-                { "type" : "coordinateField", "path" : "/coordinates", "inputAxes" : ["i"], "outputAxes" : ["x"]}
+                { "type" : "coordinates", "path" : "/coordinates", "inputAxes" : ["i"], "outputAxes" : ["x"]}
                 { "type" : "scale", "scale" : [2.0], "inputAxes" : ["j"], "outputAxes" : ["y"]}
             ]
         }
@@ -808,7 +812,7 @@ This is also a valid transformation:
             "input" : "in",
             "output" : "out",
             "transformations" : [
-                { "type" : "coordinateField", "path" : "/coordinates", "input" : ["0","3" ], "output" : ["y", "x"]}
+                { "type" : "coordinates", "path" : "/coordinates", "input" : ["0","3" ], "output" : ["y", "x"]}
                 { "type" : "scale", "scale" : [2.0], "input" : ["1"], "output" : ["z"]}
             ]
         }
@@ -832,7 +836,7 @@ This is an invalid `dimensionWise` transform:
             "input" : "in",
             "output" : "out",
             "transformations" : [
-                { "type" : "coordinateField", "path" : "/coordinates", "input" : ["i"], "output" : ["z"]}
+                { "type" : "coordinates", "path" : "/coordinates", "input" : ["i"], "output" : ["z"]}
                 { "type" : "scale", "scale" : [2.0], "input" : ["0"], "output" : ["y"]}
             ]
         }
@@ -842,6 +846,52 @@ This is an invalid `dimensionWise` transform:
 
 for two reasons. First because input"0" used by the scale transformation is not an axis of the `dimensionWise` transformation's
 `input`. Second, the "x" axis of the `output` does not appear in the `output` of any child transformation.
+
+
+#### bijection
+
+A bijection transformation is an invertible transformation in which both the `forward` and `inverse` transformations
+are explicitly defined. Each direction SHOULD be a transformation type that is not closed-form invertible.
+Its' input and output spaces MUST have equal dimension. The input and output dimensions for the both the forward
+and inverse transformations MUST match bijection's input and output space dimensions.
+
+`input` and `output` fields MAY be omitted for the `forward` and `inverse` transformations, in which case
+the `forward` transformation's `input` and `output` are understood to match the bijection's, and the `inverse`
+transformation's `input` (`output`) matches the bijection's `output` (`input`), see the example below.
+
+Practically, non-invertible transformations have finite extents, so bijection transforms should only be expected
+to be correct / consistent for points that fall within those extents. It may not be correct for any point of
+approprite dimensionality.
+
+<div class=example>
+For example
+```json
+{
+    "type" : "bijection",
+    "forward" :{ "type" : "coordinates", "path" : "/forward_coordinates" },
+    "inverse" :{ "type" : "coordinates", "path" : "/inverse_coordinates" },
+    "input" : "src",
+    "output" : "tgt"
+}
+```
+
+the input and output of the `forward` and `inverse` transformations are understoood to be:
+
+
+```json
+{
+    "type" : "bijection",
+    "forward" :{ "type" : "coordinates", "path" : "/forward_coordinates", 
+                 "input" : "src", "output" : "tgt" },
+    "inverse" :{ "type" : "coordinates", "path" : "/inverse_coordinates", 
+                 "input" : "tgt", "output" : "src" },
+    "input" : "src",
+    "output" : "tgt"
+}
+```
+
+</div>
+
 
 
 ### Points, coordinates, direction, and indexing
@@ -878,7 +928,7 @@ transformation type, for example:
     "type": "inverseOf",
     "transformation" : {
         "name": "nonlinear-inverse",
-        "type": "displacementField",
+        "type": "displacements",
         "path": "/path/to/my/transform",
     }
 }
@@ -926,7 +976,7 @@ A simple example
             "type": "inverseOf",
             "transformation" : {
                 "name": "nonlinear-inverse",
-                "type": "displacementField",
+                "type": "displacements",
                 "path": "/path/to/my/transform",
                 "input" : ["i", "j"],
                 "output" : ["x", "y"],
