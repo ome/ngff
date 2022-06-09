@@ -269,9 +269,12 @@ space. For the above example, the `"x"` dimension is the first dimension.
 
 ### Array space and indexing
 
-Every array has a default coordinate system we call "array space" whose parameters need not be explicitly defined.
+Every array has a default coordinate system called "array space" whose parameters need not be explicitly defined.
 Its name is the path to the array in the container, its axes have `"type":"array"`, are unitless, and have
-default "name"s. The ith axis has `"name":"dim_i"`. For example, a 3D array space at path `/my/data/array` is:
+default "name"s. The ith axis has `"name":"dim_i"`. 
+
+<div class=example>
+For example, a 3D array space at path `/my/data/array` is:
 
 ```json
 {
@@ -284,30 +287,35 @@ default "name"s. The ith axis has `"name":"dim_i"`. For example, a 3D array spac
 }
 ```
 
-though this object should not and need not explicitly appear in metadata. The dimensionality of each array space 
-equals the dimensionality of its corresponding zarr array.  The axis with name `"dim_i"` is the ith element of
-the `"axes"` list. The axes and their order align with the `shape` attribute in the zarr array attributes (in
-`.zarray`), and whose data depends on the byte order used to store chunks. As described in the [zarr array
-metadata](https://zarr.readthedocs.io/en/stable/spec/v2.html#arrays), the last dimension of an array in "C"
-order (row-major) are stored contiguously. For an array in "F" (column-major) order, the elements of the first
-dimension are stored contiguously.
+though this object should not and need not explicitly appear in metadata. 
+</div>
 
-For example, if `/my/data/array/.zarray` contains:
 
-```json
-{
-    "chunks": [ 4, 3, 5 ],
-    "compressor": null,
-    "dtype": "|u1",
-    "fill_value": 0,
-    "filters": null,
-    "order": "C",
-    "shape": [ 4, 3, 5 ],
-    "zarr_format": 2
-}
-```
+The dimensionality of each array space equals the dimensionality of its corresponding zarr array.  The axis with
+name `"dim_i"` is the ith element of the `"axes"` list. The axes and their order align with the `shape`
+attribute in the zarr array attributes (in `.zarray`), and whose data depends on the byte order used to store
+chunks. As described in the [zarr array metadata](https://zarr.readthedocs.io/en/stable/spec/v2.html#arrays),
+the last dimension of an array in "C" order (row-major) are stored contiguously. For an array in "F"
+(column-major) order, the elements of the first dimension are stored contiguously.
 
-Then `dim_0` has length 4, `dim_1` has length 3, and `dim_2` has length 5.
+<div class=example>
+    For example, if `/my/data/array/.zarray` contains:
+
+    ```json
+    {
+        "chunks": [ 4, 3, 5 ],
+        "compressor": null,
+        "dtype": "|u1",
+        "fill_value": 0,
+        "filters": null,
+        "order": "C",
+        "shape": [ 4, 3, 5 ],
+        "zarr_format": 2
+    }
+    ```
+
+    Then `dim_0` has length 4, `dim_1` has length 3, and `dim_2` has length 5.
+</div>
 
 
 ### Coordinate convention
@@ -328,15 +336,22 @@ half-open interval `[-0.5, 0.5) x [-0.5, 0.5)`. See chapter 4 and figure 4.1 of 
 "coordinateTransformations" describe map between two coordinate spaces (defined by "axes").
 For example, to map a discrete data space of an array to the corresponding physical space.
 Coordinate transforms are in the "forward" direction. They represent functions from *points* in the
-input space to *points* in the output space. Implementations SHOULD be able to compute and apply the inverse
-of some coordinate transformations (see the Details section below will note those transform types).
+input space to *points* in the output space. 
+
+Implementations SHOULD be able to compute and apply the inverse of some coordinate transformations whose
+inverses are computable in closed-form (see the Details section below will note those transform types). If an
+operation is requested that requires the inverse of a transformation that can not be inverted in closed-form,
+implementations MAY estimate their inverses, or MAY output a warning that the requested operation is
+unsupported.
 
 
 - MUST contain the field "type".
 - MUST contain any other fields required by the given "type" (see table below).
 - MUST contain the field "output", unless part of a `sequence` (see details).
 - SHOULD contain the field "input", unless part of a `sequence` (see details).
+- MAY contain the fields "inputAxes" and / or "outputAxes" (see below).
 - MAY contain the field "name". Its value MUST be unique across all "name" fields for coordinate transformations.
+- MAY contain the fields "inputAxes" and "outputAxes" (see below).
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
 
 <table>
@@ -392,8 +407,7 @@ Conforming readers:
 
 
 
-
-### Details
+### Transformation types
 
 Input and output dimensionality may be determined by the value of the "input" and "output" fields, respectively. If the value
 of "input" is an array, it's length gives the input dimension, otherwise the length of "axes" for the coordinate
@@ -404,8 +418,40 @@ otherwise it is given by the length of "axes" for the coordinate system with the
 
 #### identity
 
-`identity` transformation maps input coordinates to output coordinates without modification. `identity`
-transformations are invertible.
+`identity` transformations map input coordinates to output coordinates without modification. The position of
+the ith axis of the output coordinate system is set to the position of the ith axis of the input coordinate
+system. `identity` transformations are invertible.
+
+<div class=example>
+
+```json
+{
+    "coordinateSystems" : [
+        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j"} ]},
+        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"} ]}
+    ],
+    "coordinateTransformations" : [ 
+        { "type" : "identity", "input" : "in", "output" : "out" }
+    ]
+}
+```
+
+defines the function:
+
+```
+x = i
+y = j
+```
+
+</div>
+
+`identity` transformations may be used to implement axis permutations by using the `inputAxes` and `outputAxes`
+fields (see below).
+
+
+#### axisPermutation
+
+(The same as identity, but give a different type to mark what it's doing)
 
 #### translation
 
@@ -595,11 +641,42 @@ and columns. `rotation` transformations are invertible.
 
 #### inverseOf
 
-A
+An `inverseOf` transformation contain another transformation (often non-linear), and indicates that
+transforming points from output to input coordinate systems is possible using the contained transformation.
+Transforming points from the input to the output coordinate systems requires the inverse of the contained
+transformation (if it exists).
+
+<div class=note>
+    Software libraries that perform image registration often return the transformation from fixed image
+    coordinates to moving image coordinates, because this "inverse" transformation is most often required
+    when rendering the transformed moving image. Results such as this should be enclosed in an `inverseOf`
+    transformation. This enables the "outer" coordinate transformation to specify the moving image coordinates
+    as `input` and fixed image coordinates as `output`, a choice that many users and developers find intuitive.
+</div>
+
+
+<div class=example>
+For example 
+
+```json
+"coordinateSystems" : [
+    { "name" : "moving", "axes" : [{"name" : "x-moving"}, {"name":"y-moving"}] }
+    { "name" : "fixed", "axes" : [{"name" : "x-fixed"}, {"name":"y-fixed"}] }
+],
+"coordinateTransformations" : [
+    {
+        "type": "inverseOf",
+        "transformation" : { "type": "displacements", "path": "/path/to/displacements" }
+        "input" : "moving",
+        "output" : "fixed",
+    }
+]
+```
+</div>
 
 #### sequence
 
-A `sequence` transformation consist of an ordered array of coordinate transformations.
+A `sequence` transformation consists of an ordered array of coordinate transformations.
 `sequence` transformations are invertible if and only if every coordinate transform in the array
 is invertible.
 
@@ -629,6 +706,77 @@ y = (j + 0.9) * 3
 
 </div>
 
+
+
+This is a valid `sequence` transformation:
+
+```json
+{
+    "coordinateSystems" : [
+        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j"} ] },
+        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"} ] }
+    ],
+    "coordinateTransformations" : [
+        {
+            "type: "sequence",
+            "input" : "in",
+            "output" : "out",
+            "transformations" : [
+                { "type" : "coordinates", "path" : "/coordinates", "inputAxes" : ["i"], "outputAxes" : ["x"]}
+                { "type" : "scale", "scale" : [2.0], "inputAxes" : ["j"], "outputAxes" : ["y"]}
+            ]
+        }
+    ]
+}
+```
+
+This is also a valid transformation:
+
+```json
+{
+    "coordinateSystems" : [
+        { "name" : "in", "axes" : [ {"name" : "0"}, {"name" : "1"}, {"name" : "2"}, {"name" : "3"}] },
+        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"}, {"name" : "z"}  ] }
+    ],
+    "coordinateTransformations" : [
+        {
+            "type: "sequence",
+            "input" : "in",
+            "output" : "out",
+            "transformations" : [
+                { "type" : "coordinates", "path" : "/coordinates", "input" : ["0","3" ], "output" : ["y", "x"]}
+                { "type" : "scale", "scale" : [2.0], "input" : ["1"], "output" : ["z"]}
+            ]
+        }
+    ]
+}
+```
+
+
+This is an invalid `sequence` transform:
+
+```json
+{
+    "spaces" : [
+        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j"} ] },
+        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"} ] }
+    ],
+    "transforms" : [
+        {
+            "type: "sequence",
+            "input" : "in",
+            "output" : "out",
+            "transformations" : [
+                { "type" : "coordinates", "path" : "/coordinates", "inputAxes" : ["i"], "outputAxes" : ["z"]}
+                { "type" : "scale", "scale" : [2.0], "inputAxes" : ["0"], "outputAxes" : ["y"]}
+            ]
+        }
+    ]
+}
+```
+
+for two reasons. First because input"0" used by the scale transformation is not an axis of the `sequence` transformation's
+`input`. Second, the "x" axis of the `output` does not appear in the `output` of any child transformation.
 
 
 #### coordinates and displacements
@@ -892,6 +1040,122 @@ the input and output of the `forward` and `inverse` transformations are understo
 
 </div>
 
+### `inputAxes` and `outputAxes`
+
+`inputAxes` and `outputAxes` are optional fields for transformations to express that it applies to a subset 
+or reording of the axes of the input or output coordinate system, respectively.  If not present, the `inputAxes`
+(`outputAxes`) are understood to be a list of the `input` (`output`) coordinate systems axis names, in the
+order they appear in the coordinate system's `axes` list. If present:
+
+- the values for `inputAxes` and `outputAxes` MUST be a list of strings.
+- every string in the `inputAxes` list MUST appear as a name for an axes of the transformations input coordinate system.
+- every string in the `outputAxes` list MUST appear as a name for an axes of the transformations output coordinate system.
+- every axis name in the output coordinate system MUST appear either as an axis name of the input coordinate system or in the list of `outputAxes`
+
+<div class=example>
+
+An `identity` may be used to permute axes by setting
+the `inputAxes` and / or `outputAxes` fields appropriately (see below).
+
+```json
+{
+    "coordinateSystems" : [
+        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j"} ]},
+        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"} ]}
+    ],
+    "coordinateTransformations" : [ 
+        { 
+          "type" : "identity",
+          "input" : "in",
+          "output" : "out",
+          "inputAxes" : ["i", "j"],
+          "outputAxes" : ["y", "x"]
+       }
+    ]
+}
+```
+
+defines the function:
+
+```
+x = j
+y = i
+```
+
+</div>
+
+
+<div class=example>
+    A valid example
+
+    ```json
+    "coordinateSystems" : [ 
+        { "name " : "in", "axes" : [ {"name" : "x", "name" : "y" }] }
+        { "name " : "out", "axes" : [ {"name" : "x", "name" : "y" }] }
+    ]
+    {
+        "type": "scale",
+        "scale" : [2],
+        "input" : "in"
+        "output" : "out",
+        "inputAxes" : ["y"],
+        "outputAxes" : ["y"]
+    }
+    ```
+    scales the `y` axis only.
+
+</div>
+
+<div class=example>
+    An invalid example
+
+    ```json
+    "coordinateSystems" : [ 
+        { "name " : "in", "axes" : [ {"name" : "i", "name" : "j" }] }
+        { "name " : "out", "axes" : [ {"name" : "x", "name" : "y" }] }
+    ]
+    "coordinateTransformations" : [
+        {
+            "type": "scale",
+            "scale" : [2],
+            "input" : "in"
+            "output" : "out",
+            "inputAxes" : ["j"],
+            "outputAxes" : ["y"]
+        }
+    ]
+    ```
+
+    Is invalid because the axis name `x` of the output coordinate system does not appear in the list of `outputAxes`,
+    nor does it appear in the axis names of the coordinate system `in`. Instead, a `sequence` transformation can
+    be defined, such that every axis in the output space appears in at least one of the `outputAxes` of the
+    sequence's transformations. For example (asuming the same coordinate systems as above):
+
+    ```json
+    {
+        "type": "sequence",
+        "transformations" : [
+            {
+                "type": "scale",
+                "scale" : [2],
+                "inputAxes" : ["j"],
+                "outputAxes" : ["y"]
+            },
+            {
+                "type": "identity",
+                "inputAxes" : ["i"],
+                "outputAxes" : ["x"]
+            }
+        ],
+        "input" : "in"
+        "output" : "out",
+    }
+    ```
+
+    is valid.
+
+</div>
+
 
 
 ### Points, coordinates, direction, and indexing
@@ -938,7 +1202,7 @@ transformation type, for example:
 
 Every coordinate transformation MUST specify its output coordinate system using `output` to with a string value
 corresponding to the name of an output space or with an array of strings to provide a list of axis names.
-Similarly, every coordinate transformation SHOULD specify its input coordinate system either using `input`. If
+Similarly, every coordinate transformation SHOULD specify its input coordinate system using the `input`. If
 `input` is not provided the transformation's input is in array-space.
 
 Coordinate transformations may be defined as sequences of transformations, each of which applies to a subspace.
