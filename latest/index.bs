@@ -401,6 +401,8 @@ it MAY include a key `image` whose value MUST be a string specifying the relativ
 path to a Zarr image group. The default value is "../../" since most labels are stored
 under a subgroup named "labels/" (see above).
 
+The `image-label` dictionary SHOULD contain a `version` key whose value MUST be a string
+specifying the version of the image-label specification.
 
 <pre class=include-code>
 path: examples/image-label_strict/color_properties.json
