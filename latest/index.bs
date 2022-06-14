@@ -377,63 +377,35 @@ in which each unique pixel value represents a separate segmented object.
 `image-label` groups MUST also contain `multiscales` metadata and the two
 "datasets" series MUST have the same number of entries.
 
-The `colors` key defines a list of JSON objects describing the unique label
-values. Each entry in the list MUST contain the key "label-value" with the
-pixel value for that label. Additionally, the "rgba" key MAY be present, the
-value for which is an RGBA unsigned-int 4-tuple: `[uint8, uint8, uint8, uint8]`
-All `label-value`s must be unique. Clients who choose to not throw an error
-should ignore all except the _last_ entry.
+The `image-label` dictionary SHOULD contain a `colors` key whose value MUST be a
+list of JSON objects describing the unique label values. Each color object MUST
+contain the `label-value` key whose value MUST be an integer specifying the
+pixel value for that label. It MAY contain an `rgba` key whose value MUST be an tuple
+of four integers between 0 and 255 `[uint8, uint8, uint8, uint8]` specifying the label
+color as RGBA. All the values under the `label-value` key MUST be unique. Clients
+who choose to not throw an error SHOULD ignore all except the _last_ entry.
 
-Some implementations may represent overlapping labels by using a specially assigned
+Some implementations MAY represent overlapping labels by using a specially assigned
 value, for example the highest integer available in the pixel range.
 
-The `properties` key defines a list of JSON objects which also describes the unique
-label values. Each entry in the list MUST contain the key "label-value" with the
-pixel value for that label. Additionally, an arbitrary number of key-value pairs
+The `image-label` dictionary MAY contain a `properties` key whose value MUST be a
+ist of JSON objects which also describes the unique label values. Each property object
+MUST contain the `label-value` key whose value MUST be an integer specifying the pixel
+value for that label. Additionally, an arbitrary number of key-value pairs
 MAY be present for each label value denoting associated metadata. Not all label
 values must share the same key-value pairs within the properties list.
 
-The `source` key is an optional dictionary which contains information on the
-image the label is associated with. If included it MAY include a key `image`
-whose value is the relative path to a Zarr image group. The default value is
-"../../" since most labels are stored under a subgroup named "labels/" (see
-above).
+The `image-label` dictionary MAY contain a `source` key whose value MUST be a JSON
+object conatining information on the image the label is associated with. If included,
+it MAY include a key `image` whose value MUST be a string specifying the relative
+path to a Zarr image group. The default value is "../../" since most labels are stored
+under a subgroup named "labels/" (see above).
 
 
-```json
-"image-label":
-  {
-    "version": "0.5-dev",
-    "colors": [
-      {
-        "label-value": 1,
-        "rgba": [255, 255, 255, 0]
-      },
-      {
-        "label-value": 4,
-        "rgba": [0, 255, 255, 128]
-      },
-      ...
-      ],
-    "properties": [
-      {
-        "label-value": 1,
-        "area (pixels)": 1200,
-        "class": "foo"
-
-      },
-      {
-        "label-value": 4,
-        "area (pixels)": 1650
-      },
-      ...
-      ]
-  },
-  "source": {
-    "image": "../../"
-  }
-]
-```
+<pre class=include-code>
+path: examples/image-label_strict/color_properties.json
+highlight: json
+</pre>
 
 "plate" metadata {#plate-md}
 ----------------------------
