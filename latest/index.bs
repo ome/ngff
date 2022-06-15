@@ -389,7 +389,7 @@ Some implementations MAY represent overlapping labels by using a specially assig
 value, for example the highest integer available in the pixel range.
 
 The `image-label` dictionary MAY contain a `properties` key whose value MUST be a
-ist of JSON objects which also describes the unique label values. Each property object
+list of JSON objects which also describes the unique label values. Each property object
 MUST contain the `label-value` key whose value MUST be an integer specifying the pixel
 value for that label. Additionally, an arbitrary number of key-value pairs
 MAY be present for each label value denoting associated metadata. Not all label
