@@ -221,18 +221,50 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         │       ├── .zarray   # However, the obs columns SHOULD be chunked in the same way as the rows in X (if present).
         │       │
         │       └─ 0
-        └── var               # You MAY add a var group container. The var group holds a table of annotations on the columns in X.
-            │                 # The rows in var MUST be index-matched to the columns in X (if present). 
-            |
-            ├── .zattrs       # `.zattrs` MUST contain `"_index"`, which is the name of the column in obs to be used as the index.           
-            │                 # `.zattrs` MUST contain `"column-order"`, which is a list of the order of the non-_index columns.
-            │                 # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dataframe"` by AnnData.
-            │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
-            │
-            └── col_0         # Each column in the var table is a 1D zarr array. The rows can be chunked as the user desires.
-                ├── .zarray   # However, the var columns SHOULD be chunked in the same way as the columns in X.
-                │
-                └─ 0
+        ├── var               # You MAY add a var group container. The var group holds a table of annotations on the columns in X.
+        |   │                 # The rows in var MUST be index-matched to the columns in X (if present). 
+        |   |
+        |   ├── .zattrs       # `.zattrs` MUST contain `"_index"`, which is the name of the column in obs to be used as the index.           
+        |   │                 # `.zattrs` MUST contain `"column-order"`, which is a list of the order of the non-_index columns.
+        |   │                 # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dataframe"` by AnnData.
+        |   │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+        |   │
+        |   └── col_0         # Each column in the var table is a 1D zarr array. The rows can be chunked as the user desires.
+        |       ├── .zarray   # However, the var columns SHOULD be chunked in the same way as the columns in X.
+        |       │
+        |       └─ 0
+        |
+        ├── obsm              # You MAY add a obsm group comtainer. The obsm group contains arrays that annotate the rows in X.
+        |   │                 # The rows in each array MUST be index-matched to the rows in X (if present). 
+        |   |
+        │   ├── .zgroup
+        |   |
+        |   ├── .zattrs       # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dict"` by AnnData.           
+        |   │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+        |   │
+        │   └── obsm_0        # You MAY add a zarr array for each layer
+        |       |             # Each obsm array MUST have the same number of rows as X
+        |       |             # The rows in each obsm array SHOULD be chunked the same as the rows in X
+        |       ├── 0.0
+        │       │   ...
+        │       └── n.m
+        |
+        ├── varm              # You MAY add a varm group comtainer. The varm group contains arrays that annotate the columns in X.
+        |   │                 # The rows in each array MUST be index-matched to the columns in X (if present). 
+        |   |
+        │   ├── .zgroup
+        |   |
+        |   ├── .zattrs       # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dict"` by AnnData.           
+        |   │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+        |   │
+        │   └── varm_0        # You MAY add a zarr array for each layer
+        |       |             # Each varmm array MUST have the same number of columns as X
+        |       |             # The rows in each obsm array SHOULD be chunked the same as the columns in X
+        |       ├── 0.0
+        │       │   ...
+        │       └── n.m
+        |
+
 </pre>
 
 High-content screening {#hcs-layout}
