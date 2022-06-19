@@ -196,6 +196,17 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         │   ├── 0.0
         │   │   ...
         │   └── n.m
+        ├── layers            # You MAY add a `layers` group, which contains dense matrices with the same shape as X.
+        │   │
+        │   ├── .zgroup
+        │   ├── .zattrs
+        │   │
+        │   └── layer_0       # You MAY add a zarr array for each layer
+        |       |             # Each layer array MUST have the same shape as X
+        |       |             # Each layer array SHOULD be chunked the same as X
+        |       ├── 0.0
+        │       │   ...
+        │       └── n.m
         │        
         ├── obs               # You MAY add an obs group container. The obs group holds a table of annotations on the rows in X.
         │   │                 # The rows in obs MUST be index-matched to the rows in X.
