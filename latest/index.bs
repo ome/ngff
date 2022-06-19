@@ -205,6 +205,8 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         │   └── layer_0       # You MAY add a zarr array for each layer
         |       |             # Each layer array MUST have the same shape as X
         |       |             # Each layer array SHOULD be chunked the same as X
+        |       ├── .zarray
+        |       |
         |       ├── 0.0
         │       │   ...
         │       └── n.m
@@ -246,6 +248,8 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         │   └── obsm_0        # You MAY add a zarr array for each obsm matrix.
         |       |             # Each obsm array MUST have the same number of rows as X.
         |       |             # The rows in each obsm array SHOULD be chunked the same as the rows in X.
+        |       ├── .zarray
+        |       |
         |       ├── 0.0
         │       │   ...
         │       └── n.m
@@ -261,6 +265,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         │   └── varm_0        # You MAY add a zarr array for each varm matrix.
         |       |             # Each varmm array MUST have the same number of rows as columns in X.
         |       |             # The rows in each obsm array SHOULD be chunked the same as the columns in X.
+        |       ├── .zarray
         |       ├── 0.0
         │       │   ...
         │       └── n.m
@@ -284,6 +289,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |       |
         |       ├── data      # You MUST add a one-dimensional zarr array named "data". 
         |       |   |         # `data` MAY be chunked as the user desires.
+        |       |   ├── .zarray
         |       |   |
         |       |   ├── 0
         │       │   |   ...
@@ -291,6 +297,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |       |
         |       ├── indices   # You MUST add a one-dimensional zarr array named "indices".
         |       |   |         # `indices` MAY be chunked as the user desires.
+        |       |   ├── .zarray
         |       |   |
         |       |   ├── 0
         │       │   |   ...
@@ -298,6 +305,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |       |
         |       └── indptr    # You MUST add a one-dimensional zarr array named "indptr".
         |           |         # `indptr` MAY be chunked as the user desires.
+        |           ├── .zarray
         |           |
         |           ├── 0
         │           |   ...
@@ -322,6 +330,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |       |
         |       ├── data      # You MUST add a one-dimensional zarr array named "data". 
         |       |   |         # `data` MAY be chunked as the user desires.
+        |       |   ├── .zarray
         |       |   |
         |       |   ├── 0
         │       │   |   ...
@@ -329,6 +338,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |       |
         |       ├── indices   # You MUST add a one-dimensional zarr array named "indices".
         |       |   |         # `indices` MAY be chunked as the user desires.
+        |       |   ├── .zarray
         |       |   |
         |       |   ├── 0
         │       │   |   ...
@@ -336,6 +346,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |       |
         |       └── indptr    # You MUST add a one-dimensional zarr array named "indptr".
         |           |         # `indptr` MAY be chunked as the user desires.
+        |           ├── .zarray
         |           |
         |           ├── 0
         │           |   ...
