@@ -1,0 +1,16 @@
+{
+    "plate": {
+        "columns": [
+            {
+                "name": "1"
+            }
+        ],
+        "rows": [
+            {
+                "name": "A"
+            }
+        ],
+        "version": "0.1",
+        "wells": []
+    }
+}

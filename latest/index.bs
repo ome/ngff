@@ -13,14 +13,15 @@ Local Boilerplate: header yes
 Local Boilerplate: copyright yes
 Boilerplate: style-darkmode off
 Markup Shorthands: markdown yes
-Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
-Editor: Sébastien Besson, Open Microscopy Environment (OME) https://www.openmicroscopy.org
-Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/
+Editor: Josh Moore, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0003-4028-811X
+Editor: Sébastien Besson, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0001-8783-1429
+Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/, https://orcid.org/0000-0001-6562-7187
+Text Macro: NGFFVERSION 0.5-dev
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
 Status Text: The current released version of this specification is
-Status Text: <a href="../0.3/index.html">0.3</a>. Migration scripts
+Status Text: <a href="../0.4/index.html">0.4</a>. Migration scripts
 Status Text: will be provided between numbered versions. Data written with these latest changes
 Status Text: (an "editor's draft") will not necessarily be supported.
 </pre>
@@ -93,6 +94,16 @@ of bioimaging data, whether during acquisition or sharing in the cloud.
 Note: The following text makes use of OME-Zarr [[ome-zarr-py]], the current prototype implementation,
 for all examples.
 
+Document conventions
+--------------------
+
+The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”,
+“RECOMMENDED”, “MAY”, and “OPTIONAL” are to be interpreted as described in
+[RFC 2119](https://tools.ietf.org/html/rfc2119).
+
+Some of the JSON examples in this document include commments. However, these are only for
+clarity purposes and comments MUST NOT be included in JSON objects.
+
 On-disk (or in-cloud) layout {#on-disk}
 =======================================
 
@@ -102,13 +113,22 @@ is represented here as it would appear locally but could equally
 be stored on a web server to be accessed via HTTP or in object storage
 like S3 or GCS.
 
+OME-Zarr is an implementation of the OME-NGFF specification using the Zarr
+format. Arrays MUST be defined and stored in a hierarchical organization as
+defined by the
+[version 2 of the Zarr specification ](https://zarr.readthedocs.io/en/stable/spec/v2.html).
+OME-NGFF metadata MUST be stored as attributes in the corresponding Zarr
+groups.
+
 Images {#image-layout}
 ----------------------
 
 The following layout describes the expected Zarr hierarchy for images with
 multiple levels of resolutions and optionally associated labels.
+Note that the number of dimensions is variable between 2 and 5 and that axis names are arbitrary, see [[#multiscale-md]] for details.
+For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x`.
 
-```
+<pre>
 .                             # Root folder, potentially in S3,
 │                             # with a flat list of images by image ID.
 │
@@ -127,7 +147,7 @@ multiple levels of resolutions and optionally associated labels.
     │   │                     # by the "multiscales" metadata, but is often a sequence starting at 0.
     │   │
     │   ├── .zarray           # All image arrays must be up to 5-dimensional
-    │   │                     # with dimension order (t, c, z, y, x).
+    │   │                     # with the axis of type time before type channel, before spatial axes.
     │   │
     │   └─ t                  # Chunks are stored with the nested directory layout.
     │      └─ c               # All but the last chunk element are stored as directories.
@@ -153,12 +173,13 @@ multiple levels of resolutions and optionally associated labels.
                 ├── 0         # Each multiscale level is stored as a separate Zarr array, as above, but only integer values
                 │   ...       # are supported.
                 └── n
-```
+</pre>
+
 Tables {#table-layout}
 ----------------------
 The following describes the expected layout for tabular data. OME-NGFF tables are a compatible subset of the [AnnData model](https://github.com/theislab/anndata). OME-NGFF tables implement the X (central dense matrix), the obs table (annotations on the rows of X) and the var table (annotations on the columns of X).
 
-```
+<pre>
 .                             # Root folder, potentially in S3,
 │                             # with a flat list of images by image ID.
 │
@@ -201,12 +222,13 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
                 ├── .zarray   # However, the var columns SHOULD be chunked in the same way as the columns in X.
                 │
                 └─ 0
-```
+</pre>
+
 High-content screening {#hcs-layout}
 ------------------------------------
 
 The following specification defines the hierarchy for a high-content screening
-dataset. Three groups must be defined above the images:
+dataset. Three groups MUST be defined above the images:
 
 -   the group above the images defines the well and MUST implement the
     [well specification](#well-md). All images contained in a well are fields
@@ -216,8 +238,11 @@ dataset. Three groups must be defined above the images:
     collection of wells organized in rows and columns. It MUST implement the
     [plate specification](#plate-md)
 
+A well row group SHOULD NOT be present if there are no images in the well row.
+A well group SHOULD NOT be present if there are no images in the well.
 
-```
+
+<pre>
 .                             # Root folder, potentially in S3,
 │
 └── 5966.zarr                 # One plate (id=5966) converted to Zarr
@@ -244,7 +269,7 @@ dataset. Three groups must be defined above the images:
     │   └── 12
     ├── ...                   # Rows
     └── H
-```
+</pre>
 
 Metadata {#metadata}
 ====================
@@ -252,60 +277,78 @@ Metadata {#metadata}
 The various `.zattrs` files throughout the above array hierarchy may contain metadata
 keys as specified below for discovering certain types of data, especially images.
 
+"axes" metadata {#axes-md}
+--------------------------
+
+"axes" describes the dimensions of a physical coordinate space. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
+- MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.
+- SHOULD contain the field "type". It SHOULD be one of "space", "time" or "channel", but MAY take other values for custom axis types that are not part of this specification yet.
+- SHOULD contain the field "unit" to specify the physical unit of this dimension. The value SHOULD be one of the following strings, which are valid units according to UDUNITS-2.
+    - Units for "space" axes: 'angstrom', 'attometer', 'centimeter', 'decimeter', 'exameter', 'femtometer', 'foot', 'gigameter', 'hectometer', 'inch', 'kilometer', 'megameter', 'meter', 'micrometer', 'mile', 'millimeter', 'nanometer', 'parsec', 'petameter', 'picometer', 'terameter', 'yard', 'yoctometer', 'yottameter', 'zeptometer', 'zettameter'
+    - Units for "time" axes: 'attosecond', 'centisecond', 'day', 'decisecond', 'exasecond', 'femtosecond', 'gigasecond', 'hectosecond', 'hour', 'kilosecond', 'megasecond', 'microsecond', 'millisecond', 'minute', 'nanosecond', 'petasecond', 'picosecond', 'second', 'terasecond', 'yoctosecond', 'yottasecond', 'zeptosecond', 'zettasecond'
+
+If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
+
+
+"coordinateTransformations" metadata {#trafo-md}
+-------------------------------------
+
+"coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
+For example, to map a discrete data space of an array to the corresponding physical space.
+It is a list of dictionaries. Each entry describes a single transformation and MUST contain the field "type".
+The value of "type" MUST be one of the elements of the `type` column in the table below.
+Additional fields for the entry depend on "type" and are defined by the column `fields`.
+
+<table>
+  <tr><th>`identity`    <td>                                                   <td>identity transformation, is the default transformation and is typically not explicitly defined
+  <tr><th>`translation` <td> one of: `"translation":List[float]`, `"path":str` <td>translation vector, stored either as a list of floats (`"translation"`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
+  <tr><th>`scale`       <td> one of: `"scale":List[float]`, `"path":str`       <td>scale vector, stored either as a list of floats (`scale`) or as binary data at a location in this container (`path`). The length of vector defines number of dimensions. |
+ <thead>
+   <tr><th>type<th>fields<th>description
+</table>
+
+The transformations in the list are applied sequentially and in order.
+
+
 "multiscales" metadata {#multiscale-md}
 ---------------------------------------
 
-Metadata about the multiple resolution representations of the image can be
-found under the "multiscales" key in the group-level metadata.
+Metadata about an image can be found under the "multiscales" key in the group-level metadata. Here, image refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes. It is stored in a multiple resolution representation.
 
 "multiscales" contains a list of dictionaries where each entry describes a multiscale image.
 
-Each dictionary contained in the list MUST contain the field "datasets", which is a list of dictionaries describing
-the arrays storing the individual resolution levels.
+Each "multiscales" dictionary MUST contain the field "axes", see [[#axes-md]].
+The length of "axes" must be between 2 and 5 and MUST be equal to the dimensionality of the zarr arrays storing the image data (see "datasets:path").
+The "axes" MUST contain 2 or 3 entries of "type:space" and MAY contain one additional entry of "type:time" and MAY contain one additional entry of "type:channel" or a null / custom type.
+The order of the entries MUST correspond to the order of dimensions of the zarr arrays. In addition, the entries MUST be ordered by "type" where the "time" axis must come first (if present), followed by the  "channel" or custom axis (if present) and the axes of type "space".
+If there are three spatial axes where two correspond to the image plane ("yx") and images are stacked along the other (anisotropic) axis ("z"), the spatial axes SHOULD be ordered as "zyx".
+
+Each "multiscales" dictionary MUST contain the field "datasets", which is a list of dictionaries describing the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
 
-It MUST contain the field "axes", which is a list of dimension names of the axes.
-The values MUST be unique and one of `{"t", "c", "z", "y", "x"}`.
-The number of values MUST be the same as the number of dimensions of the arrays corresponding to this image.
-In addition, the "axes" values MUST be repeated in the field "_ARRAY_DIMENSIONS" of all scale groups
-(i.e. groups containing arrays with the multiscale data).
-This ensures compatibility with the [xarray zarr encoding](http://xarray.pydata.org/en/stable/internals/zarr-encoding-spec.html#zarr-encoding).
+Each "datasets" dictionary MUST have the same number of dimensions and MUST NOT have more than 5 dimensions. The number of dimensions and order MUST correspond to number and order of "axes".
+Each dictionary in "datasets" MUST contain the field "coordinateTransformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
+The transformations are defined according to [[#trafo-md]]. The transformation MUST only be of type `translation` or `scale`.
+They MUST contain exactly one `scale` transformation that specifies the pixel size in physical units or time duration. If scaling information is not available or applicable for one of the axes, the value MUST express the scaling factor between the current resolution and the first resolution for the given axis, defaulting to 1.0 if there is no downsampling along the axis.
+It MAY contain exactly one `translation` that specifies the offset from the origin in physical units. If `translation` is given it MUST be listed after `scale` to ensure that it is given in physical coordinates.
+The length of the `scale` and `translation` array MUST be the same as the length of "axes".
+The requirements (only `scale` and `translation`, restrictions on order) are in place to provide a simple mapping from data coordinates to physical coordinates while being compatible with the general transformation spec.
 
-It SHOULD contain the field "name".
+Each "multiscales" dictionary MAY contain the field "coordinateTransformations", describing transformations that are applied to all resolution levels in the same manner.
+The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.
+They can for example be used to specify the `scale` for a dimension that is the same for all resolutions.
 
-It SHOULD contain the field "version", which indicates the version of the
-multiscale metadata of this image (current version is 0.3).
+Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain the field "version", which indicates the version of the multiscale metadata of this image (current version is [NGFFVERSION]).
 
-It SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
-
+Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
 
-```json
-{
-    "multiscales": [
-        {
-            "version": "0.3",
-            "name": "example",
-            "datasets": [
-                {"path": "0"},
-                {"path": "1"},
-                {"path": "2"}
-            ],
-            "axes": [
-                "t", "c", "z", "y", "x"
-            ],
-            "type": "gaussian",
-            "metadata": {                                       # the fields in metadata depend on the downscaling implementation
-                "method": "skimage.transform.pyramid_gaussian", # here, the paramters passed to the skimage function are given
-                "version": "0.16.1",
-                "args": "[true]",
-                "kwargs": {"multichannel": true}
-            }
-        }
-    ]
-}
-```
+<pre class=include-code>
+path: examples/multiscales_strict/multiscales_example.json
+highlight: json
+</pre>
+
 
 If only one multiscale is provided, use it. Otherwise, the user can choose by
 name, using the first multiscale as a fallback:
@@ -330,7 +373,7 @@ can be found under the "omero" key in the group-level metadata:
 ```json
 "id": 1,                              # ID in OMERO
 "name": "example.tif",                # Name as shown in the UI
-"version": "0.3",                     # Current version
+"version": "0.5-dev",                 # Current version
 "channels": [                         # Array matching the c dimension size
     {
         "active": true,
@@ -391,10 +434,10 @@ should ignore all except the _last_ entry.
 Some implementations may represent overlapping labels by using a specially assigned
 value, for example the highest integer available in the pixel range.
 
-The `properties` key defines a list of JSON objects which also describes the unique 
-label values. Each entry in the list MUST contain the key "label-value" with the 
-pixel value for that label. Additionally, an arbitrary number of key-value pairs 
-MAY be present for each label value denoting associated metadata. Not all label 
+The `properties` key defines a list of JSON objects which also describes the unique
+label values. Each entry in the list MUST contain the key "label-value" with the
+pixel value for that label. Additionally, an arbitrary number of key-value pairs
+MAY be present for each label value denoting associated metadata. Not all label
 values must share the same key-value pairs within the properties list.
 
 The `source` key is an optional dictionary which contains information on the
@@ -407,7 +450,7 @@ above).
 ```json
 "image-label":
   {
-    "version": "0.3",
+    "version": "0.5-dev",
     "colors": [
       {
         "label-value": 1,
@@ -443,152 +486,116 @@ above).
 ----------------------------
 
 For high-content screening datasets, the plate layout can be found under the
-custom attributes of the plate group under the `plate` key.
+custom attributes of the plate group under the `plate` key in the group-level metadata.
 
-<dl>
-  <dt><strong>acquisitions</strong></dt>
-  <dd>An optional list of JSON objects defining the acquisitions for a given
-      plate. Each acquisition object MUST contain an `id` key providing an
-      unique identifier within the context of the plate to which fields of
-      view can refer to. It SHOULD contain  a `name` key identifying the name
-      of the acquisition. It SHOULD contain a `maximumfieldcount` key
-      indicating the maximum number of fields of view for the acquisition. It
-      MAY contain a `description` key providing a description for the
-      acquisition. It MAY contain a `startime` and/or `endtime` key specifying
-      the start and/or end timestamp of the acquisition using an epoch
-      string.</dd>
-  <dt><strong>columns</strong></dt>
-  <dd>A list of JSON objects defining the columns of the plate. Each column
-      object defines the properties of the column at the index of the object
-      in the list. If not empty, it MUST contain a `name` key specifying the
-      column name.</dd>
-  <dt><strong>field_count</strong></dt>
-  <dd>An integer defining the maximum number of fields per view across all
-      wells.</dd>
-  <dt><strong>name</strong></dt>
-  <dd>A string defining the name of the plate.</dd>
-  <dt><strong>rows</strong></dt>
-  <dd>A list of JSON objects defining the rows of the plate. Each row object
-      defines the properties of the row at the index of the object in the
-      list. If not empty, it MUST contain a `name` key specifying the row
-      name.</dd>
-  <dt><strong>version</strong></dt>
-  <dd>A string defining the version of the specification.</dd>
-  <dt><strong>wells</strong></dt>
-  <dd>A list of JSON objects defining the wells of the plate. Each well object 
-      MUST contain a `path` key identifying the path to the well subgroup.</dd>
-</dl>
+The `plate` dictionary MAY contain an `acquisitions` key whose value MUST be a list of
+JSON objects defining the acquisitions for a given plate to which wells can refer to. Each
+acquisition object MUST contain an `id` key whose value MUST be an unique integer identifier
+greater than or equal to 0 within the context of the plate to which fields of view can refer
+to (see #well-md).
+Each acquisition object SHOULD contain a `name` key whose value MUST be a string identifying
+the name of the acquisition. Each acquisition object SHOULD contain a `maximumfieldcount`
+key whose value MUST be a positive integer indicating the maximum number of fields of view for the
+acquisition. Each acquisition object MAY contain a `description` key whose value MUST be a
+string specifying a description for the acquisition. Each acquisition object MAY contain
+a `starttime` and/or `endtime` key whose values MUST be integer epoch timestamps specifying
+the start and/or end timestamp of the acquisition.
 
-For example the following JSON object defines a plate with two acquisition and
-6 wells (2 rows and 3 columns), containing up 2 fields of view per acquistion.
+The `plate` dictionary MUST contain a `columns` key whose value MUST be a list of JSON objects
+defining the columns of the plate. Each column object defines the properties of
+the column at the index of the object in the list. Each column in the physical plate
+MUST be defined, even if no wells in the column are defined. Each column object MUST
+contain a `name` key whose value is a string specifying the column name. The `name` MUST
+contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a duplicate of any
+other `name` in the `columns` list. Care SHOULD be taken to avoid collisions on
+case-insensitive filesystems (e.g. avoid using both `Aa` and `aA`).
 
-```json
-"plate": {
-    "acquisitions": [
-        {
-            "id": 1,
-            "maximumfieldcount": 2,
-            "name": "Meas_01(2012-07-31_10-41-12)",
-            "starttime": 1343731272000
-        },
-        {
-            "id": 2,
-            "maximumfieldcount": 2,
-            "name": "Meas_02(201207-31_11-56-41)",
-            "starttime": 1343735801000
-        }
-    ],
-    "columns": [
-        {
-            "name": "1"
-        },
-        {
-            "name": "2"
-        },
-        {
-            "name": "3"
-        }
-    ],
-    "field_count": 4,
-    "name": "test",
-    "rows": [
-        {
-            "name": "A"
-        },
-        {
-            "name": "B"
-        }
-    ],
-    "version": "0.3",
-    "wells": [
-        {
-            "path": "2020-10-10/A/1"
-        },
-        {
-            "path": "2020-10-10/A/2"
-        },
-        {
-            "path": "2020-10-10/A/3"
-        },
-        {
-            "path": "2020-10-10/B/1"
-        },
-        {
-            "path": "2020-10-10/B/2"
-        },
-        {
-            "path": "2020-10-10/B/3"
-        }
-    ]
-  }
-```
+The `plate` dictionary SHOULD contain a `field_count` key whose value MUST be a positive integer
+defining the maximum number of fields per view across all wells.
+
+The `plate` dictionary SHOULD contain a `name` key whose value MUST be a string defining the
+name of the plate.
+
+The `plate` dictionary MUST contain a `rows` key whose value MUST be a list of JSON objects
+defining the rows of the plate. Each row object defines the properties of
+the row at the index of the object in the list. Each row in the physical plate
+MUST be defined, even if no wells in the row are defined. Each defined row MUST
+contain a `name` key whose value MUST be a string defining the row name. The `name` MUST
+contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a duplicate of any
+other `name` in the `rows` list. Care SHOULD be taken to avoid collisions on
+case-insensitive filesystems (e.g. avoid using both `Aa` and `aA`).
+
+The `plate` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
+version of the plate specification.
+
+The `plate` dictionary MUST contain a `wells` key whose value MUST be a list of JSON objects
+defining the wells of the plate. Each well object MUST contain a `path` key whose value MUST
+be a string specifying the path to the well subgroup. The `path` MUST consist of a `name` in
+the `rows` list, a file separator (`/`), and a `name` from the `columns` list, in that order.
+The `path` MUST NOT contain additional leading or trailing directories.
+Each well object MUST contain both a `rowIndex` key whose value MUST be an integer identifying
+the index into the `rows` list and a `columnIndex` key whose value MUST be an integer indentifying
+the index into the `columns` list. `rowIndex` and `columnIndex` MUST be 0-based. The
+`rowIndex`, `columnIndex`, and `path` MUST all refer to the same row/column pair.
+
+For example the following JSON object defines a plate with two acquisitions and
+6 wells (2 rows and 3 columns), containing up to 2 fields of view per acquisition.
+
+<pre class=include-code>
+path: examples/plate_strict/plate_6wells.json
+highlight: json
+</pre>
+
+The following JSON object defines a sparse plate with one acquisition and
+2 wells in a 96 well plate, containing one field of view per acquisition.
+
+<pre class=include-code>
+path: examples/plate_strict/plate_2wells.json
+highlight: json
+</pre>
 
 "well" metadata {#well-md}
 --------------------------
 
 For high-content screening datasets, the metadata about all fields of views
-under a given  well can be found under the "well" key in the attributes of the
+under a given well can be found under the "well" key in the attributes of the
 well group.
 
-<dl>
-  <dt><strong>images</strong></dt>
-  <dd>A list of JSON objects defining the fields of views for a given well.
-      Each object MUST contain a `path` key identifying the path to the
-      field of view. If multiple acquisitions were performed in the plate, it  
-      SHOULD contain an `acquisition` key identifying the id of the 
-      acquisition which must match one of acquisition JSON objects defined in
-      the plate metadata.</dd>
-  <dt><strong>version</strong></dt>
-  <dd>A string defining the version of the specification.</dd>
-</dl>
+The `well` dictionary MUST contain an `images` key whose value MUST be a list of JSON objects
+specifying all fields of views for a given well. Each image object MUST contain a
+`path` key whose value MUST be a string specifying the path to the field of view. The `path`
+MUST contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a duplicate
+of any other `path` in the `images` list. If multiple acquisitions were performed in the plate,
+it MUST contain an `acquisition` key whose value MUST be an integer identifying the acquisition
+which MUST match one of the acquisition JSON objects defined in the plate metadata (see #plate-md).
+
+The `well` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
+version of the well specification.
 
 For example the following JSON object defines a well with four fields of
-views. The first two fields of view were part of the first acquisition while
+view. The first two fields of view were part of the first acquisition while
 the last two fields of view were part of the second acquisition.
 
-```json
-"well": {
-    "images": [
-        {
-            "acquisition": 1,
-            "path": "0"
-        },
-        {
-            "acquisition": 1,
-            "path": "1"
-        },
-        {
-            "acquisition": 2,
-            "path": "2"
-        },
-        {
-            "acquisition": 2,
-            "path": "3"
-        }
-    ],
-    "version": "0.3"
-  }
-```
+<pre class=include-code>
+path: examples/well_strict/well_4fields.json
+highlight: json
+</pre>
+
+The following JSON object defines a well with two fields of view in a plate with
+four acquisitions. The first field is part of the first acquisition, and the second
+field is part of the last acquisition.
+
+<pre class=include-code>
+path: examples/well_strict/well_2fields.json
+highlight: json
+</pre>
+
+Specification naming style {#naming-style}
+==========================================
+
+Multi-word keys in this specification should use the `camelCase` style.
+NB: some parts of the specification don't obey this convention as they
+were added before this was adopted, but they should be updated in due course.
 
 Implementations {#implementations}
 ==================================
@@ -632,9 +639,9 @@ Note: If you would like to see your project listed, please open an issue or PR o
 Citing {#citing}
 ================
 
-[Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.](https://ngff.openmicroscopy.org/0.3)
-J. Moore, *et al*. Editors. Open Microscopy Environment Consortium, 24 August 2021.
-This edition of the specification is [https://ngff.openmicroscopy.org/0.3/](https://ngff.openmicroscopy.org/0.3/]).
+[Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.](https://ngff.openmicroscopy.org/0.4)
+J. Moore, *et al*. Editors. Open Microscopy Environment Consortium, 8 February 2022.
+This edition of the specification is [https://ngff.openmicroscopy.org/0.4/](https://ngff.openmicroscopy.org/0.4/]).
 The latest edition is available at [https://ngff.openmicroscopy.org/latest/](https://ngff.openmicroscopy.org/latest/).
 [(doi:10.5281/zenodo.4282107)](https://doi.org/10.5281/zenodo.4282107)
 
@@ -649,6 +656,16 @@ Version History {#history}
       <td>Description</td>
     </tr>
   </thead>
+  <tr>
+    <td>0.4.0</td>
+    <td>2022-02-08</td>
+    <td>multiscales: add axes type, units and coordinateTransformations</td>
+  </tr>
+  <tr>
+    <td>0.4.0</td>
+    <td>2022-02-08</td>
+    <td>plate: add rowIndex/columnIndex                </td>
+  </tr>
   <tr>
     <td>0.3.0</td>
     <td>2021-08-24</td>

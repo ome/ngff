@@ -1,0 +1,210 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix schema: <http://localhost:8000/schema#> .
+@prefix ngff: <http://localhost:8000/context.json#> .
+
+# Collection of wrapped Multiscale objects
+schema:TopLevelImageShape a sh:NodeShape;
+
+  sh:targetClass ngff:Image;
+  sh:closed true ;
+  sh:ignoredProperties ( rdf:type ) ;
+
+  sh:property [
+    sh:path ngff:multiscales;
+    sh:node dash:ListShape;
+    sh:property [
+      sh:path ([sh:zeroOrMorePath rdf:rest] rdf:first);
+      sh:datatype schema:Multiscale_Shape;
+    ];
+    sh:minCount 1;
+  ];
+
+  sh:property [
+    sh:path ngff:omero;
+    sh:node schema:omero_Shape;
+  ].
+
+
+#
+# Contents of the "multiscales" array (NOT YET USED)
+#
+schema:Multiscale_Wrapper a sh:NodeShape;
+
+  sh:targetClass ngff:ListItem;
+  sh:closed true ;
+  sh:ignoredProperties ( rdf:type ) ;
+
+  sh:property [
+    sh:path ngff:item ;
+  ] ;
+  sh:property [
+    sh:path ngff:position;
+    sh:datatype xsd:integer ;
+  ] .
+
+
+#
+# Contents of the "multiscales" array
+#
+schema:Multiscale_Shape a sh:NodeShape;
+
+  sh:targetClass ngff:Multiscale;
+
+  sh:property [
+    sh:path ngff:name;
+    sh:datatype xsd:string;
+  ];
+
+  sh:property [
+    sh:path ngff:version;
+    sh:datatype xsd:string;
+    sh:pattern "0.3";
+  ];
+
+  sh:property [
+    sh:path ngff:datasets;
+    sh:node dash:ListShape;
+    sh:property [
+      sh:path ([sh:zeroOrMorePath rdf:rest] rdf:first);
+      sh:datatype schema:Dataset_Shape;
+    ];
+    sh:minCount 1;
+  ];
+
+  sh:property [
+    sh:path ngff:axes;
+    sh:node dash:ListShape;
+    sh:property [
+      sh:path ([sh:zeroOrMorePath rdf:rest] rdf:first);
+    ];
+    sh:minCount 2;
+    sh:pattern "^[xyzct]$";
+    sh:datatype xsd:string;
+  ] ;
+
+  sh:property [
+    sh:path ngff:type;
+    sh:datatype xsd:string;
+  ] ;
+
+  sh:property [
+    sh:path ngff:metadata;
+  ] .
+
+schema:omero_Shape a sh:NodeShape;
+
+  sh:targetClass ngff:omero;
+  sh:closed true ;
+  sh:ignoredProperties ( rdf:type ) ;
+
+  sh:property [
+    sh:path ngff:id;
+    sh:datatype xsd:integer;
+  ] ;
+
+  sh:property [
+    sh:path ngff:version;
+    sh:datatype xsd:string;
+  ] ;
+
+  sh:property [
+    sh:path ngff:channels;
+    sh:node dash:ListShape;
+    sh:property [
+      sh:path ([sh:zeroOrMorePath rdf:rest] rdf:first);
+      sh:datatype schema:Channel_Shape;
+    ];
+    sh:minCount 1;
+  ] ;
+
+  sh:property [
+    sh:path ngff:rdefs;
+    sh:node schema:RDef_Shape;
+  ].
+
+schema:RDef_Shape a sh:NodeShape;
+
+  sh:property [
+    sh:path ngff:model;
+    sh:datatype xsd:string;
+  ] ;
+
+  sh:property [
+    sh:path ngff:defaultZ;
+    sh:datatype xsd:integer;
+  ] ;
+
+  sh:property [
+    sh:path ngff:defaultT;
+    sh:datatype xsd:integer;
+  ] .
+
+#
+# Contents of the "datasets" array
+#
+schema:Dataset_Shape a sh:NodeShape;
+
+  sh:targetClass ngff:Dataset;
+  sh:closed true ;
+  sh:ignoredProperties ( rdf:type ) ;
+
+  sh:property [
+    sh:path ngff:path;
+    sh:datatype xsd:string;
+    sh:minCount 1;
+  ].
+
+schema:Channel_Shape a sh:NodeShape;
+  sh:targetClass ngff:Channel;
+  sh:property [
+    sh:path ngff:window;
+    sh:node schema:window_Shape;
+    sh:minCount 1;
+  ];
+  sh:property [
+    sh:path ngff:label;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path ngff:family;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path ngff:color;
+    sh:datatype xsd:string;
+    sh:minCount 1;
+  ];
+  sh:property [
+    sh:path ngff:active;
+    sh:datatype xsd:boolean;
+  ];
+  sh:property [
+    sh:path ngff:inverted;
+    sh:datatype xsd:boolean;
+  ].
+
+schema:window_Shape a sh:NodeShape;
+  sh:targetClass ngff:Window;
+  sh:property [
+    sh:path ngff:end;
+    sh:datatype xsd:double;
+    sh:minCount 1;
+  ];
+  sh:property [
+    sh:path ngff:max;
+    sh:datatype xsd:double;
+    sh:minCount 1;
+  ];
+  sh:property [
+    sh:path ngff:min;
+    sh:datatype xsd:double;
+    sh:minCount 1;
+  ];
+  sh:property [
+    sh:path ngff:start;
+    sh:datatype xsd:double;
+    sh:minCount 1;
+  ].
