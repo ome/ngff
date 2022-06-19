@@ -187,7 +187,8 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
     └── table                 # The table group is a container which holds a table that is compatible with a subset of AnnData.
         │                     # The table group MAY be in the root of the zarr file.
         ├── .zgroup           # The table group MAY be in an image, labels, or points group.
-        ├── .zattrs              
+        |
+        ├── .zattrs           # `.zattrs` MUST contain "@type", which is set to `"ngff:table"`
         │
         ├── X                 # You MAY add an zarr array `X`.
         │   │                 # `X` MUST not be a complex type (i.e., MUST be a single type)
