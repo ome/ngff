@@ -352,7 +352,81 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |           ├── 0
         │           |   ...
         │           └── n
-        └── uns
+        |
+        └── uns               # You MAY add a uns containter to store unstructured data.
+            |
+            ├── .zgroup
+            |
+            ├── .zattrs       # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dict"` by AnnData.           
+            │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+            │
+            ├── group         # You MAY add zarr groups.
+            |   |             # `uns` groups MAY contain groups, dataframes, dense arrays, and sparse arrays.
+            |   |
+            |   ├── .zgroup
+            |   |
+            |   ├── .zattrs   # `.zattrs` MAY contain `"encoding-type"`, which is set to `"csr_matrix"` by AnnData.           
+            |   │             # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+            |   ...
+            |
+            ├── dataframe_0   # You MAY add dataframe group containers.
+            |   |                 # dataframes MAY be in the `uns` group or in a subgroup.
+            |   │
+            |   ├── .zgroup
+            |   │                     
+            |   ├── .zattrs       # `.zattrs` MUST contain `"_index"`, which is the name of the column in obs to be used as the index.           
+            |   │                 # `.zattrs` MUST contain `"column-order"`, which is a list of the order of the non-_index columns.
+            |   │                 # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dataframe"` by AnnData.
+            |   │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+            |   │      
+            |   └── col_0         # Each column in the obs table is a 1D zarr array.
+            |       ├── .zarray   # Each columns MUST be chunked the same, but the chunking may be chosen by the user.
+            |       │
+            |       └─ 0
+            |
+            ├── dense_array       # You MAY dense arrays as n n-dimensional zarr arrays.
+            |   │                 # `dense_array` MUST not be a complex type (i.e., MUST be a single type)
+            |   │                 # `dense_array` MAY be chunked as the user desires.
+            |   |                 # `dense array` MAY be in the `uns` group or in a subgroup.
+            |   |
+            |   ├── .zarray
+            |   ├── 0.0
+            |   │   ...
+            |   └── n.m
+            |
+            └── sparse_array  # You MAY add sparse arrays as a zarr group for each sparse array.
+                |             # sparse arrays MAY be in the `uns` group or in a subgroup.
+                |
+                ├── .zgroup
+                |
+                ├── .zattrs      # `.zattrs` MAY contain `"encoding-type"`, which is set to `"csr_matrix"` by AnnData.           
+                │                # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+                |                # `.zattrs` MAY contain `"shape"` which is an array giving the shape of the densified array.
+                |
+                ├── data         # You MUST add a one-dimensional zarr array named "data". 
+                |   |            # `data` MAY be chunked as the user desires.
+                |   ├── .zarray
+                |   |
+                |   ├── 0
+                │   |   ...
+                |   └── n
+                |
+                ├── indices      # You MUST add a one-dimensional zarr array named "indices".
+                |   |            # `indices` MAY be chunked as the user desires.
+                |   ├── .zarray
+                |   |
+                |   ├── 0
+                │   |   ...
+                |   └── n
+                |
+                └── indptr       # You MUST add a one-dimensional zarr array named "indptr".
+                    |            # `indptr` MAY be chunked as the user desires.
+                    ├── .zarray
+                    |
+                    ├── 0
+                    |   ...
+                    └── n
+        
 
 </pre>
 
