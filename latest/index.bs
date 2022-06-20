@@ -216,7 +216,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         │       │   ...
         │       └── n.m
         │        
-        ├── obs               # You MAY add an obs group container. The obs group holds a table of annotations on the rows in X.
+        ├── obs               # You MUST add an obs group container. The obs group holds a table of annotations on the rows in X.
         │   │                 # The rows in obs MUST be index-matched to the rows in X.
         │   ├── .zgroup
         │   │                     
