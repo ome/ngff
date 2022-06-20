@@ -188,8 +188,11 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         │                     # The table group MAY be in the root of the zarr file.
         ├── .zgroup           # The table group MAY be in an image, labels, or points group.
         |
-        ├── .zattrs           # `.zattrs` MUST contain "@type", which is set to `"ngff:table"`
-        |                     # `.zattrs` MAY contain "parent", which is the relative path to the data the table is annotating.
+        ├── .zattrs           # `.zattrs` MUST contain "@type", which is set to `"ngff:region_table"`
+        |                     # `.zattrs` MUST contain "region", which is the path to the data the table is annotating.
+        |                     # "region" MUST be a string (single region) or an array of strings (multiple regions).
+        |                     # `.zattrs` MUST contain "region_key" if "region" is an array. "region_key" is the key in `obs` denoting which region a given row corresponds to.
+        |                     # `.zattrs` MAY contain "instance_key", which is the key in `obs` that denotes which instance in "region" the row corresponds to. If "instance_key" is not provided, the values from the `obs` `.zattrs` "_index" key is used.
         │
         ├── X                 # You MAY add an zarr array `X`.
         │   │                 # `X` MUST not be a complex type (i.e., MUST be a single type)
