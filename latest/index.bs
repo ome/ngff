@@ -177,14 +177,14 @@ For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x
 
 Tables {#table-layout}
 ----------------------
-The following describes the expected layout for tabular data. OME-NGFF tables are a compatible subset of the [AnnData model](https://github.com/theislab/anndata). OME-NGFF tables implement the X (central dense matrix), the obs table (annotations on the rows of X) and the var table (annotations on the columns of X).
+The following describes the expected layout for tabular data. OME-NGFF tables are compatible with the [AnnData model](https://github.com/theislab/anndata).
 
 <pre>
 .                             # Root folder, potentially in S3,
 │                             # with a flat list of images by image ID.
 │
 └── 123.zarr
-    └── table                 # The table group is a container which holds a table that is compatible with a subset of AnnData.
+    └── table                 # The table group is a container which holds a table that is compatible with AnnData.
         │                     # The table group MAY be in the root of the zarr file.
         ├── .zgroup           # The table group MAY be in an image, labels, or points group.
         |
