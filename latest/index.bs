@@ -268,7 +268,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |   │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
         |   │
         │   └── varm_0        # You MAY add a zarr array for each varm matrix.
-        |       |             # Each varmm array MUST have the same number of rows as columns in X.
+        |       |             # Each varm array MUST have the same number of rows as columns in X.
         |       |             # The rows in each obsm array SHOULD be chunked the same as the columns in X.
         |       ├── .zarray
         |       ├── 0.0
