@@ -219,8 +219,8 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         │   │                     
         │   ├── .zattrs       # `.zattrs` MUST contain `"_index"`, which is the name of the column in obs to be used as the index.           
         │   │                 # `.zattrs` MUST contain `"column-order"`, which is a list of the order of the non-_index columns.
-        │   │                 # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dataframe"` by AnnData.
-        │   │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+        │   │                 # `.zattrs` MUST contain `"encoding-type"`, which is set to `"dataframe"` by AnnData.
+        │   │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
         │   │      
         │   └── col_0         # Each column in the obs table is a 1D zarr array. The rows can be chunked as the user desires.
         │       ├── .zarray   # However, the obs columns SHOULD be chunked in the same way as the rows in X (if present).
@@ -231,8 +231,8 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |   |
         |   ├── .zattrs       # `.zattrs` MUST contain `"_index"`, which is the name of the column in obs to be used as the index.           
         |   │                 # `.zattrs` MUST contain `"column-order"`, which is a list of the order of the non-_index columns.
-        |   │                 # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dataframe"` by AnnData.
-        |   │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+        |   │                 # `.zattrs` MUST contain `"encoding-type"`, which is set to `"dataframe"` by AnnData.
+        |   │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
         |   │
         |   └── col_0         # Each column in the var table is a 1D zarr array. The rows can be chunked as the user desires.
         |       ├── .zarray   # However, the var columns SHOULD be chunked in the same way as the columns in X.
@@ -244,8 +244,8 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |   |
         │   ├── .zgroup
         |   |
-        |   ├── .zattrs       # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dict"` by AnnData.           
-        |   │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+        |   ├── .zattrs       # `.zattrs` MUST contain `"encoding-type"`, which is set to `"dict"` by AnnData.           
+        |   │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
         |   │
         │   └── obsm_0        # You MAY add a zarr array for each obsm matrix.
         |       |             # Each obsm array MUST have the same number of rows as X.
@@ -261,8 +261,8 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |   |
         │   ├── .zgroup
         |   |
-        |   ├── .zattrs       # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dict"` by AnnData.           
-        |   │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+        |   ├── .zattrs       # `.zattrs` MUST contain `"encoding-type"`, which is set to `"dict"` by AnnData.           
+        |   │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
         |   │
         │   └── varm_0        # You MAY add a zarr array for each varm matrix.
         |       |             # Each varmm array MUST have the same number of rows as columns in X.
@@ -277,17 +277,17 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |   |
         │   ├── .zgroup
         |   |
-        |   ├── .zattrs       # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dict"` by AnnData.           
-        |   │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+        |   ├── .zattrs       # `.zattrs` MUST contain `"encoding-type"`, which is set to `"dict"` by AnnData.           
+        |   │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
         |   │
         │   └── obsp_0        # You MAY add a zarr group for each obsp array.
         |       |             # Each obsp array MUST have the same number of rows as rows in X.
         |       |
         │       ├── .zgroup
         |       |
-        |       ├── .zattrs   # `.zattrs` MAY contain `"encoding-type"`, which is set to `"csr_matrix"` by AnnData.           
-        |       │             # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
-        |       |             # `.zattrs` MAY contain `"shape"` which is an array giving the shape of the densified array.
+        |       ├── .zattrs   # `.zattrs` MUST contain `"encoding-type"`, which is set to `"csr_matrix"` by AnnData.           
+        |       │             # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+        |       |             # `.zattrs` MUST contain `"shape"` which is an array giving the shape of the densified array.
         |       |
         |       ├── data      # You MUST add a one-dimensional zarr array named "data". 
         |       |   |         # `data` MAY be chunked as the user desires.
@@ -318,17 +318,17 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |   |
         │   ├── .zgroup
         |   |
-        |   ├── .zattrs       # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dict"` by AnnData.           
-        |   │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+        |   ├── .zattrs       # `.zattrs` MUST contain `"encoding-type"`, which is set to `"dict"` by AnnData.           
+        |   │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
         |   │
         │   └── varp_0        # You MAY add a zarr group for each varp array.
         |       |             # Each varp array MUST have the same number of rows as columns in X.
         |       |
         │       ├── .zgroup
         |       |
-        |       ├── .zattrs   # `.zattrs` MAY contain `"encoding-type"`, which is set to `"csr_matrix"` by AnnData.           
-        |       │             # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
-        |       |             # `.zattrs` MAY contain `"shape"` which is an array giving the shape of the densified array.
+        |       ├── .zattrs   # `.zattrs` MUST contain `"encoding-type"`, which is set to `"csr_matrix"` by AnnData.           
+        |       │             # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+        |       |             # `.zattrs` MUST contain `"shape"` which is an array giving the shape of the densified array.
         |       |
         |       ├── data      # You MUST add a one-dimensional zarr array named "data". 
         |       |   |         # `data` MAY be chunked as the user desires.
@@ -358,16 +358,16 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
             |
             ├── .zgroup
             |
-            ├── .zattrs       # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dict"` by AnnData.           
-            │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+            ├── .zattrs       # `.zattrs` MUST contain `"encoding-type"`, which is set to `"dict"` by AnnData.           
+            │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
             │
             ├── group         # You MAY add zarr groups.
             |   |             # `uns` groups MAY contain groups, dataframes, dense arrays, and sparse arrays.
             |   |
             |   ├── .zgroup
             |   |
-            |   ├── .zattrs   # `.zattrs` MAY contain `"encoding-type"`, which is set to `"csr_matrix"` by AnnData.           
-            |   │             # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+            |   ├── .zattrs   # `.zattrs` MUST contain `"encoding-type"`, which is set to `"csr_matrix"` by AnnData.           
+            |   │             # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
             |   ...
             |
             ├── dataframe_0   # You MAY add dataframe group containers.
@@ -377,8 +377,8 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
             |   │                     
             |   ├── .zattrs       # `.zattrs` MUST contain `"_index"`, which is the name of the column in obs to be used as the index.           
             |   │                 # `.zattrs` MUST contain `"column-order"`, which is a list of the order of the non-_index columns.
-            |   │                 # `.zattrs` MAY contain `"encoding-type"`, which is set to `"dataframe"` by AnnData.
-            |   │                 # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+            |   │                 # `.zattrs` MUST contain `"encoding-type"`, which is set to `"dataframe"` by AnnData.
+            |   │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
             |   │      
             |   └── col_0         # Each column in the obs table is a 1D zarr array.
             |       ├── .zarray   # Each columns MUST be chunked the same, but the chunking may be chosen by the user.
@@ -400,9 +400,9 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
                 |
                 ├── .zgroup
                 |
-                ├── .zattrs      # `.zattrs` MAY contain `"encoding-type"`, which is set to `"csr_matrix"` by AnnData.           
-                │                # `.zattrs` MAY contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
-                |                # `.zattrs` MAY contain `"shape"` which is an array giving the shape of the densified array.
+                ├── .zattrs      # `.zattrs` MUST contain `"encoding-type"`, which is set to `"csr_matrix"` by AnnData.           
+                │                # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+                |                # `.zattrs` MUST contain `"shape"` which is an array giving the shape of the densified array.
                 |
                 ├── data         # You MUST add a one-dimensional zarr array named "data". 
                 |   |            # `data` MAY be chunked as the user desires.
