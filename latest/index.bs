@@ -285,7 +285,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |       |
         │       ├── .zgroup
         |       |
-        |       ├── .zattrs   # `.zattrs` MUST contain `"encoding-type"`, which is set to `"csr_matrix"` by AnnData.           
+        |       ├── .zattrs   # `.zattrs` MUST contain `"encoding-type"`, which is set to `"csr_matrix"` or `"csc_matrix"` for compressed sparse row and compressed sparse column, respectively.          
         |       │             # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
         |       |             # `.zattrs` MUST contain `"shape"` which is an array giving the shape of the densified array.
         |       |
@@ -326,7 +326,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |       |
         │       ├── .zgroup
         |       |
-        |       ├── .zattrs   # `.zattrs` MUST contain `"encoding-type"`, which is set to `"csr_matrix"` by AnnData.           
+        |       ├── .zattrs   # `.zattrs` MUST contain `"encoding-type"`, which is set to `"csr_matrix"` or `"csc_matrix"` for compressed sparse row and compressed sparse column, respectively.           
         |       │             # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
         |       |             # `.zattrs` MUST contain `"shape"` which is an array giving the shape of the densified array.
         |       |
@@ -400,7 +400,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
                 |
                 ├── .zgroup
                 |
-                ├── .zattrs      # `.zattrs` MUST contain `"encoding-type"`, which is set to `"csr_matrix"` by AnnData.           
+                ├── .zattrs      # `.zattrs` MUST contain `"encoding-type"`, which is set to `"csr_matrix"` or `"csc_matrix"` for compressed sparse row and compressed sparse column, respectively.           
                 │                # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
                 |                # `.zattrs` MUST contain `"shape"` which is an array giving the shape of the densified array.
                 |
