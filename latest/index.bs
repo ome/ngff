@@ -189,6 +189,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         ├── .zgroup           # The table group MAY be in an image, labels, or points group.
         |
         ├── .zattrs           # `.zattrs` MUST contain "@type", which is set to `"ngff:table"`
+        |                     # `.zattrs` MAY contain "parent", which is the relative path to the data the table is annotating.
         │
         ├── X                 # You MAY add an zarr array `X`.
         │   │                 # `X` MUST not be a complex type (i.e., MUST be a single type)
