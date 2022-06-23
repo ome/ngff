@@ -19,7 +19,7 @@
                 "type": "number"
               },
               "rgba": {
-                "description": "The color stored as an RGBA unsigned-int 4-tuple",
+                "description": "The RGBA color stored as an array of four integers between 0 and 255",
                 "type": "array",
                 "items": {
                   "type": "integer",

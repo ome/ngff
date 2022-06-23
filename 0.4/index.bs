@@ -378,7 +378,7 @@ in which each unique pixel value represents a separate segmented object.
 The `image-label` dictionary SHOULD contain a `colors` key whose value MUST be a
 list of JSON objects describing the unique label values. Each color object MUST
 contain the `label-value` key whose value MUST be an integer specifying the
-pixel value for that label. It MAY contain an `rgba` key whose value MUST be an tuple
+pixel value for that label. It MAY contain an `rgba` key whose value MUST be an array
 of four integers between 0 and 255 `[uint8, uint8, uint8, uint8]` specifying the label
 color as RGBA. All the values under the `label-value` key MUST be unique. Clients
 who choose to not throw an error SHOULD ignore all except the _last_ entry.
