@@ -394,7 +394,7 @@ MAY be present for each label value denoting associated metadata. Not all label
 values must share the same key-value pairs within the properties list.
 
 The `image-label` dictionary MAY contain a `source` key whose value MUST be a JSON
-object conatining information on the image the label is associated with. If included,
+object containing information on the image the label is associated with. If included,
 it MAY include a key `image` whose value MUST be a string specifying the relative
 path to a Zarr image group. The default value is "../../" since most labels are stored
 under a subgroup named "labels/" (see above).
