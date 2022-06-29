@@ -237,10 +237,36 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |   │                 # `.zattrs` MUST contain `"encoding-type"`, which is set to `"dataframe"` by AnnData.
         |   │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
         |   │
-        |   └── col_0         # Each column in the var table is a 1D zarr array. The rows can be chunked as the user desires.
-        |       ├── .zarray   # However, the var columns SHOULD be chunked in the same way as the columns in X.
-        |       │
-        |       └─ 0
+        |   ├── array_col     # Columns in the var table MAY be a 1D zarr array. The rows can be chunked as the user desires.
+        |   |   ├── .zarray   # However, the var columns SHOULD be chunked in the same way as the columns in X.
+        |   |   │
+        |   |   └─ 0
+        |   |
+        |   └── cat_col       # Columns in the var table MAY categorical
+        |       ├── .zattrs.  # `.zattrs` MUST contain `"encoding-type"`, which is set to `"categorical"` by AnnData.
+        |       |             # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.2.0"` by AnnData.
+        |       |
+        |       ├── categories
+        |       |  ├── .zarray # categories MUST be a 1D zarr array. The rows can be chunked as the user desires.
+        |       |  |
+        |       |  └─ 0
+        |       ├── codes
+        |       |  ├── .zarray # codes MUST be a 1D zarr array. The rows can be chunked as the user desires.
+        |       |  |
+        |       |  └─ 0
+        |       |
+        |       ├── null_col  # Columns in the var table MAY nullable integer
+        |       ├── .zattrs.  # `.zattrs` MUST contain `"encoding-type"`, which is set to `"nullable-integer"` by AnnData.
+        |       |             # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+        |       |
+        |       ├── mask
+        |       |  ├── .zarray # categories MUST be a 1D zarr array. The rows can be chunked as the user desires.
+        |       |  |
+        |       |  └─ 0
+        |       └── values
+        |          ├── .zarray # codes MUST be a 1D zarr array. The rows can be chunked as the user desires.
+        |          |
+        |          └─ 0
         |
         ├── obsm              # You MAY add a obsm group comtainer. The obsm group contains arrays that annotate the rows in X.
         |   │                 # The rows in each array MUST be index-matched to the rows in X (if present). 
