@@ -272,13 +272,23 @@ Conforming groups:
 - SHOULD have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml" which:
   - MUST adhere to the OME-XML specification but
   - MAY make use of the minimum specification available at https://docs.openmicroscopy.org/ome-model/6.2.2/specifications/minimum.html;
-- if so, MUST represent every "multiscales" group as exactly one OME-XML "Image" in the same order as the group numbers.
+- if so, MUST represent every "multiscales" group as exactly one OME-XML "Image" in the same order as the group numbers;
+- if "OME/METADATA.ome.xml" is present, "OME" MUST be a Zarr group which:
+  - MUST contain a "series" attribute. "series" MUST be a list of string objects, each of which is a path to an image group.
+    The order of the paths MUST match the order of both the "multiscales" metadata and the "Image" elements in "OME/METADATA.ome.xml".
+
+<pre class=include-code>
+path: examples/bf2raw/ome.json
+highlight: json
+</pre>
 
 <pre>
 series.ome.zarr               # One converted fileset from bioformats2raw
     ├── .zgroup
     ├── .zattrs               # Contains "bioformats2raw.layout" metadata
     ├── OME                   # Special group for containing OME metadata
+    │   ├── .zgroup
+    │   ├── .zattrs           # Contains "series" metadata
     │   └── METADATA.ome.xml  # OME-XML file stored within the Zarr fileset
     ├── 0                     # First image in the collection
     ├── 1                     # Second image in the collection
@@ -290,6 +300,7 @@ possible to mix collections of images with plates at present.
 
 Conforming readers:
 - SHOULD detect the presence of more than one image and make users aware of the fact;
+- MAY use the "series" attribute in the "OME" group to determine a list of valid groups;
 - MAY choose to show all images within the collection or offer the user a choice of images, as with <dfn export="true"><abbr title="High-content screening">HCS</abbr></dfn> plates;
 - MAY ignore other groups or arrays under the root of the hierarchy.
 
