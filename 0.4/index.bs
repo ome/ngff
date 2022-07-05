@@ -403,7 +403,7 @@ The `image-label` dictionary SHOULD contain a `version` key whose value MUST be 
 specifying the version of the image-label specification.
 
 <pre class=include-code>
-path: examples/image-label_strict/colors_properties.json
+path: examples/label_strict/colors_properties.json
 highlight: json
 </pre>
 
