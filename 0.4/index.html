@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version 37b7e7e68, updated Fri May 27 15:08:11 2022 -0700" name="generator">
   <link href="https://ngff.openmicroscopy.org/0.4/" rel="canonical">
-  <meta content="e82e9ed7f930524ac0e29a848df3f62f2a8d36da" name="document-revision">
+  <meta content="65289c6825ccfe1bff2f9c34e06233c841ac9718" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -344,7 +344,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-FINAL">Final Community Group Report</a>, <time class="dt-updated" datetime="2022-07-05">5 July 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-FINAL">Final Community Group Report</a>, <time class="dt-updated" datetime="2022-07-12">12 July 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -771,54 +771,57 @@ the paths to label objects which can be found underneath the group:</p>
    <p>Groups containing the <code>image-label</code> dictionary represent an image segmentation
 in which each unique pixel value represents a separate segmented object. <code>image-label</code> groups MUST also contain <code>multiscales</code> metadata and the two
 "datasets" series MUST have the same number of entries.</p>
-   <p>The <code>colors</code> key defines a list of JSON objects describing the unique label
-values. Each entry in the list MUST contain the key "label-value" with the
-pixel value for that label. Additionally, the "rgba" key MAY be present, the
-value for which is an RGBA unsigned-int 4-tuple: <code>[uint8, uint8, uint8, uint8]</code> All <code>label-value</code>s must be unique. Clients who choose to not throw an error
-should ignore all except the _last_ entry.</p>
-   <p>Some implementations may represent overlapping labels by using a specially assigned
+   <p>The <code>image-label</code> dictionary SHOULD contain a <code>colors</code> key whose value MUST be a
+list of JSON objects describing the unique label values. Each color object MUST
+contain the <code>label-value</code> key whose value MUST be an integer specifying the
+pixel value for that label. It MAY contain an <code>rgba</code> key whose value MUST be an array
+of four integers between 0 and 255 <code>[uint8, uint8, uint8, uint8]</code> specifying the label
+color as RGBA. All the values under the <code>label-value</code> key MUST be unique. Clients
+who choose to not throw an error SHOULD ignore all except the _last_ entry.</p>
+   <p>Some implementations MAY represent overlapping labels by using a specially assigned
 value, for example the highest integer available in the pixel range.</p>
-   <p>The <code>properties</code> key defines a list of JSON objects which also describes the unique
-label values. Each entry in the list MUST contain the key "label-value" with the
-pixel value for that label. Additionally, an arbitrary number of key-value pairs
+   <p>The <code>image-label</code> dictionary MAY contain a <code>properties</code> key whose value MUST be a
+list of JSON objects which also describes the unique label values. Each property object
+MUST contain the <code>label-value</code> key whose value MUST be an integer specifying the pixel
+value for that label. Additionally, an arbitrary number of key-value pairs
 MAY be present for each label value denoting associated metadata. Not all label
 values must share the same key-value pairs within the properties list.</p>
-   <p>The <code>source</code> key is an optional dictionary which contains information on the
-image the label is associated with. If included it MAY include a key <code>image</code> whose value is the relative path to a Zarr image group. The default value is
-"../../" since most labels are stored under a subgroup named "labels/" (see
-above).</p>
-<pre class="language-json highlight"><c- f>"image-label"</c-><c- p>:</c->
-  <c- p>{</c->
+   <p>The <code>image-label</code> dictionary MAY contain a <code>source</code> key whose value MUST be a JSON
+object containing information on the image the label is associated with. If included,
+it MAY include a key <code>image</code> whose value MUST be a string specifying the relative
+path to a Zarr image group. The default value is "../../" since most labels are stored
+under a subgroup named "labels/" (see above).</p>
+   <p>The <code>image-label</code> dictionary SHOULD contain a <code>version</code> key whose value MUST be a string
+specifying the version of the image-label specification.</p>
+<pre class="include-code highlight"><c- p>{</c->
+  <c- f>"image-label"</c-><c- p>:</c-> <c- p>{</c->
     <c- f>"version"</c-><c- p>:</c-> <c- u>"0.4"</c-><c- p>,</c->
     <c- f>"colors"</c-><c- p>:</c-> <c- p>[</c->
       <c- p>{</c->
         <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-        <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>0</c-><c- p>]</c->
+        <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>]</c->
       <c- p>},</c->
       <c- p>{</c->
         <c- f>"label-value"</c-><c- p>:</c-> <c- mi>4</c-><c- p>,</c->
         <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>0</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>128</c-><c- p>]</c->
-      <c- p>},</c->
-      ...
-      <c- p>],</c->
+      <c- p>}</c->
+    <c- p>],</c->
     <c- f>"properties"</c-><c- p>:</c-> <c- p>[</c->
       <c- p>{</c->
         <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
         <c- f>"area (pixels)"</c-><c- p>:</c-> <c- mi>1200</c-><c- p>,</c->
         <c- f>"class"</c-><c- p>:</c-> <c- u>"foo"</c->
-
       <c- p>},</c->
       <c- p>{</c->
         <c- f>"label-value"</c-><c- p>:</c-> <c- mi>4</c-><c- p>,</c->
         <c- f>"area (pixels)"</c-><c- p>:</c-> <c- mi>1650</c->
-      <c- p>},</c->
-      ...
-      <c- p>]</c->
-  <c- p>},</c->
-  <c- f>"source"</c-><c- p>:</c-> <c- p>{</c->
-    <c- f>"image"</c-><c- p>:</c-> <c- u>"../../"</c->
+      <c- p>}</c->
+    <c- p>],</c->
+    <c- f>"source"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"image"</c-><c- p>:</c-> <c- u>"../../"</c->
+    <c- p>}</c->
   <c- p>}</c->
-<c- p>]</c->
+<c- p>}</c->
 </pre>
    <h3 class="heading settled" data-level="3.7" id="plate-md"><span class="secno">3.7. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
    <p>For high-content screening datasets, the plate layout can be found under the
