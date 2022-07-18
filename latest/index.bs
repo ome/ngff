@@ -268,14 +268,18 @@ highlight: json
 
 Conforming groups:
 - MUST have the value "3" for the "bioformats2raw.layout" key in their `.zattrs` metadata at the top of the hierarchy;
-- MUST store separate "multiscales" images in consecutively numbered groups starting from 0 (i.e. "0/", "1/", "2/", "3/", ...);
 - SHOULD have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml" which:
   - MUST adhere to the OME-XML specification but
+  - MUST use `<MetadataOnly/>` elements and
   - MAY make use of the minimum specification available at https://docs.openmicroscopy.org/ome-model/6.2.2/specifications/minimum.html;
-- if so, MUST represent every "multiscales" group as exactly one OME-XML "Image" in the same order as the group numbers;
-- if "OME/METADATA.ome.xml" is present, "OME" MUST be a Zarr group which:
-  - MUST contain a "series" attribute. "series" MUST be a list of string objects, each of which is a path to an image group.
+
+Additionally:
+- If "OME/METADATA.ome.xml" is present, "OME" MUST be a Zarr group which:
+  - MAY contain a "series" attribute. "series" MUST be a list of string objects, each of which is a path to an image group.
     The order of the paths MUST match the order of both the "multiscales" metadata and the "Image" elements in "OME/METADATA.ome.xml".
+- If if "OME/METADATA.ome.xml" or the "series" attribute do not exist:
+  - separate "multiscales" images MUST be stored in consecutively numbered groups starting from 0 (i.e. "0/", "1/", "2/", "3/", ...).
+- Every "multiscales" group MUST represent exactly one OME-XML "Image" in the same order as either the series index or the group numbers.
 
 <pre class=include-code>
 path: examples/bf2raw/ome.json
