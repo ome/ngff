@@ -33,7 +33,7 @@ Commits on GitHub can be viewed using web services from the W3C:
 
 For each top-level metadata key of the OME-NGFF specification, JSON schemas are maintained
 for each version of the specification and stored under `$VERSION/schemas/` or `latest/schemas/`.
-Tests validating these schemas must be implementing to follow principles of the
+Tests validating these schemas must be implemented to follow principles of the
 [JSON schema test suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite)
 and stored under `$VERSION/tests/` or `latest/tests/` to allow their execution on each CI build.
 
@@ -46,8 +46,8 @@ specification document using the
 The official OME-NGFF JSON schemas are published under
 https://ngff.openmicroscopy.org/<version>/schemas/<schema_name>.schema using the
 [Spec prod](https://github.com/ome/spec-prod) GitHub action. When a new JSON schema is introduced,
-this action needs to be reviewed updated to update the deployment and allow the publication
-of the schema
+this action needs to be reviewed to update the deployment script and allow the publication
+of the schema.
 
 # Release process
 
