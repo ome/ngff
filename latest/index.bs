@@ -193,6 +193,15 @@ dataset. Three groups MUST be defined above the images:
 A well row group SHOULD NOT be present if there are no images in the well row.
 A well group SHOULD NOT be present if there are no images in the well.
 
+Note: Trade-offs on how data is structured per well:
+Field of views of the microscope MAY be saved as individual images in each
+well to allow for maximal flexibility regarding translations between field of views.
+Having wells with many individual images does not scale for visualisation of
+large plates. Visualisation tools would then need to read all the tiny pyramid
+files for each field of view to create overviews and this IO performance becomes
+a big limiting factor. In that case, all the field of views SHOULD be saved as
+a single, combined image. In that way, the pyramid chunks can be kept at a
+reasonable size for low-resolution representations of a well.
 
 <pre>
 .                             # Root folder, potentially in S3,
