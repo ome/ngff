@@ -29,6 +29,26 @@ Commits on GitHub can be viewed using web services from the W3C:
 * Update changelog at the bottom of `latest/index.bs`
 * Find references to previous version and _in most cases_, bump to the current version.
 
+## JSON schemas
+
+For each top-level metadata key of the OME-NGFF specification, JSON schemas are maintained
+for each version of the specification and stored under `$VERSION/schemas/` or `latest/schemas/`.
+Tests validating these schemas must be implementing to follow principles of the
+[JSON schema test suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite)
+and stored under `$VERSION/tests/` or `latest/tests/` to allow their execution on each CI build.
+
+All official example snippets must also be extracted and managed as separate JSON files under
+`$VERSION/examples/` or `latest/examples/`, validated by the appropriate schema by adding a
+`.config.json` file specifying the JSON schema to use and included in the
+specification document using the
+[include-code](https://tabatkins.github.io/bikeshed/#including-code) directive.
+
+The official OME-NGFF JSON schemas are published under
+https://ngff.openmicroscopy.org/<version>/schemas/<schema_name>.schema using the
+[Spec prod](https://github.com/ome/spec-prod) GitHub action. When a new JSON schema is introduced,
+this action needs to be reviewed updated to update the deployment and allow the publication
+of the schema
+
 # Release process
 
 * copy `latest/index.bs` to `$VERSION/index.bs`
@@ -43,7 +63,7 @@ Commits on GitHub can be viewed using web services from the W3C:
   * Version in the citation block including release date
 * Update https://github.com/ome/spec-prod for the new version
 
-## Citing
+# Citing
 
 Please see https://ngff.openmicroscopy.org/latest#citing for the latest
 citation.
