@@ -1,0 +1,18 @@
+{
+  "$id": "https://ngff.openmicroscopy.org/0.4/schemas/strict_label.schema",
+  "allOf": [
+    {
+      "$ref": "https://ngff.openmicroscopy.org/0.4/schemas/label.schema"
+    },
+    {
+      "properties": {
+        "image-label": {
+          "required": [
+            "version",
+            "colors"
+          ]
+        }
+      }
+    }
+  ]
+}
