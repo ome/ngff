@@ -338,11 +338,6 @@ For example, to map a discrete data space of an array to the corresponding physi
 Coordinate transforms are in the "forward" direction. They represent functions from *points* in the
 input space to *points* in the output space. 
 
-Implementations SHOULD be able to compute and apply the inverse of some coordinate transformations whose
-inverses are computable in closed-form (see the Details section below will note those transform types). If an
-operation is requested that requires the inverse of a transformation that can not be inverted in closed-form,
-implementations MAY estimate their inverses, or MAY output a warning that the requested operation is
-unsupported.
 
 
 - MUST contain the field "type".
@@ -350,8 +345,8 @@ unsupported.
 - MUST contain the field "output", unless part of a `sequence` (see details).
 - SHOULD contain the field "input", unless part of a `sequence` (see details).
 - MAY contain the fields "inputAxes" and / or "outputAxes" (see below).
-- MAY contain the field "name". Its value MUST be unique across all "name" fields for coordinate transformations.
 - MAY contain the fields "inputAxes" and "outputAxes" (see below).
+- MAY contain the field "name". Its value MUST be unique across all "name" fields for coordinate transformations.
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
 
 <table>
@@ -405,6 +400,12 @@ Conforming readers:
 - MAY enable applying transformations to points
 - MAY enable applying transformations to images
 
+### Transformation inverses 
+
+Implementations SHOULD be able to compute and apply the inverse of some coordinate transformations when they
+are computable in closed-form (as the [Transformation types](#transformation-types) section below indicates). If an
+operation is requested that requires the inverse of a transformation that can not be inverted in closed-form,
+implementations MAY estimate an inverse, or MAY output a warning that the requested operation is unsupported.
 
 
 ### Transformation types
@@ -446,8 +447,7 @@ y = j
 </div>
 
 `identity` transformations may be used to implement axis permutations by using the `inputAxes` and `outputAxes`
-fields (see below).
-
+fields (see below [`inputAxes` and `outputAxes`](#inputaxes-and-outputaxes)).
 
 #### axisPermutation
 
@@ -473,12 +473,18 @@ invertible.
 
 For example
 ```json
-{
-    "type": "translation",
-    "translation": [9, -1],
-    "input" : ["i", "j"],
-    "output" : ["x", "y"]
-}
+"coordinateSystems" : [
+    { "name" : "ij", "axes" : [{"name" : "i"}, {"name":"j"}] }
+    { "name" : "xy", "axes" : [{"name" : "x"}, {"name":"y"}] }
+],
+"coordinateTransformations" : [ 
+    {
+        "type": "translation",
+        "translation": [9, -1],
+        "input" : "ij",
+        "output" : "xy"
+    }
+]
 ```
 
 defines the function:
@@ -508,12 +514,18 @@ transformations are invertible.
 
 For example
 ```json
-{
-    "type": "scale",
-    "scale": [3, 2],
-    "input" : ["i", "j"],
-    "output" : ["x", "y"]
-}
+"coordinateSystems" : [
+    { "name" : "ij", "axes" : [{"name" : "i"}, {"name":"j"}] }
+    { "name" : "xy", "axes" : [{"name" : "x"}, {"name":"y"}] }
+],
+"coordinateTransformations" : [ 
+    {
+        "type": "scale",
+        "scale": [3, 2],
+        "input" : "ij",
+        "output" : "xy"
+    }
+]
 ```
 
 defines the function:
@@ -547,12 +559,18 @@ The matrix may be stored as a 2D array or as a 1D array (row-major).
 <div class=example>
     A 2D-2D example:
     ```json
-    {
-        "type": "affine",
-        "affine": [1, 2, 3, 4, 5, 6],
-        "input" : ["i", "j"],
-        "output" : ["x", "y"]
-    }
+    "coordinateSystems" : [
+        { "name" : "ij", "axes" : [{"name" : "i"}, {"name":"j"}] }
+        { "name" : "xy", "axes" : [{"name" : "x"}, {"name":"y"}] }
+    ],
+    "coordinateTransformations" : [ 
+        {
+            "type": "affine",
+            "affine": [1, 2, 3, 4, 5, 6],
+            "input" : "ij",
+            "output" : "xy"
+        }
+    ]
     ```
 
     defines the function:
@@ -566,12 +584,18 @@ The matrix may be stored as a 2D array or as a 1D array (row-major).
 <div class=example>
     An example with two dimensional inputs and three dimensional outputs.
     ```json
-    {
-        "type": "affine",
-        "affine": [1, 2, 3, 4, 5, 6, 7, 8, 9],
-        "input" : ["i", "j"],
-        "output" : ["x", "y", "z"]
-    }
+    "coordinateSystems" : [
+        { "name" : "ij", "axes" : [{"name" : "i"}, {"name":"j"}] }
+        { "name" : "xyz", "axes" : [{"name" : "x"}, {"name":"y"}, {"name":"z"}] }
+    ],
+    "coordinateTransformations" : [ 
+        {
+            "type": "affine",
+            "affine": [1, 2, 3, 4, 5, 6, 7, 8, 9],
+            "input" : "ij",
+            "output" : "xyz"
+        }
+    ]
     ```
 
     defines the function:
@@ -587,8 +611,8 @@ The matrix may be stored as a 2D array or as a 1D array (row-major).
     {
         "type": "affine",
         "affine": [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
-        "input" : ["i", "j"],
-        "output" : ["x", "y", "z"]
+        "input" : "ij",
+        "output" : "xyz"
     }
     ```
 </div>
@@ -622,18 +646,24 @@ and columns. `rotation` transformations are invertible.
 <div class=example>
     A 2D example
     ```json
-    {
-        "type": "rotation",
-        "affine": [0, 1, 1, 0],
-        "input" : ["i", "j"],
-        "output" : ["x", "y"]
-    }
+    "coordinateSystems" : [
+        { "name" : "ij", "axes" : [{"name" : "i"}, {"name":"j"}] }
+        { "name" : "xy", "axes" : [{"name" : "x"}, {"name":"y"}] }
+    ],
+    "coordinateTransformations" : [ 
+        {
+            "type": "rotation",
+            "affine": [0, -1, 1, 0],
+            "input" : "ij",
+            "output" : "xy"
+        }
+    ]
     ```
 
     defines the function:
 
     ```
-    x = 0*i + 1*j
+    x = 0*i - 1*j
     y = 1*i + 0*j
     ```
 </div>
@@ -641,7 +671,7 @@ and columns. `rotation` transformations are invertible.
 
 #### inverseOf
 
-An `inverseOf` transformation contain another transformation (often non-linear), and indicates that
+An `inverseOf` transformation contains another transformation (often non-linear), and indicates that
 transforming points from output to input coordinate systems is possible using the contained transformation.
 Transforming points from the input to the output coordinate systems requires the inverse of the contained
 transformation (if it exists).
@@ -1047,10 +1077,10 @@ or reording of the axes of the input or output coordinate system, respectively. 
 (`outputAxes`) are understood to be a list of the `input` (`output`) coordinate systems axis names, in the
 order they appear in the coordinate system's `axes` list. If present:
 
-- the values for `inputAxes` and `outputAxes` MUST be a list of strings.
-- every string in the `inputAxes` list MUST appear as a name for an axes of the transformations input coordinate system.
-- every string in the `outputAxes` list MUST appear as a name for an axes of the transformations output coordinate system.
-- every axis name in the output coordinate system MUST appear either as an axis name of the input coordinate system or in the list of `outputAxes`
+- Values for `inputAxes` and `outputAxes` MUST be a list of strings.
+- Every string in the `inputAxes` list MUST be the name of an axis of the transformation's input coordinate system.
+- Every string in the `outputAxes` list MUST be the name of an axis of the transformation's output coordinate system.
+- Every axis name in the output coordinate system MUST in the list of `outputAxes`.
 
 <div class=example>
 
