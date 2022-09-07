@@ -1,0 +1,64 @@
+{
+    "coordinateSystems" : [
+        { "name " : "in", "axes" : [ {"name" : "0", "name" : "1", "name": "2", "name": "3", "name": "4" }] },
+        { "name " : "out", "axes" : [ {"name" : "x", "name" : "y", "name" : "z" }] }
+    ],
+    "coordinateTransformations" : [
+        { 
+            "type" : "sequence",
+            "name" : "5D-to-3D",
+            "input" : "in",
+            "output" : "out",
+            "transformations" : [
+                {
+                    "type": "mapIndex",
+                    "inputAxes" : ["0", "1"],
+                    "outputAxes" : ["x", "y"]
+                },
+                {
+                    "type": "scale",
+                    "scale" : [2],
+                    "inputAxes" : ["3"],
+                    "outputAxes" : ["z"]
+                }
+            ]
+        },
+        { 
+            "type" : "sequence",
+            "name" : "5D-to-3D-not-contiguous",
+            "input" : "in",
+            "output" : "out",
+            "transformations" : [
+                {
+                    "type": "mapIndex",
+                    "inputAxes" : ["0", "2"],
+                    "outputAxes" : ["x", "z"]
+                },
+                {
+                    "type": "scale",
+                    "scale" : [2],
+                    "inputAxes" : ["1"],
+                    "outputAxes" : ["y"]
+                }
+            ]
+        },
+        { 
+            "type" : "sequence",
+            "name" : "5D-to-3D-not-contiguous",
+            "input" : "in",
+            "output" : "out",
+            "transformations" : [
+                {
+                    "type": "mapAxes",
+                    "map" : {"0":"x", "2":"z"}
+                },
+                {
+                    "type": "scale",
+                    "scale" : [2],
+                    "inputAxes" : ["1"],
+                    "outputAxes" : ["y"]
+                }
+            ]
+        }
+    ]
+}
