@@ -361,7 +361,6 @@ input space to *points* in the output space.
 - MUST contain any other fields required by the given "type" (see table below).
 - MUST contain the field "output", unless part of a `sequence` (see details).
 - SHOULD contain the field "input", unless part of a `sequence` (see details).
-- MAY contain the fields "inputAxes" and / or "outputAxes" (see below).
 - MAY contain the field "name". Its value MUST be unique across all "name" fields for coordinate transformations.
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
 
@@ -776,7 +775,7 @@ coordinate transform in the array is invertible.
   <dd>A non-empty array of transformations.</dd>
 </dl>
 
-The `input` and `output` fields MAY be omitted for transformations that are in the list of transformations of a `sequence`.
+The `input` and `output` fields SHOULD be omitted for transformations that are in the list of transformations of a `sequence`.
 
 <div class=example>
 
@@ -933,86 +932,61 @@ on subsets of dimensions.
 
 <dl>
   <dt><strong>transformations</strong></dt>
-  <dd>  A list of transformations, each of which applies to a subset of input and output dimensions (axes). 
+  <dd>  A list of transformations, each of which applies to a (non-strict) subset of input and output dimensions (axes). 
         The values of `input` and `output` fields MUST be an array of strings.
-        Every axis name in `input` MUST appear in this parent object's `input` axes.
-        Every axis name in the parent dimensionWise's output MUST appear in exactly one 
-        of its child transformations' `output`.
+        Every axis name in `input` MUST correspond to a name of some axis in this parent object's `input` coordinate system.
+        Every axis name in the parent byDimension's `output` MUST appear in exactly one of its child transformations' `output`.
         </dd>
 </dl>
 
-This is a valid `dimensionWise` transformation:
 
-```json
-{
-    "spaces" : [
-        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j"} ] },
-        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"} ] }
-    ],
-    "transforms" : [
-        {
-            "name: "in2out",
-            "type: "byDimension",
-            "input" : "in",
-            "output" : "out",
-            "transformations" : [
-                { "type" : "coordinates", "path" : "/coordinates", "inputAxes" : ["i"], "outputAxes" : ["x"]}
-                { "type" : "scale", "scale" : [2.0], "inputAxes" : ["j"], "outputAxes" : ["y"]}
-            ]
-        }
-    ]
-}
-```
+<div class=example>
 
-This is also a valid transformation:
+A valid `byDimension` transformation:
 
-```json
-{
-    "spaces" : [
-        { "name" : "in", "axes" : [ {"name" : "0"}, {"name" : "1"}, {"name" : "2"}, {"name" : "3"}] },
-        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"}, {"name" : "z"}  ] }
-    ],
-    "transforms" : [
-        {
-            "name: "in2out",
-            "type: "byDimension",
-            "input" : "in",
-            "output" : "out",
-            "transformations" : [
-                { "type" : "coordinates", "path" : "/coordinates", "input" : ["0","3" ], "output" : ["y", "x"]}
-                { "type" : "scale", "scale" : [2.0], "input" : ["1"], "output" : ["z"]}
-            ]
-        }
-    ]
-}
-```
+<pre class=include-code>
+path: examples/transformations/byDimension1.json
+highlight: json
+</pre>
 
+</div>
 
-This is an invalid `dimensionWise` transform:
+<div class=example>
 
-```json
-{
-    "spaces" : [
-        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j"} ] },
-        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"} ] }
-    ],
-    "transforms" : [
-        {
-            "name: "in2out",
-            "type: "dimensionWise",
-            "input" : "in",
-            "output" : "out",
-            "transformations" : [
-                { "type" : "coordinates", "path" : "/coordinates", "input" : ["i"], "output" : ["z"]}
-                { "type" : "scale", "scale" : [2.0], "input" : ["0"], "output" : ["y"]}
-            ]
-        }
-    ]
-}
-```
+Another valid `byDimension` transformation:
 
-for two reasons. First because input"0" used by the scale transformation is not an axis of the `dimensionWise` transformation's
-`input`. Second, the "x" axis of the `output` does not appear in the `output` of any child transformation.
+<pre class=include-code>
+path: examples/transformations/byDimension2.json
+highlight: json
+</pre>
+
+</div>
+
+<div class=example>
+
+This is an **invalid** `byDimension` transform:
+
+<pre class=include-code>
+path: examples/transformations/byDimensionInvalid1.json
+highlight: json
+</pre>
+
+It is invalid for two reasons. First because input `0` used by the scale transformation is not an axis of the `byDimension` transformation's `input`. Second, the `x` axis of the `output` does not appear in the `output` of any child transformation.
+
+</div>
+
+<div class=example>
+
+Another **invalid** `byDimension` transform:
+
+<pre class=include-code>
+path: examples/transformations/byDimensionInvalid2.json
+highlight: json
+</pre>
+
+This transformation is invalid because the output axis `x` appears in more than one transformation in the `transformations` list.
+
+</div>
 
 
 #### bijection
@@ -1058,123 +1032,6 @@ the input and output of the `forward` and `inverse` transformations are understo
 ```
 
 </div>
-
-### `inputAxes` and `outputAxes`
-
-`inputAxes` and `outputAxes` are optional fields for transformations to express that it applies to a subset 
-or reording of the axes of the input or output coordinate system, respectively.  If not present, the `inputAxes`
-(`outputAxes`) are understood to be a list of the `input` (`output`) coordinate systems axis names, in the
-order they appear in the coordinate system's `axes` list. If present:
-
-- Values for `inputAxes` and `outputAxes` MUST be a list of strings.
-- Every string in the `inputAxes` list MUST be the name of an axis of the transformation's input coordinate system.
-- Every string in the `outputAxes` list MUST be the name of an axis of the transformation's output coordinate system.
-- Every axis name in the output coordinate system MUST in the list of `outputAxes`.
-
-<div class=example>
-
-An `identity` may be used to permute axes by setting
-the `inputAxes` and / or `outputAxes` fields appropriately (see below).
-
-```json
-{
-    "coordinateSystems" : [
-        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j"} ]},
-        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"} ]}
-    ],
-    "coordinateTransformations" : [ 
-        { 
-          "type" : "identity",
-          "input" : "in",
-          "output" : "out",
-          "inputAxes" : ["i", "j"],
-          "outputAxes" : ["y", "x"]
-       }
-    ]
-}
-```
-
-defines the function:
-
-```
-x = j
-y = i
-```
-
-</div>
-
-
-<div class=example>
-    A valid example
-
-    ```json
-    "coordinateSystems" : [ 
-        { "name " : "in", "axes" : [ {"name" : "x", "name" : "y" }] }
-        { "name " : "out", "axes" : [ {"name" : "x", "name" : "y" }] }
-    ]
-    {
-        "type": "scale",
-        "scale" : [2],
-        "input" : "in"
-        "output" : "out",
-        "inputAxes" : ["y"],
-        "outputAxes" : ["y"]
-    }
-    ```
-    scales the `y` axis only.
-
-</div>
-
-<div class=example>
-    An invalid example
-
-    ```json
-    "coordinateSystems" : [ 
-        { "name " : "in", "axes" : [ {"name" : "i", "name" : "j" }] }
-        { "name " : "out", "axes" : [ {"name" : "x", "name" : "y" }] }
-    ]
-    "coordinateTransformations" : [
-        {
-            "type": "scale",
-            "scale" : [2],
-            "input" : "in"
-            "output" : "out",
-            "inputAxes" : ["j"],
-            "outputAxes" : ["y"]
-        }
-    ]
-    ```
-
-    Is invalid because the axis name `x` of the output coordinate system does not appear in the list of `outputAxes`,
-    nor does it appear in the axis names of the coordinate system `in`. Instead, a `sequence` transformation can
-    be defined, such that every axis in the output space appears in at least one of the `outputAxes` of the
-    sequence's transformations. For example (asuming the same coordinate systems as above):
-
-    ```json
-    {
-        "type": "sequence",
-        "transformations" : [
-            {
-                "type": "scale",
-                "scale" : [2],
-                "inputAxes" : ["j"],
-                "outputAxes" : ["y"]
-            },
-            {
-                "type": "identity",
-                "inputAxes" : ["i"],
-                "outputAxes" : ["x"]
-            }
-        ],
-        "input" : "in"
-        "output" : "out",
-    }
-    ```
-
-    is valid.
-
-</div>
-
 
 
 ### Points, coordinates, direction, and indexing
