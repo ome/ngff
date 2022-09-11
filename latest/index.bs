@@ -394,8 +394,7 @@ input space to *points* in the output space.
         If both are present, the binary parameters at path are used.
   <tr><th>`sequence`
     <td> `"transformations":List[Transformation]`
-    <td>A sequence of transformations, Applying the sequence applies the composition of all transforms in the
-    list, in order. An empty sequence is the identity transformation.
+    <td>A sequence of transformations, Applying the sequence applies the composition of all transforms in the list, in order.
   <tr><th>`displacements`
     <td>`"url":str`<br>`"path":str`<br>`"interpolation":str`
     <td>Displacement field transformation in this container (path) or another container located at (url).
@@ -408,7 +407,7 @@ input space to *points* in the output space.
   <tr><th>`bijection`
     <td>`"forward":Transform`<br>`"inverse":Transform`
     <td>Explicitly define an invertible transformation by providing a forward transformation and its inverse.
-  <tr><th>`dimensionWise`
+  <tr><th>`byDimension`
     <td>`"transformations":List[Transformation]`
     <td>Define a high dimensional transformation using lower dimensional transformations on subsets of
     dimensions.
@@ -769,26 +768,24 @@ For example
 
 #### sequence
 
-A `sequence` transformation consists of an ordered array of coordinate transformations.
-`sequence` transformations are invertible if and only if every coordinate transform in the array
-is invertible.
+A `sequence` transformation consists of an ordered array of coordinate transformations, and is invertible if and only if every
+coordinate transform in the array is invertible.
 
-The `input` and `output` fields MAY be omitted for transformations that are in the list
-of transformations of a `sequence`.
+<dl>
+  <dt><strong>transformations</strong></dt>
+  <dd>A non-empty array of transformations.</dd>
+</dl>
+
+The `input` and `output` fields MAY be omitted for transformations that are in the list of transformations of a `sequence`.
 
 <div class=example>
-For example, this sequence:
-```json
-{
-    "type" : "sequence",
-    "transformations" : [
-        { "type": "translation", "translation" : [0.1, 0.9] },
-        { "type": "scale", "scale" : [2, 3] }
-    ]
-    "input" : ["i", "j"],
-    "output" : ["x", "y"]
-}
-```
+
+This sequence:
+
+<pre class=include-code>
+path: examples/transformations/sequence.json
+highlight: json
+</pre>
 
 describes the function
 
@@ -801,83 +798,11 @@ and is invertible.
 </div>
 
 
-
-This is a valid `sequence` transformation:
-
-```json
-{
-    "coordinateSystems" : [
-        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j"} ] },
-        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"} ] }
-    ],
-    "coordinateTransformations" : [
-        {
-            "type: "sequence",
-            "input" : "in",
-            "output" : "out",
-            "transformations" : [
-                { "type" : "coordinates", "path" : "/coordinates", "inputAxes" : ["i"], "outputAxes" : ["x"]}
-                { "type" : "scale", "scale" : [2.0], "inputAxes" : ["j"], "outputAxes" : ["y"]}
-            ]
-        }
-    ]
-}
-```
-
-This is also a valid transformation:
-
-```json
-{
-    "coordinateSystems" : [
-        { "name" : "in", "axes" : [ {"name" : "0"}, {"name" : "1"}, {"name" : "2"}, {"name" : "3"}] },
-        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"}, {"name" : "z"}  ] }
-    ],
-    "coordinateTransformations" : [
-        {
-            "type: "sequence",
-            "input" : "in",
-            "output" : "out",
-            "transformations" : [
-                { "type" : "coordinates", "path" : "/coordinates", "input" : ["0","3" ], "output" : ["y", "x"]}
-                { "type" : "scale", "scale" : [2.0], "input" : ["1"], "output" : ["z"]}
-            ]
-        }
-    ]
-}
-```
-
-
-This is an invalid `sequence` transform:
-
-```json
-{
-    "spaces" : [
-        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j"} ] },
-        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"} ] }
-    ],
-    "transforms" : [
-        {
-            "type: "sequence",
-            "input" : "in",
-            "output" : "out",
-            "transformations" : [
-                { "type" : "coordinates", "path" : "/coordinates", "inputAxes" : ["i"], "outputAxes" : ["z"]}
-                { "type" : "scale", "scale" : [2.0], "inputAxes" : ["0"], "outputAxes" : ["y"]}
-            ]
-        }
-    ]
-}
-```
-
-for two reasons. First because input"0" used by the scale transformation is not an axis of the `sequence` transformation's
-`input`. Second, the "x" axis of the `output` does not appear in the `output` of any child transformation.
-
-
 #### coordinates and displacements
 
-`coordinates` and `displacements` transformations store coordinates or displacements in an array.
-Applying the transformation amounts to looking up the appropriate locations in the array, and interpolating.
-`coordinates` and `displacements` transformations are note invertible in general, but implementations
+`coordinates` and `displacements` transformations store coordinates or displacements in an array and interpret them as a transformation.
+Applying the transformation amounts to looking up the appropriate locations in the array and interpolating.
+`coordinates` and `displacements` transformations are not invertible in general, but implementations
 MAY approximate their inverses. Metadata for these coordinate transforms have the following field: 
 
 <dl>
@@ -918,7 +843,7 @@ For example, in 1D:
 {
     "name" : "a coordinate field transform",
     "type": "coordinates",
-    "path" : "coordinates",
+    "path" : "i2xCoordinates",
     "input" : ["i"],
     "output" : ["x"],
     "interpolation" : "nearest"
@@ -1001,9 +926,9 @@ The transformation specifies linear interpolation, which in this case yields
 input point, hence the output is `1.0 + (-0.5) = 0.5`.
 
 
-#### dimensionWise
+#### byDimension
 
-`dimensionWise` transformations build a high dimensional transformation using lower dimensional transformations
+`byDimension` transformations build a high dimensional transformation using lower dimensional transformations
 on subsets of dimensions.
 
 <dl>
@@ -1027,7 +952,7 @@ This is a valid `dimensionWise` transformation:
     "transforms" : [
         {
             "name: "in2out",
-            "type: "dimensionWise",
+            "type: "byDimension",
             "input" : "in",
             "output" : "out",
             "transformations" : [
@@ -1050,7 +975,7 @@ This is also a valid transformation:
     "transforms" : [
         {
             "name: "in2out",
-            "type: "dimensionWise",
+            "type: "byDimension",
             "input" : "in",
             "output" : "out",
             "transformations" : [
