@@ -261,20 +261,9 @@ In order to capture that information within an OME-NGFF dataset, `bioformats2raw
 The bioformats2raw layout can be found in NGFF versions v0.2, v0.3, and v0.4. An upcoming NGFF specification will replace
 this layout with explicit metadata.
 
-
-<h4 id="bf2raw-attributs" class="no-toc">Attributes</h4>
-
-<pre class=include-code>
-path: examples/bf2raw/bioformats2raw_layout.json
-highlight: json
-</pre>
-
-<pre class=include-code>
-path: examples/bf2raw/ome.json
-highlight: json
-</pre>
-
 <h4 id="bf2raw-layout" class="no-toc">Layout</h4>
+
+Typical Zarr layout produced by running `bioformats2raw` on a fileset that contains more than image (series > 1):
 
 <pre>
 series.ome.zarr               # One converted fileset from bioformats2raw
@@ -287,6 +276,21 @@ series.ome.zarr               # One converted fileset from bioformats2raw
     ├── 0                     # First image in the collection
     ├── 1                     # Second image in the collection
     └── ...
+</pre>
+
+<h4 id="bf2raw-attributs" class="no-toc">Attributes</h4>
+
+The top-level `.zattrs` file must contain the `bioformats2raw.layout` key:
+<pre class=include-code>
+path: examples/bf2raw/bioformats2raw_layout.json
+highlight: json
+</pre>
+
+The `.zattrs` file within the OME group may contain the "series" key:
+
+<pre class=include-code>
+path: examples/bf2raw/ome.json
+highlight: json
 </pre>
 
 <h4 id="bf2raw-details" class="no-toc">Details</h4>
