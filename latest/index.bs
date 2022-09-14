@@ -271,8 +271,8 @@ Conforming groups:
 - MUST have the value "3" for the "bioformats2raw.layout" key in their `.zattrs` metadata at the top of the hierarchy;
 - SHOULD have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml" which:
     - MUST adhere to the OME-XML specification but
-    - MUST use `<MetadataOnly/>` elements and
-    - MAY make use of the minimum specification available at https://docs.openmicroscopy.org/ome-model/6.2.2/specifications/minimum.html;
+    - MUST use `<MetadataOnly/>` elements as opposed to `<BinData/>`, `<BinaryOnly/>` or `<TiffData/>`;
+    - MAY make use of the [minimum specification](https://docs.openmicroscopy.org/ome-model/6.2.2/specifications/minimum.html).
 
 Additionally:
 
