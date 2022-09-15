@@ -267,14 +267,15 @@ A "coordinate system" is a collection of "axes" / dimensions with a name. Every 
 </div>
 
 The order of the `"axes"` list matters and defines the index of each array dimension and coordinates for points in that
-coordinate system. For the above example, the `"x"` dimension is the first dimension.
+coordinate system. For the above example, the `"x"` dimension is the first dimension. The "dimensionality" of a coordinate system
+is indicated by the length of its "axes" array.  The "volume_micrometers" example above is three dimensional (3D).
 
 
-### Array coordinate systems and indexing
+### Array coordinate systems
 
 Every array has a default coordinate system whose parameters need not be explicitly defined.  Its name is the path to the array
-in the container, its axes have `"type":"array"`, are unitless, and have default "name"s. The ith axis has `"name":"dim_i"`. 
-
+in the container, its axes have `"type":"array"`, are unitless, and have default "name"s. The ith axis has `"name":"dim_i"`
+(these are the same default names used by [xarray](https://docs.xarray.dev/en/stable/user-guide/terminology.html)).
 <div class=example>
 For example, a 3D array at path `/my/data/array` defines the coordinate system:
 
@@ -301,22 +302,22 @@ the last dimension of an array in "C" order (row-major) are stored contiguously.
 (column-major) order, the elements of the first dimension are stored contiguously.
 
 <div class=example>
-    For example, if `/my/data/array/.zarray` contains:
+For example, if `/my/data/array/.zarray` contains:
 
-    ```json
-    {
-        "chunks": [ 4, 3, 5 ],
-        "compressor": null,
-        "dtype": "|u1",
-        "fill_value": 0,
-        "filters": null,
-        "order": "C",
-        "shape": [ 4, 3, 5 ],
-        "zarr_format": 2
-    }
-    ```
+```json
+{
+    "chunks": [ 4, 3, 5 ],
+    "compressor": null,
+    "dtype": "|u1",
+    "fill_value": 0,
+    "filters": null,
+    "order": "C",
+    "shape": [ 4, 3, 5 ],
+    "zarr_format": 2
+}
+```
 
-    Then `dim_0` has length 4, `dim_1` has length 3, and `dim_2` has length 5.
+Then `dim_0` has length 4, `dim_1` has length 3, and `dim_2` has length 5.
 </div>
 
 The name and axes names MAY be customized by including a `arrayCoordinateSystem` field in
@@ -324,16 +325,14 @@ the `.zattr` metadata of the array whose value is a coordinate system object. Th
 `axes` MUST be equal to the dimensionality. The value of `"type"` for each object in the 
 axes array MUST equal `"array"`.
 
-```json
-"arrayCoordinateSystem" : {
-    "name" : "myDataArray",
-    "axes" : [
-        {"name": "i", "type": "array"},
-        {"name": "j", "type": "array"},
-        {"name": "k", "type": "array"}
-    ]
-}
-```
+<div class=example>
+
+<pre class=include-code>
+path: examples/coordSystems/arrayCoordSys.json
+highlight: json
+</pre>
+
+</div>
 
 
 ### Coordinate convention
@@ -417,15 +416,108 @@ input space to *points* in the output space.
 
 Conforming readers:
 - SHOULD be able to apply transformations to points
-- MAY enable applying transformations to points
-- MAY enable applying transformations to images
+- SHOULD be able to apply transformations to images
 
-### Transformation inverses 
+### Additional details
+
+Most coordinate transformations MUST specify their input and output coordinate systems using `input` and `output` with a string value
+corresponding to the name of a coordinate system. The coordinate system's name may be the path to an array, and therefore may
+not appear in the list of coordinate systems.
+
+Exceptions are if the the coordinate transformation appears in the `transformations` list of a `sequence` or is the
+`transformation` of an `inverseOf` transformation. In these two cases input and output SHOULD be omitted (see below for
+details).
+
+Transformations in the `transformations` list of a `byDimensions` transforemation MUST provide `input` and `output` as arrays
+of strings corresponding to axis names of the parent transformation's input and output coordinate systems (see below for
+details).
+
+<div class=example>
+
+The sequence transformation's input corresponds to an array coordinate system at path "/my/array".
+
+```json
+"coordinateSystems" : [
+    { "name" : "in", "axes" : [{"name" : "i"}, {"name":"j"}] },
+    { "name" : "outScale", "axes" : [{"name" : "x"}, {"name":"y"}] }
+    { "name" : "outSeq", "axes" : [{"name" : "x"}, {"name":"y"}] }
+    { "name" : "outInv", "axes" : [{"name" : "x"}, {"name":"y"}] }
+    { "name" : "outByDim", "axes" : [{"name" : "x"}, {"name":"y"}] }
+],
+"coordinateTransformations" : [
+    {
+        "type": "scale",
+        "input" : "in",
+        "output" : "outSeq"
+        "scale" : [ 0.5, 1.2 ],
+    },
+    {
+        "type" : "sequence",
+        "input" : "/my/array",
+        "output" : "outSeq"
+        "transformations" : [
+            { "type": "scale", "scale" : [ 0.5, 0.6 ] },
+            { "type": "translation", "translation" : [ 2, 5 ] }
+        ],
+    },
+    {
+        "type": "inverseOf",
+        "input" : "in",
+        "output" : "outInv",
+        "transformation" : {
+            "type": "displacements",
+            "path": "/path/to/displacements"
+        }
+    },
+    {
+        "type": "byDimension",
+        "input" : "in",
+        "output" : "outDim",
+        "transformations" : [
+            { "type" : "translation", "translation" : [1], "input" : ["i"], "output" : ["x"]},
+            { "type" : "scale", "scale" : [2.0], "input" : ["j"], "output" : ["y"]}
+        ]
+    }
+]
+```
+
+</div>
+
+Coordinate transformations are are functions of *points* in the input space to *points* in the output space. We call this the "forward" direction.
+Points are ordered lists of coordinates, where a coordinate is the location/value of that point along its corresponding axis.
+The indexes of axis dimensions correspond to indexes into transformation parameter arrays. For example, the scale transformation above
+defines the function:
+
+```
+x = 0.5 * i
+y = 1.2 * j
+```
+
+i.e., the mapping from the first input axis to the first output axis is determined by the first scale parameter.
+
+When rendering transformed images and interpolating, implementations may need the "inverse" transformation - from output to
+input space. Inverse transformations will not be explicitly specified when they can be computed in closed form from the
+forward transformation. Inverse transformations used for image rendering should be specified using the `inverse`
+transformation type, for example:
+
+```json
+{
+    "type": "inverseOf",
+    "transformation" : {
+        "name": "nonlinear-inverse",
+        "type": "displacements",
+        "path": "/path/to/my/transform",
+    }
+}
+```
 
 Implementations SHOULD be able to compute and apply the inverse of some coordinate transformations when they
 are computable in closed-form (as the [Transformation types](#transformation-types) section below indicates). If an
 operation is requested that requires the inverse of a transformation that can not be inverted in closed-form,
 implementations MAY estimate an inverse, or MAY output a warning that the requested operation is unsupported.
+
+
+
 
 
 ### Transformation types
@@ -627,8 +719,8 @@ highlight: json
 defines the function:
 
 ```
-x = 3 * i
-y = 2.12 * j
+x = 3.12 * i
+y = 2 * j
 ```
 </div>
 
@@ -1033,105 +1125,6 @@ the input and output of the `forward` and `inverse` transformations are understo
 
 </div>
 
-
-### Points, coordinates, direction, and indexing
-
-Coordinate transformations are are functions of *points* in the input space to *points* in the output space. We call this the "forward" direction.
-Points are ordered lists of coordinates, where a coordinate is the location/value of that point along its corresponding axis.
-The indexes of axis dimensions correspond to indexes into transformation parameter arrays. For example, the transformation: 
-
-```json
-{
-    "type": "scale",
-    "scale": [2, 0.5]
-    "input" : ["i", "j"]
-    "output" : ["x", "y"]
-}
-```
-
-defines the function:
-
-```
-x = 2 * i
-y = 0.5 * j
-```
-
-i.e., the mapping from the first input axis to the first output axis is determined by the first scale parameter.
-
-When rendering transformed images and interpolating, implementations may need the "inverse" transformation - from output to
-input space. Inverse transformations will not be explicitly specified when they can be computed in closed form from the
-forward transformation. Inverse transformations used for image rendering should be specified using the `inverse`
-transformation type, for example:
-
-```json
-{
-    "type": "inverseOf",
-    "transformation" : {
-        "name": "nonlinear-inverse",
-        "type": "displacements",
-        "path": "/path/to/my/transform",
-    }
-}
-```
-
-### Spaces and axes
-
-Every coordinate transformation MUST specify its output coordinate system using `output` to with a string value
-corresponding to the name of an output space or with an array of strings to provide a list of axis names.
-Similarly, every coordinate transformation SHOULD specify its input coordinate system using the `input`. If
-`input` is not provided the transformation's input is in array-space.
-
-Coordinate transformations may be defined as sequences of transformations, each of which applies to a subspace.
-Which subspace should be defined by providing arrays of strings as the values for the `input` and `output`
-fields. An axis name MUST appear in exactly one `output` lists.
-
-
-<div class=example>
-A simple example
-```json
-{
-    "type" : "sequence",
-    "transformations" : [
-        {
-            "type": "scale",
-            "scale" : [ 0.5, 0.5 ],
-            "input" : ["dim_1", "dim_2"],
-            "output" : ["x", "y"],
-        },
-        {
-            "type": "scale",
-            "scale" : [ 2 ],
-            "input" : ["dim_0"],
-            "output" : ["t"],
-        }
-    ]
-}
-```
-
-```json
-{
-    "type" : "sequence",
-    "transformations" : [
-        {
-            "type": "inverseOf",
-            "transformation" : {
-                "name": "nonlinear-inverse",
-                "type": "displacements",
-                "path": "/path/to/my/transform",
-                "input" : ["i", "j"],
-                "output" : ["x", "y"],
-            },
-        },
-        {
-            "type": "scale",
-            "scale" : [ 2 ]
-            "input" : ["k"],
-            "output" : ["z"],
-        }
-    ]
-}
-```
-</div>
 
 
 "multiscales" metadata {#multiscale-md}
