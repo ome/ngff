@@ -298,7 +298,7 @@ highlight: json
 The `.zattrs` file within the OME group may contain the "series" key:
 
 <pre class=include-code>
-path: examples/bf2raw/ome.json
+path: examples/ome/series-2.json
 highlight: json
 </pre>
 
