@@ -1,16 +1,16 @@
 {
-    "coordinateSystems" : [
-        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j"}, {"name" : "k"}, {"name" : "l"}] },
-        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"}, {"name" : "z"}  ] }
+    "coordinateSystems": [
+        { "name": "in", "axes": [ {"name": "i"}, {"name": "j"}, {"name": "k"}, {"name": "l"}] },
+        { "name": "out", "axes": [ {"name": "x"}, {"name": "y"}, {"name": "z"}  ] }
     ],
-    "coordinateTransformations" : [ 
+    "coordinateTransformations": [ 
         {
-            "type" : "byDimension",
-            "input" : "in",
-            "output" : "out",
+            "type": "byDimension",
+            "input": "in",
+            "output": "out",
             "transformations" : [
-                { "type" : "translation", "translation" : [1, 3], "input" : ["i", "k" ], "output" : ["y", "x"]},
-                { "type" : "scale", "scale" : [2.0], "input" : ["j"], "output" : ["z"]}
+                { "type": "translation", "translation": [1, 3], "input": ["i", "k" ], "output": ["y", "x"]},
+                { "type": "scale", "scale": [2.0], "input": ["j"], "output": ["z"]}
             ]
         }
     ]

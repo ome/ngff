@@ -1,14 +1,14 @@
 {
     "coordinateSystems" : [
-        { "name" : "ij", "axes" : [{"name" : "i"}, {"name" : "j"}] },
-        { "name" : "xy", "axes" : [{"name" : "x"}, {"name" : "y"}] }
+        { "name": "ij", "axes": [{"name": "i"}, {"name": "j"}] },
+        { "name": "xy", "axes": [{"name": "x"}, {"name": "y"}] }
     ],
     "coordinateTransformations" : [ 
         {
-            "type" : "affine",
-            "affine" : [1, 2, 3, 4, 5, 6],
-            "input" : "ij",
-            "output" : "xy"
+            "type": "affine",
+            "affine": [1, 2, 3, 4, 5, 6],
+            "input": "ij",
+            "output": "xy"
         }
     ]
 }

@@ -1,23 +1,23 @@
 {
-    "coordinateSystems" : [
-        { "name" : "in", "axes" : [ {"name" : "a"}, {"name" : "b"}]},
-        { "name" : "out_down", "axes" : [ {"name" : "x"}]},
-        { "name" : "out_up", "axes" : [ {"name" : "x"}, {"name" : "y"}, {"name" : "z"} ]}
+    "coordinateSystems": [
+        { "name": "in", "axes": [ {"name": "a"}, {"name": "b"}]},
+        { "name": "out_down", "axes": [ {"name": "x"}]},
+        { "name": "out_up", "axes": [ {"name": "x"}, {"name": "y"}, {"name": "z"} ]}
     ],
-    "coordinateTransformations" : [ 
+    "coordinateTransformations": [ 
         { 
-            "name" : "projection down",
-            "type" : "mapAxis", 
-            "mapAxis" : { "x" : "b" },
-            "input" : "in",
-            "output" : "out_down" 
+            "name": "projection down",
+            "type": "mapAxis", 
+            "mapAxis": { "x": "b" },
+            "input": "in",
+            "output": "out_down" 
         },
         { 
-            "name" : "projection up",
-            "type" : "mapAxis", 
-            "mapAxis" : { "x":"a", "y":"b", "z":"b" },
-            "input" : "in",
-            "output" : "out_up" 
+            "name": "projection up",
+            "type": "mapAxis", 
+            "mapAxis": { "x": "a", "y": "b", "z": "b" },
+            "input": "in",
+            "output": "out_up" 
         }
     ]
 }

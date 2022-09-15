@@ -1,14 +1,14 @@
 {
-    "coordinateSystems" : [
-        { "name" : "i", "axes" : [{"name" : "i"}] },
-        { "name" : "x", "axes" : [{"name" : "x"}] }
+    "coordinateSystems": [
+        { "name": "i", "axes": [{"name": "i"}] },
+        { "name": "x", "axes": [{"name": "x"}] }
     ],
-    "coordinateTransformations" : [{
-        "name" : "a displacement field transform",
+    "coordinateTransformations": [{
+        "name": "a displacement field transform",
         "type": "displacements",
-        "path" : "i2xCoordinates",
-        "input" : "i",
-        "output" : "x",
-        "interpolation" : "nearest"
+        "path": "i2xCoordinates",
+        "input": "i",
+        "output": "x",
+        "interpolation": "nearest"
     }]
 }

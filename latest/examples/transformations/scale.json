@@ -1,14 +1,14 @@
 {
-    "coordinateSystems" : [
-        { "name" : "in", "axes" : [{"name" : "i"}, {"name":"j"}] },
-        { "name" : "out", "axes" : [{"name" : "x"}, {"name":"y"}] }
+    "coordinateSystems": [
+        { "name": "in", "axes": [{"name": "i"}, {"name": "j"}] },
+        { "name": "out", "axes": [{"name": "x"}, {"name": "y"}] }
     ],
-    "coordinateTransformations" : [ 
+    "coordinateTransformations": [ 
         {
             "type": "scale",
             "scale": [3.12, 2],
-            "input" : "in",
-            "output" : "out"
+            "input": "in",
+            "output": "out"
         }
     ]
 }
