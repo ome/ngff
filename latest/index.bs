@@ -104,7 +104,7 @@ The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL 
 <p>
 <dfn>Transitional</dfn> metadata is added to the specification with the
 intention of removing it in the future. Implementations may be expected (MUST) or
-encouraged (SHOULD) support the reading of the data, but writing will usually
+encouraged (SHOULD) to support the reading of the data, but writing will usually
 be optional (MAY). Examples of transitional metadata include custom additions by
 implementations that are later submitted as a formal specification. (See [[#bf2raw]])
 </p>
@@ -263,7 +263,7 @@ this layout with explicit metadata.
 
 <h4 id="bf2raw-layout" class="no-toc">Layout</h4>
 
-Typical Zarr layout produced by running `bioformats2raw` on a fileset that contains more than image (series > 1):
+Typical Zarr layout produced by running `bioformats2raw` on a fileset that contains more than one image (series > 1):
 
 <pre>
 series.ome.zarr               # One converted fileset from bioformats2raw
@@ -278,7 +278,7 @@ series.ome.zarr               # One converted fileset from bioformats2raw
     └── ...
 </pre>
 
-<h4 id="bf2raw-attributs" class="no-toc">Attributes</h4>
+<h4 id="bf2raw-attributes" class="no-toc">Attributes</h4>
 
 The top-level `.zattrs` file must contain the `bioformats2raw.layout` key:
 <pre class=include-code>
@@ -287,7 +287,7 @@ highlight: json
 </pre>
 
 If the top-level group represents a plate, the `bioformats2raw.layout` metadata will be present but
-the "plate" key key takes precedence and parsing of such datasets should follow [[#plate-md]]. It is not
+the "plate" key MUST also be present, takes precedence and parsing of such datasets should follow [[#plate-md]]. It is not
 possible to mix collections of images with plates at present.
 
 <pre class=include-code>
