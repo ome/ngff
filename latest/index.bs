@@ -315,7 +315,7 @@ Conforming groups:
 Additionally, the logic for finding the Zarr group for each image follows the following logic:
 
 - If "plate" metadata is present, images MUST be located at the defined location.
-    - Matching "series" metadata as described next MAY be provided for tools that are unaware of the "plate" specification.
+    - Matching "series" metadata (as described next) SHOULD be provided for tools that are unaware of the "plate" specification.
 - If the "OME" Zarr group exists, it:
     - MAY contain a "series" attribute. If so:
         - "series" MUST be a list of string objects, each of which is a path to an image group.
