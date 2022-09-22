@@ -258,8 +258,8 @@ The need for the collection stems from the common "multi-image file" scenario in
 define a strict, stable ordering of the images in a single container that can be used to refer to them by other tools.
 
 In order to capture that information within an OME-NGFF dataset, `bioformats2raw` internally introduced a wrapping layer.
-The bioformats2raw layout can be found in NGFF versions v0.2, v0.3, and v0.4. An upcoming NGFF specification will replace
-this layout with explicit metadata.
+The bioformats2raw layout has been added to v0.4 as a transitional specification to specify filesets that already exist
+in the wild. An upcoming NGFF specification will replace this layout with explicit metadata.
 
 <h4 id="bf2raw-layout" class="no-toc">Layout</h4>
 
