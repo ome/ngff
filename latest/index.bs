@@ -347,7 +347,7 @@ half-open interval `[-0.5, 0.5) x [-0.5, 0.5)`. See chapter 4 and figure 4.1 of 
 "coordinateTransformations" metadata {#trafo-md}
 -------------------------------------
 
-"coordinateTransformations" describe map between two coordinate systems (defined by "axes").
+"coordinateTransformations" describe the mapping between two coordinate systems (defined by "axes").
 For example, to map an array's discrete coordinate system to the corresponding physical coordinates.
 Coordinate transforms are in the "forward" direction. They represent functions from *points* in the
 input space to *points* in the output space. 
@@ -355,8 +355,8 @@ input space to *points* in the output space.
 
 - MUST contain the field "type".
 - MUST contain any other fields required by the given "type" (see table below).
-- MUST contain the field "output", unless part of a `sequence` (see details).
-- SHOULD contain the field "input", unless part of a `sequence` (see details).
+- MUST contain the field "output", unless part of a `sequence` or `inverseOf` (see details).
+- SHOULD contain the field "input", unless part of a `sequence` or `inverseOf` (see details).
 - MAY contain the field "name". Its value MUST be unique across all "name" fields for coordinate transformations.
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
 
@@ -436,26 +436,26 @@ The sequence transformation's input corresponds to an array coordinate system at
 ```json
 "coordinateSystems" : [
     { "name" : "in", "axes" : [{"name" : "i"}, {"name":"j"}] },
-    { "name" : "outScale", "axes" : [{"name" : "x"}, {"name":"y"}] }
-    { "name" : "outSeq", "axes" : [{"name" : "x"}, {"name":"y"}] }
-    { "name" : "outInv", "axes" : [{"name" : "x"}, {"name":"y"}] }
+    { "name" : "outScale", "axes" : [{"name" : "x"}, {"name":"y"}] },
+    { "name" : "outSeq", "axes" : [{"name" : "x"}, {"name":"y"}] },
+    { "name" : "outInv", "axes" : [{"name" : "x"}, {"name":"y"}] },
     { "name" : "outByDim", "axes" : [{"name" : "x"}, {"name":"y"}] }
 ],
 "coordinateTransformations" : [
     {
         "type": "scale",
         "input" : "in",
-        "output" : "outSeq"
-        "scale" : [ 0.5, 1.2 ],
+        "output" : "outSeq",
+        "scale" : [ 0.5, 1.2 ]
     },
     {
         "type" : "sequence",
         "input" : "/my/array",
-        "output" : "outSeq"
+        "output" : "outSeq",
         "transformations" : [
             { "type": "scale", "scale" : [ 0.5, 0.6 ] },
             { "type": "translation", "translation" : [ 2, 5 ] }
-        ],
+        ]
     },
     {
         "type": "inverseOf",
@@ -492,18 +492,17 @@ y = 1.2 * j
 
 i.e., the mapping from the first input axis to the first output axis is determined by the first scale parameter.
 
-When rendering transformed images and interpolating, implementations may need the "inverse" transformation - from output to
-input space. Inverse transformations will not be explicitly specified when they can be computed in closed form from the
-forward transformation. Inverse transformations used for image rendering should be specified using the `inverse`
+When rendering transformed images and interpolating, implementations may need the "inverse" transformation - from the output to
+the input coordinate system. Inverse transformations will not be explicitly specified when they can be computed in closed form from the
+forward transformation. Inverse transformations used for image rendering should be specified using the `inverseOf`
 transformation type, for example:
 
 ```json
 {
     "type": "inverseOf",
     "transformation" : {
-        "name": "nonlinear-inverse",
         "type": "displacements",
-        "path": "/path/to/my/transform",
+        "path": "/path/to/displacements",
     }
 }
 ```
@@ -512,9 +511,6 @@ Implementations SHOULD be able to compute and apply the inverse of some coordina
 are computable in closed-form (as the [Transformation types](#transformation-types) section below indicates). If an
 operation is requested that requires the inverse of a transformation that can not be inverted in closed-form,
 implementations MAY estimate an inverse, or MAY output a warning that the requested operation is unsupported.
-
-
-
 
 
 ### Transformation types
