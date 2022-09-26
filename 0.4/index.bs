@@ -695,6 +695,11 @@ Version History {#history}
     </tr>
   </thead>
   <tr>
+    <td>0.4.1</td>
+    <td>2022-09-26</td>
+    <td>transitional metadata for image collections ("bioformats2raw.layout")</td>
+  </tr>
+  <tr>
     <td>0.4.0</td>
     <td>2022-02-08</td>
     <td>multiscales: add axes type, units and coordinateTransformations</td>
