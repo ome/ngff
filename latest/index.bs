@@ -405,10 +405,10 @@ if not datasets:
     datasets = [x["path"] for x in multiscales[0]["datasets"]]
 ```
 
-"omero" metadata {#omero-md}
-----------------------------
+"omero" metadata (transitional) {#omero-md}
+-------------------------------------------
 
-Information specific to the channels of an image and how to render it
+[=Transitional=] information specific to the channels of an image and how to render it
 can be found under the "omero" key in the group-level metadata:
 
 ```json
