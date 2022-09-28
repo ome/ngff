@@ -89,3 +89,17 @@ def test_run(suite):
     resolver = RefResolver.from_schema(suite.schema, store=schema_store)
     validator = Validator(suite.schema, resolver=resolver)
     suite.validate(validator)
+
+
+def test_example_configs():
+    """
+    Test that all example folders have a config file
+    """
+    missing = []
+    for subdir in os.walk("examples"):
+        has_examples = glob.glob(f"{subdir[0]}/*.json")
+        has_config = glob.glob(f"{subdir[0]}/.config.json")
+        if has_examples and not has_config:
+            missing.append(subdir[0])
+    if missing:
+        raise Exception(f"Directories missing configs: {missing}")
