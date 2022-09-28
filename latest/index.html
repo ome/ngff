@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="12c916b740ea131ee66e2d0f93d1dc8485d44964" name="document-revision">
+  <meta content="449fbca8a9d3fa7489e2e24039dc15a26ab3338d" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1690,6 +1690,47 @@ figcaption {
 figcaption:not(.no-marker)::before {
     content: "Figure " counter(figure) " ";
 }</style>
+<style>/* style-dfn-panel */
+
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    height: auto;
+    width: -webkit-fit-content;
+    width: fit-content;
+    max-width: 300px;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0; }
+.dfn-panel li { list-style: inside; }
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled { cursor: pointer; }
+</style>
 <style>/* style-issues */
 
 a[href].issue-return {
@@ -1825,7 +1866,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2022-08-29">29 August 2022</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2022-09-28">28 September 2022</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1879,13 +1920,14 @@ will be provided between numbered versions. Data written with these latest chang
      <a href="#metadata"><span class="secno">3</span> <span class="content">Metadata</span></a>
      <ol class="toc">
       <li><a href="#axes-md"><span class="secno">3.1</span> <span class="content">"axes" metadata</span></a>
-      <li><a href="#trafo-md"><span class="secno">3.2</span> <span class="content">"coordinateTransformations" metadata</span></a>
-      <li><a href="#multiscale-md"><span class="secno">3.3</span> <span class="content">"multiscales" metadata</span></a>
-      <li><a href="#omero-md"><span class="secno">3.4</span> <span class="content">"omero" metadata</span></a>
-      <li><a href="#labels-md"><span class="secno">3.5</span> <span class="content">"labels" metadata</span></a>
-      <li><a href="#label-md"><span class="secno">3.6</span> <span class="content">"image-label" metadata</span></a>
-      <li><a href="#plate-md"><span class="secno">3.7</span> <span class="content">"plate" metadata</span></a>
-      <li><a href="#well-md"><span class="secno">3.8</span> <span class="content">"well" metadata</span></a>
+      <li><a href="#bf2raw"><span class="secno">3.2</span> <span class="content">"bioformats2raw.layout" (transitional)</span></a>
+      <li><a href="#trafo-md"><span class="secno">3.3</span> <span class="content">"coordinateTransformations" metadata</span></a>
+      <li><a href="#multiscale-md"><span class="secno">3.4</span> <span class="content">"multiscales" metadata</span></a>
+      <li><a href="#omero-md"><span class="secno">3.5</span> <span class="content">"omero" metadata (transitional)</span></a>
+      <li><a href="#labels-md"><span class="secno">3.6</span> <span class="content">"labels" metadata</span></a>
+      <li><a href="#label-md"><span class="secno">3.7</span> <span class="content">"image-label" metadata</span></a>
+      <li><a href="#plate-md"><span class="secno">3.8</span> <span class="content">"plate" metadata</span></a>
+      <li><a href="#well-md"><span class="secno">3.9</span> <span class="content">"well" metadata</span></a>
      </ol>
     <li><a href="#naming-style"><span class="secno">4</span> <span class="content">Specification naming style</span></a>
     <li><a href="#implementations"><span class="secno">5</span> <span class="content">Implementations</span></a>
@@ -1963,6 +2005,11 @@ for all examples.</p>
    <h3 class="heading settled" data-level="1.3" id="document-conventions"><span class="secno">1.3. </span><span class="content">Document conventions</span><a class="self-link" href="#document-conventions"></a></h3>
    <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”,
 “RECOMMENDED”, “MAY”, and “OPTIONAL” are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
+   <p> <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="transitional">Transitional</dfn> metadata is added to the specification with the
+intention of removing it in the future. Implementations may be expected (MUST) or
+encouraged (SHOULD) to support the reading of the data, but writing will usually
+be optional (MAY). Examples of transitional metadata include custom additions by
+implementations that are later submitted as a formal specification. (See <a href="#bf2raw">§ 3.2 "bioformats2raw.layout" (transitional)</a>) </p>
    <p>Some of the JSON examples in this document include commments. However, these are only for
 clarity purposes and comments MUST NOT be included in JSON objects.</p>
    <h2 class="heading settled" data-level="2" id="on-disk"><span class="secno">2. </span><span class="content">On-disk (or in-cloud) layout</span><a class="self-link" href="#on-disk"></a></h2>
@@ -1979,7 +2026,7 @@ groups.</p>
    <h3 class="heading settled" data-level="2.1" id="image-layout"><span class="secno">2.1. </span><span class="content">Images</span><a class="self-link" href="#image-layout"></a></h3>
    <p>The following layout describes the expected Zarr hierarchy for images with
 multiple levels of resolutions and optionally associated labels.
-Note that the number of dimensions is variable between 2 and 5 and that axis names are arbitrary, see <a href="#multiscale-md">§ 3.3 "multiscales" metadata</a> for details.
+Note that the number of dimensions is variable between 2 and 5 and that axis names are arbitrary, see <a href="#multiscale-md">§ 3.4 "multiscales" metadata</a> for details.
 For this example we assume an image with 5 dimensions and axes called <code>t,c,z,y,x</code>.</p>
 <pre>.                             # Root folder, potentially in S3,
 │                             # with a flat list of images by image ID.
@@ -2087,8 +2134,120 @@ keys as specified below for discovering certain types of data, especially images
        <p>Units for "time" axes: <a class="property css" data-link-type="property">attosecond</a>, <a class="property css" data-link-type="property">centisecond</a>, <a class="property css" data-link-type="property">day</a>, <a class="property css" data-link-type="property">decisecond</a>, <a class="property css" data-link-type="property">exasecond</a>, <a class="property css" data-link-type="property">femtosecond</a>, <a class="property css" data-link-type="property">gigasecond</a>, <a class="property css" data-link-type="property">hectosecond</a>, <a class="property css" data-link-type="property">hour</a>, <a class="property css" data-link-type="property">kilosecond</a>, <a class="property css" data-link-type="property">megasecond</a>, <a class="property css" data-link-type="property">microsecond</a>, <a class="property css" data-link-type="property">millisecond</a>, <a class="property css" data-link-type="property">minute</a>, <a class="property css" data-link-type="property">nanosecond</a>, <a class="property css" data-link-type="property">petasecond</a>, <a class="property css" data-link-type="property">picosecond</a>, <a class="property css" data-link-type="property">second</a>, <a class="property css" data-link-type="property">terasecond</a>, <a class="property css" data-link-type="property">yoctosecond</a>, <a class="property css" data-link-type="property">yottasecond</a>, <a class="property css" data-link-type="property">zeptosecond</a>, <a class="property css" data-link-type="property">zettasecond</a></p>
      </ul>
    </ul>
-   <p>If part of <a href="#multiscale-md">§ 3.3 "multiscales" metadata</a>, the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.</p>
-   <h3 class="heading settled" data-level="3.2" id="trafo-md"><span class="secno">3.2. </span><span class="content">"coordinateTransformations" metadata</span><a class="self-link" href="#trafo-md"></a></h3>
+   <p>If part of <a href="#multiscale-md">§ 3.4 "multiscales" metadata</a>, the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.</p>
+   <h3 class="heading settled" data-level="3.2" id="bf2raw"><span class="secno">3.2. </span><span class="content">"bioformats2raw.layout" (transitional)</span><a class="self-link" href="#bf2raw"></a></h3>
+   <p><a data-link-type="dfn" href="#transitional" id="ref-for-transitional">Transitional</a> "bioformats2raw.layout" metadata identifies a group which implicitly describes a series of images.
+The need for the collection stems from the common "multi-image file" scenario in microscopy. Parsers like Bio-Formats
+define a strict, stable ordering of the images in a single container that can be used to refer to them by other tools.</p>
+   <p>In order to capture that information within an OME-NGFF dataset, <code>bioformats2raw</code> internally introduced a wrapping layer.
+The bioformats2raw layout has been added to v0.4 as a transitional specification to specify filesets that already exist
+in the wild. An upcoming NGFF specification will replace this layout with explicit metadata.</p>
+   <h4 class="no-toc heading settled" data-level="3.2.1" id="bf2raw-layout"><span class="secno">3.2.1. </span><span class="content">Layout</span><a class="self-link" href="#bf2raw-layout"></a></h4>
+   <p>Typical Zarr layout produced by running <code>bioformats2raw</code> on a fileset that contains more than one image (series > 1):</p>
+<pre>series.ome.zarr               # One converted fileset from bioformats2raw
+    ├── .zgroup
+    ├── .zattrs               # Contains "bioformats2raw.layout" metadata
+    ├── OME                   # Special group for containing OME metadata
+    │   ├── .zgroup
+    │   ├── .zattrs           # Contains "series" metadata
+    │   └── METADATA.ome.xml  # OME-XML file stored within the Zarr fileset
+    ├── 0                     # First image in the collection
+    ├── 1                     # Second image in the collection
+    └── ...
+</pre>
+   <h4 class="no-toc heading settled" data-level="3.2.2" id="bf2raw-attributes"><span class="secno">3.2.2. </span><span class="content">Attributes</span><a class="self-link" href="#bf2raw-attributes"></a></h4>
+   <p>The top-level <code>.zattrs</code> file must contain the <code>bioformats2raw.layout</code> key:</p>
+<pre class="include-code highlight"><c- p>{</c->
+  <c- f>"bioformats2raw.layout"</c-> <c- p>:</c-> <c- mi>3</c->
+<c- p>}</c-></pre>
+   <p>If the top-level group represents a plate, the <code>bioformats2raw.layout</code> metadata will be present but
+the "plate" key MUST also be present, takes precedence and parsing of such datasets should follow <a href="#plate-md">§ 3.8 "plate" metadata</a>. It is not
+possible to mix collections of images with plates at present.</p>
+<pre class="include-code highlight"><c- p>{</c->
+  <c- f>"bioformats2raw.layout"</c-> <c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+  <c- f>"plate"</c-> <c- p>:</c-> <c- p>{</c->
+    <c- f>"columns"</c-> <c- p>:</c-> <c- p>[</c-> <c- p>{</c->
+      <c- f>"name"</c-> <c- p>:</c-> <c- u>"1"</c->
+    <c- p>}</c-> <c- p>],</c->
+    <c- f>"name"</c-> <c- p>:</c-> <c- u>"Plate Name 0"</c-><c- p>,</c->
+    <c- f>"wells"</c-> <c- p>:</c-> <c- p>[</c-> <c- p>{</c->
+      <c- f>"path"</c-> <c- p>:</c-> <c- u>"A/1"</c-><c- p>,</c->
+      <c- f>"rowIndex"</c-> <c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+      <c- f>"columnIndex"</c-> <c- p>:</c-> <c- mi>0</c->
+    <c- p>}</c-> <c- p>],</c->
+    <c- f>"field_count"</c-> <c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+    <c- f>"rows"</c-> <c- p>:</c-> <c- p>[</c-> <c- p>{</c->
+      <c- f>"name"</c-> <c- p>:</c-> <c- u>"A"</c->
+    <c- p>}</c-> <c- p>],</c->
+    <c- f>"acquisitions"</c-> <c- p>:</c-> <c- p>[</c-> <c- p>{</c->
+      <c- f>"id"</c-> <c- p>:</c-> <c- mi>0</c->
+    <c- p>}</c-> <c- p>],</c->
+    <c- f>"version"</c-> <c- p>:</c-> <c- u>"0.4"</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+   <p>The <code>.zattrs</code> file within the OME group may contain the "series" key:</p>
+<pre class="include-code highlight"><c- p>{</c->
+  <c- f>"series"</c-> <c- p>:</c-> <c- p>[</c-> <c- u>"0"</c-><c- p>,</c-> <c- u>"1"</c-> <c- p>]</c->
+<c- p>}</c->
+</pre>
+   <h4 class="no-toc heading settled" data-level="3.2.3" id="bf2raw-details"><span class="secno">3.2.3. </span><span class="content">Details</span><a class="self-link" href="#bf2raw-details"></a></h4>
+   <p>Conforming groups:</p>
+   <ul>
+    <li data-md>
+     <p>MUST have the value "3" for the "bioformats2raw.layout" key in their <code>.zattrs</code> metadata at the top of the hierarchy;</p>
+    <li data-md>
+     <p>SHOULD have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml" which:</p>
+     <ul>
+      <li data-md>
+       <p>MUST adhere to the OME-XML specification but</p>
+      <li data-md>
+       <p>MUST use <code>&lt;MetadataOnly/></code> elements as opposed to <code>&lt;BinData/></code>, <code>&lt;BinaryOnly/></code> or <code>&lt;TiffData/></code>;</p>
+      <li data-md>
+       <p>MAY make use of the <a href="https://docs.openmicroscopy.org/ome-model/6.2.2/specifications/minimum.html">minimum specification</a>.</p>
+     </ul>
+   </ul>
+   <p>Additionally, the logic for finding the Zarr group for each image follows the following logic:</p>
+   <ul>
+    <li data-md>
+     <p>If "plate" metadata is present, images MUST be located at the defined location.</p>
+     <ul>
+      <li data-md>
+       <p>Matching "series" metadata (as described next) SHOULD be provided for tools that are unaware of the "plate" specification.</p>
+     </ul>
+    <li data-md>
+     <p>If the "OME" Zarr group exists, it:</p>
+     <ul>
+      <li data-md>
+       <p>MAY contain a "series" attribute. If so:</p>
+       <ul>
+        <li data-md>
+         <p>"series" MUST be a list of string objects, each of which is a path to an image group.</p>
+        <li data-md>
+         <p>The order of the paths MUST match the order of the "Image" elements in "OME/METADATA.ome.xml" if provided.</p>
+       </ul>
+     </ul>
+    <li data-md>
+     <p>If the "series" attribute does not exist and no "plate" is present:</p>
+     <ul>
+      <li data-md>
+       <p>separate "multiscales" images MUST be stored in consecutively numbered groups starting from 0 (i.e. "0/", "1/", "2/", "3/", ...).</p>
+     </ul>
+    <li data-md>
+     <p>Every "multiscales" group MUST represent exactly one OME-XML "Image" in the same order as either the series index or the group numbers.</p>
+   </ul>
+   <p>Conforming readers:</p>
+   <ul>
+    <li data-md>
+     <p>SHOULD make users aware of the presence of more than one image (i.e. SHOULD NOT default to only opening the first image);</p>
+    <li data-md>
+     <p>MAY use the "series" attribute in the "OME" group to determine a list of valid groups to display;</p>
+    <li data-md>
+     <p>MAY choose to show all images within the collection or offer the user a choice of images, as with <dfn data-dfn-type="dfn" data-export id="hcs"><abbr title="High-content screening">HCS</abbr><a class="self-link" href="#hcs"></a></dfn> plates;</p>
+    <li data-md>
+     <p>MAY ignore other groups or arrays under the root of the hierarchy.</p>
+   </ul>
+   <h3 class="heading settled" data-level="3.3" id="trafo-md"><span class="secno">3.3. </span><span class="content">"coordinateTransformations" metadata</span><a class="self-link" href="#trafo-md"></a></h3>
    <p>"coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
 For example, to map a discrete data space of an array to the corresponding physical space.
 It is a list of dictionaries. Each entry describes a single transformation and MUST contain the field "type".
@@ -2115,7 +2274,7 @@ Additional fields for the entry depend on "type" and are defined by the column <
       <th>description 
    </table>
    <p>The transformations in the list are applied sequentially and in order.</p>
-   <h3 class="heading settled" data-level="3.3" id="multiscale-md"><span class="secno">3.3. </span><span class="content">"multiscales" metadata</span><a class="self-link" href="#multiscale-md"></a></h3>
+   <h3 class="heading settled" data-level="3.4" id="multiscale-md"><span class="secno">3.4. </span><span class="content">"multiscales" metadata</span><a class="self-link" href="#multiscale-md"></a></h3>
    <p>Metadata about an image can be found under the "multiscales" key in the group-level metadata. Here, image refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes. It is stored in a multiple resolution representation.</p>
    <p>"multiscales" contains a list of dictionaries where each entry describes a multiscale image.</p>
    <p>Each "multiscales" dictionary MUST contain the field "axes", see <a href="#axes-md">§ 3.1 "axes" metadata</a>.
@@ -2128,7 +2287,7 @@ Each dictionary in "datasets" MUST contain the field "path", whose value contain
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.</p>
    <p>Each "datasets" dictionary MUST have the same number of dimensions and MUST NOT have more than 5 dimensions. The number of dimensions and order MUST correspond to number and order of "axes".
 Each dictionary in "datasets" MUST contain the field "coordinateTransformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
-The transformations are defined according to <a href="#trafo-md">§ 3.2 "coordinateTransformations" metadata</a>. The transformation MUST only be of type <code>translation</code> or <code>scale</code>.
+The transformations are defined according to <a href="#trafo-md">§ 3.3 "coordinateTransformations" metadata</a>. The transformation MUST only be of type <code>translation</code> or <code>scale</code>.
 They MUST contain exactly one <code>scale</code> transformation that specifies the pixel size in physical units or time duration. If scaling information is not available or applicable for one of the axes, the value MUST express the scaling factor between the current resolution and the first resolution for the given axis, defaulting to 1.0 if there is no downsampling along the axis.
 It MAY contain exactly one <code>translation</code> that specifies the offset from the origin in physical units. If <code>translation</code> is given it MUST be listed after <code>scale</code> to ensure that it is given in physical coordinates.
 The length of the <code>scale</code> and <code>translation</code> array MUST be the same as the length of "axes".
@@ -2204,8 +2363,8 @@ name, using the first multiscale as a fallback:</p>
     <c- c1># Use the first by default. Or perhaps choose based on chunk size.</c->
     <c- n>datasets</c-> <c- o>=</c-> <c- p>[</c-><c- n>x</c-><c- p>[</c-><c- u>"path"</c-><c- p>]</c-> <c- k>for</c-> <c- n>x</c-> <c- ow>in</c-> <c- n>multiscales</c-><c- p>[</c-><c- mi>0</c-><c- p>][</c-><c- u>"datasets"</c-><c- p>]]</c->
 </pre>
-   <h3 class="heading settled" data-level="3.4" id="omero-md"><span class="secno">3.4. </span><span class="content">"omero" metadata</span><a class="self-link" href="#omero-md"></a></h3>
-   <p>Information specific to the channels of an image and how to render it
+   <h3 class="heading settled" data-level="3.5" id="omero-md"><span class="secno">3.5. </span><span class="content">"omero" metadata (transitional)</span><a class="self-link" href="#omero-md"></a></h3>
+   <p><a data-link-type="dfn" href="#transitional" id="ref-for-transitional①">Transitional</a> information specific to the channels of an image and how to render it
 can be found under the "omero" key in the group-level metadata:</p>
 <pre class="language-json highlight"><c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->                              # ID i<c- kc>n</c-> OMERO
 <c- f>"name"</c-><c- p>:</c-> <c- u>"example.tif"</c-><c- p>,</c->                # Name as show<c- kc>n</c-> i<c- kc>n</c-> <c- kc>t</c->he UI
@@ -2234,7 +2393,7 @@ can be found under the "omero" key in the group-level metadata:</p>
 </pre>
    <p>See https://docs.openmicroscopy.org/omero/5.6.1/developers/Web/WebGateway.html#imgdata
 for more information.</p>
-   <h3 class="heading settled" data-level="3.5" id="labels-md"><span class="secno">3.5. </span><span class="content">"labels" metadata</span><a class="self-link" href="#labels-md"></a></h3>
+   <h3 class="heading settled" data-level="3.6" id="labels-md"><span class="secno">3.6. </span><span class="content">"labels" metadata</span><a class="self-link" href="#labels-md"></a></h3>
    <p>The special group "labels" found under an image Zarr contains the key <code>labels</code> containing
 the paths to label objects which can be found underneath the group:</p>
 <pre class="language-json highlight"><c- p>{</c->
@@ -2244,7 +2403,7 @@ the paths to label objects which can be found underneath the group:</p>
 <c- p>}</c->
 </pre>
    <p>Unlisted groups MAY be labels.</p>
-   <h3 class="heading settled" data-level="3.6" id="label-md"><span class="secno">3.6. </span><span class="content">"image-label" metadata</span><a class="self-link" href="#label-md"></a></h3>
+   <h3 class="heading settled" data-level="3.7" id="label-md"><span class="secno">3.7. </span><span class="content">"image-label" metadata</span><a class="self-link" href="#label-md"></a></h3>
    <p>Groups containing the <code>image-label</code> dictionary represent an image segmentation
 in which each unique pixel value represents a separate segmented object. <code>image-label</code> groups MUST also contain <code>multiscales</code> metadata and the two
 "datasets" series MUST have the same number of entries.</p>
@@ -2300,7 +2459,7 @@ specifying the version of the image-label specification.</p>
   <c- p>}</c->
 <c- p>}</c->
 </pre>
-   <h3 class="heading settled" data-level="3.7" id="plate-md"><span class="secno">3.7. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
+   <h3 class="heading settled" data-level="3.8" id="plate-md"><span class="secno">3.8. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
    <p>For high-content screening datasets, the plate layout can be found under the
 custom attributes of the plate group under the <code>plate</code> key in the group-level metadata.</p>
    <p>The <code>plate</code> dictionary MAY contain an <code>acquisitions</code> key whose value MUST be a list of
@@ -2513,7 +2672,7 @@ the index into the <code>columns</code> list. <code>rowIndex</code> and <code>co
     <c- p>}</c->
 <c- p>}</c->
 </pre>
-   <h3 class="heading settled" data-level="3.8" id="well-md"><span class="secno">3.8. </span><span class="content">"well" metadata</span><a class="self-link" href="#well-md"></a></h3>
+   <h3 class="heading settled" data-level="3.9" id="well-md"><span class="secno">3.9. </span><span class="content">"well" metadata</span><a class="self-link" href="#well-md"></a></h3>
    <p>For high-content screening datasets, the metadata about all fields of views
 under a given well can be found under the "well" key in the attributes of the
 well group.</p>
@@ -2608,6 +2767,10 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
       <td>Description
     <tbody>
      <tr>
+      <td>0.4.1
+      <td>2022-09-26
+      <td>transitional metadata for image collections ("bioformats2raw.layout")
+     <tr>
       <td>0.4.0
       <td>2022-02-08
       <td>multiscales: add axes type, units and coordinateTransformations
@@ -2690,8 +2853,10 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
+   <li><a href="#hcs">HCS</a><span>, in § 3.2.3</span>
    <li><a href="#hdf5">HDF5</a><span>, in § 1.1</span>
    <li><a href="#ngff">NGFF</a><span>, in § 1.1</span>
+   <li><a href="#transitional">Transitional</a><span>, in § 1.3</span>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
@@ -2708,3 +2873,66 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
    <dt id="biblio-zarr">[ZARR]
    <dd>Alistair Miles; et al. <a href="https://doi.org/10.5281/zenodo.4069231"><cite>Zarr: An implementation of chunked, compressed, N-dimensional arrays for Python.</cite></a>. 06 October 2020. Informational. URL: <a href="https://doi.org/10.5281/zenodo.4069231">https://doi.org/10.5281/zenodo.4069231</a>
   </dl>
+  <aside class="dfn-panel" data-for="transitional">
+   <b><a href="#transitional">#transitional</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-transitional">3.2. "bioformats2raw.layout" (transitional)</a>
+    <li><a href="#ref-for-transitional①">3.5. "omero" metadata (transitional)</a>
+   </ul>
+  </aside>
+<script>/* script-dfn-panel */
+
+document.body.addEventListener("click", function(e) {
+    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
+    // Find the dfn element or panel, if any, that was clicked on.
+    var el = e.target;
+    var target;
+    var hitALink = false;
+    while(el.parentElement) {
+        if(el.tagName == "A") {
+            // Clicking on a link in a <dfn> shouldn't summon the panel
+            hitALink = true;
+        }
+        if(el.classList.contains("dfn-paneled")) {
+            target = "dfn";
+            break;
+        }
+        if(el.classList.contains("dfn-panel")) {
+            target = "dfn-panel";
+            break;
+        }
+        el = el.parentElement;
+    }
+    if(target != "dfn-panel") {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
+            el.classList.remove("on");
+            el.classList.remove("activated");
+        });
+    }
+    if(target == "dfn" && !hitALink) {
+        // open the panel
+        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
+        if(dfnPanel) {
+            dfnPanel.classList.add("on");
+            var rect = el.getBoundingClientRect();
+            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
+            dfnPanel.style.top = window.scrollY + rect.top + "px";
+            var panelRect = dfnPanel.getBoundingClientRect();
+            var panelWidth = panelRect.right - panelRect.left;
+            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
+                // Reposition, because the panel is overflowing
+                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
+            }
+        } else {
+            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
+        }
+    } else if(target == "dfn-panel") {
+        // Switch it to "activated" state, which pins it.
+        el.classList.add("activated");
+        el.style.left = null;
+        el.style.top = null;
+    }
+
+});
+</script>
