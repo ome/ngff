@@ -83,7 +83,12 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
   </thead>
   <tbody>
-  <th>omero info</th>
+    <tr>
+      <td>omero info</td>
+      <td>y</td>
+      <td>y</td>
+      <td>n</td>
+    </tr>
     <tr>
       <td>Z-downsampling</td>
       <td>y</td>
