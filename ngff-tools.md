@@ -39,23 +39,10 @@ The following table documents which features of the OME-NGFF spec are supported 
       <td>y</td>
     </tr>
     <tr>
-      <td>vizarr</td>
-      <td>
-        <a
-          href="https://github.com/hms-dbmi/vizarr/pull/71"
-          >n</a
-        >
-      </td>
+      <td><a href="https://github.com/hms-dbmi/vizarr/">vizarr</a></td>
+      <td><a href="https://github.com/hms-dbmi/vizarr/pull/71">n</a></td>
       <td>y</td>
-      <td>
-        <a
-          href="https://github.com/hms-dbmi/vizarr/issues/101"
-          data-hovercard-type="issue"
-          data-hovercard-url="/hms-dbmi/vizarr/issues/101/hovercard"
-          data-turbo-frame=""
-          >n</a
-        >
-      </td>
+      <td><a href="https://github.com/hms-dbmi/vizarr/issues/101">n</a></td>
       <td>y</td>
       <td>y</td>
       <td>n</td>
@@ -67,15 +54,7 @@ The following table documents which features of the OME-NGFF spec are supported 
       <td>y</td>
       <td>n</td>
       <td>y</td>
-      <td>
-        <a
-          href="https://github.com/mobie/mobie-viewer-fiji/issues/351"
-          data-hovercard-type="issue"
-          data-hovercard-url="/mobie/mobie-viewer-fiji/issues/351/hovercard"
-          data-turbo-frame=""
-          >n</a
-        >
-      </td>
+      <td><a href="https://github.com/mobie/mobie-viewer-fiji/issues/351">n</a></td>
       <td>n</td>
       <td>y</td>
       <td>y</td>
