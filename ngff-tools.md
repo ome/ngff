@@ -43,9 +43,6 @@ The following table documents which features of the OME-NGFF spec are supported 
       <td>
         <a
           href="https://github.com/hms-dbmi/vizarr/pull/71"
-          data-hovercard-type="pull_request"
-          data-hovercard-url="/hms-dbmi/vizarr/pull/71/hovercard"
-          data-turbo-frame=""
           >n</a
         >
       </td>
