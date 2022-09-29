@@ -1,7 +1,9 @@
 # OME-NGFF tools
 
 Various tools are available for viewing and working with OME-NGFF data.
-The following table documents which features of the OME-NGFF spec are supported by which tools:
+The following tables document which features of the OME-NGFF spec are supported by which tools.
+
+## Viewers
 
 | viewer | Z-downsampling                                  | omero info | multiscales factor not=2                           | URL (not s3)                                               | v0.3 axes | 3D view | labels | HCS plate |
 | ------ | ----------------------------------------------- | ---------- | -------------------------------------------------- | ---------------------------------------------------------- | --------- | ------- | ------ | --------- |
@@ -10,7 +12,6 @@ The following table documents which features of the OME-NGFF spec are supported 
 | MoBIE  | y                                               | n          | y                                                  | [n](https://github.com/mobie/mobie-viewer-fiji/issues/351) | n         | y       | y      | n         |
 
 1. napari 3D view only supported for lowest level of multiscales pyramid
-
 
 <table>
   <thead>
@@ -24,17 +25,19 @@ The following table documents which features of the OME-NGFF spec are supported 
       <th>3D view</th>
       <th>labels</th>
       <th>HCS plate</th>
+      <th>bioformats2raw.layout</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>napari</td>
+      <td><a href="https://github.com/ome/napari-ome-zarr/">napari-ome-zarr</a> (1)</td>
       <td>y</td>
       <td>y</td>
       <td>y</td>
       <td>y</td>
       <td>y</td>
-      <td>y (1)</td>
+      <td>y (2)</td>
+      <td>y</td>
       <td>y</td>
       <td>y</td>
     </tr>
@@ -48,18 +51,23 @@ The following table documents which features of the OME-NGFF spec are supported 
       <td>n</td>
       <td>n</td>
       <td>y</td>
+      <td><a href="https://github.com/hms-dbmi/vizarr/issues/149">n</a></td>
     </tr>
     <tr>
-      <td>MoBIE</td>
+      <td><a href="https://github.com/mobie/mobie-viewer-fiji/">MoBIE</a> (3)</td>
       <td>y</td>
       <td>n</td>
       <td>y</td>
-      <td><a href="https://github.com/mobie/mobie-viewer-fiji/issues/351">n</a></td>
+      <td>y</td>
       <td>n</td>
       <td>y</td>
       <td>y</td>
+      <td>n</td>
       <td>n</td>
     </tr>
   </tbody>
 </table>
 
+1. <a href="https://github.com/ome/napari-ome-zarr/">napari-ome-zarr</a> plugin for <a href="https://napari.org">napari</a> uses <a href="https://github.com/ome/ome-zarr-py/">ome-zarr-py</a>
+2. napari 3D view only supported for lowest level of multiscales pyramid
+3. MoBIE: Open with `Plugins > BigDataViewer > OME-Zarr > Open OME-Zarr From...`
