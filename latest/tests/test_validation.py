@@ -1,5 +1,6 @@
 import json
 import glob
+from pathlib import Path
 
 from dataclasses import dataclass
 from typing import List
@@ -62,13 +63,14 @@ def pytest_generate_tests(metafunc):
                 suites.append(Suite(schema, schema_store, test["data"], test["valid"]))
 
         # Examples
-        for config_filename in glob.glob("examples/*/.config.json"):
+        for config_filename in Path(".").glob("examples/*/.config.json"):
+            print(config_filename)
             with open(config_filename) as o:
                 data = json.load(o)
             schema = data["schema"]
             with open(schema) as f:
                 schema = json.load(f)
-            for filename in glob.glob("examples/*/*.json"):
+            for filename in config_filename.parent.glob("*.json"):
                 with open(filename) as f:
                     # Strip comments
                     data = ''.join(line for line in f if not line.lstrip().startswith('//'))
