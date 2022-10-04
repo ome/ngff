@@ -71,6 +71,8 @@ def pytest_generate_tests(metafunc):
             with open(schema) as f:
                 schema = json.load(f)
             for filename in config_filename.parent.glob("*.json"):
+                if filename.name.startswith(".config"):
+                    continue
                 with open(filename) as f:
                     # Strip comments
                     data = ''.join(line for line in f if not line.lstrip().startswith('//'))
