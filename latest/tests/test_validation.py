@@ -44,6 +44,11 @@ def pytest_generate_tests(metafunc):
     if "suite" in metafunc.fixturenames:
         suites: List[Schema] = []
         ids: List[str] = []
+        schema_store = {}
+        for filename in glob.glob("schemas/*.schema"):
+            with open(filename) as o:
+                schema = json.load(o)
+            schema_store[schema["$id"]] = schema
 
         # Validation
         for filename in glob.glob("tests/*.json"):
@@ -54,7 +59,7 @@ def pytest_generate_tests(metafunc):
                 schema = json.load(f)
             for test in suite["tests"]:
                 ids.append("validate_" + str(test["formerly"]).split("/")[-1][0:-5])
-                suites.append(Suite(schema, {schema["$id"]: schema}, test["data"], test["valid"]))
+                suites.append(Suite(schema, schema_store, test["data"], test["valid"]))
 
         # Examples
         for config_filename in glob.glob("examples/*/.config.json"):
@@ -69,7 +74,7 @@ def pytest_generate_tests(metafunc):
                     data = ''.join(line for line in f if not line.lstrip().startswith('//'))
                     data = json.loads(data)
                 ids.append("example_" + str(filename).split("/")[-1][0:-5])
-                suites.append(Suite(schema, {schema["$id"]: schema}, data, True))  # Assume true
+                suites.append(Suite(schema, schema_store, data, True))  # Assume true
 
         metafunc.parametrize("suite", suites, ids=ids, indirect=True)
 
