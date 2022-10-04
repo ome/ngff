@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/latest/schemas/axes.schema",
+  "title": "NGFF Axes",
+  "description": "JSON from OME-NGFF .zattrs",
+  "type": "array",
+  "uniqueItems": true,
+  "items": {
+    "$ref": "#/$defs/axis"
+  },
+  "$defs": {
+    "axis": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the axis"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "array",
+            "space",
+            "time",
+            "channel",
+            "coordinate",
+            "displacement"
+          ],
+          "description": "Dimension of the axis"
+        },
+        "discrete": {
+          "type": "boolean",
+          "description": "Whether the dimension is discrete"
+        },
+        "units": {
+          "type": "string",
+          "description": "Units for the axis"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  }
+}

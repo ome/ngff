@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/latest/schemas/coordinate_transforms.schema",
+  "title": "NGFF Coordinate Systems and Transforms",
+  "description": "Coordinate Systems and transforms for OME-NGFF",
+  "type": "object",
+  "properties": {
+    "coordinateSystems": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/coordinateSystem"
+      }
+    },
+    "coordinateTransformations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/coordinateTransformation"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "string"
+              },
+              "output": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "input",
+              "output"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "coordinateSystem": {
+      "description": "Coordinate Systems for OME-NGFF",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of coordinate space"
+        },
+        "axes": {
+          "$ref": "axes.schema"
+        }
+      },
+      "required": [
+        "name",
+        "axes"
+      ]
+    },
+    "coordinateTransformation": {
+      "description": "OME-NGFF coordinate transformation.",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {"type": "string"},
+            "type": {"type": "string"}
+          },
+          "required": [
+            "type"
+          ]
+        },
+        {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/identity"
+            },
+            {
+              "$ref": "#/$defs/scale"
+            },
+            {
+              "$ref": "#/$defs/translation"
+            }
+          ]
+        }
+      ]
+    },
+    "identity": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "identity"
+        }
+      }
+    },
+    "scale": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "scale"
+        },
+        "oneOf": {
+          "path": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "scale": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          }
+        }
+      }
+    },
+    "translation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "translation"
+        },
+        "oneOf": {
+          "path": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "translation": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  }
+}
