@@ -228,26 +228,13 @@ Metadata {#metadata}
 The various `.zattrs` files throughout the above array hierarchy may contain metadata
 keys as specified below for discovering certain types of data, especially images.
 
-"axes" metadata {#axes-md}
---------------------------
 
-"axes" describes the dimensions of a coordinate systems. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
-- MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.
-- SHOULD contain the field "type". It SHOULD be one of "array", "space", "time", "channel", "coordinate", or "displacement" but MAY take other values for custom axis types that are not part of this specification yet.
-- MAY contain the field "discrete". The value MUST be a boolean, and is `true` if the axis represents a discrete dimension.
-- SHOULD contain the field "unit" to specify the physical unit of this dimension. The value SHOULD be one of the following strings, which are valid units according to UDUNITS-2.
-    - Units for "space" axes: 'angstrom', 'attometer', 'centimeter', 'decimeter', 'exameter', 'femtometer', 'foot', 'gigameter', 'hectometer', 'inch', 'kilometer', 'megameter', 'meter', 'micrometer', 'mile', 'millimeter', 'nanometer', 'parsec', 'petameter', 'picometer', 'terameter', 'yard', 'yoctometer', 'yottameter', 'zeptometer', 'zettameter'
-    - Units for "time" axes: 'attosecond', 'centisecond', 'day', 'decisecond', 'exasecond', 'femtosecond', 'gigasecond', 'hectosecond', 'hour', 'kilosecond', 'megasecond', 'microsecond', 'millisecond', 'minute', 'nanosecond', 'petasecond', 'picosecond', 'second', 'terasecond', 'yoctosecond', 'yottasecond', 'zeptosecond', 'zettasecond'
-
-If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
-
-
-"coordinateSystem" metadata {#coord-sys-md}
+"coordinateSystems" metadata {#coord-sys-md}
 --------------------------
 
 A "coordinate system" is a collection of "axes" / dimensions with a name. Every coordinate system:
 - MUST contain the field "name", that gives the space name. The values MUST be non-empty and unique.
-- MUST contain the field "axes", whose value is a valid set of "axes".
+- MUST contain the field "axes", whose value is a valid set of "axes" (see below).
 
 <div class=example>
 
@@ -266,6 +253,18 @@ A "coordinate system" is a collection of "axes" / dimensions with a name. Every 
 The order of the `"axes"` list matters and defines the index of each array dimension and coordinates for points in that
 coordinate system. For the above example, the `"x"` dimension is the first dimension. The "dimensionality" of a coordinate system
 is indicated by the length of its "axes" array.  The "volume_micrometers" example above is three dimensional (3D).
+
+### "axes" metadata {#axes-md}
+
+"axes" describes the dimensions of a coordinate systems. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
+- MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.
+- SHOULD contain the field "type". It SHOULD be one of "array", "space", "time", "channel", "coordinate", or "displacement" but MAY take other values for custom axis types that are not part of this specification yet.
+- MAY contain the field "discrete". The value MUST be a boolean, and is `true` if the axis represents a discrete dimension.
+- SHOULD contain the field "unit" to specify the physical unit of this dimension. The value SHOULD be one of the following strings, which are valid units according to UDUNITS-2.
+    - Units for "space" axes: 'angstrom', 'attometer', 'centimeter', 'decimeter', 'exameter', 'femtometer', 'foot', 'gigameter', 'hectometer', 'inch', 'kilometer', 'megameter', 'meter', 'micrometer', 'mile', 'millimeter', 'nanometer', 'parsec', 'petameter', 'picometer', 'terameter', 'yard', 'yoctometer', 'yottameter', 'zeptometer', 'zettameter'
+    - Units for "time" axes: 'attosecond', 'centisecond', 'day', 'decisecond', 'exasecond', 'femtosecond', 'gigasecond', 'hectosecond', 'hour', 'kilosecond', 'megasecond', 'microsecond', 'millisecond', 'minute', 'nanosecond', 'petasecond', 'picosecond', 'second', 'terasecond', 'yoctosecond', 'yottasecond', 'zeptosecond', 'zettasecond'
+
+If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
 
 ### Array coordinate systems
