@@ -1,0 +1,61 @@
+{
+    "multiscales": [
+        {
+            "version": "0.5-dev",
+            "name": "example",
+            "coordinateSystems" : [
+                {
+                    "name" : "exampleCoordinateSystem",
+                    "axes": [
+                        {"name": "t", "type": "time", "unit": "millisecond"},
+                        {"name": "c", "type": "channel"},
+                        {"name": "z", "type": "space", "unit": "micrometer"},
+                        {"name": "y", "type": "space", "unit": "micrometer"},
+                        {"name": "x", "type": "space", "unit": "micrometer"}
+                    ]
+                }
+            ],
+            "datasets": [
+                {
+                    "path": "0"
+                    // the transformation of other arrays are defined relative to this, the highest resolution, array
+                },
+                {
+                    "path": "1",
+                    "coordinateTransformations": [{
+                        // the second scale level (downscaled by a factor of 2 relative to "0" in zyx)
+                        "type": "scale",
+                        "scale": [1, 1, 2, 2, 2],
+                        "input" : "/1`",
+                        "output" : "/0"
+                    }]
+                },
+                {
+                    "path": "2",
+                    "coordinateTransformations": [{
+                        // the third scale level (downscaled by a factor of 4 relative to "0" in zyx)
+                        "type": "scale",
+                        "scale": [1, 1, 4, 4, 4],
+                        "input" : "/2",
+                        "output" : "/0"
+                    }]
+                }
+            ],
+            "coordinateTransformations": [{
+                // the time unit (0.1 milliseconds), the voxel size for all spatial axes of "0" (0.5 micrometers)
+                "type": "scale",
+                "scale": [0.1, 1.0, 0.5, 0.5, 0.5],
+                "input" : "/0",
+                "output" : "xampleCoordinateSystem"
+            }],
+            "type": "gaussian",
+            "metadata": {
+                "description": "the fields in metadata depend on the downscaling implementation. Here, the parameters passed to the skimage function are given",
+                "method": "skimage.transform.pyramid_gaussian",
+                "version": "0.16.1",
+                "args": "[true]",
+                "kwargs": {"multichannel": true}
+            }
+        }
+    ]
+}
