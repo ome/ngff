@@ -335,7 +335,7 @@ highlight: json
 
 **The pixel/voxel center is the origin of the continuous coordinate system.**
 
-It is vital to consistently define relationship between the discrete/arrray and continuous/interpolated
+It is vital to consistently define relationship between the discrete/array and continuous/interpolated
 coordinate systems. A pixel/voxel is the continuous region (rectangle) that corresponds to a single sample
 in the discrete array, i.e., the area corresponding to nearest-neighbor (NN) interpolation of that sample.
 The center of a 2d pixel corresponding to the origin `(0,0)` in the discrete array is the origin of the continuous coordinate
@@ -514,8 +514,6 @@ implementations MAY estimate an inverse, or MAY output a warning that the reques
 
 
 
-
-
 ### Transformation types
 
 Input and output dimensionality may be determined by the value of the "input" and "output" fields, respectively. If the value
@@ -658,18 +656,18 @@ z = b
 
 `translation` transformations are special cases of affine transformations. When possible, a 
 translation transformation should be preferred to its equivalent affine. Input and output dimensionality MUST be
-identical and MUST equal the the length of the "translation" array. `translation` transformations are
+identical and MUST equal the the length of the "translation" array (N). `translation` transformations are
 invertible.
 
 <dl>
   <dt><strong>path</strong></dt>
-  <dd>  The path to an array containing the affine parameters.
+  <dd>  The path to a zarr-array containing the translation parameters.
 	The array at this path MUST be 1D, and its length MUST be `N`.</dd>
   <dt><strong>url</strong></dt>
-  <dd>  An optional URL to the container in which the affine array is stored. If not provided,
+  <dd>  An optional URL to the container in which the translation zarr-array is stored. If not provided,
         the provided `path` MUST exist in this container.</dd>
   <dt><strong>scale</strong></dt>
-  <dd> 	The scale parameters stored as a JSON  list of numbers. The list MUST have length `N`.</dd>
+  <dd> 	The scale parameters stored as a JSON list of numbers. The list MUST have length `N`.</dd>
 </dl>
 
 <div class=example>
@@ -691,18 +689,18 @@ y = j - 1.42
 
 `scale` transformations are special cases of affine transformations. When possible, a scale transformation
 SHOULD be defined to its equivalent affine. Input and output dimensionality MUST be identical and MUST equal
-the the length of the "scale" array. Values in the `scale` array SHOULD be non-zero; in that case, `scale`
+the the length of the "scale" array (N). Values in the `scale` array SHOULD be non-zero; in that case, `scale`
 transformations are invertible.
 
 <dl>
   <dt><strong>path</strong></dt>
-  <dd>  The path to an array containing the affine parameters.
+  <dd>  The path to a zarr-array containing the scale parameters.
 	The array at this path MUST be 1D, and its length MUST be `N`.</dd>
   <dt><strong>url</strong></dt>
-  <dd>  An optional URL to the container in which the affine array is stored. If not provided,
+  <dd>  An optional URL to the container in which the scale zarr-array is stored. If not provided,
         the provided `path` MUST exist in this container.</dd>
   <dt><strong>scale</strong></dt>
-  <dd> 	The scale parameters stored as a JSON  list of numbers. The list MUST have length `N`.</dd>
+  <dd> 	The scale parameters stored as a JSON list of numbers. The list MUST have length `N`.</dd>
 </dl>
 
 <div class=example>
@@ -728,10 +726,10 @@ The matrix may be stored as a 2D array or as a 1D array (row-major).
 
 <dl>
   <dt><strong>path</strong></dt>
-  <dd>  The path to an array containing the affine parameters.
+  <dd>  The path to a zarr-array containing the affine parameters.
 	The array at this path MUST be 1D, its length MUST be `N*(M+1)`. </dd>
   <dt><strong>url</strong></dt>
-  <dd>  An optional URL to the container in which the affine array is stored. If not provided,
+  <dd>  An optional URL to the container in which the affine zarr-array is stored. If not provided,
         the provided `path` MUST exist in this container.</dd>
   <dt><strong>affine</strong></dt>
   <dd> 	The affine parameters stored in JSON. The matrix may be stored
