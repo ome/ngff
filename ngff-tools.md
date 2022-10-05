@@ -9,7 +9,7 @@ The following tables document which features of the OME-NGFF spec are supported 
 | ------ | ----------------------------------------------- | ---------- | -------------------------------------------------- | ---------------------------------------------------------- | --------- | ------- | ------ | --------- |
 | napari | y                                               | y          | y                                                  | y                                                          | y         | y (1)   | y      | y         |
 | vizarr | [n](https://github.com/hms-dbmi/vizarr/pull/71) | y          | [n](https://github.com/hms-dbmi/vizarr/issues/101) | y                                                          | y         | n       | n      | y         |
-| MoBIE  | y                                               | n          | y                                                  | [n](https://github.com/mobie/mobie-viewer-fiji/issues/351) | n         | y       | y      | n         |
+| MoBIE  | y                                               | n          | y                                                  | [n](https://github.com/mobie/mobie-viewer-fiji/issues/351) | y         | y       | y      | n         |
 
 1. napari 3D view only supported for lowest level of multiscales pyramid
 
@@ -59,7 +59,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>n</td>
       <td>y</td>
       <td>y</td>
-      <td>n</td>
+      <td>y</td>
       <td>y</td>
       <td>y</td>
       <td>n</td>
@@ -98,14 +98,14 @@ The following tables document which features of the OME-NGFF spec are supported 
     <tr>
       <td>multiscales factor not=2</td>
       <td>y</td>
+      <td><a href="https://github.com/hms-dbmi/vizarr/issues/101">n</a></td>
       <td>y</td>
-      <td>n</td>
     </tr>
     <tr>
       <td>v0.3 axes</td>
       <td>y</td>
       <td>y</td>
-      <td>?</td>
+      <td>y</td>
     </tr>
     <tr>
       <td>3D view</td>
