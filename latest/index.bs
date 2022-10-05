@@ -968,7 +968,7 @@ if the arrray in `coordinates` contains the data: `[-9, 9, 0]`, then this metada
 
 ```
 x = 
-    if ( i < 0.5 ) -9
+    if ( i > -0.5 and i < 0.5 ) -9
     else if ( i < 1.5 ) 9
     else 0
 ```
@@ -977,16 +977,16 @@ Example metadata for the array data at path `coordinates` above:
 
 ```
 {
-    "spaces" : [
+    "coordinateSystems" : [
         {
             "name" : "a coordinate field transform",
             "axes" : [
-                { "label": "i", "type": "space", "discrete": true },
-                { "label": "c", "type": "coordinate", "discrete": true }
+                { "name": "i", "type": "space", "discrete": true },
+                { "name": "c", "type": "coordinate", "discrete": true }
             ]
         } 
     ],
-    "transformations" : [
+    "coordinateTransformations" : [
         {
             "type" : "identity",
             "output" : "a coordinate field transform"
@@ -1013,16 +1013,16 @@ Example metadata for the array data at path `displacements` above:
 
 ```
 {
-    "spaces" : [
+    "coordinateSystems" : [
         {
             "name" : "a coordinate field transform",
             "axes" : [
-                { "label": "x", "type": "space", "unit" : "nanometer" },
-                { "label": "d", "type": "displacement", "discrete": true }
+                { "name": "x", "type": "space", "unit" : "nanometer" },
+                { "name": "d", "type": "displacement", "discrete": true }
             ]
         } 
     ],
-    "transformations" : [
+    "coordinateTransformations" : [
         {
             "type" : "scale",
             "scale" : [2, 1],
