@@ -347,7 +347,7 @@ half-open interval `[-0.5, 0.5) x [-0.5, 0.5)` (i.e., -0.5 is included, +0.5 is 
 -------------------------------------
 
 "coordinateTransformations" describe the mapping between two coordinate systems (defined by "axes").
-For example, to map an array's discrete coordinate system to the corresponding physical coordinates.
+For example, to map an array's discrete coordinate system to its corresponding physical coordinates.
 Coordinate transforms are in the "forward" direction. They represent functions from *points* in the
 input space to *points* in the output space. 
 
@@ -413,6 +413,37 @@ input space to *points* in the output space.
 Conforming readers:
 - SHOULD be able to apply transformations to points
 - SHOULD be able to apply transformations to images
+
+Coordinate transformations from array to physical coordinates MUST be stored in multiscales ([[#multiscale-md]]),
+and MUST be duplicated in the atrributes of the zarr array. Transformations between different images MUST be stored in the
+attributes of a parent zarr group. For transformations that store data or parameters in a zarr array, those zarr arrays SHOULD
+be stored in a zarr group `"coordinateTransformations"`.
+
+<pre>
+store.zarr                      # Root folder of the zarr store
+│
+├── .zattrs                     # coordinate transformations describing the relationship between two image coordinate systems
+│                               # are stored in the attributes of their parent group.
+│                               # transformations between 'volume' and 'crop' coordinate systems are stored here.
+│
+├── coordinateTransformations   # transformations that use array storage go in a "transformations" zarr group.
+│   └── displacements           # for example, a zarray containing a displacement field
+│       ├── .zattrs
+│       └── .zarray
+│
+├── volume
+│   ├── .zattrs                 # group level attributes (multiscales)
+│   └── 0                       # a group containing the 0th scale
+│       └── image               # a zarr array
+│           ├── .zattrs         # physical coordinate system and transformations here
+│           └── .zarray         # the array attributes
+└── crop
+    ├── .zattrs                 # group level attributes (multiscales)
+    └── 0                       # a group containing the 0th scale
+        └── image               # a zarr array
+            ├── .zattrs         # physical coordinate system and transformations here
+            └── .zarray         # the array attributes
+</pre>
 
 ### Additional details
 
