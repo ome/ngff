@@ -263,8 +263,26 @@ is indicated by the length of its "axes" array.  The "volume_micrometers" exampl
 - SHOULD contain the field "unit" to specify the physical unit of this dimension. The value SHOULD be one of the following strings, which are valid units according to UDUNITS-2.
     - Units for "space" axes: 'angstrom', 'attometer', 'centimeter', 'decimeter', 'exameter', 'femtometer', 'foot', 'gigameter', 'hectometer', 'inch', 'kilometer', 'megameter', 'meter', 'micrometer', 'mile', 'millimeter', 'nanometer', 'parsec', 'petameter', 'picometer', 'terameter', 'yard', 'yoctometer', 'yottameter', 'zeptometer', 'zettameter'
     - Units for "time" axes: 'attosecond', 'centisecond', 'day', 'decisecond', 'exasecond', 'femtosecond', 'gigasecond', 'hectosecond', 'hour', 'kilosecond', 'megasecond', 'microsecond', 'millisecond', 'minute', 'nanosecond', 'petasecond', 'picosecond', 'second', 'terasecond', 'yoctosecond', 'yottasecond', 'zeptosecond', 'zettasecond'
+- MAY contain the field "longName". The value MUST be a string, and can provide a longer name or description of an axis and its properties.
 
 If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
+
+<div class=example>
+
+Examples of valid axes.
+
+```json
+[
+    {"name": "x", "type": "space", "unit": "micrometer"},
+    {"name": "t", "type": "time", "unit": "second", "longName": "Unix Epoch time"},
+    {"name": "c", "type": "channel", "discrete": true},
+    {"name": "i0", "type": "array"},
+    {"name": "c", "type": "coordinate", "unit": "parsec"},
+    {"name": "v", "type": "displacement", "unit": "nanometer"},
+    {"name": "freq", "type": "frequency", "unit": "megahertz"}
+]
+```
+</div>
 
 
 ### Array coordinate systems
