@@ -65,6 +65,30 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>n</td>
       <td>n</td>
     </tr>
+    <tr>
+      <td><a href="(https://itkwidgets.readthedocs.io/en/latest">itkwidgets</a></td>
+      <td>y</td>
+      <td><a href="https://github.com/InsightSoftwareConsortium/itkwidgets/issues/546">n</a></td>
+      <td>y</td>
+      <td>y</td>
+      <td>y</td>
+      <td>y</td>
+      <td><a href="https://github.com/InsightSoftwareConsortium/itkwidgets/issues/547">n</a></td>
+      <td>n</td>
+      <td>n</td>
+    </tr>
+    <tr>
+      <td><a href="https://webknossos.org">webKnossos</a></td>
+      <td>y</td>
+      <td>n</td>
+      <td>y</td>
+      <td>y</td>
+      <td>y</td>
+      <td>y</td>
+      <td>y</td>
+      <td>n</td>
+      <td>n</td>
+    </tr>
   </tbody>
 </table>
 
@@ -80,29 +104,39 @@ The following tables document which features of the OME-NGFF spec are supported 
       <th><a href="https://github.com/ome/napari-ome-zarr/">napari-ome-zarr</a> (1)</th>
       <th><a href="https://github.com/hms-dbmi/vizarr/">vizarr</a></th>
       <th><a href="https://github.com/mobie/mobie-viewer-fiji/">MoBIE</a> (3)</th>
+      <th><a href="(https://itkwidgets.readthedocs.io/en/latest">itkwidgets</a></th>
+      <th><a href="https://webknossos.org">webKnossos</a></th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>omero info</td>
-      <td>y</td>
-      <td>y</td>
-      <td>n</td>
-    </tr>
     <tr>
       <td>Z-downsampling</td>
       <td>y</td>
       <td><a href="https://github.com/hms-dbmi/vizarr/pull/71">n</a></td>
       <td>y</td>
+      <td>y</td>
+      <td>y</td>
+    </tr>
+    <tr>
+      <td>omero info</td>
+      <td>y</td>
+      <td>y</td>
+      <td>n</td>
+      <td><a href="https://github.com/InsightSoftwareConsortium/itkwidgets/issues/546">n</a></td>
+      <td>n</td>
     </tr>
     <tr>
       <td>multiscales factor not=2</td>
       <td>y</td>
       <td><a href="https://github.com/hms-dbmi/vizarr/issues/101">n</a></td>
       <td>y</td>
+      <td>y</td>
+      <td>y</td>
     </tr>
     <tr>
       <td>v0.3 axes</td>
+      <td>y</td>
+      <td>y</td>
       <td>y</td>
       <td>y</td>
       <td>y</td>
@@ -112,11 +146,15 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y (2)</td>
       <td>n</td>
       <td>y</td>
+      <td>y</td>
+      <td>y</td>
     </tr>
     <tr>
       <td>labels</td>
       <td>y</td>
       <td>n</td>
+      <td>y</td>
+      <td><a href="https://github.com/InsightSoftwareConsortium/itkwidgets/issues/547">n</a></td>
       <td>y</td>
     </tr>
     <tr>
@@ -124,11 +162,15 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y</td>
       <td>y</td>
       <td>n</td>
+      <td>n</td>
+      <td>n</td>
     </tr>
     <tr>
       <td>bioformats2raw.layout</td>
       <td>y</td>
       <td><a href="https://github.com/hms-dbmi/vizarr/issues/149">n</a></td>
+      <td>n</td>
+      <td>n</td>
       <td>n</td>
     </tr>
   </tbody>
