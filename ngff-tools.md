@@ -134,6 +134,14 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y</td>
     </tr>
     <tr>
+      <td>URL (not s3)</td>
+      <td>y</td>
+      <td>y</td>
+      <td>y</td>
+      <td>y</td>
+      <td>y</td>
+    </tr>
+    <tr>
       <td>v0.3 axes</td>
       <td>y</td>
       <td>y</td>
