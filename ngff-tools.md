@@ -66,7 +66,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>n</td>
     </tr>
     <tr>
-      <td><a href="(https://itkwidgets.readthedocs.io/en/latest">itkwidgets</a></td>
+      <td><a href="https://itkwidgets.readthedocs.io/en/latest">itkwidgets</a></td>
       <td>y</td>
       <td><a href="https://github.com/InsightSoftwareConsortium/itkwidgets/issues/546">n</a></td>
       <td>y</td>
@@ -104,7 +104,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <th><a href="https://github.com/ome/napari-ome-zarr/">napari-ome-zarr</a> (1)</th>
       <th><a href="https://github.com/hms-dbmi/vizarr/">vizarr</a></th>
       <th><a href="https://github.com/mobie/mobie-viewer-fiji/">MoBIE</a> (3)</th>
-      <th><a href="(https://itkwidgets.readthedocs.io/en/latest">itkwidgets</a></th>
+      <th><a href="https://itkwidgets.readthedocs.io/en/latest">itkwidgets</a></th>
       <th><a href="https://webknossos.org">webKnossos</a></th>
     </tr>
   </thead>
