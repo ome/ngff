@@ -195,7 +195,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |                     # `.zattrs` MUST contain "region_key" if "region" is an array. "region_key" is the key in `obs` denoting which region a given row corresponds to.
         |                     # `.zattrs` MAY contain "instance_key", which is the key in `obs` that denotes which instance in "region" the row corresponds to. If "instance_key" is not provided, the values from the `obs` `.zattrs` "_index" key is used.
         |                     # `.zattrs` MAY contain "intensity_image" which is the path to the image used make measurements.
-        |                     # "intensity_image" patht MUST be an object with a key "path" and the path value MUST be a string
+        |                     # "intensity_image" path MUST be an object with a key "path" and the path value MUST be a string
         |                     # `.zattrs` the "intensity_image" MUST be in the same coordinate system as the label image specified in "region".
         │
         ├── X                 # You MAY add an zarr array `X`.
