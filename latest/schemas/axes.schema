@@ -16,6 +16,10 @@
           "type": "string",
           "description": "Name of the axis"
         },
+        "longName": {
+          "type": "string",
+          "description": "Longer name or description of the axis."
+        },
         "type": {
           "type": "string",
           "enum": [
