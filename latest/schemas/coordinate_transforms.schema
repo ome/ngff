@@ -139,6 +139,9 @@
             },
             {
               "$ref": "#/$defs/affine"
+            },
+            {
+              "$ref": "#/$defs/rotation"
             }
           ]
         }
@@ -264,6 +267,32 @@
             },
             "required": [
               "affine"
+            ]
+          }
+        }
+      ]
+    },
+    "rotation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "rotation"
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/path_w_url"
+        },
+        {
+          "properties": {
+            "rotation": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "rotation"
             ]
           }
         }
