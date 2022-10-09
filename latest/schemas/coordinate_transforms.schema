@@ -147,6 +147,9 @@
               "$ref": "#/$defs/inverseOf"
             },
             {
+              "$ref": "#/$defs/sequence"
+            },
+            {
               "$ref": "#/$defs/byDimension"
             }
           ]
@@ -341,6 +344,19 @@
       "required": [
         "transformation"
       ]
+    },
+    "sequence": {
+      "description": "A sequence of transformations",
+      "type": "object",
+      "properties": {
+        "type": { "const": "sequence" },
+        "transformations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/coordinateTransformation"
+          }
+        }
+      }
     },
     "byDimension": {
       "type": "object",
