@@ -142,6 +142,9 @@
             },
             {
               "$ref": "#/$defs/rotation"
+            },
+            {
+              "$ref": "#/$defs/inverseOf"
             }
           ]
         }
@@ -296,6 +299,20 @@
             ]
           }
         }
+      ]
+    },
+    "inverseOf": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "inverseOf"
+        },
+        "transformation": {
+          "$ref": "#/$defs/coordinateTransformation"
+        }
+      },
+      "required": [
+        "transformation"
       ]
     }
   }
