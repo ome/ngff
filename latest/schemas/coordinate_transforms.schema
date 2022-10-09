@@ -70,6 +70,22 @@
     }
   },
   "$defs": {
+    "path_w_url": {
+      "description": "Path specification. Schema local solution until https://github.com/ome/ngff/issues/144 is resolved.",
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
     "coordinateSystem": {
       "description": "Coordinate Systems for OME-NGFF",
       "type": "object",
@@ -120,6 +136,9 @@
             },
             {
               "$ref": "#/$defs/translation"
+            },
+            {
+              "$ref": "#/$defs/affine"
             }
           ]
         }
@@ -176,47 +195,79 @@
       "properties": {
         "type": {
           "const": "scale"
-        },
-        "oneOf": {
-          "path": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string",
-            "format": "uri"
-          },
-          "scale": {
-            "type": "array",
-            "items": {
-              "type": "number",
-              "exclusiveMinimum": 0
-            }
-          }
         }
-      }
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/path_w_url"
+        },
+        {
+          "properties": {
+            "scale": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          },
+          "required": [
+            "scale"
+          ]
+        }
+      ]
     },
     "translation": {
       "type": "object",
       "properties": {
         "type": {
           "const": "translation"
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/path_w_url"
         },
-        "oneOf": {
-          "path": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string",
-            "format": "uri"
-          },
-          "translation": {
-            "type": "array",
-            "items": {
-              "type": "number"
+        {
+          "properties": {
+            "translation": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
             }
+          },
+          "required": [
+            "translation"
+          ]
+        }
+      ]
+    },
+    "affine": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "affine"
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/path_w_url"
+        },
+        {
+          "properties": {
+            "affine": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "affine"
+            ]
           }
         }
-      }
+      ]
     }
   }
 }
