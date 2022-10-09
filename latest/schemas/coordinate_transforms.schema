@@ -110,6 +110,12 @@
               "$ref": "#/$defs/identity"
             },
             {
+              "$ref": "#/$defs/mapIndex"
+            },
+            {
+              "$ref": "#/$defs/mapAxis"
+            },
+            {
               "$ref": "#/$defs/scale"
             },
             {
@@ -125,6 +131,44 @@
         "type": {
           "const": "identity"
         }
+      }
+    },
+    "mapIndex": {
+      "type": "object",
+      "description": "Permute axes by position",
+      "properties": {
+        "type": {
+          "const": "mapIndex"
+        },
+        "mapIndex": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      },
+      "required": [
+        "mapIndex"
+      ]
+    },
+    "mapAxis": {
+      "type": "object",
+      "description": "Permute axes by name",
+      "properties": {
+        "type": {
+          "const": "mapAxis"
+        },
+        "mapAxis": {
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "mapAxis"
+        ]
       }
     },
     "scale": {
