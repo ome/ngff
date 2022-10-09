@@ -145,10 +145,37 @@
             },
             {
               "$ref": "#/$defs/inverseOf"
+            },
+            {
+              "$ref": "#/$defs/byDimension"
             }
           ]
         }
       ]
+    },
+    "byDimensionTransformation": {
+      "type": "object",
+      "description": "Transformation used inside a byDimension transformation",
+      "allOf": [
+        { "$ref": "#/$defs/coordinateTransformation" },
+        {
+          "properties": {
+            "input": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "output": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ],
+      "required": ["input", "output"]
     },
     "identity": {
       "type": "object",
@@ -314,6 +341,18 @@
       "required": [
         "transformation"
       ]
+    },
+    "byDimension": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "byDimension" },
+        "transformations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/byDimensionTransformation"
+          }
+        }
+      }
     }
   }
 }
