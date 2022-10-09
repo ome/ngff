@@ -839,20 +839,11 @@ and columns. `rotation` transformations are invertible.
 
 <div class=example>
     A 2D example
-    ```json
-    "coordinateSystems" : [
-        { "name" : "ij", "axes" : [{"name" : "i"}, {"name":"j"}] }
-        { "name" : "xy", "axes" : [{"name" : "x"}, {"name":"y"}] }
-    ],
-    "coordinateTransformations" : [ 
-        {
-            "type": "rotation",
-            "affine": [0, -1, 1, 0],
-            "input" : "ij",
-            "output" : "xy"
-        }
-    ]
-    ```
+
+    <pre class=include-code>
+    path: examples/transformations/rotation.json
+    highlight: json
+    </pre>
 
     defines the function:
 
