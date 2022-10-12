@@ -1,6 +1,6 @@
 import json
 import glob
-from pathlib import Path
+import os
 
 from dataclasses import dataclass
 from typing import List
@@ -10,11 +10,15 @@ import pytest
 from jsonschema import RefResolver, Draft202012Validator as Validator
 from jsonschema.exceptions import ValidationError
 
+schema_store = {}
+for schema_filename in glob.glob("schemas/*"):
+    with open(schema_filename) as f:
+        schema = json.load(f)
+        schema_store[schema["$id"]] = schema
 
 @dataclass
 class Suite:
     schema:  dict
-    schema_store: dict
     data: dict
     valid: bool = True
 
@@ -60,25 +64,23 @@ def pytest_generate_tests(metafunc):
                 schema = json.load(f)
             for test in suite["tests"]:
                 ids.append("validate_" + str(test["formerly"]).split("/")[-1][0:-5])
-                suites.append(Suite(schema, schema_store, test["data"], test["valid"]))
+                suites.append(Suite(schema, test["data"], test["valid"]))
 
         # Examples
-        for config_filename in Path(".").glob("examples/*/.config.json"):
-            print(config_filename)
+        for config_filename in glob.glob("examples/*/.config.json"):
             with open(config_filename) as o:
                 data = json.load(o)
             schema = data["schema"]
             with open(schema) as f:
                 schema = json.load(f)
-            for filename in config_filename.parent.glob("*.json"):
-                if filename.name.startswith(".config"):
-                    continue
+            example_folder = os.path.dirname(config_filename)
+            for filename in glob.glob(f"{example_folder}/*.json"):
                 with open(filename) as f:
                     # Strip comments
                     data = ''.join(line for line in f if not line.lstrip().startswith('//'))
                     data = json.loads(data)
                 ids.append("example_" + str(filename).split("/")[-1][0:-5])
-                suites.append(Suite(schema, schema_store, data, True))  # Assume true
+                suites.append(Suite(schema, data, True))  # Assume true
 
         metafunc.parametrize("suite", suites, ids=ids, indirect=True)
 
@@ -89,6 +91,20 @@ def suite(request):
 
 
 def test_run(suite):
-    resolver = RefResolver.from_schema(suite.schema, store=suite.schema_store)
+    resolver = RefResolver.from_schema(suite.schema, store=schema_store)
     validator = Validator(suite.schema, resolver=resolver)
     suite.validate(validator)
+
+
+def test_example_configs():
+    """
+    Test that all example folders have a config file
+    """
+    missing = []
+    for subdir in os.walk("examples"):
+        has_examples = glob.glob(f"{subdir[0]}/*.json")
+        has_config = glob.glob(f"{subdir[0]}/.config.json")
+        if has_examples and not has_config:
+            missing.append(subdir[0])
+    if missing:
+        raise Exception(f"Directories missing configs: {missing}")
