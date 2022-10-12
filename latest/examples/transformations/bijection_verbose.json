@@ -1,0 +1,7 @@
+{
+    "type": "bijection",
+    "forward": { "type" : "coordinates", "path" : "/forward_coordinates", "input" : "src", "output" : "tgt" },
+    "inverse": { "type" : "coordinates", "path" : "/inverse_coordinates", "input" : "tgt", "output" : "src" },
+    "input": "src",
+    "output": "tgt"
+}

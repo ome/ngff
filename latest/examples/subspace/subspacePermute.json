@@ -1,24 +1,24 @@
 {
     "coordinateSystems" : [
-        { "name " : "in", "axes" : [ {"name" : "i", "name" : "j" }] },
-        { "name " : "out", "axes" : [ {"name" : "x", "name" : "y" }] }
+        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j" } ]},
+        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y" } ]}
     ],
     "coordinateTransformations" : [
         { 
-            "type" : "sequence",
+            "type" : "byDimension",
             "input" : "in",
             "output" : "out",
             "transformations" : [
                 {
                     "type": "identity",
-                    "inputAxes" : ["j"],
-                    "outputAxes" : ["x"]
+                    "input" : ["j"],
+                    "output" : ["x"]
                 },
                 {
                     "type": "scale",
                     "scale" : [2],
-                    "inputAxes" : ["i"],
-                    "outputAxes" : ["y"]
+                    "input" : ["i"],
+                    "output" : ["y"]
                 }
             ]
         }
