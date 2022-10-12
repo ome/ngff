@@ -1,0 +1,29 @@
+{
+  "image-label": {
+    "version": "0.4",
+    "colors": [
+      {
+        "label-value": 1,
+        "rgba": [255, 255, 255, 255]
+      },
+      {
+        "label-value": 4,
+        "rgba": [0, 255, 255, 128]
+      }
+    ],
+    "properties": [
+      {
+        "label-value": 1,
+        "area (pixels)": 1200,
+        "class": "foo"
+      },
+      {
+        "label-value": 4,
+        "area (pixels)": 1650
+      }
+    ],
+    "source": {
+      "image": "../../"
+    }
+  }
+}

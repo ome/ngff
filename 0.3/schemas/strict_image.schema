@@ -1,4 +1,5 @@
 {
+  "$id": "https://ngff.openmicroscopy.org/0.3/schemas/strict_image.schema",
   "allOf": [
     {
       "$ref": "https://ngff.openmicroscopy.org/0.3/schemas/image.schema"
