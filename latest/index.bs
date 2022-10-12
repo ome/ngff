@@ -463,7 +463,7 @@ input space to *points* in the output space.
 - MUST contain the field "type".
 - MUST contain any other fields required by the given "type" (see table below).
 - MUST contain the field "output", unless part of a `sequence` or `inverseOf` (see details).
-- SHOULD contain the field "input", unless part of a `sequence` or `inverseOf` (see details).
+- MUST contain the field "input", unless part of a `sequence` or `inverseOf` (see details).
 - MAY contain the field "name". Its value MUST be unique across all "name" fields for coordinate transformations.
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
 
