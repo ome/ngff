@@ -101,6 +101,7 @@ The following tables document which features of the OME-NGFF spec are supported 
   <thead>
     <tr>
       <th></th>
+      <th>Sample data</th>
       <th><a href="https://github.com/ome/napari-ome-zarr/">napari-ome-zarr</a> (1)</th>
       <th><a href="https://github.com/hms-dbmi/vizarr/">vizarr</a></th>
       <th><a href="https://github.com/mobie/mobie-viewer-fiji/">MoBIE</a> (3)</th>
@@ -111,6 +112,7 @@ The following tables document which features of the OME-NGFF spec are supported 
   <tbody>
     <tr>
       <td>Z-downsampling</td>
+      <td></td>
       <td>y</td>
       <td><a href="https://github.com/hms-dbmi/vizarr/pull/71">n</a></td>
       <td>y</td>
@@ -119,6 +121,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>omero info</td>
+      <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0062A/6001240.zarr">6001240.zarr</a></td>
       <td>y</td>
       <td>y</td>
       <td>n</td>
@@ -127,6 +130,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>multiscales factor not=2</td>
+      <td></td>
       <td>y</td>
       <td><a href="https://github.com/hms-dbmi/vizarr/issues/101">n</a></td>
       <td>y</td>
@@ -135,6 +139,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>URL (not s3)</td>
+      <td></td>
       <td>y</td>
       <td>y</td>
       <td>y</td>
@@ -143,6 +148,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>v0.3 axes</td>
+      <td></td>
       <td>y</td>
       <td>y</td>
       <td>y</td>
@@ -151,6 +157,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>3D view</td>
+      <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0062A/6001240.zarr">6001240.zarr</a></td>
       <td>y (2)</td>
       <td>n</td>
       <td>y</td>
@@ -159,6 +166,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>labels</td>
+      <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0052A/5514375.zarr">5514375.zarr</a></td>
       <td>y</td>
       <td>n</td>
       <td>y</td>
@@ -167,6 +175,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>HCS plate</td>
+      <td></td>
       <td>y</td>
       <td>y</td>
       <td>n</td>
@@ -175,6 +184,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>bioformats2raw.layout</td>
+      <td></td>
       <td>y</td>
       <td><a href="https://github.com/hms-dbmi/vizarr/issues/149">n</a></td>
       <td>n</td>
@@ -183,6 +193,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>multiple 'multiscales'</td>
+      <td></td>
       <td>n</td>
       <td>n</td>
       <td>n</td>
@@ -191,6 +202,8 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>coordinateTransformations (datasets)</td>
+      <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457537.zarr">13457537.zarr</a>
+        translate onto <a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr">13457227.zarr</a></td>
       <td>y (translate)</td>
       <td>n</td>
       <td>n</td>
@@ -199,6 +212,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>coordinateTransformations (multiscales)</td>
+      <td></td>
       <td>n</td>
       <td>n</td>
       <td>?</td>
@@ -207,14 +221,16 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>open multiple images (URLs)</td>
-      <td>n</td>
+      <td></td>
       <td>y</td>
+      <td>n</td>
       <td>?</td>
       <td>?</td>
       <td>y</td>
     </tr>
     <tr>
       <td>Support multi C/T</td>
+      <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr">13457227.zarr</a></td>
       <td>y</td>
       <td>y</td>
       <td>y</td>
