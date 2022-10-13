@@ -181,5 +181,45 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>n</td>
       <td>n</td>
     </tr>
+    <tr>
+      <td>multiple 'multiscales'</td>
+      <td>n</td>
+      <td>n</td>
+      <td>n</td>
+      <td>n</td>
+      <td>n</td>
+    </tr>
+    <tr>
+      <td>coordinateTransformations (datasets)</td>
+      <td>y (translate)</td>
+      <td>n</td>
+      <td>n</td>
+      <td>?</td>
+      <td>?</td>
+    </tr>
+    <tr>
+      <td>coordinateTransformations (multiscales)</td>
+      <td>n</td>
+      <td>n</td>
+      <td>?</td>
+      <td>?</td>
+      <td>?</td>
+    </tr>
+    <tr>
+      <td>open multiple images (URLs)</td>
+      <td>n</td>
+      <td>y</td>
+      <td>?</td>
+      <td>?</td>
+      <td>y</td>
+    </tr>
+    <tr>
+      <td>Support multi C/T</td>
+      <td>y</td>
+      <td>y</td>
+      <td>y</td>
+      <td>?</td>
+      <td>n</td>
+    </tr>
   </tbody>
 </table>
