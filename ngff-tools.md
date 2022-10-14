@@ -175,7 +175,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>HCS plate</td>
-      <td></td>
+      <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0001A/2551.zarr">idr0001</a></td>
       <td>y</td>
       <td>y</td>
       <td>n</td>
@@ -184,7 +184,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>bioformats2raw.layout</td>
-      <td></td>
+      <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.2/idr0070A/9838562.zarr">9838562.zarr</a></td>
       <td>y</td>
       <td><a href="https://github.com/hms-dbmi/vizarr/issues/149">n</a></td>
       <td>n</td>
@@ -212,7 +212,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
     <tr>
       <td>coordinateTransformations (multiscales)</td>
-      <td></td>
+      <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457539.zarr">13457539.zarr</a></td>
       <td>n</td>
       <td>n</td>
       <td>?</td>
