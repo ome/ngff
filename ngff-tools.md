@@ -138,15 +138,6 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y</td>
     </tr>
     <tr>
-      <td>URL (not s3)</td>
-      <td></td>
-      <td>y</td>
-      <td>y</td>
-      <td>y</td>
-      <td>y</td>
-      <td>y</td>
-    </tr>
-    <tr>
       <td>v0.3 axes</td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.3/idr0079A/9836998.zarr">9836998.zarr</a></td>
       <td>y</td>
