@@ -238,12 +238,21 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y</td>
     </tr>
     <tr>
-      <td>Support multi C/T</td>
+      <td>multiple Channels</td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr">13457227.zarr</a></td>
       <td>y</td>
       <td>y</td>
       <td>y</td>
-      <td>?</td>
+      <td>n</td>
+      <td>y</td>
+    </tr>
+    <tr>
+      <td>multiple Time-points</td>
+      <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr">13457227.zarr</a></td>
+      <td>y</td>
+      <td>y</td>
+      <td>y</td>
+      <td>n</td>
       <td>n</td>
     </tr>
   </tbody>
