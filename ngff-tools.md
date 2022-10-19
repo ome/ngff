@@ -185,7 +185,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     <tr>
       <td>bioformats2raw.layout</td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.2/idr0070A/9838562.zarr">9838562.zarr</a></td>
-      <td>y</td>
+      <td><a href="https://github.com/ome/napari-ome-zarr/issues/71">n</a></td>
       <td><a href="https://github.com/hms-dbmi/vizarr/issues/149">n</a></td>
       <td>n</td>
       <td>n</td>
