@@ -134,7 +134,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>n</td>
     </tr>
     <tr>
-      <td>datasets.coordinateTransformations (v0.4)</td>
+      <td>datasets coordinateTransformations (v0.4)</td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457537.zarr">13457537.zarr</a>
         translate onto <a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr">13457227.zarr</a></td>
       <td>y (scale, translate)</td>
@@ -145,7 +145,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>?</td>
     </tr>
     <tr>
-      <td>multiscales.coordinateTransformations (v0.4)</td>
+      <td>multiscales coordinateTransformations (v0.4)</td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457539.zarr">13457539.zarr</a></td>
       <td>n</td>
       <td>n</td>
