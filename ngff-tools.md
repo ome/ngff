@@ -19,9 +19,20 @@ The following tables document which features of the OME-NGFF spec are supported 
       <th><a href="https://github.com/mobie/mobie-viewer-fiji/">MoBIE</a> (3)</th>
       <th><a href="https://itkwidgets.readthedocs.io/en/latest">itkwidgets</a></th>
       <th><a href="https://webknossos.org">webKnossos</a></th>
+      <th><a href="https://www.openmicroscopy.org/omero/">OMERO</a></th>
     </tr>
   </thead>
   <tbody>
+  <tr>
+      <td>Viewer type/language</td>
+      <td></td>
+      <td>desktop/Python</td>
+      <td>browser/JavaScript</td>
+      <td>desktop/Java</td>
+      <td>browser/notebook/Python</td>
+      <td>browser client + server</td>
+      <td>various clients + server</td>
+    </tr>
     <tr>
       <td>Z-downsampling</td>
       <td></td>
@@ -30,6 +41,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y</td>
       <td>y</td>
       <td>y</td>
+      <td>n</td>
     </tr>
     <tr>
       <td>omero info</td>
@@ -39,6 +51,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>n</td>
       <td><a href="https://github.com/InsightSoftwareConsortium/itkwidgets/issues/546">n</a></td>
       <td>n</td>
+      <td>n?</td>
     </tr>
     <tr>
       <td>multiscales factor not=2</td>
@@ -48,6 +61,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y</td>
       <td>y</td>
       <td>y</td>
+      <td>y?</td>
     </tr>
     <tr>
       <td>axes (v0.3)</td>
@@ -57,6 +71,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y</td>
       <td>y</td>
       <td>n</td>
+      <td>?</td>
     </tr>
     <tr>
       <td>v0.4 axes (v0.4)</td>
@@ -66,6 +81,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y</td>
       <td>y</td>
       <td>y</td>
+      <td>?</td>
     </tr>
     <tr>
       <td>3D view</td>
@@ -75,6 +91,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y</td>
       <td>y</td>
       <td>y</td>
+      <td>n</td>
     </tr>
     <tr>
       <td>labels</td>
@@ -84,6 +101,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y</td>
       <td><a href="https://github.com/InsightSoftwareConsortium/itkwidgets/issues/547">n</a></td>
       <td>y</td>
+      <td>?</td>
     </tr>
     <tr>
       <td>HCS plate</td>
@@ -93,6 +111,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>n</td>
       <td>n</td>
       <td>n</td>
+      <td>y</td>
     </tr>
     <tr>
       <td>bioformats2raw.layout</td>
@@ -102,10 +121,12 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td><span style="color: red">X</span></td>
       <td>n</td>
       <td>n</td>
+      <td>y</td>
     </tr>
     <tr>
       <td>multiple 'multiscales'</td>
       <td></td>
+      <td>n</td>
       <td>n</td>
       <td>n</td>
       <td>n</td>
@@ -121,6 +142,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>?</td>
       <td>y (scale)</td>
       <td>y (scale)</td>
+      <td>?</td>
     </tr>
     <tr>
       <td>multiscales.coordinateTransformations (v0.4)</td>
@@ -130,15 +152,17 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>?</td>
       <td>?</td>
       <td>?</td>
+      <td>?</td>
     </tr>
     <tr>
-      <td>open multiple images (URLs)</td>
+      <td>overlay multiple images</td>
       <td></td>
       <td>y</td>
       <td>n</td>
       <td>?</td>
       <td>?</td>
       <td>y</td>
+      <td>n</td>
     </tr>
     <tr>
       <td>multiple Channels</td>
@@ -147,6 +171,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y</td>
       <td>y</td>
       <td>n</td>
+      <td>y</td>
       <td>y</td>
     </tr>
     <tr>
@@ -157,6 +182,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y</td>
       <td>n</td>
       <td>n</td>
+      <td>y</td>
     </tr>
   </tbody>
 </table>
