@@ -102,6 +102,9 @@
                 "path": "path/to/0",
                 "coordinateTransformations": [
                   {
+                    "type": "identity"
+                  },
+                  {
                     "type": "scale",
                     "scale": [
                       1,
