@@ -50,7 +50,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>y</td>
     </tr>
     <tr>
-      <td>v0.3 axes</td>
+      <td>axes (v0.3)</td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.3/idr0079A/9836998.zarr">9836998.zarr</a></td>
       <td>y</td>
       <td>y</td>
@@ -59,7 +59,7 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>n</td>
     </tr>
     <tr>
-      <td>v0.4 axes</td>
+      <td>v0.4 axes (v0.4)</td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr">13457227.zarr</a></td>
       <td>y</td>
       <td>y</td>
@@ -113,17 +113,17 @@ The following tables document which features of the OME-NGFF spec are supported 
       <td>n</td>
     </tr>
     <tr>
-      <td>coordinateTransformations (datasets)</td>
+      <td>datasets.coordinateTransformations (v0.4)</td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457537.zarr">13457537.zarr</a>
         translate onto <a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr">13457227.zarr</a></td>
-      <td>y (translate)</td>
-      <td>n</td>
+      <td>y (scale, translate)</td>
       <td>n</td>
       <td>?</td>
-      <td>?</td>
+      <td>y (scale)</td>
+      <td>y (scale)</td>
     </tr>
     <tr>
-      <td>coordinateTransformations (multiscales)</td>
+      <td>multiscales.coordinateTransformations (v0.4)</td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457539.zarr">13457539.zarr</a></td>
       <td>n</td>
       <td>n</td>
