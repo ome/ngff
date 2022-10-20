@@ -24,12 +24,12 @@ The following tables document which features of the OME-NGFF spec are supported 
   </thead>
   <tbody>
   <tr>
-      <td>Viewer type/language</td>
+      <td>Viewer type, language</td>
       <td></td>
-      <td>desktop/Python</td>
-      <td>browser/JavaScript</td>
-      <td>desktop/Java</td>
-      <td>browser/notebook/Python</td>
+      <td>desktop, Python</td>
+      <td>browser, JavaScript</td>
+      <td>desktop, Java</td>
+      <td>notebook, Python</td>
       <td>browser client + server</td>
       <td>various clients + server</td>
     </tr>
