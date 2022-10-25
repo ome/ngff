@@ -60,7 +60,7 @@ The following versions of each viewer were used in testing:
     </tr>
     <tr>
       <td>multiscales factor not=2</td>
-      <td></td>
+      <td><a href="https://minio-dev.openmicroscopy.org/idr/v0.4/idr0082/9846318.zarr/0">9846318.zarr/0</a></td>
       <td>y</td>
       <td><a href="https://github.com/hms-dbmi/vizarr/issues/101">n</a></td>
       <td>y</td>
