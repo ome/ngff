@@ -5,21 +5,26 @@ The following tables document which features of the OME-NGFF spec are supported 
 
 ## Viewers
 
-1. <a href="https://github.com/ome/napari-ome-zarr/">napari-ome-zarr</a> plugin for <a href="https://napari.org">napari</a> uses <a href="https://github.com/ome/ome-zarr-py/">ome-zarr-py</a>
-2. napari 3D view only supported for lowest level of multiscales pyramid
-3. MoBIE: Open with `Plugins > BigDataViewer > OME-Zarr > Open OME-Zarr From...`
+The following versions of each viewer were used in testing:
+
+ - <a href="https://napari.org">napari</a> 0.4.16 with plugin <a href="https://github.com/ome/napari-ome-zarr/">napari-ome-zarr</a>0.5.2 and <a href="https://github.com/ome/ome-zarr-py/">ome-zarr</a>0.6.0.
+ - <a href="https://github.com/hms-dbmi/vizarr/">vizarr</a> using <a href="https://hms-dbmi.github.io/vizarr">current viewer</a> October 2022. Open via URL - see <a href="https://hms-dbmi.github.io/vizarr/?source=https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.3/idr0079A/9836998.zarr">example</a>.
+ - <a href="https://github.com/mobie/mobie-viewer-fiji/">MoBIE</a> plugin for ImageJ/Fiji. Open with `Plugins > BigDataViewer > OME-Zarr > Open OME-Zarr From...`
+ - <a href="https://itkwidgets.readthedocs.io/en/latest">itkwidgets</a>. Use in a python notebook, or open via URL: See <a href="https://kitware.github.io/itk-vtk-viewer/app/?rotate=false&fileToLoad=https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0062A/6001240.zarr">example</a>.
+ - <a href="https://webknossos.org">webKnossos</a> version 19988.
+ - <a href="https://www.openmicroscopy.org/omero/">OMERO</a> with BioFormats <a href="https://github.com/ome/ZarrReader">ZarrReader</a> 0.2.0.
 
 <table>
   <thead>
     <tr>
       <th></th>
       <th>Sample data</th>
-      <th><a href="https://github.com/ome/napari-ome-zarr/">napari-ome-zarr</a> (1)</th>
-      <th><a href="https://github.com/hms-dbmi/vizarr/">vizarr</a></th>
-      <th><a href="https://github.com/mobie/mobie-viewer-fiji/">MoBIE</a> (3)</th>
-      <th><a href="https://itkwidgets.readthedocs.io/en/latest">itkwidgets</a></th>
-      <th><a href="https://webknossos.org">webKnossos</a></th>
-      <th><a href="https://www.openmicroscopy.org/omero/">OMERO</a></th>
+      <th>napari</th>
+      <th>vizarr</th>
+      <th>MoBIE</th>
+      <th>itkwidgets</th>
+      <th>webKnossos</th>
+      <th>OMERO</th>
     </tr>
   </thead>
   <tbody>
@@ -86,7 +91,7 @@ The following tables document which features of the OME-NGFF spec are supported 
     <tr>
       <td>3D view</td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0062A/6001240.zarr">6001240.zarr</a></td>
-      <td>y (2)</td>
+      <td>y (1)</td>
       <td>n</td>
       <td>y</td>
       <td>y</td>
@@ -186,3 +191,8 @@ The following tables document which features of the OME-NGFF spec are supported 
     </tr>
   </tbody>
 </table>
+
+
+
+1. napari 3D view only supported for lowest level of multiscales pyramid
+
