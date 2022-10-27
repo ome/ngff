@@ -40,7 +40,7 @@ The following versions of each viewer were used in testing:
     </tr>
     <tr>
       <td>Z-downsampling</td>
-      <td></td>
+      <td><a href="https://minio-dev.openmicroscopy.org/idr/v0.4/idr0077/9836832_z.zarr">9836832_z.zarr</a></td>
       <td>y</td>
       <td><a href="https://github.com/hms-dbmi/vizarr/pull/71">n</a></td>
       <td>y</td>
