@@ -161,7 +161,8 @@ The following versions of each viewer were used in testing:
     </tr>
     <tr>
       <td>multiscales coordinateTransformations (v0.4)</td>
-      <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457539.zarr">13457539.zarr</a></td>
+      <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457539.zarr">13457539.zarr</a>
+       translate onto <a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr">13457227.zarr</a></td>
       <td>n</td>
       <td>n</td>
       <td>?</td>
