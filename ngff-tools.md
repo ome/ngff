@@ -123,7 +123,7 @@ The following versions of each viewer were used in testing:
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.2/idr0070A/9838562.zarr">9838562.zarr</a></td>
       <td><a href="https://github.com/ome/napari-ome-zarr/issues/71">n</a></td>
       <td><a href="https://github.com/hms-dbmi/vizarr/issues/149">n</a></td>
-      <td><span style="color: red">X</span></td>
+      <td>n</td>
       <td>n</td>
       <td>n</td>
       <td>y</td>
@@ -139,15 +139,25 @@ The following versions of each viewer were used in testing:
       <td>n</td>
     </tr>
     <tr>
-      <td>datasets coordinateTransformations (v0.4)</td>
+      <td>datasets coordinateTransformations [scale] (v0.4)</td>
+      <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr">13457227.zarr</a></td>
+      <td>y</td>
+      <td>n</td>
+      <td>y</td>
+      <td>y</td>
+      <td>y</td>
+      <td>?</td>
+    </tr>
+    <tr>
+      <td>datasets coordinateTransformations [translation] (v0.4)</td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457537.zarr">13457537.zarr</a>
         translate onto <a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr">13457227.zarr</a></td>
-      <td>y (scale, translate)</td>
+      <td>y</td>
       <td>n</td>
-      <td>?</td>
-      <td>y (scale)</td>
-      <td>y (scale)</td>
-      <td>?</td>
+      <td>n</td>
+      <td>n</td>
+      <td>n</td>
+      <td>n</td>
     </tr>
     <tr>
       <td>multiscales coordinateTransformations (v0.4)</td>
