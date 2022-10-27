@@ -139,7 +139,11 @@ The following versions of each viewer were used in testing:
       <td>n</td>
     </tr>
     <tr>
-      <td>datasets coordinateTransformations [scale] (v0.4)</td>
+      <td>
+        <b>scale</b> within
+        <a href="https://ngff.openmicroscopy.org/0.4/#trafo-md">coordinateTransformations</a>
+        on datasets (v0.4)
+      </td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr">13457227.zarr</a></td>
       <td>y</td>
       <td>n</td>
@@ -149,7 +153,11 @@ The following versions of each viewer were used in testing:
       <td>?</td>
     </tr>
     <tr>
-      <td>datasets coordinateTransformations [translation] (v0.4)</td>
+      <td>
+        <b>translation</b> within
+        <a href="https://ngff.openmicroscopy.org/0.4/#trafo-md">coordinateTransformations</a>
+        on datasets (v0.4)
+      </td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457537.zarr">13457537.zarr</a>
         translate onto <a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr">13457227.zarr</a></td>
       <td>y</td>
@@ -160,7 +168,11 @@ The following versions of each viewer were used in testing:
       <td>n</td>
     </tr>
     <tr>
-      <td>multiscales coordinateTransformations [scale] (v0.4)</td>
+      <td>
+        <b>scale</b> within
+        <a href="https://ngff.openmicroscopy.org/0.4/#trafo-md">coordinateTransformations</a>
+        on <a href="https://ngff.openmicroscopy.org/0.4/#multiscale-md">multiscales</a> (v0.4)
+      </td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457539.zarr">13457539.zarr</a></td>
       <td>n</td>
       <td>n</td>
@@ -170,7 +182,11 @@ The following versions of each viewer were used in testing:
       <td>n</td>
     </tr>
     <tr>
-      <td>multiscales coordinateTransformations [translation] (v0.4)</td>
+      <td>
+        <b>translation</b> within
+        <a href="https://ngff.openmicroscopy.org/0.4/#trafo-md">coordinateTransformations</a>
+        on <a href="https://ngff.openmicroscopy.org/0.4/#multiscale-md">multiscales</a> (v0.4)
+      </td>
       <td><a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457539.zarr">13457539.zarr</a>
        translate onto <a href="https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457227.zarr">13457227.zarr</a></td>
       <td>n</td>
