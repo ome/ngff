@@ -177,7 +177,8 @@ For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x
 
 Tables {#table-layout}
 ----------------------
-The following describes the expected layout for tabular data. OME-NGFF tables are compatible with the [AnnData model](https://github.com/theislab/anndata).
+The following describes the expected layout for tabular data.
+OME-NGFF tables are compatible with the [AnnData model](https://github.com/scverse/anndata).
 
 <pre>
 .                             # Root folder, potentially in S3,
@@ -188,7 +189,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         │                     # The table group MAY be in the root of the zarr file.
         ├── .zgroup           # The table group MAY be in an image, labels, or points group.
         |
-        ├── .zattrs           # `.zattrs` MUST contain "@type", which is set to `"ngff:region_table"`
+        ├── .zattrs           # `.zattrs` MUST contain "type", which is set to `"ngff:region_table"`
         |                     # `.zattrs` MUST contain "region", which is the path to the data the table is annotating.
         |                     # "region" MUST be a single path (single region) or an array of paths (multiple regions).
         |                     # "region" paths MUST be objects with a key "path" and the path value MUST be a string.
@@ -239,14 +240,14 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
         |   ├── .zattrs       # `.zattrs` MUST contain `"_index"`, which is the name of the column in obs to be used as the index.           
         |   │                 # `.zattrs` MUST contain `"column-order"`, which is a list of the order of the non-_index columns.
         |   │                 # `.zattrs` MUST contain `"encoding-type"`, which is set to `"dataframe"` by AnnData.
-        |   │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+        |   │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.2.0"` by AnnData.
         |   │
         |   ├── array_col     # Columns in the var table MAY be a 1D zarr array. The rows can be chunked as the user desires.
         |   |   ├── .zarray   # However, the var columns SHOULD be chunked in the same way as the columns in X.
         |   |   │
         |   |   └─ 0
         |   |
-        |   └── cat_col       # Columns in the var table MAY categorical
+        |   └── cat_col       # Columns in the var table MAY be categorical
         |       ├── .zattrs.  # `.zattrs` MUST contain `"encoding-type"`, which is set to `"categorical"` by AnnData.
         |       |             # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.2.0"` by AnnData.
         |       |
@@ -411,7 +412,7 @@ The following describes the expected layout for tabular data. OME-NGFF tables ar
             |   ├── .zattrs       # `.zattrs` MUST contain `"_index"`, which is the name of the column in obs to be used as the index.           
             |   │                 # `.zattrs` MUST contain `"column-order"`, which is a list of the order of the non-_index columns.
             |   │                 # `.zattrs` MUST contain `"encoding-type"`, which is set to `"dataframe"` by AnnData.
-            |   │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.1.0"` by AnnData.
+            |   │                 # `.zattrs` MUST contain `"encoding-version"`, which is set to `"0.2.0"` by AnnData.
             |   │      
             |   └── col_0         # Each column in the obs table is a 1D zarr array.
             |       ├── .zarray   # Each columns MUST be chunked the same, but the chunking may be chosen by the user.
