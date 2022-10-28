@@ -187,7 +187,7 @@ OME-NGFF tables are compatible with the [AnnData model](https://github.com/scver
 └── 123.zarr
     └── table                 # The table group is a container which holds a table that is compatible with AnnData.
         │                     # The table group MAY be in the root of the zarr file.
-        ├── .zgroup           # The table group MAY be in an image, labels, or points group.
+        ├── .zgroup           # The table group MAY be in root or in another group.
         |
         ├── .zattrs           # `.zattrs` MUST contain "type", which is set to `"ngff:region_table"`
         |                     # `.zattrs` MUST contain "region", which is the path to the data the table is annotating.
