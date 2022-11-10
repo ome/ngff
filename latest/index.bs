@@ -157,7 +157,7 @@ For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x
     │   ├── .zarray           # All image arrays must be up to 5-dimensional
     │   │                     # with the axis of type time before type channel, before spatial axes.
     │   │
-    │   └─ t                  # Chunks are stored with the nested directory layout.
+    │   └─ t                  # Chunks are stored with the flat or nested directory layout. The `dimension_separator` field of the underlying Zarr array must be set accordingly.
     │      └─ c               # All but the last chunk element are stored as directories.
     │         └─ z            # The terminal chunk is a file. Together the directory and file names
     │            └─ y         # provide the "chunk coordinate" (t, c, z, y, x), where the maximum coordinate
