@@ -182,7 +182,7 @@ OME-NGFF tables are compatible with the [AnnData model](https://github.com/scver
 
 <pre>
 .                             # Root folder, potentially in S3,
-│                             # with a flat list of images by image ID.
+│                             # with a flat list of images.
 │
 └── 123.zarr
     └── table                 # The table group is a container which holds a table that is compatible with AnnData.
