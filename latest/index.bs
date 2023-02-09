@@ -3,9 +3,9 @@ Title: Next-generation file formats (NGFF)
 Shortname: ome-ngff
 Level: 1
 Status: LS-COMMIT
-Status: w3c/ED
+Status: w3c/CG-FINAL
 Group: ome
-URL: https://ngff.openmicroscopy.org/latest/
+URL: https://ngff.openmicroscopy.org/0.4/
 Repository: https://github.com/ome/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
@@ -16,13 +16,11 @@ Markup Shorthands: markdown yes
 Editor: Josh Moore, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0003-4028-811X
 Editor: Sébastien Besson, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0001-8783-1429
 Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/, https://orcid.org/0000-0001-6562-7187
-Text Macro: NGFFVERSION 0.5-dev
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
-Status Text: The current released version of this specification is
-Status Text: <a href="../0.4/index.html">0.4</a>. Migration scripts
-Status Text: will be provided between numbered versions. Data written with these latest changes
+Status Text: This is the 0.4 release of this specification. Migration scripts
+Status Text: will be provided between numbered versions. Data written with the latest version
 Status Text: (an "editor's draft") will not necessarily be supported.
 </pre>
 
@@ -330,9 +328,8 @@ Conforming readers:
 - MAY choose to show all images within the collection or offer the user a choice of images, as with <dfn export="true"><abbr title="High-content screening">HCS</abbr></dfn> plates;
 - MAY ignore other groups or arrays under the root of the hierarchy.
 
-
 "coordinateTransformations" metadata {#trafo-md}
-------------------------------------------------
+-------------------------------------
 
 "coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
 For example, to map a discrete data space of an array to the corresponding physical space.
@@ -380,7 +377,7 @@ Each "multiscales" dictionary MAY contain the field "coordinateTransformations",
 The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.
 They can for example be used to specify the `scale` for a dimension that is the same for all resolutions.
 
-Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain the field "version", which indicates the version of the multiscale metadata of this image (current version is [NGFFVERSION]).
+Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain the field "version", which indicates the version of the multiscale metadata of this image (current version is 0.4).
 
 Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
@@ -414,7 +411,7 @@ can be found under the "omero" key in the group-level metadata:
 ```json
 "id": 1,                              # ID in OMERO
 "name": "example.tif",                # Name as shown in the UI
-"version": "0.5-dev",                 # Current version
+"version": "0.4",                     # Current version
 "channels": [                         # Array matching the c dimension size
     {
         "active": true,
@@ -444,58 +441,64 @@ for more information.
 "labels" metadata {#labels-md}
 ------------------------------
 
-The special group "labels" found under an image Zarr contains the key `labels` containing
-the paths to label objects which can be found underneath the group:
+In OME-Zarr, Zarr arrays representing pixel-annotation data are stored in a group called "labels". Some applications--notably image segmentation--produce 
+a new image that is in the same coordinate system as a corresponding multiscale image (usually having the same dimensions and coordinate transformations). 
+This new image is composed of integer values corresponding to certain labels with custom meanings. For example, pixels take the value 1 or 0 
+if the corresponding pixel in the original image represents cellular space or intercellular space, respectively. 
+Such an image is referred to in this specification as a 'label image'. 
+
+The "labels" group is nested within an image group, at the same level of the Zarr hierarchy as the resolution levels for the original image. 
+The "labels" group is not itself an image; it contains images. The label images MUST be of a discrete (integer) type, i.e. one of 
+[`uint8`, `int8`, `uint16`, `int16`, `uint32`, `int32`, `uint64`, `int64`]. Intermediate groups between "labels" and the images within it are allowed, 
+but these MUST NOT contain metadata. Names of the images in the "labels" group are arbitrary.
+
+The `.zattrs` file associated with the "labels" group MUST contain a JSON object with the key `labels`, whose value is a JSON array of paths to the 
+labeled multiscale image(s). All images in the "labels" group SHOULD be listed here. For example:
 
 ```json
 {
   "labels": [
-    "orphaned/0"
+    "cell_space_segmentation/"
   ]
 }
 ```
 
-Unlisted groups MAY be labels.
+The `.zattrs` file within an image within a "labels" group MUST contain a `multiscales` JSON object. Within the `multiscales` object, the JSON array 
+associated with the `datasets` key MUST have the same number of entries (scale levels) as the original unlabeled image. 
 
-"image-label" metadata {#label-md}
-----------------------------------
+In addition to the `multiscales` key, the JSON object in this image-level `.zattrs` file SHOULD contain another key, `image-label`, 
+whose value is also a JSON object. The `image-label` object stores information about the display colors, source image, and optionally, 
+further arbitrary properties of the label image. That `image-label` object SHOULD contain the following keys: first, a `colors` key, 
+whose value MUST be a JSON array describing color information for the unique label values. Second, a `version` key, whose value MUST be a 
+string specifying the version of the OME-NGFF `image-label` schema.
 
-Groups containing the `image-label` dictionary represent an image segmentation
-in which each unique pixel value represents a separate segmented object.
-`image-label` groups MUST also contain `multiscales` metadata and the two
-"datasets" series MUST have the same number of entries.
+Conforming readers SHOULD display labels using the colors specified by the `colors` JSON array, as follows. This array contains one 
+JSON object for each unique custom label. Each of these objects MUST contain the `label-value` key, whose value MUST be the integer 
+corresponding to a particular label. In addition to the `label-value` key, the objects in this array MAY contain an `rgba` key whose 
+value MUST be an array of four integers between 0 and 255, inclusive. These integers represent the `uint8` values of red, green, and 
+blue that comprise the final color to be displayed at the pixels with this label. The fourth integer in the `rgba` array represents alpha, 
+or the opacity of the color. Additional keys under `colors` are allowed. 
 
-The `image-label` dictionary SHOULD contain a `colors` key whose value MUST be a
-list of JSON objects describing the unique label values. Each color object MUST
-contain the `label-value` key whose value MUST be an integer specifying the
-pixel value for that label. It MAY contain an `rgba` key whose value MUST be an array
-of four integers between 0 and 255 `[uint8, uint8, uint8, uint8]` specifying the label
-color as RGBA. All the values under the `label-value` key MUST be unique. Clients
-who choose to not throw an error SHOULD ignore all except the _last_ entry.
+Next, the `image-label` object MAY contain the following keys: a `properties` key, and a `source` key.
 
-Some implementations MAY represent overlapping labels by using a specially assigned
-value, for example the highest integer available in the pixel range.
+Like the `colors` key, the value of the `properties` key MUST be an array of JSON objects describing the set of unique possible pixel values. 
+Each object in the `properties` array MUST contain the `label-value` key, whose value again MUST be an integer specifying the pixel value for that label. 
+Additionally, an arbitrary number of key-value pairs MAY be present for each label value, denoting arbitrary metadata associated with that label. 
+Label-value objects within the `properties` array do not need to have the same keys.
 
-The `image-label` dictionary MAY contain a `properties` key whose value MUST be a
-list of JSON objects which also describes the unique label values. Each property object
-MUST contain the `label-value` key whose value MUST be an integer specifying the pixel
-value for that label. Additionally, an arbitrary number of key-value pairs
-MAY be present for each label value denoting associated metadata. Not all label
-values must share the same key-value pairs within the properties list.
+The value of the `source` key MUST be a JSON object containing information about the original image from which the label image derives. 
+This object MAY include a key `image`, whose value MUST be a string specifying the relative path to a Zarr image group.  
+The default value is `../../` since most labeled images are stored in a "labels" group that is nested within the original image group. 
 
-The `image-label` dictionary MAY contain a `source` key whose value MUST be a JSON
-object containing information on the image the label is associated with. If included,
-it MAY include a key `image` whose value MUST be a string specifying the relative
-path to a Zarr image group. The default value is "../../" since most labels are stored
-under a subgroup named "labels/" (see above).
-
-The `image-label` dictionary SHOULD contain a `version` key whose value MUST be a string
-specifying the version of the image-label specification.
+Here is an example of a simple `image-label` object for a label image in which 0s and 1s represent intercellular and cellular space, respectively:
 
 <pre class=include-code>
 path: examples/label_strict/colors_properties.json
 highlight: json
 </pre>
+
+In this case, the pixels consisting of a 0 in the Zarr array will be displayed as 50% blue and 50% opacity. Pixels with a 1 in the Zarr array, 
+which correspond to cellular space, will be displayed as 50% green and 50% opacity. 
 
 "plate" metadata {#plate-md}
 ----------------------------
@@ -541,7 +544,7 @@ other `name` in the `rows` list. Care SHOULD be taken to avoid collisions on
 case-insensitive filesystems (e.g. avoid using both `Aa` and `aA`).
 
 The `plate` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
-version of the plate specification.
+version of the plate specificaton.
 
 The `plate` dictionary MUST contain a `wells` key whose value MUST be a list of JSON objects
 defining the wells of the plate. Each well object MUST contain a `path` key whose value MUST
