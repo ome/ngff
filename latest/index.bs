@@ -676,6 +676,11 @@ Version History {#history}
   </thead>
   <tr>
     <td>0.4.1</td>
+    <td>2023-02-09</td>
+    <td>expand on "labels" description</td>
+  </tr>
+  <tr>
+    <td>0.4.1</td>
     <td>2022-09-26</td>
     <td>transitional metadata for image collections ("bioformats2raw.layout")</td>
   </tr>
