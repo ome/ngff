@@ -3,9 +3,9 @@ Title: Next-generation file formats (NGFF)
 Shortname: ome-ngff
 Level: 1
 Status: LS-COMMIT
-Status: w3c/CG-FINAL
+Status: w3c/ED
 Group: ome
-URL: https://ngff.openmicroscopy.org/0.4/
+URL: https://ngff.openmicroscopy.org/latest/
 Repository: https://github.com/ome/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
@@ -16,11 +16,13 @@ Markup Shorthands: markdown yes
 Editor: Josh Moore, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0003-4028-811X
 Editor: Sébastien Besson, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0001-8783-1429
 Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/, https://orcid.org/0000-0001-6562-7187
+Text Macro: NGFFVERSION 0.5-dev
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
-Status Text: This is the 0.4 release of this specification. Migration scripts
-Status Text: will be provided between numbered versions. Data written with the latest version
+Status Text: The current released version of this specification is
+Status Text: <a href="../0.4/index.html">0.4</a>. Migration scripts
+Status Text: will be provided between numbered versions. Data written with these latest changes
 Status Text: (an "editor's draft") will not necessarily be supported.
 </pre>
 
@@ -328,8 +330,9 @@ Conforming readers:
 - MAY choose to show all images within the collection or offer the user a choice of images, as with <dfn export="true"><abbr title="High-content screening">HCS</abbr></dfn> plates;
 - MAY ignore other groups or arrays under the root of the hierarchy.
 
+
 "coordinateTransformations" metadata {#trafo-md}
--------------------------------------
+------------------------------------------------
 
 "coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
 For example, to map a discrete data space of an array to the corresponding physical space.
@@ -377,7 +380,7 @@ Each "multiscales" dictionary MAY contain the field "coordinateTransformations",
 The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.
 They can for example be used to specify the `scale` for a dimension that is the same for all resolutions.
 
-Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain the field "version", which indicates the version of the multiscale metadata of this image (current version is 0.4).
+Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain the field "version", which indicates the version of the multiscale metadata of this image (current version is [NGFFVERSION]).
 
 Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
@@ -411,7 +414,7 @@ can be found under the "omero" key in the group-level metadata:
 ```json
 "id": 1,                              # ID in OMERO
 "name": "example.tif",                # Name as shown in the UI
-"version": "0.4",                     # Current version
+"version": "0.5-dev",                 # Current version
 "channels": [                         # Array matching the c dimension size
     {
         "active": true,
@@ -544,7 +547,7 @@ other `name` in the `rows` list. Care SHOULD be taken to avoid collisions on
 case-insensitive filesystems (e.g. avoid using both `Aa` and `aA`).
 
 The `plate` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
-version of the plate specificaton.
+version of the plate specification.
 
 The `plate` dictionary MUST contain a `wells` key whose value MUST be a list of JSON objects
 defining the wells of the plate. Each well object MUST contain a `path` key whose value MUST
