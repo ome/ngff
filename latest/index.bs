@@ -451,12 +451,12 @@ if the corresponding pixel in the original image represents cellular space or in
 Such an image is referred to in this specification as a 'label image'. 
 
 The "labels" group is nested within an image group, at the same level of the Zarr hierarchy as the resolution levels for the original image. 
-The "labels" group is not itself an image; it contains images. The label images MUST be of a discrete (integer) type, i.e. one of 
+The "labels" group is not itself an image; it contains images. The pixels of the label images MUST be integer data types, i.e. one of 
 [`uint8`, `int8`, `uint16`, `int16`, `uint32`, `int32`, `uint64`, `int64`]. Intermediate groups between "labels" and the images within it are allowed, 
 but these MUST NOT contain metadata. Names of the images in the "labels" group are arbitrary.
 
 The `.zattrs` file associated with the "labels" group MUST contain a JSON object with the key `labels`, whose value is a JSON array of paths to the 
-labeled multiscale image(s). All images in the "labels" group SHOULD be listed here. For example:
+labeled multiscale image(s). All label images SHOULD be listed within this metadata file. For example:
 
 ```json
 {
@@ -466,7 +466,7 @@ labeled multiscale image(s). All images in the "labels" group SHOULD be listed h
 }
 ```
 
-The `.zattrs` file within an image within a "labels" group MUST contain a `multiscales` JSON object. Within the `multiscales` object, the JSON array 
+The `.zattrs` file for the label image MUST implement the multiscales specification. Within the `multiscales` object, the JSON array 
 associated with the `datasets` key MUST have the same number of entries (scale levels) as the original unlabeled image. 
 
 In addition to the `multiscales` key, the JSON object in this image-level `.zattrs` file SHOULD contain another key, `image-label`, 
