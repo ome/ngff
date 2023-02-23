@@ -188,9 +188,9 @@ OME-NGFF tables are compatible with the [AnnData model](https://github.com/scver
     |
     ├── .zgroup
     |
-    ├── .zattrs               # `.zattrs` of any group containing a table MUST contain `"tables"`, which is an array with the keys of the subgroubs that are a table.
+    ├── .zattrs
     |
-    └── tables                 # The tables group is a container which holds one or multiple tables that are compatible with AnnData.
+    └── tables                # The tables group is a container which holds one or multiple tables that are compatible with AnnData.
         |
         │                     # The tables group MAY be in the root of the zarr file.
         ├── .zgroup           # The tables group MAY be in root or in another group.
