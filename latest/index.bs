@@ -461,7 +461,7 @@ labeled multiscale image(s). All label images SHOULD be listed within this metad
 ```json
 {
   "labels": [
-    "cell_space_segmentation/"
+    "cell_space_segmentation"
   ]
 }
 ```
