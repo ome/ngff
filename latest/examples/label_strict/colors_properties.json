@@ -3,23 +3,25 @@
     "version": "0.5-dev",
     "colors": [
       {
-        "label-value": 1,
-        "rgba": [255, 255, 255, 255]
+        "label-value": 0,
+        "rgba": [0, 0, 128, 128]
       },
       {
-        "label-value": 4,
-        "rgba": [0, 255, 255, 128]
+        "label-value": 1,
+        "rgba": [0, 128, 0, 128]
       }
     ],
     "properties": [
       {
-        "label-value": 1,
+        "label-value": 0,
         "area (pixels)": 1200,
-        "class": "foo"
+        "class": "intercellular space"
       },
       {
-        "label-value": 4,
-        "area (pixels)": 1650
+        "label-value": 1,
+        "area (pixels)": 1650,
+        "class": "cell",
+        "cell type": "neuron"
       }
     ],
     "source": {
