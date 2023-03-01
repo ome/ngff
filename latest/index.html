@@ -1487,11 +1487,10 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 859efb4bd, updated Fri Jan 27 16:04:01 2023 -0800" name="generator">
+  <meta content="Bikeshed version 79b02508e, updated Tue Feb 28 10:48:19 2023 -0800" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="ee4d5dab677636a28f1f65c248a751e279a0d1fe" name="document-revision">
+  <meta content="6ef57397489db4c77b137137ab1cea6d9fac556d" name="document-revision">
 <style>/* style-autolinks */
-
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
     font-size: inherit;
@@ -1551,7 +1550,8 @@ pre .property::before, pre .property::after {
 
 [data-link-type=biblio] {
     white-space: pre;
-}</style>
+}
+</style>
 <style>/* style-colors */
 
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
@@ -1660,9 +1660,9 @@ pre .property::before, pre .property::after {
     --outdated-shadow: red;
 
     --editedrec-bg: darkorange;
-}</style>
+}
+</style>
 <style>/* style-counters */
-
 body {
     counter-reset: example figure issue;
 }
@@ -1689,9 +1689,9 @@ figcaption {
 }
 figcaption:not(.no-marker)::before {
     content: "Figure " counter(figure) " ";
-}</style>
+}
+</style>
 <style>/* style-dfn-panel */
-
 :root {
     --dfnpanel-bg: #ddd;
     --dfnpanel-text: var(--text);
@@ -1699,10 +1699,10 @@ figcaption:not(.no-marker)::before {
 .dfn-panel {
     position: absolute;
     z-index: 35;
-    height: auto;
-    width: -webkit-fit-content;
-    width: fit-content;
+    width: 20em;
+    min-width: min-content;
     max-width: 300px;
+    height: auto;
     max-height: 500px;
     overflow: auto;
     padding: 0.5em 0.75em;
@@ -1710,6 +1710,7 @@ figcaption:not(.no-marker)::before {
     background: var(--dfnpanel-bg);
     color: var(--dfnpanel-text);
     border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
 }
 .dfn-panel:not(.on) { display: none; }
 .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
@@ -1732,7 +1733,6 @@ figcaption:not(.no-marker)::before {
 .dfn-paneled { cursor: pointer; }
 </style>
 <style>/* style-issues */
-
 a[href].issue-return {
     float: right;
     float: inline-end;
@@ -1742,7 +1742,6 @@ a[href].issue-return {
 }
 </style>
 <style>/* style-md-lists */
-
 /* This is a weird hack for me not yet following the commonmark spec
    regarding paragraph and lists. */
 [data-md] > :first-child {
@@ -1750,7 +1749,8 @@ a[href].issue-return {
 }
 [data-md] > :last-child {
     margin-bottom: 0;
-}</style>
+}
+</style>
 <style>/* style-selflinks */
 
 :root {
@@ -1874,7 +1874,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="https://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2023-01-31">31 January 2023</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2023-03-01">1 March 2023</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1933,9 +1933,8 @@ will be provided between numbered versions. Data written with these latest chang
       <li><a href="#multiscale-md"><span class="secno">3.4</span> <span class="content">"multiscales" metadata</span></a>
       <li><a href="#omero-md"><span class="secno">3.5</span> <span class="content">"omero" metadata (transitional)</span></a>
       <li><a href="#labels-md"><span class="secno">3.6</span> <span class="content">"labels" metadata</span></a>
-      <li><a href="#label-md"><span class="secno">3.7</span> <span class="content">"image-label" metadata</span></a>
-      <li><a href="#plate-md"><span class="secno">3.8</span> <span class="content">"plate" metadata</span></a>
-      <li><a href="#well-md"><span class="secno">3.9</span> <span class="content">"well" metadata</span></a>
+      <li><a href="#plate-md"><span class="secno">3.7</span> <span class="content">"plate" metadata</span></a>
+      <li><a href="#well-md"><span class="secno">3.8</span> <span class="content">"well" metadata</span></a>
      </ol>
     <li><a href="#naming-style"><span class="secno">4</span> <span class="content">Specification naming style</span></a>
     <li><a href="#implementations"><span class="secno">5</span> <span class="content">Implementations</span></a>
@@ -2169,7 +2168,7 @@ in the wild. An upcoming NGFF specification will replace this layout with explic
   <c- f>"bioformats2raw.layout"</c-> <c- p>:</c-> <c- mi>3</c->
 <c- p>}</c-></pre>
    <p>If the top-level group represents a plate, the <code>bioformats2raw.layout</code> metadata will be present but
-the "plate" key MUST also be present, takes precedence and parsing of such datasets should follow <a href="#plate-md">§ 3.8 "plate" metadata</a>. It is not
+the "plate" key MUST also be present, takes precedence and parsing of such datasets should follow <a href="#plate-md">§ 3.7 "plate" metadata</a>. It is not
 possible to mix collections of images with plates at present.</p>
 <pre class="include-code highlight"><c- p>{</c->
   <c- f>"bioformats2raw.layout"</c-> <c- p>:</c-> <c- mi>3</c-><c- p>,</c->
@@ -2402,63 +2401,69 @@ can be found under the "omero" key in the group-level metadata:</p>
    <p>See https://docs.openmicroscopy.org/omero/5.6.1/developers/Web/WebGateway.html#imgdata
 for more information.</p>
    <h3 class="heading settled" data-level="3.6" id="labels-md"><span class="secno">3.6. </span><span class="content">"labels" metadata</span><a class="self-link" href="#labels-md"></a></h3>
-   <p>The special group "labels" found under an image Zarr contains the key <code>labels</code> containing
-the paths to label objects which can be found underneath the group:</p>
+   <p>In OME-Zarr, Zarr arrays representing pixel-annotation data are stored in a group called "labels". Some applications--notably image segmentation--produce
+a new image that is in the same coordinate system as a corresponding multiscale image (usually having the same dimensions and coordinate transformations). 
+This new image is composed of integer values corresponding to certain labels with custom meanings. For example, pixels take the value 1 or 0 
+if the corresponding pixel in the original image represents cellular space or intercellular space, respectively. 
+Such an image is referred to in this specification as a 'label image'.</p>
+   <p>The "labels" group is nested within an image group, at the same level of the Zarr hierarchy as the resolution levels for the original image.
+The "labels" group is not itself an image; it contains images. The pixels of the label images MUST be integer data types, i.e. one of 
+[<code>uint8</code>, <code>int8</code>, <code>uint16</code>, <code>int16</code>, <code>uint32</code>, <code>int32</code>, <code>uint64</code>, <code>int64</code>]. Intermediate groups between "labels" and the images within it are allowed, 
+but these MUST NOT contain metadata. Names of the images in the "labels" group are arbitrary.</p>
+   <p>The <code>.zattrs</code> file associated with the "labels" group MUST contain a JSON object with the key <code>labels</code>, whose value is a JSON array of paths to the
+labeled multiscale image(s). All label images SHOULD be listed within this metadata file. For example:</p>
 <pre class="language-json highlight"><c- p>{</c->
   <c- f>"labels"</c-><c- p>:</c-> <c- p>[</c->
-    <c- u>"orphaned/0"</c->
+    <c- u>"cell_space_segmentation"</c->
   <c- p>]</c->
 <c- p>}</c->
 </pre>
-   <p>Unlisted groups MAY be labels.</p>
-   <h3 class="heading settled" data-level="3.7" id="label-md"><span class="secno">3.7. </span><span class="content">"image-label" metadata</span><a class="self-link" href="#label-md"></a></h3>
-   <p>Groups containing the <code>image-label</code> dictionary represent an image segmentation
-in which each unique pixel value represents a separate segmented object. <code>image-label</code> groups MUST also contain <code>multiscales</code> metadata and the two
-"datasets" series MUST have the same number of entries.</p>
-   <p>The <code>image-label</code> dictionary SHOULD contain a <code>colors</code> key whose value MUST be a
-list of JSON objects describing the unique label values. Each color object MUST
-contain the <code>label-value</code> key whose value MUST be an integer specifying the
-pixel value for that label. It MAY contain an <code>rgba</code> key whose value MUST be an array
-of four integers between 0 and 255 <code>[uint8, uint8, uint8, uint8]</code> specifying the label
-color as RGBA. All the values under the <code>label-value</code> key MUST be unique. Clients
-who choose to not throw an error SHOULD ignore all except the _last_ entry.</p>
-   <p>Some implementations MAY represent overlapping labels by using a specially assigned
-value, for example the highest integer available in the pixel range.</p>
-   <p>The <code>image-label</code> dictionary MAY contain a <code>properties</code> key whose value MUST be a
-list of JSON objects which also describes the unique label values. Each property object
-MUST contain the <code>label-value</code> key whose value MUST be an integer specifying the pixel
-value for that label. Additionally, an arbitrary number of key-value pairs
-MAY be present for each label value denoting associated metadata. Not all label
-values must share the same key-value pairs within the properties list.</p>
-   <p>The <code>image-label</code> dictionary MAY contain a <code>source</code> key whose value MUST be a JSON
-object containing information on the image the label is associated with. If included,
-it MAY include a key <code>image</code> whose value MUST be a string specifying the relative
-path to a Zarr image group. The default value is "../../" since most labels are stored
-under a subgroup named "labels/" (see above).</p>
-   <p>The <code>image-label</code> dictionary SHOULD contain a <code>version</code> key whose value MUST be a string
-specifying the version of the image-label specification.</p>
+   <p>The <code>.zattrs</code> file for the label image MUST implement the multiscales specification. Within the <code>multiscales</code> object, the JSON array
+associated with the <code>datasets</code> key MUST have the same number of entries (scale levels) as the original unlabeled image.</p>
+   <p>In addition to the <code>multiscales</code> key, the JSON object in this image-level <code>.zattrs</code> file SHOULD contain another key, <code>image-label</code>,
+whose value is also a JSON object. The <code>image-label</code> object stores information about the display colors, source image, and optionally, 
+further arbitrary properties of the label image. That <code>image-label</code> object SHOULD contain the following keys: first, a <code>colors</code> key, 
+whose value MUST be a JSON array describing color information for the unique label values. Second, a <code>version</code> key, whose value MUST be a 
+string specifying the version of the OME-NGFF <code>image-label</code> schema.</p>
+   <p>Conforming readers SHOULD display labels using the colors specified by the <code>colors</code> JSON array, as follows. This array contains one
+JSON object for each unique custom label. Each of these objects MUST contain the <code>label-value</code> key, whose value MUST be the integer 
+corresponding to a particular label. In addition to the <code>label-value</code> key, the objects in this array MAY contain an <code>rgba</code> key whose 
+value MUST be an array of four integers between 0 and 255, inclusive. These integers represent the <code>uint8</code> values of red, green, and 
+blue that comprise the final color to be displayed at the pixels with this label. The fourth integer in the <code>rgba</code> array represents alpha, 
+or the opacity of the color. Additional keys under <code>colors</code> are allowed.</p>
+   <p>Next, the <code>image-label</code> object MAY contain the following keys: a <code>properties</code> key, and a <code>source</code> key.</p>
+   <p>Like the <code>colors</code> key, the value of the <code>properties</code> key MUST be an array of JSON objects describing the set of unique possible pixel values.
+Each object in the <code>properties</code> array MUST contain the <code>label-value</code> key, whose value again MUST be an integer specifying the pixel value for that label. 
+Additionally, an arbitrary number of key-value pairs MAY be present for each label value, denoting arbitrary metadata associated with that label. 
+Label-value objects within the <code>properties</code> array do not need to have the same keys.</p>
+   <p>The value of the <code>source</code> key MUST be a JSON object containing information about the original image from which the label image derives.
+This object MAY include a key <code>image</code>, whose value MUST be a string specifying the relative path to a Zarr image group.  
+The default value is <code>../../</code> since most labeled images are stored in a "labels" group that is nested within the original image group.</p>
+   <p>Here is an example of a simple <code>image-label</code> object for a label image in which 0s and 1s represent intercellular and cellular space, respectively:</p>
 <pre class="include-code highlight"><c- p>{</c->
   <c- f>"image-label"</c-><c- p>:</c-> <c- p>{</c->
     <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c-><c- p>,</c->
     <c- f>"colors"</c-><c- p>:</c-> <c- p>[</c->
       <c- p>{</c->
-        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-        <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>]</c->
+        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+        <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>0</c-><c- p>,</c-> <c- mi>0</c-><c- p>,</c-> <c- mi>128</c-><c- p>,</c-> <c- mi>128</c-><c- p>]</c->
       <c- p>},</c->
       <c- p>{</c->
-        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>4</c-><c- p>,</c->
-        <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>0</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>255</c-><c- p>,</c-> <c- mi>128</c-><c- p>]</c->
+        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+        <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>0</c-><c- p>,</c-> <c- mi>128</c-><c- p>,</c-> <c- mi>0</c-><c- p>,</c-> <c- mi>128</c-><c- p>]</c->
       <c- p>}</c->
     <c- p>],</c->
     <c- f>"properties"</c-><c- p>:</c-> <c- p>[</c->
       <c- p>{</c->
-        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
         <c- f>"area (pixels)"</c-><c- p>:</c-> <c- mi>1200</c-><c- p>,</c->
-        <c- f>"class"</c-><c- p>:</c-> <c- u>"foo"</c->
+        <c- f>"class"</c-><c- p>:</c-> <c- u>"intercellular space"</c->
       <c- p>},</c->
       <c- p>{</c->
-        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>4</c-><c- p>,</c->
-        <c- f>"area (pixels)"</c-><c- p>:</c-> <c- mi>1650</c->
+        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+        <c- f>"area (pixels)"</c-><c- p>:</c-> <c- mi>1650</c-><c- p>,</c->
+        <c- f>"class"</c-><c- p>:</c-> <c- u>"cell"</c-><c- p>,</c->
+        <c- f>"cell type"</c-><c- p>:</c-> <c- u>"neuron"</c->
       <c- p>}</c->
     <c- p>],</c->
     <c- f>"source"</c-><c- p>:</c-> <c- p>{</c->
@@ -2467,7 +2472,9 @@ specifying the version of the image-label specification.</p>
   <c- p>}</c->
 <c- p>}</c->
 </pre>
-   <h3 class="heading settled" data-level="3.8" id="plate-md"><span class="secno">3.8. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
+   <p>In this case, the pixels consisting of a 0 in the Zarr array will be displayed as 50% blue and 50% opacity. Pixels with a 1 in the Zarr array,
+which correspond to cellular space, will be displayed as 50% green and 50% opacity.</p>
+   <h3 class="heading settled" data-level="3.7" id="plate-md"><span class="secno">3.7. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
    <p>For high-content screening datasets, the plate layout can be found under the
 custom attributes of the plate group under the <code>plate</code> key in the group-level metadata.</p>
    <p>The <code>plate</code> dictionary MAY contain an <code>acquisitions</code> key whose value MUST be a list of
@@ -2680,7 +2687,7 @@ the index into the <code>columns</code> list. <code>rowIndex</code> and <code>co
     <c- p>}</c->
 <c- p>}</c->
 </pre>
-   <h3 class="heading settled" data-level="3.9" id="well-md"><span class="secno">3.9. </span><span class="content">"well" metadata</span><a class="self-link" href="#well-md"></a></h3>
+   <h3 class="heading settled" data-level="3.8" id="well-md"><span class="secno">3.8. </span><span class="content">"well" metadata</span><a class="self-link" href="#well-md"></a></h3>
    <p>For high-content screening datasets, the metadata about all fields of views
 under a given well can be found under the "well" key in the attributes of the
 well group.</p>
@@ -2774,6 +2781,10 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
       <td>Date
       <td>Description
     <tbody>
+     <tr>
+      <td>0.4.1
+      <td>2023-02-09
+      <td>expand on "labels" description
      <tr>
       <td>0.4.1
       <td>2022-09-26
@@ -2881,66 +2892,120 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
    <dt id="biblio-zarr">[ZARR]
    <dd>Alistair Miles; et al. <a href="https://doi.org/10.5281/zenodo.4069231"><cite>Zarr: An implementation of chunked, compressed, N-dimensional arrays for Python.</cite></a>. 06 October 2020. Informational. URL: <a href="https://doi.org/10.5281/zenodo.4069231">https://doi.org/10.5281/zenodo.4069231</a>
   </dl>
-  <aside class="dfn-panel" data-for="transitional">
-   <b><a href="#transitional">#transitional</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-transitional" class="dfn-panel" data-for="transitional" id="infopanel-for-transitional">
+   <span id="infopaneltitle-for-transitional" style="display:none">Info about the 'Transitional' definition.</span><b><a href="#transitional">#transitional</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-transitional">3.2. "bioformats2raw.layout" (transitional)</a>
     <li><a href="#ref-for-transitional①">3.5. "omero" metadata (transitional)</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */
-
-document.body.addEventListener("click", function(e) {
-    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
-    // Find the dfn element or panel, if any, that was clicked on.
-    var el = e.target;
-    var target;
-    var hitALink = false;
-    while(el.parentElement) {
-        if(el.tagName == "A") {
-            // Clicking on a link in a <dfn> shouldn't summon the panel
-            hitALink = true;
-        }
-        if(el.classList.contains("dfn-paneled")) {
-            target = "dfn";
-            break;
-        }
-        if(el.classList.contains("dfn-panel")) {
-            target = "dfn-panel";
-            break;
-        }
-        el = el.parentElement;
+"use strict";
+{
+    function queryAll(sel) {
+        return [].slice.call(document.querySelectorAll(sel));
     }
-    if(target != "dfn-panel") {
+
+    // Add popup behavior to all dfns to show the corresponding dfn-panel.
+    var dfns = document.querySelectorAll('.dfn-paneled');
+    for (let dfn of dfns) { insertDfnPopupAction(dfn); }
+
+    document.body.addEventListener("click", (e) => {
+        // If not handled already, just hide all dfn panels.
+        hideAllDfnPanels();
+    });
+
+    function hideAllDfnPanels() {
         // Turn off any currently "on" or "activated" panels.
-        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
-            el.classList.remove("on");
-            el.classList.remove("activated");
-        });
-    }
-    if(target == "dfn" && !hitALink) {
-        // open the panel
-        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
-        if(dfnPanel) {
-            dfnPanel.classList.add("on");
-            var rect = el.getBoundingClientRect();
-            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
-            dfnPanel.style.top = window.scrollY + rect.top + "px";
-            var panelRect = dfnPanel.getBoundingClientRect();
-            var panelWidth = panelRect.right - panelRect.left;
-            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
-                // Reposition, because the panel is overflowing
-                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
-            }
-        } else {
-            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
-        }
-    } else if(target == "dfn-panel") {
-        // Switch it to "activated" state, which pins it.
-        el.classList.add("activated");
-        el.style.left = null;
-        el.style.top = null;
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
     }
 
-});
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn) {
+        // Find dfn panel
+        const dfnPanel = document.querySelector(`.dfn-panel[data-for='${dfn.id}']`);
+        if (dfnPanel) {
+            const panelWrapper = document.createElement('span');
+            panelWrapper.appendChild(dfnPanel);
+            panelWrapper.style.position = "relative";
+            panelWrapper.style.height = "0px";
+            dfn.insertAdjacentElement("afterend", panelWrapper);
+            dfn.setAttribute('role', 'button');
+            dfn.setAttribute('aria-expanded', 'false')
+            dfn.tabIndex = 0;
+            dfn.classList.add('has-dfn-panel');
+            dfn.addEventListener('click', (event) => {
+                showDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+            });
+            dfn.addEventListener('keypress', (event) => {
+                const kc = event.keyCode;
+                // 32->Space, 13->Enter
+                if(kc == 32 || kc == 13) {
+                    toggleDfnPanel(dfnPanel, dfn);
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+            });
+
+            dfnPanel.addEventListener('click', (event) => {
+                pinDfnPanel(dfnPanel);
+                event.stopPropagation();
+            });
+
+            dfnPanel.addEventListener('keydown', (event) => {
+                if(event.keyCode == 27) { // Escape key
+                    hideDfnPanel(dfnPanel, dfn);
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+            })
+
+        } else {
+            console.log("Couldn't find .dfn-panel[data-for='" + dfn.id + "']");
+        }
+    }
+}
 </script>
