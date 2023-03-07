@@ -450,6 +450,7 @@ This new image is composed of integer values corresponding to certain labels wit
 if the corresponding pixel in the original image represents cellular space or intercellular space, respectively. 
 Such an image is referred to in this specification as a 'label image'. 
 
+Each label image MUST be stored within a "labels" group. 
 The "labels" group is nested within an image group, at the same level of the Zarr hierarchy as the resolution levels for the original image. 
 The "labels" group is not itself an image; it contains images. The pixels of the label images MUST be integer data types, i.e. one of 
 [`uint8`, `int8`, `uint16`, `int16`, `uint32`, `int32`, `uint64`, `int64`]. Intermediate groups between "labels" and the images within it are allowed, 
@@ -467,15 +468,16 @@ labeled multiscale image(s). All label images SHOULD be listed within this metad
 ```
 
 The `.zattrs` file for the label image MUST implement the multiscales specification. Within the `multiscales` object, the JSON array 
-associated with the `datasets` key MUST have the same number of entries (scale levels) as the original unlabeled image. 
+associated with the `datasets` key MAY have the same number of elements (scale levels) as the original unlabeled image. 
+Therefore it is acceptable for a label image to have fewer scale levels than the original image.
 
-In addition to the `multiscales` key, the JSON object in this image-level `.zattrs` file SHOULD contain another key, `image-label`, 
-whose value is also a JSON object. The `image-label` object stores information about the display colors, source image, and optionally, 
+The label image .zattrs file MUST also contain the `image-label` key, whose value is a JSON object. 
+The `image-label` object stores information about the display colors, source image, and optionally, 
 further arbitrary properties of the label image. That `image-label` object SHOULD contain the following keys: first, a `colors` key, 
 whose value MUST be a JSON array describing color information for the unique label values. Second, a `version` key, whose value MUST be a 
 string specifying the version of the OME-NGFF `image-label` schema.
 
-Conforming readers SHOULD display labels using the colors specified by the `colors` JSON array, as follows. This array contains one 
+Conforming readers SHOULD display labels using the colors specified by the `colors` JSON array, as follows. This array SHOULD contain one 
 JSON object for each unique custom label. Each of these objects MUST contain the `label-value` key, whose value MUST be the integer 
 corresponding to a particular label. In addition to the `label-value` key, the objects in this array MAY contain an `rgba` key whose 
 value MUST be an array of four integers between 0 and 255, inclusive. These integers represent the `uint8` values of red, green, and 
