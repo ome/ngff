@@ -592,6 +592,9 @@ Projects which support reading and/or writing OME-NGFF data include:
   <dt><strong>[vizarr](https://github.com/hms-dbmi/vizarr/)</strong></dt>
   <dd>A minimal, purely client-side program for viewing Zarr-based images with Viv & ImJoy.</dd>
 
+  <dt><strong>[ITKIOOMEZarrNGFF](https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF/)</strong></dt>
+  <dd>ITK IO for images stored in OME-NGFF format.</dd>
+
 </dl>
 
 <img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png" alt="Diagram of related projects"></img>
