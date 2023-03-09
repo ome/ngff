@@ -5,12 +5,12 @@
                 {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                 },
                 {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                 }
             ],
             "datasets": [
