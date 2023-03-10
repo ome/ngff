@@ -4,11 +4,11 @@
             "version": "0.5-dev",
             "name": "example",
             "axes": [
-                {"name": "t", "type": "time", "unit": "millisecond"},
+                {"name": "t", "type": "time", "units": "millisecond"},
                 {"name": "c", "type": "channel"},
-                {"name": "z", "type": "space", "unit": "micrometer"},
-                {"name": "y", "type": "space", "unit": "micrometer"},
-                {"name": "x", "type": "space", "unit": "micrometer"}
+                {"name": "z", "type": "space", "units": "micrometer"},
+                {"name": "y", "type": "space", "units": "micrometer"},
+                {"name": "x", "type": "space", "units": "micrometer"}
             ],
             "datasets": [
                 {
@@ -37,7 +37,7 @@
                 }
             ],
             "coordinateTransformations": [{
-                // the time unit (0.1 milliseconds), which is the same for each scale level
+                // the time units (0.1 milliseconds), which is the same for each scale level
                 "type": "scale",
                 "scale": [0.1, 1.0, 1.0, 1.0, 1.0]
             }],
