@@ -14,35 +14,39 @@
                 {
                     "path": "0",
                     "coordinateTransformations": [{
-                        // the voxel size for the first scale level (0.5 micrometer)
                         "type": "scale",
-                        "scale": [1.0, 1.0, 0.5, 0.5, 0.5]
+                        "scale": [0.1, 1.0, 0.5, 0.5, 0.5]
+                    },
+                    {
+                        "type": "translation",
+                        "translation": [0, 0, 0, 0, 0]
                     }]
                 },
                 {
                     "path": "1",
                     "coordinateTransformations": [{
-                        // the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)
                         "type": "scale",
-                        "scale": [1.0, 1.0, 1.0, 1.0, 1.0]
+                        "scale": [0.1, 1.0, 1.0, 1.0, 1.0]
+                    },
+                    {
+                        "type": "translation",
+                        "translation": [0, 0, 0.25, 0.25, 0.25]
                     }]
                 },
                 {
                     "path": "2",
                     "coordinateTransformations": [{
-                        // the voxel size for the third scale level (downscaled by a factor of 4 -> 2 micrometer)
                         "type": "scale",
-                        "scale": [1.0, 1.0, 2.0, 2.0, 2.0]
+                        "scale": [0.1, 1.0, 2.0, 2.0, 2.0]
+                    },
+                    {
+                        "type": "translation",
+                        "translation": [0, 0, 0.75, 0.75, 0.75]
                     }]
                 }
             ],
-            "coordinateTransformations": [{
-                // the time unit (0.1 milliseconds), which is the same for each scale level
-                "type": "scale",
-                "scale": [0.1, 1.0, 1.0, 1.0, 1.0]
-            }],
-            "type": "gaussian",
             "metadata": {
+                "type": "gaussian",
                 "description": "the fields in metadata depend on the downscaling implementation. Here, the parameters passed to the skimage function are given",
                 "method": "skimage.transform.pyramid_gaussian",
                 "version": "0.16.1",
