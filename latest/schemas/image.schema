@@ -124,7 +124,7 @@
             "type": "string",
             "enum": ["space"]
           },
-          "unit": {
+          "units": {
             "type": "string"
           }
         }
