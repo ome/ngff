@@ -368,8 +368,8 @@ Each "multiscales" dictionary MUST contain the field "datasets", which is a list
 Each dictionary in "datasets" MUST contain the field "path", which is a string encoding the path to the array for this resolution relative
 to the current zarr group. The elements of "path" MUST be ordered from largest (i.e. highest resolution) to smallest.
 
-Downsampling routines invariably change the coordinate grid of an image by increasing the interval between sample points. This can be expressed as a scaling transformation.
-Downsampling may also shift the origin of the first sample point. This can be expressed as a translation transformation.
+Downsampling changes the coordinate grid of an image by increasing the interval between sample points (and reducing the number of samples). This can be expressed as a scaling transformation.
+Downsampling may also shift the origin of the coordinate grid of an image. This can be expressed as a translation transformation.
 These two transformations are sufficient to unambiguously express the effect of downsampling on a coordinate grid.  
 
 Therefore, each dictionary in "datasets" MUST contain the field "coordinateTransformations", which is a list with exactly two elements: 
