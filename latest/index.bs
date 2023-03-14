@@ -498,11 +498,11 @@ input space to *points* in the output space.
     <td> `"transformations":List[Transformation]`
     <td>A sequence of transformations, Applying the sequence applies the composition of all transforms in the list, in order.
   <tr><th>`displacements`
-    <td>`"url":str`<br>`"path":str`<br>`"interpolation":str`
-    <td>Displacement field transformation in this container (path) or another container located at (url).
+    <td>`"path":str`<br>`"interpolation":str`
+    <td>Displacement field transformation located at (path).
   <tr><th>`coordinates`
-    <td>`"url":str`<br>`"path":str`<br>`"interpolation":str`
-    <td>Coordinate field transformation in this container (path) or another container located at (url).
+    <td>`"path":str`<br>`"interpolation":str`
+    <td>Coordinate field transformation located at (path).
   <tr><th>`inverseOf`
     <td>`"transform":Transform`
     <td>The inverse of a transformation. Useful if a transform is not closed-form invertible.  See Forward and inverse for details and examples.
@@ -800,9 +800,6 @@ invertible.
   <dt><strong>path</strong></dt>
   <dd>  The path to a zarr-array containing the translation parameters.
 	The array at this path MUST be 1D, and its length MUST be `N`.</dd>
-  <dt><strong>url</strong></dt>
-  <dd>  An optional URL to the container in which the translation zarr-array is stored. If not provided,
-        the provided `path` MUST exist in this container.</dd>
   <dt><strong>scale</strong></dt>
   <dd> 	The scale parameters stored as a JSON list of numbers. The list MUST have length `N`.</dd>
 </dl>
@@ -833,9 +830,6 @@ transformations are invertible.
   <dt><strong>path</strong></dt>
   <dd>  The path to a zarr-array containing the scale parameters.
 	The array at this path MUST be 1D, and its length MUST be `N`.</dd>
-  <dt><strong>url</strong></dt>
-  <dd>  An optional URL to the container in which the scale zarr-array is stored. If not provided,
-        the provided `path` MUST exist in this container.</dd>
   <dt><strong>scale</strong></dt>
   <dd> 	The scale parameters stored as a JSON list of numbers. The list MUST have length `N`.</dd>
 </dl>
@@ -865,9 +859,6 @@ The matrix may be stored as a 2D array or as a 1D array (row-major).
   <dt><strong>path</strong></dt>
   <dd>  The path to a zarr-array containing the affine parameters.
 	The array at this path MUST be 1D, its length MUST be `N*(M+1)`. </dd>
-  <dt><strong>url</strong></dt>
-  <dd>  An optional URL to the container in which the affine zarr-array is stored. If not provided,
-        the provided `path` MUST exist in this container.</dd>
   <dt><strong>affine</strong></dt>
   <dd> 	The affine parameters stored in JSON. The matrix may be stored
         as a row-major flat list of numbers the list MUST be length `N*(M+1)`. </dd>
@@ -919,9 +910,6 @@ and columns. `rotation` transformations are invertible.
   <dt><strong>path</strong></dt>
   <dd>  The path to an array containing the affine parameters.
 	The array at this path MUST be 1D. Its length MUST be `N*N`.</dd>
-  <dt><strong>url</strong></dt>
-  <dd>  An optional URL to the container in which the affine array is stored. If not provided,
-        the provided `path` MUST exist in this container.</dd>
   <dt><strong>rotation</strong></dt>
   <dd>The rotation parameters stored in JSON. The matrix is stored
   as a row-major flat list of numbers, its length MUST be `N*N`.</dd>
@@ -1012,9 +1000,6 @@ MAY approximate their inverses. Metadata for these coordinate transforms have th
 <dl>
   <dt><strong>path</strong></dt>
   <dd>  The location of the coordinate array in this (or another) containter.</dd>
-  <dt><strong>url</strong></dt>
-  <dd>  An optional URL to the container in which the coordinate field array is stored. If not provided,
-        the provided `path` MUST exist in this container.</dd>
   <dt><strong>interpolation</strong></dt>
   <dd>  The `interpolation` attributes MAY be provided. It's value indicates
         the interpolation to use if transforing points not on the array's discrete grid.
