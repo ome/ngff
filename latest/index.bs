@@ -853,15 +853,16 @@ y = 2 * j
 
 `affine` transformations from N-dimensional inputs to M-dimensional outputs are represented at `(N)x(M+1)`
 matrices in homogeneous coordinates. This transformation type is invertible when `N` equals `M`.
-The matrix may be stored as a 2D array or as a 1D array (row-major).
+The matrix may be stored as a 2D array (inner arrays represent the rows of the matrix) or as a 1D array (row-major).
 
 <dl>
   <dt><strong>path</strong></dt>
   <dd>  The path to a zarr-array containing the affine parameters.
-	The array at this path MUST be 1D, its length MUST be `N*(M+1)`. </dd>
+	The array at this path MUST be 1D or 2D. If 1D, its length MUST be `N*(M+1)`.
+    If 2D its size must be `N x (M+1)`.</dd>
   <dt><strong>affine</strong></dt>
-  <dd> 	The affine parameters stored in JSON. The matrix may be stored
-        as a row-major flat list of numbers the list MUST be length `N*(M+1)`. </dd>
+  <dd> 	The affine parameters stored in JSON. The matrix may be stored as a row-major flat array of numbers that MUST be
+        length `N*(M+1)`, or as 2D nested array where the outer array MUST be length `N` and the inner arrays MUST be length `M+1`.</dd>
 </dl>
 
 <div class=example>
@@ -894,6 +895,13 @@ The matrix may be stored as a 2D array or as a 1D array (row-major).
     y = 4*i + 5*j + 6
     z = 7*i + 8*j + 9
     ```
+
+    Using a nested 2D JSON array, the same transformation can be written:
+    <pre class=include-code>
+    path: examples/transformations/affine2d3d_nested.json
+    highlight: json
+    </pre>
+
 </div>
 
 
@@ -904,15 +912,18 @@ When possible, a rotation transformation SHOULD be defined rather than
 its equivalent affine. Input and output dimensionality (N) MUST be
 identical and greater than 1. Rotations are stored as `NxN` matrices,
 see below, and MUST have determinant equal to one, with orthonormal rows
-and columns. `rotation` transformations are invertible.
+and columns. The matrix may be stored as a 2D array (inner arrays represent
+the rows of the matrix) or as a 1D array (row-major). `rotation` transformations
+are invertible.
 
 <dl>
   <dt><strong>path</strong></dt>
   <dd>  The path to an array containing the affine parameters.
-	The array at this path MUST be 1D. Its length MUST be `N*N`.</dd>
+	The array at this path MUST be 1D or 2D. If 1D, its length MUST be `N*N`,
+    if 2D its size must be `N x N`.</dd>
   <dt><strong>rotation</strong></dt>
-  <dd>The rotation parameters stored in JSON. The matrix is stored
-  as a row-major flat list of numbers, its length MUST be `N*N`.</dd>
+  <dd> 	The  parameters stored in JSON. The matrix may be stored as a row-major flat array of numbers that MUST be
+        length `N*N`, or as 2D nested array where the outer array MUST be length `N` and the inner arrays MUST be length `N`.</dd>
 </dl>
 
 <div class=example>
