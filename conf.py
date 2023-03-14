@@ -38,6 +38,14 @@ import shutil
 for index_file in ["latest/index.bs"] + glob.glob("[0-9]*/index.bs"):
 
     output_file = index_file.replace("bs", "html")
+
+    src_time = os.path.getmtime(index_file)
+    if os.path.exists(output_file):
+        out_time = os.path.getmtime(output_file)
+        if src_time < out_time:
+            print(f"Skipping unchanged {index_file}")
+            continue
+
     subprocess.check_call(f"bikeshed  spec {index_file} {output_file}", shell=True)
 
     dir_name = index_file.split("/")[0]
