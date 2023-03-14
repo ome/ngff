@@ -1,5 +1,7 @@
-NGFF Tools
-==========
+About
+=====
 
-* A
-* B
+* Specifications
+* Data Resources
+* Tools
+* Publications
