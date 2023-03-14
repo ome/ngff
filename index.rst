@@ -8,7 +8,6 @@ Next-generation file formats (NGFF)
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
    about/index
    data/index
