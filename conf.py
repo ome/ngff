@@ -25,6 +25,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.git', '.pytest_cache',
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_book_theme'
+
 html_static_path = ['_static']
 
 html_css_files = [
@@ -37,33 +38,34 @@ html_js_files = [
 ]
 
 html_extra_path = [
-    '0.1',
-    '0.2',
-    '0.3',
-    '0.4',
-    'latest',
+    '_bikeshed',
 ]
 
+# ####################################
 # Run bikeshed build
-import glob
-import os
-import subprocess
-import shutil
+# ####################################
 
+def bikeshed():
 
-for index_file in ["latest/index.bs"] + glob.glob("[0-9]*/index.bs"):
+    import glob
+    import os
+    import subprocess
 
-    output_file = index_file.replace("bs", "html")
+    for index_file in ["latest/index.bs"] + glob.glob("[0-9]*/index.bs"):
 
-    src_time = os.path.getmtime(index_file)
-    if os.path.exists(output_file):
-        out_time = os.path.getmtime(output_file)
-        if src_time < out_time:
-            print(f"Skipping unchanged {index_file}")
-            continue
+        output_file = "_bikeshed/" + index_file.replace("bs", "html")
+        output_dir = os.path.dirname(output_file)
+        os.makedirs(output_dir, exist_ok=False)
 
-    subprocess.check_call(f"bikeshed  spec {index_file} {output_file}", shell=True)
+        # Give the loop a chance to skip files if no build is needed/requested
+        if "BIKESHED" not in os.environ and os.path.exists(output_file):
+            src_time = os.path.getmtime(index_file)
+            out_time = os.path.getmtime(output_file)
+            if src_time < out_time:
+                print(f"Skipping unchanged {index_file}")
+                continue
 
-    dir_name = index_file.split("/")[0]
-    os.makedirs(f"_build/{dir_name}", exist_ok=True)
-    shutil.copyfile(output_file, f"_build/{output_file}")
+        subprocess.check_call(f"bikeshed  spec {index_file} {output_file}", shell=True)
+
+bikeshed()
+del bikeshed
