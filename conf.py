@@ -17,7 +17,7 @@ extensions = ["myst_parser"]
 source_suffix = [".rst", ".md"]
 
 templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.git', '.pytest_cache', '**/.pytest_cache', '**/.tox', 'README.md', 'LICENSE.md', 'CONTRIBUTING.md']
 
 
 
@@ -26,3 +26,20 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
+
+
+# Run bikeshed build
+import glob
+import os
+import subprocess
+import shutil
+
+
+for index_file in glob.glob("[0-9]*/index.bs"):
+
+    output_file = index_file.replace("bs", "html")
+    subprocess.check_call(f"bikeshed  spec {index_file} {output_file}", shell=True)
+
+    dir_name = index_file.split("/")[0]
+    os.makedirs(f"_build/{dir_name}", exist_ok=True)
+    shutil.copyfile(output_file, f"_build/{output_file}")
