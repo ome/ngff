@@ -35,7 +35,7 @@ import subprocess
 import shutil
 
 
-for index_file in glob.glob("[0-9]*/index.bs"):
+for index_file in ["latest/index.bs"] + glob.glob("[0-9]*/index.bs"):
 
     output_file = index_file.replace("bs", "html")
     subprocess.check_call(f"bikeshed  spec {index_file} {output_file}", shell=True)

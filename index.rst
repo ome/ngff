@@ -19,5 +19,5 @@ Next-generation file formats (NGFF)
 .. raw:: html
 
     <script type="text/javascript">
-        window.location.replace('/latest/index.html');
+        window.location.replace('latest/index.html');
     </script>
