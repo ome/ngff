@@ -27,6 +27,14 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.git', '.pytest_cache',
 html_theme = 'sphinx_book_theme'
 html_static_path = ['_static']
 
+html_css_files = [
+    'https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css',
+]
+
+html_js_files = [
+    'https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js',
+    'main.js',
+]
 
 # Run bikeshed build
 import glob

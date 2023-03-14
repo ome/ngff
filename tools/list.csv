@@ -1,0 +1,19 @@
+Tool,Type,First release,OME/Zarr support,GitHub stars,Organization,Language,Other Languages,Usage,Distribution,Image.sc,Additional plugins,Publication
+`AGAVE <https://github.com/allen-cell-animated/agave>`_,visualization,11-2020,01-2023,23,Allen Cell,C++,Python,GUI,github release,yes,,
+`ITKWidgets <https://github.com/InsightSoftwareConsortium/itkwidgets>`_,visualization,07-2022,05-2022,487,Insight Software Consortium,Python,,Jupyter,PyPI,yes,ImJoy,
+`MoBIE/BDV <https://github.com/mobie/mobie-viewer-fiji>`_,visualization,05-2020,01-2021,19,MoBIE,Java,,GUI,Fiji,yes,,https://www.biorxiv.org/content/10.1101/2022.05.27.493763v1
+`napari <https://github.com/napari/napari>`_,visualization,09-2018,08-2021,1600,napari,Python,,GUI,"PyPI, conda",yes,napari-ome-zarr,
+`neuroglancer <https://github.com/google/neuroglancer>`_,visualization,06-2016,06-2020,781,Google,C++,Python,GUI,Web,,,
+`Viv <https://github.com/hms-dbmi/viv>`_,visualization,1-2020,11-2020,191,Harvard Medical School,JavaScript,WebGL,GUI,Web,yes,vizarr,https://doi.org/10.1038/s41592-022-01482-7
+`webKnossos <https://github.com/scalableminds/webknossos>`_,visualization,10-2011,05-2022,95,scalable minds,JavaScript,Scala,GUI,Web,yes,,https://doi.org/10.1038/nmeth.4331
+`website-3d-cell-viewer <https://github.com/allen-cell-animated/website-3d-cell-viewer>`_,visualization,08-2020,01-2023,1,Allen Cell,JavaScript,WebGL,GUI,Web,,,
+`bioformats2raw <https://github.com/glencoesoftware/bioformats2raw>`_,converter,04-2020,04-2020,47,Glencoe Software,Java,Shell,CLI,"zip, conda, docker",yes,,
+`ome-ngff-validator <https://github.com/ome/ome-ngff-validator>`_,utility,07-2022,07-2022,2,OME,JavaScript,,GUI,Web,yes,,
+`NGFF-Converter <https://github.com/glencoesoftware/NGFF-Converter>`_,converter,04-2022,04-2022,9,Glencoe Software,Java,,GUI,"dmg, exe",yes,,
+`aicsimageio <https://github.com/AllenCellModeling/aicsimageio>`_,library,11-2018,02-2023,139,Allen Cell,Python,,Python,PyPi,yes,,
+`tensorstore <https://github.com/google/tensorstore/>`_,library,04-2020,06-2020,1100,Google,C++,,"CMake, Python",,,,
+`Fractal <https://github.com/fractal-analytics-platform/fractal>`_,library,9-2022,9-2022,27,Fractal,Python,,"CLI, Python",PyPI,not yet,,
+`Bio-Formats <https://github.com/ome/bioformats>`_,library,02-2007,04-2021,315,OME,Java,,Java,Jar,yes,ZarrReader,
+`ome-zarr-py <https://github.com/ome/ome-zarr-py>`_,library,10-2020,10-2020,77,OME,Python,,Python,PyPI,yes,,
+`OMERO <https://github.com/ome/openmicroscopy>`_,server,12-2006,06-2020,170,OME,Java,Python,Server,Zip,yes,omero-web-zarr and ZarReader,
+`OMERO.web <https://github.com/ome/omero-web>`_,,,,,,,,,,,,
