@@ -36,6 +36,14 @@ html_js_files = [
     'main.js',
 ]
 
+html_extra_path = [
+    '0.1',
+    '0.2',
+    '0.3',
+    '0.4',
+    'latest',
+]
+
 # Run bikeshed build
 import glob
 import os
