@@ -10,5 +10,14 @@ Next-generation file formats (NGFF)
    :maxdepth: 2
    :caption: Contents:
 
+   about/index
    data/index
+   publications/index
+   specifications/index
    tools/index
+
+.. raw:: html
+
+    <script type="text/javascript">
+        window.location.replace('/latest/index.html');
+    </script>
