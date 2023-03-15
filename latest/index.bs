@@ -413,7 +413,7 @@ If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number 
 
 <div class=example>
 
-Examples of valid axes.
+Examples of valid axes:
 
 ```json
 [
@@ -421,11 +421,44 @@ Examples of valid axes.
     {"name": "t", "type": "time", "unit": "second", "longName": "Unix Epoch time"},
     {"name": "c", "type": "channel", "discrete": true},
     {"name": "i0", "type": "array"},
-    {"name": "c", "type": "coordinate", "unit": "parsec"},
-    {"name": "v", "type": "displacement", "unit": "nanometer"},
+    {"name": "c", "type": "coordinate", "discrete" : true },
+    {"name": "v", "type": "displacement", "discrete": true },
     {"name": "freq", "type": "frequency", "unit": "megahertz"}
 ]
 ```
+</div>
+
+Arrays are often thought of as containing discrete samples along the continuous variable. Axes representing space and time are
+usually continuous, meaning they can be indexed by real-valued (floating point) numbers whereas discrete axes may be indexed
+only by integers. Arrays are inherently discrete (see Array coordinate systems, below) , but values "in between" discrete
+coordinates can be retreived using an *interpolation* method.  If an axis is continuous (`"discrete" : false`), it indicates
+that indexing with continuous values is meaningful, and that interpolation may be performed along that axis. Interpolation may
+be performed jointly across axes with the same `type`, and interpolation should not be performed for discrete axes or jointly
+across axes with differing `type`s.  Other non-continuous variables and axis types are also usually discrete, such as
+`channel`s, `coordinate`s, and `displacement`s.
+
+Note: The most common methods for interpolation are "nearest neighbor", "linear", "cubic", and "windowed sinc". Here, we refer
+to any method that obtains values at real valued coordinates using discrete samples as an "interpolator". As such, label images
+may be interpolated using "nearest neighbor" to obtain labels at points along the continuum.
+
+<div class=example>
+
+For the coordinate system:
+
+```json
+{
+    "name" : "index and interpolation",
+    "axes" : [
+        {"name": "c", "type": "channel", "discrete": true},
+        {"name": "x", "type": "space"},
+        {"name": "y", "type": "space"},
+        {"name": "t", "type": "time"},
+    ]
+}
+```
+
+Indexing an image at the point `(0.1, 0.2, 0.3, 0.4)` is not valid, because the value of the first coordinate (`0.1`) refers
+to the discrete axis `"c"`.  Indexing an image at the point `(1, 0.2, 0.3, 0.4)` is valid.
 </div>
 
 
