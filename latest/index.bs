@@ -471,7 +471,7 @@ The `.zattrs` file for the label image MUST implement the multiscales specificat
 associated with the `datasets` key MAY have the same number of elements (scale levels) as the original unlabeled image. 
 Therefore it is acceptable for a label image to have fewer scale levels than the original image.
 
-The label image .zattrs file MUST also contain the `image-label` key, whose value is a JSON object. 
+The label image .zattrs file SHOULD also contain the `image-label` key, whose value is a JSON object. 
 The `image-label` object stores information about the display colors, source image, and optionally, 
 further arbitrary properties of the label image. That `image-label` object SHOULD contain the following keys: first, a `colors` key, 
 whose value MUST be a JSON array describing color information for the unique label values. Second, a `version` key, whose value MUST be a 
