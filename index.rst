@@ -11,9 +11,12 @@ Next-generation file formats (NGFF)
 
    about/index
    data/index
-   publications/index
    specifications/index
    tools/index
+
+..
+   # Temporarily disabled
+   publications/index
 
 .. raw:: html
 
