@@ -244,7 +244,12 @@ keys as specified below for discovering certain types of data, especially images
 "axes" describes the dimensions of a physical coordinate space. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension. The value MUST be a string. The values MUST be unique across all "name" fields.
 - SHOULD contain the field "type". It SHOULD be one of strings "space", "time" or "channel", but MAY take other string values for custom axis types that are not part of this specification yet.
-- SHOULD contain the field "units" to specify the physical units associated with this dimension. The value SHOULD be one of the following strings, which are valid units according to UDUNITS-2.
+- SHOULD contain the field "units" to specify the physical units associated with this dimension. Previous versions of the specification used the name "unit" for this field. For backwards compatibility,
+  the field "unit" is also permitted by this specification, but this usage will be forbidden in future versions of the specification. If both "units" and "unit" fields are present, the value associated with "units" should be used. 
+  
+  Implementation note: if possible, applications implementing this specification SHOULD warn users when consuming "axes" metadata if the "unit" field is present on any elements of "axes".
+  
+  The value of "units" SHOULD be one of the following strings, which are valid units according to UDUNITS-2.
     - Units for "space" axes: 'angstrom', 'attometer', 'centimeter', 'decimeter', 'exameter', 'femtometer', 'foot', 'gigameter', 'hectometer', 'inch', 'kilometer', 'megameter', 'meter', 'micrometer', 'mile', 'millimeter', 'nanometer', 'parsec', 'petameter', 'picometer', 'terameter', 'yard', 'yoctometer', 'yottameter', 'zeptometer', 'zettameter'
     - Units for "time" axes: 'attosecond', 'centisecond', 'day', 'decisecond', 'exasecond', 'femtosecond', 'gigasecond', 'hectosecond', 'hour', 'kilosecond', 'megasecond', 'microsecond', 'millisecond', 'minute', 'nanosecond', 'petasecond', 'picosecond', 'second', 'terasecond', 'yoctosecond', 'yottasecond', 'zeptosecond', 'zettasecond'
 
