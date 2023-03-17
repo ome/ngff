@@ -49,23 +49,31 @@ def bikeshed():
 
     import glob
     import os
+    import shutil
     import subprocess
 
     for index_file in ["latest/index.bs"] + glob.glob("[0-9]*/index.bs"):
 
-        output_file = "_bikeshed/" + index_file.replace("bs", "html")
+        output_file = index_file.replace("bs", "html")
         output_dir = os.path.dirname(output_file)
-        os.makedirs(output_dir, exist_ok=False)
+        target_dir = os.path.join("_bikeshed", output_dir)
+
+        run_bikeshed = True
 
         # Give the loop a chance to skip files if no build is needed/requested
         if "BIKESHED" not in os.environ and os.path.exists(output_file):
             src_time = os.path.getmtime(index_file)
             out_time = os.path.getmtime(output_file)
             if src_time < out_time:
-                print(f"Skipping unchanged {index_file}")
-                continue
+                print(f"{index_file} unchanged")
+                run_bikeshed = False
 
-        subprocess.check_call(f"bikeshed  spec {index_file} {output_file}", shell=True)
+        if run_bikeshed:
+            subprocess.check_call(f"bikeshed  spec {index_file} {output_file}", shell=True)
+
+        if os.path.exists(target_dir):
+            shutil.rmtree(target_dir)
+        shutil.copytree(output_dir, target_dir)
 
 bikeshed()
 del bikeshed
