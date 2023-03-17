@@ -1,13 +1,16 @@
 Data Resources
 ==============
 
-| Catalog         |  Dashboards / Datasets                                                                                            | Zarr Files | Size  | Storage |
-|-----------------|-------------------------------------------------------------------------------------------------------------------|------------|-------|---------|
-| BIA Samples     | <https://bit.ly/bia-ome-ngff-samples>                                                                             | 90         | 200GB | S3-like |
-| Glencoe         | <https://glencoesoftware.com/ngff>                                                                                | TBD        | TBD   | TBD     |
-| DANDI           | <https://dandiarchive.org/dandiset/000108https://identifiers.org/DANDI:000108https://github.com/dandisets/000108> | 3914       | 355TB | AWS     |
-| EMBL-HD         | <https://mobie.github.io/specs/ngff.html>                                                                         | 21         | TBD   | Minio   |
-| IDR Samples     | <https://idr.github.io/ome-ngff-samples/>                                                                         | 88         | 3TB   | S3-like |
-| Neural Dynamics | <https://registry.opendata.aws/allen-nd-open-data/>                                                               | 90         | 200TB | AWS     |
-| Sanger          | <https://www.sanger.ac.uk/project/ome-zarr/>                                                                      | 10         | 1TB   | S3-like |
-| webKnossos      | <https://zarr.webknossos.org>                                                                                     | 69         | 70TB  | Mix     |
+| Catalog                                                                  | Descriptions                                                                                                        | Zarr Files   | Size    |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- | ------------ | ------- |
+| [BIA Samples](https://bit.ly/bia-ome-ngff-samples)                       | Hosting provided by EBI                                                                                             | 90           | 200GB   |
+| [Glencoe](https://glencoesoftware.com/ngff)                              | Hosting provided by Glencoe Software, Inc.                                                                          | TBD          | TBD     |
+| [DANDI](https://dandiarchive.org/dandiset/000108) ([identifiers.org][dandi2],[github][dandi3]) | Hosting provided by AWS Open Data Program                                                                           | 3914         | 355TB   |
+| [EMBL-HD](https://mobie.github.io/specs/ngff.html)                       | Hosting provided by EMBL                                                                                            | 21           | TBD     |
+| [IDR Samples](https://idr.github.io/ome-ngff-samples/)                   | Hosting provided by EBI                                                                                             | 88           | 3TB     |
+| [Neural Dynamics](https://registry.opendata.aws/allen-nd-open-data/)     | Hosting provided by AWS Open Data Program                                                                           | 90           | 200TB   |
+| [Sanger](https://www.sanger.ac.uk/project/ome-zarr/)                     | Hosting provided by Sanger, UK                                                                                      | 10           | 1TB     |
+| [webKnossos](https://zarr.webknossos.org)                                | Hosting provided by scalableminds GmbH                                                                              | 69           | 70TB    |
+
+[dandi2]: https://identifiers.org/DANDI:000108
+[dandi3]: https://github.com/dandisets/000108
