@@ -126,6 +126,9 @@
           },
           "unit": {
             "type": "string"
+          },
+          "units": {
+            "type": "string"
           }
         }
       },
