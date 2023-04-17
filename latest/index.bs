@@ -546,7 +546,7 @@ contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a 
 other `name` in the `rows` list. Care SHOULD be taken to avoid collisions on
 case-insensitive filesystems (e.g. avoid using both `Aa` and `aA`).
 
-The `plate` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
+The `plate` dictionary MUST contain a `version` key whose value MUST be a string specifying the
 version of the plate specification.
 
 The `plate` dictionary MUST contain a `wells` key whose value MUST be a list of JSON objects
