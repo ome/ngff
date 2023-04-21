@@ -1,6 +1,57 @@
 About
 =====
 
+Bioimaging science is at a crossroads. Currently, the drive to acquire more,
+larger, preciser spatial measurements is unfortunately at odds with our ability
+to structure and share those measurements with others. During a global pandemic
+more than ever, we believe fervently that global, collaborative discovery as
+opposed to the post-publication, "data-on-request" mode of operation is the
+path forward. Bioimaging data should be shareable via open and commercial cloud
+resources without the need to download entire datasets.
+
+At the moment, that is not the norm. The plethora of data formats produced by
+imaging systems are ill-suited to remote sharing. Individual scientists
+typically lack the infrastructure they need to host these data themselves. When
+they acquire images from elsewhere, time-consuming translations and data
+cleaning are needed to interpret findings. Those same costs are multiplied when
+gathering data into online repositories where curator time can be the limiting
+factor before publication is possible. Without a common effort, each lab or
+resource is left building the tools they need and maintaining that
+infrastructure often without dedicated funding.
+
+This document defines a specification for bioimaging data to make it possible
+to enable the conversion of proprietary formats into a common, cloud-ready one.
+Such next-generation file formats layout data so that individual portions, or
+"chunks", of large data are reference-able eliminating the need to download
+entire datasets.
+
+
+Why "NGFF"?
+-----------
+
+A short description of what is needed for an imaging format is "a hierarchy
+of n-dimensional (dense) arrays with metadata". This combination of features
+is certainly provided by `HDF5`
+from the [HDF Group](https://www.hdfgroup.org), which a number of
+bioimaging formats do use. HDF5 and other larger binary structures, however,
+are ill-suited for storage in the cloud where accessing individual chunks
+of data by name rather than seeking through a large file is at the heart of
+parallelization.
+
+As a result, a number of formats have been developed more recently which provide
+the basic data structure of an HDF5 file, but do so in a more cloud-friendly way.
+In the [PyData](https://pydata.org/) community, the Zarr [[zarr]] format was developed
+for easily storing collections of [NumPy](https://numpy.org/) arrays. In the
+[ImageJ](https://imagej.net/) community, N5 [[n5]] was developed to work around
+the limitations of HDF5 ("N5" was originally short for "Not-HDF5").
+Both of these formats permit storing individual chunks of data either locally in
+separate files or in cloud-based object stores as separate keys.
+
+A [current effort](https://zarr-specs.readthedocs.io/en/core-protocol-v3.0-dev/protocol/core/v3.0.html)
+is underway to unify the two similar specifications to provide a single binary
+specification. The editor's draft will soon be entering a [request for comments (RFC)](https://github.com/zarr-developers/zarr-specs/issues/101) phase with the goal of having a first version early in 2021. As that
+process comes to an end, this document will be updated.
+
 In addition to the next-generation file format (NGFF) [specifications](../specifications/index.md),
 the pages listed below are intended to provide an overview of external resources available
 for working with NGFF data.
