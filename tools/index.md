@@ -74,3 +74,14 @@ A list of tools which support OME-Zarr
 ### ome-zarr-py
 <https://github.com/ome/ome-zarr-py>
 
+
+### bfio
+<https://github.com/PolusAI/bfio>
+
+
+### SpatialData
+<https://github.com/scverse/spatialdata>
+
+
+### Nyxus
+<https://github.com/PolusAI/nyxus>
