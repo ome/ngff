@@ -47,10 +47,9 @@ the limitations of HDF5 ("N5" was originally short for "Not-HDF5").
 Both of these formats permit storing individual chunks of data either locally in
 separate files or in cloud-based object stores as separate keys.
 
-A [current effort](https://zarr-specs.readthedocs.io/en/core-protocol-v3.0-dev/protocol/core/v3.0.html)
+A [current effort](https://zarr.readthedocs.io/en/stable/spec/v3.html)
 is underway to unify the two similar specifications to provide a single binary
-specification. The editor's draft will soon be entering a [request for comments (RFC)](https://github.com/zarr-developers/zarr-specs/issues/101) phase with the goal of having a first version early in 2021. As that
-process comes to an end, this document will be updated.
+specification. See this [blog post](https://zarr.dev/blog/zep1-update/) for more information.
 
 In addition to the next-generation file format (NGFF) [specifications](../specifications/index.md),
 the pages listed below are intended to provide an overview of external resources available
@@ -63,7 +62,7 @@ The following pages are intended to provide an overview of the available resourc
 * [Publications](../publications/index.md): List of publications referencing OME-NGFF or publishing
   datasets in OME-Zarr.
 
-Additionally, notes and recordings of the passt NGFF community calls are available:
+Additionally, notes and recordings of the past NGFF community calls are available:
 
 | Call | Date | Presenters | Forum thread | Notes |
 |------|------|------------|--------------|-------|
