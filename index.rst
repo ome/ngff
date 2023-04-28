@@ -6,6 +6,14 @@
 Next-generation file formats (NGFF)
 ===================================
 
+OME-NGFF is an imaging format being developed by the bioimaging community to
+address issues of scalability and interoperability.
+Please see the :doc:`about/index` section for an introduction.
+The OME-NGFF specification is detailed under :doc:`specifications/index`.
+Various Image viewers and other software for working with NGFF data
+are listed on the :doc:`tools/index` page.
+Sample NGFF datasets provided by the community can be found under :doc:`data/index`.
+
 .. toctree::
    :maxdepth: 2
 
@@ -20,6 +28,3 @@ Next-generation file formats (NGFF)
 
 .. raw:: html
 
-    <script type="text/javascript">
-        window.location.replace('latest/index.html');
-    </script>
