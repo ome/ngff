@@ -47,7 +47,7 @@ the limitations of HDF5 ("N5" was originally short for "Not-HDF5").
 Both of these formats permit storing individual chunks of data either locally in
 separate files or in cloud-based object stores as separate keys.
 
-A [current effort](https://zarr.readthedocs.io/en/stable/spec/v3.html)
+An [updated Zarr version (v3)](https://zarr-specs.readthedocs.io/)
 is underway to unify the two similar specifications to provide a single binary
 specification. See this [blog post](https://zarr.dev/blog/zep1-update/) for more information.
 
