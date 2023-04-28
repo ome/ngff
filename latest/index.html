@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version bf22245b8, updated Tue Apr 18 15:53:37 2023 -0700" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="58901e3cb5dc16d2bb4a37ec65fc6f63cc2ca69c" name="document-revision">
+  <meta content="3bd8039bfef6e49972b33543d0fb824d5a481d4a" name="document-revision">
 <style>/* style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -1880,7 +1880,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="https://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2023-04-22">22 April 2023</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2023-04-28">28 April 2023</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1918,34 +1918,27 @@ will be provided between numbered versions. Data written with these latest chang
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
     <li>
-     <a href="#intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
+     <a href="#on-disk"><span class="secno">1</span> <span class="content">On-disk (or in-cloud) layout</span></a>
      <ol class="toc">
-      <li><a href="#why-ngff"><span class="secno">1.1</span> <span class="content">Why "<span><abbr title="Next-generation file-format">NGFF</abbr></span>"?</span></a>
-      <li><a href="#ome-ngff"><span class="secno">1.2</span> <span class="content">OME-NGFF</span></a>
-      <li><a href="#document-conventions"><span class="secno">1.3</span> <span class="content">Document conventions</span></a>
+      <li><a href="#image-layout"><span class="secno">1.1</span> <span class="content">Images</span></a>
+      <li><a href="#hcs-layout"><span class="secno">1.2</span> <span class="content">High-content screening</span></a>
      </ol>
     <li>
-     <a href="#on-disk"><span class="secno">2</span> <span class="content">On-disk (or in-cloud) layout</span></a>
+     <a href="#metadata"><span class="secno">2</span> <span class="content">Metadata</span></a>
      <ol class="toc">
-      <li><a href="#image-layout"><span class="secno">2.1</span> <span class="content">Images</span></a>
-      <li><a href="#hcs-layout"><span class="secno">2.2</span> <span class="content">High-content screening</span></a>
+      <li><a href="#axes-md"><span class="secno">2.1</span> <span class="content">"axes" metadata</span></a>
+      <li><a href="#bf2raw"><span class="secno">2.2</span> <span class="content">"bioformats2raw.layout" (transitional)</span></a>
+      <li><a href="#trafo-md"><span class="secno">2.3</span> <span class="content">"coordinateTransformations" metadata</span></a>
+      <li><a href="#multiscale-md"><span class="secno">2.4</span> <span class="content">"multiscales" metadata</span></a>
+      <li><a href="#omero-md"><span class="secno">2.5</span> <span class="content">"omero" metadata (transitional)</span></a>
+      <li><a href="#labels-md"><span class="secno">2.6</span> <span class="content">"labels" metadata</span></a>
+      <li><a href="#plate-md"><span class="secno">2.7</span> <span class="content">"plate" metadata</span></a>
+      <li><a href="#well-md"><span class="secno">2.8</span> <span class="content">"well" metadata</span></a>
      </ol>
-    <li>
-     <a href="#metadata"><span class="secno">3</span> <span class="content">Metadata</span></a>
-     <ol class="toc">
-      <li><a href="#axes-md"><span class="secno">3.1</span> <span class="content">"axes" metadata</span></a>
-      <li><a href="#bf2raw"><span class="secno">3.2</span> <span class="content">"bioformats2raw.layout" (transitional)</span></a>
-      <li><a href="#trafo-md"><span class="secno">3.3</span> <span class="content">"coordinateTransformations" metadata</span></a>
-      <li><a href="#multiscale-md"><span class="secno">3.4</span> <span class="content">"multiscales" metadata</span></a>
-      <li><a href="#omero-md"><span class="secno">3.5</span> <span class="content">"omero" metadata (transitional)</span></a>
-      <li><a href="#labels-md"><span class="secno">3.6</span> <span class="content">"labels" metadata</span></a>
-      <li><a href="#plate-md"><span class="secno">3.7</span> <span class="content">"plate" metadata</span></a>
-      <li><a href="#well-md"><span class="secno">3.8</span> <span class="content">"well" metadata</span></a>
-     </ol>
-    <li><a href="#naming-style"><span class="secno">4</span> <span class="content">Specification naming style</span></a>
-    <li><a href="#implementations"><span class="secno">5</span> <span class="content">Implementations</span></a>
-    <li><a href="#citing"><span class="secno">6</span> <span class="content">Citing</span></a>
-    <li><a href="#history"><span class="secno">7</span> <span class="content">Version History</span></a>
+    <li><a href="#naming-style"><span class="secno">3</span> <span class="content">Specification naming style</span></a>
+    <li><a href="#implementations"><span class="secno">4</span> <span class="content">Implementations</span></a>
+    <li><a href="#citing"><span class="secno">5</span> <span class="content">Citing</span></a>
+    <li><a href="#history"><span class="secno">6</span> <span class="content">Version History</span></a>
     <li>
      <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
      <ol class="toc">
@@ -1966,47 +1959,7 @@ will be provided between numbered versions. Data written with these latest chang
    </ol>
   </nav>
   <main>
-   <h2 class="heading settled" data-level="1" id="intro"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#intro"></a></h2>
-   <p>Bioimaging science is at a crossroads. Currently, the drive to acquire more,
-larger, preciser spatial measurements is unfortunately at odds with our ability
-to structure and share those measurements with others. During a global pandemic
-more than ever, we believe fervently that global, collaborative discovery as
-opposed to the post-publication, "data-on-request" mode of operation is the
-path forward. Bioimaging data should be shareable via open and commercial cloud
-resources without the need to download entire datasets.</p>
-   <p>At the moment, that is not the norm. The plethora of data formats produced by
-imaging systems are ill-suited to remote sharing. Individual scientists
-typically lack the infrastructure they need to host these data themselves. When
-they acquire images from elsewhere, time-consuming translations and data
-cleaning are needed to interpret findings. Those same costs are multiplied when
-gathering data into online repositories where curator time can be the limiting
-factor before publication is possible. Without a common effort, each lab or
-resource is left building the tools they need and maintaining that
-infrastructure often without dedicated funding.</p>
-   <p>This document defines a specification for bioimaging data to make it possible
-to enable the conversion of proprietary formats into a common, cloud-ready one.
-Such next-generation file formats layout data so that individual portions, or
-"chunks", of large data are reference-able eliminating the need to download
-entire datasets.</p>
-   <h3 class="heading settled" data-level="1.1" id="why-ngff"><span class="secno">1.1. </span><span class="content">Why "<dfn data-dfn-type="dfn" data-export id="ngff"><abbr title="Next-generation file-format">NGFF</abbr><a class="self-link" href="#ngff"></a></dfn>"?</span><a class="self-link" href="#why-ngff"></a></h3>
-   <p>A short description of what is needed for an imaging format is "a hierarchy
-of n-dimensional (dense) arrays with metadata". This combination of features
-is certainly provided by <dfn data-dfn-type="dfn" data-export id="hdf5"><abbr title="Hierarchical Data Format 5">HDF5</abbr><a class="self-link" href="#hdf5"></a></dfn> from the <a href="https://www.hdfgroup.org">HDF Group</a>, which a number of
-bioimaging formats do use. HDF5 and other larger binary structures, however,
-are ill-suited for storage in the cloud where accessing individual chunks
-of data by name rather than seeking through a large file is at the heart of
-parallelization.</p>
-   <p>As a result, a number of formats have been developed more recently which provide
-the basic data structure of an HDF5 file, but do so in a more cloud-friendly way.
-In the <a href="https://pydata.org/">PyData</a> community, the Zarr <a data-link-type="biblio" href="#biblio-zarr" title="Zarr: An implementation of chunked, compressed, N-dimensional arrays for Python.">[zarr]</a> format was developed
-for easily storing collections of <a href="https://numpy.org/">NumPy</a> arrays. In the <a href="https://imagej.net/">ImageJ</a> community, N5 <a data-link-type="biblio" href="#biblio-n5" title="N5---a scalable Java API for hierarchies of chunked n-dimensional tensors and structured meta-data">[n5]</a> was developed to work around
-the limitations of HDF5 ("N5" was originally short for "Not-HDF5").
-Both of these formats permit storing individual chunks of data either locally in
-separate files or in cloud-based object stores as separate keys.</p>
-   <p>A <a href="https://zarr-specs.readthedocs.io/en/core-protocol-v3.0-dev/protocol/core/v3.0.html">current effort</a> is underway to unify the two similar specifications to provide a single binary
-specification. The editor’s draft will soon be entering a <a href="https://github.com/zarr-developers/zarr-specs/issues/101">request for comments (RFC)</a> phase with the goal of having a first version early in 2021. As that
-process comes to an end, this document will be updated.</p>
-   <h3 class="heading settled" data-level="1.2" id="ome-ngff"><span class="secno">1.2. </span><span class="content">OME-NGFF</span><a class="self-link" href="#ome-ngff"></a></h3>
+   <h3 class="heading settled" id="ome-ngff"><span class="content">OME-NGFF</span></h3>
    <p>The conventions and specifications defined in this document are designed to
 enable next-generation file formats to represent the same bioimaging data
 that can be represented in <a href="http://www.openmicroscopy.org/ome-files/">OME-TIFF</a> and beyond. However, the conventions will also be usable by HDF5 and other sufficiently advanced
@@ -2015,17 +1968,17 @@ applicable, and this will simply be the most efficient, common, and useful repre
 of bioimaging data, whether during acquisition or sharing in the cloud.</p>
    <p class="note" role="note"><span class="marker">Note:</span> The following text makes use of OME-Zarr <a data-link-type="biblio" href="#biblio-ome-zarr-py" title="ome-zarr-py: Experimental implementation of next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.">[ome-zarr-py]</a>, the current prototype implementation,
 for all examples.</p>
-   <h3 class="heading settled" data-level="1.3" id="document-conventions"><span class="secno">1.3. </span><span class="content">Document conventions</span><a class="self-link" href="#document-conventions"></a></h3>
+   <h3 class="heading settled" id="document-conventions"><span class="content">Document conventions</span></h3>
    <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”,
 “RECOMMENDED”, “MAY”, and “OPTIONAL” are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
    <p> <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="transitional">Transitional</dfn> metadata is added to the specification with the
 intention of removing it in the future. Implementations may be expected (MUST) or
 encouraged (SHOULD) to support the reading of the data, but writing will usually
 be optional (MAY). Examples of transitional metadata include custom additions by
-implementations that are later submitted as a formal specification. (See <a href="#bf2raw">§ 3.2 "bioformats2raw.layout" (transitional)</a>) </p>
+implementations that are later submitted as a formal specification. (See <a href="#bf2raw">§ 2.2 "bioformats2raw.layout" (transitional)</a>) </p>
    <p>Some of the JSON examples in this document include commments. However, these are only for
 clarity purposes and comments MUST NOT be included in JSON objects.</p>
-   <h2 class="heading settled" data-level="2" id="on-disk"><span class="secno">2. </span><span class="content">On-disk (or in-cloud) layout</span><a class="self-link" href="#on-disk"></a></h2>
+   <h2 class="heading settled" data-level="1" id="on-disk"><span class="secno">1. </span><span class="content">On-disk (or in-cloud) layout</span><a class="self-link" href="#on-disk"></a></h2>
    <p>An overview of the layout of an OME-Zarr fileset should make
 understanding the following metadata sections easier. The hierarchy
 is represented here as it would appear locally but could equally
@@ -2036,10 +1989,10 @@ format. Arrays MUST be defined and stored in a hierarchical organization as
 defined by the <a href="https://zarr.readthedocs.io/en/stable/spec/v2.html">version 2 of the Zarr specification </a>.
 OME-NGFF metadata MUST be stored as attributes in the corresponding Zarr
 groups.</p>
-   <h3 class="heading settled" data-level="2.1" id="image-layout"><span class="secno">2.1. </span><span class="content">Images</span><a class="self-link" href="#image-layout"></a></h3>
+   <h3 class="heading settled" data-level="1.1" id="image-layout"><span class="secno">1.1. </span><span class="content">Images</span><a class="self-link" href="#image-layout"></a></h3>
    <p>The following layout describes the expected Zarr hierarchy for images with
 multiple levels of resolutions and optionally associated labels.
-Note that the number of dimensions is variable between 2 and 5 and that axis names are arbitrary, see <a href="#multiscale-md">§ 3.4 "multiscales" metadata</a> for details.
+Note that the number of dimensions is variable between 2 and 5 and that axis names are arbitrary, see <a href="#multiscale-md">§ 2.4 "multiscales" metadata</a> for details.
 For this example we assume an image with 5 dimensions and axes called <code>t,c,z,y,x</code>.</p>
 <pre>.                             # Root folder, potentially in S3,
 │                             # with a flat list of images by image ID.
@@ -2086,7 +2039,7 @@ For this example we assume an image with 5 dimensions and axes called <code>t,c,
                 │   ...       # are supported.
                 └── n
 </pre>
-   <h3 class="heading settled" data-level="2.2" id="hcs-layout"><span class="secno">2.2. </span><span class="content">High-content screening</span><a class="self-link" href="#hcs-layout"></a></h3>
+   <h3 class="heading settled" data-level="1.2" id="hcs-layout"><span class="secno">1.2. </span><span class="content">High-content screening</span><a class="self-link" href="#hcs-layout"></a></h3>
    <p>The following specification defines the hierarchy for a high-content screening
 dataset. Three groups MUST be defined above the images:</p>
    <ul>
@@ -2128,10 +2081,10 @@ A well group SHOULD NOT be present if there are no images in the well.</p>
     ├── ...                   # Rows
     └── H
 </pre>
-   <h2 class="heading settled" data-level="3" id="metadata"><span class="secno">3. </span><span class="content">Metadata</span><a class="self-link" href="#metadata"></a></h2>
+   <h2 class="heading settled" data-level="2" id="metadata"><span class="secno">2. </span><span class="content">Metadata</span><a class="self-link" href="#metadata"></a></h2>
    <p>The various <code>.zattrs</code> files throughout the above array hierarchy may contain metadata
 keys as specified below for discovering certain types of data, especially images.</p>
-   <h3 class="heading settled" data-level="3.1" id="axes-md"><span class="secno">3.1. </span><span class="content">"axes" metadata</span><a class="self-link" href="#axes-md"></a></h3>
+   <h3 class="heading settled" data-level="2.1" id="axes-md"><span class="secno">2.1. </span><span class="content">"axes" metadata</span><a class="self-link" href="#axes-md"></a></h3>
    <p>"axes" describes the dimensions of a physical coordinate space. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:</p>
    <ul>
     <li data-md>
@@ -2147,15 +2100,15 @@ keys as specified below for discovering certain types of data, especially images
        <p>Units for "time" axes: <a class="property css" data-link-type="property">attosecond</a>, <a class="property css" data-link-type="property">centisecond</a>, <a class="property css" data-link-type="property">day</a>, <a class="property css" data-link-type="property">decisecond</a>, <a class="property css" data-link-type="property">exasecond</a>, <a class="property css" data-link-type="property">femtosecond</a>, <a class="property css" data-link-type="property">gigasecond</a>, <a class="property css" data-link-type="property">hectosecond</a>, <a class="property css" data-link-type="property">hour</a>, <a class="property css" data-link-type="property">kilosecond</a>, <a class="property css" data-link-type="property">megasecond</a>, <a class="property css" data-link-type="property">microsecond</a>, <a class="property css" data-link-type="property">millisecond</a>, <a class="property css" data-link-type="property">minute</a>, <a class="property css" data-link-type="property">nanosecond</a>, <a class="property css" data-link-type="property">petasecond</a>, <a class="property css" data-link-type="property">picosecond</a>, <a class="property css" data-link-type="property">second</a>, <a class="property css" data-link-type="property">terasecond</a>, <a class="property css" data-link-type="property">yoctosecond</a>, <a class="property css" data-link-type="property">yottasecond</a>, <a class="property css" data-link-type="property">zeptosecond</a>, <a class="property css" data-link-type="property">zettasecond</a></p>
      </ul>
    </ul>
-   <p>If part of <a href="#multiscale-md">§ 3.4 "multiscales" metadata</a>, the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.</p>
-   <h3 class="heading settled" data-level="3.2" id="bf2raw"><span class="secno">3.2. </span><span class="content">"bioformats2raw.layout" (transitional)</span><a class="self-link" href="#bf2raw"></a></h3>
+   <p>If part of <a href="#multiscale-md">§ 2.4 "multiscales" metadata</a>, the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.</p>
+   <h3 class="heading settled" data-level="2.2" id="bf2raw"><span class="secno">2.2. </span><span class="content">"bioformats2raw.layout" (transitional)</span><a class="self-link" href="#bf2raw"></a></h3>
    <p><a data-link-type="dfn" href="#transitional" id="ref-for-transitional">Transitional</a> "bioformats2raw.layout" metadata identifies a group which implicitly describes a series of images.
 The need for the collection stems from the common "multi-image file" scenario in microscopy. Parsers like Bio-Formats
 define a strict, stable ordering of the images in a single container that can be used to refer to them by other tools.</p>
    <p>In order to capture that information within an OME-NGFF dataset, <code>bioformats2raw</code> internally introduced a wrapping layer.
 The bioformats2raw layout has been added to v0.4 as a transitional specification to specify filesets that already exist
 in the wild. An upcoming NGFF specification will replace this layout with explicit metadata.</p>
-   <h4 class="no-toc heading settled" data-level="3.2.1" id="bf2raw-layout"><span class="secno">3.2.1. </span><span class="content">Layout</span><a class="self-link" href="#bf2raw-layout"></a></h4>
+   <h4 class="no-toc heading settled" data-level="2.2.1" id="bf2raw-layout"><span class="secno">2.2.1. </span><span class="content">Layout</span><a class="self-link" href="#bf2raw-layout"></a></h4>
    <p>Typical Zarr layout produced by running <code>bioformats2raw</code> on a fileset that contains more than one image (series > 1):</p>
 <pre>series.ome.zarr               # One converted fileset from bioformats2raw
     ├── .zgroup
@@ -2168,13 +2121,13 @@ in the wild. An upcoming NGFF specification will replace this layout with explic
     ├── 1                     # Second image in the collection
     └── ...
 </pre>
-   <h4 class="no-toc heading settled" data-level="3.2.2" id="bf2raw-attributes"><span class="secno">3.2.2. </span><span class="content">Attributes</span><a class="self-link" href="#bf2raw-attributes"></a></h4>
+   <h4 class="no-toc heading settled" data-level="2.2.2" id="bf2raw-attributes"><span class="secno">2.2.2. </span><span class="content">Attributes</span><a class="self-link" href="#bf2raw-attributes"></a></h4>
    <p>The top-level <code>.zattrs</code> file must contain the <code>bioformats2raw.layout</code> key:</p>
 <pre class="include-code highlight"><c- p>{</c->
   <c- f>"bioformats2raw.layout"</c-> <c- p>:</c-> <c- mi>3</c->
 <c- p>}</c-></pre>
    <p>If the top-level group represents a plate, the <code>bioformats2raw.layout</code> metadata will be present but
-the "plate" key MUST also be present, takes precedence and parsing of such datasets should follow <a href="#plate-md">§ 3.7 "plate" metadata</a>. It is not
+the "plate" key MUST also be present, takes precedence and parsing of such datasets should follow <a href="#plate-md">§ 2.7 "plate" metadata</a>. It is not
 possible to mix collections of images with plates at present.</p>
 <pre class="include-code highlight"><c- p>{</c->
   <c- f>"bioformats2raw.layout"</c-> <c- p>:</c-> <c- mi>3</c-><c- p>,</c->
@@ -2204,7 +2157,7 @@ possible to mix collections of images with plates at present.</p>
   <c- f>"series"</c-> <c- p>:</c-> <c- p>[</c-> <c- u>"0"</c-><c- p>,</c-> <c- u>"1"</c-> <c- p>]</c->
 <c- p>}</c->
 </pre>
-   <h4 class="no-toc heading settled" data-level="3.2.3" id="bf2raw-details"><span class="secno">3.2.3. </span><span class="content">Details</span><a class="self-link" href="#bf2raw-details"></a></h4>
+   <h4 class="no-toc heading settled" data-level="2.2.3" id="bf2raw-details"><span class="secno">2.2.3. </span><span class="content">Details</span><a class="self-link" href="#bf2raw-details"></a></h4>
    <p>Conforming groups:</p>
    <ul>
     <li data-md>
@@ -2260,7 +2213,7 @@ possible to mix collections of images with plates at present.</p>
     <li data-md>
      <p>MAY ignore other groups or arrays under the root of the hierarchy.</p>
    </ul>
-   <h3 class="heading settled" data-level="3.3" id="trafo-md"><span class="secno">3.3. </span><span class="content">"coordinateTransformations" metadata</span><a class="self-link" href="#trafo-md"></a></h3>
+   <h3 class="heading settled" data-level="2.3" id="trafo-md"><span class="secno">2.3. </span><span class="content">"coordinateTransformations" metadata</span><a class="self-link" href="#trafo-md"></a></h3>
    <p>"coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
 For example, to map a discrete data space of an array to the corresponding physical space.
 It is a list of dictionaries. Each entry describes a single transformation and MUST contain the field "type".
@@ -2287,10 +2240,10 @@ Additional fields for the entry depend on "type" and are defined by the column <
       <th>description 
    </table>
    <p>The transformations in the list are applied sequentially and in order.</p>
-   <h3 class="heading settled" data-level="3.4" id="multiscale-md"><span class="secno">3.4. </span><span class="content">"multiscales" metadata</span><a class="self-link" href="#multiscale-md"></a></h3>
+   <h3 class="heading settled" data-level="2.4" id="multiscale-md"><span class="secno">2.4. </span><span class="content">"multiscales" metadata</span><a class="self-link" href="#multiscale-md"></a></h3>
    <p>Metadata about an image can be found under the "multiscales" key in the group-level metadata. Here, image refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes. It is stored in a multiple resolution representation.</p>
    <p>"multiscales" contains a list of dictionaries where each entry describes a multiscale image.</p>
-   <p>Each "multiscales" dictionary MUST contain the field "axes", see <a href="#axes-md">§ 3.1 "axes" metadata</a>.
+   <p>Each "multiscales" dictionary MUST contain the field "axes", see <a href="#axes-md">§ 2.1 "axes" metadata</a>.
 The length of "axes" must be between 2 and 5 and MUST be equal to the dimensionality of the zarr arrays storing the image data (see "datasets:path").
 The "axes" MUST contain 2 or 3 entries of "type:space" and MAY contain one additional entry of "type:time" and MAY contain one additional entry of "type:channel" or a null / custom type.
 The order of the entries MUST correspond to the order of dimensions of the zarr arrays. In addition, the entries MUST be ordered by "type" where the "time" axis must come first (if present), followed by the  "channel" or custom axis (if present) and the axes of type "space".
@@ -2300,7 +2253,7 @@ Each dictionary in "datasets" MUST contain the field "path", whose value contain
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.</p>
    <p>Each "datasets" dictionary MUST have the same number of dimensions and MUST NOT have more than 5 dimensions. The number of dimensions and order MUST correspond to number and order of "axes".
 Each dictionary in "datasets" MUST contain the field "coordinateTransformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
-The transformations are defined according to <a href="#trafo-md">§ 3.3 "coordinateTransformations" metadata</a>. The transformation MUST only be of type <code>translation</code> or <code>scale</code>.
+The transformations are defined according to <a href="#trafo-md">§ 2.3 "coordinateTransformations" metadata</a>. The transformation MUST only be of type <code>translation</code> or <code>scale</code>.
 They MUST contain exactly one <code>scale</code> transformation that specifies the pixel size in physical units or time duration. If scaling information is not available or applicable for one of the axes, the value MUST express the scaling factor between the current resolution and the first resolution for the given axis, defaulting to 1.0 if there is no downsampling along the axis.
 It MAY contain exactly one <code>translation</code> that specifies the offset from the origin in physical units. If <code>translation</code> is given it MUST be listed after <code>scale</code> to ensure that it is given in physical coordinates.
 The length of the <code>scale</code> and <code>translation</code> array MUST be the same as the length of "axes".
@@ -2376,7 +2329,7 @@ name, using the first multiscale as a fallback:</p>
     <c- c1># Use the first by default. Or perhaps choose based on chunk size.</c->
     <c- n>datasets</c-> <c- o>=</c-> <c- p>[</c-><c- n>x</c-><c- p>[</c-><c- u>"path"</c-><c- p>]</c-> <c- k>for</c-> <c- n>x</c-> <c- ow>in</c-> <c- n>multiscales</c-><c- p>[</c-><c- mi>0</c-><c- p>][</c-><c- u>"datasets"</c-><c- p>]]</c->
 </pre>
-   <h3 class="heading settled" data-level="3.5" id="omero-md"><span class="secno">3.5. </span><span class="content">"omero" metadata (transitional)</span><a class="self-link" href="#omero-md"></a></h3>
+   <h3 class="heading settled" data-level="2.5" id="omero-md"><span class="secno">2.5. </span><span class="content">"omero" metadata (transitional)</span><a class="self-link" href="#omero-md"></a></h3>
    <p><a data-link-type="dfn" href="#transitional" id="ref-for-transitional①">Transitional</a> information specific to the channels of an image and how to render it
 can be found under the "omero" key in the group-level metadata:</p>
 <pre class="language-json highlight"><c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->                              # ID i<c- kc>n</c-> OMERO
@@ -2406,7 +2359,7 @@ can be found under the "omero" key in the group-level metadata:</p>
 </pre>
    <p>See https://docs.openmicroscopy.org/omero/5.6.1/developers/Web/WebGateway.html#imgdata
 for more information.</p>
-   <h3 class="heading settled" data-level="3.6" id="labels-md"><span class="secno">3.6. </span><span class="content">"labels" metadata</span><a class="self-link" href="#labels-md"></a></h3>
+   <h3 class="heading settled" data-level="2.6" id="labels-md"><span class="secno">2.6. </span><span class="content">"labels" metadata</span><a class="self-link" href="#labels-md"></a></h3>
    <p>In OME-Zarr, Zarr arrays representing pixel-annotation data are stored in a group called "labels". Some applications--notably image segmentation--produce
 a new image that is in the same coordinate system as a corresponding multiscale image (usually having the same dimensions and coordinate transformations). 
 This new image is composed of integer values corresponding to certain labels with custom meanings. For example, pixels take the value 1 or 0 
@@ -2480,7 +2433,7 @@ The default value is <code>../../</code> since most labeled images are stored in
 </pre>
    <p>In this case, the pixels consisting of a 0 in the Zarr array will be displayed as 50% blue and 50% opacity. Pixels with a 1 in the Zarr array,
 which correspond to cellular space, will be displayed as 50% green and 50% opacity.</p>
-   <h3 class="heading settled" data-level="3.7" id="plate-md"><span class="secno">3.7. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
+   <h3 class="heading settled" data-level="2.7" id="plate-md"><span class="secno">2.7. </span><span class="content">"plate" metadata</span><a class="self-link" href="#plate-md"></a></h3>
    <p>For high-content screening datasets, the plate layout can be found under the
 custom attributes of the plate group under the <code>plate</code> key in the group-level metadata.</p>
    <p>The <code>plate</code> dictionary MAY contain an <code>acquisitions</code> key whose value MUST be a list of
@@ -2693,7 +2646,7 @@ the index into the <code>columns</code> list. <code>rowIndex</code> and <code>co
     <c- p>}</c->
 <c- p>}</c->
 </pre>
-   <h3 class="heading settled" data-level="3.8" id="well-md"><span class="secno">3.8. </span><span class="content">"well" metadata</span><a class="self-link" href="#well-md"></a></h3>
+   <h3 class="heading settled" data-level="2.8" id="well-md"><span class="secno">2.8. </span><span class="content">"well" metadata</span><a class="self-link" href="#well-md"></a></h3>
    <p>For high-content screening datasets, the metadata about all fields of views
 under a given well can be found under the "well" key in the attributes of the
 well group.</p>
@@ -2748,11 +2701,11 @@ field is part of the last acquisition.</p>
         <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c->
     <c- p>}</c->
 <c- p>}</c-></pre>
-   <h2 class="heading settled" data-level="4" id="naming-style"><span class="secno">4. </span><span class="content">Specification naming style</span><a class="self-link" href="#naming-style"></a></h2>
+   <h2 class="heading settled" data-level="3" id="naming-style"><span class="secno">3. </span><span class="content">Specification naming style</span><a class="self-link" href="#naming-style"></a></h2>
    <p>Multi-word keys in this specification should use the <code>camelCase</code> style.
 NB: some parts of the specification don’t obey this convention as they
 were added before this was adopted, but they should be updated in due course.</p>
-   <h2 class="heading settled" data-level="5" id="implementations"><span class="secno">5. </span><span class="content">Implementations</span><a class="self-link" href="#implementations"></a></h2>
+   <h2 class="heading settled" data-level="4" id="implementations"><span class="secno">4. </span><span class="content">Implementations</span><a class="self-link" href="#implementations"></a></h2>
    <p>Projects which support reading and/or writing OME-NGFF data include:</p>
    <dl>
     <dt><strong><a href="https://github.com/mobie/bigdataviewer-ome-zarr">bigdataviewer-ome-zarr</a></strong>
@@ -2775,11 +2728,11 @@ were added before this was adopted, but they should be updated in due course.</p
 version of this diagram is available from the <a href="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/">OME2020 Workshop</a>.
 Mouseover the blackboxes representing the implementations above to get a quick tip on how to use them.</p>
    <p class="note" role="note"><span class="marker">Note:</span> If you would like to see your project listed, please open an issue or PR on the <a href="https://github.com/ome/ngff">ome/ngff</a> repository.</p>
-   <h2 class="heading settled" data-level="6" id="citing"><span class="secno">6. </span><span class="content">Citing</span><a class="self-link" href="#citing"></a></h2>
+   <h2 class="heading settled" data-level="5" id="citing"><span class="secno">5. </span><span class="content">Citing</span><a class="self-link" href="#citing"></a></h2>
    <p><a href="https://ngff.openmicroscopy.org/0.4">Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a> J. Moore, <em>et al</em>. Editors. Open Microscopy Environment Consortium, 8 February 2022.
 This edition of the specification is <a href="https://ngff.openmicroscopy.org/0.4/]">https://ngff.openmicroscopy.org/0.4/</a>.
 The latest edition is available at <a href="https://ngff.openmicroscopy.org/latest/">https://ngff.openmicroscopy.org/latest/</a>. <a href="https://doi.org/10.5281/zenodo.4282107">(doi:10.5281/zenodo.4282107)</a></p>
-   <h2 class="heading settled" data-level="7" id="history"><span class="secno">7. </span><span class="content">Version History</span><a class="self-link" href="#history"></a></h2>
+   <h2 class="heading settled" data-level="6" id="history"><span class="secno">6. </span><span class="content">Version History</span><a class="self-link" href="#history"></a></h2>
    <table>
     <thead>
      <tr>
@@ -2880,10 +2833,8 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#hcs">HCS</a><span>, in § 3.2.3</span>
-   <li><a href="#hdf5">HDF5</a><span>, in § 1.1</span>
-   <li><a href="#ngff">NGFF</a><span>, in § 1.1</span>
-   <li><a href="#transitional">Transitional</a><span>, in § 1.3</span>
+   <li><a href="#hcs">HCS</a><span>, in § 2.2.3</span>
+   <li><a href="#transitional">Transitional</a><span>, in § Unnumbered section</span>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
@@ -2893,12 +2844,8 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
-   <dt id="biblio-n5">[N5]
-   <dd>John A. Bogovic; et al. <a href="https://github.com/saalfeldlab/n5/issues/62"><cite>N5---a scalable Java API for hierarchies of chunked n-dimensional tensors and structured meta-data</cite></a>. 2020. Informational. URL: <a href="https://github.com/saalfeldlab/n5/issues/62">https://github.com/saalfeldlab/n5/issues/62</a>
    <dt id="biblio-ome-zarr-py">[OME-ZARR-PY]
    <dd>OME; et al. <a href="https://doi.org/10.5281/zenodo.4113931"><cite>ome-zarr-py: Experimental implementation of next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</cite></a>. 06 October 2020. Informational. URL: <a href="https://doi.org/10.5281/zenodo.4113931">https://doi.org/10.5281/zenodo.4113931</a>
-   <dt id="biblio-zarr">[ZARR]
-   <dd>Alistair Miles; et al. <a href="https://doi.org/10.5281/zenodo.4069231"><cite>Zarr: An implementation of chunked, compressed, N-dimensional arrays for Python.</cite></a>. 06 October 2020. Informational. URL: <a href="https://doi.org/10.5281/zenodo.4069231">https://doi.org/10.5281/zenodo.4069231</a>
   </dl>
 <script>/* script-dfn-panel */
 "use strict";
@@ -3055,7 +3002,7 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
 </script>
 <script>/* script-dfn-panel-json */
 window.dfnpanelData = {};
-window.dfnpanelData['transitional'] = {"dfnID": "transitional", "url": "#transitional", "dfnText": "Transitional", "refSections": [{"refs": [{"id": "ref-for-transitional"}], "title": "3.2. \"bioformats2raw.layout\" (transitional)"}, {"refs": [{"id": "ref-for-transitional\u2460"}], "title": "3.5. \"omero\" metadata (transitional)"}], "external": false};</script>
+window.dfnpanelData['transitional'] = {"dfnID": "transitional", "url": "#transitional", "dfnText": "Transitional", "refSections": [{"refs": [{"id": "ref-for-transitional"}], "title": "2.2. \"bioformats2raw.layout\" (transitional)"}, {"refs": [{"id": "ref-for-transitional\u2460"}], "title": "2.5. \"omero\" metadata (transitional)"}], "external": false};</script>
 <script>/* script-dom-helper */
 function query(sel) { return document.querySelector(sel); }
 
