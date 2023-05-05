@@ -2,9 +2,9 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: Nex-generation file format (NGFF)
+title: Next-generation file format (NGFF)
 message: >-
-  If you use this software, please cite it using the
+  If you use this specification, please cite it using the
   metadata from this file.
 type: software
 authors:
