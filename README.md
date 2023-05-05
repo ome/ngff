@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/313652456.svg)](https://zenodo.org/badge/latestdoi/313652456)
+
 # ome-ngff
 
 [Next-generation file format (NGFF) specifications](https://ngff.openmicroscopy.org/latest/) for storing bioimaging data in the cloud.
