@@ -24,6 +24,13 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.git', '.pytest_cache',
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
+html_context = {
+    "display_github": True, # Integrate GitHub
+    "github_user": "ome", # Username
+    "github_repo": "ngff", # Repo name
+    "github_version": "main", # Version
+}
+
 html_theme = 'sphinx_book_theme'
 
 html_static_path = ['_static']
