@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 3383f409d, updated Fri Apr 28 15:49:22 2023 -0700" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
-  <meta content="c46fe63d3800c419a0eebfdfa4626d86dfc0d723" name="document-revision">
+  <meta content="b7359aa629403a0321bdad6cd761fe2f9583141e" name="document-revision">
 <style>/* style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -1880,7 +1880,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="https://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2023-05-15">15 May 2023</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2023-05-23">23 May 2023</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2261,7 +2261,7 @@ The requirements (only <code>scale</code> and <code>translation</code>, restrict
    <p>Each "multiscales" dictionary MAY contain the field "coordinateTransformations", describing transformations that are applied to all resolution levels in the same manner.
 The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.
 They can for example be used to specify the <code>scale</code> for a dimension that is the same for all resolutions.</p>
-   <p>Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain the field "version", which indicates the version of the multiscale metadata of this image (current version is 0.5-dev).</p>
+   <p>Each "multiscales" dictionary SHOULD contain the field "name". It MUST contain the field "version", which indicates the version of the multiscale metadata of this image (current version is 0.5-dev).</p>
    <p>Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.</p>
 <pre class="include-code highlight"><c- p>{</c->
@@ -2467,7 +2467,7 @@ contain a <code>name</code> key whose value MUST be a string defining the row na
 contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a duplicate of any
 other <code>name</code> in the <code>rows</code> list. Care SHOULD be taken to avoid collisions on
 case-insensitive filesystems (e.g. avoid using both <code>Aa</code> and <code>aA</code>).</p>
-   <p>The <code>plate</code> dictionary SHOULD contain a <code>version</code> key whose value MUST be a string specifying the
+   <p>The <code>plate</code> dictionary MUST contain a <code>version</code> key whose value MUST be a string specifying the
 version of the plate specification.</p>
    <p>The <code>plate</code> dictionary MUST contain a <code>wells</code> key whose value MUST be a list of JSON objects
 defining the wells of the plate. Each well object MUST contain a <code>path</code> key whose value MUST
