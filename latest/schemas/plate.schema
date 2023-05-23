@@ -133,7 +133,7 @@
         }
       },
       "required": [
-        "columns", "rows", "wells"
+        "columns", "rows", "wells", "version"
       ]
     }
   }

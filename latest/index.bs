@@ -326,7 +326,7 @@ Each "multiscales" dictionary MAY contain the field "coordinateTransformations",
 The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.
 They can for example be used to specify the `scale` for a dimension that is the same for all resolutions.
 
-Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain the field "version", which indicates the version of the multiscale metadata of this image (current version is [NGFFVERSION]).
+Each "multiscales" dictionary SHOULD contain the field "name". It MUST contain the field "version", which indicates the version of the multiscale metadata of this image (current version is [NGFFVERSION]).
 
 Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
@@ -492,7 +492,7 @@ contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a 
 other `name` in the `rows` list. Care SHOULD be taken to avoid collisions on
 case-insensitive filesystems (e.g. avoid using both `Aa` and `aA`).
 
-The `plate` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
+The `plate` dictionary MUST contain a `version` key whose value MUST be a string specifying the
 version of the plate specification.
 
 The `plate` dictionary MUST contain a `wells` key whose value MUST be a list of JSON objects
