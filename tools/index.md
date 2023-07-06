@@ -1,6 +1,6 @@
 # Tools
 
-A list of tools which support OME-Zarr
+A list of tools which support OME-Zarr. These are developed by various members of the NGFF community.
 
 ## Visualization Tools
 
@@ -17,7 +17,7 @@ A list of tools which support OME-Zarr
 
 
 ### napari
-<https://github.com/napari/napari>
+The [napari viewer](https://github.com/napari/napari) supports OME-Zarr with the [napari-ome-zarr plugin](https://github.com/ome/napari-ome-zarr)
 
 
 ### Neuroglancer
@@ -85,3 +85,7 @@ A list of tools which support OME-Zarr
 
 ### Nyxus
 <https://github.com/PolusAI/nyxus>
+
+
+### ITKIOOMEZarrNGFF
+<https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF>

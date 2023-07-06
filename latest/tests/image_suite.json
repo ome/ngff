@@ -90,7 +90,7 @@
       "valid": true
     },
     {
-      "formerly": "valid/missing_version.json",
+      "formerly": "invalid/missing_version.json",
       "description": "TBD",
       "data": {
         "@type": "ngff:Image",
@@ -126,7 +126,7 @@
           }
         ]
       },
-      "valid": true
+      "valid": false
     },
     {
       "formerly": "valid/invalid_axis_units.json",
@@ -852,6 +852,43 @@
               }
             ],
             "version": "0.3"
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "formerly": "invalid/missing_version.json",
+      "description": "TBD",
+      "data": {
+        "multiscales": [
+          {
+            "axes": [
+              {
+                "name": "y",
+                "type": "space",
+                "unit": "micrometer"
+              },
+              {
+                "name": "x",
+                "type": "space",
+                "unit": "micrometer"
+              }
+            ],
+            "datasets": [
+              {
+                "path": "0",
+                "coordinateTransformations": [
+                  {
+                    "scale": [
+                      1,
+                      1
+                    ],
+                    "type": "scale"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
