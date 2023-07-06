@@ -94,10 +94,6 @@
                 "type": "boolean"
               }
             },
-            "required": [
-              "window",
-              "color"
-            ]
           }
         }
       },
