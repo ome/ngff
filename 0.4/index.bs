@@ -438,6 +438,12 @@ can be found under the "omero" key in the group-level metadata:
 See https://docs.openmicroscopy.org/omero/5.6.1/developers/Web/WebGateway.html#imgdata
 for more information.
 
+The "omero" metadata is optional, but if present it MUST contain the field "channels", which is an array of dictionaries describing the channels of the image.
+Each dictionary in "channels" MUST contain the field "color", which is a string of 6 hexadecimal digits specifying the color of the channel in RGB format.
+Each dictionary in "channels" MUST contain the field "window", which is a dictionary describing the windowing of the channel.
+The field "window" MUST contain the fields "min" and "max", which are the minimum and maximum values of the window, respectively. 
+It MUST also contain the fields "start" and "end", which are the start and end values of the window, respectively.
+
 "labels" metadata {#labels-md}
 ------------------------------
 
