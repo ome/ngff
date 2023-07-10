@@ -78,7 +78,7 @@
                   "start",
                   "min",
                   "end",
-                  "max"
+                  "max",
                 ]
               },
               "label": {
@@ -93,7 +93,7 @@
               "active": {
                 "type": "boolean"
               }
-            },
+            }
           }
         }
       },
