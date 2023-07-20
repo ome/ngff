@@ -126,8 +126,11 @@ like S3 or GCS.
 OME-Zarr is an implementation of the OME-NGFF specification using the Zarr
 format. Arrays and groups MUST be defined and stored in a hierarchical organization as
 defined by the [version 3 of the Zarr specification](https://zarr.readthedocs.io/en/stable/spec/v3.html).
-OME metadata MUST be stored as attributes in the corresponding Zarr
-groups.
+OME metadata MUST be stored as attributes in the corresponding Zarr groups.
+
+All features of the Zarr format as finalized through the [ZEP process](https://zarr.dev/zeps/active/ZEP0000.html) are available in OME-Zarr.
+This explicitly includes chunk key encodings, codecs, data types, and storage transformers.
+Restrictions may be introduced in the future.
 
 Images {#image-layout}
 ----------------------
