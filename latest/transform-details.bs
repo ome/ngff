@@ -17,6 +17,7 @@ Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy
 Editor: Sébastien Besson, Open Microscopy Environment (OME) https://www.openmicroscopy.org
 Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/
 Editor: John Bogovic, Hughes Medical Institute Janelia (HHMI) https://www.janelia.org/ 
+Editor: Norman Rzepka, scalable minds https://scalableminds.com/, https://orcid.org/0000-0002-8168-7929
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
@@ -28,7 +29,7 @@ Status Text: (an "editor's draft") will not necessarily be supported.
 Coordinates and Axes {#coords-axes}
 =====================
 
-OME-NGFF datasets are arrays that hold values. The arrays may be indexed by discrete (integer)
+OME-Zarr datasets are arrays that hold values. The arrays may be indexed by discrete (integer)
 coordinates in order to obtain a corresponding value. If values are desired at continuous (real-valued)
 coordinates, then interpolation is required.
 

@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ngff.openmicroscopy.org/latest/schemas/ome.schema",
-  "title": "NGFF group produced by bioformats2raw to contain OME metadata",
-  "description": "JSON from OME-NGFF OME/.zattrs linked to an OME-XML file",
+  "title": "Zarr group produced by bioformats2raw to contain OME metadata",
+  "description": "JSON from OME-Zarr OME/zarr.json attributes linked to an OME-XML file",
   "type": "object",
   "properties": {
     "series": {

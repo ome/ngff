@@ -1,14 +1,16 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ngff.openmicroscopy.org/latest/schemas/bf2raw.schema",
-  "title": "NGFF container produced by bioformats2raw",
-  "description": "JSON from OME-NGFF .zattrs",
+  "title": "Zarr container produced by bioformats2raw",
+  "description": "JSON from OME-Zarr zarr.json attributes",
   "type": "object",
   "properties": {
     "bioformats2raw.layout": {
       "description": "The top-level identifier metadata added by bioformats2raw",
       "type": "number",
-      "enum": [3]
+      "enum": [
+        3
+      ]
     }
   }
 }

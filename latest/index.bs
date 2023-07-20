@@ -1,6 +1,6 @@
 <pre class='metadata'>
-Title: Next-generation file formats (NGFF)
-Shortname: ome-ngff
+Title: OME-Zarr specification
+Shortname: ome-zarr
 Level: 1
 Status: LS-COMMIT
 Status: w3c/ED
@@ -17,6 +17,7 @@ Editor: Josh Moore, University of Dundee (UoD) https://www.dundee.ac.uk, https:/
 Editor: Sébastien Besson, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0001-8783-1429
 Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/, https://orcid.org/0000-0001-6562-7187
 Editor: John Bogovic, Hughes Medical Institute Janelia (HHMI) https://www.janelia.org/, https://orcid.org/0000-0002-4829-9457
+Editor: Norman Rzepka, scalable minds https://scalableminds.com/, https://orcid.org/0000-0002-8168-7929
 Text Macro: NGFFVERSION 0.5-dev
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
@@ -123,10 +124,9 @@ be stored on a web server to be accessed via HTTP or in object storage
 like S3 or GCS.
 
 OME-Zarr is an implementation of the OME-NGFF specification using the Zarr
-format. Arrays MUST be defined and stored in a hierarchical organization as
-defined by the
-[version 2 of the Zarr specification ](https://zarr.readthedocs.io/en/stable/spec/v2.html).
-OME-NGFF metadata MUST be stored as attributes in the corresponding Zarr
+format. Arrays and groups MUST be defined and stored in a hierarchical organization as
+defined by the [version 3 of the Zarr specification](https://zarr.readthedocs.io/en/stable/spec/v3.html).
+OME metadata MUST be stored as attributes in the corresponding Zarr
 groups.
 
 Images {#image-layout}
@@ -145,39 +145,37 @@ For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x
 │
 └── 456.zarr                  # Another image (id=456) converted to Zarr.
     │
-    ├── .zgroup               # Each image is a Zarr group, or a folder, of other groups and arrays.
-    ├── .zattrs               # Group level attributes are stored in the .zattrs file and include
-    │                         # "multiscales" and "omero" (see below). In addition, the group level attributes
-    │                         # must also contain "_ARRAY_DIMENSIONS" if this group directly contains multi-scale arrays.
+    ├── zarr.json             # Each image is a Zarr group, or a folder, of other groups and arrays.
+    │                         # Group level attributes are stored in the zarr.json file and include
+    │                         # "multiscales" and "omero" (see below).
     │
     ├── 0                     # Each multiscale level is stored as a separate Zarr array,
     │   ...                   # which is a folder containing chunk files which compose the array.
     ├── n                     # The name of the array is arbitrary with the ordering defined by
     │   │                     # by the "multiscales" metadata, but is often a sequence starting at 0.
     │   │
-    │   ├── .zarray           # All image arrays must be up to 5-dimensional
+    │   ├── zarr.json         # All image arrays must be up to 5-dimensional
     │   │                     # with the axis of type time before type channel, before spatial axes.
     │   │
-    │   └─ t                  # Chunks are stored with the nested directory layout.
-    │      └─ c               # All but the last chunk element are stored as directories.
-    │         └─ z            # The terminal chunk is a file. Together the directory and file names
-    │            └─ y         # provide the "chunk coordinate" (t, c, z, y, x), where the maximum coordinate
-    │               └─ x      # will be `dimension_size / chunk_size`.
+    │   └─ t                  # Storage of chunks is defined by the `chunk_key_encoding` as defined in the underlying Zarr array metadata.
+    │      └─ c               # The chunk keys (composed of file path and file name) provide the "chunk coordinate" (t, c, z, y, x).
+    │         └─ z            
+    │            └─ y         
+    │               └─ x      
     │
     └── labels
         │
-        ├── .zgroup           # The labels group is a container which holds a list of labels to make the objects easily discoverable
-        │
-        ├── .zattrs           # All labels will be listed in `.zattrs` e.g. `{ "labels": [ "original/0" ] }`
+        ├── zarr.json         # The labels group is a container which holds one or more multiscale labels.
+        │                     # All labels will be listed in the top-level attributes e.g. `{ "labels": [ "labels/original/0" ] }`
         │                     # Each dimension of the label `(t, c, z, y, x)` should be either the same as the
         │                     # corresponding dimension of the image, or `1` if that dimension of the label
         │                     # is irrelevant.
         │
         └── original          # Intermediate folders are permitted but not necessary and currently contain no extra metadata.
             │
-            └── 0             # Multiscale, labeled image. The name is unimportant but is registered in the "labels" group above.
-                ├── .zgroup   # Zarr Group which is both a multiscaled image as well as a labeled image.
-                ├── .zattrs   # Metadata of the related image and as well as display information under the "image-label" key.
+            └── 0             # Multiscale, labeled image. The name is unimportant but is registered in the "labels" metadata above.
+                ├── zarr.json # Zarr Group which is both a multiscaled image as well as a labeled image including
+                │             # metadata of the related image and as well as display information under the "image-label" key.
                 │
                 ├── 0         # Each multiscale level is stored as a separate Zarr array, as above, but only integer values
                 │   ...       # are supported.
@@ -205,19 +203,16 @@ dataset. Three groups must be defined above the images:
 .                             # Root folder, potentially in S3,
 │
 └── 5966.zarr                 # One plate (id=5966) converted to Zarr
-    ├── .zgroup
-    ├── .zattrs               # Implements "plate" specification
+    ├── zarr.json             # Implements "plate" specification
     ├── A                     # First row of the plate
-    │   ├── .zgroup
+    │   ├── zarr.json
     │   │
     │   ├── 1                 # First column of row A
-    │   │   ├── .zgroup
-    │   │   ├── .zattrs       # Implements "well" specification
+    │   │   ├── zarr.json     # Implements "well" specification
     │   │   │
     │   │   ├── 0             # First field of view of well A1
     │   │   │   │
-    │   │   │   ├── .zgroup
-    │   │   │   ├── .zattrs   # Implements "multiscales", "omero"
+    │   │   │   ├── zarr.json # Implements "multiscales", "omero"
     │   │   │   ├── 0
     │   │   │   │   ...       # Resolution levels
     │   │   │   ├── n
@@ -233,8 +228,25 @@ dataset. Three groups must be defined above the images:
 Metadata {#metadata}
 ====================
 
-The various `.zattrs` files throughout the above array hierarchy may contain metadata
+The various `zarr.json` files throughout the above array hierarchy may contain OME metadata
 keys as specified below for discovering certain types of data, especially images.
+All OME metadata is stored under a `ome` key within the `attributes` of these `zarr.json` files.
+
+<div class=example>
+
+```json
+{
+    "zarr_format": 3,
+    "node_type": "group",
+    "attributes": {
+        "ome": {
+            "version": "0.5-dev",
+            ...
+        }
+    }
+}
+```
+</div>
 
 "bioformats2raw.layout" (transitional) {#bf2raw}
 ------------------------------------------------
@@ -253,11 +265,9 @@ Typical Zarr layout produced by running `bioformats2raw` on a fileset that conta
 
 <pre>
 series.ome.zarr               # One converted fileset from bioformats2raw
-    ├── .zgroup
-    ├── .zattrs               # Contains "bioformats2raw.layout" metadata
+    ├── zarr.json             # Contains "bioformats2raw.layout" metadata
     ├── OME                   # Special group for containing OME metadata
-    │   ├── .zgroup
-    │   ├── .zattrs           # Contains "series" metadata
+    │   ├── zarr.json         # Contains "series" metadata
     │   └── METADATA.ome.xml  # OME-XML file stored within the Zarr fileset
     ├── 0                     # First image in the collection
     ├── 1                     # Second image in the collection
@@ -266,7 +276,7 @@ series.ome.zarr               # One converted fileset from bioformats2raw
 
 <h4 id="bf2raw-attributes" class="no-toc">Attributes</h4>
 
-The top-level `.zattrs` file must contain the `bioformats2raw.layout` key:
+The top-level OME group attributes must contain the `bioformats2raw.layout` key:
 <pre class=include-code>
 path: examples/bf2raw/image.json
 highlight: json
@@ -281,7 +291,7 @@ path: examples/bf2raw/plate.json
 highlight: json
 </pre>
 
-The `.zattrs` file within the OME group may contain the "series" key:
+The attributes within the OME group may contain the "series" key:
 
 <pre class=include-code>
 path: examples/ome/series-2.json
@@ -292,7 +302,7 @@ highlight: json
 
 Conforming groups:
 
-- MUST have the value "3" for the "bioformats2raw.layout" key in their `.zattrs` metadata at the top of the hierarchy;
+- MUST have the value "3" for the "bioformats2raw.layout" key in their OME attribute metadata at the top of the hierarchy;
 - SHOULD have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml" which:
     - MUST adhere to the OME-XML specification but
     - MUST use `<MetadataOnly/>` elements as opposed to `<BinData/>`, `<BinaryOnly/>` or `<TiffData/>`;
@@ -461,6 +471,9 @@ Indexing an image at the point `(0.1, 0.2, 0.3, 0.4)` is not valid, because the 
 to the discrete axis `"c"`.  Indexing an image at the point `(1, 0.2, 0.3, 0.4)` is valid.
 </div>
 
+The axes names of an array MAY be duplicated in the Zarr metadata key `dimension_names`. 
+Implementations MUST give precedence to the `axes` metadata over the `dimenions_names`.
+
 
 ### Array coordinate systems
 
@@ -487,24 +500,32 @@ though this object should not and need not explicitly appear in metadata.
 
 The dimensionality of each array coordinate system equals the dimensionality of its corresponding zarr array.  The axis with
 name `"dim_i"` is the ith element of the `"axes"` list. The axes and their order align with the `shape`
-attribute in the zarr array attributes (in `.zarray`), and whose data depends on the byte order used to store
+attribute in the zarr array attributes (in `zarr.json`), and whose data depends on the byte order used to store
 chunks. As described in the [zarr array metadata](https://zarr.readthedocs.io/en/stable/spec/v2.html#arrays),
 the last dimension of an array in "C" order (row-major) are stored contiguously. For an array in "F"
 (column-major) order, the elements of the first dimension are stored contiguously.
 
 <div class=example>
-For example, if `/my/data/array/.zarray` contains:
+For example, if `/my/data/array/zarr.json` contains:
 
 ```json
 {
-    "chunks": [ 4, 3, 5 ],
-    "compressor": null,
-    "dtype": "|u1",
+    "zarr_format": 3
+    "data_type": "uint8",
     "fill_value": 0,
-    "filters": null,
-    "order": "C",
     "shape": [ 4, 3, 5 ],
-    "zarr_format": 2
+    "chunk_grid": {
+        "name": "regular",
+        "configuration": {
+            "chunk_shape": [ 4, 3, 5 ]
+        }
+    },
+    "codecs": [
+        {
+            "name": "endian",
+            "configuration": { "endian": "little" }
+        }
+    ]
 }
 ```
 
@@ -512,7 +533,7 @@ Then `dim_0` has length 4, `dim_1` has length 3, and `dim_2` has length 5.
 </div>
 
 The name and axes names MAY be customized by including a `arrayCoordinateSystem` field in
-the `.zattr` metadata of the array whose value is a coordinate system object. The length of
+the OME attributes of the array whose value is a coordinate system object. The length of
 `axes` MUST be equal to the dimensionality. The value of `"type"` for each object in the 
 axes array MUST equal `"array"`.
 
@@ -619,27 +640,24 @@ be stored in a zarr group `"coordinateTransformations"`.
 <pre>
 store.zarr                      # Root folder of the zarr store
 │
-├── .zattrs                     # coordinate transformations describing the relationship between two image coordinate systems
+├── zarr.json                   # coordinate transformations describing the relationship between two image coordinate systems
 │                               # are stored in the attributes of their parent group.
 │                               # transformations between 'volume' and 'crop' coordinate systems are stored here.
 │
 ├── coordinateTransformations   # transformations that use array storage go in a "transformations" zarr group.
 │   └── displacements           # for example, a zarray containing a displacement field
-│       ├── .zattrs
-│       └── .zarray
+│       └── zarr.json
 │
 ├── volume
-│   ├── .zattrs                 # group level attributes (multiscales)
+│   ├── zarr.json               # group level attributes (multiscales)
 │   └── 0                       # a group containing the 0th scale
 │       └── image               # a zarr array
-│           ├── .zattrs         # physical coordinate system and transformations here
-│           └── .zarray         # the array attributes
+│           └── zarr.json       # physical coordinate system and transformations here the array attributes
 └── crop
-    ├── .zattrs                 # group level attributes (multiscales)
+    ├── zarr.json               # group level attributes (multiscales)
     └── 0                       # a group containing the 0th scale
         └── image               # a zarr array
-            ├── .zattrs         # physical coordinate system and transformations here
-            └── .zarray         # the array attributes
+            └── zarr.json       # physical coordinate system and transformations here the array attributes
 </pre>
 
 ### Additional details
@@ -1408,18 +1426,17 @@ for more information.
 "labels" metadata {#labels-md}
 ------------------------------
 
-The special group "labels" found under an image Zarr contains the key `labels` containing
-the paths to label objects which can be found underneath the group:
+The special group "labels" found under an image Zarr group contains one or multiple 
+multiscale labels. Each multiscale label needs to be registered in the image metadata:
 
 ```json
 {
   "labels": [
-    "orphaned/0"
+    "labels/orphaned/0"
   ]
 }
 ```
 
-Unlisted groups MAY be labels.
 
 "image-label" metadata {#label-md}
 ----------------------------------
@@ -1603,6 +1620,15 @@ Projects which support reading and/or writing OME-NGFF data include:
 
   <dt><strong>[vizarr](https://github.com/hms-dbmi/vizarr/)</strong></dt>
   <dd>A minimal, purely client-side program for viewing Zarr-based images with Viv & ImJoy.</dd>
+
+  <dt><strong>[neuroglancer](https://github.com/google/neuroglancer/)</strong></dt>
+  <dd>A WebGL-based viewer for volumetric data.</dd>
+
+  <dt><strong>[WEBKNOSSOS](https://github.com/scalableminds/webknossos/)</strong></dt>
+  <dd>A web-based visualization, annotation, analysis and sharing platform for large images.</dd>
+  
+  <dt><strong>[WEBKNOSSOS-libs](https://github.com/scalableminds/webknossos/)</strong></dt>
+  <dd>A Python library for creating and parallely processing OME-Zarr images.</dd>
 
 </dl>
 
