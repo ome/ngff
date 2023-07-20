@@ -157,11 +157,19 @@ For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x
     │   ├── zarr.json         # All image arrays must be up to 5-dimensional
     │   │                     # with the axis of type time before type channel, before spatial axes.
     │   │
-    │   └─ t                  # Storage of chunks is defined by the `chunk_key_encoding` as defined in the underlying Zarr array metadata.
-    │      └─ c               # The chunk keys (composed of file path and file name) provide the "chunk coordinate" (t, c, z, y, x).
-    │         └─ z            
-    │            └─ y         
-    │               └─ x      
+    │   └─ c                  # Chunks are stored with the chunk key encoding as specified in the zarr.json. 
+    |      |                  # In this example, the chunk key encoding is "default" with separator "/".
+    |      |                  # The chunk keys (composed of file path and file name) provide the "chunk coordinate" (t, c, z, y, x).
+    │      ├─ 0               # Time dimension
+    |      |  ├─ 0            # Channel dimension
+    |      |  |  ├─ 0         # Z dimension
+    |      |  |  |  ├─ 0      # Y dimension
+    |      |  |  |  |  ├─ 0   # X dimension
+    |      |  |  |  |  └─ ...
+    |      |  |  |  └─ ...
+    |      |  |  └─ ...
+    |      |  └─ ...
+    │      └─ ...
     │
     └── labels
         │
