@@ -1488,10 +1488,10 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 5edf5e459, updated Thu Jun 22 11:28:01 2023 -0700" name="generator">
+  <meta content="Bikeshed version d29f71adb, updated Wed Jul 19 11:08:56 2023 -0700" name="generator">
   <link href="https://ngff.openmicroscopy.org/0.1/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="99b8765c0f1b9aa6072b030c8f15f75c082a1e5e" name="document-revision">
+  <meta content="3ab738b3d68c3a579f636a234d29d768af83e09f" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -2019,7 +2019,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Final Community Group Report, <time class="dt-updated" datetime="2023-07-10">10 July 2023</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Final Community Group Report, <time class="dt-updated" datetime="2023-08-07">7 August 2023</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2180,15 +2180,15 @@ multiple levels of resolutions and optionally associated labels.</p>
     │   ├── 0.0.0.0.0         # Chunks are stored with the flat directory layout.
     │   │   ...               # Each dotted component of the chunk file represents
     │   └── t.c.z.y.x         # a "chunk coordinate", where the maximum coordinate
-    │                         # will be &lt;code data-opaque bs-autolink-syntax='`dimension_size / chunk_size`'>dimension_size / chunk_size&lt;/code>.
+    │                         # will be `dimension_size / chunk_size`.
     │
     └── labels
         │
         ├── .zgroup           # The labels group is a container which holds a list of labels to make the objects easily discoverable
         │
-        ├── .zattrs           # All labels will be listed in &lt;code data-opaque bs-autolink-syntax='`.zattrs`'>.zattrs&lt;/code> e.g. &lt;code data-opaque bs-autolink-syntax='`{ &amp;quot;labels&amp;quot;: [ &amp;quot;original/0&amp;quot; ] }`'>{ "labels": [ "original/0" ] }&lt;/code>
-        │                     # Each dimension of the label &lt;code data-opaque bs-autolink-syntax='`(t, c, z, y, x)`'>(t, c, z, y, x)&lt;/code> should be either the same as the
-        │                     # corresponding dimension of the image, or &lt;code data-opaque bs-autolink-syntax='`1`'>1&lt;/code> if that dimension of the label
+        ├── .zattrs           # All labels will be listed in `.zattrs` e.g. `{ "labels": [ "original/0" ] }`
+        │                     # Each dimension of the label `(t, c, z, y, x)` should be either the same as the
+        │                     # corresponding dimension of the image, or `1` if that dimension of the label
         │                     # is irrelevant.
         │
         └── original          # Intermediate folders are permitted but not necessary and currently contain no extra metadata.
