@@ -6,7 +6,7 @@
 Next-generation file formats (NGFF)
 ===================================
 
-OME-NGFF is an imaging format being developed by the bioimaging community to
+OME-NGFF is an imaging format specification being developed by the bioimaging community to
 address issues of scalability and interoperability.
 Please see the :doc:`about/index` section for an introduction.
 The OME-NGFF specification is detailed under :doc:`specifications/index`.
@@ -19,12 +19,9 @@ Sample NGFF datasets provided by the community can be found under :doc:`data/ind
 
    about/index
    data/index
+   publications/index
    specifications/index
    tools/index
-
-..
-   # Temporarily disabled
-   publications/index
 
 .. raw:: html
 
