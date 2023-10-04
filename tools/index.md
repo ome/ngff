@@ -52,6 +52,9 @@ The [napari viewer](https://github.com/napari/napari) supports OME-Zarr with the
 ### NGFF-Converter
 <https://github.com/glencoesoftware/NGFF-Converter>
 
+### stack_to_multiscale_ngff
+<https://github.com/CBI-PITT/stack_to_multiscale_ngff>
+
 
 ## Libraries
 
