@@ -4,3 +4,4 @@
 _build
 _bikeshed
 .tox
+.vscode
