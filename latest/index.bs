@@ -624,8 +624,8 @@ store.zarr                      # Root folder of the zarr store
 │                               # are stored in the attributes of their parent group.
 │                               # transformations between 'volume' and 'crop' coordinate systems are stored here.
 │
-├── coordinateTransformations   # transformations that use array storage go in a "transformations" zarr group.
-│   └── displacements           # for example, a zarray containing a displacement field
+├── coordinateTransformations   # transformations that use array storage go in a "coordinateTransformations" zarr group.
+│   └── displacements           # for example, a zarr array containing a displacement field
 │       ├── .zattrs
 │       └── .zarray
 │
