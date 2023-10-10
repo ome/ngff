@@ -398,7 +398,7 @@ image.
 
 
 
-### "axes" metadata {#axes-md}
+### "axes" metadata
 
 "axes" describes the dimensions of a coordinate systems. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.
@@ -1323,7 +1323,7 @@ Metadata about an image can be found under the "multiscales" key in the group-le
 
 "multiscales" contains a list of dictionaries where each entry describes a multiscale image.
 
-Each "multiscales" dictionary MUST contain the field "axes", see [[#axes-md]].
+Each "multiscales" dictionary MUST contain the field "axes", see the [axes section](#axes-metadata).
 The length of "axes" must be greater than 1 and MUST equal the dimensionality of the zarr arrays storing the image data (see "datasets:path").
 The "axes" field SHOULD contain 2 or 3 entries with "type:space".
 The order of the entries MUST correspond to the order of dimensions of the zarr arrays. In addition, the entries SHOULD be ordered by "type" where the "time" axis must come first (if present), followed by the  "channel" or custom axis (if present) and the axes of type "space".
