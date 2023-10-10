@@ -653,7 +653,7 @@ Exceptions are if the the coordinate transformation appears in the `transformati
 `transformation` of an `inverseOf` transformation. In these two cases input and output SHOULD be omitted (see below for
 details).
 
-Transformations in the `transformations` list of a `byDimensions` transforemation MUST provide `input` and `output` as arrays
+Transformations in the `transformations` list of a `byDimensions` transformation MUST provide `input` and `output` as arrays
 of strings corresponding to axis names of the parent transformation's input and output coordinate systems (see below for
 details).
 
