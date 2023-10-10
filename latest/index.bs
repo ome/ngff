@@ -559,9 +559,6 @@ input space to *points* in the output space.
   <tr><th>`identity`
     <td> 
     <td>The identity transformation is the default transformation and is typically not explicitly defined.
-  <tr><th>`mapIndex`
-    <td>`"mapIndex":List[number]`
-    <td> A `mapIndex` transformation specifies an axis permutation by reordering the input axes.
   <tr><th>`mapAxis`
     <td>`"mapAxis":Dict[String:String]`
     <td> A `maxAxis` transformation specifies an axis permutation as a map between axis names.
@@ -772,59 +769,6 @@ y = j
 
 </div>
 
-#### mapIndex
-
-`mapIndex` transformations describe axis permutations as a reordering of the input dimensions.
-Transformations MUST include a `mapIndex` field whose value is an array of integers. If the ith element of the array is j, it
-means that output dimension i comes from input dimension j. The length of the `mapIndex` array MUST be equal to the
-dimensionality of the output coordinate system. If the input coordinate system has dimension N, then every integer in that array
-MUST be less than N.
-
-<div class=example>
-
-<pre class=include-code>
-path: examples/transformations/mapIndex1.json
-highlight: json
-</pre>
-
-The "equivalent to identity" transformation defines the function:
-
-```
-x = i
-y = j
-```
-
-and the "permutation" transformation defines the function
-
-```
-x = j
-y = i
-```
-
-</div>
-
-<div class=example>
-
-<pre class=include-code>
-path: examples/transformations/mapIndex2.json
-highlight: json
-</pre>
-
-The "projection_down" transformation defines the function:
-
-```
-x = b
-```
-
-and the "projection_up" transformation defines the function:
-
-```
-x = a
-y = b
-z = b
-```
-
-</div>
 
 #### mapAxis
 
