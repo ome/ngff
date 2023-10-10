@@ -673,7 +673,7 @@ The sequence transformation's input corresponds to an array coordinate system at
     {
         "type": "scale",
         "input" : "in",
-        "output" : "outSeq",
+        "output" : "outScale",
         "scale" : [ 0.5, 1.2 ]
     },
     {
