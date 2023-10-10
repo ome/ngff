@@ -330,9 +330,9 @@ A "coordinate system" is a collection of "axes" / dimensions with a name. Every 
 {
     "name" : "volume_micrometers",
     "axes" : [
-        {"name": "x", "type": "space", "unit": "micrometer"},
+        {"name": "z", "type": "space", "unit": "micrometer"},
         {"name": "y", "type": "space", "unit": "micrometer"},
-        {"name": "z", "type": "space", "unit": "micrometer"}
+        {"name": "x", "type": "space", "unit": "micrometer"}
     ]
 }
 ```
@@ -370,17 +370,17 @@ image.
     {
         "name" : "sampleA-instrument1",
         "axes" : [
-            {"name": "x", "type": "space", "unit": "micrometer"},
+            {"name": "z", "type": "space", "unit": "micrometer"},
             {"name": "y", "type": "space", "unit": "micrometer"},
-            {"name": "z", "type": "space", "unit": "micrometer"}
+            {"name": "x", "type": "space", "unit": "micrometer"}
         ]
     },
     {
         "name" : "sampleA-instrument2",
         "axes" : [
-            {"name": "x", "type": "space", "unit": "micrometer"},
+            {"name": "z", "type": "space", "unit": "micrometer"},
             {"name": "y", "type": "space", "unit": "micrometer"},
-            {"name": "z", "type": "space", "unit": "micrometer"}
+            {"name": "x", "type": "space", "unit": "micrometer"}
         ]
     }
 ],
@@ -449,10 +449,10 @@ For the coordinate system:
 {
     "name" : "index and interpolation",
     "axes" : [
-        {"name": "c", "type": "channel", "discrete": true},
-        {"name": "x", "type": "space"},
-        {"name": "y", "type": "space"},
         {"name": "t", "type": "time"},
+        {"name": "c", "type": "channel", "discrete": true},
+        {"name": "y", "type": "space"},
+        {"name": "x", "type": "space"}
     ]
 }
 ```
