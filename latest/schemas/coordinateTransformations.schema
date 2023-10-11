@@ -1,0 +1,296 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/latest/schemas/coordinateTransformations.schema",
+  "title": "NGFF Coordinate Transformations",
+  "description": "JSON from OME-NGFF .zattrs",
+  "type": "array",
+  "minItems": 1,
+  "contains": {
+    "type": "object"
+  },
+  "maxContains": 1,
+  "items": {
+    "$ref": "#/$defs/transformation"
+  },
+  "$defs": {
+    "transformation" : {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/scaleTransformation"
+        },
+        {
+          "$ref": "#/$defs/translationTransformation"
+        },
+        {
+          "$ref": "#/$defs/affineTransformation"
+        },
+        {
+          "$ref": "#/$defs/rotationTransformation"
+        },
+        {
+          "$ref": "#/$defs/inverseOfTransformation"
+        },
+        {
+          "$ref": "#/$defs/sequenceTransformation"
+        },
+        {
+          "$ref": "#/$defs/coordinatesTransformation"
+        },
+        {
+          "$ref": "#/$defs/displacementsTransformation"
+        },
+        {
+          "$ref": "#/$defs/byDimensionTransformation"
+        },
+        {
+          "$ref": "#/$defs/bijectionTransformation"
+        }
+      ]
+    },
+    "scaleTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scale"
+          ]
+        },
+        "scale": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "oneOf": [
+        {
+          "required": ["scale"]
+        },
+        {
+          "required": ["path"]
+        }
+      ]
+    },
+    "translationTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "translation"
+          ]
+        },
+        "translation": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "oneOf": [
+        {
+          "required": ["translation"]
+        },
+        {
+          "required": ["path"]
+        }
+      ]
+    },
+    "affineTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "affine"
+          ]
+        },
+        "affine": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "oneOf": [
+        {
+          "required": ["affine"]
+        },
+        {
+          "required": ["path"]
+        }
+      ]
+    },
+    "rotationTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "rotation"
+          ]
+        },
+        "rotation": {
+          "type": "object",
+          "minItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "oneOf": [
+        {
+          "required": ["rotation"]
+        },
+        {
+          "required": ["path"]
+        }
+      ]
+    },
+    "inverseOfTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "inverseOf"
+          ]
+        },
+        "transformation": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "type", "transformation"
+      ]
+    },
+    "sequenceTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "sequence"
+          ]
+        },
+        "transformations": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "type", "transformations"
+      ]
+    },
+    "coordinatesTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "coordinates"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "interpolation": {
+          "type": "string",
+          "enum": [
+            "nearest", "linear", "cubic"
+          ]
+        }
+      },
+      "required": [
+        "type", "path", "interpolation"
+      ]
+    },
+    "displacementsTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "displacements"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "interpolation": {
+          "type": "string",
+          "enum": [
+            "nearest", "linear", "cubic"
+          ]
+        }
+      },
+      "required": [
+        "type", "path", "interpolation"
+      ]
+    },
+    "byDimensionTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "byDimension"
+          ]
+        },
+        "transformations": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "type", "transformations"
+      ]
+    },
+    "bijectionTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "bijection"
+          ]
+        },
+        "forward": {
+          "type": "object"
+        },
+        "inverse": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "type", "forward", "inverse"
+      ]
+    }
+  }
+}

@@ -17,8 +17,15 @@
             ],
             "datasets": [
                 {
-                    "path": "0"
+                    "path": "0",
                     // the transformation of other arrays are defined relative to this, the highest resolution, array
+                    "coordinateTransformations": [{
+                        // the second scale level (downscaled by a factor of 2 relative to "0" in zyx)
+                        "type": "scale",
+                        "scale": [1, 1, 1, 1, 1],
+                        "input" : "/0`",
+                        "output" : "exampleCoordinateSystem"
+                    }]
                 },
                 {
                     "path": "1",
