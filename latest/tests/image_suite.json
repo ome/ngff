@@ -418,7 +418,7 @@
       "valid": false
     },
     {
-      "formerly": "invalid/missing_scale.json",
+      "formerly": "invalid/translation_only.json",
       "description": "TBD",
       "data": {
         "multiscales": [
@@ -458,7 +458,7 @@
           }
         ]
       },
-      "valid": false
+      "valid": true
     },
     {
       "formerly": "invalid/too_many_axes.json",
@@ -1006,7 +1006,7 @@
       "valid": false
     },
     {
-      "formerly": "invalid/duplicate_scale.json",
+      "formerly": "valid/two_scales.json",
       "description": "TBD",
       "data": {
         "multiscales": [
@@ -1053,7 +1053,7 @@
           }
         ]
       },
-      "valid": false
+      "valid": true
     },
     {
       "formerly": "invalid/no_axes.json",
