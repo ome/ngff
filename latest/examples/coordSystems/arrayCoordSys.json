@@ -1,0 +1,10 @@
+{
+    "arrayCoordinateSystem" : {
+        "name" : "myDataArray",
+        "axes" : [
+            {"name": "i", "type": "array"},
+            {"name": "j", "type": "array"},
+            {"name": "k", "type": "array"}
+        ]
+    }
+}
