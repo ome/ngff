@@ -144,6 +144,9 @@
               "$ref": "#/$defs/inverseOf"
             },
             {
+              "$ref": "#/$defs/bijection"
+            },
+            {
               "$ref": "#/$defs/sequence"
             },
             {
@@ -333,6 +336,23 @@
       },
       "required": [
         "transformation"
+      ]
+    },
+    "bijection": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "bijection"
+        },
+        "forward": {
+          "$ref": "#/$defs/coordinateTransformation"
+        },
+        "inverse": {
+          "$ref": "#/$defs/coordinateTransformation"
+        }
+      },
+      "required": [
+        "forward", "inverse"
       ]
     },
     "sequence": {
