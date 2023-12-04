@@ -151,6 +151,12 @@
             },
             {
               "$ref": "#/$defs/byDimension"
+            },
+            {
+              "$ref": "#/$defs/displacements"
+            },
+            {
+              "$ref": "#/$defs/coordinates"
             }
           ]
         }
@@ -378,6 +384,18 @@
             "$ref": "#/$defs/byDimensionTransformation"
           }
         }
+      }
+    },
+    "displacements": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "displacements" }
+      }
+    },
+    "coordinates": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "coordinates" }
       }
     }
   }
