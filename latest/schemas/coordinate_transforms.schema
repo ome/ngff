@@ -126,9 +126,6 @@
               "$ref": "#/$defs/identity"
             },
             {
-              "$ref": "#/$defs/mapIndex"
-            },
-            {
               "$ref": "#/$defs/mapAxis"
             },
             {
@@ -187,24 +184,6 @@
           "const": "identity"
         }
       }
-    },
-    "mapIndex": {
-      "type": "object",
-      "description": "Permute axes by position",
-      "properties": {
-        "type": {
-          "const": "mapIndex"
-        },
-        "mapIndex": {
-          "type": "array",
-          "items": {
-            "type": "integer"
-          }
-        }
-      },
-      "required": [
-        "mapIndex"
-      ]
     },
     "mapAxis": {
       "type": "object",
