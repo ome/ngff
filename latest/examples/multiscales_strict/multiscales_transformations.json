@@ -1,16 +1,13 @@
 {
     "multiscales": [
         {
-            "axes": [
+            "coordinateSystems" : [
                 {
-                    "name": "y",
-                    "type": "space",
-                    "units": "micrometer"
-                },
-                {
-                    "name": "x",
-                    "type": "space",
-                    "units": "micrometer"
+                    "name": "multiscales_transformations",
+                    "axes": [
+                        { "name": "y", "type": "space", "units": "micrometer" },
+                        { "name": "x", "type": "space", "units": "micrometer" }
+                    ]
                 }
             ],
             "datasets": [

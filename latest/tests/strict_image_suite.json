@@ -12,31 +12,36 @@
           {
             "version": "0.5-dev",
             "name": "example",
-            "axes": [
-              {
-                "name": "t",
-                "type": "time",
-                "unit": "millisecond"
-              },
-              {
-                "name": "c",
-                "type": "channel"
-              },
-              {
-                "name": "z",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
+            "coordinateSystems": [
+                {
+                    "name": "multiscales_example",
+                    "axes": [
+                      {
+                        "name": "t",
+                        "type": "time",
+                        "unit": "millisecond"
+                      },
+                      {
+                        "name": "c",
+                        "type": "channel"
+                      },
+                      {
+                        "name": "z",
+                        "type": "space",
+                        "unit": "micrometer"
+                      },
+                      {
+                        "name": "y",
+                        "type": "space",
+                        "unit": "micrometer"
+                      },
+                      {
+                        "name": "x",
+                        "type": "space",
+                        "unit": "micrometer"
+                      }
+                    ]
+                }
             ],
             "datasets": [
               {
@@ -201,17 +206,22 @@
                 "multichannel": true
               }
             },
-            "axes": [
-              {
-                "name": "y",
-                "type": "space",
-                "units": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "units": "micrometer"
-              }
+            "coordinateSystems": [
+                {
+                    "name": "image_metadata",
+                    "axes": [
+                      {
+                        "name": "y",
+                        "type": "space",
+                        "units": "micrometer"
+                      },
+                      {
+                        "name": "x",
+                        "type": "space",
+                        "units": "micrometer"
+                      }
+                    ]
+                }
             ]
           }
         ]
@@ -224,17 +234,22 @@
       "data": {
         "multiscales": [
           {
-            "axes": [
-              {
-                "name": "y",
-                "type": "space",
-                "units": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "units": "micrometer"
-              }
+            "coordinateSystems": [
+                {
+                    "name": "image",
+                    "axes": [
+                      {
+                        "name": "y",
+                        "type": "space",
+                        "units": "micrometer"
+                      },
+                      {
+                        "name": "x",
+                        "type": "space",
+                        "units": "micrometer"
+                      }
+                    ]
+                }
             ],
             "datasets": [
               {
@@ -267,30 +282,35 @@
       "data": {
         "multiscales": [
           {
-            "axes": [
-              {
-                "name": "t",
-                "type": "time"
-              },
-              {
-                "name": "c",
-                "type": "channel"
-              },
-              {
-                "name": "z",
-                "type": "space",
-                "units": "micrometer"
-              },
-              {
-                "name": "y",
-                "type": "space",
-                "units": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "units": "micrometer"
-              }
+            "coordinateSystems": [
+                {
+                    "name": "image_omero",
+                    "axes": [
+                      {
+                        "name": "t",
+                        "type": "time"
+                      },
+                      {
+                        "name": "c",
+                        "type": "channel"
+                      },
+                      {
+                        "name": "z",
+                        "type": "space",
+                        "units": "micrometer"
+                      },
+                      {
+                        "name": "y",
+                        "type": "space",
+                        "units": "micrometer"
+                      },
+                      {
+                        "name": "x",
+                        "type": "space",
+                        "units": "micrometer"
+                      }
+                    ]
+                }
             ],
             "datasets": [
               {
