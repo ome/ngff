@@ -36,15 +36,15 @@
               "0.5-dev"
             ]
           },
-          "axes": {
-            "$ref": "#/$defs/axes"
+          "coordinateSystems": {
+            "$ref": "coordinate_systems.schema"
           },
           "coordinateTransformations": {
             "$ref": "#/$defs/coordinateTransformations"
                 }
         },
         "required": [
-          "datasets", "axes"
+          "datasets", "coordinateSystems"
         ]
       },
       "minItems": 1,
@@ -107,63 +107,7 @@
     }
   },
   "required": [ "multiscales" ],
-
   "$defs": {
-    "axes": {
-      "type": "array",
-      "uniqueItems": true,
-      "minItems": 2,
-      "maxItems": 5,
-      "contains": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string",
-            "enum": ["space"]
-          },
-          "units": {
-            "type": "string"
-          }
-        }
-      },
-      "minContains": 2,
-      "maxContains": 3,
-      "items": {
-        "oneOf": [
-          {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string",
-                "enum": ["channel", "time", "space"]
-              }
-            },
-            "required": ["name", "type"]
-          },
-          {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string",
-                "not": {
-                  "enum": ["space", "time", "channel"]
-                }
-              }
-            },
-            "required": ["name"]
-          }
-        ]
-      }
-    },
     "coordinateTransformations": {
       "type": "array",
       "minItems": 1,
