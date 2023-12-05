@@ -55,7 +55,9 @@
                       0.5,
                       0.5,
                       0.5
-                    ]
+                    ],
+                    "input": "/0",
+                    "output": "out"
                   }
                 ]
               },
@@ -70,7 +72,9 @@
                       1.0,
                       1.0,
                       1.0
-                    ]
+                    ],
+                    "input": "/1",
+                    "output": "out"
                   }
                 ]
               },
@@ -85,7 +89,9 @@
                       2.0,
                       2.0,
                       2.0
-                    ]
+                    ],
+                    "input": "/2",
+                    "output": "out"
                   }
                 ]
               }
@@ -99,7 +105,9 @@
                   1.0,
                   1.0,
                   1.0
-                ]
+                ],
+                "input": "out",
+                "output": "example"
               }
             ],
             "type": "gaussian",
@@ -149,7 +157,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "example"
                   }
                 ]
               }
@@ -160,7 +170,9 @@
                   10,
                   10
                 ],
-                "type": "scale"
+                "type": "scale",
+                "input": "out",
+                "output": "multiscales_transformations"
               }
             ],
             "version": "0.5-dev",
@@ -194,7 +206,9 @@
                     "scale": [
                       1,
                       1
-                    ]
+                    ],
+                    "input": "/path/to/0",
+                    "output": "image_metadata"
                   }
                 ]
               }
@@ -265,7 +279,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "image"
                   }
                 ]
               }
@@ -322,24 +338,31 @@
                 "path": "0",
                 "coordinateTransformations": [
                   {
-                    "scale": [
-                      1,
-                      1,
-                      0.5,
-                      0.13,
-                      0.13
-                    ],
-                    "type": "scale"
-                  },
-                  {
-                    "translation": [
-                      0,
-                      9,
-                      0.5,
-                      25.74,
-                      21.58
-                    ],
-                    "type": "translation"
+                      "type": "sequence",
+                      "transformations" : [
+                          {
+                            "scale": [
+                              1,
+                              1,
+                              0.5,
+                              0.13,
+                              0.13
+                            ],
+                            "type": "scale"
+                          },
+                          {
+                            "translation": [
+                              0,
+                              9,
+                              0.5,
+                              25.74,
+                              21.58
+                            ],
+                            "type": "translation"
+                          }
+                      ],
+                      "input": "/0",
+                      "output": "image_omero"
                   }
                 ]
               },
@@ -354,7 +377,9 @@
                       0.26,
                       0.26
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/1",
+                    "output": "image_omero"
                   }
                 ]
               }

@@ -19,7 +19,9 @@
                       0.13,
                       0.13
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "mismatch_axes_units"
                   }
                 ]
               }
@@ -27,7 +29,7 @@
             "version": "0.5-dev",
             "coordinateSystems": [
               {
-                "name": "tmpname",
+                "name": "mismatch_axes_units",
                 "axes": [
                   {
                     "name": "t",
@@ -68,7 +70,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "untyped_axes"
                   }
                 ]
               }
@@ -76,7 +80,7 @@
             "version": "0.5-dev",
             "coordinateSystems": [
               {
-                "name": "tmpname",
+                "name": "untyped_axes",
                 "axes": [
                   {
                     "name": "angle"
@@ -116,14 +120,16 @@
                     "scale": [
                       1,
                       1
-                    ]
+                    ],
+                    "input": "/0",
+                    "output": "missing_version"
                   }
                 ]
               }
             ],
             "coordinateSystems": [
               {
-                "name": "tmpname",
+                "name": "missing_version",
                 "axes": [
                   {
                     "name": "y",
@@ -158,7 +164,9 @@
                       0.13,
                       0.13
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "invalid_axis_units"
                   }
                 ]
               }
@@ -166,7 +174,7 @@
             "version": "0.5-dev",
             "coordinateSystems": [
               {
-                "name": "tmpname",
+                "name": "invalid_axis_units",
                 "axes": [
                   {
                     "name": "y",
@@ -203,7 +211,9 @@
                     "scale": [
                       1,
                       1
-                    ]
+                    ],
+                    "input": "/0",
+                    "output": "invalid_axis_units"
                   }
                 ]
               }
@@ -258,7 +268,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "custom_type_axes"
                   }
                 ]
               }
@@ -266,7 +278,7 @@
             "version": "0.5-dev",
             "coordinateSystems": [
               {
-                "name": "tmpname",
+                "name": "custom_type_axes",
                 "axes": [
                   {
                     "name": "angle",
@@ -305,7 +317,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "custom_type_axes"
                   }
                 ]
               }
@@ -313,7 +327,7 @@
             "version": "0.5-dev",
             "coordinateSystems": [
               {
-                "name": "tmpname",
+                "name": "duplicate_axes",
                 "axes": [
                   {
                     "name": "x",
@@ -348,7 +362,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "no_space_axes"
                   }
                 ]
               }
@@ -356,7 +372,7 @@
             "version": "0.5-dev",
             "coordinateSystems": [
               {
-                "name": "tmpname",
+                "name": "no_space_axes",
                 "axes": [
                   {
                     "name": "t",
@@ -389,7 +405,9 @@
                       1,
                       1
                     ],
-                    "type": "translation"
+                    "type": "translation",
+                    "input": "/0",
+                    "output": "transformation_type"
                   }
                 ]
               }
@@ -397,7 +415,7 @@
             "version": "0.5-dev",
             "coordinateSystems": [
               {
-                "name": "tmpname",
+                "name": "transformation_type",
                 "axes": [
                   {
                     "name": "y",
@@ -432,7 +450,9 @@
                       1,
                       1
                     ],
-                    "type": "translation"
+                    "type": "translation",
+                    "input": "/0",
+                    "output": "transformation_type"
                   }
                 ]
               }
@@ -440,7 +460,7 @@
             "version": "0.5-dev",
             "coordinateSystems": [
               {
-                "name": "tmpname",
+                "name": "transformation_type",
                 "axes": [
                   {
                     "name": "y",
@@ -479,7 +499,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "many_axes"
                   }
                 ]
               }
@@ -487,7 +509,7 @@
             "version": "0.5-dev",
             "coordinateSystems": [
               {
-                "name": "tmpname",
+                "name": "many_axes",
                 "axes": [
                   {
                     "name": "angle",
@@ -536,7 +558,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "invalid_channels_color"
                   }
                 ]
               }
@@ -544,7 +568,7 @@
             "version": "0.5-dev",
             "coordinateSystems": [
               {
-                "name": "tmpname",
+                "name": "invalie_channels_color",
                 "axes": [
                   {
                     "name": "y",
@@ -596,7 +620,9 @@
                       0.13,
                       0.13
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "missing_axes_name"
                   }
                 ]
               }
@@ -604,7 +630,7 @@
             "version": "0.5-dev",
             "coordinateSystems": [
               {
-                "name": "tmpname",
+                "name": "missing_axes_name",
                 "axes": [
                   {
                     "type": "space",
@@ -637,7 +663,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "invalid_axes_count"
                   }
                 ]
               }
@@ -645,7 +673,7 @@
             "version": "0.5-dev",
             "coordinateSystems": [
               {
-                "name": "tmpname",
+                "name": "invalid_axes_count",
                 "axes": [
                   {
                     "name": "y",
@@ -676,7 +704,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "out"
                   }
                 ]
               }
@@ -721,7 +751,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "out"
                   }
                 ]
               }
@@ -764,7 +796,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "out"
                   }
                 ]
               }
@@ -774,7 +808,9 @@
                 "scale": [
                   "invalid"
                 ],
-                "type": "scale"
+                "type": "scale",
+                "input": "/0",
+                "output": "out"
               }
             ],
             "version": "0.5-dev",
@@ -908,7 +944,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "out"
                   }
                 ]
               }
@@ -934,7 +972,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "out"
                   }
                 ]
               }
@@ -977,7 +1017,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "out"
                   }
                 ]
               }
@@ -1020,14 +1062,18 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "out"
                   },
                   {
                     "scale": [
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "out"
                   }
                 ]
               }
@@ -1070,7 +1116,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "out"
                   }
                 ]
               }
@@ -1104,7 +1152,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "out"
                   }
                 ]
               }
@@ -1162,7 +1212,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "out"
                   }
                 ]
               }
@@ -1256,7 +1308,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "missing_path"
                   }
                 ]
               }
