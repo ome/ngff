@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/latest/schemas/coordinate_systems_and_transforms.schema",
+  "title": "NGFF Coordinate Systems and Transforms",
+  "description": "Coordinate Systems and transforms for OME-NGFF",
+  "type": "object",
+  "properties": {
+    "coordinateSystems": {
+        "$ref": "coordinate_systems.schema"
+    },
+    "coordinateTransformations": {
+        "$ref": "coordinate_transformation.schema"
+    },
+    "arrayCoordinateSystem": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of coordinate space"
+        },
+        "axes": {
+          "allOf": [
+            {
+              "$ref": "axes.schema"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "array"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "axes"
+      ]
+    }
+  }
+}

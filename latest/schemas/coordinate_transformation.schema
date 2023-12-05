@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/latest/schemas/coordinate_transformation.schema",
+  "title": "NGFF Coordinate Systems and Transforms",
+  "description": "Coordinate Systems and transforms for OME-NGFF",
+  "type": "array",
+  "uniqueItems": true,
+  "items": {
+    "allOf": [
+      {
+        "$ref": "#/$defs/coordinateTransformation"
+      },
+      {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string"
+          },
+          "output": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "input",
+          "output"
+        ]
+      }
+    ]
+  },
+  "$defs": {
+    "path_w_url": {
+      "description": "Path specification. Schema local solution until https://github.com/ome/ngff/issues/144 is resolved.",
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "coordinateTransformation": {
+      "description": "OME-NGFF coordinate transformation.",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        },
+        {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/identity"
+            },
+            {
+              "$ref": "#/$defs/mapAxis"
+            },
+            {
+              "$ref": "#/$defs/scale"
+            },
+            {
+              "$ref": "#/$defs/translation"
+            },
+            {
+              "$ref": "#/$defs/affine"
+            },
+            {
+              "$ref": "#/$defs/rotation"
+            },
+            {
+              "$ref": "#/$defs/inverseOf"
+            },
+            {
+              "$ref": "#/$defs/bijection"
+            },
+            {
+              "$ref": "#/$defs/sequence"
+            },
+            {
+              "$ref": "#/$defs/byDimension"
+            },
+            {
+              "$ref": "#/$defs/displacements"
+            },
+            {
+              "$ref": "#/$defs/coordinates"
+            }
+          ]
+        }
+      ]
+    },
+    "byDimensionTransformation": {
+      "type": "object",
+      "description": "Transformation used inside a byDimension transformation",
+      "allOf": [
+        { "$ref": "#/$defs/coordinateTransformation" },
+        {
+          "properties": {
+            "input": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "output": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ],
+      "required": ["input", "output"]
+    },
+    "identity": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "identity"
+        }
+      }
+    },
+    "mapAxis": {
+      "type": "object",
+      "description": "Permute axes by name",
+      "properties": {
+        "type": {
+          "const": "mapAxis"
+        },
+        "mapAxis": {
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "mapAxis"
+        ]
+      }
+    },
+    "scale": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "scale"
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/path_w_url"
+        },
+        {
+          "properties": {
+            "scale": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          },
+          "required": [
+            "scale"
+          ]
+        }
+      ]
+    },
+    "translation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "translation"
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/path_w_url"
+        },
+        {
+          "properties": {
+            "translation": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "required": [
+            "translation"
+          ]
+        }
+      ]
+    },
+    "mtxFlatOrNested" : {
+      "type": "array",
+      "oneOf": [
+        {
+          "items": { "type": "number" }
+        },
+        {
+          "items": {
+              "type": "array",
+              "items" : { "type" : "number" }
+          }
+        }
+      ]
+    },
+    "affine": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "affine"
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/path_w_url"
+        },
+        {
+          "properties": {
+            "affine": {
+              "$ref": "#/$defs/mtxFlatOrNested"
+            },
+            "required": [
+              "affine"
+            ]
+          }
+        }
+      ]
+    },
+    "rotation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "rotation"
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/path_w_url"
+        },
+        {
+          "properties": {
+            "rotation": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "rotation"
+            ]
+          }
+        }
+      ]
+    },
+    "inverseOf": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "inverseOf"
+        },
+        "transformation": {
+          "$ref": "#/$defs/coordinateTransformation"
+        }
+      },
+      "required": [
+        "transformation"
+      ]
+    },
+    "bijection": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "bijection"
+        },
+        "forward": {
+          "$ref": "#/$defs/coordinateTransformation"
+        },
+        "inverse": {
+          "$ref": "#/$defs/coordinateTransformation"
+        }
+      },
+      "required": [
+        "forward", "inverse"
+      ]
+    },
+    "sequence": {
+      "description": "A sequence of transformations",
+      "type": "object",
+      "properties": {
+        "type": { "const": "sequence" },
+        "transformations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/coordinateTransformation"
+          }
+        }
+      }
+    },
+    "byDimension": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "byDimension" },
+        "transformations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/byDimensionTransformation"
+          }
+        }
+      }
+    },
+    "displacements": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "displacements" }
+      }
+    },
+    "coordinates": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "coordinates" }
+      }
+    }
+  }
+}
