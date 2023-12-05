@@ -22,14 +22,6 @@
         },
         "type": {
           "type": "string",
-          "enum": [
-            "array",
-            "space",
-            "time",
-            "channel",
-            "coordinate",
-            "displacement"
-          ],
           "description": "Dimension of the axis"
         },
         "discrete": {
