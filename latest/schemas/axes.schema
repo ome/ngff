@@ -5,9 +5,30 @@
   "description": "JSON from OME-NGFF .zattrs",
   "type": "array",
   "uniqueItems": true,
+  "minItems": 1,
   "items": {
     "$ref": "#/$defs/axis"
   },
+  "$comment": "Ensure that there exist at most three space axes",
+  "contains": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "space"
+        ]
+      },
+      "unit": {
+        "type": "string"
+      }
+    }
+  },
+  "minContains": 0,
+  "maxContains": 3,
   "$defs": {
     "axis": {
       "type": "object",
