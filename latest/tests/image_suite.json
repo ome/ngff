@@ -1049,7 +1049,7 @@
     },
     {
       "formerly": "valid/two_scales.json",
-      "description": "TBD",
+      "description": "A sequence of two scales. Valid, but not recommended.",
       "data": {
         "multiscales": [
           {
@@ -1058,22 +1058,25 @@
                 "path": "0",
                 "coordinateTransformations": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale",
-                    "input": "/0",
-                    "output": "out"
-                  },
-                  {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale",
-                    "input": "/0",
-                    "output": "out"
+                      "type": "sequence",
+                      "input": "/0",
+                      "output": "out",
+                      "transformations": [
+                          {
+                            "scale": [
+                              1,
+                              1
+                            ],
+                            "type": "scale"
+                          },
+                          {
+                            "scale": [
+                              1,
+                              1
+                            ],
+                            "type": "scale"
+                          }
+                      ]
                   }
                 ]
               }
