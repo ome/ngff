@@ -5,6 +5,7 @@
   "description": "Coordinate Systems and transforms for OME-NGFF",
   "type": "array",
   "uniqueItems": true,
+  "minItems": 1,
   "items": {
     "allOf": [
       {
