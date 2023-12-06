@@ -649,7 +649,7 @@
       "valid": false
     },
     {
-      "formerly": "invalid/invalid_axes_count.json",
+      "formerly": "valid/one_axis.json",
       "description": "TBD",
       "data": {
         "multiscales": [
@@ -665,7 +665,7 @@
                     ],
                     "type": "scale",
                     "input": "/0",
-                    "output": "invalid_axes_count"
+                    "output": "one_axis"
                   }
                 ]
               }
@@ -673,7 +673,7 @@
             "version": "0.5-dev",
             "coordinateSystems": [
               {
-                "name": "invalid_axes_count",
+                "name": "one_axis",
                 "axes": [
                   {
                     "name": "y",
@@ -686,7 +686,7 @@
           }
         ]
       },
-      "valid": false
+      "valid": true
     },
     {
       "formerly": "valid/one_space_axes.json",
