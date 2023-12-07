@@ -3,14 +3,14 @@
         {
             "coordinateSystems" : [
                 {
-                    "name": "multiscales_transformations_intermediate",
+                    "name": "multiscales_transformations",
                     "axes": [
                         { "name": "y", "type": "space", "units": "micrometer" },
                         { "name": "x", "type": "space", "units": "micrometer" }
                     ]
                 },
                 {
-                    "name": "multiscales_transformations",
+                    "name": "multiscales_transformations_intermediate",
                     "axes": [
                         { "name": "y", "type": "space", "units": "micrometer" },
                         { "name": "x", "type": "space", "units": "micrometer" }
@@ -22,10 +22,7 @@
                     "path": "0",
                     "coordinateTransformations": [
                         {
-                            "scale": [
-                                1,
-                                1
-                            ],
+                            "scale": [ 1, 1 ],
                             "type": "scale",
                             "input": "/0",
                             "output": "multiscales_transformations_intermediate"
@@ -35,10 +32,7 @@
             ],
             "coordinateTransformations": [
                 {
-                    "scale": [
-                        10,
-                        10
-                    ],
+                    "scale": [ 10, 10 ],
                     "type": "scale",
                     "input": "multiscales_transformations_intermediate",
                     "output": "multiscales_transformations"
