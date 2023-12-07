@@ -14,7 +14,36 @@
             "name": "example",
             "coordinateSystems": [
                 {
-                    "name": "multiscales_example",
+                    "name": "example",
+                    "axes": [
+                      {
+                        "name": "t",
+                        "type": "time",
+                        "unit": "millisecond"
+                      },
+                      {
+                        "name": "c",
+                        "type": "channel"
+                      },
+                      {
+                        "name": "z",
+                        "type": "space",
+                        "unit": "micrometer"
+                      },
+                      {
+                        "name": "y",
+                        "type": "space",
+                        "unit": "micrometer"
+                      },
+                      {
+                        "name": "x",
+                        "type": "space",
+                        "unit": "micrometer"
+                      }
+                    ]
+                },
+                {
+                    "name": "tmp",
                     "axes": [
                       {
                         "name": "t",
@@ -57,7 +86,7 @@
                       0.5
                     ],
                     "input": "/0",
-                    "output": "out"
+                    "output": "tmp"
                   }
                 ]
               },
@@ -74,7 +103,7 @@
                       1.0
                     ],
                     "input": "/1",
-                    "output": "out"
+                    "output": "tmp"
                   }
                 ]
               },
@@ -91,7 +120,7 @@
                       2.0
                     ],
                     "input": "/2",
-                    "output": "out"
+                    "output": "tmp"
                   }
                 ]
               }
@@ -106,7 +135,7 @@
                   1.0,
                   1.0
                 ],
-                "input": "out",
+                "input": "tmp",
                 "output": "example"
               }
             ],
@@ -124,6 +153,68 @@
         ]
       },
       "valid": true
+    },
+    {
+      "formerly": "invalid_strict/multiscales_nonstandard_axis_type.json",
+      "description": "TBD",
+      "data": {
+        "multiscales": [
+          {
+            "version": "0.5-dev",
+            "name": "example",
+            "coordinateSystems": [
+                {
+                    "name": "nonstandard_axis",
+                    "axes": [
+                      {
+                        "name": "c",
+                        "type": "custom",
+                        "unit": ""
+                      },
+                      {
+                        "name": "y",
+                        "type": "space",
+                        "unit": "micrometer"
+                      },
+                      {
+                        "name": "x",
+                        "type": "space",
+                        "unit": "micrometer"
+                      }
+                    ]
+                }
+            ],
+            "datasets": [
+              {
+                "path": "0",
+                "coordinateTransformations": [
+                  {
+                    "type": "scale",
+                    "scale": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "input": "/0",
+                    "output": "nonstandard_axis"
+                  }
+                ]
+              }
+            ],
+            "type": "gaussian",
+            "metadata": {
+              "description": "the fields in metadata depend on the downscaling implementation. Here, the parameters passed to the skimage function are given",
+              "method": "skimage.transform.pyramid_gaussian",
+              "version": "0.16.1",
+              "args": "[true]",
+              "kwargs": {
+                "multichannel": true
+              }
+            }
+          }
+        ]
+      },
+      "valid": false
     },
     {
       "formerly": "valid_strict/multiscales_transformations.json",
