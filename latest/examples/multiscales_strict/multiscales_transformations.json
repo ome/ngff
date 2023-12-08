@@ -3,19 +3,18 @@
         {
             "coordinateSystems" : [
                 {
-                    "name" : "name",
+                    "name": "multiscales_transformations",
                     "axes": [
-                        {
-                            "name": "y",
-                            "type": "space",
-                            "units": "micrometer"
-                        },
-                        {
-                            "name": "x",
-                            "type": "space",
-                            "units": "micrometer"
-                        }
-                    ]   
+                        { "name": "y", "type": "space", "units": "micrometer" },
+                        { "name": "x", "type": "space", "units": "micrometer" }
+                    ]
+                },
+                {
+                    "name": "multiscales_transformations_intermediate",
+                    "axes": [
+                        { "name": "y", "type": "space", "units": "micrometer" },
+                        { "name": "x", "type": "space", "units": "micrometer" }
+                    ]
                 }
             ],
             "datasets": [
@@ -23,22 +22,20 @@
                     "path": "0",
                     "coordinateTransformations": [
                         {
-                            "scale": [
-                                1,
-                                1
-                            ],
-                            "type": "scale"
+                            "scale": [ 1, 1 ],
+                            "type": "scale",
+                            "input": "/0",
+                            "output": "multiscales_transformations_intermediate"
                         }
                     ]
                 }
             ],
             "coordinateTransformations": [
                 {
-                    "scale": [
-                        10,
-                        10
-                    ],
-                    "type": "scale"
+                    "scale": [ 10, 10 ],
+                    "type": "scale",
+                    "input": "multiscales_transformations_intermediate",
+                    "output": "multiscales_transformations"
                 }
             ],
             "version": "0.5-dev",

@@ -12,6 +12,66 @@
           {
             "version": "0.5-dev",
             "name": "example",
+            "coordinateSystems": [
+                {
+                    "name": "example",
+                    "axes": [
+                      {
+                        "name": "t",
+                        "type": "time",
+                        "unit": "millisecond"
+                      },
+                      {
+                        "name": "c",
+                        "type": "channel"
+                      },
+                      {
+                        "name": "z",
+                        "type": "space",
+                        "unit": "micrometer"
+                      },
+                      {
+                        "name": "y",
+                        "type": "space",
+                        "unit": "micrometer"
+                      },
+                      {
+                        "name": "x",
+                        "type": "space",
+                        "unit": "micrometer"
+                      }
+                    ]
+                },
+                {
+                    "name": "tmp",
+                    "axes": [
+                      {
+                        "name": "t",
+                        "type": "time",
+                        "unit": "millisecond"
+                      },
+                      {
+                        "name": "c",
+                        "type": "channel"
+                      },
+                      {
+                        "name": "z",
+                        "type": "space",
+                        "unit": "micrometer"
+                      },
+                      {
+                        "name": "y",
+                        "type": "space",
+                        "unit": "micrometer"
+                      },
+                      {
+                        "name": "x",
+                        "type": "space",
+                        "unit": "micrometer"
+                      }
+                    ]
+                }
+            ],
             "datasets": [
               {
                 "path": "0",
@@ -24,7 +84,9 @@
                       0.5,
                       0.5,
                       0.5
-                    ]
+                    ],
+                    "input": "/0",
+                    "output": "tmp"
                   }
                 ]
               },
@@ -34,12 +96,14 @@
                   {
                     "type": "scale",
                     "scale": [
-                      1,
-                      1,
-                      1,
-                      1,
-                      1
-                    ]
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "input": "/1",
+                    "output": "tmp"
                   }
                 ]
               },
@@ -49,12 +113,14 @@
                   {
                     "type": "scale",
                     "scale": [
-                      1,
-                      1,
-                      2,
-                      2,
-                      2
-                    ]
+                      1.0,
+                      1.0,
+                      2.0,
+                      2.0,
+                      2.0
+                    ],
+                    "input": "/2",
+                    "output": "tmp"
                   }
                 ]
               }
@@ -64,11 +130,13 @@
                 "type": "scale",
                 "scale": [
                   0.1,
-                  1,
-                  1,
-                  1,
-                  1
-                ]
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "input": "tmp",
+                "output": "example"
               }
             ],
             "type": "gaussian",
@@ -118,11 +186,90 @@
       "valid": true
     },
     {
+      "formerly": "invalid_strict/multiscales_nonstandard_axis_type.json",
+      "description": "TBD",
+      "data": {
+        "multiscales": [
+          {
+            "version": "0.5-dev",
+            "name": "example",
+            "coordinateSystems": [
+                {
+                    "name": "nonstandard_axis",
+                    "axes": [
+                      {
+                        "name": "c",
+                        "type": "custom",
+                        "unit": ""
+                      },
+                      {
+                        "name": "y",
+                        "type": "space",
+                        "unit": "micrometer"
+                      },
+                      {
+                        "name": "x",
+                        "type": "space",
+                        "unit": "micrometer"
+                      }
+                    ]
+                }
+            ],
+            "datasets": [
+              {
+                "path": "0",
+                "coordinateTransformations": [
+                  {
+                    "type": "scale",
+                    "scale": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "input": "/0",
+                    "output": "nonstandard_axis"
+                  }
+                ]
+              }
+            ],
+            "type": "gaussian",
+            "metadata": {
+              "description": "the fields in metadata depend on the downscaling implementation. Here, the parameters passed to the skimage function are given",
+              "method": "skimage.transform.pyramid_gaussian",
+              "version": "0.16.1",
+              "args": "[true]",
+              "kwargs": {
+                "multichannel": true
+              }
+            }
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
       "formerly": "valid_strict/multiscales_transformations.json",
       "description": "TBD",
       "data": {
         "multiscales": [
           {
+            "coordinateSystems": [
+                {
+                    "name": "multiscales_transformations",
+                    "axes": [
+                      {
+                        "name": "y",
+                        "type": "space",
+                        "units": "micrometer"
+                      },
+                      {
+                        "name": "x",
+                        "type": "space",
+                        "units": "micrometer"
+                      }
+                    ]
+                }
+            ],
             "datasets": [
               {
                 "path": "0",
@@ -132,7 +279,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "example"
                   }
                 ]
               }
@@ -143,7 +292,9 @@
                   10,
                   10
                 ],
-                "type": "scale"
+                "type": "scale",
+                "input": "out",
+                "output": "multiscales_transformations"
               }
             ],
             "version": "0.5-dev",
@@ -194,7 +345,9 @@
                     "scale": [
                       1,
                       1
-                    ]
+                    ],
+                    "input": "/path/to/0",
+                    "output": "image_metadata"
                   }
                 ]
               }
@@ -212,21 +365,21 @@
               }
             },
             "coordinateSystems": [
-              {
-                "name": "tmpname",
-                "axes": [
-                  {
-                    "name": "y",
-                    "type": "space",
-                    "units": "micrometer"
-                  },
-                  {
-                    "name": "x",
-                    "type": "space",
-                    "units": "micrometer"
-                  }
-                ]
-              }
+                {
+                    "name": "image_metadata",
+                    "axes": [
+                      {
+                        "name": "y",
+                        "type": "space",
+                        "units": "micrometer"
+                      },
+                      {
+                        "name": "x",
+                        "type": "space",
+                        "units": "micrometer"
+                      }
+                    ]
+                }
             ]
           }
         ]
@@ -239,6 +392,23 @@
       "data": {
         "multiscales": [
           {
+            "coordinateSystems": [
+                {
+                    "name": "image",
+                    "axes": [
+                      {
+                        "name": "y",
+                        "type": "space",
+                        "units": "micrometer"
+                      },
+                      {
+                        "name": "x",
+                        "type": "space",
+                        "units": "micrometer"
+                      }
+                    ]
+                }
+            ],
             "datasets": [
               {
                 "path": "0",
@@ -248,7 +418,9 @@
                       1,
                       1
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/0",
+                    "output": "image"
                   }
                 ]
               }
@@ -287,29 +459,66 @@
       "data": {
         "multiscales": [
           {
+            "coordinateSystems": [
+                {
+                    "name": "image_omero",
+                    "axes": [
+                      {
+                        "name": "t",
+                        "type": "time"
+                      },
+                      {
+                        "name": "c",
+                        "type": "channel"
+                      },
+                      {
+                        "name": "z",
+                        "type": "space",
+                        "units": "micrometer"
+                      },
+                      {
+                        "name": "y",
+                        "type": "space",
+                        "units": "micrometer"
+                      },
+                      {
+                        "name": "x",
+                        "type": "space",
+                        "units": "micrometer"
+                      }
+                    ]
+                }
+            ],
             "datasets": [
               {
                 "path": "0",
                 "coordinateTransformations": [
                   {
-                    "scale": [
-                      1,
-                      1,
-                      0.5,
-                      0.13,
-                      0.13
-                    ],
-                    "type": "scale"
-                  },
-                  {
-                    "translation": [
-                      0,
-                      9,
-                      0.5,
-                      25.74,
-                      21.58
-                    ],
-                    "type": "translation"
+                      "type": "sequence",
+                      "transformations" : [
+                          {
+                            "scale": [
+                              1,
+                              1,
+                              0.5,
+                              0.13,
+                              0.13
+                            ],
+                            "type": "scale"
+                          },
+                          {
+                            "translation": [
+                              0,
+                              9,
+                              0.5,
+                              25.74,
+                              21.58
+                            ],
+                            "type": "translation"
+                          }
+                      ],
+                      "input": "/0",
+                      "output": "image_omero"
                   }
                 ]
               },
@@ -324,7 +533,9 @@
                       0.26,
                       0.26
                     ],
-                    "type": "scale"
+                    "type": "scale",
+                    "input": "/1",
+                    "output": "image_omero"
                   }
                 ]
               }

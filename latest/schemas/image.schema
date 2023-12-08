@@ -24,7 +24,7 @@
                   "type": "string"
                 },
                 "coordinateTransformations": {
-                  "$ref": "#/$defs/coordinateTransformations"
+                  "$ref": "coordinate_transformation.schema"
                 }
               },
               "required": ["path", "coordinateTransformations"]
@@ -37,10 +37,10 @@
             ]
           },
           "coordinateSystems": {
-            "$ref": "#/$defs/coordinateSystems"
+            "$ref": "coordinate_systems.schema"
           },
           "coordinateTransformations": {
-            "$ref": "#/$defs/coordinateTransformations"
+            "$ref": "coordinate_transformation.schema"
           }
         },
         "required": [
@@ -106,83 +106,5 @@
       ]
     }
   },
-  "required": [ "multiscales" ],
-  "$defs": {
-    "coordinateSystems" : {
-      "type": "array",
-      "uniqueItems": true,
-      "contains": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "axes" : {
-              "$ref" : "#/$defs/axes"
-          }
-        },
-        "required": [
-          "name", "axes"
-        ]
-      }
-    },
-    "axes": {
-      "type": "array",
-      "uniqueItems": true,
-      "minItems": 2,
-      "maxItems": 5,
-      "contains": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string",
-            "enum": ["space"]
-          },
-          "units": {
-            "type": "string"
-          }
-        }
-      },
-      "minContains": 2,
-      "maxContains": 3,
-      "items": {
-        "oneOf": [
-          {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string",
-                "enum": ["channel", "time", "space"]
-              }
-            },
-            "required": ["name", "type"]
-          },
-          {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string",
-                "not": {
-                  "enum": ["space", "time", "channel"]
-                }
-              }
-            },
-            "required": ["name"]
-          }
-        ]
-      }
-    },
-    "coordinateTransformations": {
-        "$ref": "coordinateTransformations.schema"
-    }
-  }
+  "required": [ "multiscales" ]
 }

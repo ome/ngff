@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/latest/schemas/axes.schema",
+  "title": "NGFF Axes",
+  "description": "JSON from OME-NGFF .zattrs",
+  "type": "array",
+  "uniqueItems": true,
+  "minItems": 1,
+  "items": {
+    "$ref": "#/$defs/axis"
+  },
+  "$comment": "Ensure that there exist at most three space axes",
+  "contains": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "space"
+        ]
+      },
+      "unit": {
+        "type": "string"
+      }
+    }
+  },
+  "minContains": 0,
+  "maxContains": 3,
+  "$defs": {
+    "axis": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the axis"
+        },
+        "longName": {
+          "type": "string",
+          "description": "Longer name or description of the axis."
+        },
+        "type": {
+          "type": "string",
+          "description": "Dimension of the axis"
+        },
+        "discrete": {
+          "type": "boolean",
+          "description": "Whether the dimension is discrete"
+        },
+        "units": {
+          "type": "string",
+          "description": "Units for the axis"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  }
+}

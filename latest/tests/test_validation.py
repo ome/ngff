@@ -49,6 +49,11 @@ def pytest_generate_tests(metafunc):
     if "suite" in metafunc.fixturenames:
         suites: List[Schema] = []
         ids: List[str] = []
+        schema_store = {}
+        for filename in glob.glob("schemas/*.schema"):
+            with open(filename) as o:
+                schema = json.load(o)
+            schema_store[schema["$id"]] = schema
 
         # Validation
         for filename in glob.glob("tests/*.json"):

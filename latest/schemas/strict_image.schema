@@ -8,6 +8,11 @@
       "properties": {
         "multiscales": {
           "items": {
+            "properties" : {
+              "coordinateSystems": {
+                "$ref": "strict_coordinate_systems.schema"
+              }
+            },
             "required": [
               "version", "metadata", "type", "name"
             ]
