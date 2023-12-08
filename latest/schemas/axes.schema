@@ -49,9 +49,9 @@
           "type": "boolean",
           "description": "Whether the dimension is discrete"
         },
-        "units": {
+        "unit": {
           "type": "string",
-          "description": "Units for the axis"
+          "description": "Unit for the axis"
         }
       },
       "required": [

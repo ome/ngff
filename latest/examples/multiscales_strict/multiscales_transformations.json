@@ -5,15 +5,15 @@
                 {
                     "name": "multiscales_transformations",
                     "axes": [
-                        { "name": "y", "type": "space", "units": "micrometer" },
-                        { "name": "x", "type": "space", "units": "micrometer" }
+                        { "name": "y", "type": "space", "unit": "micrometer" },
+                        { "name": "x", "type": "space", "unit": "micrometer" }
                     ]
                 },
                 {
                     "name": "multiscales_transformations_intermediate",
                     "axes": [
-                        { "name": "y", "type": "space", "units": "micrometer" },
-                        { "name": "x", "type": "space", "units": "micrometer" }
+                        { "name": "y", "type": "space", "unit": "micrometer" },
+                        { "name": "x", "type": "space", "unit": "micrometer" }
                     ]
                 }
             ],

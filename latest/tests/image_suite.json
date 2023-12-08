@@ -34,17 +34,17 @@
                   {
                     "name": "t",
                     "type": "time",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -88,12 +88,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -134,12 +134,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -179,12 +179,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micron"
+                    "unit": "micron"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -237,12 +237,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -287,12 +287,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -332,12 +332,12 @@
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -420,12 +420,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -465,12 +465,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -573,12 +573,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -634,11 +634,11 @@
                 "axes": [
                   {
                     "type": "space",
-                    "units": "micron"
+                    "unit": "micron"
                   },
                   {
                     "type": "space",
-                    "units": "micron"
+                    "unit": "micron"
                   }
                 ]
               }
@@ -678,7 +678,7 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -766,12 +766,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -821,12 +821,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -855,12 +855,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -885,12 +885,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -914,12 +914,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -987,12 +987,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -1032,12 +1032,12 @@
                   {
                     "name": "y",
                     "type": "invalid",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -1089,12 +1089,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -1230,12 +1230,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -1282,12 +1282,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
@@ -1326,12 +1326,12 @@
                   {
                     "name": "y",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   },
                   {
                     "name": "x",
                     "type": "space",
-                    "units": "micrometer"
+                    "unit": "micrometer"
                   }
                 ]
               }
