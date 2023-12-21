@@ -49,7 +49,7 @@ gain context).
 Sections often are split further into sub-sections styled "Heading 3". These
 sub-sections just further help to organize data to ease reading and discussion.
 
-## Requirements (SHOULD)
+## Requirements (Recommended Header)
 
 For the problem(s) solved by this RFC, what constrains the possible solutions?
 List other RFCs, or standards (ISO, etc.) which are applicable. It is suggested
@@ -59,7 +59,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
 interpreted as described in [IETF RFC 2119][IETF RFC 2119]
 
-## Stakeholders (SHOULD)
+## Stakeholders (Recommended Header)
 
 Who has a stake in whether this RFC is accepted?
 
@@ -78,7 +78,7 @@ Who has a stake in whether this RFC is accepted?
   socialized before advancing to the "Iterate" stage of the RFC process. For
   example: "This RFC was discussed at a working group meetings from 20xx-20yy"
 
-## Implementation (SHOULD)
+## Implementation (Recommended Header)
 
 Many RFCs have an "implementation" section which details how the implementation
 will work. This section should explain the rough specification changes. The
@@ -94,7 +94,7 @@ For the RFC author, typing out the implementation in a high-level often serves
 as "[rubber duck debugging][rubber duck debugging]" and you can catch a lot of
 issues or unknown unknowns prior to writing any real code.
 
-## Drawbacks, risks, alternatives, and unknowns (SHOULD)
+## Drawbacks, risks, alternatives, and unknowns (Recommended Header)
 
 * What are the costs of implementing this proposal?
 * What known risks exist? What factors may complicate your project? Include:
@@ -112,7 +112,7 @@ issues or unknown unknowns prior to writing any real code.
   addressed in the future independently of the solution that comes out of this
   RFC?
 
-## Abandoned Ideas (MAY)
+## Abandoned Ideas (Optional Header)
 
 As RFCs evolve, it is common that there are ideas that are abandoned. Rather
 than simply deleting them from the document, you should try to organize them
@@ -124,7 +124,7 @@ the future, it is common to walk the same path and fall into the same pitfalls
 that we've since matured from. Abandoned ideas are a way to recognize that path
 and explain the pitfalls and why they were abandoned.
 
-## Prior art and references (MAY)
+## Prior art and references (Optional Header)
 
 Is there any background material that might be helpful when reading this
 proposal? For instance, do other operating systems address the same problem
@@ -148,7 +148,7 @@ us whether they are brand new or if it is an adaptation from other languages.
 Note that while precedent set by other languages is some motivation, it does
 not on its own motivate an RFC.
 
-## Future possibilities (MAY)
+## Future possibilities (Optional Header)
 
 Think about what the natural extension and evolution of your proposal would be
 and how it would affect the specification and project as a whole in a holistic
@@ -166,7 +166,7 @@ not a reason to accept the current or a future RFC; such notes should be in the
 section on motivation or rationale in this or subsequent RFCs. The section
 merely provides additional information.
 
-## Performance (SHOULD)
+## Performance (Recommended Header)
 
 What impact will this proposal have on performance? What benchmarks should we
 create to evaluate the proposal? To evaluate the implementation? Which of those
@@ -179,7 +179,7 @@ There should be microbenchmarks. Are there?
 There should be end-to-end tests and benchmarks. If there are not (since this
 is still a design), how will you track that these will be created?
 
-## Backwards Compatibility (SHOULD)
+## Backwards Compatibility (Recommended Header)
 
 Backwards compatibility comes in two flavors: FIDL file source compatibility,
 and ABI or wire format compatibility. This section should speak to both. Over
@@ -190,7 +190,7 @@ changes you would expect users to make to FIDL definitions without breaking
 users of the generated code. If your feature places any new source
 compatibility restrictions on the generated language bindings, list those here.
 
-## Security considerations (MAY)
+## Security considerations (Optional Header)
 
 What impact will this proposal have on security? Does the proposal require a
 security review?
@@ -201,7 +201,7 @@ From there, consider how known classes of vulnerabilities might apply to the
 system and what tools and techniques can be applied to avoid those
 vulnerabilities.
 
-## Privacy considerations (MAY)
+## Privacy considerations (Optional Header)
 
 What impact will this proposal have on privacy? Does the proposal require a
 privacy review?
@@ -210,7 +210,7 @@ A good starting point is to think about how user data might be collected,
 stored, or processed by your system. From there, consider the lifecycle of such
 data and any data protection techniques that may be employed.
 
-## Testing (SHOULD)
+## Testing (Recommended Header)
 
 How will you test your feature? A typical testing strategy involves unit,
 integration, and end-to-end tests. Are our existing test frameworks and
@@ -221,7 +221,7 @@ If your proposal defines a contract implemented by other people, how will those
 people test that they have implemented the contract correctly? Consider, for
 example, creating a conformance test suite for this purpose.
 
-## UI/UX (MAY)
+## UI/UX (Optional Header)
 
 If there are user- or frontend-impacting changes by this RFC, it is important
 to have a "UI/UX" section. User-impacting changes might include changes in how
@@ -237,7 +237,7 @@ feel like the rest of the ecosystem. Further, if the breaking changes are
 intolerable or there is a way to make a change while preserving compatibility,
 that should be explored.
 
-## Tutorials and Examples (MAY)
+## Tutorials and Examples (Optional Header)
 
 TODO
 
