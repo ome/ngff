@@ -1,5 +1,4 @@
-
-# [RFC] Title
+# RFC Template
 
 Summary: Sentence fragment summary
 Status: WIP | In-Review | Approved | Obsolete
