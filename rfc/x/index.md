@@ -4,24 +4,24 @@ RFC-x
 ## Overview
 
 This RFC defines the high-level decision making process for changes within the
-NGFF community. These changes are defined in “Request for Comments” (RFCs) and
+NGFF community. These changes are defined in "Request for Comments" (RFCs) and
 therefore this RFC is self-referential: it is following the process that it
 itself defines. The overall goal of the process is to make clear how decision
 making works with a focus on both speed of development and clarity. It should
 be clear after reading the RFC which stakeholder (author, reviewer, editor,
-etc.) is responsible for moving  decisions along and how much time the
+etc.) is responsible for moving decisions along and how much time the
 community can expect that decision to take. Not all decisions in the NGFF
-community need follow the RFC process. Clarifications, corrections, and
+community need to follow the RFC process. Clarifications, corrections, and
 numerous other changes will proceed following the current GitHub workflow.
-However, when decisions reach a certain scale, RFCs will provide a mechanism
-for managing the decision making process. This includes significant
-    specification changes but also changes to the community process itself.
+However, when decisions reach a certain scale, including significant
+specification changes but also changes to the community process itself, RFCs
+will provide a mechanism for managing the process.
 
 ## Background
 
 Growing interest in the NGFF format has also led to increased participation in
 the specification process. As such, reaching a consensus for all decisions has
-become more difficult.  The current approach defined post facto in RFC-0
+become more difficult. The current approach defined post facto in RFC-0
 follows a full consensus model. Through community meetings and pull requests,
 it was expected that all parties agree before a specification change was
 considered. This made it especially difficult both for **Authors** as well as
@@ -35,7 +35,7 @@ has been significant interest within the community to update the process used
 in order to bypass these issues. This RFC adapts the well-known [RFC process][1],
 which originated in the Internet Engineering Task Force (IETF), for use in the
 NGFF community as has been done in a number of other communities ([Rust][2],
-[Hashicorp][3],  [Tensorflow][4], etc.) More information can be found under:
+[Hashicorp][3], [Tensorflow][4], etc.) More information can be found under:
 
 - [https://en.wikipedia.org/wiki/Internet\_Standard#Standardization\_process]
 - [https://en.wikipedia.org/wiki/Request\_for\_Comments]
@@ -90,7 +90,7 @@ table. Rather than a process terminated with a single vote, the RFC process
 consists of iterative rounds of gathering **Endorsers**.
 
 TODO: explain similar to “sponsors” in the Tensorflow for who approves the PR? (see also
-  [https://engineering.squarespace.com/blog/2019/the-power-of-yes-if])
+[https://engineering.squarespace.com/blog/2019/the-power-of-yes-if])
 
 
 **Editors** identify whether a PR should or should not follow the RFC process,
@@ -124,7 +124,7 @@ Identifiers such as “D1”, “R2”, “S3”, refer to steps in that diagram
 
 The overall process is broken down into three phases: DRAFT phase before a
 proposal becomes an RFC, the RFC phase during which reviews occur, and the SPEC
-phase after the RFC has been adopted.  
+phase after the RFC has been adopted.
 
 #### DRAFT
 
@@ -161,7 +161,7 @@ silence anyone but to manage the overall flow of discussion.
 #### RFC
 
 Once a PR has been merged to become an RFC, **Editors** are responsible for
-identifying and assigning **Reviewers** (R1).  **Reviewers** will be given a
+identifying and assigning **Reviewers** (R1). **Reviewers** will be given a
 period of time (currently defined as a minimum of 1 month) for preparing their
 reviews. If they do not foresee being able to respond in this time, they SHOULD
 contact the **Editors** as soon as possible. **Reviewers** then submit their
@@ -190,7 +190,7 @@ most useful way. There is no template but useful sections might include:
 * Minor comments and questions
 * Recommendation
 
-The tone of a  review should be cordial and professional.  TODO
+The tone of a review should be cordial and professional. TODO
 
 Once **Editors** have received the recommendations and reviews (R3), they
 should be added to the repository and the **Authors** should be contacted for a
@@ -201,7 +201,7 @@ contact **Reviewers** to see if their recommendations have changed.
 
 mention growing endorsers including implementation as a key to driving uptake, confidence, and trust.
 
-This brings a critical, and iterative, decision point (R6).  If a “Reject”
+This brings a critical, and iterative, decision point (R6). If a “Reject”
 recommendation remains, then the RFC is closed. The text remains on the
 specification pages for posterity. If sufficient (TODO: define minimal, etc.)
 endorsements are available, then the RFC can progress (S1) to the SPEC phase
@@ -272,7 +272,7 @@ This model is very close to the original IETF RFC model, but omits the
 following keywords:
 
 - Format: we have limited RFCs to Markdown
-- Stream: in  IETF, different streams are responsible for different parts of
+- Stream: in IETF, different streams are responsible for different parts of
   the internet infrastructure. This may be introduced in the future.
 - Similarly the STD (“Standard track”), BCP (“best community practice”), FYI
   (“informational”) designations are not currently used.
@@ -307,7 +307,7 @@ This is balanced, however, by a explicitness about the time that can be taken an
 
 As mentioned elsewhere in this document, the current consensus model of
 decision making described in RFC-0 is one of the ideas that this RFC would
-abandon.  An alternative proposal that has been mentioned at various times is
+abandon. An alternative proposal that has been mentioned at various times is
 that that someone, likely the Editor, “should just decide”. This fiat model,
 however, places too much burden on a single individual within the community. 
 
