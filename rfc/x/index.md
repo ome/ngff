@@ -347,6 +347,9 @@ determines.
 
 A few locations in the text are clearly marked as
 
+
+following out of scope
+
 - Definition of editors / editorial board
 - Definition of advisory board. see also IAB for more process (or fuchsia governing authority for escalation)
 - Definition of multiple streams.
