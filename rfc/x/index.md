@@ -126,10 +126,10 @@ phase after the RFC has been adopted.
 #### DRAFT
 
 The DRAFT phase begins when **Authors** propose (D1) a new idea and
-subsequently gather support (or “socialize”) the idea (D2) before opening a PR
+subsequently gather support (or "socialize") the idea (D2) before opening a PR
 (D3). Open PRs can be discussed on GitHub. Any clarifications that are needed
 can be requested by **Editors**, **Reviewers** or **Commenters** (D4) which may
-require an update of the PR (D3). 
+require an update of the PR (D3).
 
 One potential clarification is whether or not a given PR should be an RFC. The
 RFC process is intended primarily for significant and/or breaking changes to
@@ -148,11 +148,11 @@ be adopted by other members of the community.
 These steps are not significantly different from the previous consensus model
 described in RFC-0. However, it is intended that the discussions during this
 period are intended to improve the RFC and is not intended to evaluate its
-overall value. As described in the next section “RFC”, the deeper and more
+overall value. As described in the next section "RFC", the deeper and more
 critical discussions should happen as complete and well-considered out reviews
 and responses that will help future readers understand the decision-making
 process. To this end, **Editors** MAY state on GitHub that a question or
-comment is “more appropriate for an official comment”. This is not intended to
+comment is "more appropriate for an official comment". This is not intended to
 silence anyone but to manage the overall flow of discussion.
 
 #### RFC
@@ -163,18 +163,29 @@ period of time (currently defined as a minimum of 1 month) for preparing their
 reviews. If they do not foresee being able to respond in this time, they SHOULD
 contact the **Editors** as soon as possible. **Reviewers** then submit their
 comments (R2) along with their recommendations to the **Editors**, either via a
-public PR adding the review in markdown to the RFC’s subdirectory or by
+public PR adding the review in markdown to the RFC's subdirectory or by
 emailing the **Editors** directly. (This latter course should only be limitedly
 used when necessary.)
 
 Possible recommendations from **Reviewers** in ascending order of support are:
 
-* “Reject” suggests that a **Reviewer** considers there to be no merit to an RFC. This should be a last recourse. Instead, suggestions in a “Major changes” recommendation might include attempting an Extension rather than an RFC so that not all implementations need concern themselves with the matter.
-* “Major changes” suggests that a **Reviewer** sees the potential value of an RFC but will require significant changes before being convinced. Suggestions SHOULD be provided on how to concretely improve the proposal in order to make it acceptable and change the **Reviewer**’s reecommendation.
-* “Minor changes” suggests that if the described changes are made, that **Editors** can move forward with an RFC without a further review.
-* “Accept” is a positive vote and no text review is strictly necessary, though may be provided to add context to the written record. This is equivalent to the **Reviewer** joining the list of endorsements.
+* “Reject” suggests that a **Reviewer** considers there to be no merit to an
+  RFC. This should be a last recourse. Instead, suggestions in a “Major
+  changes” recommendation might include attempting an Extension rather than an
+  RFC so that not all implementations need concern themselves with the matter.
+* “Major changes” suggests that a **Reviewer** sees the potential value of an
+  RFC but will require significant changes before being convinced. Suggestions
+  SHOULD be provided on how to concretely improve the proposal in order to make
+  it acceptable and change the **Reviewer**’s reecommendation.
+* “Minor changes” suggests that if the described changes are made, that
+  **Editors** can move forward with an RFC without a further review.
+* “Accept” is a positive vote and no text review is strictly necessary, though
+  may be provided to add context to the written record. This is equivalent to
+  the **Reviewer** joining the list of endorsements.
 
-Three additional versions of the “Accept” recommendation are available for **Reviewers** who additionally maintain an implementation of the NGFF specification to express further support:
+Three additional versions of the "Accept" recommendation are available for
+**Reviewers** who additionally maintain an implementation of the NGFF
+specification to express further support:
 * “Plan to implement” with an estimated timeline
 * “Implementation begun” with an estimated timeline
 * “Implementation complete” with a link to the available code
@@ -198,11 +209,11 @@ contact **Reviewers** to see if their recommendations have changed.
 
 mention growing endorsers including implementation as a key to driving uptake, confidence, and trust.
 
-This brings a critical, and iterative, decision point (R6). If a “Reject”
+This brings a critical, and iterative, decision point (R6). If a "Reject"
 recommendation remains, then the RFC is closed. The text remains on the
 specification pages for posterity. If sufficient (TODO: define minimal, etc.)
 endorsements are available, then the RFC can progress (S1) to the SPEC phase
-below. If there are no “Major” objections but still no consensus, the decision
+below. If there are no "Major" objections but still no consensus, the decision
 falls to the **Editors** (R7) who may also move the RFC to the SPEC phase (S0).
 Otherwise, the RFC iterates through the process again. If the changes made by
 the **Authors** are significant, **Reviewers** may be asked to respond again
@@ -216,7 +227,7 @@ TODO: mention delays.
 TODO: rename to Propose > Review > Implement ???
 
 If an RFC enters the SPEC state via **Editors** approval (S0), an additional
-explanation by the **Editors** will be included in the RFC’s directory at which
+explanation by the **Editors** will be included in the RFC's directory at which
 point it is considered equivalent to a **Reviewer** accepted RFC. At this point
 (S1), the primary purpose of the RFC becomes driving implementations. Further
 clarifications (S2) may be needed. Updates to the RFC as well as the
@@ -224,7 +235,7 @@ specification itself will be managed by the **Authors** and the **Editors** in
 coordination. **Editors** will also contact remaining implementers (S3)
 regarding the status of their implementations and update the endorsements table
 accordingly. Once sufficient (TODO: define / list time) endorsements are
-listed, the specification will be considered “adopted”. The adopted
+listed, the specification will be considered "adopted". The adopted
 specification will be slotted into a release version by the **Editors** and the
 **Authors** are encouraged to be involved in that release.
 
@@ -305,21 +316,21 @@ This is balanced, however, by a explicitness about the time that can be taken an
 As mentioned elsewhere in this document, the current consensus model of
 decision making described in RFC-0 is one of the ideas that this RFC would
 abandon. An alternative proposal that has been mentioned at various times is
-that that someone, likely the Editor, “should just decide”. This fiat model,
+that that someone, likely the Editor, "should just decide". This fiat model,
 however, places too much burden on a single individual within the community. 
 
-Another potential model described further under “Prior Art” is the “Enhancement
-Proposal” model like PEP or ZEP. Firstly, the “NEP” name is already used in the
-Napari community, but more importantly the number of levels…
+Another potential model described further under "Prior Art" is the "Enhancement
+Proposal" model like PEP or ZEP. Firstly, the "NEP" name is already used in the
+Napari community, but more importantly the number of levels...
 
 - PEP/ZEP — naming. :) also difference of implementation levels
 
 Other communities 
-W3C/HTML
+W3C/HTML TODO
 
 ## Prior art and references
 
-As mentioned in the “Background” section, there are a number of communities
+As mentioned in the "Background" section, there are a number of communities
 using adaptions of the RFC process which will not be re-listed here. However,
 there are also other enhancement processes which are closely related to the
 NGFF RFC. Most closely, is the Zarr Enhancement Proposals (ZEP) process within
@@ -330,7 +341,7 @@ processes, the ZEP process uses a council of the implementations (ZIC)
 
 This RFC does not try to define all aspects of the NGFF community process and
 instead focuses on the most immediate block which might be called the voting
-process. By establishing this as a fundament, future RFCs can extend the
+process. By establishing this as a foundation, future RFCs can extend the
 community process either adding or simplifying structure as feedback
 determines.
 
@@ -365,14 +376,14 @@ have been written up to follow the RFC model proposed above.
 * HCS
 * etc.
 
-Other RFCs that will _likely_ be written can be found under the “Future
-possibilities” section.
+Other RFCs that will _likely_ be written can be found under the "Future
+possibilities" section.
 
 ## Skipped sections
 
-This RFC excludes the following optional headers: “Performance”, “Backwards
-Compatibility”, “Security considerations”, “Privacy considerations”, “Testing”,
-“UI/UX”.
+This RFC excludes the following optional headers: "Performance", "Backwards
+Compatibility", "Security considerations", "Privacy considerations", "Testing",
+"UI/UX".
 
 ## Definitions
 
