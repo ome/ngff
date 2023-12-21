@@ -37,8 +37,8 @@ which originated in the Internet Engineering Task Force (IETF), for use in the
 NGFF community as has been done in a number of other communities ([Rust][2],
 [Hashicorp][3], [Tensorflow][4], etc.) More information can be found under:
 
-- [https://en.wikipedia.org/wiki/Internet\_Standard#Standardization\_process]
-- [https://en.wikipedia.org/wiki/Request\_for\_Comments]
+- <https://en.wikipedia.org/wiki/Internet_Standard#Standardization_process>
+- <https://en.wikipedia.org/wiki/Request_for_Comments>
 
 Ultimately, each RFC is a record of a decision made, either for or against a
 proposal, that will be available from the main NGFF webpage. This captures the
@@ -65,8 +65,6 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
 interpreted as described in IETF RFC 2119.
 
-TODO: consider Virginie’s comments.
-
 ## Stakeholders
 
 This section lists the major stakeholders in the RFC process and provides an
@@ -87,11 +85,10 @@ available on https://ngff.openmicroscopy.org.
 **Endorsers** are non-**Author** supporters of an RFC, listed in a table.
 **Reviewers** who have given an “Accept” recommendation are also added to the
 table. Rather than a process terminated with a single vote, the RFC process
-consists of iterative rounds of gathering **Endorsers**.
-
-TODO: explain similar to “sponsors” in the Tensorflow for who approves the PR? (see also
-[https://engineering.squarespace.com/blog/2019/the-power-of-yes-if])
-
+consists of iterative rounds of gathering **Endorsers**, or sponsors, who
+approve the work, building confidence that the community is moving in the
+right direction. More information on this strategy can be found under:
+<https://engineering.squarespace.com/blog/2019/the-power-of-yes-if> .
 
 **Editors** identify whether a PR should or should not follow the RFC process,
 and choosing when a draft is ready to become an RFC. They also choose
@@ -116,9 +113,9 @@ decision-making process.
 
 ## Implementation
 
-This description of the RFC process will refer frequently to the visual diagram
-(TODO: Link). Readers may want to familiar themselves with it at this point.
-Identifiers such as “D1”, “R2”, “S3”, refer to steps in that diagram.
+This description of the RFC process will refer frequently to the [visual diagram][dia]
+Readers may want to familiar themselves with it at this point.
+Identifiers such as "D1", "R2", "S3", refer to steps in that diagram.
 
 ### Phases
 
@@ -138,8 +135,8 @@ One potential clarification is whether or not a given PR should be an RFC. The
 RFC process is intended primarily for significant and/or breaking changes to
 the specification or the community process itself. Other changes, bug fixes,
 etc. are welcome as PRs without a full RFC. If **Authors** are unsure whether
-or not a change requires an RFC. All RFC-targeted PRs SHOULD follow the current
-template (TODO link)
+or not a change requires an RFC. All RFC-targeted PRs SHOULD follow the
+[current template][tmpl].
 
 At the **Editors** discretion (D5), the PR can be merged at which point it
 becomes an RFC or closed if there is no interest in progressing with the
@@ -393,7 +390,10 @@ Definitions for terms used throughout this RFC have been collected below.
 * Review:
 * Reviewer: See “Stakeholders”
 
+[dia]: diagram.png
+[tmpl]: template.md
 [1]: https://www.rfc-editor.org/
 [2]: https://github.com/rust-lang/rfcs/blob/master/0000-template.md
 [3]: https://works.hashicorp.com/articles/rfc-template
 [4]: https://github.com/tensorflow/community/blob/master/rfcs/yyyymmdd-rfc-template.md
+
