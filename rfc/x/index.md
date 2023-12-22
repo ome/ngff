@@ -73,17 +73,17 @@ details, see the “Implementation” section below.
 
 **Authors** propose an idea for the RFC process and socialize the idea, e.g.,
 through an issue or community call, gaining **Endorsers** They then submit a
-pull request to the https://github.com/ome/ngff repository with a document that
+pull request to the <https://github.com/ome/ngff> repository with a document that
 they would like to have published as an RFC. This pull request MUST contain a
-document under the rfcs/ subdirectory and it SHOULD follow the template
-provided. As described under the “DRAFT” section below, this document can be
+document under the `rfc/` subdirectory and it SHOULD follow the template
+provided. As described under the "DRAFT" section below, this document can be
 discussed for clarity following the standard PR process. However, once the
 draft has reached a certain stage that it is ready for comments, **Editors**
 will merge it as a record of the fact that the suggestion. It will then become
 available on https://ngff.openmicroscopy.org.
 
 **Endorsers** are non-**Author** supporters of an RFC, listed in a table.
-**Reviewers** who have given an “Accept” recommendation are also added to the
+**Reviewers** who have given an "Accept" recommendation are also added to the
 table. Rather than a process terminated with a single vote, the RFC process
 consists of iterative rounds of gathering **Endorsers**, or sponsors, who
 approve the work, building confidence that the community is moving in the
@@ -95,7 +95,7 @@ and choosing when a draft is ready to become an RFC. They also choose
 appropriate **Reviewers** for an RFC and manage the communication between
 **Authors** and **Reviewers**. 
 
-Note: The use of “Editors” in this document is intended as a placeholder. A
+Note: The use of "Editors" in this document is intended as a placeholder. A
 future RFC will define the selection and removal of editors. Until that time,
 the sole editor is Josh Moore which has been the _de facto_ case since the
 inception of NGFF. 
@@ -176,7 +176,7 @@ Possible recommendations from **Reviewers** in ascending order of support are:
 * “Major changes” suggests that a **Reviewer** sees the potential value of an
   RFC but will require significant changes before being convinced. Suggestions
   SHOULD be provided on how to concretely improve the proposal in order to make
-  it acceptable and change the **Reviewer**’s reecommendation.
+  it acceptable and change the **Reviewer**’s recommendation.
 * “Minor changes” suggests that if the described changes are made, that
   **Editors** can move forward with an RFC without a further review.
 * “Accept” is a positive vote and no text review is strictly necessary, though
