@@ -207,7 +207,7 @@ via subsequent PRs. The response SHOULD include a written rebuttal to each of
 the reviews. **Editors** include the response in the repository (R5) and
 contact **Reviewers** to see if their recommendations have changed.
 
-TODO: mention growing endorsers including implementation as a key to driving uptake,
+> **_TODO:_** mention growing endorsers including implementation as a key to driving uptake,
 confidence, and trust.
 
 This brings a critical, and iterative, decision point (R6). If a "Reject"
@@ -221,7 +221,7 @@ the **Authors** are significant, **Reviewers** may be asked to respond again
 (R2). Alternatively, **Editors** may send the text back to the **Authors** for
 further refinement in order to achieve sufficient endorsement.
 
-TODO: mention delays throughout the previous paragraphs once they are decided on.
+> **_TODO:_** mention delays throughout the previous paragraphs once they are decided on.
 
 #### SPEC
 
@@ -233,7 +233,7 @@ clarifications (S2) may be needed. Updates to the RFC as well as the
 specification itself will be managed by the **Authors** and the **Editors** in
 coordination. **Editors** will also contact remaining implementers (S3)
 regarding the status of their implementations and update the endorsements table
-accordingly. Once sufficient (TODO: define / list time) endorsements are
+accordingly. Once sufficient (TODO: define) endorsements are
 listed, the specification will be considered "adopted". The adopted
 specification will be slotted into a release version by the **Editors** and the
 **Authors** are encouraged to be involved in that release.
@@ -298,13 +298,13 @@ The possible values for Status are:
 The primary **drawbacks**, **risks**, and **unknowns** of the proposal revolve
 around the cost that the process will place on those participating in it. This
 equally points to the primary **alternative** which is to not have such a
-process, and “just use GitHub like any other open source project”. The
+process, and "just use GitHub like any other open source project". The
 experience of this RFCs author has been that solely relying on issues and PRs
 on GitHub does not provide the editorial functions that one would want, such as
 deferring and collecting comments, nor do the conversations provide a
 consistent whole when revisited after the work on a specification.
 Additionally, **Authors** have complained of the burden of managing responses.
-So there’s a need for *something*, but does this proposal go too far in the
+So there's a need for *something*, but does this proposal go too far in the
 other direction?
 
 It is certainly true that the formality of the responses asked of the
@@ -322,7 +322,7 @@ can be involved. It also puts into place an editorial mechanism to handle the
 situation where a **Reviewer** must leave the process early, allowing things to
 continue to move forward.
 
-Will the process be worth the effort? It’s unclear. The fact that several other
+Will the process be worth the effort? It's unclear. The fact that several other
 communities have used variants of the process would imply that it can work. It
 might be that we will have to update and further customize the process for the
 NGFF community, but by having something explicit as in this RFC-0 it will make
@@ -334,17 +334,18 @@ As mentioned elsewhere in this document, the current consensus model of
 decision making described in RFC-0 is one of the ideas that this RFC would
 abandon. An alternative proposal that has been mentioned at various times is
 that that someone, likely the Editor, "should just decide". This fiat model,
-however, places too much burden on a single individual within the community. 
-
-Another potential model described further under "Prior Art" is the "Enhancement
-Proposal" model like PEP or ZEP. Firstly, the "NEP" name is already used in the
-Napari community, but more importantly the number of levels... TODO
+however, places too much burden on a single individual within the community.
 
 Looking at the W3C community, there was little information on how each of the
 separate working groups (HTML, XML, etc.) conducted their internal business.
 Since this proposal intended to begin bottom-up, it was more useful to find a
-working internal process. In the future, looking to the W3C for some of the
-higher-level governance may make sense.
+working internal process like RFC. In the future, looking to the W3C for some
+of the higher-level governance may make sense.
+
+Another potential model described further under "Prior Art" is the "Enhancement
+Proposal" model like ZEP. These models work quite similarly to the RFC model.
+One major difficulty is that the name "NEP" is already in use by the Napari
+community.
 
 ## Prior art and references
 
@@ -433,7 +434,7 @@ considering:
 ## Examples (TODO)
 
 Below is a list of the preceding major decisions within the NGFF community that
-have been written up to follow the RFC model proposed above. 
+have been written up to follow the RFC model proposed above.
 
 * Original NGFF including consensus model (RFC 1) - or Zero?
 * Transforms (RFC N+1)
@@ -466,12 +467,14 @@ Definitions for terms used throughout this RFC have been collected below.
 * Draft: See the related section under “Implementation > Phases”
 * Editor: See “Stakeholders”
 * Endorsement:
-* RFC (“Request for Comment”): A formal proposal following a standardized
+* RFC ("Request for Comment"): A formal proposal following a standardized
   template that is made to the NGFF repository. The proposal need not be
   accepted to be published online.
 * PR: A pull request opened against the ome/ngff repository on GitHub.
 * Review: See Comment
 * Reviewer: See “Stakeholders”
+* ZEP ("Zarr Enhancement Proposal") Decision-making process for the Zarr
+  specification
 
 [dia]: diagram.png
 [tmpl]: template.md
