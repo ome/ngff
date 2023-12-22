@@ -295,20 +295,13 @@ The possible values for Status are:
 
 ## Drawbacks, risks, alternatives, and unknowns
 
-The primary **drawbacks** and **risks** of the proposal 
+The primary **drawbacks**, **risks**, and **unknowns** of the proposal revolve around the cost that the process will place on those participating in it. This equally points to the primary **alternative** which is to not have such a process, and “just use GitHub like any other open source project”. The experience of this RFCs author has been that solely relying on issues and PRs on GitHub does not provide the editorial functions that one would want, such as deferring and collecting comments, nor do the conversations provide a consistent whole when revisited after the work on a specification. Additionally, **Authors** have complained of the burden of managing responses. So there’s a need for *something*, but does this proposal go too far in the other direction?
 
-- more investment of reviewers time (concerted effort) but better review
+It is certainly true that the formality of the responses asked of the **Authors** is beyond a typical PR, but the investment for the specifications as of the writing of this RFC have already been significant, and the RFC process especially helps **Authors** to structure and coordinate their proposals. Similarly, the one **Editor** to date (and the author of this RFC) has also struggled with the lack of an explicit process, and so that too is likely less of an issue. Is the cost then too high for the **Reviewers**?
 
-This is balanced, however, by a explicitness about the time that can be taken and where one stands within the process.
+The hope is that by having clear expectations of the times involved in each step, and following a model which is relatively known (reviewing for a journal) that **Reviewers** will be better able to judge whether and how frequently they can be involved. It also puts into place an editorial mechanism to handle the situation where a **Reviewer** must leave the process early, allowing things to continue to move forward.
 
-- unknowns:
-	- if it is worth the effort
-		- has worked in other communities
-		- know that we need _something_ for handling the growth
-- alternatives:
-	- “just use GitHub” - lack of record, small comments are difficult on authors (“pile on”), editors don’t have the functions they need
-	- have to write this section as if it’s a viable alternative. or perhaps as abandoned? 
-	- - “just as open source”
+Will the process be worth the effort? It’s unclear. The fact that several other communities have used variants of the process would imply that it can work. It might be that we will have to update and further customize the process for the NGFF community, but by having something explicit as in this RFC-0 it will make it possible for us to more easily iterate.
 
 ## Abandoned ideas
 
@@ -320,7 +313,7 @@ however, places too much burden on a single individual within the community.
 
 Another potential model described further under "Prior Art" is the "Enhancement
 Proposal" model like PEP or ZEP. Firstly, the "NEP" name is already used in the
-Napari community, but more importantly the number of levels...
+Napari community, but more importantly the number of levels... TODO
 
 Looking at the W3C community, there was little information on how each of the
 separate working groups (HTML, XML, etc.) conducted their internal business.
