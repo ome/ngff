@@ -55,7 +55,7 @@ move forward. Goals of this process include (a) maintaining a public record of
 the decision making (b) querying acceptance of a proposal throughout the
 process and making that readily visible (c) ultimately driving the
 implementation of specifications in order to get working solutions into the
-hands of the bioimaging community. The process should **NOT** preventing future
+hands of the bioimaging community. The process should **NOT** prevent future
 discussions on any adopted RFCs but instead will encourage continued
 improvement and evolution through discussions of _further_RFCs.
 
@@ -135,8 +135,8 @@ One potential clarification is whether or not a given PR should be an RFC. The
 RFC process is intended primarily for significant and/or breaking changes to
 the specification or the community process itself. Other changes, bug fixes,
 etc. are welcome as PRs without a full RFC. If **Authors** are unsure whether
-or not a change requires an RFC. All RFC-targeted PRs SHOULD follow the
-[current template][tmpl].
+or not a change requires an RFC, they can open an issue or contact the **Editors**
+directly. All RFC-targeted PRs SHOULD follow the [current template][tmpl].
 
 At the **Editors** discretion (D5), the PR can be merged at which point it
 becomes an RFC or closed if there is no interest in progressing with the
@@ -198,7 +198,8 @@ most useful way. There is no template but useful sections might include:
 * Minor comments and questions
 * Recommendation
 
-The tone of a review should be cordial and professional. The goal 
+The tone of a review should be cordial and professional. The goal is to communicate
+to the **Authors** what it would take to make the RFC acceptable.
 
 Once **Editors** have received the recommendations and reviews (R3), they
 should be added to the repository and the **Authors** should be contacted for a
