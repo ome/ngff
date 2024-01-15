@@ -20,6 +20,6 @@ much more.</font></p>
 <p><font size="4">Please see the NGFF community calendar for exact
 timings:</font></p>
 
-<iframe id="calendariframe" src="https://calendar.google.com/calendar/embed?src=14c96687c3814f289f92de53b49bdfa7e5161d458ed1ab02d6a6c8a994522e10%40group.calendar.google.com&ctz=Europe%2FBerlin" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> <script>document.getElementById("calendariframe").src = document.getElementById("calendariframe").src.replace("ctz=local", "ctz=" + Intl.DateTimeFormat().resolvedOptions().timeZone)</script>
+<iframe id="calendariframe" src="https://calendar.google.com/calendar/embed?src=14c96687c3814f289f92de53b49bdfa7e5161d458ed1ab02d6a6c8a994522e10%40group.calendar.google.com&ctz=local" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> <script>document.getElementById("calendariframe").src = document.getElementById("calendariframe").src.replace("ctz=local", "ctz=" + Intl.DateTimeFormat().resolvedOptions().timeZone)</script>
 
 <font size="4">Download the <a href="https://calendar.google.com/calendar/ical/14c96687c3814f289f92de53b49bdfa7e5161d458ed1ab02d6a6c8a994522e10%40group.calendar.google.com/public/basic.ics">.ics</a> file and add it to your calendar so won't miss any of our meetings!</font>
