@@ -18,6 +18,7 @@ Sample NGFF datasets provided by the community can be found under :doc:`data/ind
    :maxdepth: 2
 
    about/index
+   community/index
    data/index
    publications/index
    specifications/index

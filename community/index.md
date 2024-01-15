@@ -2,7 +2,12 @@
 
 ## Office Hours
 
+<!--
+Button styling for our theme needs work
 <button type="button" name="office-hours" class="btn" onclick="window.open('https://openmicroscopy-org.zoom.us/j/82526689042?pwd=ZIde7mcvZugQGmJ8Bm9piFo5Tzwdy1.1');">Join here</button>
+-->
+
+[**Join here!**](https://openmicroscopy-org.zoom.us/j/82526689042?pwd=ZIde7mcvZugQGmJ8Bm9piFo5Tzwdy1.1)
 
 <p><font size="4">We'll be hosting office hours on Wednesdays, rotating between
 APAC/AU/EU- and AMER/AU/EU-friendly times.
