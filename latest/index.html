@@ -1491,7 +1491,7 @@ Possible extra rowspan handling
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="18959c84438e9b4f85283bbe79518909bc403d2c" name="document-revision">
+  <meta content="443fdcaa10c9c9fda8bc24178a54941aaae3ec1d" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -2072,7 +2072,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="https://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2024-01-15">15 January 2024</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2024-01-17">17 January 2024</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2549,8 +2549,7 @@ can be found under the "omero" key in the group-level metadata:</p>
     <c- f>"model"</c-><c- p>:</c-> <c- u>"color"</c->                  # <c- u>"color"</c-> or <c- u>"greyscale"</c->
 <c- p>}</c->
 </pre>
-   <p>See https://docs.openmicroscopy.org/omero/5.6.1/developers/Web/WebGateway.html#imgdata
-for more information.</p>
+   <p>See the <a href="https://omero.readthedocs.io/en/stable/developers/Web/WebGateway.html#imgdata">OMERO WebGateway documentation</a> for more information.</p>
    <h3 class="heading settled" data-level="2.6" id="labels-md"><span class="secno">2.6. </span><span class="content">"labels" metadata</span><a class="self-link" href="#labels-md"></a></h3>
    <p>In OME-Zarr, Zarr arrays representing pixel-annotation data are stored in a group called "labels". Some applications--notably image segmentation--produce
 a new image that is in the same coordinate system as a corresponding multiscale image (usually having the same dimensions and coordinate transformations). 
