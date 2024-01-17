@@ -384,7 +384,7 @@ can be found under the "omero" key in the group-level metadata:
 }
 ```
 
-See https://docs.openmicroscopy.org/omero/5.6.1/developers/Web/WebGateway.html#imgdata
+See the [OMERO WebGateway documentation](https://omero.readthedocs.io/en/stable/developers/Web/WebGateway.html#imgdata)
 for more information.
 
 "labels" metadata {#labels-md}
