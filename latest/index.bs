@@ -26,60 +26,6 @@ Status Text: will be provided between numbered versions. Data written with these
 Status Text: (an "editor's draft") will not necessarily be supported.
 </pre>
 
-Introduction {#intro}
-=====================
-
-Bioimaging science is at a crossroads. Currently, the drive to acquire more,
-larger, preciser spatial measurements is unfortunately at odds with our ability
-to structure and share those measurements with others. During a global pandemic
-more than ever, we believe fervently that global, collaborative discovery as
-opposed to the post-publication, "data-on-request" mode of operation is the
-path forward. Bioimaging data should be shareable via open and commercial cloud
-resources without the need to download entire datasets.
-
-At the moment, that is not the norm. The plethora of data formats produced by
-imaging systems are ill-suited to remote sharing. Individual scientists
-typically lack the infrastructure they need to host these data themselves. When
-they acquire images from elsewhere, time-consuming translations and data
-cleaning are needed to interpret findings. Those same costs are multiplied when
-gathering data into online repositories where curator time can be the limiting
-factor before publication is possible. Without a common effort, each lab or
-resource is left building the tools they need and maintaining that
-infrastructure often without dedicated funding.
-
-This document defines a specification for bioimaging data to make it possible
-to enable the conversion of proprietary formats into a common, cloud-ready one.
-Such next-generation file formats layout data so that individual portions, or
-"chunks", of large data are reference-able eliminating the need to download
-entire datasets.
-
-
-Why "<dfn export="true"><abbr title="Next-generation file-format">NGFF</abbr></dfn>"? {#why-ngff}
--------------------------------------------------------------------------------------------------
-
-A short description of what is needed for an imaging format is "a hierarchy
-of n-dimensional (dense) arrays with metadata". This combination of features
-is certainly provided by <dfn export="true"><abbr title="Hierarchical Data Format 5">HDF5</abbr></dfn>
-from the <a href="https://www.hdfgroup.org">HDF Group</a>, which a number of
-bioimaging formats do use. HDF5 and other larger binary structures, however,
-are ill-suited for storage in the cloud where accessing individual chunks
-of data by name rather than seeking through a large file is at the heart of
-parallelization.
-
-As a result, a number of formats have been developed more recently which provide
-the basic data structure of an HDF5 file, but do so in a more cloud-friendly way.
-In the [PyData](https://pydata.org/) community, the Zarr [[zarr]] format was developed
-for easily storing collections of [NumPy](https://numpy.org/) arrays. In the
-[ImageJ](https://imagej.net/) community, N5 [[n5]] was developed to work around
-the limitations of HDF5 ("N5" was originally short for "Not-HDF5").
-Both of these formats permit storing individual chunks of data either locally in
-separate files or in cloud-based object stores as separate keys.
-
-A [current effort](https://zarr-specs.readthedocs.io/en/core-protocol-v3.0-dev/protocol/core/v3.0.html)
-is underway to unify the two similar specifications to provide a single binary
-specification. The editor's draft will soon be entering a [request for comments (RFC)](https://github.com/zarr-developers/zarr-specs/issues/101) phase with the goal of having a first version early in 2021. As that
-process comes to an end, this document will be updated.
-
 OME-NGFF {#ome-ngff}
 --------------------
 
@@ -100,6 +46,14 @@ Document conventions
 The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”,
 “RECOMMENDED”, “MAY”, and “OPTIONAL” are to be interpreted as described in
 [RFC 2119](https://tools.ietf.org/html/rfc2119).
+
+<p>
+<dfn>Transitional</dfn> metadata is added to the specification with the
+intention of removing it in the future. Implementations may be expected (MUST) or
+encouraged (SHOULD) to support the reading of the data, but writing will usually
+be optional (MAY). Examples of transitional metadata include custom additions by
+implementations that are later submitted as a formal specification. (See [[#bf2raw]])
+</p>
 
 Some of the JSON examples in this document include commments. However, these are only for
 clarity purposes and comments MUST NOT be included in JSON objects.
@@ -139,7 +93,7 @@ For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x
     ├── .zgroup               # Each image is a Zarr group, or a folder, of other groups and arrays.
     ├── .zattrs               # Group level attributes are stored in the .zattrs file and include
     │                         # "multiscales" and "omero" (see below). In addition, the group level attributes
-    │                         # must also contain "_ARRAY_DIMENSIONS" if this group directly contains multi-scale arrays.
+    │                         # may also contain "_ARRAY_DIMENSIONS" for compatibility with xarray if this group directly contains multi-scale arrays.
     │
     ├── 0                     # Each multiscale level is stored as a separate Zarr array,
     │   ...                   # which is a folder containing chunk files which compose the array.
@@ -242,9 +196,89 @@ keys as specified below for discovering certain types of data, especially images
 
 If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
+"bioformats2raw.layout" (transitional) {#bf2raw}
+------------------------------------------------
+
+[=Transitional=] "bioformats2raw.layout" metadata identifies a group which implicitly describes a series of images.
+The need for the collection stems from the common "multi-image file" scenario in microscopy. Parsers like Bio-Formats
+define a strict, stable ordering of the images in a single container that can be used to refer to them by other tools.
+
+In order to capture that information within an OME-NGFF dataset, `bioformats2raw` internally introduced a wrapping layer.
+The bioformats2raw layout has been added to v0.4 as a transitional specification to specify filesets that already exist
+in the wild. An upcoming NGFF specification will replace this layout with explicit metadata.
+
+<h4 id="bf2raw-layout" class="no-toc">Layout</h4>
+
+Typical Zarr layout produced by running `bioformats2raw` on a fileset that contains more than one image (series > 1):
+
+<pre>
+series.ome.zarr               # One converted fileset from bioformats2raw
+    ├── .zgroup
+    ├── .zattrs               # Contains "bioformats2raw.layout" metadata
+    ├── OME                   # Special group for containing OME metadata
+    │   ├── .zgroup
+    │   ├── .zattrs           # Contains "series" metadata
+    │   └── METADATA.ome.xml  # OME-XML file stored within the Zarr fileset
+    ├── 0                     # First image in the collection
+    ├── 1                     # Second image in the collection
+    └── ...
+</pre>
+
+<h4 id="bf2raw-attributes" class="no-toc">Attributes</h4>
+
+The top-level `.zattrs` file must contain the `bioformats2raw.layout` key:
+<pre class=include-code>
+path: examples/bf2raw/image.json
+highlight: json
+</pre>
+
+If the top-level group represents a plate, the `bioformats2raw.layout` metadata will be present but
+the "plate" key MUST also be present, takes precedence and parsing of such datasets should follow [[#plate-md]]. It is not
+possible to mix collections of images with plates at present.
+
+<pre class=include-code>
+path: examples/bf2raw/plate.json
+highlight: json
+</pre>
+
+The `.zattrs` file within the OME group may contain the "series" key:
+
+<pre class=include-code>
+path: examples/ome/series-2.json
+highlight: json
+</pre>
+
+<h4 id="bf2raw-details" class="no-toc">Details</h4>
+
+Conforming groups:
+
+- MUST have the value "3" for the "bioformats2raw.layout" key in their `.zattrs` metadata at the top of the hierarchy;
+- SHOULD have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml" which:
+    - MUST adhere to the OME-XML specification but
+    - MUST use `<MetadataOnly/>` elements as opposed to `<BinData/>`, `<BinaryOnly/>` or `<TiffData/>`;
+    - MAY make use of the [minimum specification](https://docs.openmicroscopy.org/ome-model/6.2.2/specifications/minimum.html).
+
+Additionally, the logic for finding the Zarr group for each image follows the following logic:
+
+- If "plate" metadata is present, images MUST be located at the defined location.
+    - Matching "series" metadata (as described next) SHOULD be provided for tools that are unaware of the "plate" specification.
+- If the "OME" Zarr group exists, it:
+    - MAY contain a "series" attribute. If so:
+        - "series" MUST be a list of string objects, each of which is a path to an image group.
+        - The order of the paths MUST match the order of the "Image" elements in "OME/METADATA.ome.xml" if provided.
+- If the "series" attribute does not exist and no "plate" is present:
+    - separate "multiscales" images MUST be stored in consecutively numbered groups starting from 0 (i.e. "0/", "1/", "2/", "3/", ...).
+- Every "multiscales" group MUST represent exactly one OME-XML "Image" in the same order as either the series index or the group numbers.
+
+Conforming readers:
+- SHOULD make users aware of the presence of more than one image (i.e. SHOULD NOT default to only opening the first image);
+- MAY use the "series" attribute in the "OME" group to determine a list of valid groups to display;
+- MAY choose to show all images within the collection or offer the user a choice of images, as with <dfn export="true"><abbr title="High-content screening">HCS</abbr></dfn> plates;
+- MAY ignore other groups or arrays under the root of the hierarchy.
+
 
 "coordinateTransformations" metadata {#trafo-md}
--------------------------------------
+------------------------------------------------
 
 "coordinateTransformations" describe a series of transformations that map between two coordinate spaces (defined by "axes").
 For example, to map a discrete data space of an array to the corresponding physical space.
@@ -292,7 +326,7 @@ Each "multiscales" dictionary MAY contain the field "coordinateTransformations",
 The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.
 They can for example be used to specify the `scale` for a dimension that is the same for all resolutions.
 
-Each "multiscales" dictionary SHOULD contain the field "name". It SHOULD contain the field "version", which indicates the version of the multiscale metadata of this image (current version is [NGFFVERSION]).
+Each "multiscales" dictionary SHOULD contain the field "name". It MUST contain the field "version", which indicates the version of the multiscale metadata of this image (current version is [NGFFVERSION]).
 
 Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
@@ -317,10 +351,10 @@ if not datasets:
     datasets = [x["path"] for x in multiscales[0]["datasets"]]
 ```
 
-"omero" metadata {#omero-md}
-----------------------------
+"omero" metadata (transitional) {#omero-md}
+-------------------------------------------
 
-Information specific to the channels of an image and how to render it
+[=Transitional=] information specific to the channels of an image and how to render it
 can be found under the "omero" key in the group-level metadata:
 
 ```json
@@ -356,58 +390,64 @@ for more information.
 "labels" metadata {#labels-md}
 ------------------------------
 
-The special group "labels" found under an image Zarr contains the key `labels` containing
-the paths to label objects which can be found underneath the group:
+In OME-Zarr, Zarr arrays representing pixel-annotation data are stored in a group called "labels". Some applications--notably image segmentation--produce 
+a new image that is in the same coordinate system as a corresponding multiscale image (usually having the same dimensions and coordinate transformations). 
+This new image is composed of integer values corresponding to certain labels with custom meanings. For example, pixels take the value 1 or 0 
+if the corresponding pixel in the original image represents cellular space or intercellular space, respectively. 
+Such an image is referred to in this specification as a 'label image'. 
+
+The "labels" group is nested within an image group, at the same level of the Zarr hierarchy as the resolution levels for the original image. 
+The "labels" group is not itself an image; it contains images. The pixels of the label images MUST be integer data types, i.e. one of 
+[`uint8`, `int8`, `uint16`, `int16`, `uint32`, `int32`, `uint64`, `int64`]. Intermediate groups between "labels" and the images within it are allowed, 
+but these MUST NOT contain metadata. Names of the images in the "labels" group are arbitrary.
+
+The `.zattrs` file associated with the "labels" group MUST contain a JSON object with the key `labels`, whose value is a JSON array of paths to the 
+labeled multiscale image(s). All label images SHOULD be listed within this metadata file. For example:
 
 ```json
 {
   "labels": [
-    "orphaned/0"
+    "cell_space_segmentation"
   ]
 }
 ```
 
-Unlisted groups MAY be labels.
+The `.zattrs` file for the label image MUST implement the multiscales specification. Within the `multiscales` object, the JSON array 
+associated with the `datasets` key MUST have the same number of entries (scale levels) as the original unlabeled image. 
 
-"image-label" metadata {#label-md}
-----------------------------------
+In addition to the `multiscales` key, the JSON object in this image-level `.zattrs` file SHOULD contain another key, `image-label`, 
+whose value is also a JSON object. The `image-label` object stores information about the display colors, source image, and optionally, 
+further arbitrary properties of the label image. That `image-label` object SHOULD contain the following keys: first, a `colors` key, 
+whose value MUST be a JSON array describing color information for the unique label values. Second, a `version` key, whose value MUST be a 
+string specifying the version of the OME-NGFF `image-label` schema.
 
-Groups containing the `image-label` dictionary represent an image segmentation
-in which each unique pixel value represents a separate segmented object.
-`image-label` groups MUST also contain `multiscales` metadata and the two
-"datasets" series MUST have the same number of entries.
+Conforming readers SHOULD display labels using the colors specified by the `colors` JSON array, as follows. This array contains one 
+JSON object for each unique custom label. Each of these objects MUST contain the `label-value` key, whose value MUST be the integer 
+corresponding to a particular label. In addition to the `label-value` key, the objects in this array MAY contain an `rgba` key whose 
+value MUST be an array of four integers between 0 and 255, inclusive. These integers represent the `uint8` values of red, green, and 
+blue that comprise the final color to be displayed at the pixels with this label. The fourth integer in the `rgba` array represents alpha, 
+or the opacity of the color. Additional keys under `colors` are allowed. 
 
-The `image-label` dictionary SHOULD contain a `colors` key whose value MUST be a
-list of JSON objects describing the unique label values. Each color object MUST
-contain the `label-value` key whose value MUST be an integer specifying the
-pixel value for that label. It MAY contain an `rgba` key whose value MUST be an array
-of four integers between 0 and 255 `[uint8, uint8, uint8, uint8]` specifying the label
-color as RGBA. All the values under the `label-value` key MUST be unique. Clients
-who choose to not throw an error SHOULD ignore all except the _last_ entry.
+Next, the `image-label` object MAY contain the following keys: a `properties` key, and a `source` key.
 
-Some implementations MAY represent overlapping labels by using a specially assigned
-value, for example the highest integer available in the pixel range.
+Like the `colors` key, the value of the `properties` key MUST be an array of JSON objects describing the set of unique possible pixel values. 
+Each object in the `properties` array MUST contain the `label-value` key, whose value again MUST be an integer specifying the pixel value for that label. 
+Additionally, an arbitrary number of key-value pairs MAY be present for each label value, denoting arbitrary metadata associated with that label. 
+Label-value objects within the `properties` array do not need to have the same keys.
 
-The `image-label` dictionary MAY contain a `properties` key whose value MUST be a
-list of JSON objects which also describes the unique label values. Each property object
-MUST contain the `label-value` key whose value MUST be an integer specifying the pixel
-value for that label. Additionally, an arbitrary number of key-value pairs
-MAY be present for each label value denoting associated metadata. Not all label
-values must share the same key-value pairs within the properties list.
+The value of the `source` key MUST be a JSON object containing information about the original image from which the label image derives. 
+This object MAY include a key `image`, whose value MUST be a string specifying the relative path to a Zarr image group.  
+The default value is `../../` since most labeled images are stored in a "labels" group that is nested within the original image group. 
 
-The `image-label` dictionary MAY contain a `source` key whose value MUST be a JSON
-object containing information on the image the label is associated with. If included,
-it MAY include a key `image` whose value MUST be a string specifying the relative
-path to a Zarr image group. The default value is "../../" since most labels are stored
-under a subgroup named "labels/" (see above).
-
-The `image-label` dictionary SHOULD contain a `version` key whose value MUST be a string
-specifying the version of the image-label specification.
+Here is an example of a simple `image-label` object for a label image in which 0s and 1s represent intercellular and cellular space, respectively:
 
 <pre class=include-code>
 path: examples/label_strict/colors_properties.json
 highlight: json
 </pre>
+
+In this case, the pixels consisting of a 0 in the Zarr array will be displayed as 50% blue and 50% opacity. Pixels with a 1 in the Zarr array, 
+which correspond to cellular space, will be displayed as 50% green and 50% opacity. 
 
 "plate" metadata {#plate-md}
 ----------------------------
@@ -452,7 +492,7 @@ contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT be a 
 other `name` in the `rows` list. Care SHOULD be taken to avoid collisions on
 case-insensitive filesystems (e.g. avoid using both `Aa` and `aA`).
 
-The `plate` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
+The `plate` dictionary MUST contain a `version` key whose value MUST be a string specifying the
 version of the plate specification.
 
 The `plate` dictionary MUST contain a `wells` key whose value MUST be a list of JSON objects
@@ -552,10 +592,12 @@ Projects which support reading and/or writing OME-NGFF data include:
   <dt><strong>[vizarr](https://github.com/hms-dbmi/vizarr/)</strong></dt>
   <dd>A minimal, purely client-side program for viewing Zarr-based images with Viv & ImJoy.</dd>
 
+  <dt><strong>[ITKIOOMEZarrNGFF](https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF/)</strong></dt>
+  <dd>ITK IO for images stored in OME-NGFF format.</dd>
+
 </dl>
 
-<img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png"
-    alt="Diagram of related projects"/>
+<img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png" alt="Diagram of related projects"></img>
 
 All implementations prevent an equivalent representation of a dataset which can be downloaded or uploaded freely. An interactive
 version of this diagram is available from the [OME2020 Workshop](https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/).
@@ -583,6 +625,16 @@ Version History {#history}
       <td>Description</td>
     </tr>
   </thead>
+  <tr>
+    <td>0.4.1</td>
+    <td>2023-02-09</td>
+    <td>expand on "labels" description</td>
+  </tr>
+  <tr>
+    <td>0.4.1</td>
+    <td>2022-09-26</td>
+    <td>transitional metadata for image collections ("bioformats2raw.layout")</td>
+  </tr>
   <tr>
     <td>0.4.0</td>
     <td>2022-02-08</td>

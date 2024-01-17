@@ -99,6 +99,14 @@ The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL 
 “RECOMMENDED”, “MAY”, and “OPTIONAL” are to be interpreted as described in
 [RFC 2119](https://tools.ietf.org/html/rfc2119).
 
+<p>
+<dfn>Transitional</dfn> metadata is added to the specification with the
+intention of removing it in the future. Implementations may be expected (MUST) or
+encouraged (SHOULD) to support the reading of the data, but writing will usually
+be optional (MAY). Examples of transitional metadata include custom additions by
+implementations that are later submitted as a formal specification. (See [[#bf2raw]])
+</p>
+
 Some of the JSON examples in this document include commments. However, these are only for
 clarity purposes and comments MUST NOT be included in JSON objects.
 
@@ -137,7 +145,7 @@ For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x
     ├── .zgroup               # Each image is a Zarr group, or a folder, of other groups and arrays.
     ├── .zattrs               # Group level attributes are stored in the .zattrs file and include
     │                         # "multiscales" and "omero" (see below). In addition, the group level attributes
-    │                         # must also contain "_ARRAY_DIMENSIONS" if this group directly contains multi-scale arrays.
+    │                         # may also contain "_ARRAY_DIMENSIONS" for compatibility with xarray if this group directly contains multi-scale arrays.
     │
     ├── 0                     # Each multiscale level is stored as a separate Zarr array,
     │   ...                   # which is a folder containing chunk files which compose the array.
@@ -240,6 +248,85 @@ keys as specified below for discovering certain types of data, especially images
 
 If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
+"bioformats2raw.layout" (transitional) {#bf2raw}
+------------------------------------------------
+
+[=Transitional=] "bioformats2raw.layout" metadata identifies a group which implicitly describes a series of images.
+The need for the collection stems from the common "multi-image file" scenario in microscopy. Parsers like Bio-Formats
+define a strict, stable ordering of the images in a single container that can be used to refer to them by other tools.
+
+In order to capture that information within an OME-NGFF dataset, `bioformats2raw` internally introduced a wrapping layer.
+The bioformats2raw layout has been added to v0.4 as a transitional specification to specify filesets that already exist
+in the wild. An upcoming NGFF specification will replace this layout with explicit metadata.
+
+<h4 id="bf2raw-layout" class="no-toc">Layout</h4>
+
+Typical Zarr layout produced by running `bioformats2raw` on a fileset that contains more than one image (series > 1):
+
+<pre>
+series.ome.zarr               # One converted fileset from bioformats2raw
+    ├── .zgroup
+    ├── .zattrs               # Contains "bioformats2raw.layout" metadata
+    ├── OME                   # Special group for containing OME metadata
+    │   ├── .zgroup
+    │   ├── .zattrs           # Contains "series" metadata
+    │   └── METADATA.ome.xml  # OME-XML file stored within the Zarr fileset
+    ├── 0                     # First image in the collection
+    ├── 1                     # Second image in the collection
+    └── ...
+</pre>
+
+<h4 id="bf2raw-attributes" class="no-toc">Attributes</h4>
+
+The top-level `.zattrs` file must contain the `bioformats2raw.layout` key:
+<pre class=include-code>
+path: examples/bf2raw/image.json
+highlight: json
+</pre>
+
+If the top-level group represents a plate, the `bioformats2raw.layout` metadata will be present but
+the "plate" key MUST also be present, takes precedence and parsing of such datasets should follow [[#plate-md]]. It is not
+possible to mix collections of images with plates at present.
+
+<pre class=include-code>
+path: examples/bf2raw/plate.json
+highlight: json
+</pre>
+
+The `.zattrs` file within the OME group may contain the "series" key:
+
+<pre class=include-code>
+path: examples/ome/series-2.json
+highlight: json
+</pre>
+
+<h4 id="bf2raw-details" class="no-toc">Details</h4>
+
+Conforming groups:
+
+- MUST have the value "3" for the "bioformats2raw.layout" key in their `.zattrs` metadata at the top of the hierarchy;
+- SHOULD have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml" which:
+    - MUST adhere to the OME-XML specification but
+    - MUST use `<MetadataOnly/>` elements as opposed to `<BinData/>`, `<BinaryOnly/>` or `<TiffData/>`;
+    - MAY make use of the [minimum specification](https://docs.openmicroscopy.org/ome-model/6.2.2/specifications/minimum.html).
+
+Additionally, the logic for finding the Zarr group for each image follows the following logic:
+
+- If "plate" metadata is present, images MUST be located at the defined location.
+    - Matching "series" metadata (as described next) SHOULD be provided for tools that are unaware of the "plate" specification.
+- If the "OME" Zarr group exists, it:
+    - MAY contain a "series" attribute. If so:
+        - "series" MUST be a list of string objects, each of which is a path to an image group.
+        - The order of the paths MUST match the order of the "Image" elements in "OME/METADATA.ome.xml" if provided.
+- If the "series" attribute does not exist and no "plate" is present:
+    - separate "multiscales" images MUST be stored in consecutively numbered groups starting from 0 (i.e. "0/", "1/", "2/", "3/", ...).
+- Every "multiscales" group MUST represent exactly one OME-XML "Image" in the same order as either the series index or the group numbers.
+
+Conforming readers:
+- SHOULD make users aware of the presence of more than one image (i.e. SHOULD NOT default to only opening the first image);
+- MAY use the "series" attribute in the "OME" group to determine a list of valid groups to display;
+- MAY choose to show all images within the collection or offer the user a choice of images, as with <dfn export="true"><abbr title="High-content screening">HCS</abbr></dfn> plates;
+- MAY ignore other groups or arrays under the root of the hierarchy.
 
 "coordinateTransformations" metadata {#trafo-md}
 -------------------------------------
@@ -315,10 +402,10 @@ if not datasets:
     datasets = [x["path"] for x in multiscales[0]["datasets"]]
 ```
 
-"omero" metadata {#omero-md}
-----------------------------
+"omero" metadata (transitional) {#omero-md}
+-------------------------------------------
 
-Information specific to the channels of an image and how to render it
+[=Transitional=] information specific to the channels of an image and how to render it
 can be found under the "omero" key in the group-level metadata:
 
 ```json
@@ -350,6 +437,12 @@ can be found under the "omero" key in the group-level metadata:
 
 See https://docs.openmicroscopy.org/omero/5.6.1/developers/Web/WebGateway.html#imgdata
 for more information.
+
+The "omero" metadata is optional, but if present it MUST contain the field "channels", which is an array of dictionaries describing the channels of the image.
+Each dictionary in "channels" MUST contain the field "color", which is a string of 6 hexadecimal digits specifying the color of the channel in RGB format.
+Each dictionary in "channels" MUST contain the field "window", which is a dictionary describing the windowing of the channel.
+The field "window" MUST contain the fields "min" and "max", which are the minimum and maximum values of the window, respectively. 
+It MUST also contain the fields "start" and "end", which are the start and end values of the window, respectively.
 
 "labels" metadata {#labels-md}
 ------------------------------
@@ -552,8 +645,7 @@ Projects which support reading and/or writing OME-NGFF data include:
 
 </dl>
 
-<img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png"
-    alt="Diagram of related projects"/>
+<img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png" alt="Diagram of related projects"></img>
 
 All implementations prevent an equivalent representation of a dataset which can be downloaded or uploaded freely. An interactive
 version of this diagram is available from the [OME2020 Workshop](https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/).
@@ -581,6 +673,11 @@ Version History {#history}
       <td>Description</td>
     </tr>
   </thead>
+  <tr>
+    <td>0.4.1</td>
+    <td>2022-09-26</td>
+    <td>transitional metadata for image collections ("bioformats2raw.layout")</td>
+  </tr>
   <tr>
     <td>0.4.0</td>
     <td>2022-02-08</td>
