@@ -137,14 +137,19 @@ The DRAFT phase begins when **Authors** propose (D1) a new idea and
 subsequently gather support (or "socialize") the idea (D2) before opening a PR
 (D3). This phase is meant to promote ideation without premature criticism, though
 clarifications can be requested on the GitHub PR (D4) which may require an
-update of the PR (D3).
+update of the PR (D3). Note: the RFC process does not formally make use of GitHub's
+"draft" state, though **Editors** MAY choose to ignore such PRs.
 
-One potential clarification is whether or not a given PR should be an RFC. The
+One common clarification is whether or not a given PR should be an RFC. The
 RFC process is intended primarily for significant and/or breaking changes to
 the specification or the community process itself. Other changes, bug fixes,
 etc. are welcome as PRs without a full RFC. If **Authors** are unsure whether
 or not a change requires an RFC, they can open an issue or contact the **Editors**
 directly. All RFC-targeted PRs SHOULD follow the [current template][tmpl].
+
+Comments on how a specification is implemented or what could be proposed
+instead from potential **Reviewers** and **Commenters** should come in the
+RFC stage, and the **Editor** MAY postpone such discussions when appropriate.
 
 > 🕑 The iterative clarification phase should be limited to at most a month.
 
