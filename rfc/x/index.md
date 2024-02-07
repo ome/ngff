@@ -217,10 +217,12 @@ contact **Reviewers** to see if their recommendations have changed.
 
 This brings a critical, and iterative, decision point (R6). If a "Reject"
 recommendation remains, then the RFC is closed. The text remains on the
-specification pages for posterity. If sufficient endorsements, including
-two released implementations, are available, then the RFC can progress (S1) to the SPEC phase
-below. If there are no "Major" objections but still no consensus, the decision
-falls to the **Editors** (R7) who may also move the RFC to the SPEC phase (S0).
+specification pages for posterity. If sufficient endorsements,
+including two in-progress implementations, are available, then the RFC can
+progress (S1) to the SPEC phase below. If there are no "Major" objections but
+still no consensus, the decision falls to the **Editors** (R7) who may also
+move the RFC to the SPEC phase (S0).
+
 Otherwise, the RFC iterates through the process again. If the changes made by
 the **Authors** are significant, **Reviewers** may be asked to respond again
 (R2). Alternatively, **Editors** may send the text back to the **Authors** for
@@ -248,7 +250,7 @@ accordingly.
 > 🕑 This period may take substantial time to coordinate with implementers,
 > but should be limited to approximately a month if possible.
 
-Once sufficient (TODO: define) endorsements are
+Once sufficient endorsements, including two released implementations, are
 listed, the specification will be considered "adopted". The adopted
 specification will be slotted into a release version by the **Editors** and the
 **Authors** are encouraged to be involved in that release.
