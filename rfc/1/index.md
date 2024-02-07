@@ -1,13 +1,15 @@
 RFC-1
 =====
 
+Definition of the NGFF RFC process
+
 ## Status
 
 This RFC is currently under review (D4).
 
 | Name       | GitHub Handle | Institution       | Date       | Status |
 |------------|---------------|-------------------|------------|--------|
-| Josh Moore | joshmoore     | German BioImaging | 2023-12-23 |        |
+| Josh Moore | joshmoore     | German BioImaging | 2023-12-23 | Author |
 
 ## Overview
 
