@@ -161,13 +161,16 @@ silence anyone but to manage the overall flow of discussion.
 
 Once a PR has been merged to become an RFC, **Editors** are responsible for
 identifying and assigning **Reviewers** (R1). **Reviewers** will be given a
-period of time (currently defined as a minimum of 1 month) for preparing their
-reviews. If they do not foresee being able to respond in this time, they SHOULD
-contact the **Editors** as soon as possible. **Reviewers** then submit their
-comments (R2) along with their recommendations to the **Editors**, either via a
-public PR adding the review in markdown to the RFC's subdirectory or by
-emailing the **Editors** directly. (This latter course should only be limitedly
-used when necessary.)
+period of time for preparing their reviews. If they do not foresee being able
+to respond in this time, they SHOULD contact the **Editors** as soon as
+possible.
+
+> 🕑 Reviewers comments should be returned in less than one month.
+
+**Reviewers** then submit their comments (R2) along with their recommendations
+to the **Editors**, either via a public PR adding the review in markdown to the
+RFC's subdirectory or by emailing the **Editors** directly. (This latter course
+should only be limitedly used when necessary.)
 
 Possible recommendations from **Reviewers** in ascending order of support are:
 
@@ -210,6 +213,8 @@ via subsequent PRs. The response SHOULD include a written rebuttal to each of
 the reviews. **Editors** include the response in the repository (R5) and
 contact **Reviewers** to see if their recommendations have changed.
 
+> 🕑 Reviewers responses should be returned in less than two weeks.
+
 This brings a critical, and iterative, decision point (R6). If a "Reject"
 recommendation remains, then the RFC is closed. The text remains on the
 specification pages for posterity. If sufficient endorsements, including
@@ -236,9 +241,14 @@ point it is considered equivalent to a **Reviewer** accepted RFC. At this point
 (S1), the primary purpose of the RFC becomes driving implementations. Further
 clarifications (S2) may be needed. Updates to the RFC as well as the
 specification itself will be managed by the **Authors** and the **Editors** in
-coordination. **Editors** will also contact remaining implementers (S3)
+coordination.**Editors** will also contact remaining implementers (S3)
 regarding the status of their implementations and update the endorsements table
-accordingly. Once sufficient (TODO: define) endorsements are
+accordingly.
+
+> 🕑 This period may take substantial time to coordinate with implementers,
+> but should be limited to approximately a month if possible.
+
+Once sufficient (TODO: define) endorsements are
 listed, the specification will be considered "adopted". The adopted
 specification will be slotted into a release version by the **Editors** and the
 **Authors** are encouraged to be involved in that release.
