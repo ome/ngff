@@ -127,9 +127,9 @@ phase after the RFC has been adopted.
 
 The DRAFT phase begins when **Authors** propose (D1) a new idea and
 subsequently gather support (or "socialize") the idea (D2) before opening a PR
-(D3). Open PRs can be discussed on GitHub. Any clarifications that are needed
-can be requested by **Editors**, **Reviewers** or **Commenters** (D4) which may
-require an update of the PR (D3).
+(D3). This phase is meant to promote ideation without premature criticism, though
+clarifications can be requested on the GitHub PR (D4) which may require an
+update of the PR (D3).
 
 One potential clarification is whether or not a given PR should be an RFC. The
 RFC process is intended primarily for significant and/or breaking changes to
