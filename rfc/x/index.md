@@ -255,61 +255,6 @@ listed, the specification will be considered "adopted". The adopted
 specification will be slotted into a release version by the **Editors** and the
 **Authors** are encouraged to be involved in that release.
 
-### Metadata model (TODO)
-
-Like other NGFF specifications, the RFC process has an inherent metadata model
-which can be captured and actioned upon within the NGFF repository. A draft
-representation of this metadata is presented below:
-
-```
-{
-  "@context": "ngff.openmicroscopy.org/rfc",
-  "@type": "RFC",
-  "@id": "####",
-  // Independent of subsequent RFCs
-  "title": "
-  "authors": [
-    {
-      "@type": "http://schema.org/Person",
-      "@id": ...
-    }
-  ],
-  "status": see enum
-  "published": TODO: follow some schema.org model? WorkOfArt?
-  "doi":
-  "edits": [
-    {
-      "authors":
-      "date":
-      "xxx":
-    }
-  ],
-  // May be changed by subsequent RFCs
-  "obsoletes": [],
-  "obsoleted-by": [],
-  "updates": [],
-  "updated-by":[],
-}
-```
-
-This model is very close to the original IETF RFC model, but omits the
-following keywords:
-
-- Format: we have limited RFCs to Markdown
-- Stream: in IETF, different streams are responsible for different parts of
-  the internet infrastructure. This may be introduced in the future.
-- Similarly the STD (“Standard track”), BCP (“best community practice”), FYI
-  (“informational”) designations are not currently used.
-
-The possible values for Status are:
-- UNKNOWN
-- HISTORIC
-- INFORMATIONAL
-- BEST CURRENT PRACTICE
-- EXPERIMENTAL
-- PROPOSED STANDARD
-- STANDARD
-
 ## Drawbacks, risks, alternatives, and unknowns
 
 The primary **drawbacks**, **risks**, and **unknowns** of the proposal revolve
@@ -436,7 +381,62 @@ should fail rather than show the user incorrect data. Such a mechanism could
 go hand in hand with an as-yet unspecified extension mechanism. This would be
 an ideal topic for a following RFC.
 
-### G. Misc
+### G. Metadata model
+
+Like other NGFF specifications, the RFC process has an inherent metadata model
+which can be captured and actioned upon within the NGFF repository. A draft
+representation of this metadata is presented below:
+
+```
+{
+  "@context": "ngff.openmicroscopy.org/rfc",
+  "@type": "RFC",
+  "@id": "####",
+  // Independent of subsequent RFCs
+  "title": "
+  "authors": [
+    {
+      "@type": "http://schema.org/Person",
+      "@id": ...
+    }
+  ],
+  "status": see enum
+  "published": TODO: follow some schema.org model? WorkOfArt?
+  "doi":
+  "edits": [
+    {
+      "authors":
+      "date":
+      "xxx":
+    }
+  ],
+  // May be changed by subsequent RFCs
+  "obsoletes": [],
+  "obsoleted-by": [],
+  "updates": [],
+  "updated-by":[],
+}
+```
+
+This model is very close to the original IETF RFC model, but omits the
+following keywords:
+
+- Format: we have limited RFCs to Markdown
+- Stream: in IETF, different streams are responsible for different parts of
+  the internet infrastructure. This may be introduced in the future.
+- Similarly the STD (“Standard track”), BCP (“best community practice”), FYI
+  (“informational”) designations are not currently used.
+
+The possible values for Status are:
+- UNKNOWN
+- HISTORIC
+- INFORMATIONAL
+- BEST CURRENT PRACTICE
+- EXPERIMENTAL
+- PROPOSED STANDARD
+- STANDARD
+
+### H. Misc
 
 Other possibilities that perhaps do not need an RFC but might be worth
 considering:
