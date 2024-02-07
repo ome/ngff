@@ -1,6 +1,14 @@
 RFC-x
 =====
 
+## Status
+
+This RFC is currently under review (D4).
+
+| Name       | GitHub Handle | Institution       | Date       | Status |
+|------------|---------------|-------------------|------------|--------|
+| Josh Moore | joshmoore     | German BioImaging | 2023-12-23 |        |
+
 ## Overview
 
 This RFC defines the high-level decision making process for changes within the

@@ -1,11 +1,21 @@
 # RFC Template
 
 Summary: Sentence fragment summary
-Status: WIP | In-Review | Approved | Obsolete
-Authors: ...
-Reviewers:
-Endorsers:
 
+## Status
+
+Brief description of status, including, e.g., `WIP | In-Review | Approved | Withdrawn | Obsolete`.
+
+| Name      | GitHub Handle | Institution | Date       | Status                           |
+|-----------|---------------|-------------|------------|----------------------------------|
+| Author    | N/A           | N/A         | xxxx-xx-xx |                                  |
+| Author    | N/A           | N/A         | xxxx-xx-xx | Implemented (link to release)    |
+| Commenter | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)        |
+| Commenter | N/A           | N/A         | xxxx-xx-xx | Not yet (link to comment)        |
+| Endorser  | N/A           | N/A         | xxxx-xx-xx | Endorse (no link needed)         |
+| Endorser  | N/A           | N/A         | xxxx-xx-xx | Implementing (link to branch/PR) |
+| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)        |
+| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Requested by editor              |
 
 ## Overview
 
