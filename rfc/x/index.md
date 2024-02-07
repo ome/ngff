@@ -151,7 +151,7 @@ These steps are not significantly different from the previous consensus model
 described in RFC-0. However, it is intended that the discussions during this
 period are intended to improve the RFC and is not intended to evaluate its
 overall value. As described in the next section "RFC", the deeper and more
-critical discussions should happen as complete and well-considered out reviews
+critical discussions should happen as complete and well-considered reviews
 and responses that will help future readers understand the decision-making
 process. To this end, **Editors** MAY state on GitHub that a question or
 comment is "more appropriate for an official comment". This is not intended to
