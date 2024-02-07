@@ -138,6 +138,8 @@ etc. are welcome as PRs without a full RFC. If **Authors** are unsure whether
 or not a change requires an RFC, they can open an issue or contact the **Editors**
 directly. All RFC-targeted PRs SHOULD follow the [current template][tmpl].
 
+> 🕑 The iterative clarification phase should be limited to at most a month.
+
 At the **Editors** discretion (D5), the PR can be merged at which point it
 becomes an RFC or closed if there is no interest in progressing with the
 proposal. In the latter case, **Authors** can use any feedback to open a new PR
@@ -225,8 +227,6 @@ a new PR to list themselves as **Endorsers** of the RFC. Whether or not the
 **Endorser** has begun implementing the RFC is especially of relevance, both
 to gauge the degree of confidence but also to allow **Editors** and **Authors**
 to contact the **Endorser** regarding any breaking changes.
-
-> **_TODO:_** mention delays throughout the previous paragraphs once they are decided on.
 
 #### SPEC
 
