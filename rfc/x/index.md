@@ -210,8 +210,8 @@ contact **Reviewers** to see if their recommendations have changed.
 
 This brings a critical, and iterative, decision point (R6). If a "Reject"
 recommendation remains, then the RFC is closed. The text remains on the
-specification pages for posterity. If sufficient (TODO: define minimal, etc.)
-endorsements are available, then the RFC can progress (S1) to the SPEC phase
+specification pages for posterity. If sufficient endorsements, including
+two released implementations, are available, then the RFC can progress (S1) to the SPEC phase
 below. If there are no "Major" objections but still no consensus, the decision
 falls to the **Editors** (R7) who may also move the RFC to the SPEC phase (S0).
 Otherwise, the RFC iterates through the process again. If the changes made by
