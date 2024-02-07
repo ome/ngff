@@ -208,9 +208,6 @@ via subsequent PRs. The response SHOULD include a written rebuttal to each of
 the reviews. **Editors** include the response in the repository (R5) and
 contact **Reviewers** to see if their recommendations have changed.
 
-> **_TODO:_** mention growing endorsers including implementation as a key to driving uptake,
-confidence, and trust.
-
 This brings a critical, and iterative, decision point (R6). If a "Reject"
 recommendation remains, then the RFC is closed. The text remains on the
 specification pages for posterity. If sufficient (TODO: define minimal, etc.)
@@ -221,6 +218,13 @@ Otherwise, the RFC iterates through the process again. If the changes made by
 the **Authors** are significant, **Reviewers** may be asked to respond again
 (R2). Alternatively, **Editors** may send the text back to the **Authors** for
 further refinement in order to achieve sufficient endorsement.
+
+Throughout the RFC phase, non-**Author** supporters of the RFC
+are invited to contact the **Editors**, comment on the original PR, and/or open
+a new PR to list themselves as **Endorsers** of the RFC. Whether or not the
+**Endorser** has begun implementing the RFC is especially of relevance, both
+to gauge the degree of confidence but also to allow **Editors** and **Authors**
+to contact the **Endorser** regarding any breaking changes.
 
 > **_TODO:_** mention delays throughout the previous paragraphs once they are decided on.
 
