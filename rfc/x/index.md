@@ -432,17 +432,18 @@ considering:
   changes (e.g., proposing a new codec) that need not follow the entire
   process. This may should be considered for certain types of proposals.
 
-## Examples (TODO)
+## Examples
 
 Below is a list of the preceding major decisions within the NGFF community that
-have been written up to follow the RFC model proposed above.
+have been or will be written up following the RFC template proposed here.
 
-* Original NGFF including consensus model (RFC 1) - or Zero?
-* Transforms (RFC N+1)
-* Tables (RFC N-1)
-* Labels
-* HCS
-* etc.
+| RFC | Title                                   | Decision                              |
+|-----|-----------------------------------------|---------------------------------------|
+| TBD | Original NGFF including consensus model | Organically developed                 |
+| TBD | Labels                                  | Adopted under consensus model         |
+| TBD | HCS                                     | Adopted under consensus model         |
+| TBD | Tables                                  | Withdrawn (i.e., "tabled")            |
+| TBD | Transforms                              | In progress under the consensus model |
 
 Other RFCs that will _likely_ be written can be found under the "Future
 possibilities" section.
