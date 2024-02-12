@@ -35,7 +35,7 @@ def pytest_generate_tests(metafunc):
     Generates tests for the examples/ as well as tests/ subdirectories.
 
     Examples:
-        These tests evalute all of the files under the examples/ directory
+        These tests evaluate all of the files under the examples/ directory
         using the configuration in the provided config file in order detect
         what should be run. It is assumed that all files are valid and complete
         so that they can be wholly included into the specification. The

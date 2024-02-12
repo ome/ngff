@@ -236,7 +236,7 @@ It SHOULD contain the field "metadata", which contains a dictionary with additio
             ],
             "type": "gaussian",
             "metadata": {                                       # the fields in metadata depend on the downscaling implementation
-                "method": "skimage.transform.pyramid_gaussian", # here, the paramters passed to the skimage function are given
+                "method": "skimage.transform.pyramid_gaussian", # here, the parameters passed to the skimage function are given
                 "version": "0.16.1",
                 "args": "[true]",
                 "kwargs": {"multichannel": true}

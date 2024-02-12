@@ -55,7 +55,7 @@ be optional (MAY). Examples of transitional metadata include custom additions by
 implementations that are later submitted as a formal specification. (See [[#bf2raw]])
 </p>
 
-Some of the JSON examples in this document include commments. However, these are only for
+Some of the JSON examples in this document include comments. However, these are only for
 clarity purposes and comments MUST NOT be included in JSON objects.
 
 On-disk (or in-cloud) layout {#on-disk}
@@ -501,7 +501,7 @@ be a string specifying the path to the well subgroup. The `path` MUST consist of
 the `rows` list, a file separator (`/`), and a `name` from the `columns` list, in that order.
 The `path` MUST NOT contain additional leading or trailing directories.
 Each well object MUST contain both a `rowIndex` key whose value MUST be an integer identifying
-the index into the `rows` list and a `columnIndex` key whose value MUST be an integer indentifying
+the index into the `rows` list and a `columnIndex` key whose value MUST be an integer identifying
 the index into the `columns` list. `rowIndex` and `columnIndex` MUST be 0-based. The
 `rowIndex`, `columnIndex`, and `path` MUST all refer to the same row/column pair.
 
