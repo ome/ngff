@@ -14,11 +14,13 @@ This RFC is currently soliciting endorsements (D2).
 
 This RFC adopts [Zarr v3](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html) as the new underlying format of OME-Zarr.
 
+<!--
 The RFC begins with a brief overview. This section should be one or two
 paragraphs that just explains what the goal of this RFC is going to be, but
 without diving too deeply into the "why", "why now", "how", etc. Ensure anyone
 opening the document will form a clear understanding of the RFCs intent from
 reading this paragraph(s).
+-->
 
 ## Background
 
