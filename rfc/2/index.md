@@ -6,9 +6,10 @@ Adopt the version 3 of Zarr for OME-Zarr.
 
 This RFC is currently soliciting endorsements (D2).
 
-| Role   | Name          | GitHub Handle                           | Institution                                 | Date       | Status |
-| ------ | ------------- | --------------------------------------- | ------------------------------------------- | ---------- | ------ |
-| Author | Norman Rzepka | [normanrz](https://github.com/normanrz) | [scalable minds](https://scalableminds.com) | 2024-02-14 |        |
+| Role     | Name          | GitHub Handle                           | Institution                                 | Date       | Status  |
+| -------- | ------------- | --------------------------------------- | ------------------------------------------- | ---------- | ------- |
+| Author   | Norman Rzepka | [normanrz](https://github.com/normanrz) | [scalable minds](https://scalableminds.com) | 2024-02-14 |         |
+| Endorser | Davis Bennett | [d-v-b](https://github.com/d-v-b)       |                                             | 2024-02-14 | Endorse |
 
 ## Overview
 
