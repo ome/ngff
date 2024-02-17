@@ -6,12 +6,15 @@ Adopt the version 3 of Zarr for OME-Zarr.
 
 This RFC is currently soliciting endorsements (D2).
 
-| Role     | Name           | GitHub Handle                                     | Institution                                 | Date       | Status                                                                  |
-| -------- | -------------- | ------------------------------------------------- | ------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
-| Author   | Norman Rzepka  | [normanrz](https://github.com/normanrz)           | [scalable minds](https://scalableminds.com) | 2024-02-14 |                                                                         |
-| Endorser | Davis Bennett  | [d-v-b](https://github.com/d-v-b)                 |                                             | 2024-02-14 | Endorse                                                                 |
-| Endorser | Kevin Yamauchi | [kevinyamauchi](https://github.com/kevinyamauchi) | ETH Zürich                                  | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1947942934) |
-| Endorser | John Bogivic   | [bogovicj](https://github.com/bogovicj)           | HHMI Janelia Research Campus                | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948547356) |
+| Role     | Name              | GitHub Handle                                     | Institution                                 | Date       | Status                                                                  |
+| -------- | ----------------- | ------------------------------------------------- | ------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
+| Author   | Norman Rzepka     | [normanrz](https://github.com/normanrz)           | [scalable minds](https://scalableminds.com) | 2024-02-14 |                                                                         |
+| Endorser | Davis Bennett     | [d-v-b](https://github.com/d-v-b)                 |                                             | 2024-02-14 | Endorse                                                                 |
+| Endorser | Kevin Yamauchi    | [kevinyamauchi](https://github.com/kevinyamauchi) | ETH Zürich                                  | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1947942934) |
+| Endorser | John Bogivic      | [bogovicj](https://github.com/bogovicj)           | HHMI Janelia Research Campus                | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948547356) |
+| Endorser | Matthew Hartley   | [matthewh-ebi](https://github.com/matthewh-ebi)   | EMBL-EBI                                    | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948912814) |
+| Endorser | Christian Tischer | [tischi](https://github.com/tischi)               | EMBL                                        | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949058616) |
+| Endorser | Joel Lüthi        | [jluethi](https://github.com/jluethi)             | BioVisionCenter, University of Zurich       | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949333769) |
 
 ## Overview
 
