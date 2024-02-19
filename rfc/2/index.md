@@ -4,7 +4,7 @@ Adopt the version 3 of Zarr for OME-Zarr.
 
 ## Status
 
-This RFC is currently soliciting endorsements (D2).
+This RFC is currently in draft state (D3).
 
 | Role     | Name              | GitHub Handle                                       | Institution                                 | Date       | Status                                                                  |
 | -------- | ----------------- | --------------------------------------------------- | ------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
@@ -16,6 +16,7 @@ This RFC is currently soliciting endorsements (D2).
 | Endorser | Christian Tischer | [tischi](https://github.com/tischi)                 | EMBL                                        | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949058616) |
 | Endorser | Joel Lüthi        | [jluethi](https://github.com/jluethi)               | BioVisionCenter, University of Zurich       | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949333769) |
 | Endorser | Constantin Pape   | [constantinpape](https://github.com/constantinpape) | University Göttingen                        | 2024-02-18 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1951318754) |
+| Endorser | Will Moore        | [will-moore](https://github.com/will-moore)         | OME, University of Dundee                   | 2024-02-19 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1952057704) |
 
 ## Overview
 
