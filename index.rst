@@ -15,13 +15,14 @@ are listed on the :doc:`tools/index` page.
 Sample NGFF datasets provided by the community can be found under :doc:`data/index`.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    about/index
    community/index
    data/index
    publications/index
    specifications/index
+   rfc/index
    tools/index
 
 .. raw:: html
