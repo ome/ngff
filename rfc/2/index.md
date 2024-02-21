@@ -63,10 +63,40 @@ Support for other languages is under active development, including C, Java and P
 Libraries will likely prioritize support for v3 over previous versions in the near future.
 OME-Zarr should therefore adopt the new version for future-proofing.
 
+### Sharding
+
+One of the features that become available through the adoption of Zarr v3 is sharding.
+Sharding provides a mechanism where multiple chunks can be stored in a single file/object.
+This can greatly reduce the number of files (i.e. inodes) or objects that are required to store large OME-Zarr images.
+Storing many files/objects can be prohibitive on several storage backends.
+Therefore, sharding (or similar solutions) are a requirement to scale OME-Zarr to peta-scale images.
+
+The sharding mechanism of Zarr v3 is specified in the [sharding codec](https://zarr-specs.readthedocs.io/en/latest/v3/codecs/sharding-indexed/v1.0.html).
+
+![Illustration of a sharded array](https://zarr-specs.readthedocs.io/en/latest/_images/sharding.png)
+
+Each shard contains an index that contains references to the inner chunks that are stored within a shard.
+Inner chunks are compressed individually, if such a codec is specified.
+Implementations can read inner chunks individually.
+Depending on the choice of codecs and the underlying storage backends, it may be possible to write inner chunks individually.
+However, in the general case, writing is limited to entire shards.
+
 ## Proposal
 
 This RFC proposes to adopt version 3 of the Zarr format for OME-Zarr.
 Version 2 will no longer be supported.
+
+The motivation for making this hard cut is to reduce the burden of complexity for implementations.
+Currently, many Zarr library implementations support both versions.
+However, in the future they might deprecate support for version 2 or deprioritize it in terms of features and performance.
+Additionally, there are OME-Zarr implementations that have their own integrated Zarr stack.
+With this hard cut, implementations that only support OME-Zarr versions > 0.5 (TODO: update assigned version number) will not need to implement Zarr version 2 as well.
+
+From a OME-Zarr user perspective, the hard cut also makes things simpler: ≤ 0.5 => Zarr version 2 and > 0.5 => Zarr version 3 (TODO: update assigned version number).
+If users wish to upgrade their data from one OME-Zarr version to another, it would be easy to also migrate the core Zarr metadata to version 3.
+This is a fairly cheap operation, because only json files are touched.
+Zarr version 2 and 3 metadata could even live side-by-side in the same hierarchy.
+There are [scripts available](https://github.com/scalableminds/zarrita/blob/8155761/zarrita/array_v2.py#L452-L559) that can migrate the metadata automatically.
 
 ### Notable changes in Zarr v3
 
@@ -99,24 +129,6 @@ While the adoption of Zarr v3 does not strictly require changes to the OME-Zarr 
 - Since the version is already encoded in the new metadata key, the `version` keys in `multiscale`, `plate`, `well` etc. are removed.
 
 Finally, this proposal changes the title of the OME-Zarr specification document to "OME-Zarr specification".
-
-### Sharding
-
-One of the features that become available through the adoption of Zarr v3 is sharding.
-Sharding provides a mechanism where multiple chunks can be stored in a single file/object.
-This can greatly reduce the number of files (i.e. inodes) or objects that are required to store large OME-Zarr images.
-Storing many files/objects can be prohibitive on several storage backends.
-Therefore, sharding (or similar solutions) are a requirement to scale OME-Zarr to peta-scale images.
-
-The sharding mechanism of Zarr v3 is specified in the [sharding codec](https://zarr-specs.readthedocs.io/en/latest/v3/codecs/sharding-indexed/v1.0.html).
-
-![Illustration of a sharded array](https://zarr-specs.readthedocs.io/en/latest/_images/sharding.png)
-
-Each shard contains an index that contains references to the inner chunks that are stored within a shard.
-Inner chunks are compressed individually, if such a codec is specified.
-Implementations can read inner chunks individually.
-Depending on the choice of codecs and the underlying storage backends, it may be possible to write inner chunks individually.
-However, in the general case, writing is limited to entire shards.
 
 ## Requirements
 
@@ -200,7 +212,7 @@ It is RECOMMENDED that implementations of OME-Zarr specify the version of the OM
 It is RECOMMENDED that implementations of OME-Zarr that support both v2 and v3-based OME-Zarr versions auto-detect the underlying Zarr version.
 
 While the metadata of Zarr v3 is not backwards compatible, the chunk data is largely backwards compatible, only depending on compressor configuration.
-[There are scripts available](https://github.com/scalableminds/zarrita/blob/async/zarrita/array_v2.py#L452-L559) to migrate Zarr v2 metadata to Zarr v3.
+[There are scripts available](https://github.com/scalableminds/zarrita/blob/8155761/zarrita/array_v2.py#L452-L559) to migrate Zarr v2 metadata to Zarr v3.
 This is generally a light-weight operation.
 Zarr v3 and v2 metadata can exist side-by-side within a Zarr hierarchy.
 
