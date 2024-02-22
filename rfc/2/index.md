@@ -122,7 +122,7 @@ HTTP(S), File system, S3, GCS, and Zip files are commonly used stores.
 With this proposal all features of the Zarr specification are allowed in OME-Zarr.
 In the future, the OME-Zarr community MAY decide to restrict the allowed feature set.
 
-### Changes to the OME-Zarr metadataa
+### Changes to the OME-Zarr metadata
 
 While the adoption of Zarr v3 does not strictly require changes to the OME-Zarr metadata, this proposal contains changes to align with community conventions and ease implementation:
 
