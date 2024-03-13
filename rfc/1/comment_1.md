@@ -1,8 +1,12 @@
-# RFC 1
-*Review to RFC 1 from @LucaMarconato and @melonora.*
+# Comment to [RFC 1](../1) from @LucaMarconato and @melonora.*
 
-## Comments
-### Comments on implementations
+| Name                   | GitHub Handle | Institution          |
+|------------------------|---------------|----------------------|
+| Wouter-Michiel Vierdag | melonora      | EMBL                 |
+| Luca Marconato         | LucaMarconato | EMBL                 |
+
+## Comments on implementations
+
 - Currently diagram does not reflect text. Text says *"If sufficient endorsements, including two in-progress 
 implementations, are available, then the RFC can progress (S1) to the SPEC phase below."*. The "code" checks are not 
 visible in the diagram which could make someone think that implementation is only of importance at the end of the RFC 
@@ -38,11 +42,12 @@ based on this example in which case the comment would have the status of address
 author I would prefer the meaning "the review process lasts maximum 4 weeks", while as a reviewer I would prefer "I have 
 up to 4 weeks to submit the review".
 
-### Typos/minor edits
+## Typos/minor edits
+
 - This sentence under section 'Stakeholders' paragraph 2 is truncated: "However, once the draft has reached a certain 
 stage that it is ready for comments, Editors will merge it as a record of the fact that the suggestion."
 
-### Consistency between the diagram and text description
+## Consistency between the diagram and text description
 
 - The sentence "However, once the draft has reached a certain stage that it is ready for comments, Editors will merge 
 it as a record of the fact that the suggestion." seems not to be reflected in the diagram.
