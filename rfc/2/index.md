@@ -6,19 +6,21 @@ Adopt the version 3 of Zarr for OME-Zarr.
 
 This RFC is currently in draft state (D3).
 
-| Role     | Name                | GitHub Handle                                       | Institution                                        | Date       | Status                                                                  |
-| -------- | ------------------- | --------------------------------------------------- | -------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
-| Author   | Norman Rzepka       | [normanrz](https://github.com/normanrz)             | [scalable minds](https://scalableminds.com)        | 2024-02-14 |                                                                         |
-| Endorser | Davis Bennett       | [d-v-b](https://github.com/d-v-b)                   |                                                    | 2024-02-14 | Endorse                                                                 |
-| Endorser | Kevin Yamauchi      | [kevinyamauchi](https://github.com/kevinyamauchi)   | ETH Zürich                                         | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1947942934) |
-| Endorser | John Bogivic        | [bogovicj](https://github.com/bogovicj)             | HHMI Janelia Research Campus                       | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948547356) |
-| Endorser | Matthew Hartley     | [matthewh-ebi](https://github.com/matthewh-ebi)     | EMBL-EBI                                           | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948912814) |
-| Endorser | Christian Tischer   | [tischi](https://github.com/tischi)                 | EMBL                                               | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949058616) |
-| Endorser | Joel Lüthi          | [jluethi](https://github.com/jluethi)               | BioVisionCenter, University of Zurich              | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949333769) |
-| Endorser | Constantin Pape     | [constantinpape](https://github.com/constantinpape) | University Göttingen                               | 2024-02-18 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1951318754) |
-| Endorser | Will Moore          | [will-moore](https://github.com/will-moore)         | OME, University of Dundee                          | 2024-02-19 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1952057704) |
-| Endorser | Juan Nunez-Iglesias | [jni](https://github.com/jni)                       | Biomedicine Discovery Institute, Monash University | 2024-02-20 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1953922897) |
-| Endorser | Eric Perlman        | [perlman](https://github.com/perlman)               |                                                    | 2024-02-22 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1960272942) |
+| Role                   | Name                | GitHub Handle                                                           | Institution                                        | Date       | Status                                                                  |
+| ---------------------- | ------------------- | ----------------------------------------------------------------------- | -------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
+| Author                 | Norman Rzepka       | [normanrz](https://github.com/normanrz)                                 | [scalable minds](https://scalableminds.com)        | 2024-02-14 |                                                                         |
+| Endorser               | Davis Bennett       | [d-v-b](https://github.com/d-v-b)                                       |                                                    | 2024-02-14 | Endorse                                                                 |
+| Endorser               | Kevin Yamauchi      | [kevinyamauchi](https://github.com/kevinyamauchi)                       | ETH Zürich                                         | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1947942934) |
+| Endorser               | John Bogivic        | [bogovicj](https://github.com/bogovicj)                                 | HHMI Janelia Research Campus                       | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948547356) |
+| Endorser               | Matthew Hartley     | [matthewh-ebi](https://github.com/matthewh-ebi)                         | EMBL-EBI                                           | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948912814) |
+| Endorser               | Christian Tischer   | [tischi](https://github.com/tischi)                                     | EMBL                                               | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949058616) |
+| Endorser               | Joel Lüthi          | [jluethi](https://github.com/jluethi)                                   | BioVisionCenter, University of Zurich              | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949333769) |
+| Endorser               | Constantin Pape     | [constantinpape](https://github.com/constantinpape)                     | University Göttingen                               | 2024-02-18 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1951318754) |
+| Endorser               | Will Moore          | [will-moore](https://github.com/will-moore)                             | OME, University of Dundee                          | 2024-02-19 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1952057704) |
+| Endorser               | Juan Nunez-Iglesias | [jni](https://github.com/jni)                                           | Biomedicine Discovery Institute, Monash University | 2024-02-20 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1953922897) |
+| Endorser               | Eric Perlman        | [perlman](https://github.com/perlman)                                   |                                                    | 2024-02-22 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1960272942) |
+| Endorser               | Ziwen Liu           | [ziw-liu](https://github.com/ziw-liu)                                   |
+| Chan Zuckerberg Biohub | 2024-03-12          | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1992588774) |
 
 ## Overview
 
@@ -85,7 +87,7 @@ However, in the general case, writing is limited to entire shards.
 ## Proposal
 
 This RFC proposes to adopt version 3 of the Zarr format for OME-Zarr.
-Version 2 will no longer be supported.
+Images that use the new version of OME-Zarr metadata MUST NOT use Zarr version 2 any more.
 
 The motivation for making this hard cut is to reduce the burden of complexity for implementations.
 Currently, many Zarr library implementations support both versions.
@@ -98,6 +100,8 @@ If users wish to upgrade their data from one OME-Zarr version to another, it wou
 This is a fairly cheap operation, because only json files are touched.
 Zarr version 2 and 3 metadata could even live side-by-side in the same hierarchy.
 There are [scripts available](https://github.com/scalableminds/zarrita/blob/8155761/zarrita/array_v2.py#L452-L559) that can migrate the metadata automatically.
+
+It is RECOMMENDED that implementations support a range of OME-Zarr versions, including versions based on Zarr version 2.
 
 ### Notable changes in Zarr v3
 
@@ -128,6 +132,7 @@ While the adoption of Zarr v3 does not strictly require changes to the OME-Zarr 
 
 - OME-Zarr metadata will be stored under a dedicated key in the Zarr array or group attributes. The key will be a well-known URI of the OME-NGFF specification with a version number, e.g. `https://ngff.openmicroscopy.org/0.6`.
 - Since the version is already encoded in the new metadata key, the `version` keys in `multiscale`, `plate`, `well` etc. are removed.
+- The `dimension_names` attribute in the Zarr metadata must match the axes names in the OME-Zarr metadata.
 
 Finally, this proposal changes the title of the OME-Zarr specification document to "OME-Zarr specification".
 
