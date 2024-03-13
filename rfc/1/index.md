@@ -71,7 +71,7 @@ process and making that readily visible (c) ultimately driving the
 implementation of specifications in order to get working solutions into the
 hands of the bioimaging community. The process should **NOT** prevent future
 discussions on any adopted RFCs but instead will encourage continued
-improvement and evolution through discussions of _further_RFCs.
+improvement and evolution through discussions of _further_ RFCs.
 
 ## Requirements
 
@@ -83,7 +83,7 @@ interpreted as described in IETF RFC 2119.
 
 This section lists the major stakeholders in the RFC process and provides an
 overview of their responsibilities and involvement in the process. For more
-details, see the “Implementation” section below.
+details, see the "Implementation" section below.
 
 **Authors** propose an idea for the RFC process and socialize the idea, e.g.,
 through an issue or community call, gaining **Endorsers** They then submit a
@@ -93,8 +93,8 @@ document under the `rfc/` subdirectory and it SHOULD follow the template
 provided. As described under the "DRAFT" section below, this document can be
 discussed for clarity following the standard PR process. However, once the
 draft has reached a certain stage that it is ready for comments, **Editors**
-will merge it as a record of the fact that the suggestion. It will then become
-available on https://ngff.openmicroscopy.org.
+will merge it as a record of the fact that the suggestion has been made, and
+it will then become available on https://ngff.openmicroscopy.org.
 
 **Endorsers** are non-**Author** supporters of an RFC, listed in a table.
 **Reviewers** who have given an "Accept" recommendation are also added to the
@@ -130,6 +130,15 @@ decision-making process.
 This description of the RFC process will refer frequently to the [visual diagram][dia]
 Readers may want to familiar themselves with it at this point.
 Identifiers such as "D1", "R2", "S3", refer to steps in that diagram.
+
+### Legend
+
+Notes regarding specific requirements are called out throughout the text
+with the following symbols:
+
+> * 🕑 The clock symbol specifies definitive wait times within the process.
+> * 📂 The folder symbol specifies requirements on additions to the repository,
+>   for example an implementation or failing test.
 
 ### Phases
 
@@ -242,6 +251,8 @@ progress (S1) to the SPEC phase below. If there are no "Major" objections but
 still no consensus, the decision falls to the **Editors** (R7) who may also
 move the RFC to the SPEC phase (S0).
 
+> 📂 Two in-progress implementations required for progressing to S1.
+
 Otherwise, the RFC iterates through the process again. If the changes made by
 the **Authors** are significant, **Reviewers** may be asked to respond again
 (R2). Alternatively, **Editors** may send the text back to the **Authors** for
@@ -273,6 +284,20 @@ Once sufficient endorsements, including two released implementations, are
 listed, the specification will be considered "adopted". The adopted
 specification will be slotted into a release version by the **Editors** and the
 **Authors** are encouraged to be involved in that release.
+
+>  📂 Two released implementations required for being adopted.
+
+### Decision-making
+
+Unless otherwise specified in the text, the following considerations are taken
+into account when making decisions regarding RFCs:
+
+ * **Prefer working examples**: whether an implementation of an RFC or a
+   failing test which exposes an issue in a proposal, working examples will
+   tend to carry more weight in decision making.
+ * **technical expertise**: all other considerations being equal, feedback
+   from stakeholders with more technical expertise in a matter under
+   consideration will tend to carry more weight in decision making.
 
 ## Drawbacks, risks, alternatives, and unknowns
 
