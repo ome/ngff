@@ -51,7 +51,7 @@ Library support for Zarr v3 is already available for several languages:
 
 - [tensorstore (C++/Python)](https://github.com/google/tensorstore)
 - [zarrita (Python)](https://github.com/scalableminds/zarrita)
-- [zarrita.js (JS)](https://github.com/manzt/zarrita.js/)
+- [zarrita.js (JS)](https://github.com/manzt/zarrita.js)
 - [zarr3-rs (Rust)](https://github.com/clbarnes/zarr3-rs)
 
 Visualization tools with integrated Zarr implementations are also available:
