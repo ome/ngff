@@ -12,9 +12,9 @@ Local Boilerplate: header yes
 Local Boilerplate: copyright yes
 Boilerplate: style-darkmode off
 Markup Shorthands: markdown yes
-Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
-Editor: Sébastien Besson, Open Microscopy Environment (OME) https://www.openmicroscopy.org
-Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/
+Author: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
+Author: Sébastien Besson, Open Microscopy Environment (OME) https://www.openmicroscopy.org
+Author: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
@@ -581,7 +581,7 @@ Citing {#citing}
 ================
 
 [Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.](https://ngff.openmicroscopy.org/0.3)
-J. Moore, *et al*. Editors. Open Microscopy Environment Consortium, 20 November 2020.
+J. Moore, *et al*. Open Microscopy Environment Consortium, 20 November 2020.
 This edition of the specification is [https://ngff.openmicroscopy.org/0.3/](https://ngff.openmicroscopy.org/0.3/]).
 The latest edition is available at [https://ngff.openmicroscopy.org/latest/](https://ngff.openmicroscopy.org/latest/).
 [(doi:10.5281/zenodo.4282107)](https://doi.org/10.5281/zenodo.4282107)
