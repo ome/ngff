@@ -7,9 +7,13 @@ Definition of the NGFF RFC process
 
 This RFC is currently under review (D4).
 
-| Name       | GitHub Handle | Institution       | Date       | Status |
-|------------|---------------|-------------------|------------|--------|
-| Josh Moore | joshmoore     | German BioImaging | 2023-12-23 | Author |
+| Name                                   | GitHub Handle           | Institution          | Date       | Status                    |
+|----------------------------------------|-------------------------|----------------------|------------|---------------------------|
+| Josh Moore                             | joshmoore               | German BioImaging    | 2023-12-23 | Author                    |
+| Virginia Scarlett, _et al._            |                         | Janelia              | 2024-02-26 | Review requested          |
+| Kevin Yamauchi, Virginie Uhlmann       |                         | ETH, BiovisionCenter | 2024-03-05 | Review requested          |
+| Matthew Hartley                        |                         | EMBL-EBI             | 2024-03-05 | Review requested          |
+| Wouter-Michiel Vierdag, Luca Marconato | melonora, LucaMarconato | EMBL                 | 2024-01-13 | [Comment](comment_1.html) |
 
 ## Overview
 
