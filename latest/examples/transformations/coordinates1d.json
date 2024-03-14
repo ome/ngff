@@ -1,0 +1,14 @@
+{
+    "coordinateSystems": [
+        { "name": "i", "axes": [{"name": "i"}] },
+        { "name": "x", "axes": [{"name": "x"}] }
+    ],
+    "coordinateTransformations": [{
+        "name": "a coordinate field transform",
+        "type": "coordinates",
+        "path": "i2xCoordinates",
+        "input": "i",
+        "output": "x",
+        "interpolation": "nearest"
+    }]
+}

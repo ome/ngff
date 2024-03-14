@@ -1,0 +1,23 @@
+{
+    "coordinateSystems": [
+        { "name": "in", "axes": [ {"name": "i"}, {"name": "j"} ]},
+        { "name": "out1", "axes": [ {"name": "x"}, {"name": "y"} ]},
+        { "name": "out2", "axes": [ {"name": "x"}, {"name": "y"} ]}
+    ],
+    "coordinateTransformations": [ 
+        { 
+            "name": "equivalent to identity",
+            "type": "mapIndex", 
+            "mapIndex": [0, 1],
+            "input": "in",
+            "output": "out1" 
+        },
+        { 
+            "name": "permutation",
+            "type": "mapIndex", 
+            "mapIndex": [1, 0],
+            "input": "in",
+            "output": "out2" 
+        }
+    ]
+}

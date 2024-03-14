@@ -1,0 +1,14 @@
+{
+    "coordinateSystems" : [
+        { "name" : "ij", "axes" : [{"name" : "i"}, {"name":"j"}] },
+        { "name" : "xy", "axes" : [{"name" : "x"}, {"name":"y"}] }
+    ],
+    "coordinateTransformations" : [
+        {
+            "type": "rotation",
+            "rotation": [0, -1, 1, 0],
+            "input" : "ij",
+            "output" : "xy"
+        }
+    ]
+}

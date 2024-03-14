@@ -1,0 +1,14 @@
+{
+    "coordinateSystems" : [
+        { "name" : "moving", "axes" : [{"name" : "x-moving"}, {"name":"y-moving"}] },
+        { "name" : "fixed", "axes" : [{"name" : "x-fixed"}, {"name":"y-fixed"}] }
+    ],
+    "coordinateTransformations" : [
+        {
+            "type": "inverseOf",
+            "transformation" : { "type": "displacements", "path": "/path/to/displacements" },
+            "input" : "moving",
+            "output" : "fixed"
+        }
+    ]
+}

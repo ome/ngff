@@ -1,0 +1,17 @@
+{
+    "coordinateSystems": [
+        { "name": "in", "axes": [ {"name": "i"}, {"name": "j"} ]},
+        { "name": "out", "axes": [ {"name": "x"}, {"name": "y"} ]}
+    ],
+    "coordinateTransformations": [ 
+        {
+            "type": "byDimension",
+            "input": "in",
+            "output": "out",
+            "transformations": [
+                { "type": "coordinates", "path": "/xCoordinates", "input" : ["i"], "output" : ["x"] },
+                { "type": "coordinates", "path": "/yCoordinates", "input" : ["j"], "output" : ["y"] }
+            ]
+        }
+    ]
+}

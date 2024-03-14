@@ -1,0 +1,106 @@
+<pre class='metadata'>
+Title: Coordinates and Transformations
+Shortname: ome-ngff-transformations
+Level: 1
+Status: LS-COMMIT
+Status: w3c/ED
+Group: ome
+URL: https://ngff.openmicroscopy.org/latest/
+Repository: https://github.com/ome/ngff
+Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
+Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
+Local Boilerplate: header no
+Local Boilerplate: copyright no
+Boilerplate: style-darkmode off
+Markup Shorthands: markdown yes
+Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
+Editor: Sébastien Besson, Open Microscopy Environment (OME) https://www.openmicroscopy.org
+Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/
+Editor: John Bogovic, Hughes Medical Institute Janelia (HHMI) https://www.janelia.org/ 
+Abstract: This document contains next-generation file format (NGFF)
+Abstract: specifications for storing bioimaging data in the cloud.
+Abstract: All specifications are submitted to the https://image.sc community for review.
+Status Text: The current released version of this specification is
+Status Text: will be provided between numbered versions. Data written with these latest changes
+Status Text: (an "editor's draft") will not necessarily be supported.
+</pre>
+
+Coordinates and Axes {#coords-axes}
+=====================
+
+OME-NGFF datasets are arrays that hold values. The arrays may be indexed by discrete (integer)
+coordinates in order to obtain a corresponding value. If values are desired at continuous (real-valued)
+coordinates, then interpolation is required.
+
+Interpolation {#interp}
+---------------------
+
+Interpolation is the process of producing values at continuous coordinates from data sampled at discrete
+coordinates. "Nearest-neighbor" and "N-Linear" are the two most commonly used interpolation methods.
+
+
+Pixel coordinates {#pix-coords}
+---------------------
+
+**The pixel center is the origin of the continuous coordinate system.**
+
+### Top-left convention
+
+A common alternative convention is for the origin in the continuous space is at the "top-left" of the pixel.
+This is not recommended, but can be acheived by explicitly adding a half-pixel translation, for example:
+
+```json
+{
+    "name": "center_to_top-left",
+    "type": "translation",
+    "translation" : [0.5, 0.5],
+    "output_space" : "top-left-space"
+}
+```
+
+Coordinate Transformations {#coord-tforms}
+=====================
+
+This document describes background and motivation that is outside the NGFF specification.
+
+
+Direction {#direction}
+---------------------
+
+Specified coordinate transforms are in the "forward" direction. They represent functions
+from *points* in the input space to *points* in the output space. For example, the transformation `"ij2xy"`
+
+
+```json
+{
+    "name": "ij2xy",
+    "type": "scale",
+    "scale": [2, 0.5]
+    "input_axes" : ["i", "j"]
+    "output_axes" : ["x", "y"]
+}
+```
+
+representes the function
+
+```
+x = 2 * i
+y = 0.5 * j
+```
+
+
+Recommendations {#recommendations}
+=====================
+
+
+"Native" physical space 
+---------------------
+
+Datasets SHOULD define a transformation from array space to their "native physical space."
+This transformation SHOULD describe physical pixel spacing and origin only, and therefore SHOULD consist of
+`scale` and/or `translation` types only.
+
+Subsequent reorientation / registration transformations SHOULD use this native space as their `input_space`,
+i.e., transformations should be defined in physical coordinates.
+
+
