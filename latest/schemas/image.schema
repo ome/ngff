@@ -44,7 +44,7 @@
                 }
         },
         "required": [
-          "datasets", "axes"
+          "datasets", "axes", "version"
         ]
       },
       "minItems": 1,
@@ -93,11 +93,7 @@
               "active": {
                 "type": "boolean"
               }
-            },
-            "required": [
-              "window",
-              "color"
-            ]
+            }
           }
         }
       },
@@ -124,7 +120,7 @@
             "type": "string",
             "enum": ["space"]
           },
-          "units": {
+          "unit": {
             "type": "string"
           }
         }

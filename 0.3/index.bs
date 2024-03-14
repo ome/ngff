@@ -249,7 +249,7 @@ It SHOULD contain the field "metadata", which contains a dictionary with additio
             ],
             "type": "gaussian",
             "metadata": {                                       # the fields in metadata depend on the downscaling implementation
-                "method": "skimage.transform.pyramid_gaussian", # here, the paramters passed to the skimage function are given
+                "method": "skimage.transform.pyramid_gaussian", # here, the parameters passed to the skimage function are given
                 "version": "0.16.1",
                 "args": "[true]",
                 "kwargs": {"multichannel": true}
@@ -569,8 +569,7 @@ Projects which support reading and/or writing OME-NGFF data include:
 
 </dl>
 
-<img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png"
-    alt="Diagram of related projects"/>
+<img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png" alt="Diagram of related projects"></img>
 
 All implementations prevent an equivalent representation of a dataset which can be downloaded or uploaded freely. An interactive
 version of this diagram is available from the [OME2020 Workshop](https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/).

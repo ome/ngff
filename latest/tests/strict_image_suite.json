@@ -122,12 +122,12 @@
               {
                 "name": "y",
                 "type": "space",
-                "units": "micrometer"
+                "unit": "micrometer"
               },
               {
                 "name": "x",
                 "type": "space",
-                "units": "micrometer"
+                "unit": "micrometer"
               }
             ],
             "datasets": [
@@ -205,12 +205,12 @@
               {
                 "name": "y",
                 "type": "space",
-                "units": "micrometer"
+                "unit": "micrometer"
               },
               {
                 "name": "x",
                 "type": "space",
-                "units": "micrometer"
+                "unit": "micrometer"
               }
             ]
           }
@@ -228,12 +228,12 @@
               {
                 "name": "y",
                 "type": "space",
-                "units": "micrometer"
+                "unit": "micrometer"
               },
               {
                 "name": "x",
                 "type": "space",
-                "units": "micrometer"
+                "unit": "micrometer"
               }
             ],
             "datasets": [
@@ -279,17 +279,17 @@
               {
                 "name": "z",
                 "type": "space",
-                "units": "micrometer"
+                "unit": "micrometer"
               },
               {
                 "name": "y",
                 "type": "space",
-                "units": "micrometer"
+                "unit": "micrometer"
               },
               {
                 "name": "x",
                 "type": "space",
-                "units": "micrometer"
+                "unit": "micrometer"
               }
             ],
             "datasets": [

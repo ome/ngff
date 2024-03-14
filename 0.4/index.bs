@@ -107,7 +107,7 @@ be optional (MAY). Examples of transitional metadata include custom additions by
 implementations that are later submitted as a formal specification. (See [[#bf2raw]])
 </p>
 
-Some of the JSON examples in this document include commments. However, these are only for
+Some of the JSON examples in this document include comments. However, these are only for
 clarity purposes and comments MUST NOT be included in JSON objects.
 
 On-disk (or in-cloud) layout {#on-disk}
@@ -145,7 +145,7 @@ For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x
     ├── .zgroup               # Each image is a Zarr group, or a folder, of other groups and arrays.
     ├── .zattrs               # Group level attributes are stored in the .zattrs file and include
     │                         # "multiscales" and "omero" (see below). In addition, the group level attributes
-    │                         # must also contain "_ARRAY_DIMENSIONS" if this group directly contains multi-scale arrays.
+    │                         # may also contain "_ARRAY_DIMENSIONS" for compatibility with xarray if this group directly contains multi-scale arrays.
     │
     ├── 0                     # Each multiscale level is stored as a separate Zarr array,
     │   ...                   # which is a folder containing chunk files which compose the array.
@@ -438,6 +438,12 @@ can be found under the "omero" key in the group-level metadata:
 See https://docs.openmicroscopy.org/omero/5.6.1/developers/Web/WebGateway.html#imgdata
 for more information.
 
+The "omero" metadata is optional, but if present it MUST contain the field "channels", which is an array of dictionaries describing the channels of the image.
+Each dictionary in "channels" MUST contain the field "color", which is a string of 6 hexadecimal digits specifying the color of the channel in RGB format.
+Each dictionary in "channels" MUST contain the field "window", which is a dictionary describing the windowing of the channel.
+The field "window" MUST contain the fields "min" and "max", which are the minimum and maximum values of the window, respectively. 
+It MUST also contain the fields "start" and "end", which are the start and end values of the window, respectively.
+
 "labels" metadata {#labels-md}
 ------------------------------
 
@@ -538,7 +544,7 @@ other `name` in the `rows` list. Care SHOULD be taken to avoid collisions on
 case-insensitive filesystems (e.g. avoid using both `Aa` and `aA`).
 
 The `plate` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
-version of the plate specificaton.
+version of the plate specification.
 
 The `plate` dictionary MUST contain a `wells` key whose value MUST be a list of JSON objects
 defining the wells of the plate. Each well object MUST contain a `path` key whose value MUST
@@ -546,7 +552,7 @@ be a string specifying the path to the well subgroup. The `path` MUST consist of
 the `rows` list, a file separator (`/`), and a `name` from the `columns` list, in that order.
 The `path` MUST NOT contain additional leading or trailing directories.
 Each well object MUST contain both a `rowIndex` key whose value MUST be an integer identifying
-the index into the `rows` list and a `columnIndex` key whose value MUST be an integer indentifying
+the index into the `rows` list and a `columnIndex` key whose value MUST be an integer identifying
 the index into the `columns` list. `rowIndex` and `columnIndex` MUST be 0-based. The
 `rowIndex`, `columnIndex`, and `path` MUST all refer to the same row/column pair.
 
@@ -639,8 +645,7 @@ Projects which support reading and/or writing OME-NGFF data include:
 
 </dl>
 
-<img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png"
-    alt="Diagram of related projects"/>
+<img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png" alt="Diagram of related projects"></img>
 
 All implementations prevent an equivalent representation of a dataset which can be downloaded or uploaded freely. An interactive
 version of this diagram is available from the [OME2020 Workshop](https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/).
