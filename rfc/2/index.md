@@ -6,21 +6,21 @@ Adopt the version 3 of Zarr for OME-Zarr.
 
 This RFC is currently in draft state (D3).
 
-| Role                   | Name                | GitHub Handle                                                           | Institution                                        | Date       | Status                                                                  |
-| ---------------------- | ------------------- | ----------------------------------------------------------------------- | -------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
-| Author                 | Norman Rzepka       | [normanrz](https://github.com/normanrz)                                 | [scalable minds](https://scalableminds.com)        | 2024-02-14 |                                                                         |
-| Endorser               | Davis Bennett       | [d-v-b](https://github.com/d-v-b)                                       |                                                    | 2024-02-14 | Endorse                                                                 |
-| Endorser               | Kevin Yamauchi      | [kevinyamauchi](https://github.com/kevinyamauchi)                       | ETH Zürich                                         | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1947942934) |
-| Endorser               | John Bogivic        | [bogovicj](https://github.com/bogovicj)                                 | HHMI Janelia Research Campus                       | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948547356) |
-| Endorser               | Matthew Hartley     | [matthewh-ebi](https://github.com/matthewh-ebi)                         | EMBL-EBI                                           | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948912814) |
-| Endorser               | Christian Tischer   | [tischi](https://github.com/tischi)                                     | EMBL                                               | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949058616) |
-| Endorser               | Joel Lüthi          | [jluethi](https://github.com/jluethi)                                   | BioVisionCenter, University of Zurich              | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949333769) |
-| Endorser               | Constantin Pape     | [constantinpape](https://github.com/constantinpape)                     | University Göttingen                               | 2024-02-18 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1951318754) |
-| Endorser               | Will Moore          | [will-moore](https://github.com/will-moore)                             | OME, University of Dundee                          | 2024-02-19 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1952057704) |
-| Endorser               | Juan Nunez-Iglesias | [jni](https://github.com/jni)                                           | Biomedicine Discovery Institute, Monash University | 2024-02-20 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1953922897) |
-| Endorser               | Eric Perlman        | [perlman](https://github.com/perlman)                                   |                                                    | 2024-02-22 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1960272942) |
-| Endorser               | Ziwen Liu           | [ziw-liu](https://github.com/ziw-liu)                                   |
-| Chan Zuckerberg Biohub | 2024-03-12          | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1992588774) |
+| Role     | Name                | GitHub Handle                                       | Institution                                        | Date       | Status                                                                  |
+| -------- | ------------------- | --------------------------------------------------- | -------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
+| Author   | Norman Rzepka       | [normanrz](https://github.com/normanrz)             | [scalable minds](https://scalableminds.com)        | 2024-02-14 |                                                                         |
+| Endorser | Davis Bennett       | [d-v-b](https://github.com/d-v-b)                   |                                                    | 2024-02-14 | Endorse                                                                 |
+| Endorser | Kevin Yamauchi      | [kevinyamauchi](https://github.com/kevinyamauchi)   | ETH Zürich                                         | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1947942934) |
+| Endorser | John Bogivic        | [bogovicj](https://github.com/bogovicj)             | HHMI Janelia Research Campus                       | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948547356) |
+| Endorser | Matthew Hartley     | [matthewh-ebi](https://github.com/matthewh-ebi)     | EMBL-EBI                                           | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948912814) |
+| Endorser | Christian Tischer   | [tischi](https://github.com/tischi)                 | EMBL                                               | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949058616) |
+| Endorser | Joel Lüthi          | [jluethi](https://github.com/jluethi)               | BioVisionCenter, University of Zurich              | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949333769) |
+| Endorser | Constantin Pape     | [constantinpape](https://github.com/constantinpape) | University Göttingen                               | 2024-02-18 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1951318754) |
+| Endorser | Will Moore          | [will-moore](https://github.com/will-moore)         | OME, University of Dundee                          | 2024-02-19 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1952057704) |
+| Endorser | Juan Nunez-Iglesias | [jni](https://github.com/jni)                       | Biomedicine Discovery Institute, Monash University | 2024-02-20 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1953922897) |
+| Endorser | Eric Perlman        | [perlman](https://github.com/perlman)               |                                                    | 2024-02-22 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1960272942) |
+| Endorser | Ziwen Liu           | [ziw-liu](https://github.com/ziw-liu)               | Chan Zuckerberg Biohub                             | 2024-03-12 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1992588774) |
+| Endorser | Lachlan Deakin      | [LDeakin](https://github.com/LDeakin)               | Australian National University                     | 2024-03-14 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1998594492) |
 
 ## Overview
 
