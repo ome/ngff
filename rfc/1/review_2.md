@@ -1,5 +1,11 @@
 # Review of RFC2
 
+## Review authors
+This review was written by:
+- Joel Lüthi
+- Virginie Uhlmann
+- Kevin Yamauchi
+
 ## Summary
 RFC1 proposes a process by which changes to the NGFF project can be proposed, reviewed, and implemented. These changes include both modifications to the NGFF specification and to the governance of the NGFF project. This process has three phases: DRAFT, RFC, and SPEC. In the draft phase, community members can propose changes. If these changes receive sufficient community support via endorsements and Editor approval, they transition to the RFC phase. In the RFC phase, the proposal is reviewed by Reviewers chosen by an Editor. With Reviewer and Editor approval, the proposal transitions to the SPEC stage in which implementation will begin.
 
