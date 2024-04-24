@@ -5,15 +5,16 @@ Definition of the NGFF RFC process
 
 ## Status
 
-This RFC is currently under review (D4).
+This RFC is currently being responded to (R4).
 
-| Name                                   | GitHub Handle           | Institution          | Date       | Status                    |
-|----------------------------------------|-------------------------|----------------------|------------|---------------------------|
-| Josh Moore                             | joshmoore               | German BioImaging    | 2023-12-23 | Author                    |
-| Virginia Scarlett, _et al._            |                         | Janelia              | 2024-02-26 | Review requested          |
-| Kevin Yamauchi, Virginie Uhlmann       |                         | ETH, BiovisionCenter | 2024-03-05 | Review requested          |
-| Matthew Hartley                        |                         | EMBL-EBI             | 2024-03-05 | Review requested          |
-| Wouter-Michiel Vierdag, Luca Marconato | melonora, LucaMarconato | EMBL                 | 2024-01-13 | [Comment](./comment_1.html) |
+| Name                                     | GitHub Handle             | Institution            | Date         | Status                                              |
+| ---------------------------------------- | ------------------------- | ---------------------- | ------------ | --------------------------------------------------- |
+| Josh Moore                               | joshmoore                 | German BioImaging      | 2023-12-23   | Author ([PR](https://github.com/ome/ngff/pull/222)) |
+| Virginia Scarlett, _et al._              |                           | Janelia                | 2024-02-26   | [Review](./review_2.html)                           |
+| Kevin Yamauchi, Virginie Uhlmann         |                           | ETH, BiovisionCenter   | 2024-03-05   | [Review](./review_1.html)                           |
+| Matthew Hartley                          |                           | EMBL-EBI               | 2024-03-05   | [Review](./review_3.html)                           |
+| Wouter-Michiel Vierdag, Luca Marconato   | melonora, LucaMarconato   | EMBL                   | 2024-01-13   | [Comment](./comment_1.html)                         |
+| Matt McCormick                           | thewtex                   | ITK                    | 2024-01-09   | [Comment](./comment_2.html)                         |
 
 ## Overview
 
@@ -537,6 +538,12 @@ Definitions for terms used throughout this RFC have been collected below.
 * Reviewer: See “Stakeholders”
 * ZEP ("Zarr Enhancement Proposal") Decision-making process for the Zarr
   specification
+
+## Changelog
+
+| Date       | Description                             | Link                                    |
+| ---------- | --------------------------------------- | --------------------------------------- |
+| 2024-04-24 | Apply changes from comment 1            | <https://github.com/ome/ngff/pull/231>  |
 
 [dia]: diagram.png
 [tmpl]: template.md
