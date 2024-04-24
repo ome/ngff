@@ -16,7 +16,7 @@ Developing sharing specifications, like any large scale shared endeavour, necess
 * The proposal makes reference to manuscript review (particularly for the REVIEW phase). In this process, time overruns or nonresponsive participants are common. Some further detail on how such cases would be handled and communicated would be valuable.
 * Both within the REVIEW and SPEC phases, implementations become important (particularly for reaching “adopted” status). However OME-NGFF is a complex specification and in many cases existing implementations already focus on subsets of the spec. We recommend adding some general indication of what would comprise a minimal implementation necessary to enable adoption.
 * Given exit from the SPEC phase is dependent on complete implementations, care should be taken on how to prevent the RFC getting stuck here.
-* The RFC template needs a revision pass, it has a number of components which are very specific to the project from which the template was copied (presumably the Fuschia project), e.g. explicit mentions of “FIDL source file compatibility”. More broadly, removing some template sections (e.g. security/privacy/UI/UX), would make sense.
+* The RFC template needs a revision pass, it has a number of components which are very specific to the project from which the template was copied (presumably the Fuchsia project), e.g. explicit mentions of “FIDL source file compatibility”. More broadly, removing some template sections (e.g. security/privacy/UI/UX), would make sense.
 
 ## Minor comments and questions
 
