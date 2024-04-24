@@ -20,7 +20,7 @@ Developing sharing specifications, like any large scale shared endeavour, necess
 
 ## Minor comments and questions
 
-* During the RFC process, “Reviewers responses should be returned in less than two weeks.” I think this means the reponses by the authors to the reviewers? Phrasing is unclear.
+* During the RFC process, “Reviewers responses should be returned in less than two weeks.” I think this means the responses by the authors to the reviewers? Phrasing is unclear.
 * The role of **Commenters** is a little unclear to me at present. In the definition, they are “invited to add their voice” - is this intended to be an active (e.g. authors/editors ask them) or passive process? 
 * In the figure “RFC persists” indicates that the RFC, although not adopted, remains part of the record of communal work on the specification, but “persists” suggests that it remains in an active process somehow which I do not think is the case.
 * The figure legend suggests that start/end states should have identifiers, this isn’t currently the case for end states.
