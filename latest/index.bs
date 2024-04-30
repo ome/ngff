@@ -14,8 +14,6 @@ Local Boilerplate: copyright yes
 Boilerplate: style-darkmode off
 Markup Shorthands: markdown yes
 Editor: Josh Moore, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0003-4028-811X
-Editor: Sébastien Besson, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0001-8783-1429
-Editor: Constantin Pape, European Molecular Biology Laboratory (EMBL) https://www.embl.org/sites/heidelberg/, https://orcid.org/0000-0001-6562-7187
 Text Macro: NGFFVERSION 0.5-dev
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
@@ -609,7 +607,7 @@ Citing {#citing}
 ================
 
 [Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.](https://ngff.openmicroscopy.org/0.4)
-J. Moore, *et al*. Editors. Open Microscopy Environment Consortium, 8 February 2022.
+J. Moore, *et al*. Open Microscopy Environment Consortium, 8 February 2022.
 This edition of the specification is [https://ngff.openmicroscopy.org/0.4/](https://ngff.openmicroscopy.org/0.4/]).
 The latest edition is available at [https://ngff.openmicroscopy.org/latest/](https://ngff.openmicroscopy.org/latest/).
 [(doi:10.5281/zenodo.4282107)](https://doi.org/10.5281/zenodo.4282107)
