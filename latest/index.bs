@@ -77,7 +77,7 @@ Images {#image-layout}
 
 The following layout describes the expected Zarr hierarchy for images with
 multiple levels of resolutions and optionally associated labels.
-Note that the number of dimensions is variable between 2 and 5 and that axis names are arbitrary, see [[#multiscale-md]] for details.
+Note that the number of dimensions is variable and that axis names are arbitrary, see [[#multiscale-md]] for details.
 For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x`.
 
 <pre>
@@ -98,8 +98,8 @@ For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x
     ├── n                     # The name of the array is arbitrary with the ordering defined by
     │   │                     # by the "multiscales" metadata, but is often a sequence starting at 0.
     │   │
-    │   ├── .zarray           # All image arrays must be up to 5-dimensional
-    │   │                     # with the axis of type time before type channel, before spatial axes.
+    │   ├── .zarray           
+    │   │                     
     │   │
     │   └─ t                  # Chunks are stored with the nested directory layout.
     │      └─ c               # All but the last chunk element are stored as directories.
@@ -303,10 +303,8 @@ Metadata about an image can be found under the "multiscales" key in the group-le
 "multiscales" contains a list of dictionaries where each entry describes a multiscale image.
 
 Each "multiscales" dictionary MUST contain the field "axes", see [[#axes-md]].
-The length of "axes" must be between 2 and 5 and MUST be equal to the dimensionality of the zarr arrays storing the image data (see "datasets:path").
-The "axes" MUST contain 2 or 3 entries of "type:space" and MAY contain one additional entry of "type:time" and MAY contain one additional entry of "type:channel" or a null / custom type.
-The order of the entries MUST correspond to the order of dimensions of the zarr arrays. In addition, the entries MUST be ordered by "type" where the "time" axis must come first (if present), followed by the  "channel" or custom axis (if present) and the axes of type "space".
-If there are three spatial axes where two correspond to the image plane ("yx") and images are stacked along the other (anisotropic) axis ("z"), the spatial axes SHOULD be ordered as "zyx".
+The length of "axes" must be equal to the dimensionality of the zarr arrays storing the image data (see "datasets:path").
+The order of the entries MUST correspond to the order of dimensions of the zarr arrays. 
 
 Each "multiscales" dictionary MUST contain the field "datasets", which is a list of dictionaries describing the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
