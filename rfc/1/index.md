@@ -10,11 +10,11 @@ This RFC is currently being responded to (R4).
 | Name                                     | GitHub Handle             | Institution            | Date         | Status                                              |
 | ---------------------------------------- | ------------------------- | ---------------------- | ------------ | --------------------------------------------------- |
 | Josh Moore                               | joshmoore                 | German BioImaging      | 2023-12-23   | Author ([PR](https://github.com/ome/ngff/pull/222)) |
-| Virginia Scarlett, _et al._              |                           | Janelia                | 2024-02-26   | [Review](./review_2.html)                           |
-| Kevin Yamauchi, Virginie Uhlmann         |                           | ETH, BiovisionCenter   | 2024-03-05   | [Review](./review_1.html)                           |
-| Matthew Hartley                          |                           | EMBL-EBI               | 2024-03-05   | [Review](./review_3.html)                           |
-| Wouter-Michiel Vierdag, Luca Marconato   | melonora, LucaMarconato   | EMBL                   | 2024-01-13   | [Comment](./comment_1.html)                         |
-| Matt McCormick                           | thewtex                   | ITK                    | 2024-01-09   | [Comment](./comment_2.html)                         |
+| Virginia Scarlett, _et al._              |                           | Janelia                | 2024-02-26   | [Review](./review_2.md)                           |
+| Kevin Yamauchi, Virginie Uhlmann         |                           | ETH, BiovisionCenter   | 2024-03-05   | [Review](./review_1.md)                           |
+| Matthew Hartley                          |                           | EMBL-EBI               | 2024-03-05   | [Review](./review_3.md)                           |
+| Wouter-Michiel Vierdag, Luca Marconato   | melonora, LucaMarconato   | EMBL                   | 2024-01-13   | [Comment](./comment_1.md)                         |
+| Matt McCormick                           | thewtex                   | ITK                    | 2024-01-09   | [Comment](./comment_2.md)                         |
 
 ## Overview
 
