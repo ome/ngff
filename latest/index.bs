@@ -298,7 +298,7 @@ The transformations in the list are applied sequentially and in order.
 "multiscales" metadata {#multiscale-md}
 ---------------------------------------
 
-Metadata about an image can be found under the "multiscales" key in the group-level metadata. Here, image refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes. It is stored in a multiple resolution representation.
+Metadata about an image can be found under the "multiscales" key in the group-level metadata. Images are stored in a multiple resolution representation.
 
 "multiscales" contains a list of dictionaries where each entry describes a multiscale image.
 
