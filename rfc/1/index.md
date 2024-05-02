@@ -7,14 +7,17 @@ Definition of the NGFF RFC process
 
 This RFC is currently being responded to (R4).
 
-| Name                                     | GitHub Handle             | Institution            | Date         | Status                                              |
-| ---------------------------------------- | ------------------------- | ---------------------- | ------------ | --------------------------------------------------- |
-| Josh Moore                               | joshmoore                 | German BioImaging      | 2023-12-23   | Author ([PR](https://github.com/ome/ngff/pull/222)) |
-| Virginia Scarlett, _et al._              |                           | Janelia                | 2024-02-26   | [Review](./review_2.md)                           |
-| Kevin Yamauchi, Virginie Uhlmann         |                           | ETH, BiovisionCenter   | 2024-03-05   | [Review](./review_1.md)                           |
-| Matthew Hartley                          |                           | EMBL-EBI               | 2024-03-05   | [Review](./review_3.md)                           |
-| Wouter-Michiel Vierdag, Luca Marconato   | melonora, LucaMarconato   | EMBL                   | 2024-01-13   | [Comment](./comment_1.md)                         |
-| Matt McCormick                           | thewtex                   | ITK                    | 2024-01-09   | [Comment](./comment_2.md)                         |
+| Name                                                                                               | GitHub Handle           | Institution          | Date       | Status           |
+| -------------------------------------------------------------------------------------------------- | ----------------------- | -------------------- | ---------- | ---------------- |
+| Josh Moore                                                                                         | joshmoore               | German BioImaging    | 2023-12-23 | Author ([PR][1]) |
+| Davis Bennett, John Bogovic, Michael Innerberger Mark Kittisopikul, Virginia Scarlett, Yurii Zubov |                         | Janelia              | 2024-02-26 | [Review][2]      |
+| Kevin Yamauchi, Virginie Uhlmann                                                                   |                         | ETH, BiovisionCenter | 2024-03-05 | [Review][3]      |
+| Matthew Hartley                                                                                    |                         | EMBL-EBI             | 2024-03-05 | [Review][4]      |
+| Wouter-Michiel Vierdag, Luca Marconato                                                             | melonora, LucaMarconato | EMBL                 | 2024-01-13 | [Comment][5]     |
+| Matt McCormick                                                                                     | thewtex                 | ITK                  | 2024-01-09 | [Comment][6]     |
+| Josh Moore                                                                                         | joshmoore               | German BioImaging    | 2024-05-0X | [Response](./response.md)    |
+
+
 
 ## Overview
 
@@ -47,13 +50,13 @@ to slower specification evolution and potential deadlocks.
 
 Led by the need to take on larger challenges and more interested parties, there
 has been significant interest within the community to update the process used
-in order to bypass these issues. This RFC adapts the well-known [RFC process][1],
+in order to bypass these issues. This RFC adapts the well-known [RFC process][7],
 which originated in the Internet Engineering Task Force (IETF), for use in the
-NGFF community as has been done in a number of other communities ([Rust][2],
-[Hashicorp][3], [Tensorflow][4], etc.) More information can be found under:
+NGFF community as has been done in a number of other communities ([Rust][8],
+[Hashicorp][9], [Tensorflow][10], etc.) More information can be found under:
 
-- <https://en.wikipedia.org/wiki/Internet_Standard#Standardization_process>
-- <https://en.wikipedia.org/wiki/Request_for_Comments>
+- [https://en.wikipedia.org/wiki/Internet\_Standard#Standardization\_process][11]
+- [https://en.wikipedia.org/wiki/Request\_for\_Comments][12]
 
 Ultimately, each RFC is a record of a decision made, either for or against a
 proposal, that will be available from the main NGFF webpage. This captures the
@@ -88,7 +91,7 @@ details, see the "Implementation" section below.
 
 **Authors** propose an idea for the RFC process and socialize the idea, e.g.,
 through an issue or community call, gaining **Endorsers** They then submit a
-pull request to the <https://github.com/ome/ngff> repository with a document that
+pull request to the [https://github.com/ome/ngff][13] repository with a document that
 they would like to have published as an RFC. This pull request MUST contain a
 document under the `rfc/` subdirectory and it SHOULD follow the template
 provided. As described under the "DRAFT" section below, this document can be
@@ -103,7 +106,7 @@ table. Rather than a process terminated with a single vote, the RFC process
 consists of iterative rounds of gathering **Endorsers**, or sponsors, who
 approve the work, building confidence that the community is moving in the
 right direction. More information on this strategy can be found under:
-<https://engineering.squarespace.com/blog/2019/the-power-of-yes-if> .
+[https://engineering.squarespace.com/blog/2019/the-power-of-yes-if][14] .
 
 **Editors** identify whether a PR should or should not follow the RFC process,
 and choosing when a draft is ready to become an RFC. They also choose
@@ -122,13 +125,11 @@ will be asked to provide a review of the RFC along with a recommendation on how
 the **Editors** should proceed with the RFC. Depending on the complexity of the
 RFC, this process may be iterative and require multiple reviews.
 
-**Commenters** are other members of the community who are not required to make
-a determination on an RFC but are still invited to add their voice to the
-decision-making process.
+**Commenters** are other members of the community who, though not contacted as **Reviewers**, have provided feedback that they would like added to the official record of the RFC.
 
 ## Implementation
 
-This description of the RFC process will refer frequently to the [visual diagram][dia]
+This description of the RFC process will refer frequently to the [visual diagram][15]
 Readers may want to familiar themselves with it at this point.
 Identifiers such as "D1", "R2", "S3", refer to steps in that diagram.
 
@@ -161,7 +162,7 @@ RFC process is intended primarily for significant and/or breaking changes to
 the specification or the community process itself. Other changes, bug fixes,
 etc. are welcome as PRs without a full RFC. If **Authors** are unsure whether
 or not a change requires an RFC, they can open an issue or contact the **Editors**
-directly. All RFC-targeted PRs SHOULD follow the [current template][tmpl].
+directly. All RFC-targeted PRs SHOULD follow the [current template][16].
 
 Comments on how a specification is implemented or what could be proposed
 instead from potential **Reviewers** and **Commenters** should come in the
@@ -242,7 +243,7 @@ via subsequent PRs. The response SHOULD include a written rebuttal to each of
 the reviews. **Editors** include the response in the repository (R5) and
 contact **Reviewers** to see if their recommendations have changed.
 
-> 🕑 Reviewers responses should be returned in less than two weeks.
+> 🕑 Authors responses to Reviewers should be returned to the Editors in less than two weeks.
 
 This brings a critical, and iterative, decision point (R6). If a "Reject"
 recommendation remains, then the RFC is closed. The text remains on the
@@ -385,10 +386,10 @@ of the specification, that will clearly be necessary.
 Similarly, this proposal does not try to define higher-level governance and
 conflict resolution. By default, as a repository within the "OME" GitHub
 organization, the community health processes defined in
-<https://github.com/ome/.github> hold for the NGFF process. However, following
+[https://github.com/ome/.github][17] hold for the NGFF process. However, following
 this RFC, additional and specific governance mechanisms can be put in place for
 the operation of the NGFF community process. This may or may not follow the
-model of other RFC-using communities, e.g., IETF's [IAB][iab] or Fuchsia's
+model of other RFC-using communities, e.g., IETF's [IAB][18] or Fuchsia's
 "governing authority".
 
 ### C. Participation requirements
@@ -399,7 +400,7 @@ anyone individual from blocking the process.
 
 ### D. Multiple tracks
 
-Currently, there is a single "track" in the [process diagram][dia] through which
+Currently, there is a single "track" in the [process diagram][19] through which
 all RFCs progress. This can initially be managed by careful choice of the
 reviewers. However, possibly as the complexity of review grows, it will become
 advantageous to split the set of a reviewers into separate "tracks", such that
@@ -432,36 +433,34 @@ Like other NGFF specifications, the RFC process has an inherent metadata model
 which can be captured and actioned upon within the NGFF repository. A draft
 representation of this metadata is presented below:
 
-```
-{
-  "@context": "ngff.openmicroscopy.org/rfc",
-  "@type": "RFC",
-  "@id": "####",
-  // Independent of subsequent RFCs
-  "title": "
-  "authors": [
-    {
-      "@type": "http://schema.org/Person",
-      "@id": ...
-    }
-  ],
-  "status": see enum
-  "published": TODO: follow some schema.org model? WorkOfArt?
-  "doi":
-  "edits": [
-    {
-      "authors":
-      "date":
-      "xxx":
-    }
-  ],
-  // May be changed by subsequent RFCs
-  "obsoletes": [],
-  "obsoleted-by": [],
-  "updates": [],
-  "updated-by":[],
-}
-```
+	{
+	  "@context": "ngff.openmicroscopy.org/rfc",
+	  "@type": "RFC",
+	  "@id": "####",
+	  // Independent of subsequent RFCs
+	  "title": "
+	  "authors": [
+	    {
+	      "@type": "http://schema.org/Person",
+	      "@id": ...
+	    }
+	  ],
+	  "status": see enum
+	  "published": TODO: follow some schema.org model? WorkOfArt?
+	  "doi":
+	  "edits": [
+	    {
+	      "authors":
+	      "date":
+	      "xxx":
+	    }
+	  ],
+	  // May be changed by subsequent RFCs
+	  "obsoletes": [],
+	  "obsoleted-by": [],
+	  "updates": [],
+	  "updated-by":[],
+	}
 
 This model is very close to the original IETF RFC model, but omits the
 following keywords:
@@ -499,7 +498,7 @@ Below is a list of the preceding major decisions within the NGFF community that
 have been or will be written up following the RFC template proposed here.
 
 | RFC | Title                                   | Decision                              |
-|-----|-----------------------------------------|---------------------------------------|
+| --- | --------------------------------------- | ------------------------------------- |
 | TBD | Original NGFF including consensus model | Organically developed                 |
 | TBD | Labels                                  | Adopted under consensus model         |
 | TBD | HCS                                     | Adopted under consensus model         |
@@ -527,7 +526,7 @@ Definitions for terms used throughout this RFC have been collected below.
 * Comment: Documents that are included with the RFC discussing the pros and
   cons of the proposal in a structured way. Comments from reviewers are
   additionally referred to as "reviews".
-* Draft: See the related section under “Implementation > Phases”
+* Draft: See the related section under “Implementation \> Phases”
 * Editor: See “Stakeholders”
 * Endorsement:
 * RFC ("Request for Comment"): A formal proposal following a standardized
@@ -541,14 +540,27 @@ Definitions for terms used throughout this RFC have been collected below.
 
 ## Changelog
 
-| Date       | Description                             | Link                                    |
-| ---------- | --------------------------------------- | --------------------------------------- |
-| 2024-04-24 | Apply changes from comment 1            | <https://github.com/ome/ngff/pull/231>  |
+| Date       | Description                  | Link                                       |
+| ---------- | ---------------------------- | ------------------------------------------ |
+| 2024-04-24 | Apply changes from comment 1 | [https://github.com/ome/ngff/pull/231][20] |
 
-[dia]: diagram.png
-[tmpl]: template.md
-[iab]: https://www.ietf.org/about/groups/iab/
-[1]: https://www.rfc-editor.org/
-[2]: https://github.com/rust-lang/rfcs/blob/master/0000-template.md
-[3]: https://works.hashicorp.com/articles/rfc-template
-[4]: https://github.com/tensorflow/community/blob/master/rfcs/yyyymmdd-rfc-template.md
+[1]:	https://github.com/ome/ngff/pull/222
+[2]:	./review_2.md
+[3]:	./review_1.md
+[4]:	./review_3.md
+[5]:	./comment_1.md
+[6]:	./comment_2.md
+[7]:	https://www.rfc-editor.org/
+[8]:	https://github.com/rust-lang/rfcs/blob/master/0000-template.md
+[9]:	https://works.hashicorp.com/articles/rfc-template
+[10]:	https://github.com/tensorflow/community/blob/master/rfcs/yyyymmdd-rfc-template.md
+[11]:	https://en.wikipedia.org/wiki/Internet_Standard#Standardization_process
+[12]:	https://en.wikipedia.org/wiki/Request_for_Comments
+[13]:	https://github.com/ome/ngff
+[14]:	https://engineering.squarespace.com/blog/2019/the-power-of-yes-if
+[15]:	diagram.png
+[16]:	template.md
+[17]:	https://github.com/ome/.github
+[18]:	https://www.ietf.org/about/groups/iab/
+[19]:	diagram.png
+[20]:	https://github.com/ome/ngff/pull/231

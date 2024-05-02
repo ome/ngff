@@ -4,18 +4,18 @@ Summary: Sentence fragment summary
 
 ## Status
 
-Brief description of status, including, e.g., `WIP | In-Review | Approved | Withdrawn | Obsolete`.
+Brief description of status, including the state identifier, e.g. `R4`
 
-| Name      | GitHub Handle | Institution | Date       | Status                                 |
-|-----------|---------------|-------------|------------|----------------------------------------|
-| Author    | N/A           | N/A         | xxxx-xx-xx | Author                                 |
-| Author    | N/A           | N/A         | xxxx-xx-xx | Author; Implemented (link to release)  |
-| Commenter | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)              |
-| Commenter | N/A           | N/A         | xxxx-xx-xx | Not yet (link to comment)              |
-| Endorser  | N/A           | N/A         | xxxx-xx-xx | Endorse (no link needed)               |
-| Endorser  | N/A           | N/A         | xxxx-xx-xx | Implementing (link to branch/PR)       |
-| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)              |
-| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Requested by editor                    |
+| Name      | GitHub Handle | Institution | Date       | Status                                |
+| --------- | ------------- | ----------- | ---------- | ------------------------------------- |
+| Author    | N/A           | N/A         | xxxx-xx-xx | Author                                |
+| Author    | N/A           | N/A         | xxxx-xx-xx | Author; Implemented (link to release) |
+| Commenter | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
+| Commenter | N/A           | N/A         | xxxx-xx-xx | Not yet (link to comment)             |
+| Endorser  | N/A           | N/A         | xxxx-xx-xx | Endorse (no link needed)              |
+| Endorser  | N/A           | N/A         | xxxx-xx-xx | Implementing (link to branch/PR)      |
+| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
+| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Requested by editor                   |
 
 ## Overview
 
@@ -28,8 +28,8 @@ reading this paragraph(s).
 ## Background
 
 The next section is the "Background" section. This section should be at least
-two paragraphs and can take up to a whole page in some cases. The **guiding goal
-of the background section** is: as a newcomer to this project (new employee, team
+two paragraphs and can take up to a whole page in some cases. The \*\*guiding goal
+of the background section\*\* is: as a newcomer to this project (new employee, team
 transfer), can I read the background section and follow any links to get the
 full context of why this change is necessary? 
 
@@ -49,14 +49,13 @@ solution, but for details further sections will be used.
 
 From this point onwards, the sections and headers are generally freeform
 depending on the RFC, though it is typically preferable to make use of the
-sections listed below, though the order does not matter. Sections are styled as
+sections listed below changing the order as necessary. Sections are styled as
 "Heading 2". Try to organize your information into self-contained sections that
 answer some critical question, and organize your sections into an order that
 builds up knowledge necessary (rather than forcing a reader to jump around to
 gain context).
 
-Sections often are split further into sub-sections styled "Heading 3". These
-sub-sections just further help to organize data to ease reading and discussion.
+Sections often are split further into sub-sections styled "Heading 3" and beyond. These sub-sections just further help to organize data to ease reading and discussion.
 
 ## Requirements (Recommended Header)
 
@@ -66,7 +65,7 @@ that the following text SHOULD be used in all RFCs:
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
-interpreted as described in [IETF RFC 2119][IETF RFC 2119]
+interpreted as described in [IETF RFC 2119][1]
 
 ## Stakeholders (Recommended Header)
 
@@ -100,7 +99,7 @@ may result in the realization that the proposed solution in this RFC is too
 complex given the problem.
 
 For the RFC author, typing out the implementation in a high-level often serves
-as "[rubber duck debugging][rubber duck debugging]" and you can catch a lot of
+as "[rubber duck debugging][2]" and you can catch a lot of
 issues or unknown unknowns prior to writing any real code.
 
 ## Drawbacks, risks, alternatives, and unknowns (Recommended Header)
@@ -188,16 +187,13 @@ There should be microbenchmarks. Are there?
 There should be end-to-end tests and benchmarks. If there are not (since this
 is still a design), how will you track that these will be created?
 
-## Backwards Compatibility (Recommended Header)
+## Compatibility (Recommended Header)
 
-Backwards compatibility comes in two flavors: FIDL file source compatibility,
-and ABI or wire format compatibility. This section should speak to both. Over
-time, the ability to make backwards-incompatible changes will get harder.
+How does this proposal affect backwards and forwards compatibility?
 
-If you are introducing a new data type or language feature, consider what
-changes you would expect users to make to FIDL definitions without breaking
-users of the generated code. If your feature places any new source
-compatibility restrictions on the generated language bindings, list those here.
+Does it restrict existing assumptions or remove existing restrictions?
+
+How are implementations expected to handle these changes?
 
 ## Security considerations (Optional Header)
 
@@ -300,15 +296,13 @@ CLI output samples are similar to code samples but should be highlighted with
 the color they'll output if it is known so that the RFC could also cover
 formatting as part of the user experience.
 
-```
-    func example() {
-      <-make(chan struct{})
-    }
-```
+	    func example() {
+	      <-make(chan struct{})
+	    }
 
-Note: This document is based on the [RFC template from Hashicorp][template]
-(TODO: license requested).
 
-[IETF RFC 2119]: https://tools.ietf.org/html/rfc2119
-[rubber duck debugging]: https://en.wikipedia.org/wiki/Rubber_duck_debugging
-[template]: https://works.hashicorp.com/articles/rfc-template
+Note: This template is based on the [RFC template from Hashicorp][3] used with permission.
+
+[1]:	https://tools.ietf.org/html/rfc2119
+[2]:	https://en.wikipedia.org/wiki/Rubber_duck_debugging
+[3]:	https://works.hashicorp.com/articles/rfc-template

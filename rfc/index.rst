@@ -16,3 +16,7 @@ is available under `Process <process/>`_. Authors interested in
 creating an RFC should take a look through
 the `listing <listing.html>`_ of current RFCs as well as the
 `template <1/template.html>`_ which should be copied and modified.
+
+
+
+<mailto:ngff-editors@openmicroscopy.org>
