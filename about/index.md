@@ -40,9 +40,9 @@ parallelization.
 
 As a result, a number of formats have been developed more recently which provide
 the basic data structure of an HDF5 file, but do so in a more cloud-friendly way.
-In the [PyData](https://pydata.org/) community, the Zarr [[zarr]] format was developed
+In the [PyData](https://pydata.org/) community, the (Zarr)[https://zarr.dev/] format was developed
 for easily storing collections of [NumPy](https://numpy.org/) arrays. In the
-[ImageJ](https://imagej.net/) community, N5 [[n5]] was developed to work around
+[ImageJ](https://imagej.net/) community, [N5](https://github.com/saalfeldlab/n5) was developed to work around
 the limitations of HDF5 ("N5" was originally short for "Not-HDF5").
 Both of these formats permit storing individual chunks of data either locally in
 separate files or in cloud-based object stores as separate keys.
