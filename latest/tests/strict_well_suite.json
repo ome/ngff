@@ -1,7 +1,7 @@
 {
   "description": "Tests for the strict well JSON schema",
   "schema": {
-    "id": "schemas/strict_well.schema"
+    "id": "schemas/strict_well.schema.json"
   },
   "tests": [
     {

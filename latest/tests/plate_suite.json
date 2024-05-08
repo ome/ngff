@@ -1,7 +1,7 @@
 {
   "description": "Tests for the plate JSON schema",
   "schema": {
-    "id": "schemas/plate.schema"
+    "id": "schemas/plate.schema.json"
   },
   "tests": [
     {
