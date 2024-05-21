@@ -562,6 +562,22 @@ were added before this was adopted, but they should be updated in due course.
 Implementations {#implementations}
 ==================================
 
+Partial support {#partial-support}
+----------------------------------
+
+Inevitably, some software libraries and applications will not support this entire specification, but rather some of it. 
+How should partial implementations respond to data defined via unsupported parts of the specification? This specification does not answer this question in general, but it does provide guidance for a specific scenario:
+if a partial implementation normalizes input data, e.g. by converting that data to a form consistent with the subset of the specification supported by the implementation, then 
+the implementation SHOULD provide a clear indication to users and developers when such data normalization occurs. 
+
+For example, suppose an implementation can only represent 3-dimensional images, and additionally that implementation reads 2-dimensional images by converting them internally to a 3-dimensional representation; 
+In this case, the implementation SHOULD make a reasonable effort to inform users that this transformation is occurring, e.g. by displaying an alert message or warning, or by printing relevant information to logs.
+
+This allows implementations flexibility to implement a subset of the specification, while also protecting users from surprising data transformations.
+
+List of implementations {#list-of-implementations}
+--------------------------------------------------
+
 Projects which support reading and/or writing OME-NGFF data include:
 
 <dl>
