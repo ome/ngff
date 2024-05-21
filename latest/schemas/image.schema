@@ -163,19 +163,46 @@
       "properties": {
         "channels": {
           "items": {
-            "$ref": "#/$defs/RenderingSettings"
+            "$ref": "#/$defs/OmeroRenderingSettings"
           },
           "title": "Channels",
           "type": "array"
+        },
+        "rdefs": {
+          "$ref": "#/$defs/OmeroRdef"
         }
       },
       "required": [
-        "channels"
+        "channels",
+        "rdefs"
       ],
       "title": "Omero",
       "type": "object"
     },
-    "RenderingSettings": {
+    "OmeroRdef": {
+      "properties": {
+        "defaultT": {
+          "title": "Defaultt",
+          "type": "integer"
+        },
+        "defaultZ": {
+          "title": "Defaultz",
+          "type": "integer"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        }
+      },
+      "required": [
+        "defaultT",
+        "defaultZ",
+        "model"
+      ],
+      "title": "OmeroRdef",
+      "type": "object"
+    },
+    "OmeroRenderingSettings": {
       "properties": {
         "window": {
           "$ref": "#/$defs/Window"
@@ -204,7 +231,7 @@
         "color",
         "active"
       ],
-      "title": "RenderingSettings",
+      "title": "OmeroRenderingSettings",
       "type": "object"
     },
     "ScaleTransform": {
