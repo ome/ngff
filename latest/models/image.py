@@ -13,7 +13,7 @@ def _validate_unique_list(v: list[T]) -> list[T]:
         raise PydanticCustomError('unique_list', 'List must be unique')
     return v
 
-UniqueList = Annotated[List[T], AfterValidator(_validate_unique_list), Field(json_schema_extra={'uniqueItems': True})]
+UniqueList = Annotated[List[T], AfterValidator(_validate_unique_list), Field(json_schema_extra={'uniqueItems': True}, min_length=1)]
 
 class Axis(BaseModel, frozen=True):
     name: str

@@ -729,44 +729,6 @@
       "valid": false
     },
     {
-      "formerly": "invalid/invalid_axis_type.json",
-      "description": "TBD",
-      "data": {
-        "multiscales": [
-          {
-            "axes": [
-              {
-                "name": "y",
-                "type": "invalid",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
-                  {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
-                  }
-                ]
-              }
-            ],
-            "version": "0.5-dev"
-          }
-        ]
-      },
-      "valid": false
-    },
-    {
       "formerly": "invalid/duplicate_scale.json",
       "description": "TBD",
       "data": {
@@ -824,52 +786,6 @@
                 "coordinateTransformations": [
                   {
                     "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
-                  }
-                ]
-              }
-            ],
-            "version": "0.5-dev"
-          }
-        ]
-      },
-      "valid": false
-    },
-    {
-      "formerly": "invalid/too_many_space_axes.json",
-      "description": "TBD",
-      "data": {
-        "multiscales": [
-          {
-            "axes": [
-              {
-                "name": "X",
-                "type": "space"
-              },
-              {
-                "name": "z",
-                "type": "space"
-              },
-              {
-                "name": "y",
-                "type": "space"
-              },
-              {
-                "name": "x",
-                "type": "space"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
-                  {
-                    "scale": [
-                      1,
-                      1,
                       1,
                       1
                     ],

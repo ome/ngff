@@ -106,6 +106,7 @@
           "items": {
             "$ref": "#/$defs/Axis"
           },
+          "minItems": 1,
           "title": "Axes",
           "type": "array",
           "uniqueItems": true
