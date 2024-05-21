@@ -12,6 +12,9 @@ Draft (D3).
 | Juan Nunez-Iglesias | [jni](https://github.com/jni) | Monash University | 2024-05-21 | Author |
 <!-- table row template below; delete before merging -->
 <!-- | Reviewer  | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)              | -->
+| Talley Lambert | [tlambert03](https://github.com/tlambert03) | Harvard Medical School | 2024-05-21 | [Endorse](https://github.com/ome/ngff/pull/239#issuecomment-2122795327) | -->
+| Norman Rzepka | [normanrz](https://github.com/normanrz) | Scalable Minds | 2024-05-21 | [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425) | -->
+| Davis Bennett | [d-v-b](https://github.com/d-v-b) |  | 2024-05-21 | [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425) | -->
 
 ## Overview
 
