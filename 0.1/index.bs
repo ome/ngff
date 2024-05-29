@@ -364,7 +364,7 @@ custom attributes of the plate group under the `plate` key.
 </dl>
 
 For example the following JSON object defines a plate with two acquisition and
-6 wells (2 rows and 3 columns), containing up 2 fields of view per acquistion.
+6 wells (2 rows and 3 columns), containing up 2 fields of view per acquisition.
 
 ```json
 "plate": {
