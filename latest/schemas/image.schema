@@ -1,10 +1,36 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ngff.openmicroscopy.org/latest/schemas/image.schema",
-  "title": "NGFF Image",
-  "description": "JSON from OME-NGFF .zattrs",
+  "title": "OME-Zarr Image",
+  "description": "JSON from OME-Zarr zarr.json",
   "type": "object",
   "properties": {
+    "attributes": {
+      "description": "The zarr.json attributes key",
+      "type": "object",
+      "properties": {
+        "https://ngff.openmicroscopy.org/0.5": {
+          "description": "The versioned OME-Zarr Metadata namespace",
+          "type": "object",
+          "properties": {
+            "multiscales": {
+              "$ref": "#/$defs/multiscales"
+            },
+            "omero": {
+              "$ref": "#/$defs/omero"
+            }
+          },
+          "required": [
+            "multiscales"
+          ]
+        }
+      },
+      "required": [
+        "https://ngff.openmicroscopy.org/0.5"
+      ]
+    }
+  },
+  "$defs": {
     "multiscales": {
       "description": "The multiscale datasets for this image",
       "type": "array",
@@ -27,24 +53,22 @@
                   "$ref": "#/$defs/coordinateTransformations"
                 }
               },
-              "required": ["path", "coordinateTransformations"]
+              "required": [
+                "path",
+                "coordinateTransformations"
+              ]
             }
-          },
-          "version": {
-            "type": "string",
-            "enum": [
-              "0.5-dev"
-            ]
           },
           "axes": {
             "$ref": "#/$defs/axes"
           },
           "coordinateTransformations": {
             "$ref": "#/$defs/coordinateTransformations"
-                }
+          }
         },
         "required": [
-          "datasets", "axes", "version"
+          "datasets",
+          "axes"
         ]
       },
       "minItems": 1,
@@ -100,11 +124,7 @@
       "required": [
         "channels"
       ]
-    }
-  },
-  "required": [ "multiscales" ],
-
-  "$defs": {
+    },
     "axes": {
       "type": "array",
       "uniqueItems": true,
@@ -118,7 +138,9 @@
           },
           "type": {
             "type": "string",
-            "enum": ["space"]
+            "enum": [
+              "space"
+            ]
           },
           "unit": {
             "type": "string"
@@ -137,10 +159,17 @@
               },
               "type": {
                 "type": "string",
-                "enum": ["channel", "time", "space"]
+                "enum": [
+                  "channel",
+                  "time",
+                  "space"
+                ]
               }
             },
-            "required": ["name", "type"]
+            "required": [
+              "name",
+              "type"
+            ]
           },
           {
             "type": "object",
@@ -151,11 +180,17 @@
               "type": {
                 "type": "string",
                 "not": {
-                  "enum": ["space", "time", "channel"]
+                  "enum": [
+                    "space",
+                    "time",
+                    "channel"
+                  ]
                 }
               }
             },
-            "required": ["name"]
+            "required": [
+              "name"
+            ]
           }
         ]
       }
@@ -201,7 +236,10 @@
                 }
               }
             },
-            "required": ["type", "scale"]
+            "required": [
+              "type",
+              "scale"
+            ]
           },
           {
             "type": "object",
@@ -220,10 +258,16 @@
                 }
               }
             },
-            "required": ["type", "translation"]
+            "required": [
+              "type",
+              "translation"
+            ]
           }
         ]
       }
     }
-  }
+  },
+  "required": [
+    "attributes"
+  ]
 }

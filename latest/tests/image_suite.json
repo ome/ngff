@@ -8,42 +8,42 @@
       "formerly": "valid/mismatch_axes_units.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "t",
-                "type": "time",
-                "unit": "micrometer"
-              },
-              {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      0.13,
-                      0.13
-                    ],
-                    "type": "scale"
+                    "name": "t",
+                    "type": "time",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [0.13, 0.13],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": true
     },
@@ -51,118 +51,78 @@
       "formerly": "valid/untyped_axes.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "angle"
-              },
-              {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "angle"
+                  },
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
                   }
-                ]
-              }
-            ],
-            "version": "0.5-dev"
-          }
-        ]
-      },
-      "valid": true
-    },
-    {
-      "formerly": "invalid/missing_version.json",
-      "description": "TBD",
-      "data": {
-        "@type": "ngff:Image",
-        "multiscales": [
-          {
-            "name": "example",
-            "datasets": [
-              {
-                "path": "path/to/0",
-                "coordinateTransformations": [
+                ],
+                "datasets": [
                   {
-                    "type": "scale",
-                    "scale": [
-                      1,
-                      1
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1, 1],
+                        "type": "scale"
+                      }
                     ]
                   }
                 ]
               }
-            ],
-            "axes": [
-              {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
             ]
           }
-        ]
+        }
       },
-      "valid": false
+      "valid": true
     },
     {
       "formerly": "valid/invalid_axis_units.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micron"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      0.13,
-                      0.13
-                    ],
-                    "type": "scale"
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micron"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [0.13, 0.13],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": true
     },
@@ -170,50 +130,46 @@
       "formerly": "valid/missing_name.json",
       "description": "TBD",
       "data": {
-        "@type": "ngff:Image",
-        "multiscales": [
-          {
-            "version": "0.5-dev",
-            "datasets": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "path": "path/to/0",
-                "coordinateTransformations": [
+                "datasets": [
                   {
-                    "type": "scale",
-                    "scale": [
-                      1,
-                      1
+                    "path": "path/to/0",
+                    "coordinateTransformations": [
+                      {
+                        "type": "scale",
+                        "scale": [1, 1]
+                      }
                     ]
+                  }
+                ],
+                "type": "gaussian",
+                "metadata": {
+                  "method": "skimage.transform.pyramid_gaussian",
+                  "version": "0.16.1",
+                  "args": ["true", "false"],
+                  "kwargs": {
+                    "multichannel": true
+                  }
+                },
+                "axes": [
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
                   }
                 ]
               }
-            ],
-            "type": "gaussian",
-            "metadata": {
-              "method": "skimage.transform.pyramid_gaussian",
-              "version": "0.16.1",
-              "args": [
-                "true",
-                "false"
-              ],
-              "kwargs": {
-                "multichannel": true
-              }
-            },
-            "axes": [
-              {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
             ]
           }
-        ]
+        }
       },
       "valid": true
     },
@@ -221,42 +177,41 @@
       "formerly": "valid/custom_type_axes.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "angle",
-                "type": "custom"
-              },
-              {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "angle",
+                    "type": "custom"
+                  },
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": true
     },
@@ -264,37 +219,37 @@
       "formerly": "invalid/duplicate_axes.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -302,35 +257,35 @@
       "formerly": "invalid/missing_space_axes.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "t",
-                "type": "time"
-              },
-              {
-                "name": "c",
-                "type": "channel"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "t",
+                    "type": "time"
+                  },
+                  {
+                    "name": "c",
+                    "type": "channel"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -338,37 +293,37 @@
       "formerly": "invalid/invalid_transformation_type.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "translation"
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1],
+                        "type": "translation"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -376,37 +331,37 @@
       "formerly": "invalid/missing_scale.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "translation": [
-                      1,
-                      1
-                    ],
-                    "type": "translation"
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "translation": [1, 1],
+                        "type": "translation"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -414,55 +369,51 @@
       "formerly": "invalid/too_many_axes.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "angle",
-                "type": "custom"
-              },
-              {
-                "name": "t",
-                "type": "time"
-              },
-              {
-                "name": "c",
-                "type": "channel"
-              },
-              {
-                "name": "z",
-                "type": "space"
-              },
-              {
-                "name": "y",
-                "type": "space"
-              },
-              {
-                "name": "x",
-                "type": "space"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1,
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "angle",
+                    "type": "custom"
+                  },
+                  {
+                    "name": "t",
+                    "type": "time"
+                  },
+                  {
+                    "name": "c",
+                    "type": "channel"
+                  },
+                  {
+                    "name": "z",
+                    "type": "space"
+                  },
+                  {
+                    "name": "y",
+                    "type": "space"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1, 1, 1, 1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -470,53 +421,53 @@
       "formerly": "invalid/invalid_channels_color.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
             ],
-            "version": "0.5-dev"
-          }
-        ],
-        "omero": {
-          "channels": [
-            {
-              "active": true,
-              "coefficient": 1.0,
-              "color": 255,
-              "family": "linear",
-              "label": "1234",
-              "window": {
-                "end": 1765.0,
-                "max": 2555.0,
-                "min": 5.0,
-                "start": 0.0
-              }
+            "omero": {
+              "channels": [
+                {
+                  "active": true,
+                  "coefficient": 1.0,
+                  "color": 255,
+                  "family": "linear",
+                  "label": "1234",
+                  "window": {
+                    "end": 1765.0,
+                    "max": 2555.0,
+                    "min": 5.0,
+                    "start": 0.0
+                  }
+                }
+              ]
             }
-          ]
+          }
         }
       },
       "valid": false
@@ -525,35 +476,35 @@
       "formerly": "invalid/missing_axes_name.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "type": "space",
-                "unit": "micron"
-              },
-              {
-                "type": "space",
-                "unit": "micron"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      0.13,
-                      0.13
-                    ],
-                    "type": "scale"
+                    "type": "space",
+                    "unit": "micron"
+                  },
+                  {
+                    "type": "space",
+                    "unit": "micron"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [0.13, 0.13],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -561,32 +512,32 @@
       "formerly": "invalid/invalid_axes_count.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -594,40 +545,39 @@
       "formerly": "invalid/one_space_axes.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "t",
-                "type": "time"
-              },
-              {
-                "name": "c",
-                "type": "channel"
-              },
-              {
-                "name": "x",
-                "type": "space"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "t",
+                    "type": "time"
+                  },
+                  {
+                    "name": "c",
+                    "type": "channel"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -635,37 +585,37 @@
       "formerly": "invalid/invalid_path.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": 0,
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": 0,
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -673,45 +623,43 @@
       "formerly": "invalid/invalid_multiscales_transformations.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
+                "axes": [
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1],
+                        "type": "scale"
+                      }
+                    ]
+                  }
+                ],
                 "coordinateTransformations": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
+                    "scale": ["invalid"],
                     "type": "scale"
                   }
                 ]
               }
-            ],
-            "coordinateTransformations": [
-              {
-                "scale": [
-                  "invalid"
-                ],
-                "type": "scale"
-              }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -719,28 +667,31 @@
       "formerly": "invalid/missing_transformations.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
+                "axes": [
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0"
+                  }
+                ]
               }
-            ],
-            "datasets": [
-              {
-                "path": "0"
-              }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -748,24 +699,27 @@
       "formerly": "invalid/no_datasets.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
+                "axes": [
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": []
               }
-            ],
-            "datasets": [],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -773,23 +727,26 @@
       "formerly": "invalid/missing_datasets.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
+                "axes": [
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -797,100 +754,25 @@
       "formerly": "invalid/missing_axes.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "datasets": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "path": "0",
-                "coordinateTransformations": [
+                "datasets": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
-                  }
-                ]
-              }
-            ],
-            "version": "0.5-dev"
-          }
-        ]
-      },
-      "valid": false
-    },
-    {
-      "formerly": "invalid/invalid_version.json",
-      "description": "TBD",
-      "data": {
-        "multiscales": [
-          {
-            "axes": [
-              {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
-                  {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
-                  }
-                ]
-              }
-            ],
-            "version": "0.3"
-          }
-        ]
-      },
-      "valid": false
-    },
-    {
-      "formerly": "invalid/missing_version.json",
-      "description": "TBD",
-      "data": {
-        "multiscales": [
-          {
-            "axes": [
-              {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
-                  {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
             ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -898,37 +780,37 @@
       "formerly": "invalid/invalid_axis_type.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "invalid",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "y",
+                    "type": "invalid",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -936,44 +818,41 @@
       "formerly": "invalid/duplicate_scale.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
                   },
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1],
+                        "type": "scale"
+                      },
+                      {
+                        "scale": [1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -981,26 +860,26 @@
       "formerly": "invalid/no_axes.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [],
-            "datasets": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [],
+                "datasets": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -1008,45 +887,43 @@
       "formerly": "invalid/too_many_space_axes.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "X",
-                "type": "space"
-              },
-              {
-                "name": "z",
-                "type": "space"
-              },
-              {
-                "name": "y",
-                "type": "space"
-              },
-              {
-                "name": "x",
-                "type": "space"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1,
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "X",
+                    "type": "space"
+                  },
+                  {
+                    "name": "z",
+                    "type": "space"
+                  },
+                  {
+                    "name": "y",
+                    "type": "space"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1, 1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -1054,8 +931,9 @@
       "formerly": "invalid/no_multiscales.json",
       "description": "TBD",
       "data": {
-        "@type": "ngff:Image",
-        "multiscales": []
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": { "multiscales": [] }
+        }
       },
       "valid": false
     },
@@ -1063,53 +941,53 @@
       "formerly": "invalid/invalid_channels_window.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
             ],
-            "version": "0.5-dev"
-          }
-        ],
-        "omero": {
-          "channels": [
-            {
-              "active": true,
-              "coefficient": 1.0,
-              "color": "ff0000",
-              "family": "linear",
-              "label": "1234",
-              "window": {
-                "end": "100",
-                "max": 2555.0,
-                "min": 5.0,
-                "start": 0.0
-              }
+            "omero": {
+              "channels": [
+                {
+                  "active": true,
+                  "coefficient": 1.0,
+                  "color": "ff0000",
+                  "family": "linear",
+                  "label": "1234",
+                  "window": {
+                    "end": "100",
+                    "max": 2555.0,
+                    "min": 5.0,
+                    "start": 0.0
+                  }
+                }
+              ]
             }
-          ]
+          }
         }
       },
       "valid": false
@@ -1118,29 +996,32 @@
       "formerly": "invalid/empty_transformations.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
+                "axes": [
+                  {
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "path": "0",
+                    "coordinateTransformations": []
+                  }
+                ]
               }
-            ],
-            "datasets": [
-              {
-                "path": "0",
-                "coordinateTransformations": []
-              }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     },
@@ -1148,36 +1029,36 @@
       "formerly": "invalid/missing_path.json",
       "description": "TBD",
       "data": {
-        "multiscales": [
-          {
-            "axes": [
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "multiscales": [
               {
-                "name": "y",
-                "type": "space",
-                "unit": "micrometer"
-              },
-              {
-                "name": "x",
-                "type": "space",
-                "unit": "micrometer"
-              }
-            ],
-            "datasets": [
-              {
-                "coordinateTransformations": [
+                "axes": [
                   {
-                    "scale": [
-                      1,
-                      1
-                    ],
-                    "type": "scale"
+                    "name": "y",
+                    "type": "space",
+                    "unit": "micrometer"
+                  },
+                  {
+                    "name": "x",
+                    "type": "space",
+                    "unit": "micrometer"
+                  }
+                ],
+                "datasets": [
+                  {
+                    "coordinateTransformations": [
+                      {
+                        "scale": [1, 1],
+                        "type": "scale"
+                      }
+                    ]
                   }
                 ]
               }
-            ],
-            "version": "0.5-dev"
+            ]
           }
-        ]
+        }
       },
       "valid": false
     }

@@ -7,12 +7,16 @@
     {
       "formerly": "well/minimal_no_acquisition",
       "data": {
-        "well": {
-          "images": [
-            {
-              "path": "0"
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "well": {
+              "images": [
+                {
+                  "path": "0"
+                }
+              ]
             }
-          ]
+          }
         }
       },
       "valid": true
@@ -20,13 +24,17 @@
     {
       "formerly": "well/minimal_acquisitions",
       "data": {
-        "well": {
-          "images": [
-            {
-              "acquisition": 1,
-              "path": "0"
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "well": {
+              "images": [
+                {
+                  "acquisition": 1,
+                  "path": "0"
+                }
+              ]
             }
-          ]
+          }
         }
       },
       "valid": true
@@ -52,20 +60,6 @@
               "path": "0"
             }
           ]
-        }
-      },
-      "valid": false
-    },
-    {
-      "formerly": "well/invalid_version",
-      "data": {
-        "well": {
-          "images": [
-            {
-              "path": "0"
-            }
-          ],
-          "version": "foo"
         }
       },
       "valid": false

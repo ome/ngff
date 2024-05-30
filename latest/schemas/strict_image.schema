@@ -6,11 +6,21 @@
     },
     {
       "properties": {
-        "multiscales": {
-          "items": {
-            "required": [
-              "version", "metadata", "type", "name"
-            ]
+        "attributes": {
+          "properties": {
+            "https://ngff.openmicroscopy.org/0.5": {
+              "properties": {
+                "multiscales": {
+                  "items": {
+                    "required": [
+                      "metadata",
+                      "type",
+                      "name"
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       }

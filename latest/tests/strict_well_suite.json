@@ -7,41 +7,34 @@
     {
       "formerly": "well/strict_no_acquisitions",
       "data": {
-        "well": {
-          "images": [
-            {
-              "path": "0"
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "well": {
+              "images": [
+                {
+                  "path": "0"
+                }
+              ]
             }
-          ],
-          "version": "0.5-dev"
+          }
         }
       },
       "valid": true
     },
     {
-      "formerly": "plate/missing_version",
-      "data": {
-        "well": {
-          "images": [
-            {
-              "path": "0"
-            }
-          ]
-        }
-      },
-      "valid": false
-    },
-    {
       "formerly": "plate/strict_acquisitions",
       "data": {
-        "well": {
-          "images": [
-            {
-              "acquisition": 0,
-              "path": "0"
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "well": {
+              "images": [
+                {
+                  "acquisition": 0,
+                  "path": "0"
+                }
+              ]
             }
-          ],
-          "version": "0.5-dev"
+          }
         }
       },
       "valid": true

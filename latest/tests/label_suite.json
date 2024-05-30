@@ -7,13 +7,17 @@
     {
       "formerly": "image-label/minimal",
       "data": {
-        "image-label": {
-          "colors": [
-            {
-              "label-value": 1,
-              "rgba": [0, 0, 0, 0]
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "image-label": {
+              "colors": [
+                {
+                  "label-value": 1,
+                  "rgba": [0, 0, 0, 0]
+                }
+              ]
             }
-          ]
+          }
         }
       },
       "valid": true
@@ -21,18 +25,22 @@
     {
       "formerly": "image-label/minimal_properties",
       "data": {
-        "image-label": {
-          "colors": [
-            {
-              "label-value": 1,
-              "rgba": [0, 0, 0, 0]
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "image-label": {
+              "colors": [
+                {
+                  "label-value": 1,
+                  "rgba": [0, 0, 0, 0]
+                }
+              ],
+              "properties": [
+                {
+                  "label-value": 1
+                }
+              ]
             }
-          ],
-          "properties": [
-            {
-              "label-value": 1
-            }
-          ]
+          }
         }
       },
       "valid": true
@@ -40,8 +48,12 @@
     {
       "formerly": "image-label/empty_colors",
       "data": {
-        "image-label": {
-          "colors": []
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "image-label": {
+              "colors": []
+            }
+          }
         }
       },
       "valid": false
@@ -49,8 +61,12 @@
     {
       "formerly": "image-label/empty_properties",
       "data": {
-        "image-label": {
-          "properties": []
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "image-label": {
+              "properties": []
+            }
+          }
         }
       },
       "valid": false
@@ -58,12 +74,16 @@
     {
       "formerly": "image-label/colors_no_label_value",
       "data": {
-        "image-label": {
-          "colors": [
-            {
-              "rgba": [0, 0, 0, 0]
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "image-label": {
+              "colors": [
+                {
+                  "rgba": [0, 0, 0, 0]
+                }
+              ]
             }
-          ]
+          }
         }
       },
       "valid": false
@@ -71,12 +91,16 @@
     {
       "formerly": "image-label/properties_no_label_value",
       "data": {
-        "image-label": {
-          "properties": [
-            {
-              "value": "foo"
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "image-label": {
+              "properties": [
+                {
+                  "value": "foo"
+                }
+              ]
             }
-          ]
+          }
         }
       },
       "valid": false
@@ -84,13 +108,17 @@
     {
       "formerly": "image-label/colors_rgba_length",
       "data": {
-        "image-label": {
-          "colors": [
-            {
-              "label-value": 1,
-              "rgba": [0, 0, 0]
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "image-label": {
+              "colors": [
+                {
+                  "label-value": 1,
+                  "rgba": [0, 0, 0]
+                }
+              ]
             }
-          ]
+          }
         }
       },
       "valid": false
@@ -98,13 +126,17 @@
     {
       "formerly": "image-label/colors_rgba_type",
       "data": {
-        "image-label": {
-          "colors": [
-            {
-              "label-value": 1,
-              "rgba": [0, 0, 0, 500]
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "image-label": {
+              "colors": [
+                {
+                  "label-value": 1,
+                  "rgba": [0, 0, 0, 500]
+                }
+              ]
             }
-          ]
+          }
         }
       },
       "valid": false
@@ -112,17 +144,21 @@
     {
       "formerly": "image-label/colors_duplicate",
       "data": {
-        "image-label": {
-          "colors": [
-            {
-              "label-value": 1,
-              "rgba": [0, 0, 0, 0]
-            },
-            {
-              "label-value": 1,
-              "rgba": [0, 0, 0, 0]
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "image-label": {
+              "colors": [
+                {
+                  "label-value": 1,
+                  "rgba": [0, 0, 0, 0]
+                },
+                {
+                  "label-value": 1,
+                  "rgba": [0, 0, 0, 0]
+                }
+              ]
             }
-          ]
+          }
         }
       },
       "valid": false

@@ -1,47 +1,46 @@
 {
-    "multiscales": [
+  "zarr_format": 3,
+  "node_type": "group",
+  "attributes": {
+    "https://ngff.openmicroscopy.org/0.5": {
+      "multiscales": [
         {
-            "axes": [
-                {
-                    "name": "y",
-                    "type": "space",
-                    "unit": "micrometer"
-                },
-                {
-                    "name": "x",
-                    "type": "space",
-                    "unit": "micrometer"
-                }
-            ],
-            "datasets": [
-                {
-                    "path": "0",
-                    "coordinateTransformations": [
-                        {
-                            "scale": [
-                                1,
-                                1
-                            ],
-                            "type": "scale"
-                        }
-                    ]
-                }
-            ],
-            "coordinateTransformations": [
-                {
-                    "scale": [
-                        10,
-                        10
-                    ],
-                    "type": "scale"
-                }
-            ],
-            "version": "0.5-dev",
-            "name": "image_with_coordinateTransformations",
-            "type": "foo",
-            "metadata": {
-                "key": "value"
+          "axes": [
+            {
+              "name": "y",
+              "type": "space",
+              "unit": "micrometer"
+            },
+            {
+              "name": "x",
+              "type": "space",
+              "unit": "micrometer"
             }
+          ],
+          "datasets": [
+            {
+              "path": "0",
+              "coordinateTransformations": [
+                {
+                  "scale": [1, 1],
+                  "type": "scale"
+                }
+              ]
+            }
+          ],
+          "coordinateTransformations": [
+            {
+              "scale": [10, 10],
+              "type": "scale"
+            }
+          ],
+          "name": "image_with_coordinateTransformations",
+          "type": "foo",
+          "metadata": {
+            "key": "value"
+          }
         }
-    ]
+      ]
+    }
+  }
 }

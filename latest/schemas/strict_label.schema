@@ -6,11 +6,18 @@
     },
     {
       "properties": {
-        "image-label": {
-          "required": [
-            "version",
-            "colors"
-          ]
+        "attributes": {
+          "properties": {
+            "https://ngff.openmicroscopy.org/0.5": {
+              "properties": {
+                "image-label": {
+                  "required": [
+                    "colors"
+                  ]
+                }
+              }
+            }
+          }
         }
       }
     }

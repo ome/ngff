@@ -1,14 +1,37 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ngff.openmicroscopy.org/latest/schemas/bf2raw.schema",
-  "title": "NGFF container produced by bioformats2raw",
-  "description": "JSON from OME-NGFF .zattrs",
+  "title": "OME-Zarr container produced by bioformats2raw",
+  "description": "JSON from OME-Zarr zarr.json",
   "type": "object",
   "properties": {
-    "bioformats2raw.layout": {
-      "description": "The top-level identifier metadata added by bioformats2raw",
-      "type": "number",
-      "enum": [3]
+    "attributes": {
+      "description": "The zarr.json attributes key",
+      "type": "object",
+      "properties": {
+        "https://ngff.openmicroscopy.org/0.5": {
+          "description": "The versioned OME-Zarr Metadata namespace",
+          "type": "object",
+          "properties": {
+            "bioformats2raw.layout": {
+              "description": "The top-level identifier metadata added by bioformats2raw",
+              "type": "number",
+              "enum": [
+                3
+              ]
+            }
+          },
+          "required": [
+            "bioformats2raw.layout"
+          ]
+        }
+      },
+      "required": [
+        "https://ngff.openmicroscopy.org/0.5"
+      ]
     }
-  }
+  },
+  "required": [
+    "attributes"
+  ]
 }

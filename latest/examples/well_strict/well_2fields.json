@@ -1,15 +1,20 @@
 {
-    "well": {
+  "zarr_format": 3,
+  "node_type": "group",
+  "attributes": {
+    "https://ngff.openmicroscopy.org/0.5": {
+      "well": {
         "images": [
-            {
-                "acquisition": 0,
-                "path": "0"
-            },
-            {
-                "acquisition": 3,
-                "path": "1"
-            }
-        ],
-        "version": "0.5-dev"
+          {
+            "acquisition": 0,
+            "path": "0"
+          },
+          {
+            "acquisition": 3,
+            "path": "1"
+          }
+        ]
+      }
     }
+  }
 }

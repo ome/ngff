@@ -7,26 +7,29 @@
     {
       "formerly": "plate/strict_no_acquisitions",
       "data": {
-        "plate": {
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "name": "test plate",
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "name": "test plate",
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "version": "0.5-dev",
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": true
@@ -34,51 +37,28 @@
     {
       "formerly": "plate/missing_name",
       "data": {
-        "plate": {
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "version": "0.5-dev",
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
-        }
-      },
-      "valid": false
-    },
-    {
-      "formerly": "plate/missing_version",
-      "data": {
-        "plate": {
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "name": "test plate",
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -86,33 +66,36 @@
     {
       "formerly": "plate/strict_acquisitions",
       "data": {
-        "plate": {
-          "acquisitions": [
-            {
-              "id": 0,
-              "name": "0",
-              "maximumfieldcount": 1
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "plate": {
+              "acquisitions": [
+                {
+                  "id": 0,
+                  "name": "0",
+                  "maximumfieldcount": 1
+                }
+              ],
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "name": "test plate",
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "name": "test plate",
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "version": "0.5-dev",
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": true
@@ -120,32 +103,35 @@
     {
       "formerly": "plate/missing_acquisition_name",
       "data": {
-        "plate": {
-          "acquisitions": [
-            {
-              "id": 0,
-              "maximumfieldcount": 1
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "plate": {
+              "acquisitions": [
+                {
+                  "id": 0,
+                  "maximumfieldcount": 1
+                }
+              ],
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "name": "test plate",
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "name": "test plate",
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "version": "0.5-dev",
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -153,32 +139,35 @@
     {
       "formerly": "plate/missing_acquisition_maximumfieldcount",
       "data": {
-        "plate": {
-          "acquisitions": [
-            {
-              "id": 0,
-              "name": "0"
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": {
+            "plate": {
+              "acquisitions": [
+                {
+                  "id": 0,
+                  "name": "0"
+                }
+              ],
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "name": "test plate",
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "name": "test plate",
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "version": "0.5-dev",
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false

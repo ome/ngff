@@ -5,24 +5,10 @@
   },
   "tests": [
     {
-      "formerly": "image-label/no_version",
-      "data": {
-        "image-label": {
-          "colors": [
-            {
-              "label-value": 1,
-              "rgba": [0, 0, 0, 0]
-            }
-          ]
-        }
-      },
-      "valid": false
-    },
-    {
       "formerly": "image-label/no_colors",
       "data": {
-        "image-label": {
-          "version": "0.5-dev"
+        "attributes": {
+          "https://ngff.openmicroscopy.org/0.5": { "image-label": {} }
         }
       },
       "valid": false
