@@ -187,7 +187,7 @@ hierarchy. In this file, the metadata is stored under the namespaced key
 
 The "axes" are used as part of [[#multiscale-md]]. The length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
-The "dimension_names" attribute in the `zarr.json` of the Zarr array of a multiscale level MUS match the names in the "axes" metadata.
+The "dimension_names" attribute in the `zarr.json` of the Zarr array of a multiscale level MUST match the names in the "axes" metadata.
 
 
 "bioformats2raw.layout" (transitional) {#bf2raw}
