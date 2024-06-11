@@ -189,6 +189,7 @@ silence anyone but to manage the overall flow of discussion.
 #### RFC
 
 Once a PR has been merged to become an RFC, **Editors** are responsible for
+adjusting the "Status" in the RFC document to become "RFC phase (R1)", and
 identifying and assigning **Reviewers** (R1). **Reviewers** will be given a
 period of time for preparing their reviews. If they do not foresee being able
 to respond in this time, they SHOULD contact the **Editors** as soon as
