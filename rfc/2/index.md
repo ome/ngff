@@ -4,7 +4,7 @@ Adopt the version 3 of Zarr for OME-Zarr.
 
 ## Status
 
-This RFC is currently in draft state (D3).
+This RFC is currently in RFC state (R2).
 
 | Role     | Name                | GitHub Handle                                       | Institution                                        | Date       | Status                                                                  |
 | -------- | ------------------- | --------------------------------------------------- | -------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
