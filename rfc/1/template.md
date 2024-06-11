@@ -242,7 +242,7 @@ feel like the rest of the ecosystem. Further, if the breaking changes are
 intolerable or there is a way to make a change while preserving compatibility,
 that should be explored.
 
-## Tutorials and Examples (Optional Header)
+## Tutorials and Examples (Recommended Header)
 
 TODO
 

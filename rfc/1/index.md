@@ -1,21 +1,21 @@
 RFC-1
 =====
 
-Definition of the NGFF RFC process
+Definition of the NGFF “Request for Comment” (RFC) process
 
 ## Status
 
 This RFC is currently being responded to (R4).
 
-| Name                                                                                               | GitHub Handle           | Institution          | Date       | Status           |
-| -------------------------------------------------------------------------------------------------- | ----------------------- | -------------------- | ---------- | ---------------- |
-| Josh Moore                                                                                         | joshmoore               | German BioImaging    | 2023-12-23 | Author ([PR][1]) |
-| Davis Bennett, John Bogovic, Michael Innerberger Mark Kittisopikul, Virginia Scarlett, Yurii Zubov |                         | Janelia              | 2024-02-26 | [Review][2]      |
-| Kevin Yamauchi, Virginie Uhlmann                                                                   |                         | ETH, BiovisionCenter | 2024-03-05 | [Review][3]      |
-| Matthew Hartley                                                                                    |                         | EMBL-EBI             | 2024-03-05 | [Review][4]      |
-| Wouter-Michiel Vierdag, Luca Marconato                                                             | melonora, LucaMarconato | EMBL                 | 2024-01-13 | [Comment][5]     |
-| Matt McCormick                                                                                     | thewtex                 | ITK                  | 2024-01-09 | [Comment][6]     |
-| Josh Moore                                                                                         | joshmoore               | German BioImaging    | 2024-05-0X | [Response](./response.md)    |
+| Name                                                                                                | GitHub Handle           | Institution          | Date       | Status           |
+| --------------------------------------------------------------------------------------------------- | ----------------------- | -------------------- | ---------- | ---------------- |
+| Josh Moore                                                                                          | joshmoore               | German BioImaging    | 2023-12-23 | Author ([PR][1]) |
+| Davis Bennett, John Bogovic, Michael Innerberger, Mark Kittisopikul, Virginia Scarlett, Yurii Zubov |                         | Janelia              | 2024-02-26 | [Review][2]      |
+| Kevin Yamauchi, Virginie Uhlmann                                                                    |                         | ETH, BiovisionCenter | 2024-03-05 | [Review][3]      |
+| Matthew Hartley                                                                                     |                         | EMBL-EBI             | 2024-03-05 | [Review][4]      |
+| Wouter-Michiel Vierdag, Luca Marconato                                                              | melonora, LucaMarconato | EMBL                 | 2024-01-13 | [Comment][5]     |
+| Matt McCormick                                                                                      | thewtex                 | ITK                  | 2024-01-09 | [Comment][6]     |
+| Josh Moore                                                                                          | joshmoore               | German BioImaging    | 2024-05-0X | [Response][7]    |
 
 
 
@@ -50,13 +50,13 @@ to slower specification evolution and potential deadlocks.
 
 Led by the need to take on larger challenges and more interested parties, there
 has been significant interest within the community to update the process used
-in order to bypass these issues. This RFC adapts the well-known [RFC process][7],
+in order to bypass these issues. This RFC adapts the well-known [RFC process][8],
 which originated in the Internet Engineering Task Force (IETF), for use in the
-NGFF community as has been done in a number of other communities ([Rust][8],
-[Hashicorp][9], [Tensorflow][10], etc.) More information can be found under:
+NGFF community as has been done in a number of other communities ([Rust][9],
+[Hashicorp][10], [Tensorflow][11], etc.) More information can be found under:
 
-- [https://en.wikipedia.org/wiki/Internet\_Standard#Standardization\_process][11]
-- [https://en.wikipedia.org/wiki/Request\_for\_Comments][12]
+- [https://en.wikipedia.org/wiki/Internet\_Standard#Standardization\_process][12]
+- [https://en.wikipedia.org/wiki/Request\_for\_Comments][13]
 
 Ultimately, each RFC is a record of a decision made, either for or against a
 proposal, that will be available from the main NGFF webpage. This captures the
@@ -91,7 +91,7 @@ details, see the "Implementation" section below.
 
 **Authors** propose an idea for the RFC process and socialize the idea, e.g.,
 through an issue or community call, gaining **Endorsers** They then submit a
-pull request to the [https://github.com/ome/ngff][13] repository with a document that
+pull request to the [https://github.com/ome/ngff][14] repository with a document that
 they would like to have published as an RFC. This pull request MUST contain a
 document under the `rfc/` subdirectory and it SHOULD follow the template
 provided. As described under the "DRAFT" section below, this document can be
@@ -106,7 +106,7 @@ table. Rather than a process terminated with a single vote, the RFC process
 consists of iterative rounds of gathering **Endorsers**, or sponsors, who
 approve the work, building confidence that the community is moving in the
 right direction. More information on this strategy can be found under:
-[https://engineering.squarespace.com/blog/2019/the-power-of-yes-if][14] .
+[https://engineering.squarespace.com/blog/2019/the-power-of-yes-if][15] .
 
 **Editors** identify whether a PR should or should not follow the RFC process,
 and choosing when a draft is ready to become an RFC. They also choose
@@ -129,8 +129,8 @@ RFC, this process may be iterative and require multiple reviews.
 
 ## Implementation
 
-This description of the RFC process will refer frequently to the [visual diagram][15]
-Readers may want to familiar themselves with it at this point.
+This description of the RFC process will refer frequently to the [visual diagram][16]
+Readers may want to familiarize themselves with it at this point.
 Identifiers such as "D1", "R2", "S3", refer to steps in that diagram.
 
 ### Legend
@@ -150,6 +150,8 @@ phase after the RFC has been adopted.
 
 #### DRAFT
 
+**Purpose**: The DRAFT phase is intended to help **Authors** develop an idea into a valuable RFC which can be evaluated during the RFC phase. (TODO)
+
 The DRAFT phase begins when **Authors** propose (D1) a new idea and
 subsequently gather support (or "socialize") the idea (D2) before opening a PR
 (D3). This phase is meant to promote ideation without premature criticism, though
@@ -162,7 +164,7 @@ RFC process is intended primarily for significant and/or breaking changes to
 the specification or the community process itself. Other changes, bug fixes,
 etc. are welcome as PRs without a full RFC. If **Authors** are unsure whether
 or not a change requires an RFC, they can open an issue or contact the **Editors**
-directly. All RFC-targeted PRs SHOULD follow the [current template][16].
+directly. All RFC-targeted PRs SHOULD follow the [current template][17].
 
 Comments on how a specification is implemented or what could be proposed
 instead from potential **Reviewers** and **Commenters** should come in the
@@ -188,6 +190,8 @@ comment is "more appropriate for an official comment". This is not intended to
 silence anyone but to manage the overall flow of discussion.
 
 #### RFC
+
+**Purpose**: TODO
 
 Once a PR has been merged to become an RFC, **Editors** are responsible for
 identifying and assigning **Reviewers** (R1). **Reviewers** will be given a
@@ -245,13 +249,14 @@ contact **Reviewers** to see if their recommendations have changed.
 
 > 🕑 Authors responses to Reviewers should be returned to the Editors in less than two weeks.
 
-This brings a critical, and iterative, decision point (R6). If a "Reject"
-recommendation remains, then the RFC is closed. The text remains on the
-specification pages for posterity. If sufficient endorsements,
-including two in-progress implementations, are available, then the RFC can
-progress (S1) to the SPEC phase below. If there are no "Major" objections but
-still no consensus, the decision falls to the **Editors** (R7) who may also
-move the RFC to the SPEC phase (S0).
+This brings a critical, and possibly iterative, decision point (R6).  The recommendations from the Reviewers will be interpreted as approving the
+RFC **unless** there are one or more `Reject`  or `Major changes` recommendations. If the **Reviewers** approve, the RFC can progress to S1 as soon as there are two in-progress implementations. If the **Reviewers** do _not_ approve, then the **Editors** will make one of three decisions:
+
+* The **Editors** SHOULD contact the **Authors** for preparing further changes to the RFC (R8). If the **Editors** determine the changes to be minor, then no further review is necessary and the RFC can proceed to R7 rather than R1 again. If the**Editors** determine that only minor changes are needed against the recommendations of the **Reviewers**, then an Editor Response SHOULD be included (S0).
+* The **Editors** MAY decide that the RFC is to be closed (R9). This is the decision that SHOULD be chosen if there is a unanimous `Reject` recommendation. The **Authors** MAY then decide to re-draft a new RFC (D2).
+* Finally, the RFC may also move forward if the **Editors** decide to override the recommendations of the **Reviewers** (R7) but the **Editors** MUST include a RESPONSE (S0). This may occur, for example, if consent between the reviewers cannot be reached. In the case of a unanimous `Reject`, the **Editors** SHOULD attempt to find at least one additional, approving **Reviewer** .
+
+In all cases, the text remains on the specification pages for posterity.  
 
 > 📂 Two in-progress implementations required for progressing to S1.
 
@@ -269,13 +274,15 @@ to contact the **Endorser** regarding any breaking changes.
 
 #### SPEC
 
+**Purpose**: TODO
+
 If an RFC enters the SPEC state via **Editors** approval (S0), an additional
 explanation by the **Editors** will be included in the RFC's directory at which
 point it is considered equivalent to a **Reviewer** accepted RFC. At this point
 (S1), the primary purpose of the RFC becomes driving implementations. Further
 clarifications (S2) may be needed. Updates to the RFC as well as the
 specification itself will be managed by the **Authors** and the **Editors** in
-coordination.**Editors** will also contact remaining implementers (S3)
+coordination. **Editors** will also contact remaining implementers (S3)
 regarding the status of their implementations and update the endorsements table
 accordingly.
 
@@ -300,6 +307,23 @@ into account when making decisions regarding RFCs:
  * **technical expertise**: all other considerations being equal, feedback
    from stakeholders with more technical expertise in a matter under
    consideration will tend to carry more weight in decision making.
+
+
+TODO: care should be taken to not let pre-existing implementations dictate the strategic direction of NGFF.
+
+### Details
+This section
+
+#### Choice of Reviewers
+#### Choice of Editors
+#### Handling Disagreements
+#### Extensions
+#### Deadline enforcement
+#### Rejection decisions
+#### GitHub interactions
+#### To RFC or not 
+
+
 
 ## Drawbacks, risks, alternatives, and unknowns
 
@@ -333,7 +357,7 @@ continue to move forward.
 Will the process be worth the effort? It's unclear. The fact that several other
 communities have used variants of the process would imply that it can work. It
 might be that we will have to update and further customize the process for the
-NGFF community, but by having something explicit as in this RFC-0 it will make
+NGFF community, but by having something explicit as in this RFC-1 it will make
 it possible for us to more easily iterate.
 
 ## Abandoned ideas
@@ -386,10 +410,10 @@ of the specification, that will clearly be necessary.
 Similarly, this proposal does not try to define higher-level governance and
 conflict resolution. By default, as a repository within the "OME" GitHub
 organization, the community health processes defined in
-[https://github.com/ome/.github][17] hold for the NGFF process. However, following
+[https://github.com/ome/.github][18] hold for the NGFF process. However, following
 this RFC, additional and specific governance mechanisms can be put in place for
 the operation of the NGFF community process. This may or may not follow the
-model of other RFC-using communities, e.g., IETF's [IAB][18] or Fuchsia's
+model of other RFC-using communities, e.g., IETF's [IAB][19] or Fuchsia's
 "governing authority".
 
 ### C. Participation requirements
@@ -400,7 +424,7 @@ anyone individual from blocking the process.
 
 ### D. Multiple tracks
 
-Currently, there is a single "track" in the [process diagram][19] through which
+Currently, there is a single "track" in the [process diagram][20] through which
 all RFCs progress. This can initially be managed by careful choice of the
 reviewers. However, possibly as the complexity of review grows, it will become
 advantageous to split the set of a reviewers into separate "tracks", such that
@@ -427,60 +451,7 @@ should fail rather than show the user incorrect data. Such a mechanism could
 go hand in hand with an as-yet unspecified extension mechanism. This would be
 an ideal topic for a following RFC.
 
-### G. Metadata model
-
-Like other NGFF specifications, the RFC process has an inherent metadata model
-which can be captured and actioned upon within the NGFF repository. A draft
-representation of this metadata is presented below:
-
-	{
-	  "@context": "ngff.openmicroscopy.org/rfc",
-	  "@type": "RFC",
-	  "@id": "####",
-	  // Independent of subsequent RFCs
-	  "title": "
-	  "authors": [
-	    {
-	      "@type": "http://schema.org/Person",
-	      "@id": ...
-	    }
-	  ],
-	  "status": see enum
-	  "published": TODO: follow some schema.org model? WorkOfArt?
-	  "doi":
-	  "edits": [
-	    {
-	      "authors":
-	      "date":
-	      "xxx":
-	    }
-	  ],
-	  // May be changed by subsequent RFCs
-	  "obsoletes": [],
-	  "obsoleted-by": [],
-	  "updates": [],
-	  "updated-by":[],
-	}
-
-This model is very close to the original IETF RFC model, but omits the
-following keywords:
-
-- Format: we have limited RFCs to Markdown
-- Stream: in IETF, different streams are responsible for different parts of
-  the internet infrastructure. This may be introduced in the future.
-- Similarly the STD (“Standard track”), BCP (“best community practice”), FYI
-  (“informational”) designations are not currently used.
-
-The possible values for Status are:
-- UNKNOWN
-- HISTORIC
-- INFORMATIONAL
-- BEST CURRENT PRACTICE
-- EXPERIMENTAL
-- PROPOSED STANDARD
-- STANDARD
-
-### H. Misc
+### G. Misc
 
 Other possibilities that perhaps do not need an RFC but might be worth
 considering:
@@ -542,7 +513,8 @@ Definitions for terms used throughout this RFC have been collected below.
 
 | Date       | Description                  | Link                                       |
 | ---------- | ---------------------------- | ------------------------------------------ |
-| 2024-04-24 | Apply changes from comment 1 | [https://github.com/ome/ngff/pull/231][20] |
+| 2024-04-24 | Apply changes from comment 1 | [https://github.com/ome/ngff/pull/231][21] |
+| 2024-05-08 | Apply changes from reviewers | [https://github.com/ome/ngff/pull/XXX][22] |
 
 [1]:	https://github.com/ome/ngff/pull/222
 [2]:	./review_2.md
@@ -550,17 +522,19 @@ Definitions for terms used throughout this RFC have been collected below.
 [4]:	./review_3.md
 [5]:	./comment_1.md
 [6]:	./comment_2.md
-[7]:	https://www.rfc-editor.org/
-[8]:	https://github.com/rust-lang/rfcs/blob/master/0000-template.md
-[9]:	https://works.hashicorp.com/articles/rfc-template
-[10]:	https://github.com/tensorflow/community/blob/master/rfcs/yyyymmdd-rfc-template.md
-[11]:	https://en.wikipedia.org/wiki/Internet_Standard#Standardization_process
-[12]:	https://en.wikipedia.org/wiki/Request_for_Comments
-[13]:	https://github.com/ome/ngff
-[14]:	https://engineering.squarespace.com/blog/2019/the-power-of-yes-if
-[15]:	diagram.png
-[16]:	template.md
-[17]:	https://github.com/ome/.github
-[18]:	https://www.ietf.org/about/groups/iab/
-[19]:	diagram.png
-[20]:	https://github.com/ome/ngff/pull/231
+[7]:	./response.md
+[8]:	https://www.rfc-editor.org/
+[9]:	https://github.com/rust-lang/rfcs/blob/master/0000-template.md
+[10]:	https://works.hashicorp.com/articles/rfc-template
+[11]:	https://github.com/tensorflow/community/blob/master/rfcs/yyyymmdd-rfc-template.md
+[12]:	https://en.wikipedia.org/wiki/Internet_Standard#Standardization_process
+[13]:	https://en.wikipedia.org/wiki/Request_for_Comments
+[14]:	https://github.com/ome/ngff
+[15]:	https://engineering.squarespace.com/blog/2019/the-power-of-yes-if
+[16]:	diagram.png
+[17]:	template.md
+[18]:	https://github.com/ome/.github
+[19]:	https://www.ietf.org/about/groups/iab/
+[20]:	diagram.png
+[21]:	https://github.com/ome/ngff/pull/231
+[22]:	https://github.com/ome/ngff/pull/231
