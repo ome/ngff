@@ -1,5 +1,16 @@
 # Review of RFC-2: Zarr v3
 
+## Review authors
+This review was written by the following Glencoe Software team members:
+
+- Sebastién Besson
+- Chris Allan
+- Marc Bruce
+- Jason Swedlow
+- Melissa Linkert
+
+## Summary
+
 Overall, [this RFC](https://ngff.openmicroscopy.org/rfc/2/index.html) has merit, and the ability to use Zarr v3 features in NGFF would be generally useful. Sharding and additional codecs in particular are features we plan to make use of throughout the NGFF implementations we maintain. Our implementations are primarily in Java and Python, and include:
 
 * Tools to convert to and from NGFF (including but not limited to [bioformats2raw](https://github.com/glencoesoftware/bioformats2raw))
