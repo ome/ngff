@@ -66,9 +66,10 @@ be stored on a web server to be accessed via HTTP or in object storage
 like S3 or GCS.
 
 OME-Zarr is an implementation of the OME-NGFF specification using the Zarr
-format. Arrays MUST be defined and stored in a hierarchical organization as
-defined by the
-[version 2 of the Zarr specification ](https://zarr.readthedocs.io/en/stable/spec/v2.html).
+format. Arrays and Groups MUST be defined and stored in a hierarchical organization as
+defined by either [Zarr version 2](https://zarr-specs.readthedocs.io/en/latest/v2/v2.0.html) or Zarr version 3 [Zarr version 3](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html). 
+Although Zarr version 2 and 3 hierarchies can overlap, implementations of OME-Zarr should not be expected to consume or generate such hierarchies.
+
 OME-NGFF metadata MUST be stored as attributes in the corresponding Zarr
 groups.
 
@@ -87,31 +88,21 @@ For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x
 ├── 123.zarr                  # One image (id=123) converted to Zarr.
 │
 └── 456.zarr                  # Another image (id=456) converted to Zarr.
-    │
-    ├── .zgroup               # Each image is a Zarr group, or a folder, of other groups and arrays.
-    ├── .zattrs               # Group level attributes are stored in the .zattrs file and include
-    │                         # "multiscales" and "omero" (see below). In addition, the group level attributes
-    │                         # may also contain "_ARRAY_DIMENSIONS" for compatibility with xarray if this group directly contains multi-scale arrays.
+    |                         # Each image is a Zarr group.
+    |                         # Attributes of an image include:
+    │                         # "multiscales" and "omero" (see below). In addition, the image attributes
+    │                         # may contain "_ARRAY_DIMENSIONS" for compatibility with xarray if this group directly contains multi-scale arrays.
     │
     ├── 0                     # Each multiscale level is stored as a separate Zarr array,
-    │   ...                   # which is a folder containing chunk files which compose the array.
+    │   ...                   
     ├── n                     # The name of the array is arbitrary with the ordering defined by
-    │   │                     # by the "multiscales" metadata, but is often a sequence starting at 0.
-    │   │
-    │   ├── .zarray           # All image arrays must be up to 5-dimensional
-    │   │                     # with the axis of type time before type channel, before spatial axes.
-    │   │
-    │   └─ t                  # Chunks are stored with the nested directory layout.
-    │      └─ c               # All but the last chunk element are stored as directories.
-    │         └─ z            # The terminal chunk is a file. Together the directory and file names
-    │            └─ y         # provide the "chunk coordinate" (t, c, z, y, x), where the maximum coordinate
-    │               └─ x      # will be `dimension_size / chunk_size`.
+    │                         # by the "multiscales" metadata, but is often a sequence starting at 0.
+    │                         # All image arrays must be up to 5-dimensional,
+    │                         # with the axis of type "time" before axes with type "channel", and before axes with type "space".
+    │   
     │
-    └── labels
-        │
-        ├── .zgroup           # The labels group is a container which holds a list of labels to make the objects easily discoverable
-        │
-        ├── .zattrs           # All labels will be listed in `.zattrs` e.g. `{ "labels": [ "original/0" ] }`
+    └── labels                # The labels group holds a list of labels to make the objects easily discoverable
+        │                     # All labels are listed in the attributes of the labels group e.g. `{ "labels": [ "original/0" ] }`
         │                     # Each dimension of the label `(t, c, z, y, x)` should be either the same as the
         │                     # corresponding dimension of the image, or `1` if that dimension of the label
         │                     # is irrelevant.
@@ -119,8 +110,8 @@ For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x
         └── original          # Intermediate folders are permitted but not necessary and currently contain no extra metadata.
             │
             └── 0             # Multiscale, labeled image. The name is unimportant but is registered in the "labels" group above.
-                ├── .zgroup   # Zarr Group which is both a multiscaled image as well as a labeled image.
-                ├── .zattrs   # Metadata of the related image and as well as display information under the "image-label" key.
+                |             # A labelled image is a Zarr group which is both a multiscaled image as well as a labeled image.
+                |             # Metadata of the related image and the as well as display information are stored in group attributes under the "image-label" key.
                 │
                 ├── 0         # Each multiscale level is stored as a separate Zarr array, as above, but only integer values
                 │   ...       # are supported.
@@ -151,19 +142,15 @@ A well group SHOULD NOT be present if there are no images in the well.
 .                             # Root folder, potentially in S3,
 │
 └── 5966.zarr                 # One plate (id=5966) converted to Zarr
-    ├── .zgroup
-    ├── .zattrs               # Implements "plate" specification
+    |                         # This is a Zarr group with attributes that implement the "plate" specification
+    |                         
     ├── A                     # First row of the plate
-    │   ├── .zgroup
     │   │
     │   ├── 1                 # First column of row A
-    │   │   ├── .zgroup
-    │   │   ├── .zattrs       # Implements "well" specification
+    |   |   |                 # This is a Zarr group with attributes that implement the "well" specification
     │   │   │
     │   │   ├── 0             # First field of view of well A1
-    │   │   │   │
-    │   │   │   ├── .zgroup
-    │   │   │   ├── .zattrs   # Implements "multiscales", "omero"
+    │   │   │   │             # This is a Zarr group with attributes that implement the "image" specification.
     │   │   │   ├── 0
     │   │   │   │   ...       # Resolution levels
     │   │   │   ├── n
@@ -178,9 +165,6 @@ A well group SHOULD NOT be present if there are no images in the well.
 
 Metadata {#metadata}
 ====================
-
-The various `.zattrs` files throughout the above array hierarchy may contain metadata
-keys as specified below for discovering certain types of data, especially images.
 
 "axes" metadata {#axes-md}
 --------------------------
@@ -211,11 +195,9 @@ Typical Zarr layout produced by running `bioformats2raw` on a fileset that conta
 
 <pre>
 series.ome.zarr               # One converted fileset from bioformats2raw
-    ├── .zgroup
-    ├── .zattrs               # Contains "bioformats2raw.layout" metadata
-    ├── OME                   # Special group for containing OME metadata
-    │   ├── .zgroup
-    │   ├── .zattrs           # Contains "series" metadata
+    |                         # The attributes of this group contains "bioformats2raw.layout" metadata
+    ├── OME                   # Special group for OME metadata
+    |   |                     # The attributes of this group contain "series" metadata
     │   └── METADATA.ome.xml  # OME-XML file stored within the Zarr fileset
     ├── 0                     # First image in the collection
     ├── 1                     # Second image in the collection
@@ -224,7 +206,7 @@ series.ome.zarr               # One converted fileset from bioformats2raw
 
 <h4 id="bf2raw-attributes" class="no-toc">Attributes</h4>
 
-The top-level `.zattrs` file must contain the `bioformats2raw.layout` key:
+The top-level Zarr group attributes must contain the `bioformats2raw.layout` key:
 <pre class=include-code>
 path: examples/bf2raw/image.json
 highlight: json
@@ -239,7 +221,7 @@ path: examples/bf2raw/plate.json
 highlight: json
 </pre>
 
-The `.zattrs` file within the OME group may contain the "series" key:
+The attributes of the OME group may contain the "series" key:
 
 <pre class=include-code>
 path: examples/ome/series-2.json
@@ -250,7 +232,7 @@ highlight: json
 
 Conforming groups:
 
-- MUST have the value "3" for the "bioformats2raw.layout" key in their `.zattrs` metadata at the top of the hierarchy;
+- MUST have the value "3" for the "bioformats2raw.layout" key in their attributes at the top of the hierarchy;
 - SHOULD have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml" which:
     - MUST adhere to the OME-XML specification but
     - MUST use `<MetadataOnly/>` elements as opposed to `<BinData/>`, `<BinaryOnly/>` or `<TiffData/>`;
@@ -399,7 +381,7 @@ The "labels" group is not itself an image; it contains images. The pixels of the
 [`uint8`, `int8`, `uint16`, `int16`, `uint32`, `int32`, `uint64`, `int64`]. Intermediate groups between "labels" and the images within it are allowed, 
 but these MUST NOT contain metadata. Names of the images in the "labels" group are arbitrary.
 
-The `.zattrs` file associated with the "labels" group MUST contain a JSON object with the key `labels`, whose value is a JSON array of paths to the 
+The attributes associated with the "labels" group MUST contain a JSON object with the key `labels`, whose value is a JSON array of paths to the 
 labeled multiscale image(s). All label images SHOULD be listed within this metadata file. For example:
 
 ```json
@@ -410,10 +392,10 @@ labeled multiscale image(s). All label images SHOULD be listed within this metad
 }
 ```
 
-The `.zattrs` file for the label image MUST implement the multiscales specification. Within the `multiscales` object, the JSON array 
+The attributes associated with the label image MUST implement the multiscales specification. Within the `multiscales` object, the JSON array 
 associated with the `datasets` key MUST have the same number of entries (scale levels) as the original unlabeled image. 
 
-In addition to the `multiscales` key, the JSON object in this image-level `.zattrs` file SHOULD contain another key, `image-label`, 
+In addition to the `multiscales` key, the JSON object in this image-level attributes document SHOULD contain another key, `image-label`, 
 whose value is also a JSON object. The `image-label` object stores information about the display colors, source image, and optionally, 
 further arbitrary properties of the label image. That `image-label` object SHOULD contain the following keys: first, a `colors` key, 
 whose value MUST be a JSON array describing color information for the unique label values. Second, a `version` key, whose value MUST be a 
