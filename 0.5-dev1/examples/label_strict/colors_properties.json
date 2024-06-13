@@ -1,0 +1,31 @@
+{
+  "image-label": {
+    "version": "0.5-dev",
+    "colors": [
+      {
+        "label-value": 0,
+        "rgba": [0, 0, 128, 128]
+      },
+      {
+        "label-value": 1,
+        "rgba": [0, 128, 0, 128]
+      }
+    ],
+    "properties": [
+      {
+        "label-value": 0,
+        "area (pixels)": 1200,
+        "class": "intercellular space"
+      },
+      {
+        "label-value": 1,
+        "area (pixels)": 1650,
+        "class": "cell",
+        "cell type": "neuron"
+      }
+    ],
+    "source": {
+      "image": "../../"
+    }
+  }
+}
