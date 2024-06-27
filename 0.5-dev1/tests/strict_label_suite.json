@@ -22,7 +22,7 @@
       "formerly": "image-label/no_colors",
       "data": {
         "image-label": {
-          "version": "0.5-dev"
+          "version": "0.5.-dev1"
         }
       },
       "valid": false

@@ -10,7 +10,7 @@
       "data": {
         "multiscales": [
           {
-            "version": "0.5-dev",
+            "version": "0.5-dev1",
             "name": "example",
             "axes": [
               {
@@ -153,7 +153,7 @@
                 "type": "scale"
               }
             ],
-            "version": "0.5-dev",
+            "version": "0.5.-dev1",
             "name": "image_with_coordinateTransformations",
             "type": "foo",
             "metadata": {
@@ -173,7 +173,7 @@
         "multiscales": [
           {
             "@id": "inner",
-            "version": "0.5-dev",
+            "version": "0.5.-dev1",
             "name": "example",
             "datasets": [
               {
@@ -250,7 +250,7 @@
                 ]
               }
             ],
-            "version": "0.5-dev",
+            "version": "0.5.-dev1",
             "name": "simple_image",
             "type": "foo",
             "metadata": {
@@ -334,7 +334,7 @@
                 ]
               }
             ],
-            "version": "0.5-dev",
+            "version": "0.5.-dev1",
             "name": "image_with_omero_metadata",
             "type": "foo",
             "metadata": {
@@ -379,7 +379,7 @@
             "defaultZ": 2,
             "model": "color"
           },
-          "version": "0.5-dev"
+          "version": "0.5.-dev1"
         }
       },
       "valid": true

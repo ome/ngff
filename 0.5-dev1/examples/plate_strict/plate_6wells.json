@@ -35,7 +35,7 @@
                 "name": "B"
             }
         ],
-        "version": "0.5-dev",
+        "version": "0.5-dev1",
         "wells": [
             {
                 "path": "A/1",

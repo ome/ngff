@@ -14,7 +14,7 @@ Local Boilerplate: copyright yes
 Boilerplate: style-darkmode off
 Markup Shorthands: markdown yes
 Editor: Josh Moore, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0003-4028-811X
-Text Macro: NGFFVERSION 0.5-dev
+Text Macro: NGFFVERSION 0.5-dev1
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
@@ -340,7 +340,7 @@ can be found under the "omero" key in the group-level metadata:
 ```json
 "id": 1,                              # ID in OMERO
 "name": "example.tif",                # Name as shown in the UI
-"version": "0.5-dev",                 # Current version
+"version": "0.5-dev1",                 # Current version
 "channels": [                         # Array matching the c dimension size
     {
         "active": true,
