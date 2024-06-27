@@ -358,7 +358,7 @@ can be found under the "omero" key in the group-level metadata:
 ```json
 "id": 1,                              # ID in OMERO
 "name": "example.tif",                # Name as shown in the UI
-"version": "0.5.-dev1",                 # Current version
+"version": "0.5-dev",                 # Current version
 "channels": [                         # Array matching the c dimension size
     {
         "active": true,

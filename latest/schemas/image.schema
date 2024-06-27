@@ -33,7 +33,7 @@
           "version": {
             "type": "string",
             "enum": [
-              "0.5.-dev1"
+              "0.5-dev"
             ]
           },
           "axes": {

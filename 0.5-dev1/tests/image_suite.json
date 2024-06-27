@@ -83,7 +83,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -160,7 +160,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -173,7 +173,7 @@
         "@type": "ngff:Image",
         "multiscales": [
           {
-            "version": "0.5.-dev1",
+            "version": "0.5-dev1",
             "datasets": [
               {
                 "path": "path/to/0",
@@ -254,7 +254,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -292,7 +292,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -328,7 +328,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -366,7 +366,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -404,7 +404,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -460,7 +460,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -498,7 +498,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ],
         "omero": {
@@ -551,7 +551,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -584,7 +584,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -625,7 +625,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -663,7 +663,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -709,7 +709,7 @@
                 "type": "scale"
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -738,7 +738,7 @@
                 "path": "0"
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -763,7 +763,7 @@
               }
             ],
             "datasets": [],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -787,7 +787,7 @@
                 "unit": "micrometer"
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -813,7 +813,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -926,7 +926,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -971,7 +971,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -998,7 +998,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -1044,7 +1044,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -1091,7 +1091,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ],
         "omero": {
@@ -1138,7 +1138,7 @@
                 "coordinateTransformations": []
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
@@ -1175,7 +1175,7 @@
                 ]
               }
             ],
-            "version": "0.5.-dev1"
+            "version": "0.5-dev1"
           }
         ]
       },
