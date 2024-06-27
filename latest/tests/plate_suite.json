@@ -8,7 +8,7 @@
       "formerly": "plate/minimal_no_acquisitions",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5-dev1",
           "columns": [
             {
               "name": "A"
@@ -34,7 +34,7 @@
       "formerly": "plate/minimal_acquisitions",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "acquisitions": [
             {
               "id": 0
@@ -65,7 +65,7 @@
       "formerly": "plate/missing_rows",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -86,7 +86,7 @@
       "formerly": "plate/empty_rows",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -108,7 +108,7 @@
       "formerly": "plate/duplicate_rows",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -136,7 +136,7 @@
     {
       "formerly": "plate/missing_columns",
       "data": {
-        "version": "0.5-dev",
+        "version": "0.5.-dev1",
         "plate": {
           "rows": [
             {
@@ -158,7 +158,7 @@
       "formerly": "plate/empty_columns",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [],
           "rows": [
             {
@@ -180,7 +180,7 @@
       "formerly": "plate/duplicate_columns",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -209,7 +209,7 @@
       "formerly": "plate/missing_wells",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -228,7 +228,7 @@
       "formerly": "plate/empty_wells",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -248,7 +248,7 @@
       "formerly": "plate/duplicate_rows",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -282,7 +282,7 @@
       "formerly": "plate/missing_column_name",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "concentration": 10
@@ -308,7 +308,7 @@
       "formerly": "plate/missing_row_name",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -334,7 +334,7 @@
       "formerly": "plate/missing_well_path",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -359,7 +359,7 @@
       "formerly": "plate/missing_well_rowIndex",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -384,7 +384,7 @@
       "formerly": "plate/missing_well_columnIndex",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -409,7 +409,7 @@
       "formerly": "plate/well_1group",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -434,7 +434,7 @@
       "formerly": "plate/well_3groups",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -510,7 +510,7 @@
       "formerly": "plate/non_alphanumeric_column",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A-1"
@@ -536,7 +536,7 @@
       "formerly": "plate/non_alphanumeric_row",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
@@ -562,7 +562,7 @@
       "formerly": "plate/missing_acquisition_id",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "acquisitions": [
             {
               "maximumfieldcount": 1
@@ -593,7 +593,7 @@
       "formerly": "plate/non_integer_acquisition_id",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "acquisitions": [
             {
               "id": "0"
@@ -624,7 +624,7 @@
       "formerly": "plate/negative_acquisition_id",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "acquisitions": [
             {
               "id": -1
@@ -655,7 +655,7 @@
       "formerly": "plate/non_integer_acquisition_maximumfieldcount",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "acquisitions": [
             {
               "id": 0,
@@ -687,7 +687,7 @@
       "formerly": "plate/acquisition_zero_maximumfieldcount",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "acquisitions": [
             {
               "id": 0,
@@ -719,7 +719,7 @@
       "formerly": "plate/acquisition_noninteger_starttime",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "acquisitions": [
             {
               "id": 0,
@@ -751,7 +751,7 @@
       "formerly": "plate/acquisition_negative_starttime",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "acquisitions": [
             {
               "id": 0,
@@ -783,7 +783,7 @@
       "formerly": "plate/acquisition_noninteger_endtime",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "acquisitions": [
             {
               "id": 0,
@@ -815,7 +815,7 @@
       "formerly": "plate/negative_endtime",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "acquisitions": [
             {
               "id": 0,
@@ -847,7 +847,7 @@
       "formerly": "plate/zero_field_count",
       "data": {
         "plate": {
-          "version": "0.5-dev",
+          "version": "0.5.-dev1",
           "columns": [
             {
               "name": "A"
