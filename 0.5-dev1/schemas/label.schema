@@ -68,7 +68,7 @@
           "description": "The version of the specification",
           "type": "string",
           "enum": [
-            "0.5-dev-1"
+            "0.5.-dev1"
           ]
         }
       }
