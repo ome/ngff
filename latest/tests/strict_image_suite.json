@@ -10,7 +10,7 @@
       "data": {
         "multiscales": [
           {
-            "version": "0.5-dev1",
+            "version": "0.5-dev",
             "name": "example",
             "axes": [
               {

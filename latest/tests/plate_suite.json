@@ -8,7 +8,7 @@
       "formerly": "plate/minimal_no_acquisitions",
       "data": {
         "plate": {
-          "version": "0.5-dev1",
+          "version": "0.5-dev",
           "columns": [
             {
               "name": "A"
