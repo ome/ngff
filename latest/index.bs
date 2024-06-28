@@ -19,7 +19,7 @@ Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
 Status Text: The current released version of this specification is
-Status Text: <a href="../0.4/index.html">0.4</a>. Migration scripts
+Status Text: <a href="../0.5/index.html">0.5</a>. Migration scripts
 Status Text: will be provided between numbered versions. Data written with these latest changes
 Status Text: (an "editor's draft") will not necessarily be supported.
 </pre>
