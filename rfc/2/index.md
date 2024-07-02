@@ -174,6 +174,11 @@ Support for the OME-Zarr 0.5 metadata is under development in [ome-zarr-py](http
 
 While it is clear that Zarr v3 will become the predominant version of the specification moving forward, current library support for v3 is still under active development.
 
+An alternative to this proposal would be to [add Zarr v3 support to OME-Zarr 0.4](https://github.com/ome/ngff/pull/249) without changes to the OME-Zarr Metadata.
+The contents of the `.zattrs` would simply move to the `attributes` within the `zarr.json`.
+There would need to be some transparency for users to know what Zarr versions are supported by an implementation.
+Additionally, there would be no opportunity to introduce a `ome` namespace in the attributes that is useful for composibility.
+
 <!--
 - What are the costs of implementing this proposal?
 - What known risks exist? What factors may complicate your project? Include:
@@ -211,8 +216,6 @@ It is RECOMMENDED that implementations of OME-Zarr that support both v2 and v3-b
 
 While the metadata of Zarr v3 is not backwards compatible, the chunk data is largely backwards compatible, only depending on compressor configuration.
 [There are scripts available](https://github.com/scalableminds/zarrita/blob/8155761/zarrita/array_v2.py#L452-L559) to migrate Zarr v2 metadata to Zarr v3.
-This is generally a light-weight operation.
-Zarr v3 and v2 metadata can exist side-by-side within a Zarr hierarchy.
 
 ## Abandoned Ideas
 
