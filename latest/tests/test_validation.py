@@ -16,9 +16,12 @@ for schema_filename in glob.glob("schemas/*"):
         schema = json.load(f)
         schema_store[schema["$id"]] = schema
 
+print(schema_store)
+
+
 @dataclass
 class Suite:
-    schema:  dict
+    schema: dict
     data: dict
     valid: bool = True
 
@@ -72,7 +75,9 @@ def pytest_generate_tests(metafunc):
             for filename in glob.glob(f"{example_folder}/*.json"):
                 with open(filename) as f:
                     # Strip comments
-                    data = ''.join(line for line in f if not line.lstrip().startswith('//'))
+                    data = "".join(
+                        line for line in f if not line.lstrip().startswith("//")
+                    )
                     data = json.loads(data)
                 ids.append("example_" + str(filename).split("/")[-1][0:-5])
                 suites.append(Suite(schema, data, True))  # Assume true

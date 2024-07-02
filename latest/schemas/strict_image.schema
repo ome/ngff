@@ -6,11 +6,21 @@
     },
     {
       "properties": {
-        "multiscales": {
-          "items": {
-            "required": [
-              "version", "metadata", "type", "name"
-            ]
+        "attributes": {
+          "properties": {
+            "ome": {
+              "properties": {
+                "multiscales": {
+                  "items": {
+                    "required": [
+                      "metadata",
+                      "type",
+                      "name"
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       }
