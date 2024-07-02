@@ -8,7 +8,8 @@
       "formerly": "well/minimal_no_acquisition",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "well": {
               "images": [
                 {
@@ -25,7 +26,8 @@
       "formerly": "well/minimal_acquisitions",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "well": {
               "images": [
                 {

@@ -8,7 +8,10 @@
       "formerly": "image-label/no_colors",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": { "image-label": {} }
+          "ome": {
+            "version": "0.5",
+            "image-label": {}
+          }
         }
       },
       "valid": false

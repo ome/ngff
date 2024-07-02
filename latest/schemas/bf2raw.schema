@@ -9,7 +9,7 @@
       "description": "The zarr.json attributes key",
       "type": "object",
       "properties": {
-        "https://ngff.openmicroscopy.org/0.5": {
+        "ome": {
           "description": "The versioned OME-Zarr Metadata namespace",
           "type": "object",
           "properties": {
@@ -19,15 +19,19 @@
               "enum": [
                 3
               ]
+            },
+            "version": {
+              "$ref": "https://ngff.openmicroscopy.org/latest/schemas/version.schema"
             }
           },
           "required": [
-            "bioformats2raw.layout"
+            "bioformats2raw.layout",
+            "version"
           ]
         }
       },
       "required": [
-        "https://ngff.openmicroscopy.org/0.5"
+        "ome"
       ]
     }
   },

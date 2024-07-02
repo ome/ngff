@@ -9,7 +9,8 @@
       "description": "TBD",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "multiscales": [
               {
                 "name": "example",
@@ -96,7 +97,8 @@
       "description": "TBD",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "multiscales": [
               {
                 "axes": [
@@ -145,7 +147,8 @@
       "description": "TBD",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "@id": "top",
             "@type": "ngff:Image",
             "multiscales": [
@@ -196,7 +199,8 @@
       "description": "TBD",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "multiscales": [
               {
                 "axes": [
@@ -239,7 +243,8 @@
       "description": "TBD",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "multiscales": [
               {
                 "axes": [

@@ -8,7 +8,8 @@
       "formerly": "image-label/minimal",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "image-label": {
               "colors": [
                 {
@@ -26,7 +27,8 @@
       "formerly": "image-label/minimal_properties",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "image-label": {
               "colors": [
                 {
@@ -49,7 +51,8 @@
       "formerly": "image-label/empty_colors",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "image-label": {
               "colors": []
             }
@@ -62,7 +65,8 @@
       "formerly": "image-label/empty_properties",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "image-label": {
               "properties": []
             }
@@ -75,7 +79,8 @@
       "formerly": "image-label/colors_no_label_value",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "image-label": {
               "colors": [
                 {
@@ -92,7 +97,8 @@
       "formerly": "image-label/properties_no_label_value",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "image-label": {
               "properties": [
                 {
@@ -109,7 +115,8 @@
       "formerly": "image-label/colors_rgba_length",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "image-label": {
               "colors": [
                 {
@@ -127,7 +134,8 @@
       "formerly": "image-label/colors_rgba_type",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "image-label": {
               "colors": [
                 {
@@ -145,7 +153,8 @@
       "formerly": "image-label/colors_duplicate",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "image-label": {
               "colors": [
                 {

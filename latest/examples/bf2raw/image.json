@@ -2,6 +2,6 @@
   "zarr_format": 3,
   "node_type": "group",
   "attributes": {
-    "https://ngff.openmicroscopy.org/0.5": { "bioformats2raw.layout": 3 }
+    "ome": { "version": "0.5", "bioformats2raw.layout": 3 }
   }
 }

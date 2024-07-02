@@ -8,7 +8,7 @@
       "properties": {
         "attributes": {
           "properties": {
-            "https://ngff.openmicroscopy.org/0.5": {
+            "ome": {
               "properties": {
                 "image-label": {
                   "required": [

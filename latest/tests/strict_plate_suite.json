@@ -8,7 +8,8 @@
       "formerly": "plate/strict_no_acquisitions",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "plate": {
               "columns": [
                 {
@@ -38,7 +39,8 @@
       "formerly": "plate/missing_name",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "plate": {
               "columns": [
                 {
@@ -67,7 +69,8 @@
       "formerly": "plate/strict_acquisitions",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "plate": {
               "acquisitions": [
                 {
@@ -104,7 +107,8 @@
       "formerly": "plate/missing_acquisition_name",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "plate": {
               "acquisitions": [
                 {
@@ -140,7 +144,8 @@
       "formerly": "plate/missing_acquisition_maximumfieldcount",
       "data": {
         "attributes": {
-          "https://ngff.openmicroscopy.org/0.5": {
+          "ome": {
+            "version": "0.5",
             "plate": {
               "acquisitions": [
                 {
