@@ -126,7 +126,7 @@ From a OME-Zarr user perspective, the hard cut also makes things simpler: ≤ 0.
 If users wish to upgrade their data from one OME-Zarr version to another, it migration tools will be available ([prototype here](https://github.com/scalableminds/zarrita/blob/8155761/zarrita/array_v2.py#L452-L559)).
 Migration is a fairly computationally cheap operation, because only json files are touched.
 
-Due to the existance of large quantities of image in OME-Zarr 0.4, it is RECOMMENDED that implementations continue to support OME-Zarr 0.4 with the underlying Zarr v2.
+Due to the existence of large quantities of image in OME-Zarr 0.4, it is RECOMMENDED that implementations continue to support OME-Zarr 0.4 with the underlying Zarr v2.
 
 OME-Zarr images MUST be consistent in their OME-Zarr and Zarr version.
 With this constraint, implementations only need to detect the version of a provided URL or file path once and can assume that all multiscale levels, wells, series images etc. use the same version.
@@ -177,7 +177,7 @@ While it is clear that Zarr v3 will become the predominant version of the specif
 An alternative to this proposal would be to [add Zarr v3 support to OME-Zarr 0.4](https://github.com/ome/ngff/pull/249) without changes to the OME-Zarr Metadata.
 The contents of the `.zattrs` would simply move to the `attributes` within the `zarr.json`.
 There would need to be some transparency for users to know what Zarr versions are supported by an implementation.
-Additionally, there would be no opportunity to introduce a `ome` namespace in the attributes that is useful for composibility.
+Additionally, there would be no opportunity to introduce a `ome` namespace in the attributes that is useful for composability.
 
 <!--
 - What are the costs of implementing this proposal?
