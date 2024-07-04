@@ -130,7 +130,7 @@ In the future, the OME-Zarr community MAY decide to restrict the allowed feature
 
 While the adoption of Zarr v3 does not strictly require changes to the OME-Zarr metadata, this proposal contains changes to align with community conventions and ease implementation:
 
-- OME-Zarr metadata will be stored under a dedicated key in the Zarr array or group attributes. The key will be a well-known URI of the OME-NGFF specification with a version number, e.g. `https://ngff.openmicroscopy.org/0.5`.
+- OME-Zarr metadata will be stored under a dedicated key in the Zarr array or group attributes. The key will be a well-known URI of the OME-NGFF specification with a version number, e.g. `https://ngff.openmicroscopy.org/0.6`.
 - Since the version is already encoded in the new metadata key, the `version` keys in `multiscale`, `plate`, `well` etc. are removed.
 - The `dimension_names` attribute in the Zarr metadata must match the axes names in the OME-Zarr metadata.
 
