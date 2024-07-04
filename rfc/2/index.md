@@ -126,7 +126,7 @@ From a OME-Zarr user perspective, the hard cut also makes things simpler: < 0.5 
 If users wish to upgrade their data from one OME-Zarr version to another, it migration tools will be available ([prototype here](https://github.com/scalableminds/zarrita/blob/8155761/zarrita/array_v2.py#L452-L559)).
 Migration is a fairly computationally cheap operation, because only json files are touched.
 
-Due to the existence of large quantities of image in OME-Zarr 0.4, it is RECOMMENDED that implementations continue to support OME-Zarr 0.4 with the underlying Zarr v2.
+Due to the existence of large quantities of images in OME-Zarr 0.4, it is RECOMMENDED that implementations continue to support OME-Zarr 0.4 with the underlying Zarr v2.
 
 OME-Zarr images MUST be consistent in their OME-Zarr and Zarr version.
 With this constraint, implementations only need to detect the version of a provided URL or file path once and can assume that all multiscale levels, wells, series images etc. use the same version.
@@ -208,7 +208,7 @@ In particular, the chunk sizes can be made small to facilitate interactive visua
 
 ## Backwards Compatibility
 
-The metadata of Zarr v3 arrays are not backwards compatible with Zarr v2.
+The metadata of Zarr v3 arrays is not backwards compatible with that of Zarr v2 arrays.
 
 Implementations of OME-Zarr MUST specify the version(s) of the OME-Zarr specification that they support.
 
