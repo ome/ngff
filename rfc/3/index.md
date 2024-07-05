@@ -17,6 +17,8 @@ Draft (D3).
 | John Bogovic | [bogovicj](https://github.com/bogovicj) | HHMI Janelia Research Campus | 2024-05-22 | [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425) | -->
 | Eric Perlman | [perlman](https://github.com/perlman) |  | 2024-05-22 | [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425) | -->
 | Lachlan Deakin | [LDeakin](https://github.com/LDeakin) | Australian National University | 2024-05-22 | [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425) | -->
+| Sebastian Rhode | [sebi06](https://github.com/sebi06) | Carl Zeiss Microscopy
+GmbH| 2024-06-05 | [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425) | -->
 
 ## Overview
 
