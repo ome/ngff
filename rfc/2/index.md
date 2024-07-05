@@ -120,7 +120,7 @@ The motivation for making this hard cut is to reduce the burden of complexity fo
 Currently, many Zarr library implementations support both versions.
 However, in the future they might deprecate support for version 2 or deprioritize it in terms of features and performance.
 Additionally, there are OME-Zarr implementations that have their own integrated Zarr stack.
-With this hard cut, implementations that only support OME-Zarr versions > 0.5 will not need to implement Zarr version 2 as well.
+With this hard cut, implementations that only support OME-Zarr versions ≥ 0.5 will not need to implement Zarr version 2 as well.
 
 From a OME-Zarr user perspective, the hard cut also makes things simpler: < 0.5 => Zarr version 2 and ≥ 0.5 => Zarr version 3.
 If users wish to upgrade their data from one OME-Zarr version to another, it migration tools will be available ([prototype here](https://github.com/scalableminds/zarrita/blob/8155761/zarrita/array_v2.py#L452-L559)).
@@ -260,43 +260,34 @@ File hierarchy of one multi-scale OME-Zarr image `456.zarr`:
       "version": "0.5",
       "multiscales": [
         {
-          "coordinateSystems": [
+          "axes": [
             {
-              "name": "root",
-              "axes": [
-                {
-                  "name": "c",
-                  "type": "channel",
-                  "discrete": true
-                },
-                {
-                  "name": "x",
-                  "type": "space",
-                  "unit": "nanometer"
-                },
-                {
-                  "name": "y",
-                  "type": "space",
-                  "unit": "nanometer"
-                },
-                {
-                  "name": "z",
-                  "type": "space",
-                  "unit": "nanometer"
-                }
-              ]
+              "name": "c",
+              "type": "channel"
+            },
+            {
+              "name": "x",
+              "type": "space",
+              "unit": "nanometer"
+            },
+            {
+              "name": "y",
+              "type": "space",
+              "unit": "nanometer"
+            },
+            {
+              "name": "z",
+              "type": "space",
+              "unit": "nanometer"
             }
           ],
-
           "datasets": [
             {
               "path": "1",
               "coordinateTransformations": [
                 {
                   "type": "scale",
-                  "scale": [1.0, 11.24, 11.24, 28.0],
-                  "input": "/1",
-                  "output": "root"
+                  "scale": [1.0, 11.24, 11.24, 28.0]
                 }
               ]
             },
@@ -305,9 +296,7 @@ File hierarchy of one multi-scale OME-Zarr image `456.zarr`:
               "coordinateTransformations": [
                 {
                   "type": "scale",
-                  "scale": [1.0, 22.48, 22.48, 28.0],
-                  "input": "/2-2-1",
-                  "output": "root"
+                  "scale": [1.0, 22.48, 22.48, 28.0]
                 }
               ]
             },
@@ -316,9 +305,7 @@ File hierarchy of one multi-scale OME-Zarr image `456.zarr`:
               "coordinateTransformations": [
                 {
                   "type": "scale",
-                  "scale": [1.0, 44.96, 44.96, 28.0],
-                  "input": "/4-4-1",
-                  "output": "root"
+                  "scale": [1.0, 44.96, 44.96, 28.0]
                 }
               ]
             },
@@ -327,9 +314,7 @@ File hierarchy of one multi-scale OME-Zarr image `456.zarr`:
               "coordinateTransformations": [
                 {
                   "type": "scale",
-                  "scale": [1.0, 89.92, 89.92, 56.0],
-                  "input": "/8-8-2",
-                  "output": "root"
+                  "scale": [1.0, 89.92, 89.92, 56.0]
                 }
               ]
             },
@@ -338,9 +323,7 @@ File hierarchy of one multi-scale OME-Zarr image `456.zarr`:
               "coordinateTransformations": [
                 {
                   "type": "scale",
-                  "scale": [1.0, 179.84, 179.84, 112.0],
-                  "input": "/16-16-4",
-                  "output": "root"
+                  "scale": [1.0, 179.84, 179.84, 112.0]
                 }
               ]
             }
