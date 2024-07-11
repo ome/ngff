@@ -122,8 +122,8 @@ However, in the future they might deprecate support for version 2 or deprioritiz
 Additionally, there are OME-Zarr implementations that have their own integrated Zarr stack.
 With this hard cut, implementations that only support OME-Zarr versions ≥ 0.5 will not need to implement Zarr version 2 as well.
 
-From a OME-Zarr user perspective, the hard cut also makes things simpler: < 0.5 => Zarr version 2 and ≥ 0.5 => Zarr version 3.
-If users wish to upgrade their data from one OME-Zarr version to another, it migration tools will be available ([prototype here](https://github.com/scalableminds/zarrita/blob/8155761/zarrita/array_v2.py#L452-L559)).
+From an OME-Zarr user perspective, the hard cut also makes things simpler: < 0.5 => Zarr version 2 and ≥ 0.5 => Zarr version 3.
+If users wish to upgrade their data from one OME-Zarr version to another, migration tools will be available ([prototype here](https://github.com/scalableminds/zarrita/blob/8155761/zarrita/array_v2.py#L452-L559)).
 Migration is a fairly computationally cheap operation, because only json files are touched.
 
 Due to the existence of large quantities of images in OME-Zarr 0.4, it is RECOMMENDED that implementations continue to support OME-Zarr 0.4 with the underlying Zarr v2.
