@@ -222,7 +222,7 @@ While the metadata of Zarr v3 is not backwards compatible, the chunk data is lar
 Previous versions of this proposal contained changes to referencing `labels` in the OME-Zarr metadata.
 This has been delayed to future RFCs.
 
-Previous versions have used a versioned namespace, e.g. `https://ngff.openmicroscopy.org/0.5`, in the Zarr attributes instead of a simple `ome` namespace with dedicated `version` attribute.
+Previous versions of this proposal have used a versioned namespace, e.g. `https://ngff.openmicroscopy.org/0.5`, in the Zarr attributes instead of a simple `ome` namespace with dedicated `version` attribute.
 This has been abandoned because it makes discovery of versions more difficult.
 Additionally, handling of multiple versions may be ill-defined.
 
