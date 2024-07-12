@@ -135,9 +135,9 @@ An ITK external module for IO of images stored in Zarr-backed OME-NGFF file form
 ## Other tools and libraries
 
 ### Fractal
-<https://github.com/fractal-analytics-platform/fractal>
+<https://fractal-analytics-platform.github.io/>
 
-A framework to process high content screening data at scale and to prepare it for interactive visualization.
+A framework to process OME-Zarr data at scale with modular processing tasks and to prepare it for interactive visualization.
 
 
 ### Nyxus
