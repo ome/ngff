@@ -6,11 +6,18 @@
     },
     {
       "properties": {
-        "image-label": {
-          "required": [
-            "version",
-            "colors"
-          ]
+        "attributes": {
+          "properties": {
+            "ome": {
+              "properties": {
+                "image-label": {
+                  "required": [
+                    "colors"
+                  ]
+                }
+              }
+            }
+          }
         }
       }
     }

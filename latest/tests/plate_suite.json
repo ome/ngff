@@ -7,25 +7,29 @@
     {
       "formerly": "plate/minimal_no_acquisitions",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": true
@@ -33,30 +37,34 @@
     {
       "formerly": "plate/minimal_acquisitions",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "acquisitions": [
-            {
-              "id": 0
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "acquisitions": [
+                {
+                  "id": 0
+                }
+              ],
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": true
@@ -64,20 +72,24 @@
     {
       "formerly": "plate/missing_rows",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -85,21 +97,25 @@
     {
       "formerly": "plate/empty_rows",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -107,28 +123,32 @@
     {
       "formerly": "plate/duplicate_rows",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                },
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            },
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -136,20 +156,24 @@
     {
       "formerly": "plate/missing_columns",
       "data": {
-        "version": "0.5-dev",
-        "plate": {
-          "rows": [
-            {
-              "name": "1"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -157,21 +181,25 @@
     {
       "formerly": "plate/empty_columns",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [],
-          "rows": [
-            {
-              "name": "1"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -179,28 +207,32 @@
     {
       "formerly": "plate/duplicate_columns",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
-            },
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                },
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -208,18 +240,22 @@
     {
       "formerly": "plate/missing_wells",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -227,19 +263,23 @@
     {
       "formerly": "plate/empty_wells",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": {}
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": {}
+          }
         }
       },
       "valid": false
@@ -247,33 +287,37 @@
     {
       "formerly": "plate/duplicate_rows",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
-            },
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                },
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                },
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            },
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -281,25 +325,29 @@
     {
       "formerly": "plate/missing_column_name",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "concentration": 10
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "concentration": 10
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -307,25 +355,29 @@
     {
       "formerly": "plate/missing_row_name",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "concentration": 10
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "concentration": 10
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -333,24 +385,28 @@
     {
       "formerly": "plate/missing_well_path",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -358,24 +414,28 @@
     {
       "formerly": "plate/missing_well_rowIndex",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -383,24 +443,28 @@
     {
       "formerly": "plate/missing_well_columnIndex",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -408,24 +472,28 @@
     {
       "formerly": "plate/well_1group",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A1",
+                  "rowIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A1",
-              "rowIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -433,75 +501,28 @@
     {
       "formerly": "plate/well_3groups",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "plate/A/1",
+                  "rowIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "plate/A/1",
-              "rowIndex": 0
-            }
-          ]
-        }
-      },
-      "valid": false
-    },
-    {
-      "formerly": "plate/invalid_version",
-      "data": {
-        "plate": {
-          "version": "foo",
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
-        }
-      },
-      "valid": false
-    },
-    {
-      "formerly": "plate/missing_version",
-      "data": {
-        "plate": {
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -509,25 +530,29 @@
     {
       "formerly": "plate/non_alphanumeric_column",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A-1"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A-1"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A-1/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A-1/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -535,25 +560,29 @@
     {
       "formerly": "plate/non_alphanumeric_row",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "A1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/A1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "rows": [
-            {
-              "name": "A1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/A1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": true
@@ -561,30 +590,34 @@
     {
       "formerly": "plate/missing_acquisition_id",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "acquisitions": [
-            {
-              "maximumfieldcount": 1
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "acquisitions": [
+                {
+                  "maximumfieldcount": 1
+                }
+              ],
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -592,30 +625,34 @@
     {
       "formerly": "plate/non_integer_acquisition_id",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "acquisitions": [
-            {
-              "id": "0"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "acquisitions": [
+                {
+                  "id": "0"
+                }
+              ],
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -623,30 +660,34 @@
     {
       "formerly": "plate/negative_acquisition_id",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "acquisitions": [
-            {
-              "id": -1
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "acquisitions": [
+                {
+                  "id": -1
+                }
+              ],
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -654,31 +695,35 @@
     {
       "formerly": "plate/non_integer_acquisition_maximumfieldcount",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "acquisitions": [
-            {
-              "id": 0,
-              "maximumfieldcount": "0"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "acquisitions": [
+                {
+                  "id": 0,
+                  "maximumfieldcount": "0"
+                }
+              ],
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -686,31 +731,35 @@
     {
       "formerly": "plate/acquisition_zero_maximumfieldcount",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "acquisitions": [
-            {
-              "id": 0,
-              "maximumfieldcount": 0
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "acquisitions": [
+                {
+                  "id": 0,
+                  "maximumfieldcount": 0
+                }
+              ],
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -718,31 +767,35 @@
     {
       "formerly": "plate/acquisition_noninteger_starttime",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "acquisitions": [
-            {
-              "id": 0,
-              "starttime": "2022-05-13T13:48:06+00:00"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "acquisitions": [
+                {
+                  "id": 0,
+                  "starttime": "2022-05-13T13:48:06+00:00"
+                }
+              ],
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -750,31 +803,35 @@
     {
       "formerly": "plate/acquisition_negative_starttime",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "acquisitions": [
-            {
-              "id": 0,
-              "starttime": -1
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "acquisitions": [
+                {
+                  "id": 0,
+                  "starttime": -1
+                }
+              ],
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -782,31 +839,35 @@
     {
       "formerly": "plate/acquisition_noninteger_endtime",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "acquisitions": [
-            {
-              "id": 0,
-              "endtime": "2022-05-13T13:48:06+00:00"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "acquisitions": [
+                {
+                  "id": 0,
+                  "endtime": "2022-05-13T13:48:06+00:00"
+                }
+              ],
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -814,31 +875,35 @@
     {
       "formerly": "plate/negative_endtime",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "acquisitions": [
-            {
-              "id": 0,
-              "endtime": -1
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "acquisitions": [
+                {
+                  "id": 0,
+                  "endtime": -1
+                }
+              ],
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "columns": [
-            {
-              "name": "A"
-            }
-          ],
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
@@ -846,26 +911,30 @@
     {
       "formerly": "plate/zero_field_count",
       "data": {
-        "plate": {
-          "version": "0.5-dev",
-          "columns": [
-            {
-              "name": "A"
+        "attributes": {
+          "ome": {
+            "version": "0.5",
+            "plate": {
+              "columns": [
+                {
+                  "name": "A"
+                }
+              ],
+              "field_count": 0,
+              "rows": [
+                {
+                  "name": "1"
+                }
+              ],
+              "wells": [
+                {
+                  "path": "A/1",
+                  "rowIndex": 0,
+                  "columnIndex": 0
+                }
+              ]
             }
-          ],
-          "field_count": 0,
-          "rows": [
-            {
-              "name": "1"
-            }
-          ],
-          "wells": [
-            {
-              "path": "A/1",
-              "rowIndex": 0,
-              "columnIndex": 0
-            }
-          ]
+          }
         }
       },
       "valid": false
