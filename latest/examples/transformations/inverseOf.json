@@ -1,7 +1,7 @@
 {
     "coordinateSystems" : [
-        { "name" : "moving", "axes" : [{"name" : "x-moving"}, {"name":"y-moving"}] },
-        { "name" : "fixed", "axes" : [{"name" : "x-fixed"}, {"name":"y-fixed"}] }
+        { "name" : "moving", "axes" : [{"name" : "y-moving"}, {"name":"x-moving"}] },
+        { "name" : "fixed", "axes" : [{"name" : "y-fixed"}, {"name":"x-fixed"}] }
     ],
     "coordinateTransformations" : [
         {

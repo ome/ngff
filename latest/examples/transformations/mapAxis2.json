@@ -2,7 +2,7 @@
     "coordinateSystems": [
         { "name": "in", "axes": [ {"name": "a"}, {"name": "b"}]},
         { "name": "out_down", "axes": [ {"name": "x"}]},
-        { "name": "out_up", "axes": [ {"name": "x"}, {"name": "y"}, {"name": "z"} ]}
+        { "name": "out_up", "axes": [ {"name": "z"}, {"name": "y"}, {"name": "x"} ]}
     ],
     "coordinateTransformations": [ 
         { 
@@ -15,7 +15,7 @@
         { 
             "name": "projection up",
             "type": "mapAxis", 
-            "mapAxis": { "x": "a", "y": "b", "z": "b" },
+            "mapAxis": { "z": "b", "y": "b", "x": "a" },
             "input": "in",
             "output": "out_up" 
         }

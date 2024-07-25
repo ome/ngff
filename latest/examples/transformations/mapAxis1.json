@@ -1,8 +1,8 @@
 {
     "coordinateSystems": [
-        { "name": "in", "axes": [ {"name": "i"}, {"name": "j"} ]},
-        { "name": "out1", "axes": [ {"name": "x"}, {"name": "y"} ]},
-        { "name": "out2", "axes": [ {"name": "x"}, {"name": "y"} ]}
+        { "name": "in", "axes": [ {"name": "j"}, {"name": "i"} ]},
+        { "name": "out1", "axes": [ {"name": "y"}, {"name": "x"} ]},
+        { "name": "out2", "axes": [ {"name": "y"}, {"name": "x"} ]}
     ],
     "coordinateTransformations": [ 
         { 
@@ -15,7 +15,7 @@
         { 
             "name": "permutation",
             "type": "mapAxis", 
-            "mapAxis": { "x":"j", "y":"i" },
+            "mapAxis": { "y":"i", "x":"j" },
             "input": "in",
             "output": "out2" 
         }

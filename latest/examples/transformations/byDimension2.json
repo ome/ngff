@@ -3,18 +3,18 @@
     {
       "name": "in",
       "axes": [
-        { "name": "i", "type": "array" },
+        { "name": "l", "type": "array" },
         { "name": "j", "type": "array" },
         { "name": "k", "type": "array" },
-        { "name": "l", "type": "array" }
+        { "name": "i", "type": "array" }
       ]
     },
     {
       "name": "out",
       "axes": [
-        { "name": "x", "type": "array" },
+        { "name": "z", "type": "array" },
         { "name": "y", "type": "array" },
-        { "name": "z", "type": "array" }
+        { "name": "x", "type": "array" }
       ]
     }
   ],

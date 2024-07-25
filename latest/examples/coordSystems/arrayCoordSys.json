@@ -2,9 +2,9 @@
     "arrayCoordinateSystem" : {
         "name" : "myDataArray",
         "axes" : [
-            {"name": "i", "type": "array"},
+            {"name": "k", "type": "array"},
             {"name": "j", "type": "array"},
-            {"name": "k", "type": "array"}
+            {"name": "i", "type": "array"}
         ]
     }
 }
