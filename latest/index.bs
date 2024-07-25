@@ -1260,7 +1260,7 @@ path: examples/transformations/bijection.json
 highlight: json
 </pre>
 
-the input and output of the `forward` and `inverse` transformations are understoood to be:
+the input and output of the `forward` and `inverse` transformations are understood to be:
 
 <pre class=include-code>
 path: examples/transformations/bijection_verbose.json
