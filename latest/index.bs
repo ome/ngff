@@ -721,7 +721,7 @@ i.e., the mapping from the first input axis to the first output axis is determin
 
 When rendering transformed images and interpolating, implementations may need the "inverse" transformation - from the output to
 the input coordinate system. Inverse transformations will not be explicitly specified when they can be computed in closed form from the
-forward transformation. Inverse transformations used for image rendering should be specified using the `inverseOf`
+forward transformation. Inverse transformations used for image rendering may be specified using the `inverseOf`
 transformation type, for example:
 
 ```json
@@ -996,7 +996,7 @@ transformation (if it exists).
 <div class=note>
     Software libraries that perform image registration often return the transformation from fixed image
     coordinates to moving image coordinates, because this "inverse" transformation is most often required
-    when rendering the transformed moving image. Results such as this should be enclosed in an `inverseOf`
+    when rendering the transformed moving image. Results such as this may be enclosed in an `inverseOf`
     transformation. This enables the "outer" coordinate transformation to specify the moving image coordinates
     as `input` and fixed image coordinates as `output`, a choice that many users and developers find intuitive.
 </div>
