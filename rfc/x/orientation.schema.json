@@ -1,0 +1,28 @@
+{
+    "$defs": {
+        "Orientation": {
+            "description": "Anatomical orientation refers to the specific arrangement and directional alignment of anatomical structures within an imaging dataset. It is crucial for ensuring accurate alignment and comparison of images to anatomical atlases, facilitating consistent analysis and interpretation of biological data.",
+            "enum": [
+                "left-to-right",
+                "right-to-left",
+                "anterior-to-posterior",
+                "posterior-to-anterior",
+                "inferior-to-superior",
+                "superior-to-inferior",
+                "dorsal-to-ventral",
+                "ventral-to-dorsal",
+                "rostral-to-caudal",
+                "caudal-to-rostral"
+            ],
+            "title": "Orientation",
+            "type": "string"
+        }
+    },
+    "$id": "https://w3id.org/ome/ngff",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "additionalProperties": true,
+    "metamodel_version": "1.7.0",
+    "title": "orientation",
+    "type": "object",
+    "version": "0.1.0"
+}
