@@ -924,7 +924,7 @@ The matrix may be stored as a 2D array (inner arrays represent the rows of the m
 
     Note that the order of the axes can in general be determined by the application or user.
     These axes relate to the memory or on-disk order insofar as the last dimension is contiguous
-    when the zarr array is C-order (the default for zarr version 2, and the only option for zarr version 3).
+    when the zarr array is c-order (the default for zarr version 2, and the only option for zarr version 3).
 
     <pre class=include-code>
     path: examples/transformations/affine2d3d.json
@@ -1046,19 +1046,72 @@ and is invertible.
 
 #### coordinates and displacements
 
-TODO define on-disk and in-memory layout of displacement fields.
-
 `coordinates` and `displacements` transformations store coordinates or displacements in an array and interpret them as a
-transformation. Applying the transformation amounts to looking up the appropriate locations in the array and interpolating.
+transformation. Applying the transformation amounts to looking up the appropriate locations in the array and interpolating
+if necessary.
+
+These transformation types refer to an array at location specified by the `"path"` parameter whose coordinate sytem MUST contain
+an axis with type `coordinate` or `displacement` respectively for transformations of type `coordinates` or `displacements`. This
+axis MUST be of length equal to the number of axes of the output coordinate system and SHOULD be the last axis (contiguous on
+disk when c-order). The coordinate system MUST also contain an axis identical to every axis of its input coordinate system in
+the same order. As a consequence, the array will have one dimension more than its input coordinate system.
+
+The `i`th value of the array along the `coordinate` or `displacement` axis refers to the displacement
+or coordinate of `i`th output axis. See the example below.
+
+<div class=example>
+
+In this example, the array located at `"displacementField"` MUST have three dimensions. One dimension MUST
+correspond to an axis with `type : displacement`, the other two dimensions MUST be axes that are identical to
+the axes of the `"in"` coordinate system.
+
+```
+"coordinateSystems" : [
+    { "name" : "in", "axes" : [{"name" : "y"}, {"name":"x"}] },
+    { "name" : "out", "axes" : [{"name" : "y"}, {"name":"x"}] }
+],
+"coordinateTransformations" : [
+    {
+        "type": "displacements",
+        "input" : "in",
+        "output" : "out",
+        "path" : "displacementField"
+    }
+]
+```
+
+The array at location should have a coordinate system such as:
+
+```
+"coordinateSystems" : [
+    { "name" : "in", "axes" : [
+        {"name":"y"}, {"name":"x"},
+        {"name":"d", "type":"displacement", "discrete":true} ]
+    }
+]
+```
+
+Indexing into this array using c-order, for spatial positions `y` and `x`, the y- and x-displacements would be given by:
+
+```
+y_displacement = displacementField[y][x][0]
+x_displacement = displacementField[y][x][1]
+```
+
+I.e. the y-displacement is first, because the y-axis is the first element of the input and output coordinate systems.
+
+</div>
+
+
 `coordinates` and `displacements` transformations are not invertible in general, but implementations MAY approximate their
 inverses. Metadata for these coordinate transforms have the following field: 
 
 <dl>
   <dt><strong>path</strong></dt>
-  <dd>  The location of the coordinate array in this (or another) containter.</dd>
+  <dd>  The location of the coordinate array in this (or another) container.</dd>
   <dt><strong>interpolation</strong></dt>
   <dd>  The `interpolation` attributes MAY be provided. It's value indicates
-        the interpolation to use if transforing points not on the array's discrete grid.
+        the interpolation to use if transforming points not on the array's discrete grid.
         Values could be:
         <ul>
             <li><code>linear</code> (default)</li>
@@ -1067,20 +1120,23 @@ inverses. Metadata for these coordinate transforms have the following field:
         </ul></dd>
 </dl>
 
-The array data at `path` MUST define space and coordinate transform metadata:
+For both `coordinates` and `displacements`, the array data at referred to by `path` MUST define space and coordinate transform metadata:
 
-* space metadata MUST have exactly one axis with `"type" : "coordinate"`
-* Every axis name in the `coordinateTransform`'s `input` MUST appear in the space
-* The array dimension corresponding to the coordinate axis MUST have length greater than or equal to the dimensionality of the `coordinateTransform` `output`
-* SHOULD have `name` equal to the `name` of the corresponding `coordinateTransform`.
+* Every axis name in the `coordinateTransform`'s `input` MUST appear in the coordinate system
+* The array dimension corresponding to the `coordinate` or `displacement` axis MUST have length equal to the dimensionality of the `coordinateTransform` `output`
+* SHOULD have a `name` identical to the `name` of the corresponding `coordinateTransform`.
 
 For `coordinates`:
 
-* If a `coordinates`' input space has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(N + 1)`.
 * coordinateSystem metadata MUST have exactly one axis with `"type" : "coordinate"`
+* If a `coordinates`' input space has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(N + 1)`.
+* the size of the array along the "coordinate" axis must be exactly `N`
 
 For `displacements`:
+
 * coordinateSystem metadata MUST have exactly one axis with `"type" : "displacement"`
+* If a `displacements`' input space has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(N + 1)`.
+* the size of the array along the "displacement" axis must be exactly `N`
 * `input` and `output` MUST have an equal number of dimensions.
 
 For example, in 1D:
@@ -1118,7 +1174,7 @@ Example metadata for the array data at path `coordinates` above:
 }
 ```
 
-If the arrray in `coordinates` contains the data: `[-9, 9, 0]`, then this metadata defines the function:
+If the array in `coordinates` contains the data: `[-9, 9, 0]`, then this metadata defines the function:
 
 ```
 x = 
@@ -1163,7 +1219,7 @@ Example metadata for the array data at path `displacements` above:
     ]
 }
 ```
-If the arrray in `displacements` contains the data: `[-1, 0, 1]`, 
+If the array in `displacements` contains the data: `[-1, 0, 1]`, 
 this transformation maps the point `[1.0]` to the point `[0.5]`. A scale
 transformation maps the array coordinates to the "x" axis. Using the inverse
 of the scale transform, we see that we need the position `0.5` in array coordinates.
@@ -1249,7 +1305,7 @@ transformation's `input` (`output`) matches the bijection's `output` (`input`), 
 
 Practically, non-invertible transformations have finite extents, so bijection transforms should only be expected
 to be correct / consistent for points that fall within those extents. It may not be correct for any point of
-approprite dimensionality.
+appropriate dimensionality.
 
 <div class=example>
 
