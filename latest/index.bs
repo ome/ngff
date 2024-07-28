@@ -1015,14 +1015,29 @@ For example
 #### sequence
 
 A `sequence` transformation consists of an ordered array of coordinate transformations, and is invertible if and only if every
-coordinate transform in the array is invertible.
+coordinate transform in the array is invertible. To apply a sequence transformation to a point in the input coordinate system,
+apply the first transformation in the list of transformations. Next, apply the second transformation to the result. Repeat until
+every transformation has been applied. The output of the last transformation is the result of the sequence.
+
+The transformations included in the `transformations` array may omit their `input` and `output` fields under the conditions
+outlined below:
+
+- The `input` and `output` fields MAY be omitted for the following transformation types: 
+    - `identity`, `scale`, `translation`, `rotation`, `affine`, `displacements`, `coordinates`
+- The `input` and `output` fields MAY be omitted for `inverseOf` transformations if those fields may be omitted for the
+    transformation it wraps
+- The `input` and `output` fields MAY be omitted for `bijection` transformations if the fields may be omitted for 
+    both its `forward` and `inverse` transformations
+- The `input` and `output` fields MAY be omitted for `sequence` transformations if the fields may be omitted for
+    all transformations in the sequence after flattening the nested sequence lists.
+- The `input` and `output` fields MUST be included for transformations of type: `mapAxis`, and `byDimension` (see the note
+    below), and under all other conditions.
+
 
 <dl>
   <dt><strong>transformations</strong></dt>
   <dd>A non-empty array of transformations.</dd>
 </dl>
-
-The `input` and `output` fields SHOULD be omitted for transformations that are in the list of transformations of a `sequence`.
 
 <div class=example>
 
