@@ -527,7 +527,6 @@ Note that dimension `i` is contiguous in memory.
 </div>
 
 
-
 ### Coordinate convention
 
 **The pixel/voxel center is the origin of the continuous coordinate system.**
@@ -538,7 +537,6 @@ in the discrete array, i.e., the area corresponding to nearest-neighbor (NN) int
 The center of a 2d pixel corresponding to the origin `(0,0)` in the discrete array is the origin of the continuous coordinate
 system `(0.0, 0.0)` (when the transformation is the identity). The continuous rectangle of the pixel is given by the
 half-open interval `[-0.5, 0.5) x [-0.5, 0.5)` (i.e., -0.5 is included, +0.5 is excluded). See chapter 4 and figure 4.1 of the ITK Software Guide [[itk]].
-
 
 
 "coordinateTransformations" metadata {#trafo-md}
@@ -896,7 +894,7 @@ y = j - 1.42
 #### scale
 
 `scale` transformations are special cases of affine transformations. When possible, a scale transformation
-SHOULD be defined to its equivalent affine. Input and output dimensionality MUST be identical and MUST equal
+SHOULD be preferred to its equivalent affine. Input and output dimensionality MUST be identical and MUST equal
 the the length of the "scale" array (N). Values in the `scale` array SHOULD be non-zero; in that case, `scale`
 transformations are invertible.
 
@@ -1178,13 +1176,13 @@ For `coordinates`:
 
 * coordinateSystem metadata MUST have exactly one axis with `"type" : "coordinate"`
 * If a `coordinates`' input space has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(N + 1)`.
-* the size of the array along the "coordinate" axis must be exactly `N`
+* the shape of the array along the "coordinate" axis must be exactly `N`
 
 For `displacements`:
 
 * coordinateSystem metadata MUST have exactly one axis with `"type" : "displacement"`
 * If a `displacements`' input space has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(N + 1)`.
-* the size of the array along the "displacement" axis must be exactly `N`
+* the shape of the array along the "displacement" axis must be exactly `N`
 * `input` and `output` MUST have an equal number of dimensions.
 
 For example, in 1D:
