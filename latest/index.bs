@@ -749,7 +749,7 @@ length gives the input imension, otherwise it is given by the length of "axes" f
 the name of the "input".  If the value of "output" is an array, it's length gives the output dimension,
 otherwise it is given by the length of "axes" for the coordinate system with the name of the "output".
 
-#### identity
+#### <a name="identity">identity</a>
 
 `identity` transformations map input coordinates to output coordinates without modification. The position of
 the ith axis of the output coordinate system is set to the position of the ith axis of the input coordinate
@@ -772,14 +772,13 @@ y = j
 </div>
 
 
-#### mapAxis
+#### <a name="mapAxis">mapAxis</a>
 
 `mapAxis` transformations describe axis permutations as a mapping of axis names. Transformations MUST include a `mapAxis` field
 whose value is an object, all of whose values are strings. If the object contains `"x":"i"`, then the transform sets the value 
 of the output coordinate for axis "x" to the value of the coordinate of input axis "i" (think `x = i`). For every axis in its output coordinate
 system, the `mapAxis` MUST have a corresponding field. For every value of the object there MUST be an axis of the input
 coordinate system with that name. Note that the order of the keys could be reversed.
-
 
 
 <div class=example>
@@ -827,7 +826,7 @@ z = b
 ```
 </div>
 
-#### translation
+#### <a name="translation">translation</a>
 
 `translation` transformations are special cases of affine transformations. When possible, a 
 translation transformation should be preferred to its equivalent affine. Input and output dimensionality MUST be
@@ -887,7 +886,7 @@ y = 2 * j
 ```
 </div>
 
-#### affine
+#### <a name="affine">affine</a>
 
 `affine` transformations from N-dimensional inputs to M-dimensional outputs are represented at `(N)x(M+1)`
 matrices in homogeneous coordinates. This transformation type is invertible when `N` equals `M`.
@@ -948,7 +947,7 @@ The matrix may be stored as a 2D array (inner arrays represent the rows of the m
 </div>
 
 
-#### rotation
+#### <a name="rotation">rotation</a>
 
 `rotation` transformations are special cases of affine transformations.
 When possible, a rotation transformation SHOULD be defined rather than
@@ -986,7 +985,7 @@ are invertible.
 </div>
 
 
-#### inverseOf
+#### <a name="inverseOf">inverseOf</a>
 
 An `inverseOf` transformation contains another transformation (often non-linear), and indicates that
 transforming points from output to input coordinate systems is possible using the contained transformation.
@@ -1012,7 +1011,7 @@ For example
 
 </div>
 
-#### sequence
+#### <a name="sequence">sequence</a>
 
 A `sequence` transformation consists of an ordered array of coordinate transformations, and is invertible if and only if every
 coordinate transform in the array is invertible. To apply a sequence transformation to a point in the input coordinate system,
@@ -1059,7 +1058,7 @@ and is invertible.
 </div>
 
 
-#### coordinates and displacements
+#### <a name=coordinates-displacements>coordinates and displacements</a>
 
 `coordinates` and `displacements` transformations store coordinates or displacements in an array and interpret them as a
 transformation. Applying the transformation amounts to looking up the appropriate locations in the array and interpolating
@@ -1243,7 +1242,7 @@ The transformation specifies linear interpolation, which in this case yields
 input point, hence the output is `1.0 + (-0.5) = 0.5`.
 
 
-#### byDimension
+#### byDimension {#trafo-byDimension}
 
 `byDimension` transformations build a high dimensional transformation using lower dimensional transformations
 on subsets of dimensions.
@@ -1307,7 +1306,7 @@ This transformation is invalid because the output axis `x` appears in more than 
 </div>
 
 
-#### bijection
+#### <a name="bijection">bijection</a>
 
 A bijection transformation is an invertible transformation in which both the `forward` and `inverse` transformations
 are explicitly defined. Each direction SHOULD be a transformation type that is not closed-form invertible.
