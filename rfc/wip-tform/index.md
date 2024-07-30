@@ -15,16 +15,12 @@ This RFC is currently in stage D2.
 
 ## Overview
 
-The RFC begins with a brief overview. This section should be one or two
-paragraphs that just explains what the goal of this RFC is going to be, but
-without diving too deeply into the "why", "why now", "how", etc. Ensure anyone
-opening the document will form a clear understanding of the RFCs intent from
-reading this paragraph(s).
+This RFC provides first-class support for spatial and coordinate transformations in OME-Zarr.
 
 ## Background
 
-This RFC provides first-class support for spatial and coordinate transformations in OME-Zarr, which is vitally important for
-neuro and bio-imaging and broader scientific imaging practices to enable:
+Coordinate and spatial transformation are vitally important for neuro and bio-imaging and broader scientific imaging practices
+to enable:
 
 1. Reproducibility and Consistency: Supporting spatial transformations explicitly in a file format ensures that transformations
    are applied consistently across different platforms and applications. This FAIR capability is a cornerstone of scientific
@@ -39,6 +35,11 @@ neuro and bio-imaging and broader scientific imaging practices to enable:
 4. Flexibility in Analysis: A file format that natively supports spatial transformations allows researchers to apply, modify, or
    reverse transformations as needed for different analysis purposes. This flexibility is critical for tasks such as
    longitudinal studies, multi-modal imaging, and comparative analysis across different subjects or experimental conditions.
+
+Toward these goals, this RFC expands the set of transformations in the OME-Zarr spec covering many of the use cases 
+requested in [this github issue](https://github.com/ome/ngff/issues/84). It also adds "coordinate systems" - named
+sets of "axes." Related the relationship of discrete arrays to physical coordinates and the interpretation and motivation for
+axis types.
 
 
 ## Proposal
