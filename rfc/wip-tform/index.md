@@ -44,11 +44,11 @@ axis types.
 
 ## Proposal
 
-Below is a slightly abridged proposal (examples are omitted), the full set of changes including all examples
-are publicly available on the github pull request TODO link;
+Below is a slightly abridged copy of the proposed changes to the specification (examples are omitted), the full set of changes
+including all examples are publicly available on the [github pull request](https://github.com/ome/ngff/pull/138).
 
 
-### "coordinateSystems" metadata {#coord-sys-md}
+### "coordinateSystems" metadata
 
 A "coordinate system" is a collection of "axes" / dimensions with a name. Every coordinate system:
 - MUST contain the field "name". The value MUST be a non-empty string that is unique among `coordinateSystem`s.
@@ -78,7 +78,7 @@ transformed to the same coordinate system before doing analysis. See the example
     - Units for "time" axes: 'attosecond', 'centisecond', 'day', 'decisecond', 'exasecond', 'femtosecond', 'gigasecond', 'hectosecond', 'hour', 'kilosecond', 'megasecond', 'microsecond', 'millisecond', 'minute', 'nanosecond', 'petasecond', 'picosecond', 'second', 'terasecond', 'yoctosecond', 'yottasecond', 'zeptosecond', 'zettasecond'
 - MAY contain the field "longName". The value MUST be a string, and can provide a longer name or description of an axis and its properties.
 
-If part of [[#multiscale-md]], the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
+If part of multiscales metadata, the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
 Arrays are often thought of as containing discrete samples along the continuous variable. Axes representing space and time are
 usually continuous, meaning they can be indexed by real-valued (floating point) numbers whereas discrete axes may be indexed
@@ -123,10 +123,10 @@ coordinate systems. A pixel/voxel is the continuous region (rectangle) that corr
 in the discrete array, i.e., the area corresponding to nearest-neighbor (NN) interpolation of that sample.
 The center of a 2d pixel corresponding to the origin `(0,0)` in the discrete array is the origin of the continuous coordinate
 system `(0.0, 0.0)` (when the transformation is the identity). The continuous rectangle of the pixel is given by the
-half-open interval `[-0.5, 0.5) x [-0.5, 0.5)` (i.e., -0.5 is included, +0.5 is excluded). See chapter 4 and figure 4.1 of the ITK Software Guide [[itk]].
+half-open interval `[-0.5, 0.5) x [-0.5, 0.5)` (i.e., -0.5 is included, +0.5 is excluded). See chapter 4 and figure 4.1 of the ITK Software Guide.
 
 
-### "coordinateTransformations" metadata {#trafo-md}
+### "coordinateTransformations" metadata
 
 "coordinateTransformations" describe the mapping between two coordinate systems (defined by "axes").
 For example, to map an array's discrete coordinate system to its corresponding physical coordinates.
@@ -195,7 +195,7 @@ Conforming readers:
 - SHOULD be able to apply transformations to points;
 - SHOULD be able to apply transformations to images;
 
-Coordinate transformations from array to physical coordinates MUST be stored in multiscales ([[#multiscale-md]]),
+Coordinate transformations from array to physical coordinates MUST be stored in multiscales,
 and MUST be duplicated in the atrributes of the zarr array. Transformations between different images MUST be stored in the
 attributes of a parent zarr group. For transformations that store data or parameters in a zarr array, those zarr arrays SHOULD
 be stored in a zarr group `"coordinateTransformations"`.
