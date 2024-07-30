@@ -4,14 +4,14 @@ Add named coordinate systems and expand and clarify coordinate transformations.
 
 ## Status
 
-This RFC is currently in a draft state.
+This RFC is currently in stage D2.
 
 |  Role  | Name      | GitHub Handle | Institution | Date       | Status                                 |
 |--------|-----------|---------------|-------------|------------|----------------------------------------|
-| Author | John Bogovic    | @bogovicj       | HHMI Janelia   | xxxx-xx-xx  | Author; Implemented                                 |
-| Author | Luca Marconato  | @LucaMarconato  | EMBL           | xxxx-xx-xx  | Author; Implemented                                 |
-| Author | Matt McCormick   | @thewtex       | ITK            | xxxx-xx-xx  | Author; Implemented?
-| Author | Davis Bennett   | @d-v-b          |                | xxxx-xx-xx  | Author                                 |
+| Author | John Bogovic    | @bogovicj       | HHMI Janelia   | 2024-07-30  | Author; Implemented               |
+| Author | Luca Marconato  | @LucaMarconato  | EMBL           | 2024-07-30  | Author; Implemented               |
+| Author | Matt McCormick   | @thewtex       | ITK            | 2024-07-30  | Author; Implemented?              |
+| Author | Davis Bennett   | @d-v-b          |                | 2024-07-30  | Author; Implemented validation    |                                 
 
 ## Overview
 
