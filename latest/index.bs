@@ -975,7 +975,7 @@ The matrix MUST be stored as a 2D array either as json or in a zarr array.
 
 #### <a name="rotation">rotation</a>
 
-`affine`s are [matrix transformations](#matrix-transformations) that are special cases of affine transformations. When possible, a rotation
+`rotation`s are [matrix transformations](#matrix-transformations) that are special cases of affine transformations. When possible, a rotation
 transformation SHOULD be preferred to its equivalent affine. Input and output dimensionality (N) MUST be identical. Rotations
 are stored as `NxN` matrices, see below, and MUST have determinant equal to one, with orthonormal rows and columns. The matrix
 MUST be stored as a 2D array either as json or in a zarr array. `rotation` transformations are invertible.
