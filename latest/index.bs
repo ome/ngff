@@ -1061,8 +1061,8 @@ outlined below:
     both its `forward` and `inverse` transformations
 - The `input` and `output` fields MAY be omitted for `sequence` transformations if the fields may be omitted for
     all transformations in the sequence after flattening the nested sequence lists.
-- The `input` and `output` fields MUST be included for transformations of type: `mapAxis`, and `byDimension` (see the note
-    below), and under all other conditions.
+- The `input` and `output` fields MUST be included for transformations of type: `mapAxis`, and `byDimension`, and 
+    under all other conditions.
 
 
 <dl>
