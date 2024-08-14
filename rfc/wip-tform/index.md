@@ -504,6 +504,61 @@ Practically, non-invertible transformations have finite extents, so bijection tr
 to be correct / consistent for points that fall within those extents. It may not be correct for any point of
 appropriate dimensionality.
 
+## Specific feedback requested
+
+We ask the reviewers for one specific piece of feedback. Specifically about whether parameters for transformations should
+be written as they are currently in the draft pull request, with named parameters at the "top level" e.g.:
+
+```
+{
+    "type": "affine",
+    "affine": [[1, 2, 3], [4, 5, 6]],
+    "input": "ji",
+    "output": "yx"
+}
+```
+
+or alternatively in a `parameters` field:
+
+```
+{
+    "type": "affine",
+    "parameters": {
+        "matrix": [[1, 2, 3], [4, 5, 6]]
+    },
+    "input": "ji",
+    "output": "yx"
+}
+```
+
+In discussions, some authors preferred the latter because it will make the "top-level" keys for transformation
+objects all identical, which could make serialization / validation simpler. One downside is that this change
+is breaking for the existing `scale` and `translation` transformations
+
+```
+{
+    "type": "scale",
+    "scale": [2, 3, 4],
+    "input": "ji",
+    "output": "yx"
+}
+```
+
+would change to:
+
+```
+{
+    "type": "scale",
+    "parameters": {
+        "scale": [2, 3, 4],
+    },
+    "input": "ji",
+    "output": "yx"
+}
+```
+
+The authors would be interested to hear perspectives from the reviewers on this matter.
+
 
 ## Requirements
 
