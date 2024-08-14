@@ -505,15 +505,12 @@ to be correct / consistent for points that fall within those extents. It may not
 appropriate dimensionality.
 
 
-## Requirements (Recommended Header)
-
-For the problem(s) solved by this RFC, what constrains the possible solutions?
-List other RFCs, or standards (ISO, etc.) which are applicable. It is suggested
-that the following text SHOULD be used in all RFCs:
+## Requirements
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
 interpreted as described in [IETF RFC 2119][IETF RFC 2119]
+
 
 ## Stakeholders
 
@@ -530,7 +527,7 @@ This RFC has been discussed in:
     * https://github.com/ome/ngff/issues/146
 * Several OME-Zarr community calls ([one example](https://forum.image.sc/t/ome-ngff-community-call-transforms-and-tables/71792)
 
-## Implementation (Recommended Header)
+## Implementation
 
 Many RFCs have an "implementation" section which details how the implementation
 will work. This section should explain the rough specification changes. The
@@ -546,24 +543,18 @@ For the RFC author, typing out the implementation in a high-level often serves
 as "[rubber duck debugging][rubber duck debugging]" and you can catch a lot of
 issues or unknown unknowns prior to writing any real code.
 
-## Drawbacks, risks, alternatives, and unknowns (Recommended Header)
+## Drawbacks, risks, alternatives, and unknowns
 
-TODO
+Adopting this proposal will add an implementation burden because it adds more transformation types. Though this drawback is
+softened by the fact that implementations will be able to choose which transformations to support (e.g., implementations may choose
+not to support non-linear transformations).
 
-## Abandoned Ideas
+An alternative to this proposal would be not to add support transformations directly and instead recommend software use an
+existing format (e.g., ITK's). The downside of that is that alternative formats will not integrate well with OME-NGFF as they do
+not use JSON or Zarr.
 
-One consideration was to change (reverse) the order of parameters for transformations to match the convention used by many
-libraries. We opted not to make this change for two reasons. First, to maintain backward-compatibility. Second, the convention
-used by the libraries generally applies for 2D and 3D spatial transformations, but the specification should be applicable to
-transformations of arbitrary dimension and axis type, where there is not a strong convention we are aware of.
-
-An early consideration was to use axis names to indicate correspondence across different coordinate systems (i.e. if two
-coordinate systems both have the "x" axis, then it is "the same" axis. We abandoned this for several reasons.  It was 
-restrictive - it is useful to have many coordinate systems with an "x" axis without requiring that they be "identical." Under our
-early idea, every set of spatial axes would need unique names ("x1", "x2", ...), and this seemed burdensome. As well, this
-approach would have also made transformations less expclicit and likely would have required more complicated implementaitons.
-For example, points in two coordinate systems with re-ordered axis names `["x","y"]` vs `["y","x"]` would need to be
-axis-permuted, even if such a permutation was not explicitly specified.
+In all, we believe the benefits of this proposal (outlined in the Background section) far outweigh these drawbacks, and will
+better promote software interoperability than alternatives.
 
 
 ## Prior art and references
@@ -580,6 +571,21 @@ While effective, they can only describe one type of non-linear transformation.
 The Saalfeld lab at Janelia developed a [custom
 format](https://github.com/saalfeldlab/template-building/wiki/Hdf5-Deformation-fields) for storing affine and displacement field
 transformations in HDF5 which is similarly less interoperable thatn would be ideal.
+
+## Abandoned Ideas
+
+One consideration was to change (reverse) the order of parameters for transformations to match the convention used by many
+libraries. We opted not to make this change for two reasons. First, to maintain backward-compatibility. Second, the convention
+used by the libraries generally applies for 2D and 3D spatial transformations, but the specification should be applicable to
+transformations of arbitrary dimension and axis type, where there is not a strong convention we are aware of.
+
+An early consideration was to use axis names to indicate correspondence across different coordinate systems (i.e. if two
+coordinate systems both have the "x" axis, then it is "the same" axis. We abandoned this for several reasons.  It was 
+restrictive - it is useful to have many coordinate systems with an "x" axis without requiring that they be "identical." Under our
+early idea, every set of spatial axes would need unique names ("x1", "x2", ...), and this seemed burdensome. As well, this
+approach would have also made transformations less explicit and likely would have required more complicated implementations.
+For example, points in two coordinate systems with re-ordered axis names `["x","y"]` vs `["y","x"]` would need to be
+axis-permuted, even if such a permutation was not explicitly specified.
 
 
 ## Future possibilities
