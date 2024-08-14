@@ -552,8 +552,19 @@ TODO
 
 ## Abandoned Ideas
 
-TODO
-Considered changing axis-order, preferred this proposal so that backward compatibility will be maintained.
+One consideration was to change (reverse) the order of parameters for transformations to match the convention used by many
+libraries. We opted not to make this change for two reasons. First, to maintain backward-compatibility. Second, the convention
+used by the libraries generally applies for 2D and 3D spatial transformations, but the specification should be applicable to
+transformations of arbitrary dimension and axis type, where there is not a strong convention we are aware of.
+
+An early consideration was to use axis names to indicate correspondence across different coordinate systems (i.e. if two
+coordinate systems both have the "x" axis, then it is "the same" axis. We abandoned this for several reasons.  It was 
+restrictive - it is useful to have many coordinate systems with an "x" axis without requiring that they be "identical." Under our
+early idea, every set of spatial axes would need unique names ("x1", "x2", ...), and this seemed burdensome. As well, this
+approach would have also made transformations less expclicit and likely would have required more complicated implementaitons.
+For example, points in two coordinate systems with re-ordered axis names `["x","y"]` vs `["y","x"]` would need to be
+axis-permuted, even if such a permutation was not explicitly specified.
+
 
 ## Prior art and references
 
@@ -573,16 +584,15 @@ transformations in HDF5 which is similarly less interoperable thatn would be ide
 
 ## Future possibilities
 
-Additional transformation types.
+Additional transformation types should be added in the future. Top candidates include:
 * thin-plate spline
-* bspline
+* b-spline
 * velocity fields
 * by-coordinate 
 
 ## Performance
 
-TODO
-Summary: This proposal adds new features, and has no effect on performance for existing functionality.
+This proposal adds new features, and has no effect on performance for existing functionality.
 
 ## Backwards Compatibility
 
@@ -594,7 +604,6 @@ Adds coordinate systems, these contain axes which are backward-compatible with t
 
 ## Testing
 
-TODO
 Public examples of transformations with expected input/output pairs will be provided.
 
 ## UI/UX
