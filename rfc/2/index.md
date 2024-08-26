@@ -4,7 +4,7 @@ Adopt the version 3 of Zarr for OME-Zarr.
 
 ## Status
 
-This RFC is currently in RFC state (R5).
+This RFC is currently in RFC state (R6).
 
 | Role     | Name                                                          | GitHub Handle                                       | Institution                                        | Date       | Status                                                                  |
 | -------- | -------------------                                           | --------------------------------------------------- | -------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
@@ -24,6 +24,7 @@ This RFC is currently in RFC state (R5).
 | Reviewer | Melissa Linkert, Sebastién Besson, Chris Allan, Jason Swedlow | glencoesoftware                                     | Glencoe Software                                   | 2024-05-23 | [Review](./review_1.md)                                                 |
 | Reviewer | Yaroslav O. Halchenko                                         | yarikoptic                                          | Dartmouth College, DANDI Project                   | 2024-06-10 | [Review](./review_2.md)                                                 |
 | Reviewer | Jeremy Maitin-Shepard                                         | jbms                                                | Google                                             | 2024-04-30 | [Review](./review_3.md)                                                 |
+| Reviewer | Melissa Linkert, Sebastién Besson, Chris Allan, Jason Swedlow | glencoesoftware                                     | Glencoe Software                                   | 2024-08-05 | [Accept](./review_1b.md)                                                 |
 
 ## Overview
 
