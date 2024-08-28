@@ -81,7 +81,7 @@ transformed to the same coordinate system before doing analysis. See the example
 
 If part of multiscales metadata, the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
-Arrays are often thought of as containing discrete samples along the continuous variable. Axes representing space and time are
+Arrays are often used to store discrete samples from a continuous variable. Axes representing space and time are
 usually continuous, meaning they can be indexed by real-valued (floating point) numbers whereas discrete axes may be indexed
 only by integers. Arrays are inherently discrete (see Array coordinate systems, below) , but values "in between" discrete
 coordinates can be retreived using an *interpolation* method.  If an axis is continuous (`"discrete" : false`), it indicates
