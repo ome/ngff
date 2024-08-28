@@ -6,8 +6,8 @@
     "coordinateTransformations" : [ 
         {
             "type": "bijection",
-            "forward": { "type" : "coordinates", "path" : "/forward_coordinates" },
-            "inverse": { "type" : "coordinates", "path" : "/inverse_coordinates" },
+            "forward": { "type" : "coordinates", "path" : "forward_coordinates" },
+            "inverse": { "type" : "coordinates", "path" : "inverse_coordinates" },
             "input": "src",
             "output": "tgt"
         }

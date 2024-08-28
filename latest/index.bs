@@ -467,11 +467,11 @@ Every array has a default coordinate system whose parameters need not be explici
 in the container, its axes have `"type":"array"`, are unitless, and have default "name"s. The ith axis has `"name":"dim_i"`
 (these are the same default names used by [xarray](https://docs.xarray.dev/en/stable/user-guide/terminology.html)).
 <div class=example>
-For example, a 3D array at path `/my/data/array` defines the coordinate system:
+For example, a 3D array at path `my/data/array` defines the coordinate system:
 
 ```json
 {
-    "name" : "/my/data/array",
+    "name" : "my/data/array",
     "axes" : [
         {"name": "dim_0", "type": "array"},
         {"name": "dim_1", "type": "array"},
@@ -491,7 +491,7 @@ chunks. As described in the [zarr array metadata](https://zarr.readthedocs.io/en
 the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded. 
 
 <div class=example>
-For example, if `/my/data/array/.zarray` contains:
+For example, if `my/data/array/.zarray` contains:
 
 ```json
 {
@@ -655,7 +655,7 @@ details).
 
 <div class=example>
 
-The sequence transformation's input corresponds to an array coordinate system at path "/my/array".
+The sequence transformation's input corresponds to an array coordinate system at path "my/array".
 
 ```json
 "coordinateSystems" : [
@@ -674,7 +674,7 @@ The sequence transformation's input corresponds to an array coordinate system at
     },
     {
         "type" : "sequence",
-        "input" : "/my/array",
+        "input" : "my/array",
         "output" : "outSeq",
         "transformations" : [
             { "type": "scale", "scale" : [ 0.5, 0.6 ] },
@@ -687,7 +687,7 @@ The sequence transformation's input corresponds to an array coordinate system at
         "output" : "outInv",
         "transformation" : {
             "type": "displacements",
-            "path": "/path/to/displacements"
+            "path": "path/to/displacements"
         }
     },
     {
@@ -726,7 +726,7 @@ transformation type, for example:
     "type": "inverseOf",
     "transformation" : {
         "type": "displacements",
-        "path": "/path/to/displacements",
+        "path": "path/to/displacements",
     }
 }
 ```
@@ -1021,7 +1021,6 @@ transformation (if it exists).
 
 
 <div class=example>
-For example 
 
     <pre class=include-code>
     path: examples/transformations/inverseOf.json
@@ -1098,7 +1097,7 @@ In this example, the array located at `"displacementField"` MUST have three dime
 correspond to an axis with `type : displacement`, the other two dimensions MUST be axes that are identical to
 the axes of the `"in"` coordinate system.
 
-```
+```json
 "coordinateSystems" : [
     { "name" : "in", "axes" : [{"name" : "y"}, {"name":"x"}] },
     { "name" : "out", "axes" : [{"name" : "y"}, {"name":"x"}] }
@@ -1115,7 +1114,7 @@ the axes of the `"in"` coordinate system.
 
 The array at location should have a coordinate system such as:
 
-```
+```json
 "coordinateSystems" : [
     { "name" : "in", "axes" : [
         {"name":"y"}, {"name":"x"},
@@ -1173,7 +1172,7 @@ For `displacements`:
 * `input` and `output` MUST have an equal number of dimensions.
 
 For example, in 1D:
-```
+```json
 {
     "name" : "a coordinate field transform",
     "type": "coordinates",
@@ -1187,7 +1186,7 @@ For example, in 1D:
 where we assume input spaces "i" and "x" are defined elsewhere.
 Example metadata for the array data at path `coordinates` above:
 
-```
+```json
 {
     "coordinateSystems" : [
         {
@@ -1218,7 +1217,7 @@ x =
 
 
 A 1D example displacement field:
-```
+```json
 {
     "name" : "a displacement field transform",
     "type": "displacements",
@@ -1232,11 +1231,11 @@ A 1D example displacement field:
 where we assume input spaces "i" and "x" are defined elsewhere. 
 Example metadata for the array data at path `displacements` above:
 
-```
+```json
 {
     "coordinateSystems" : [
         {
-            "name" : "a coordinate field transform",
+            "name" : "a displacement field transform",
             "axes" : [
                 { "name": "x", "type": "space", "unit" : "nanometer" },
                 { "name": "d", "type": "displacement", "discrete": true }
@@ -1341,8 +1340,6 @@ to be correct / consistent for points that fall within those extents. It may not
 appropriate dimensionality.
 
 <div class=example>
-
-For example
 
 <pre class=include-code>
 path: examples/transformations/bijection.json

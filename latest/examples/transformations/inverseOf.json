@@ -6,7 +6,10 @@
     "coordinateTransformations" : [
         {
             "type": "inverseOf",
-            "transformation" : { "type": "displacements", "path": "/path/to/displacements" },
+            "transformation" : {
+                "type": "displacements",
+                "path": "path/to/displacements"
+            },
             "input" : "moving",
             "output" : "fixed"
         }
