@@ -345,8 +345,8 @@ is indicated by the length of its "axes" array. The "volume_micrometers" example
 The axes of a coordinate system (see below) give information about the types, units, and other properties of the coordinate
 system's dimensions. Axis `name`s may contain semantically meaningful information, but can be arbitrary. As a result, two
 coordinate systems that have identical axes in the same order may not be "the same" in the sense that measurements at the same
-point refer to different physical entities and therefore should not be analyzed jointly. Task that require images, annotations,
-regions of interest, etc. SHOULD ensure that they are in the same coordinate system (same name, with identical axes) or can be
+point refer to different physical entities and therefore should not be analyzed jointly. Tasks that require images, annotations,
+regions of interest, etc., SHOULD ensure that they are in the same coordinate system (same name, with identical axes) or can be
 transformed to the same coordinate system before doing analysis. See the example below.
 
 <div class=example>
@@ -402,7 +402,8 @@ image.
 
 "axes" describes the dimensions of a coordinate systems. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.
-- SHOULD contain the field "type". It SHOULD be one of "array", "space", "time", "channel", "coordinate", or "displacement" but MAY take other values for custom axis types that are not part of this specification yet.
+- SHOULD contain the field "type". It SHOULD be one of the strings "array", "space", "time", "channel", "coordinate", or
+    "displacement" but MAY take other string values for custom axis types that are not part of this specification yet.
 - MAY contain the field "discrete". The value MUST be a boolean, and is `true` if the axis represents a discrete dimension.
 - SHOULD contain the field "unit" to specify the physical unit of this dimension. The value SHOULD be one of the following strings, which are valid units according to UDUNITS-2.
     - Units for "space" axes: 'angstrom', 'attometer', 'centimeter', 'decimeter', 'exameter', 'femtometer', 'foot', 'gigameter', 'hectometer', 'inch', 'kilometer', 'megameter', 'meter', 'micrometer', 'mile', 'millimeter', 'nanometer', 'parsec', 'petameter', 'picometer', 'terameter', 'yard', 'yoctometer', 'yottameter', 'zeptometer', 'zettameter'
@@ -428,14 +429,12 @@ Examples of valid axes:
 ```
 </div>
 
-Arrays are often thought of as containing discrete samples along the continuous variable. Axes representing space and time are
-usually continuous, meaning they can be indexed by real-valued (floating point) numbers whereas discrete axes may be indexed
-only by integers. Arrays are inherently discrete (see Array coordinate systems, below) , but values "in between" discrete
-coordinates can be retreived using an *interpolation* method.  If an axis is continuous (`"discrete" : false`), it indicates
-that indexing with continuous values is meaningful, and that interpolation may be performed along that axis. Interpolation may
-be performed jointly across axes with the same `type`, and interpolation should not be performed for discrete axes or jointly
-across axes with differing `type`s.  Other non-continuous variables and axis types are also usually discrete, such as
-`channel`s, `coordinate`s, and `displacement`s.
+Arrays are inherently discrete (see Array coordinate systems, below) but are often used to store discrete samples of a
+continuous variable. The continuous values "in between" discrete samples can be retrieved using an *interpolation* method. If an
+axis is continuous (`"discrete" : false`), it indicates that interpolation is well-defined. Axes representing `space` and
+`time` are usually continuous. Similarly, joint interpolation across axes is well-defined only for axes of the same `type`. In
+contrast, discrete axes (`"discrete" : true`) may be indexed only by integers. Axes of representing a `channel`, `coordinate`,
+or `displacement` are usually discrete.
 
 Note: The most common methods for interpolation are "nearest neighbor", "linear", "cubic", and "windowed sinc". Here, we refer
 to any method that obtains values at real valued coordinates using discrete samples as an "interpolator". As such, label images
@@ -511,7 +510,7 @@ Then `dim_0` has length 4, `dim_1` has length 3, and `dim_2` has length 5.
 </div>
 
 The name and axes names MAY be customized by including a `arrayCoordinateSystem` field in
-the `.zattr` metadata of the array whose value is a coordinate system object. The length of
+the user-defined attributes of the array whose value is a coordinate system object. The length of
 `axes` MUST be equal to the dimensionality. The value of `"type"` for each object in the 
 axes array MUST equal `"array"`.
 
@@ -610,7 +609,7 @@ Conforming readers:
 - SHOULD be able to apply transformations to images;
 
 Coordinate transformations from array to physical coordinates MUST be stored in multiscales ([[#multiscale-md]]),
-and MUST be duplicated in the atrributes of the zarr array. Transformations between different images MUST be stored in the
+and MUST be duplicated in the attributes of the zarr array. Transformations between different images MUST be stored in the
 attributes of a parent zarr group. For transformations that store data or parameters in a zarr array, those zarr arrays SHOULD
 be stored in a zarr group `"coordinateTransformations"`.
 
