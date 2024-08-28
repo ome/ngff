@@ -64,7 +64,7 @@ The axes of a coordinate system (see below) give information about the types, un
 system's dimensions. Axis `name`s may contain semantically meaningful information, but can be arbitrary. As a result, two
 coordinate systems that have identical axes in the same order may not be "the same" in the sense that measurements at the same
 point refer to different physical entities and therefore should not be analyzed jointly. Tasks that require images, annotations,
-regions of interest, etc. SHOULD ensure that they are in the same coordinate system (same name, with identical axes) or can be
+regions of interest, etc., SHOULD ensure that they are in the same coordinate system (same name, with identical axes) or can be
 transformed to the same coordinate system before doing analysis. See the example below.
 
 
