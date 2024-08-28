@@ -197,7 +197,7 @@ Conforming readers:
 - SHOULD be able to apply transformations to images;
 
 Coordinate transformations from array to physical coordinates MUST be stored in multiscales,
-and MUST be duplicated in the atrributes of the zarr array. Transformations between different images MUST be stored in the
+and MUST be duplicated in the attributes of the zarr array. Transformations between different images MUST be stored in the
 attributes of a parent zarr group. For transformations that store data or parameters in a zarr array, those zarr arrays SHOULD
 be stored in a zarr group `"coordinateTransformations"`.
 
