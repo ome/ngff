@@ -72,7 +72,7 @@ transformed to the same coordinate system before doing analysis. See the example
 
 "axes" describes the dimensions of a coordinate systems. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.
-- SHOULD contain the field "type". It SHOULD be one of "array", "space", "time", "channel", "coordinate", or "displacement" but MAY take other values for custom axis types that are not part of this specification yet.
+- SHOULD contain the field "type". It SHOULD be one of the strings "array", "space", "time", "channel", "coordinate", or "displacement" but MAY take other string values for custom axis types that are not part of this specification yet.
 - MAY contain the field "discrete". The value MUST be a boolean, and is `true` if the axis represents a discrete dimension.
 - SHOULD contain the field "unit" to specify the physical unit of this dimension. The value SHOULD be one of the following strings, which are valid units according to UDUNITS-2.
     - Units for "space" axes: 'angstrom', 'attometer', 'centimeter', 'decimeter', 'exameter', 'femtometer', 'foot', 'gigameter', 'hectometer', 'inch', 'kilometer', 'megameter', 'meter', 'micrometer', 'mile', 'millimeter', 'nanometer', 'parsec', 'petameter', 'picometer', 'terameter', 'yard', 'yoctometer', 'yottameter', 'zeptometer', 'zettameter'
