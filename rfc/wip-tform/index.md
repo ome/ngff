@@ -110,7 +110,7 @@ the last dimension of an array in "C" order are stored contiguously on disk or i
 
 
 The name and axes names MAY be customized by including a `arrayCoordinateSystem` field in
-the `.zattr` metadata of the array whose value is a coordinate system object. The length of
+the user-defined attributes of the array whose value is a coordinate system object. The length of
 `axes` MUST be equal to the dimensionality. The value of `"type"` for each object in the 
 axes array MUST equal `"array"`.
 
