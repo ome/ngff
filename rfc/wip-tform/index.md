@@ -84,7 +84,7 @@ If part of multiscales metadata, the length of "axes" MUST be equal to the numbe
 Arrays are often used to store discrete samples from a continuous variable. Axes representing space and time are
 usually continuous, meaning they can be indexed by real-valued (floating point) numbers whereas discrete axes may be indexed
 only by integers. Arrays are inherently discrete (see Array coordinate systems, below) , but values "in between" discrete
-coordinates can be retreived using an *interpolation* method.  If an axis is continuous (`"discrete" : false`), it indicates
+coordinates can be retrieved using an *interpolation* method.  If an axis is continuous (`"discrete" : false`), it indicates
 that indexing with continuous values is meaningful, and that interpolation may be performed along that axis. Interpolation may
 be performed jointly across axes with the same `type`, and interpolation should not be performed for discrete axes or jointly
 across axes with differing `type`s.  Other non-continuous variables and axis types are also usually discrete, such as
