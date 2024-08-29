@@ -1,4 +1,4 @@
-# Comment to [RFC 1](../1) from @LucaMarconato and @melonora.*
+# Comment to [RFC 1](../1/index) from @LucaMarconato and @melonora.*
 
 | Name                   | GitHub Handle | Institution          |
 |------------------------|---------------|----------------------|

@@ -5,7 +5,7 @@ Original NGFF consensus process
 ## Status
 
 This is a historical RFC, drafted after the fact, and has
-been outdated by [RFC-1](../1/).
+been outdated by [RFC-1](../1/index).
 
 | Name       | GitHub Handle | Institution       | Date       | Status |
 |------------|---------------|-------------------|------------|--------|
@@ -15,7 +15,7 @@ been outdated by [RFC-1](../1/).
 
 Versions of the NGFF specification up to and including v0.4 followed a
 consensus model of decision making. This is being recorded as RFC-0
-in order to allow other historical RFCs, as listed in [RFC-1](../1/),
+in order to allow other historical RFCs, as listed in [RFC-1](../1/index),
 to reference the process under which they were discussed.
 
 ## Background
@@ -23,9 +23,9 @@ to reference the process under which they were discussed.
 NGFF development began as a relatively focused group of individuals writing
 specifications. At the time, this group was called "editors". This document
 describes the process that was used for reviewing and finding a consensus on
-their work before [RFC-1](../1/) was adopted. This period started with the
+their work before [RFC-1](../1/index) was adopted. This period started with the
 first commit 2020-11-17 and covers versions 0.1 through 0.5, even though
-version 0.5 was developed concurrently with [RFC-1](../1/).
+version 0.5 was developed concurrently with [RFC-1](../1/index).
 
 ## Proposal
 
@@ -65,7 +65,7 @@ interpreted as described in IETF RFC 2119.
 ## Stakeholders
 
 * **editors**: those who have authored or are authoring specifications. Note: this terminology
-  differs from that in [RFC-1](../1/) and the website and specifications have been updated to reflect this change.
+  differs from that in [RFC-1](../1/index) and the website and specifications have been updated to reflect this change.
 * **implementors**: those who maintain a library or client which implements specs (see below)
 * **developer community**: those who build tools that are expected to support NGFFs (e.g., napari, BDV, Viv)
 * **[the ngff group](https://forum.image.sc/g/ngff)**: those who have actively signed up for calls, feedback, etc.

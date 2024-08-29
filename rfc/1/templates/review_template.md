@@ -1,5 +1,3 @@
-:orphan:
-
 # Review Template
 
 Replace the title of this file with “Review of RFC-NUM: Brief title”

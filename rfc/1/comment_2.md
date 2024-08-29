@@ -1,4 +1,4 @@
-# Comment to [RFC 1](../1) from @thewtex
+# Comment to [RFC 1](../1/index) from @thewtex
 
 | Name                   | GitHub Handle | Institution          |
 |------------------------|---------------|----------------------|

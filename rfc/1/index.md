@@ -3,6 +3,17 @@ RFC-1: RFC Process
 
 Definition of the NGFF “Request for Comment” (RFC) process
 
+```{toctree}
+:maxdepth: 1
+templates/index
+review_1
+review_2
+review_3
+comment_1
+comment_2
+response
+```
+
 ## Status
 
 This RFC is currently being responded to (R4).
@@ -53,8 +64,6 @@ NGFF community as has been done in a number of other communities ([Rust](https:/
 ## Proposal
 
 Requests for Comment (RFCs) are intended to structure high-level discussions on changes within the NGFF community and record outcomes including key opinions, actions, and decisions. The overall goal of the process is timely and transparent decision-making for a stable and trusted community specification. It should be clear after reading the RFC which stakeholder (**Author**, **Reviewer**, **Editor**, etc.) is responsible for each step of the process, what options are available to the decision makers,  and how much time the community can expect that decision to take.
-
-TODO: include simplified drawing here? is this the figure legend?
 
 ![Simplified drawing of the RFC process](./drawing.png)
 
@@ -151,14 +160,15 @@ phase after the RFC has been accepted.
 
 The DRAFT phase begins when **Authors** propose (D1) a new idea and
 subsequently gather support (or "socialize") the idea (D2) before opening a PR
-(D3) which SHOULD follow the [current template](template.md).
+(D3) which SHOULD follow the [current template](templates/rfc_template.md).
 This phase is meant to promote ideation without premature criticism, though
 clarifications can be requested on the GitHub PR (D4) which may require an
 update of the PR (D3). Note: the RFC process does not formally make use of GitHub's
 "draft" state, though **Editors** MAY choose to ignore such PRs.
 
 The RFC process is intended primarily for significant and/or breaking changes to
-the specification or the community process itself, as described under “RFC Prioritization”(TODO:link). Other changes, bug fixes,
+the specification or the community process itself, as described under
+["RFC Prioritization"](#rfc-prioritization). Other changes, bug fixes,
 etc. are welcome as PRs without a full RFC. If **Authors** are unsure whether
 or not a change requires an RFC, they can open an issue or contact the **Editors**
 directly.

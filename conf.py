@@ -15,6 +15,7 @@ author = 'NGFF Community'
 
 extensions = ["myst_parser"]
 source_suffix = [".rst", ".md"]
+myst_heading_anchors = 4
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.git', '.pytest_cache', '**/.pytest_cache', '**/.tox', 'README.md', 'LICENSE.md', 'CONTRIBUTING.md']
