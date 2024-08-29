@@ -185,7 +185,7 @@ throughout the entire process are still invited to open PRs so that they might
 be adopted by other members of the community.
 
 These steps are not significantly different from the previous consensus model
-described in RFC-0 (TODO: link). However, discussions during this
+described in [RFC-0](../0/index). However, discussions during this
 period are intended to improve the RFC and not to evaluate its
 overall value. As described in the next section "RFC", the deeper and more
 critical discussions should happen as complete and well-considered reviews
@@ -236,7 +236,9 @@ specification to express further support:
 * “Implementation complete” with a link to the available code
 
 Where a review is required, **Reviewers** are free to structure the text in the
-most useful way. A template markdown file (TODO: link) is available but not mandatory. Useful sections include:
+most useful way. A [template markdown file](templates/review_template)
+is available but not mandatory. Useful sections include:
+
 * Summary
 * Significant comments and questions
 * Minor comments and questions
@@ -547,7 +549,7 @@ Definitions for terms used throughout this RFC have been collected below.
   implementers should begin implementation if they have not done so already.
 * Adopted: An RFC that has been sufficiently implemented to be considered
   as active within the community.
-* Author: Individual related in proposing an RFC. See “Stakeholders” (TODO: #link)
+* Author: Individual related in proposing an RFC. See ["Stakeholders"](#stakeholders)
 * Comment: Documents that are included with the RFC discussing the pros and
   cons of the proposal in a structured way. Comments from reviewers are
   additionally referred to as "reviews".
