@@ -4,14 +4,12 @@ RFC-1: RFC Process
 Definition of the NGFF “Request for Comment” (RFC) process
 
 ```{toctree}
+:hidden:
 :maxdepth: 1
 templates/index
-review_1
-review_2
-review_3
-comment_1
-comment_2
-response
+reviews/index
+comments/index
+responses/index
 ```
 
 ## Status
@@ -21,12 +19,12 @@ This RFC is currently being responded to (R4).
 | Name                                                                                                | GitHub Handle                                                   | Institution          | Date       | Status                                              |
 | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | -------------------- | ---------- | --------------------------------------------------- |
 | Josh Moore                                                                                          | joshmoore                                                       | German BioImaging    | 2023-12-23 | Author ([PR](https://github.com/ome/ngff/pull/222)) |
-| Davis Bennett, John Bogovic, Michael Innerberger, Mark Kittisopikul, Virginia Scarlett, Yurii Zubov | d-v-b, bogovicj, minnerbe, mkitti, virginiascarlett, yuriyzubov | Janelia              | 2024-02-26 | [Review](./review_2.md)                             |
-| Kevin Yamauchi, Virginie Uhlmann                                                                    | kevinyamauchi, vuhlmann                                         | ETH, BiovisionCenter | 2024-03-05 | [Review](./review_1.md)                             |
-| Matthew Hartley                                                                                     | mrmh2                                                           | EMBL-EBI             | 2024-03-05 | [Review](./review_3.md)                             |
-| Wouter-Michiel Vierdag, Luca Marconato                                                              | melonora, LucaMarconato                                         | EMBL                 | 2024-01-13 | [Comment](./comment_1.md)                           |
-| Matt McCormick                                                                                      | thewtex                                                         | ITK                  | 2024-01-09 | [Comment](./comment_2.md)                           |
-| Josh Moore                                                                                          | joshmoore                                                       | German BioImaging    | 2024-08-29 | [Response](./response.md)                           |
+| Davis Bennett, John Bogovic, Michael Innerberger, Mark Kittisopikul, Virginia Scarlett, Yurii Zubov | d-v-b, bogovicj, minnerbe, mkitti, virginiascarlett, yuriyzubov | Janelia              | 2024-02-26 | [Review](./reviews/2/index)                         |
+| Kevin Yamauchi, Virginie Uhlmann                                                                    | kevinyamauchi, vuhlmann                                         | ETH, BiovisionCenter | 2024-03-05 | [Review](./reviews/1/index)                         |
+| Matthew Hartley                                                                                     | mrmh2                                                           | EMBL-EBI             | 2024-03-05 | [Review](./reviews/3/index)                         |
+| Wouter-Michiel Vierdag, Luca Marconato                                                              | melonora, LucaMarconato                                         | EMBL                 | 2024-01-13 | [Comment](./comments/1/index)                       |
+| Matt McCormick                                                                                      | thewtex                                                         | ITK                  | 2024-01-09 | [Comment](./comments/2/index)                       |
+| Josh Moore                                                                                          | joshmoore                                                       | German BioImaging    | 2024-08-29 | [Response](./responses/1/index)                     |
 
 
 

@@ -1,5 +1,4 @@
-RFC Templates
-=============
+# Templates
 
 Templates provided for the RFC process:
 
