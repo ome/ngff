@@ -8,7 +8,6 @@ RFCs
 
    */index
 
-
 Requests for comments (RFCs) are used to discuss and capture
 high-level decisions within the NGFF community. Throughout
 the `specifications themselves <../specifications/>`_,

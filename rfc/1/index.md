@@ -1,5 +1,5 @@
-RFC-1: Process
-==============
+RFC-1: RFC Process
+==================
 
 Definition of the NGFF “Request for Comment” (RFC) process
 
