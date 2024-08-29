@@ -4,23 +4,27 @@ Adopt the version 3 of Zarr for OME-Zarr.
 
 ## Status
 
-This RFC is currently in draft state (D3).
+This RFC is currently in RFC state (R6).
 
-| Role     | Name                | GitHub Handle                                       | Institution                                        | Date       | Status                                                                  |
-| -------- | ------------------- | --------------------------------------------------- | -------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
-| Author   | Norman Rzepka       | [normanrz](https://github.com/normanrz)             | [scalable minds](https://scalableminds.com)        | 2024-02-14 |                                                                         |
-| Endorser | Davis Bennett       | [d-v-b](https://github.com/d-v-b)                   |                                                    | 2024-02-14 | Endorse                                                                 |
-| Endorser | Kevin Yamauchi      | [kevinyamauchi](https://github.com/kevinyamauchi)   | ETH Zürich                                         | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1947942934) |
-| Endorser | John Bogivic        | [bogovicj](https://github.com/bogovicj)             | HHMI Janelia Research Campus                       | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948547356) |
-| Endorser | Matthew Hartley     | [matthewh-ebi](https://github.com/matthewh-ebi)     | EMBL-EBI                                           | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948912814) |
-| Endorser | Christian Tischer   | [tischi](https://github.com/tischi)                 | EMBL                                               | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949058616) |
-| Endorser | Joel Lüthi          | [jluethi](https://github.com/jluethi)               | BioVisionCenter, University of Zurich              | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949333769) |
-| Endorser | Constantin Pape     | [constantinpape](https://github.com/constantinpape) | University Göttingen                               | 2024-02-18 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1951318754) |
-| Endorser | Will Moore          | [will-moore](https://github.com/will-moore)         | OME, University of Dundee                          | 2024-02-19 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1952057704) |
-| Endorser | Juan Nunez-Iglesias | [jni](https://github.com/jni)                       | Biomedicine Discovery Institute, Monash University | 2024-02-20 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1953922897) |
-| Endorser | Eric Perlman        | [perlman](https://github.com/perlman)               |                                                    | 2024-02-22 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1960272942) |
-| Endorser | Ziwen Liu           | [ziw-liu](https://github.com/ziw-liu)               | Chan Zuckerberg Biohub                             | 2024-03-12 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1992588774) |
-| Endorser | Lachlan Deakin      | [LDeakin](https://github.com/LDeakin)               | Australian National University                     | 2024-03-14 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1998594492) |
+| Role     | Name                                                          | GitHub Handle                                       | Institution                                        | Date       | Status                                                                  |
+| -------- | -------------------                                           | --------------------------------------------------- | -------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
+| Author   | Norman Rzepka                                                 | [normanrz](https://github.com/normanrz)             | [scalable minds](https://scalableminds.com)        | 2024-02-14 |                                                                         |
+| Endorser | Davis Bennett                                                 | [d-v-b](https://github.com/d-v-b)                   |                                                    | 2024-02-14 | Endorse                                                                 |
+| Endorser | Kevin Yamauchi                                                | [kevinyamauchi](https://github.com/kevinyamauchi)   | ETH Zürich                                         | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1947942934) |
+| Endorser | John Bogivic                                                  | [bogovicj](https://github.com/bogovicj)             | HHMI Janelia Research Campus                       | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948547356) |
+| Endorser | Matthew Hartley                                               | [matthewh-ebi](https://github.com/matthewh-ebi)     | EMBL-EBI                                           | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948912814) |
+| Endorser | Christian Tischer                                             | [tischi](https://github.com/tischi)                 | EMBL                                               | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949058616) |
+| Endorser | Joel Lüthi                                                    | [jluethi](https://github.com/jluethi)               | BioVisionCenter, University of Zurich              | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949333769) |
+| Endorser | Constantin Pape                                               | [constantinpape](https://github.com/constantinpape) | University Göttingen                               | 2024-02-18 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1951318754) |
+| Endorser | Will Moore                                                    | [will-moore](https://github.com/will-moore)         | OME, University of Dundee                          | 2024-02-19 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1952057704) |
+| Endorser | Juan Nunez-Iglesias                                           | [jni](https://github.com/jni)                       | Biomedicine Discovery Institute, Monash University | 2024-02-20 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1953922897) |
+| Endorser | Eric Perlman                                                  | [perlman](https://github.com/perlman)               |                                                    | 2024-02-22 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1960272942) |
+| Endorser | Ziwen Liu                                                     | [ziw-liu](https://github.com/ziw-liu)               | Chan Zuckerberg Biohub                             | 2024-03-12 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1992588774) |
+| Endorser | Lachlan Deakin                                                | [LDeakin](https://github.com/LDeakin)               | Australian National University                     | 2024-03-14 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1998594492) |
+| Reviewer | Melissa Linkert, Sebastién Besson, Chris Allan, Jason Swedlow | glencoesoftware                                     | Glencoe Software                                   | 2024-05-23 | [Review](./review_1.md)                                                 |
+| Reviewer | Yaroslav O. Halchenko                                         | yarikoptic                                          | Dartmouth College, DANDI Project                   | 2024-06-10 | [Review](./review_2.md)                                                 |
+| Reviewer | Jeremy Maitin-Shepard                                         | jbms                                                | Google                                             | 2024-04-30 | [Review](./review_3.md)                                                 |
+| Reviewer | Melissa Linkert, Sebastién Besson, Chris Allan, Jason Swedlow | glencoesoftware                                     | Glencoe Software                                   | 2024-08-05 | [Accept](./review_1b.md)                                                 |
 
 ## Overview
 
@@ -51,17 +55,18 @@ Adopting Zarr v3 in OME-Zarr is a precondition for using sharding.
 
 Library support for Zarr v3 is already available for several languages:
 
+- [zarr-python (Python)](https://github.com/zarr-developers/zarr-python)
 - [tensorstore (C++/Python)](https://github.com/google/tensorstore)
-- [zarrita (Python)](https://github.com/scalableminds/zarrita)
+- [zarr-java (Java)](https://github.com/zarr-developers/zarr-java)
 - [zarrita.js (JS)](https://github.com/manzt/zarrita.js)
 - [zarr3-rs (Rust)](https://github.com/clbarnes/zarr3-rs)
 
-Visualization tools with integrated Zarr implementations are also available:
+Visualization tools with integrated Zarr v3 implementations are also available:
 
 - [neuroglancer](https://github.com/google/neuroglancer)
 - [WEBKNOSSOS](https://github.com/scalableminds/webknossos)
 
-Support for other languages is under active development, including C, Java and Python.
+Support for other languages is under active development.
 
 Libraries will likely prioritize support for v3 over previous versions in the near future.
 OME-Zarr should therefore adopt the new version for future-proofing.
@@ -84,26 +89,7 @@ Implementations can read inner chunks individually.
 Depending on the choice of codecs and the underlying storage backends, it may be possible to write inner chunks individually.
 However, in the general case, writing is limited to entire shards.
 
-## Proposal
-
-This RFC proposes to adopt version 3 of the Zarr format for OME-Zarr.
-Images that use the new version of OME-Zarr metadata MUST NOT use Zarr version 2 any more.
-
-The motivation for making this hard cut is to reduce the burden of complexity for implementations.
-Currently, many Zarr library implementations support both versions.
-However, in the future they might deprecate support for version 2 or deprioritize it in terms of features and performance.
-Additionally, there are OME-Zarr implementations that have their own integrated Zarr stack.
-With this hard cut, implementations that only support OME-Zarr versions > 0.5 (TODO: update assigned version number) will not need to implement Zarr version 2 as well.
-
-From a OME-Zarr user perspective, the hard cut also makes things simpler: ≤ 0.5 => Zarr version 2 and > 0.5 => Zarr version 3 (TODO: update assigned version number).
-If users wish to upgrade their data from one OME-Zarr version to another, it would be easy to also migrate the core Zarr metadata to version 3.
-This is a fairly cheap operation, because only json files are touched.
-Zarr version 2 and 3 metadata could even live side-by-side in the same hierarchy.
-There are [scripts available](https://github.com/scalableminds/zarrita/blob/8155761/zarrita/array_v2.py#L452-L559) that can migrate the metadata automatically.
-
-It is RECOMMENDED that implementations support a range of OME-Zarr versions, including versions based on Zarr version 2.
-
-### Notable changes in Zarr v3
+### Other notable changes in Zarr v3
 
 There are a few notable changes that Zarr v3 brings for OME-Zarr:
 
@@ -123,15 +109,40 @@ There are a few notable changes that Zarr v3 brings for OME-Zarr:
 The Zarr specification does not prescribe the support stores for Zarr hierarchies.
 HTTP(S), File system, S3, GCS, and Zip files are commonly used stores.
 
+## Proposal
+
+This RFC proposes to adopt version 3 of the Zarr format for OME-Zarr.
+Images that use the new version of OME-Zarr metadata MUST NOT use Zarr version 2 any more.
+
 With this proposal all features of the Zarr specification are allowed in OME-Zarr.
 In the future, the OME-Zarr community MAY decide to restrict the allowed feature set.
 
+The motivation for making this hard cut is to reduce the burden of complexity for implementations.
+Currently, many Zarr library implementations support both versions.
+However, in the future they might deprecate support for version 2 or deprioritize it in terms of features and performance.
+Additionally, there are OME-Zarr implementations that have their own integrated Zarr stack.
+With this hard cut, implementations that only support OME-Zarr versions ≥ 0.5 will not need to implement Zarr version 2 as well.
+
+From an OME-Zarr user perspective, the hard cut also makes things simpler: < 0.5 => Zarr version 2 and ≥ 0.5 => Zarr version 3.
+If users wish to upgrade their data from one OME-Zarr version to another, migration tools will be available ([prototype here](https://github.com/scalableminds/zarrita/blob/8155761/zarrita/array_v2.py#L452-L559)).
+Migration is a fairly computationally cheap operation, because only json files are touched.
+
+Due to the existence of large quantities of images in OME-Zarr 0.4, it is RECOMMENDED that implementations continue to support OME-Zarr 0.4 with the underlying Zarr v2.
+
+OME-Zarr images MUST be consistent in their OME-Zarr and Zarr version.
+With this constraint, implementations only need to detect the version of a provided URL or file path once and can assume that all multiscale levels, wells, series images etc. use the same version.
+
+While technically possible, OME-Zarr 0.5 (with Zarr v3) and OME-Zarr 0.4 (with Zarr v2) metadata could exist side-by-side in a Zarr hierarchy, it is NOT RECOMMENDED.
+This may be useful for short periods of time (i.e. during migrations from 0.4 to 0.5), but should not be used longer term.
+Multiple metadata versions can lead to conflicts, which may be hard to resolve by implementations.
+If implementations encounter 0.4 and 0.5 metadata side-by-side, 0.5 SHOULD be treated preferentially.
+
 ### Changes to the OME-Zarr metadata
 
-While the adoption of Zarr v3 does not strictly require changes to the OME-Zarr metadata, this proposal contains changes to align with community conventions and ease implementation:
+While the adoption of Zarr v3 does not strictly require changes to the OME-Zarr metadata, this proposal contains changes to align with [community conventions](https://zarr.dev/zeps/draft/ZEP0004.html#namespacing) and ease implementation:
 
-- OME-Zarr metadata will be stored under a dedicated key in the Zarr array or group attributes. The key will be a well-known URI of the OME-NGFF specification with a version number, e.g. `https://ngff.openmicroscopy.org/0.6`.
-- Since the version is already encoded in the new metadata key, the `version` keys in `multiscale`, `plate`, `well` etc. are removed.
+- OME-Zarr metadata will be stored under a dedicated `ome` key in the Zarr array or group attributes.
+- The version information will be moved from the `multiscale`, `plate`, `well` etc. sections into the new `ome` section.
 - The `dimension_names` attribute in the Zarr metadata must match the axes names in the OME-Zarr metadata.
 
 Finally, this proposal changes the title of the OME-Zarr specification document to "OME-Zarr specification".
@@ -142,7 +153,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
 interpreted as described in [IETF RFC 2119][IETF RFC 2119]
 
-## Stakeholders (Recommended Header)
+## Stakeholders
 
 Preliminary work of this RFC has been discussed in:
 
@@ -153,34 +164,21 @@ Preliminary work of this RFC has been discussed in:
 - several Zarr community calls
 - several recent OME-NGFF community calls.
 
-<!--
-Who has a stake in whether this RFC is accepted?
-
-- Facilitator: The person appointed to shepherd this RFC through the RFC
-  process.
-- Reviewers: List people whose vote (+1 or -1) will be taken into consideration
-  by the editor when deciding whether this RFC is accepted or rejected. Where
-  applicable, also list the area they are expected to focus on. In some cases
-  this section may be initially left blank and stakeholder discovery completed
-  after an initial round of socialization. Care should be taken to keep the
-  number of reviewers manageable, although the exact number will depend on the
-  scope of the RFC in question.
-- Consulted: List people who should review the RFC, but whose approval is not
-  required.
-- Socialization: This section may be used to describe how the design was
-  socialized before advancing to the "Iterate" stage of the RFC process. For
-  example: "This RFC was discussed at a working group meetings from 20xx-20yy"
--->
-
 ## Implementation
 
-OME-Zarr implementations can rely on existing Zarr libraries to implement the adoption of Zarr v3.
+OME-Zarr implementations can rely on existing Zarr libraries to implement the adoption of Zarr v3. 
+See [Background](#background) for a list of v3-capable Zarr libraries.
 
-TODO: Provide a reference implementation
+Support for the OME-Zarr 0.5 metadata is under development in [ome-zarr-py](https://github.com/ome/ome-zarr-py/pull/383/files) and other implementations.
 
 ## Drawbacks, risks, alternatives, and unknowns
 
 While it is clear that Zarr v3 will become the predominant version of the specification moving forward, current library support for v3 is still under active development.
+
+An alternative to this proposal would be to [add Zarr v3 support to OME-Zarr 0.4](https://github.com/ome/ngff/pull/249) without changes to the OME-Zarr Metadata.
+The contents of the `.zattrs` would simply move to the `attributes` within the `zarr.json`.
+There would need to be some transparency for users to know what Zarr versions are supported by an implementation.
+Additionally, there would be no opportunity to introduce an `ome` namespace in the attributes that is useful for composability.
 
 <!--
 - What are the costs of implementing this proposal?
@@ -211,21 +209,23 @@ In particular, the chunk sizes can be made small to facilitate interactive visua
 
 ## Backwards Compatibility
 
-The metadata of Zarr v3 arrays are not backwards compatible with Zarr v2.
+The metadata of Zarr v3 arrays is not backwards compatible with that of Zarr v2 arrays.
 
-It is RECOMMENDED that implementations of OME-Zarr specify the version of the OME-Zarr specification that they support.
+Implementations of OME-Zarr MUST specify the version(s) of the OME-Zarr specification that they support.
 
 It is RECOMMENDED that implementations of OME-Zarr that support both v2 and v3-based OME-Zarr versions auto-detect the underlying Zarr version.
 
 While the metadata of Zarr v3 is not backwards compatible, the chunk data is largely backwards compatible, only depending on compressor configuration.
 [There are scripts available](https://github.com/scalableminds/zarrita/blob/8155761/zarrita/array_v2.py#L452-L559) to migrate Zarr v2 metadata to Zarr v3.
-This is generally a light-weight operation.
-Zarr v3 and v2 metadata can exist side-by-side within a Zarr hierarchy.
 
 ## Abandoned Ideas
 
 Previous versions of this proposal contained changes to referencing `labels` in the OME-Zarr metadata.
 This has been delayed to future RFCs.
+
+Previous versions of this proposal have used a versioned namespace, e.g. `https://ngff.openmicroscopy.org/0.5`, in the Zarr attributes instead of a simple `ome` namespace with dedicated `version` attribute.
+This has been abandoned because it makes discovery of versions more difficult.
+Additionally, handling of multiple versions may be ill-defined.
 
 ## Examples
 
@@ -257,46 +257,38 @@ File hierarchy of one multi-scale OME-Zarr image `456.zarr`:
   "zarr_format": 3,
   "node_type": "group",
   "attributes": {
-    "https://ngff.openmicroscopy.org/0.6": {
+    "ome": {
+      "version": "0.5",
       "multiscales": [
         {
-          "coordinateSystems": [
+          "axes": [
             {
-              "name": "root",
-              "axes": [
-                {
-                  "name": "c",
-                  "type": "channel",
-                  "discrete": true
-                },
-                {
-                  "name": "x",
-                  "type": "space",
-                  "unit": "nanometer"
-                },
-                {
-                  "name": "y",
-                  "type": "space",
-                  "unit": "nanometer"
-                },
-                {
-                  "name": "z",
-                  "type": "space",
-                  "unit": "nanometer"
-                }
-              ]
+              "name": "c",
+              "type": "channel"
+            },
+            {
+              "name": "x",
+              "type": "space",
+              "unit": "nanometer"
+            },
+            {
+              "name": "y",
+              "type": "space",
+              "unit": "nanometer"
+            },
+            {
+              "name": "z",
+              "type": "space",
+              "unit": "nanometer"
             }
           ],
-
           "datasets": [
             {
               "path": "1",
               "coordinateTransformations": [
                 {
                   "type": "scale",
-                  "scale": [1.0, 11.24, 11.24, 28.0],
-                  "input": "/1",
-                  "output": "root"
+                  "scale": [1.0, 11.24, 11.24, 28.0]
                 }
               ]
             },
@@ -305,9 +297,7 @@ File hierarchy of one multi-scale OME-Zarr image `456.zarr`:
               "coordinateTransformations": [
                 {
                   "type": "scale",
-                  "scale": [1.0, 22.48, 22.48, 28.0],
-                  "input": "/2-2-1",
-                  "output": "root"
+                  "scale": [1.0, 22.48, 22.48, 28.0]
                 }
               ]
             },
@@ -316,9 +306,7 @@ File hierarchy of one multi-scale OME-Zarr image `456.zarr`:
               "coordinateTransformations": [
                 {
                   "type": "scale",
-                  "scale": [1.0, 44.96, 44.96, 28.0],
-                  "input": "/4-4-1",
-                  "output": "root"
+                  "scale": [1.0, 44.96, 44.96, 28.0]
                 }
               ]
             },
@@ -327,9 +315,7 @@ File hierarchy of one multi-scale OME-Zarr image `456.zarr`:
               "coordinateTransformations": [
                 {
                   "type": "scale",
-                  "scale": [1.0, 89.92, 89.92, 56.0],
-                  "input": "/8-8-2",
-                  "output": "root"
+                  "scale": [1.0, 89.92, 89.92, 56.0]
                 }
               ]
             },
@@ -338,9 +324,7 @@ File hierarchy of one multi-scale OME-Zarr image `456.zarr`:
               "coordinateTransformations": [
                 {
                   "type": "scale",
-                  "scale": [1.0, 179.84, 179.84, 112.0],
-                  "input": "/16-16-4",
-                  "output": "root"
+                  "scale": [1.0, 179.84, 179.84, 112.0]
                 }
               ]
             }
