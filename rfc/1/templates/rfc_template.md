@@ -211,6 +211,7 @@ example, creating a conformance test suite for this purpose.
 
 It is strongly recommended to provide as many examples as possible of what both users and developers can expect if the RFC were to be accepted. Sample data should be shared publicly. If longer-term is not available, contact the **Editors** for assistance.
 
+(additional-considerations)=
 ## Additional considerations (Optional Header)
 
 Most RFCs will not need to consider all the following issues. They are included here as a checklist 
