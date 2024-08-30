@@ -16,17 +16,52 @@ responses/index
 
 This RFC is currently being responded to (R4).
 
-| Name                                                                                                | GitHub Handle                                                   | Institution          | Date       | Status                                              |
-| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | -------------------- | ---------- | --------------------------------------------------- |
-| Josh Moore                                                                                          | joshmoore                                                       | German BioImaging    | 2023-12-23 | Author ([PR](https://github.com/ome/ngff/pull/222)) |
-| Davis Bennett, John Bogovic, Michael Innerberger, Mark Kittisopikul, Virginia Scarlett, Yurii Zubov | d-v-b, bogovicj, minnerbe, mkitti, virginiascarlett, yuriyzubov | Janelia              | 2024-02-26 | [Review](./reviews/2/index)                         |
-| Kevin Yamauchi, Virginie Uhlmann                                                                    | kevinyamauchi, vuhlmann                                         | ETH, BiovisionCenter | 2024-03-05 | [Review](./reviews/1/index)                         |
-| Matthew Hartley                                                                                     | mrmh2                                                           | EMBL-EBI             | 2024-03-05 | [Review](./reviews/3/index)                         |
-| Wouter-Michiel Vierdag, Luca Marconato                                                              | melonora, LucaMarconato                                         | EMBL                 | 2024-01-13 | [Comment](./comments/1/index)                       |
-| Matt McCormick                                                                                      | thewtex                                                         | ITK                  | 2024-01-09 | [Comment](./comments/2/index)                       |
-| Josh Moore                                                                                          | joshmoore                                                       | German BioImaging    | 2024-08-29 | [Response](./responses/1/index)                     |
+```{list-table} Record
+:widths: 20, 20, 20, 15, 10
+:header-rows: 1
+:stub-columns: 1
 
-
+*   - Name
+    - GitHub Handle
+    - Institution
+    - Date
+    - Status
+*   - Josh Moore
+    - [joshmoore](https://github.com/joshmoore)
+    - [German BioImaging, e.V.](https://ror.org/05tpnw772)
+    - 2023-12-23
+    - Author ([PR](https://github.com/ome/ngff/pull/222)) 
+*   - Davis Bennett, John Bogovic, Michael Innerberger, Mark Kittisopikul, Virginia Scarlett, Yurii Zubov
+    - d-v-b, bogovicj, minnerbe, mkitti, virginiascarlett, yuriyzubov 
+    - Janelia
+    - 2024-02-26
+    - [Review](./reviews/2/index)
+*   - Kevin Yamauchi, Virginie Uhlmann
+    - kevinyamauchi, vuhlmann
+    - ETH, BiovisionCenter 
+    - 2024-03-05 
+    - [Review](./reviews/1/index)
+*   - Matthew Hartley
+    - mrmh2
+    - EMBL-EBI
+    - 2024-03-05
+    - [Review](./reviews/3/index)
+*   - Wouter-Michiel Vierdag, Luca Marconato
+    - melonora, LucaMarconato
+    - EMBL
+    - 2024-01-13 
+    - [Comment](./comments/1/index)
+*   - Matt McCormick
+    - thewtex
+    - ITK
+    - 2024-01-09 
+    - [Comment](./comments/2/index)
+*   - Josh Moore
+    - joshmoore
+    - German BioImaging
+    - 2024-08-29 
+    - [Response](./responses/1/index)
+```
 
 ## Overview
 
