@@ -55,7 +55,7 @@ As above, I’ve clarified the text to make clear the difference between unanimo
 
 
 #### Suggested modified text
-Please see the [the section on R6 under RFC beginning with “This brings a critical and possibly iterative, decision point](../../index.md#anchor-rebuttal-r6).
+Please see [the section on R6 under RFC beginning with “This brings a critical and possibly iterative, decision point](../../index.md#anchor-rebuttal-r6).
 
 ### Clarification on the role of Endorsers
 > What is the role of Endorsers in the process? From the diagram, we thought that Endorsers are voting to transition the DRAFT to a SPEC, but it is unclear how that interacts with the rest of the review process (e.g., can Endorsers “override” Reviewers somehow?). However, it is stated “Accept” at R2 is “equivalent to the Reviewer joining the list of endorsements.” and we aren’t sure what that means. We think it’s important that a potential reviewer can endorse a draft be made into an RFC without also simultaneously advocating the RFC should transition to SPEC.
@@ -100,7 +100,7 @@ However, I would argue that this _wouldn’t_ be a reason to prevent someone fro
 
 > Under SPEC it says “Once sufficient endorsements, including two released implementations, are listed, the specification will be considered “adopted”. Is this two implementations in any language (e.g., two Python implementations) or does it have to be implementations in at least two different languages?
 
-As mentioned above, this has been encapsulated in a new section. I would tend away from being overly proscriptive at this point. The goal is largely to have verified that a specification has been looked at carefully but implementers in order to prevent unintended consequences.
+As mentioned above, this has been encapsulated in a new section. I would tend away from being overly proscriptive at this point. The goal is largely to have verified that a specification has been looked at carefully by implementers in order to prevent unintended consequences.
 
 > We think it would be helpful to have an overview at the top of the RFC giving a high level view of the process. For example, explaining that the proposal transitions from DRAFT -\> RFC -\> SPEC and explaining the intention/goal of each step as well as the estimated time for each (e.g., using the min/max bounds). It might be nice to also have a linear timeline type diagram as well. The detailed diagram in the current RFC is useful for digging into the process, but we find it difficult to quickly understand the overall flow from it.
 
@@ -177,7 +177,7 @@ That being said, I’m unsure that the minimal amount of structure is necessaril
 
 > The reviewers wish to emphasize that while this review contains many criticisms, it is not intended as a reprimand. The reviewers simply feel that a community discussion, presumably conducted through one or more **virtual meetings**, is vital to developing a procedural framework that will satisfy as many OME-NGFF stakeholders as possible. Since this RFC is already at the REVIEW stage, the only recourse the reviewers have to reinvigorate community discussion is to recommend major changes or rejection. 
 
-I apologize that not all of the Reviewers had an opportunity to participate in a community meeting on the the process, but I will note that a few did along with other members of the Janelia community who were invited to review this RFC. Maximizing participation in such discussions has also been my preference and represents the current *status quo* for the NGFF community.
+I apologize that not all of the Reviewers had an opportunity to participate in a community meeting on the process, but I will note that a few did along with other members of the Janelia community who were invited to review this RFC. Maximizing participation in such discussions has also been my preference and represents the current *status quo* for the NGFF community.
 
 This suggestion from the Reviewers, however, is equivalent to following that previous [RFC-0](../../../0/index.md) process which has led to extended and inconclusive discussions recently. The fact that there are currently disagreements on _this_ change as evidenced by the Reviewers’ own rejection recommendation makes me doubt that the consensus model of RFC-0 would lead to us now to a more timely conclusion. Instead, a large part of what RFC-1 is attempting to codify is that the Editor **MUST** make these determinations and that he (currently) is empowered to do so. If then an alternative proposal or an improvement for the process is supplied, it can be appropriately and efficiently handled.
 
