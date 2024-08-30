@@ -83,7 +83,7 @@ could re-open a discussion. It also left a significant burden on maintainers to
 draw a line where further discussion was not possible. Such a situation leads
 to slower specification evolution and potential deadlocks.
 
-Additionally, extended GitHub discussions had become difficult to follow. Without some curation of the content, it was unclear to the those not deeply involved from the beginning to see what decisions had been made, by whom, when and why. There were also limited options for managing the often complex conversions and differing opinions that arise in technical conversations.
+Additionally, extended GitHub discussions had become difficult to follow. Without some curation of the content, it was unclear to those not deeply involved from the beginning to see what decisions had been made, by whom, when and why. There were also limited options for managing the often complex conversions and differing opinions that arise in technical conversations.
 
 Led by the need to take on larger challenges and more interested parties, there
 has been significant interest within the community to update the process used
