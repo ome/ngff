@@ -408,7 +408,7 @@ The IETF RFC process disallows edits to published RFCs. (In the extreme case, a 
 Though this decision may be reviewed in the future, RFCs MAY be edited, but **Editors** SHOULD limit modifications to _adopted_ RFCs only for:
 - clarification: additional text and examples which simplify the implementation of specifications are welcome;
 - deprecation: where sections are no longer accurate and especially when they have been replaced by a new RFC, the existing text can be marked and a link to the updated information provided;
-- and extension: references to new RFCs can be added throughout an existing to provide simpler reading for **Implementers**.
+- and extension: references to new RFCs can be added throughout an existing RFC to provide simpler reading for **Implementers**.
 
 In writing RFCs, **Authors** SHOULD attempt to clearly identify sections which may be deprecated or extended in the future.
 
