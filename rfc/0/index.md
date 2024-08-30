@@ -76,7 +76,7 @@ interpreted as described in IETF RFC 2119.
 
 * **editors**: those authored specifications. Note: this terminology
   differs from that in [RFC-1][7] and the website and specifications have been updated to reflect this change.
-* **implementors**: those who maintain a library or client which implements specs (see below)
+* **Implementers**: those who maintain a library or client which implements specs (see below)
 * **developer community**: those who build tools that are expected to support NGFFs (e.g., napari, BDV, Viv)
 * **[the ngff group][8]**: those who have actively signed up for calls, feedback, etc.
 * and, of course, the wider community of users.

@@ -399,7 +399,7 @@ It is also strongly encouraged that for each specification change, the [ome-ngff
 
 No implementation is currently considered “reference”, though **Editors** may decide that more implementations or a particular are required depending on the complexity of the RFC.
 
-This policy does not yet specify whether parts of an RFC may be considered _optional_ and therefore omitted from implementations. RFC **Authors** SHOULD provide guidance where possible for **Implementors** on required and optional sections of an RFC until there is a normative policy.
+This policy does not yet specify whether parts of an RFC may be considered _optional_ and therefore omitted from implementations. RFC **Authors** SHOULD provide guidance where possible for **Implementers** on required and optional sections of an RFC until there is a normative policy.
 
 ### RFC Versions
 
