@@ -1,4 +1,4 @@
-# RFC1: Comment 1
+# RFC-1: Comment 1
 
 | Name                   | GitHub Handle | Institution          |
 |------------------------|---------------|----------------------|
