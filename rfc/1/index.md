@@ -397,9 +397,9 @@ In writing RFCs, **Authors** SHOULD attempt to clearly identify sections which m
 
 Before an RFC is _adopted_ there are a number of versions of an RFC which are produced during the editing and revision process. This RFC does not try to specify how those versions are managed. The **Editors** are encouraged to layout a best practice as described under “Workflow” that simplifies the review process. Possible solutions include:
 * using commit numbers version
-	* making hard-copies of versions under review
-	* creating a separate repository per RFC
-	* opening a long-lived “review PR” with a dedicated URL
+* making hard-copies of versions under review
+* creating a separate repository per RFC
+* opening a long-lived “review PR” with a dedicated URL
 
 #### Handling Disagreements
 
@@ -471,24 +471,6 @@ there are also other enhancement processes which are closely related to the
 NGFF RFC. Most closely, is the Zarr Enhancement Proposals (ZEP) process within
 the Zarr community. Based originally on a combination of the PEP, NEP, and STAC
 processes, the ZEP process uses a council of the implementations (ZIC) 
-
-## Examples
-
-Below is a list of the preceding major decisions within the NGFF community that
-have been or will be written up following the RFC template proposed here.
-
-TODO — transition from Prior art
-
-| RFC  | Title                                   | Decision                              |
-| ---- | --------------------------------------- | ------------------------------------- |
-| TODO | Original NGFF including consensus model | Organically developed                 |
-| TBD  | Labels                                  | Adopted under consensus model         |
-| TBD  | HCS                                     | Adopted under consensus model         |
-| TBD  | Tables                                  | Withdrawn (i.e., "tabled")            |
-| TBD  | Transforms                              | In progress under the consensus model |
-
-Other RFCs that will _likely_ be written can be found under the "Future
-possibilities" section.
 
 ## Future possibilities
 
