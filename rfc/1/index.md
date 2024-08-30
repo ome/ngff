@@ -604,4 +604,4 @@ Definitions for terms used throughout this RFC have been collected below.
 | Date       | Description                  | Link                                                                         |
 | ---------- | ---------------------------- | ---------------------------------------------------------------------------- |
 | 2024-04-24 | Apply changes from comment 1 | [https://github.com/ome/ngff/pull/231](https://github.com/ome/ngff/pull/231) |
-| 2024-08-30 | Apply changes from reviewers | [https://github.com/ome/ngff/pull/XXX](https://github.com/ome/ngff/pull/231) |
+| 2024-08-30 | Apply changes from reviewers | [https://github.com/ome/ngff/pull/258](https://github.com/ome/ngff/pull/258) |
