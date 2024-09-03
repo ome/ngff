@@ -79,6 +79,16 @@ images with 2-3 spatial dimensions SHOULD name them from the subset of "zyx"
 and that they SHOULD have type "space". Similarly, if a dataset contains a
 single time dimension, it SHOULD have name "t" and type "time".
 
+After this specification change, tools may encounter NGFF files that don't
+match the earlier expectations of containing a subset of the TCZYX axes. This
+proposal is agnostic as to what to do in those situations, and indeed the
+appropriate action depends on the tool, but some suggestions include:
+- fail with an informative error message. (i.e. *partial* implementations are
+  OK, especially if well-documented.)
+- prompt the user about which axes to treat as spatial.
+- arbitrarily choose which axes to treat as spatial.
+- choose how to treat each axis based on heuristics such as size and position.
+
 ## Prior art and references
 
 All of the above removals are part of the draft proposed [transformations
