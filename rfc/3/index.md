@@ -74,6 +74,11 @@ This document proposes removing any restrictions on the number of dimensions
 stored in NGFF arrays. Additionally, it removes restrictions on the names and
 types of included dimensions.
 
+To maximise compatibility with existing software, this proposal recommends that
+images with 2-3 spatial dimensions SHOULD name them from the subset of "zyx"
+and that they SHOULD have type "space". Similarly, if a dataset contains a
+single time dimension, it SHOULD have name "t" and type "time".
+
 ## Prior art and references
 
 All of the above removals are part of the draft proposed [transformations
