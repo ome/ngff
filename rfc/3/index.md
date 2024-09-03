@@ -61,7 +61,7 @@ And:
 > Each "datasets" dictionary MUST have the same number of dimensions and MUST
 > NOT have more than 5 dimensions.
 
-These restrictions are actively preventing users from converting existing
+These restrictions prevent users from converting existing
 datasets to NGFF. For example, Zeiss .czi datasets [may contain][czi format
 dimensions] dimensions such as H, I, and V to store different phases,
 illumination directions, or views respectively. To say nothing of synthetic data
