@@ -92,14 +92,13 @@ improve backwards compatibility.
 Who has a stake in whether this RFC is accepted?
 
 * Facilitator: Josh Moore (OME)
-* Reviewers:
+* Proposed reviewers:
   - John Bogovic (HHMI Janelia Research Campus): lead author of draft
   [transformations specification proposal][trafo spec]
   - Will Moore (OME): maintainer of ome-zarr-py library
   - Norman Rzepka (Scalable Minds): maintainer of zarrita
-  - ... Your name here?
 * Consulted:
-  - ...
+  - Every commenter [on this thread](https://github.com/ome/ngff/pull/239).
 * Socialization:
   - image.sc: https://forum.image.sc/t/ome-ngff-update-postponing-transforms-previously-v0-5/95617/2
 
