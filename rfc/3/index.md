@@ -158,10 +158,8 @@ This proposal has no performance implications.
 
 ## Testing
 
-As part of the [proposed implementation][implementation], Davis Bennett has
-created pydantic models that validate the proposed schema. These are actually
-new additions to the NGFF specification, surfaced pre-existing errors in the
-schema, and should prevent new errors from appearing.
+If the RFC is accepted, sample datasets matching the new spec will be
+produced for implementations to test against.
 
 ## License
 
