@@ -23,13 +23,15 @@ GmbH| 2024-06-05 | [Endorse](https://github.com/ome/ngff/pull/239#issue-23084364
 
 ## Overview
 
-OME-NGFF version 0.4 places severe restrictions on the number, names, and types
-of axes that are allowed in the axes metadata. This has had the effect of
-limiting the datasets in proprietary formats that *can* be meaningfully
-converted to NGFF. It has also prevented some novel datasets from being written
-in NGFF format. This RFC only removes restrictions from the specification. An
-important consequence is that all valid NGFF datasets would remain valid after
-this change.
+OME-NGFF version 0.4 restricts the number, names, ordering, and type of axes
+that are allowed in the axes metadata. These restrictions have limited
+conversion of proprietary datasets, usage by microscope vendors[^1], and usage
+by novel microscopy modalities[^2].
+
+This RFC removes these restrictions, opening NGFF to many more users within its
+target domain (and beyond). Because it *only* removes restrictions, existing
+valid OME-NGFF datasets will remain valid after implementation of this
+proposal.
 
 ## Background
 
