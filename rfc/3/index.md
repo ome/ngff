@@ -160,6 +160,7 @@ This RFC is placed in the public domain.
 
 
 [nat methods paper]: https://www.nature.com/articles/s41592-021-01326-w
+[ome-model]: https://github.com/ome/ngff/pull/239/files#r1609781780
 [ngff 0.4]: https://ngff.openmicroscopy.org/0.4/index.html
 [ngff 0.4 multiscales metadata]: https://ngff.openmicroscopy.org/0.4/index.html#multiscale-md
 [ngff 0.4 axes metadata]: https://ngff.openmicroscopy.org/0.4/index.html#axes-md
@@ -167,3 +168,8 @@ This RFC is placed in the public domain.
 [implementation]: https://github.com/ome/ngff/pull/235
 [trafo spec]: https://github.com/ome/ngff/pull/138
 [space dims comment]: https://github.com/ome/ngff/pull/138#issuecomment-1852891720
+
+
+[^1]: https://github.com/ome/ngff/pull/239#issuecomment-2122809286
+[^2]: https://github.com/ome/ngff/pull/239#issuecomment-2149119404
+
