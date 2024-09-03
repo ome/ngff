@@ -36,12 +36,13 @@ proposal.
 ## Background
 
 OME-NGFF [aims][nat methods paper] to provide a unified open format for
-bioimaging data and metadata to make it findable, accessible, interoperable, and
-reusable. The [paper describing NGFF][nat methods paper] notes that "the
+bioimaging data and metadata to make it findable, accessible, interoperable,
+and reusable. The [paper describing NGFF][nat methods paper] notes that "the
 diversity of [biological imaging's] applications have prevented the
-establishment of a community-agreed standardized data format", but,
-unfortunately, [version 0.4 of the NGFF specification][ngff 0.4] [imposes][ngff
-0.4 multiscales metadata] severe restrictions on the applications:
+establishment of a community-agreed standardized data format", but, [for
+historical reasons][ome-model], [version 0.4 of the NGFF specification][ngff
+0.4] [imposes][ngff 0.4 multiscales metadata] strict restrictions on the
+applications:
 
 > The length of "axes" must be between 2 and 5 and MUST be equal to the
 > dimensionality of the zarr arrays storing the image data (see
