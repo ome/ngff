@@ -1,6 +1,7 @@
 # RFC-3: more dimensions for thee
 
-Remove restrictions on the number of dimensions stored in OME-NGFF arrays.
+Remove restrictions on the number, names, ordering, and type of dimensions
+stored in OME-NGFF arrays.
 
 ## Status
 
