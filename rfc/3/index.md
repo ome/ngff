@@ -9,7 +9,7 @@ Draft (D3).
 
 | Name      | GitHub Handle | Institution | Date       | Status                                 |
 |-----------|---------------|-------------|------------|----------------------------------------|
-| Davis Bennett | [d-v-b](https://github.com/d-v-b) | N/A | 2024-05-01 | [Implementing][implementation] |
+| Davis Bennett | [d-v-b](https://github.com/d-v-b) | N/A | 2024-05-01 | [Spec updates][implementation] |
 | Juan Nunez-Iglesias | [jni](https://github.com/jni) | Monash University | 2024-05-21 | Author |
 | Talley Lambert | [tlambert03](https://github.com/tlambert03) | Harvard Medical School | 2024-05-21 | [Endorse](https://github.com/ome/ngff/pull/239#issuecomment-2122795327) | -->
 | Norman Rzepka | [normanrz](https://github.com/normanrz) | Scalable Minds | 2024-05-21 | [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425) | -->
