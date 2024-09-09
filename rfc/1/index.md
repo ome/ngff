@@ -39,8 +39,8 @@ This RFC is currently being responded to (R4).
     - [Review](./reviews/2/index)
 *   - Kevin Yamauchi, Virginie Uhlmann
     - kevinyamauchi, vuhlmann
-    - ETH, BiovisionCenter 
-    - 2024-03-05 
+    - ETH, BiovisionCenter
+    - 2024-03-05
     - [Review](./reviews/1/index)
 *   - Matthew Hartley
     - mrmh2
@@ -50,18 +50,43 @@ This RFC is currently being responded to (R4).
 *   - Wouter-Michiel Vierdag, Luca Marconato
     - melonora, LucaMarconato
     - EMBL
-    - 2024-01-13 
+    - 2024-01-13
     - [Comment](./comments/1/index)
 *   - Matt McCormick
     - thewtex
     - ITK
-    - 2024-01-09 
+    - 2024-01-09
     - [Comment](./comments/2/index)
 *   - Josh Moore
     - joshmoore
     - German BioImaging
-    - 2024-08-29 
+    - 2024-08-29
     - [Response](./responses/1/index)
+*   - Jean-Marie Burel
+    - jburel
+    - University of Dundee
+    - 2024-09-09
+    - [Endorse](https://github.com/ome/ngff/pull/258)
+*   - Will Moore
+    - will-moore
+    - University of Dundee
+    - 2024-09-09
+    - [Endorse](https://github.com/ome/ngff/pull/258)
+*   - Juan-Nuñez Iglesias
+    - jni
+    - Monash University
+    - 2024-09-09
+    - [Endorse](https://github.com/ome/ngff/pull/258)
+*   - Norman Rzepka
+    - normanrz
+    - scalable minds GmbH
+    - 2024-09-09
+    - [Endorse](https://github.com/ome/ngff/pull/258)
+*   - Jan Eglinger
+    - imagejan
+    - FMI Basel
+    - 2024-09-09
+    - [Endorse](https://github.com/ome/ngff/pull/258)
 ```
 
 ## Overview
