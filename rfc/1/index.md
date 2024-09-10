@@ -87,6 +87,11 @@ This RFC is currently being responded to (R4).
     - FMI Basel
     - 2024-09-09
     - [Endorse](https://github.com/ome/ngff/pull/258)
+*   - Joel Lüthi
+    - jluethi
+    - BioVisionCenter, University of Zurich
+    - 2024-09-10
+    - [Endorse](https://github.com/ome/ngff/pull/258)
 ```
 
 ## Overview
