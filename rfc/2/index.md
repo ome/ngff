@@ -128,6 +128,12 @@ This RFC is currently in RFC state (R6).
     - Glencoe Software
     - 2024-08-05
     - [Accept](./reviews/1b/index)
+*   - Reviewer
+    - Jeremy Maitin-Shepard
+    - jbms
+    - Google
+    - 2024-09-11
+    - [Accept](./reviews/3b/index)
 ```
 
 ## Overview
