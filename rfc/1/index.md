@@ -183,7 +183,7 @@ will merge it as a record of the fact that the suggestion has been made, and
 it will then become available on https://ngff.openmicroscopy.org.
 
 **Endorsers** are non-**Author** supporters of an RFC, listed in a table within the RFC. 
-**Reviewers** who have given an "Accept" recommendation  and **Implementers** are also also considered **Endorsers**.
+**Reviewers** who have given an "Accept" recommendation  and **Implementers** are also considered **Endorsers**.
 
 **Editors** are responsible for facilitating all parts of the RFC process.
 They identify whether a PR should or should not follow the RFC process,
@@ -389,9 +389,11 @@ specification will be slotted into a release version by the **Editors** and the
 >  📂 Two released implementations required for being adopted.
 
 ## Policies
+
 This section defines several concrete aspects of the RFC process not directly related to the state diagram above. These policies are referred to by section title elsewhere in the document for clarification. They also provide extension points in RFC-1 which may later be amended by separate RFCs. If so, those sections will be marked as deprecated and a reference made to the new RFC.
 
 ### Decision-making
+
 Unless otherwise specified in the text, the following considerations are taken
 into account when making decisions regarding RFCs:
  - **prefer working examples**: whether an implementation of an RFC or a failing test which exposes an issue in a proposal, working examples will tend to carry more weight in decision making.
@@ -399,11 +401,13 @@ into account when making decisions regarding RFCs:
 - **newcomer advantage**: care will be taken not to let existing implementations overly dictate the future strategic direction of NGFF in order to avoid premature calcification.
 
 ### RFC Prioritization
+
 RFCs are welcome from the community as a way to contribute to the public record of NGFF. It is **not** a goal to explicitly limit the number of RFCs and they need not only include specification changes. (See [this list of RFCs](https://en.wikipedia.org/wiki/April_Fools%27_Day_Request_for_Comments) for comparison.)
 
 That being said, not every RFC MUST be sent to **Reviewers**. Priority will be given to RFCs which move the specification forward followed by RFCs which address non-specification concerns of the community like the process itself.
 
 ### Choice of Reviewers
+
 Where possible, **Reviewers** SHOULD be chosen to represent a cross-section of the community. Which cross-sections are chosen MAY depend on a given RFC but might include geographic distributions, the variety of imaging modalities, and/or programming languages of the expected implementations. An attempt MUST also be made to select both positive and negative voices from the community.
 
 ### Deadline enforcement
@@ -419,6 +423,7 @@ The **Editors**, however will endeavor to:
 **Authors** and **Reviewers** are encouraged to be open and honest, both with themselves and the other members of the process, on available time. A short message stating that an edit or a review will not occur on deadline or even at all is preferable to silence.
 
 ### Implementation requirements
+
 The process description describes “sufficient endorsement” in two locations, once for when an RFC can move into the [SPEC phase](#spec) and once when it can be considered “adopted”. This policy describes the current definition of “sufficient”, which is currently kept minimal with an eye towards updating it in the future.
 
 Under RFC-0, three implementation languages — Javascript, Python, and Java — were considered “reference”, or “required”, for a specification to be complete. This proved a difficult barrier since the implementation teams were not directly funded for work on NGFF.
@@ -449,6 +454,7 @@ Before an RFC is _adopted_ there are a number of versions of an RFC which are pr
 * opening a long-lived “review PR” with a dedicated URL
 
 ### Specification Versions
+
 The semantics of versioning for the NGFF specification are not yet sufficiently well-defined. There is currently no clear definition of which parts of the specification, if
 any, MUST be implemented by software projects. This has been handled in the
 Zarr community by adding a "must understand" flag to extensions to warn
@@ -486,14 +492,17 @@ model of other RFC-using communities, e.g., IETF's [IAB](https://www.ietf.org/ab
 "governing authority".
 
 ### Editorial Board
+
 The Editorial Board consists of all current **Editors** and can be reached at \<mailto:ngff-editors@openmicroscopy.org\>. Josh Moore, as the author of this RFC, is the sole initial member.
 
 This proposal does not try to define how **Editors** are chosen. Therefore, the use of "Editors" in this document is intended as a placeholder. A future RFC will define the selection and removal of editors.
 
 ### Editorial Workflow
+
 This proposal also does not define the day-to-day specifics of how **Editors** work. The [Editorial Board](#editorial-board) is encouraged to publish a separate document, e.g. Best Practice Guide, containing the daily or weekly workflow of managing the NGFF process. This document can be more quickly updated than the RFC and can contain updates to GitHub interactions (use of “draft” status, milestones, issues, etc.) and possible automation (reply bots and similar).
 
 ## Drawbacks, risks, alternatives, and unknowns
+
 The primary **drawbacks**, **risks**, and **unknowns** of the proposal revolve
 around the cost that the process will place on those participating in it. This
 equally points to the primary **alternative** which is to not have such a
