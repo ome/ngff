@@ -34,19 +34,19 @@ This RFC is currently being responded to (R4).
     - [German BioImaging, e.V.](https://ror.org/05tpnw772)
     - 2023-12-23
     - Author ([PR](https://github.com/ome/ngff/pull/222)) 
-*   - Reviwer
+*   - Reviewer
     - Davis Bennett, John Bogovic, Michael Innerberger, Mark Kittisopikul, Virginia Scarlett, Yurii Zubov
     - d-v-b, bogovicj, minnerbe, mkitti, virginiascarlett, yuriyzubov 
     - Janelia
     - 2024-02-26
     - [Review](./reviews/2/index)
-*   - Reviwer
+*   - Reviewer
     - Kevin Yamauchi, Virginie Uhlmann
     - kevinyamauchi, vuhlmann
     - ETH, BiovisionCenter
     - 2024-03-05
     - [Review](./reviews/1/index)
-*   - Reviwer
+*   - Reviewer
     - Matthew Hartley
     - mrmh2
     - EMBL-EBI
