@@ -1,4 +1,4 @@
-# Review of RFC-2: Zarr v3
+# Review 3
 
 ## Review authors
 

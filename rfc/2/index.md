@@ -1,5 +1,14 @@
 # RFC-2: Zarr v3
 
+```{toctree}
+:maxdepth: 1
+:hidden:
+review_1
+review_1b
+review_2
+review_3
+```
+
 Adopt the version 3 of Zarr for OME-Zarr.
 
 ## Status

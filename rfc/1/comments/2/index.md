@@ -1,4 +1,4 @@
-# Comment to [RFC 1](../1) from @thewtex
+# RFC-1: Comment 2
 
 | Name                   | GitHub Handle | Institution          |
 |------------------------|---------------|----------------------|

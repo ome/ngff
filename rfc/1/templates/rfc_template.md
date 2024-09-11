@@ -1,21 +1,22 @@
+@: template
 # RFC Template
 
 Summary: Sentence fragment summary
 
 ## Status
 
-Brief description of status, including, e.g., `WIP | In-Review | Approved | Withdrawn | Obsolete`.
+Brief description of status, including the state identifier, e.g. `R4`
 
-| Name      | GitHub Handle | Institution | Date       | Status                                 |
-|-----------|---------------|-------------|------------|----------------------------------------|
-| Author    | N/A           | N/A         | xxxx-xx-xx | Author                                 |
-| Author    | N/A           | N/A         | xxxx-xx-xx | Author; Implemented (link to release)  |
-| Commenter | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)              |
-| Commenter | N/A           | N/A         | xxxx-xx-xx | Not yet (link to comment)              |
-| Endorser  | N/A           | N/A         | xxxx-xx-xx | Endorse (no link needed)               |
-| Endorser  | N/A           | N/A         | xxxx-xx-xx | Implementing (link to branch/PR)       |
-| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)              |
-| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Requested by editor                    |
+| Name      | GitHub Handle | Institution | Date       | Status                                |
+| --------- | ------------- | ----------- | ---------- | ------------------------------------- |
+| Author    | N/A           | N/A         | xxxx-xx-xx | Author                                |
+| Author    | N/A           | N/A         | xxxx-xx-xx | Author; Implemented (link to release) |
+| Commenter | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
+| Commenter | N/A           | N/A         | xxxx-xx-xx | Not yet (link to comment)             |
+| Endorser  | N/A           | N/A         | xxxx-xx-xx | Endorse (no link needed)              |
+| Endorser  | N/A           | N/A         | xxxx-xx-xx | Implementing (link to branch/PR)      |
+| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
+| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Requested by editor                   |
 
 ## Overview
 
@@ -28,8 +29,8 @@ reading this paragraph(s).
 ## Background
 
 The next section is the "Background" section. This section should be at least
-two paragraphs and can take up to a whole page in some cases. The **guiding goal
-of the background section** is: as a newcomer to this project (new employee, team
+two paragraphs and can take up to a whole page in some cases. The \*\*guiding goal
+of the background section\*\* is: as a newcomer to this project (new employee, team
 transfer), can I read the background section and follow any links to get the
 full context of why this change is necessary? 
 
@@ -49,14 +50,13 @@ solution, but for details further sections will be used.
 
 From this point onwards, the sections and headers are generally freeform
 depending on the RFC, though it is typically preferable to make use of the
-sections listed below, though the order does not matter. Sections are styled as
+sections listed below changing the order as necessary. Sections are styled as
 "Heading 2". Try to organize your information into self-contained sections that
 answer some critical question, and organize your sections into an order that
 builds up knowledge necessary (rather than forcing a reader to jump around to
 gain context).
 
-Sections often are split further into sub-sections styled "Heading 3". These
-sub-sections just further help to organize data to ease reading and discussion.
+Sections often are split further into sub-sections styled "Heading 3" and beyond. These sub-sections just further help to organize data to ease reading and discussion.
 
 ## Requirements (Recommended Header)
 
@@ -66,7 +66,7 @@ that the following text SHOULD be used in all RFCs:
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
-interpreted as described in [IETF RFC 2119][IETF RFC 2119]
+interpreted as described in [IETF RFC 2119](https://tools.ietf.org/html/rfc2119)
 
 ## Stakeholders (Recommended Header)
 
@@ -100,7 +100,7 @@ may result in the realization that the proposed solution in this RFC is too
 complex given the problem.
 
 For the RFC author, typing out the implementation in a high-level often serves
-as "[rubber duck debugging][rubber duck debugging]" and you can catch a lot of
+as "[rubber duck debugging](https://en.wikipedia.org/wiki/Rubber_duck_debugging)" and you can catch a lot of
 issues or unknown unknowns prior to writing any real code.
 
 ## Drawbacks, risks, alternatives, and unknowns (Recommended Header)
@@ -188,36 +188,13 @@ There should be microbenchmarks. Are there?
 There should be end-to-end tests and benchmarks. If there are not (since this
 is still a design), how will you track that these will be created?
 
-## Backwards Compatibility (Recommended Header)
+## Compatibility (Recommended Header)
 
-Backwards compatibility comes in two flavors: FIDL file source compatibility,
-and ABI or wire format compatibility. This section should speak to both. Over
-time, the ability to make backwards-incompatible changes will get harder.
+How does this proposal affect backwards and forwards compatibility?
 
-If you are introducing a new data type or language feature, consider what
-changes you would expect users to make to FIDL definitions without breaking
-users of the generated code. If your feature places any new source
-compatibility restrictions on the generated language bindings, list those here.
+Does it restrict existing assumptions or remove existing restrictions?
 
-## Security considerations (Optional Header)
-
-What impact will this proposal have on security? Does the proposal require a
-security review?
-
-A good starting point is to think about how the system might encounter
-untrusted inputs and how those inputs might be used to manipulate the system.
-From there, consider how known classes of vulnerabilities might apply to the
-system and what tools and techniques can be applied to avoid those
-vulnerabilities.
-
-## Privacy considerations (Optional Header)
-
-What impact will this proposal have on privacy? Does the proposal require a
-privacy review?
-
-A good starting point is to think about how user data might be collected,
-stored, or processed by your system. From there, consider the lifecycle of such
-data and any data protection techniques that may be employed.
+How are implementations expected to handle these changes?
 
 ## Testing (Recommended Header)
 
@@ -230,7 +207,35 @@ If your proposal defines a contract implemented by other people, how will those
 people test that they have implemented the contract correctly? Consider, for
 example, creating a conformance test suite for this purpose.
 
-## UI/UX (Optional Header)
+## Tutorials and Examples (Recommended Header)
+
+It is strongly recommended to provide as many examples as possible of what both users and developers can expect if the RFC were to be accepted. Sample data should be shared publicly. If longer-term is not available, contact the **Editors** for assistance.
+
+(additional-considerations)=
+## Additional considerations (Optional Header)
+
+Most RFCs will not need to consider all the following issues. They are included here as a checklist 
+
+### Security
+What impact will this proposal have on security? Does the proposal require a
+security review?
+
+A good starting point is to think about how the system might encounter
+untrusted inputs and how those inputs might be used to manipulate the system.
+From there, consider how known classes of vulnerabilities might apply to the
+system and what tools and techniques can be applied to avoid those
+vulnerabilities.
+
+### Privacy
+
+What impact will this proposal have on privacy? Does the proposal require a
+privacy review?
+
+A good starting point is to think about how user data might be collected,
+stored, or processed by your system. From there, consider the lifecycle of such
+data and any data protection techniques that may be employed.
+
+### UI/UX
 
 If there are user- or frontend-impacting changes by this RFC, it is important
 to have a "UI/UX" section. User-impacting changes might include changes in how
@@ -246,15 +251,11 @@ feel like the rest of the ecosystem. Further, if the breaking changes are
 intolerable or there is a way to make a change while preserving compatibility,
 that should be explored.
 
-## Tutorials and Examples (Optional Header)
-
-TODO
-
 ## Style Notes (EXAMPLE)
 
 All RFCs should follow similar styling and structure to ease reading.
 
-TODO: This section should be updated as more style decisions are made
+This section will updated as more style decisions are made
 so that users of the template can simply cut-n-paste sections.
 
 ### Heading Styles
@@ -281,13 +282,6 @@ some category or point to attention. For example, a list of API considerations:
 
 American spelling is preferred.
 
-### Typeface
-
-Type size should use this template's default configuration (11pt for body text,
-larger for headings), and the type family should be Arial. No other typeface
-customization (e.g., color, highlight) should be made other than italics, bold,
-and underline.
-
 ### Code Samples
 
 Code samples should be indented (tab or spaces are fine as long as it is
@@ -300,15 +294,9 @@ CLI output samples are similar to code samples but should be highlighted with
 the color they'll output if it is known so that the RFC could also cover
 formatting as part of the user experience.
 
-```
-    func example() {
-      <-make(chan struct{})
-    }
-```
+	    func example() {
+	      <-make(chan struct{})
+	    }
 
-Note: This document is based on the [RFC template from Hashicorp][template]
-(TODO: license requested).
 
-[IETF RFC 2119]: https://tools.ietf.org/html/rfc2119
-[rubber duck debugging]: https://en.wikipedia.org/wiki/Rubber_duck_debugging
-[template]: https://works.hashicorp.com/articles/rfc-template
+Note: This template is based on the [RFC template from Hashicorp](https://works.hashicorp.com/articles/rfc-template) used with permission.
