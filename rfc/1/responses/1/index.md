@@ -36,9 +36,11 @@ Josh Moore
 I appreciate the many specific questions. This is definitely one of the interactions which is most at risk of causing conflict. I’ll answer each of your questions briefly here, and then follow with a link to the text that I would add to the RFC.
 
 > when (can) the Editor … override the Reviewers and vice versa. … we think that the final decision should rest with the Editor. 
+
 I agree that the Editor should be able to override the Reviewers and not vice versa. However, if all the Reviewers `reject` a proposal, there should be some process required of the Editor before accepting the proposal (if ever). If Reviewers are unhappy with an overriding, then they are welcome to add another comment (within the current process). A future RFC should likely define a mechanism for raising official issues or complaints (e.g., see [https://www.ietf.org/contact/](https://www.ietf.org/contact/))
 
 > Can the Reviewers “force” an RFC to be accepted in spite of Editor concerns? If so, what are the conditions?
+
 As RFC-1 currently stands, no. And I do not know if we have sufficient experience to define such a process. I would err on the side of saying that this is an extension that can be spelled out at a future date.
 
 > It says that “If sufficient endorsements, including two in-progress implementations, are available, then the RFC can progress”, but it isn’t defined what “sufficient endorsements” means. We would appreciate additional clarification.
@@ -107,6 +109,7 @@ As mentioned above, this has been encapsulated in a new section. I would tend aw
 Please see the discussion of the summary section at the top level of this document. I very much appreciate, however, the idea of a simplified (and close to linear) diagram for this summary section. It is now included in the document.
 
 > There are some typos in the document that should be addressed.
+
 Thank you for pointing these out. They’ve been corrected in the text.
 
 ---- 
@@ -218,7 +221,7 @@ Thank you for the suggestions. I’ve added a section under “Implementation”
 Apologies for leaving that unclear. The choice of making reject a last recourse is fairly common in the RFC community, a value which in part led to it being selected. I’ll add a brief explanation here but add a section in the document with more information. Background reading is available at [https://engineering.squarespace.com/blog/2019/the-power-of-yes-if](https://engineering.squarespace.com/blog/2019/the-power-of-yes-if), etc. Essentially, if responses are codified as “here are the changes that would make me accept this proposal” then the Authors are given a clear path forward rather than just being told no.
 
 > How are deadlines enforced? What is the protocol for extending deadlines in case of emergency, and/or non-emergency? Clearer policies are needed here.
- 
+
 These are very good questions. Enforcement in such a volunteer organization is difficult. I think instead that the deadlines should be thought of as giving a guideline to those involved in the process but also the general community on how long the overall process _could_ last. Most concretely, however, the deadlines give the **Editors** a clear remit to get in touch with **Authors** and **Reviewers** and check the status. I don’t believe that we yet need to be proscriptive, e.g., “If a review is not provided by X, then Y will occur.” I’ve included a section under Policies to discuss this.
 
 > The topics of versioning and extensions are avoided. If these issues are not resolved now, then when?
@@ -302,16 +305,21 @@ This is also something I considered. I hoped it would be useful to trigger RFC E
 ### Minor comments and questions
 
 > During the RFC process, “Reviewers responses should be returned in less than two weeks.” I think this means the responses by the authors to the reviewers? Phrasing is unclear.
+
  Many thanks.  I’ve updated the text to say “Authors”.
 
 > The role of **Commenters** is a little unclear to me at present. In the definition, they are “invited to add their voice” - is this intended to be an active (e.g. authors/editors ask them) or passive process? 
+
 The intended distinction is that Commenters are welcome to add their Comments to the repository as are Reviewers but that their submissions may not be taken into equal regard when making the final decision. I propose updating the definition with the following: “**Commenters** are other members of the community who, though not contacted as **Reviewers**, have provided feedback that they would like added to the official record of the RFC.”
 
 > In the figure “RFC persists” indicates that the RFC, although not adopted, remains part of the record of communal work on the specification, but “persists” suggests that it remains in an active process somehow which I do not think is the case.
+
 This is a fair point. I propose updating the text to “RFC remains on the website” which is what “persists” was intended to communicate.
 
 > The figure legend suggests that start/end states should have identifiers, this isn’t currently the case for end states.
+
 Thank you for pointing this out. I’ve labelled the end states with the next numerical state for each of the phases.
 
 > Very nitpicky - text in some of the state boxes in the figure terminate in “.” characters, others don’t.
+
 I very much appreciate the attention to detail. I have dropped full stops from the upcoming 3.0 version of the diagram.
