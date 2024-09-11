@@ -134,6 +134,12 @@ This RFC is currently in RFC state (R6).
     - Google
     - 2024-09-11
     - [Accept](./reviews/3b/index)
+*   - Reviewer
+    - Yaroslav O. Halchenko
+    - yarikoptic
+    - Dartmouth College, DANDI Project
+    - 2024-09-11
+    - [Accept](./reviews/2b/index)
 ```
 
 ## Overview
