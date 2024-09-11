@@ -114,7 +114,7 @@ Who has a stake in whether this RFC is accepted?
 
 ## Implementation
 
-A draft implementation is [already in progress][implementation].
+To Be Determined.
 
 ## Backwards Compatibility
 
