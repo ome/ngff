@@ -3,7 +3,7 @@
 ## Review authors
 This review was written by the following Glencoe Software team members:
 
-- Sebastién Besson
+- Sébastien Besson
 - Chris Allan
 - Marc Bruce
 - Jason Swedlow

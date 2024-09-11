@@ -105,7 +105,7 @@ This RFC is currently in RFC state (R6).
     - 2024-03-14
     - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1998594492)
 *   - Reviewer
-    - Melissa Linkert, Sebastién Besson, Chris Allan, Jason Swedlow
+    - Melissa Linkert, Sébastien Besson, Chris Allan, Jason Swedlow
     - glencoesoftware
     - Glencoe Software
     - 2024-05-23
@@ -123,7 +123,7 @@ This RFC is currently in RFC state (R6).
     - 2024-04-30
     - [Review](./reviews/3/index)
 *   - Reviewer
-    - Melissa Linkert, Sebastién Besson, Chris Allan, Jason Swedlow
+    - Melissa Linkert, Sébastien Besson, Chris Allan, Jason Swedlow
     - glencoesoftware
     - Glencoe Software
     - 2024-08-05
