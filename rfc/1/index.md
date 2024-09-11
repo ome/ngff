@@ -212,7 +212,7 @@ The RFC process can be represented as a state diagram with the various stakehold
 
 ![State diagram of the RFC process](./diagram.png)
 
-**Figure 2. State digram of the RFC process.** The RFC text will refer frequently to this diagram. Readers may want to familiarize themselves with it at this point.
+**Figure 2. State diagram of the RFC process.** The RFC text will refer frequently to this diagram. Readers may want to familiarize themselves with it at this point.
 Identifiers such as "D1", "R2", "S3", refer to individual steps.
 
 ### Legend
