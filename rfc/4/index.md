@@ -1,6 +1,16 @@
-# RFC: Axis Anatomical Orientation
+# RFC-4: Axis Anatomical Orientation
 
-Summary: An optional, explicit field for specification of maging axis-aligned anatomical orientation for bipeds or quadrupeds.
+```{toctree}
+:hidden:
+:maxdepth: 1
+templates/index
+reviews/index
+comments/index
+responses/index
+versions/index
+```
+
+Summary: An optional, explicit field for specification of imaging axis-aligned anatomical orientation for bipeds or quadrupeds.
 
 ## Status
 
@@ -303,13 +313,6 @@ Testing will include validating the presence and correctness of the `anatomicalO
 ## UI/UX
 
 End-user applications SHOULD display the encoded information with, for example, the human-readable names of the axes along the rendered axes of the image or an orientation widget with a thumbnail of a person.
-
-## Tutorials and Examples (Optional Header)
-
-TODO
-
-Note: This document is based on the [RFC template from Hashicorp][template]
-(TODO: license requested).
 
 [IETF RFC 2119]: https://tools.ietf.org/html/rfc2119
 [rubber duck debugging]: https://en.wikipedia.org/wiki/Rubber_duck_debugging
