@@ -18,76 +18,90 @@ versions/index
 This RFC is currently being responded to (R4).
 
 ```{list-table} Record
-:widths: 20, 20, 20, 15, 10
+:widths: 8, 20, 20, 20, 15, 10
 :header-rows: 1
 :stub-columns: 1
 
-*   - Name
+*   - Role
+    - Name
     - GitHub Handle
     - Institution
     - Date
     - Status
-*   - Josh Moore
+*   - Author
+    - Josh Moore
     - [joshmoore](https://github.com/joshmoore)
     - [German BioImaging, e.V.](https://ror.org/05tpnw772)
     - 2023-12-23
     - Author ([PR](https://github.com/ome/ngff/pull/222)) 
-*   - Davis Bennett, John Bogovic, Michael Innerberger, Mark Kittisopikul, Virginia Scarlett, Yurii Zubov
+*   - Reviewer
+    - Davis Bennett, John Bogovic, Michael Innerberger, Mark Kittisopikul, Virginia Scarlett, Yurii Zubov
     - d-v-b, bogovicj, minnerbe, mkitti, virginiascarlett, yuriyzubov 
     - Janelia
     - 2024-02-26
     - [Review](./reviews/2/index)
-*   - Kevin Yamauchi, Virginie Uhlmann
+*   - Reviewer
+    - Kevin Yamauchi, Virginie Uhlmann
     - kevinyamauchi, vuhlmann
     - ETH, BiovisionCenter
     - 2024-03-05
     - [Review](./reviews/1/index)
-*   - Matthew Hartley
+*   - Reviewer
+    - Matthew Hartley
     - mrmh2
     - EMBL-EBI
     - 2024-03-05
     - [Review](./reviews/3/index)
-*   - Wouter-Michiel Vierdag, Luca Marconato
+*   - Commenter
+    - Wouter-Michiel Vierdag, Luca Marconato
     - melonora, LucaMarconato
     - EMBL
     - 2024-01-13
     - [Comment](./comments/1/index)
-*   - Matt McCormick
+*   - Commenter
+    - Matt McCormick
     - thewtex
     - ITK
     - 2024-01-09
     - [Comment](./comments/2/index)
-*   - Josh Moore
+*   - Author
+    - Josh Moore
     - joshmoore
     - German BioImaging
     - 2024-08-29
     - [Response](./responses/1/index)
-*   - Jean-Marie Burel
+*   - Endorser
+    - Jean-Marie Burel
     - jburel
     - University of Dundee
     - 2024-09-09
     - [Endorse](https://github.com/ome/ngff/pull/258)
-*   - Will Moore
+*   - Endorser
+    - Will Moore
     - will-moore
     - University of Dundee
     - 2024-09-09
     - [Endorse](https://github.com/ome/ngff/pull/258)
-*   - Juan-Nuñez Iglesias
+*   - Endorser
+    - Juan-Nuñez Iglesias
     - jni
     - Monash University
     - 2024-09-09
     - [Endorse](https://github.com/ome/ngff/pull/258)
-*   - Norman Rzepka
+*   - Endorser
+    - Norman Rzepka
     - normanrz
     - scalable minds GmbH
     - 2024-09-09
     - [Endorse](https://github.com/ome/ngff/pull/258)
-*   - Jan Eglinger
+*   - Endorser
+    - Jan Eglinger
     - imagejan
     - FMI Basel
     - 2024-09-09
     - [Endorse](https://github.com/ome/ngff/pull/258)
-*   - Joel Lüthi
+*   - Endorser
+    - Joel Lüthi
     - jluethi
     - BioVisionCenter, University of Zurich
     - 2024-09-10
