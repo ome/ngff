@@ -13,7 +13,7 @@ Adopt the version 3 of Zarr for OME-Zarr.
 
 ## Status
 
-This RFC is currently in RFC state (R2).
+This RFC is currently in SPEC state (S1).
 
 ```{list-table} Record
 :widths: 8, 20, 20, 20, 15, 10
