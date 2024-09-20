@@ -12,7 +12,7 @@ This RFC is currently in stage D2.
 | Author | Davis Bennett   | @d-v-b          |                | 2024-07-30  | Author; Implemented validation    |                                 
 | Author | Luca Marconato  | @LucaMarconato  | EMBL           | 2024-07-30  | Author; Implemented               |
 | Author | Matt McCormick   | @thewtex       | ITK            | 2024-07-30  | Author; Implemented               |
-| Author | Stephan Saalfeld | @axtimwalde    | HHMI JAnelia   | 2024-07-30  | Author; Implemented (with JB)     |                                 
+| Author | Stephan Saalfeld | @axtimwalde    | HHMI Janelia   | 2024-07-30  | Author; Implemented (with JB)     |                                 
 
 ## Overview
 
@@ -175,7 +175,7 @@ input space to *points* in the output space.
     <td>Coordinate field transformation located at (path).
   <tr><th>`inverseOf`
     <td>`"transform":Transform`
-    <td>The inverse of a transformation. Useful if a transform is not closed-form invertible.  See Forward and inverse for details and examples.
+    <td>The inverse of a transformation. Useful if a transform is not closed-form invertible. See Forward and inverse for details and examples.
   <tr><th>`bijection`
     <td>`"forward":Transform`<br>`"inverse":Transform`
     <td>Explicitly define an invertible transformation by providing a forward transformation and its inverse.
@@ -232,7 +232,7 @@ corresponding to the name of a coordinate system. The coordinate system's name m
 not appear in the list of coordinate systems.
 
 Exceptions are if the the coordinate transformation appears in the `transformations` list of a `sequence` or is the
-`transformation` of an `inverseOf` transformation. In these two cases input and output SHOULD be omitted (see below for
+`transformation` of an `inverseOf` transformation. In these two cases input and output could, in some cases, be omitted (see below for
 details).
 
 Transformations in the `transformations` list of a `byDimensions` transformation MUST provide `input` and `output` as arrays
@@ -287,8 +287,8 @@ stored as a 2D zarr array, the first dimension indexes rows and the second dimen
 Input and output dimensionality may be determined by the value of the "input" and "output" fields, respectively. If the value
 of "input" is an array, it's length gives the input dimension, otherwise the length of "axes" for the coordinate
 system with the name of the "input" value gives the input dimension.  If the value of "input" is an array, it's
-length gives the input imension, otherwise it is given by the length of "axes" for the coordinate system with
-the name of the "input".  If the value of "output" is an array, it's length gives the output dimension,
+length gives the input dimension, otherwise it is given by the length of "axes" for the coordinate system with
+the name of the "input".  If the value of "output" is an array, its length gives the output dimension,
 otherwise it is given by the length of "axes" for the coordinate system with the name of the "output".
 
 #### <a name="identity">identity</a>
@@ -318,8 +318,8 @@ invertible.
   <dt><strong>path</strong></dt>
   <dd>  The path to a zarr-array containing the translation parameters.
 	The array at this path MUST be 1D, and its length MUST be `N`.</dd>
-  <dt><strong>scale</strong></dt>
-  <dd> 	The scale parameters stored as a JSON list of numbers. The list MUST have length `N`.</dd>
+  <dt><strong>translation</strong></dt>
+  <dd> 	The translation parameters stored as a JSON list of numbers. The list MUST have length `N`.</dd>
 </dl>
 
 
@@ -459,14 +459,14 @@ For both `coordinates` and `displacements`, the array data at referred to by `pa
 
 For `coordinates`:
 
-* coordinateSystem metadata MUST have exactly one axis with `"type" : "coordinate"`
-* If a `coordinates`' input space has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(N + 1)`.
+* `coordinateSystem` metadata MUST have exactly one axis with `"type" : "coordinate"`
+* If the input coordinate system for a `coordinates` transformation has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(N + 1)`.
 * the shape of the array along the "coordinate" axis must be exactly `N`
 
 For `displacements`:
 
-* coordinateSystem metadata MUST have exactly one axis with `"type" : "displacement"`
-* If a `displacements`' input space has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(N + 1)`.
+* `coordinateSystem` metadata MUST have exactly one axis with `"type" : "displacement"`
+* If the input coordinate system of a `displacements` transformation has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(N + 1)`.
 * the shape of the array along the "displacement" axis must be exactly `N`
 * `input` and `output` MUST have an equal number of dimensions.
 
@@ -536,7 +536,7 @@ is breaking for the existing `scale` and `translation` transformations
 ```
 {
     "type": "scale",
-    "scale": [2, 3, 4],
+    "scale": [2, 3],
     "input": "ji",
     "output": "yx"
 }
@@ -548,7 +548,7 @@ would change to:
 {
     "type": "scale",
     "parameters": {
-        "scale": [2, 3, 4],
+        "scale": [2, 3],
     },
     "input": "ji",
     "output": "yx"
