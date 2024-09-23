@@ -570,7 +570,7 @@ input space to *points* in the output space.
     <td>scale vector, stored either as a list of numbers (`scale`) or as binary data at a location in this
     container (`path`).
   <tr><th>`affine`
-    <td> one of: <br>`"affine":List[number]`, <br>`"path":str`
+    <td> one of: <br>`"affine":List[List[number]]`, <br>`"path":str`
     <td>affine transformation matrix stored as a flat array stored either with json uing the affine field
     or as binary data at a location in this container (path). If both are present, the binary values at path should be used.
   <tr><th>`rotation`
@@ -922,17 +922,18 @@ y = 2 * j
 
 #### <a name="affine">affine</a>
 
-`affine`s are [matrix transformations](#matrix-transformations) from N-dimensional inputs to M-dimensional outputs are represented at `(N)x(M+1)`
-matrices in homogeneous coordinates. This transformation type may be (but is not necessarily) invertible when `N` equals `M`.
-The matrix MUST be stored as a 2D array either as json or in a zarr array.
+`affine`s are [matrix transformations](#matrix-transformations) from N-dimensional inputs to M-dimensional outputs are
+represented as the upper `(M)x(N+1)` sub-matrix of a `(M+1)x(N+1)` matrix in [homogeneous
+coordinates](https://en.wikipedia.org/wiki/Homogeneous_coordinates) (see examples). This transformation type may be (but is not necessarily)
+invertible when `N` equals `M`.  The matrix MUST be stored as a 2D array either as json or as a zarr array.
 
 <dl>
   <dt><strong>path</strong></dt>
   <dd>  The path to a zarr-array containing the affine parameters.
-	The array at this path MUST be 2D whose shape MUST be `N x (M+1)`.</dd>
+	The array at this path MUST be 2D whose shape MUST be `M x (N+1)`.</dd>
   <dt><strong>affine</strong></dt>
   <dd> 	The affine parameters stored in JSON. The matrix MUST be stored as 2D nested array where the outer array MUST be length
-  `N` and the inner arrays MUST be length `M+1`.</dd> </dl>
+  `M` and the inner arrays MUST be length `N+1`.</dd> </dl>
 
 <div class=example>
     A 2D-2D example:
@@ -948,6 +949,17 @@ The matrix MUST be stored as a 2D array either as json or in a zarr array.
     x = 1*i + 2*j + 3
     y = 4*i + 5*j + 6
     ```
+
+    it is equivalent to this matrix-vector multiplication in homogeneous coordinates:
+
+    ```
+    [ 1 2 3 ][ i ]   [ x ]
+    [ 4 5 6 ][ j ] = [ y ]
+    [ 0 0 1 ][ 1 ]   [ 1 ]
+    ```
+
+    where the last row `[0 0 1]` is omitted in the JSON representation.
+
 </div>
 
 <div class=example>
@@ -968,7 +980,17 @@ The matrix MUST be stored as a 2D array either as json or in a zarr array.
     x = 1*i + 2*j + 3
     y = 4*i + 5*j + 6
     z = 7*i + 8*j + 9
+
+    it is equivalent to this matrix-vector multiplication in homogeneous coordinates:
+
     ```
+    [ 1 2 3 ][ i ]   [ x ]
+    [ 4 5 6 ][ j ] = [ y ]
+    [ 7 8 9 ][ 1 ]   [ z ]
+    [ 0 0 1 ]        [ 1 ]
+    ```
+
+    where the last row `[0 0 1]` is omitted in the JSON representation.
 </div>
 
 
@@ -1035,6 +1057,19 @@ A `sequence` transformation consists of an ordered array of coordinate transform
 coordinate transform in the array is invertible. To apply a sequence transformation to a point in the input coordinate system,
 apply the first transformation in the list of transformations. Next, apply the second transformation to the result. Repeat until
 every transformation has been applied. The output of the last transformation is the result of the sequence.
+
+<div class=note>
+
+Considering transformations as functions of points, if the list contains transformations `[f0, f1, f2]` in that order, applying
+this sequence to point `x` is equivalent to:
+
+```
+f2(f1(f0(x)))
+```
+
+`f0` is applied first, `f1` is applied second, and `f2` is applied last.
+
+</div>
 
 The transformations included in the `transformations` array may omit their `input` and `output` fields under the conditions
 outlined below:
