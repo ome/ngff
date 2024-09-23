@@ -392,12 +392,11 @@ transformation (if it exists).
 
 #### <a name="sequence">sequence</a>
 
-A `sequence` transformation consists of an ordered array of coordinate transformations, and is invertible if every
-coordinate transform in the array is invertible. To apply a sequence transformation to a point in the input coordinate system,
-apply the first transformation in the list of transformations. Next, apply the second transformation to the result. Repeat until
-every transformation has been applied. The output of the last transformation is the result of the sequence.
-
-
+A `sequence` transformation consists of an ordered array of coordinate transformations, and is invertible if every coordinate
+transform in the array is invertible (though could be invertible in other cases as well). To apply a sequence transformation
+to a point in the input coordinate system, apply the first transformation in the list of transformations. Next, apply the second
+transformation to the result. Repeat until every transformation has been applied. The output of the last transformation is the
+result of the sequence.
 
 The transformations included in the `transformations` array may omit their `input` and `output` fields under the conditions
 outlined below:
