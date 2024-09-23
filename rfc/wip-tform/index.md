@@ -156,7 +156,7 @@ input space to *points* in the output space.
     <td>scale vector, stored either as a list of numbers (`scale`) or as binary data at a location in this
     container (`path`).
   <tr><th>`affine`
-    <td> one of: <br>`"affine":List[number]`, <br>`"path":str`
+    <td> one of: <br>`"affine": List[List[number]]`, <br>`"path":str`
     <td>affine transformation matrix stored as a flat array stored either with json uing the affine field
     or as binary data at a location in this container (path). If both are present, the binary values at path should be used.
   <tr><th>`rotation`
@@ -341,17 +341,18 @@ transformations are invertible.
 
 #### <a name="affine">affine</a>
 
-`affine`s are [matrix transformations](#matrix-transformations) from N-dimensional inputs to M-dimensional outputs are represented at `(N)x(M+1)`
-matrices in homogeneous coordinates. This transformation type may be (but is not necessarily) invertible when `N` equals `M`.
-The matrix MUST be stored as a 2D array either as json or in a zarr array.
+`affine`s are [matrix transformations](#matrix-transformations) from N-dimensional inputs to M-dimensional outputs are
+represented as the upper `(M)x(N+1)` sub-matrix of a `(M+1)x(N+1)` matrix in [homogeneous
+coordinates](https://en.wikipedia.org/wiki/Homogeneous_coordinates) (see examples). This transformation type may be (but is not necessarily)
+invertible when `N` equals `M`.  The matrix MUST be stored as a 2D array either as json or as a zarr array.
 
 <dl>
   <dt><strong>path</strong></dt>
   <dd>  The path to a zarr-array containing the affine parameters.
-	The array at this path MUST be 2D whose shape MUST be `N x (M+1)`.</dd>
+	The array at this path MUST be 2D whose shape MUST be `(M)x(N+1)`.</dd>
   <dt><strong>affine</strong></dt>
   <dd> 	The affine parameters stored in JSON. The matrix MUST be stored as 2D nested array where the outer array MUST be length
-  `N` and the inner arrays MUST be length `M+1`.</dd>
+  `M` and the inner arrays MUST be length `N+1`.</dd>
 </dl>
 
 
@@ -391,10 +392,12 @@ transformation (if it exists).
 
 #### <a name="sequence">sequence</a>
 
-A `sequence` transformation consists of an ordered array of coordinate transformations, and is invertible if and only if every
+A `sequence` transformation consists of an ordered array of coordinate transformations, and is invertible if every
 coordinate transform in the array is invertible. To apply a sequence transformation to a point in the input coordinate system,
 apply the first transformation in the list of transformations. Next, apply the second transformation to the result. Repeat until
 every transformation has been applied. The output of the last transformation is the result of the sequence.
+
+
 
 The transformations included in the `transformations` array may omit their `input` and `output` fields under the conditions
 outlined below:
@@ -415,7 +418,6 @@ outlined below:
   <dt><strong>transformations</strong></dt>
   <dd>A non-empty array of transformations.</dd>
 </dl>
-
 
 
 #### <a name=coordinates-displacements>coordinates and displacements</a>
@@ -451,7 +453,7 @@ inverses. Metadata for these coordinate transforms have the following field:
         </ul></dd>
 </dl>
 
-For both `coordinates` and `displacements`, the array data at referred to by `path` MUST define space and coordinate transform metadata:
+For both `coordinates` and `displacements`, the array data referred to by `path` MUST define space and coordinate transform metadata:
 
 * Every axis name in the `coordinateTransform`'s `input` MUST appear in the coordinate system
 * The array dimension corresponding to the `coordinate` or `displacement` axis MUST have length equal to the dimensionality of the `coordinateTransform` `output`
