@@ -9,10 +9,11 @@ This RFC is currently in stage D2.
 |  Role  | Name      | GitHub Handle | Institution | Date       | Status                                 |
 |--------|-----------|---------------|-------------|------------|----------------------------------------|
 | Author | John Bogovic    | @bogovicj       | HHMI Janelia   | 2024-07-30  | Author; Implemented               |
-| Author | Davis Bennett   | @d-v-b          |                | 2024-07-30  | Author; Implemented validation    |                                 
+| Author | Davis Bennett   | @d-v-b          |                | 2024-07-30  | Author; Implemented validation    |
 | Author | Luca Marconato  | @LucaMarconato  | EMBL           | 2024-07-30  | Author; Implemented               |
 | Author | Matt McCormick   | @thewtex       | ITK            | 2024-07-30  | Author; Implemented               |
-| Author | Stephan Saalfeld | @axtimwalde    | HHMI Janelia   | 2024-07-30  | Author; Implemented (with JB)     |                                 
+| Author | Stephan Saalfeld | @axtimwalde    | HHMI Janelia   | 2024-07-30  | Author; Implemented (with JB)     |
+| Endorser | Norman Rzepka | @normanrz    | Scalable Minds| 2024-08-22  |     |
 
 ## Overview
 
