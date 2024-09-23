@@ -980,6 +980,7 @@ invertible when `N` equals `M`.  The matrix MUST be stored as a 2D array either 
     x = 1*i + 2*j + 3
     y = 4*i + 5*j + 6
     z = 7*i + 8*j + 9
+    ```
 
     it is equivalent to this matrix-vector multiplication in homogeneous coordinates:
 
