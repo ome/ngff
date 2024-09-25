@@ -422,19 +422,24 @@ outlined below:
 
 #### <a name=coordinates-displacements>coordinates and displacements</a>
 
-`coordinates` and `displacements` transformations store coordinates or displacements in an array and interpret them as a
-transformation. Applying the transformation amounts to looking up the appropriate locations in the array and interpolating
-if necessary.
+`coordinates` and `displacements` transformations store coordinates or displacements in an array and interpret them as a vector
+field that defines a transformation. The arrays must have a dimension corresponding to every axis of the input coordinate
+system and one additional dimension to hold components of the vector. Applying the transformation amounts to looking up the
+appropriate vector in the array, interpolating if necessary, and treating it either as a position directly (`coordinates`) or a
+displacement of the input point (`displacements`).
 
-These transformation types refer to an array at location specified by the `"path"` parameter whose coordinate sytem MUST contain
-an axis with type `coordinate` or `displacement` respectively for transformations of type `coordinates` or `displacements`. This
-axis MUST be of length equal to the number of axes of the output coordinate system and SHOULD be the last axis (contiguous on
-disk when c-order). The coordinate system MUST also contain an axis identical to every axis of its input coordinate system in
-the same order. As a consequence, the array will have one dimension more than its input coordinate system.
+These transformation types refer to an array at location specified by the `"path"` parameter.  The input and output coordinate
+systems for these transformations ("input / output coordinate systems") constrain the array size and the coordinate system
+metadata for the array ("field coordinate system").
 
-The `i`th value of the array along the `coordinate` or `displacement` axis refers to the displacement
-or coordinate of `i`th output axis. See the example below.
+* If the input coordinate system has `N` axes, the array at location path MUST have `N+1` dimensions
+* The field coordinate system MUST contain an axis identical to every axis of its input coordinate system in the same order.
+* The field coordinate system MUST contain an axis with type `coordinate` or `displacement` respectively for transformations of type `coordinates` or `displacements`.
+    * This SHOULD be the last axis (contiguous on disk when c-order).
+* If the output coordinate system has `M` axes, the length of the array along the `coordinate`/`displacement` dimension MUST be of length `M`.
 
+The `i`th value of the array along the `coordinate` or `displacement` axis refers to the coordinate or displacement
+of the `i`th output axis. See the example below.
 
 `coordinates` and `displacements` transformations are not invertible in general, but implementations MAY approximate their
 inverses. Metadata for these coordinate transforms have the following field: 
@@ -453,25 +458,24 @@ inverses. Metadata for these coordinate transforms have the following field:
         </ul></dd>
 </dl>
 
-For both `coordinates` and `displacements`, the array data referred to by `path` MUST define space and coordinate transform metadata:
+
+For both `coordinates` and `displacements`, the array data at referred to by `path` MUST define coordinate system and coordinate transform metadata:
 
 * Every axis name in the `coordinateTransform`'s `input` MUST appear in the coordinate system
-* The array dimension corresponding to the `coordinate` or `displacement` axis MUST have length equal to the dimensionality of the `coordinateTransform` `output`
+* The array dimension corresponding to the `coordinate` or `displacement` axis MUST have length equal to the number of dimensions of the `coordinateTransform` `output`
+* If the input coordinate system `N` axes, then the array data at `path` MUST have `(N + 1)` dimensions.
 * SHOULD have a `name` identical to the `name` of the corresponding `coordinateTransform`.
 
 For `coordinates`:
 
 * `coordinateSystem` metadata MUST have exactly one axis with `"type" : "coordinate"`
-* If the input coordinate system for a `coordinates` transformation has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(N + 1)`.
 * the shape of the array along the "coordinate" axis must be exactly `N`
 
 For `displacements`:
 
 * `coordinateSystem` metadata MUST have exactly one axis with `"type" : "displacement"`
-* If the input coordinate system of a `displacements` transformation has dimensionality `N`, then the array data at `path` MUST have dimensionality equal to `(N + 1)`.
 * the shape of the array along the "displacement" axis must be exactly `N`
 * `input` and `output` MUST have an equal number of dimensions.
-
 
 
 #### byDimension {#trafo-byDimension}
