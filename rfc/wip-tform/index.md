@@ -625,7 +625,7 @@ While effective, they can only describe one type of non-linear transformation.
 
 The Saalfeld lab at Janelia developed a [custom
 format](https://github.com/saalfeldlab/template-building/wiki/Hdf5-Deformation-fields) for storing affine and displacement field
-transformations in HDF5 which is similarly less interoperable thatn would be ideal.
+transformations in HDF5 which is similarly less interoperable than would be ideal.
 
 ## Abandoned Ideas
 
