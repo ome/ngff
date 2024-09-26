@@ -5,61 +5,56 @@
   "description": "JSON from OME-Zarr zarr.json",
   "type": "object",
   "properties": {
-    "attributes": {
-      "description": "The zarr.json attributes key",
+    "ome": {
+      "description": "The versioned OME-Zarr Metadata namespace",
       "type": "object",
       "properties": {
-        "ome": {
-          "description": "The versioned OME-Zarr Metadata namespace",
+        "well": {
           "type": "object",
           "properties": {
-            "well": {
-              "type": "object",
-              "properties": {
-                "images": {
-                  "description": "The fields of view for this well",
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "acquisition": {
-                        "description": "A unique identifier within the context of the plate",
-                        "type": "integer"
-                      },
-                      "path": {
-                        "description": "The path for this field of view subgroup",
-                        "type": "string",
-                        "pattern": "^[A-Za-z0-9]+$"
-                      }
-                    },
-                    "required": [
-                      "path"
-                    ]
+            "images": {
+              "description": "The fields of view for this well",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "acquisition": {
+                    "description": "A unique identifier within the context of the plate",
+                    "type": "integer"
                   },
-                  "minItems": 1,
-                  "uniqueItems": true
-                }
+                  "path": {
+                    "description": "The path for this field of view subgroup",
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9]+$"
+                  }
+                },
+                "required": [
+                  "path"
+                ]
               },
-              "required": [
-                "images"
-              ]
-            },
-            "version": {
-              "$ref": "https://ngff.openmicroscopy.org/latest/schemas/version.schema"
+              "minItems": 1,
+              "uniqueItems": true
             }
           },
           "required": [
-            "well",
-            "version"
+            "images"
           ]
+        },
+        "version": {
+          "$ref": "https://ngff.openmicroscopy.org/latest/schemas/_version.schema"
+        },
+        "schema_url": {
+          "$ref": "https://ngff.openmicroscopy.org/latest/schemas/_schema_url.schema"
         }
       },
       "required": [
-        "ome"
+        "well",
+        "version",
+        "schema_url"
       ]
     }
   },
   "required": [
-    "attributes"
+    "ome"
   ]
 }

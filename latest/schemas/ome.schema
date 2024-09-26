@@ -2,41 +2,36 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ngff.openmicroscopy.org/latest/schemas/ome.schema",
   "title": "OME-Zarr group produced by bioformats2raw to contain OME metadata",
-  "description": "JSON from OME-Zarr OME/zarr.json linked to an OME-XML file",
+  "description": "The zarr.json attributes key",
   "type": "object",
   "properties": {
-    "attributes": {
-      "description": "The zarr.json attributes key",
+    "ome": {
+      "description": "The versioned OME-Zarr Metadata namespace",
       "type": "object",
       "properties": {
-        "ome": {
-          "description": "The versioned OME-Zarr Metadata namespace",
-          "type": "object",
-          "properties": {
-            "series": {
-              "description": "An array of the same length and the same order as the images defined in the OME-XML",
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "minContains": 1
-            },
-            "version": {
-              "$ref": "https://ngff.openmicroscopy.org/latest/schemas/version.schema"
-            }
+        "series": {
+          "description": "An array of the same length and the same order as the images defined in the OME-XML",
+          "type": "array",
+          "items": {
+            "type": "string"
           },
-          "required": [
-            "series",
-            "version"
-          ]
+          "minContains": 1
+        },
+        "version": {
+          "$ref": "https://ngff.openmicroscopy.org/latest/schemas/_version.schema"
+        },
+        "schema_url": {
+          "$ref": "https://ngff.openmicroscopy.org/latest/schemas/_schema_url.schema"
         }
       },
       "required": [
-        "ome"
+        "series",
+        "version",
+        "schema_url"
       ]
     }
   },
   "required": [
-    "attributes"
+    "ome"
   ]
 }

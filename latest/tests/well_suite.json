@@ -7,16 +7,15 @@
     {
       "formerly": "well/minimal_no_acquisition",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "well": {
-              "images": [
-                {
-                  "path": "0"
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "well": {
+            "images": [
+              {
+                "path": "0"
+              }
+            ]
           }
         }
       },
@@ -25,17 +24,16 @@
     {
       "formerly": "well/minimal_acquisitions",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "well": {
-              "images": [
-                {
-                  "acquisition": 1,
-                  "path": "0"
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "well": {
+            "images": [
+              {
+                "acquisition": 1,
+                "path": "0"
+              }
+            ]
           }
         }
       },

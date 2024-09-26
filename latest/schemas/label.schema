@@ -2,35 +2,33 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ngff.openmicroscopy.org/latest/schemas/label.schema",
   "title": "OME-Zarr labelled image schema",
-  "description": "JSON from OME-Zarr zarr.json",
+  "description": "The zarr.json attributes key",
   "type": "object",
   "properties": {
-    "attributes": {
-      "description": "The zarr.json attributes key",
+    "ome": {
+      "description": "The versioned OME-Zarr Metadata namespace",
       "type": "object",
       "properties": {
-        "ome": {
-          "description": "The versioned OME-Zarr Metadata namespace",
-          "type": "object",
-          "properties": {
-            "image-label": {
-              "$ref": "#/$defs/image-label"
-            },
-            "version": {
-              "$ref": "https://ngff.openmicroscopy.org/latest/schemas/version.schema"
-            }
-          },
-          "required": [
-            "image-label",
-            "version"
-          ]
+        "image-label": {
+          "$ref": "#/$defs/image-label"
+        },
+        "version": {
+          "$ref": "https://ngff.openmicroscopy.org/latest/schemas/_version.schema"
+        },
+        "schema_url": {
+          "$ref": "https://ngff.openmicroscopy.org/latest/schemas/_schema_url.schema"
         }
       },
       "required": [
-        "ome"
+        "image-label",
+        "version",
+        "schema_url"
       ]
     }
   },
+  "required": [
+    "ome"
+  ],
   "$defs": {
     "image-label": {
       "type": "object",
@@ -93,8 +91,5 @@
         }
       }
     }
-  },
-  "required": [
-    "attributes"
-  ]
+  }
 }

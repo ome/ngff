@@ -6,26 +6,22 @@
     },
     {
       "properties": {
-        "attributes": {
+        "ome": {
           "properties": {
-            "ome": {
+            "plate": {
               "properties": {
-                "plate": {
-                  "properties": {
-                    "acquisitions": {
-                      "items": {
-                        "required": [
-                          "name",
-                          "maximumfieldcount"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "name"
-                  ]
+                "acquisitions": {
+                  "items": {
+                    "required": [
+                      "name",
+                      "maximumfieldcount"
+                    ]
+                  }
                 }
-              }
+              },
+              "required": [
+                "name"
+              ]
             }
           }
         }

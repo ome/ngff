@@ -7,11 +7,10 @@
     {
       "formerly": "image-label/no_colors",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "image-label": {}
-          }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "image-label": {}
         }
       },
       "valid": false

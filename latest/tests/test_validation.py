@@ -16,6 +16,10 @@ for schema_filename in glob.glob("schemas/*"):
         schema = json.load(f)
         schema_store[schema["$id"]] = schema
 
+GENERIC_SCHEMA = schema_store[
+    "https://ngff.openmicroscopy.org/latest/schemas/ome_zarr.schema"
+]
+
 print(schema_store)
 
 
@@ -30,6 +34,10 @@ class Suite:
             with pytest.raises(ValidationError):
                 validator.validate(self.data)
         else:
+            validator.validate(self.data)
+
+    def maybe_validate(self, validator) -> None:
+        if self.valid:
             validator.validate(self.data)
 
 
@@ -79,6 +87,7 @@ def pytest_generate_tests(metafunc):
                         line for line in f if not line.lstrip().startswith("//")
                     )
                     data = json.loads(data)
+                    data = data["attributes"]  # Only validate the attributes object
                 ids.append("example_" + str(filename).split("/")[-1][0:-5])
                 suites.append(Suite(schema, data, True))  # Assume true
 
@@ -94,6 +103,12 @@ def test_run(suite):
     resolver = RefResolver.from_schema(suite.schema, store=schema_store)
     validator = Validator(suite.schema, resolver=resolver)
     suite.validate(validator)
+
+
+def test_generic_run(suite):
+    resolver = RefResolver.from_schema(GENERIC_SCHEMA, store=schema_store)
+    validator = Validator(GENERIC_SCHEMA, resolver=resolver)
+    suite.maybe_validate(validator)
 
 
 def test_example_configs():

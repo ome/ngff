@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/latest/schemas/_schema_url.schema",
+  "title": "OME-Zarr Schema URL",
+  "description": "A URL to the JSON schema of the OME-Zarr Metadata",
+  "type": "string",
+  "enum": [
+    "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema"
+  ]
+}

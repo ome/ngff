@@ -7,28 +7,27 @@
     {
       "formerly": "plate/minimal_no_acquisitions",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -37,33 +36,32 @@
     {
       "formerly": "plate/minimal_acquisitions",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "acquisitions": [
-                {
-                  "id": 0
-                }
-              ],
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "acquisitions": [
+              {
+                "id": 0
+              }
+            ],
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -72,23 +70,22 @@
     {
       "formerly": "plate/missing_rows",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -97,24 +94,23 @@
     {
       "formerly": "plate/empty_rows",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -123,31 +119,30 @@
     {
       "formerly": "plate/duplicate_rows",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                },
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              },
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -156,23 +151,22 @@
     {
       "formerly": "plate/missing_columns",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -181,24 +175,23 @@
     {
       "formerly": "plate/empty_columns",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -207,31 +200,30 @@
     {
       "formerly": "plate/duplicate_columns",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                },
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              },
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -240,21 +232,20 @@
     {
       "formerly": "plate/missing_wells",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ]
           }
         }
       },
@@ -263,22 +254,21 @@
     {
       "formerly": "plate/empty_wells",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": {}
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": {}
           }
         }
       },
@@ -287,36 +277,35 @@
     {
       "formerly": "plate/duplicate_rows",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                },
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                },
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              },
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              },
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -325,28 +314,27 @@
     {
       "formerly": "plate/missing_column_name",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "concentration": 10
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "concentration": 10
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -355,28 +343,27 @@
     {
       "formerly": "plate/missing_row_name",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "concentration": 10
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "concentration": 10
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -385,27 +372,26 @@
     {
       "formerly": "plate/missing_well_path",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -414,27 +400,26 @@
     {
       "formerly": "plate/missing_well_rowIndex",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -443,27 +428,26 @@
     {
       "formerly": "plate/missing_well_columnIndex",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0
+              }
+            ]
           }
         }
       },
@@ -472,27 +456,26 @@
     {
       "formerly": "plate/well_1group",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A1",
-                  "rowIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A1",
+                "rowIndex": 0
+              }
+            ]
           }
         }
       },
@@ -501,27 +484,26 @@
     {
       "formerly": "plate/well_3groups",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "plate/A/1",
-                  "rowIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "plate/A/1",
+                "rowIndex": 0
+              }
+            ]
           }
         }
       },
@@ -530,28 +512,27 @@
     {
       "formerly": "plate/non_alphanumeric_column",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A-1"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A-1/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A-1"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A-1/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -560,28 +541,27 @@
     {
       "formerly": "plate/non_alphanumeric_row",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "A1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/A1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "A1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/A1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -590,33 +570,32 @@
     {
       "formerly": "plate/missing_acquisition_id",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "acquisitions": [
-                {
-                  "maximumfieldcount": 1
-                }
-              ],
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "acquisitions": [
+              {
+                "maximumfieldcount": 1
+              }
+            ],
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -625,33 +604,32 @@
     {
       "formerly": "plate/non_integer_acquisition_id",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "acquisitions": [
-                {
-                  "id": "0"
-                }
-              ],
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "acquisitions": [
+              {
+                "id": "0"
+              }
+            ],
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -660,33 +638,32 @@
     {
       "formerly": "plate/negative_acquisition_id",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "acquisitions": [
-                {
-                  "id": -1
-                }
-              ],
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "acquisitions": [
+              {
+                "id": -1
+              }
+            ],
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -695,34 +672,33 @@
     {
       "formerly": "plate/non_integer_acquisition_maximumfieldcount",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "acquisitions": [
-                {
-                  "id": 0,
-                  "maximumfieldcount": "0"
-                }
-              ],
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "acquisitions": [
+              {
+                "id": 0,
+                "maximumfieldcount": "0"
+              }
+            ],
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -731,34 +707,33 @@
     {
       "formerly": "plate/acquisition_zero_maximumfieldcount",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "acquisitions": [
-                {
-                  "id": 0,
-                  "maximumfieldcount": 0
-                }
-              ],
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "acquisitions": [
+              {
+                "id": 0,
+                "maximumfieldcount": 0
+              }
+            ],
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -767,34 +742,33 @@
     {
       "formerly": "plate/acquisition_noninteger_starttime",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "acquisitions": [
-                {
-                  "id": 0,
-                  "starttime": "2022-05-13T13:48:06+00:00"
-                }
-              ],
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "acquisitions": [
+              {
+                "id": 0,
+                "starttime": "2022-05-13T13:48:06+00:00"
+              }
+            ],
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -803,34 +777,33 @@
     {
       "formerly": "plate/acquisition_negative_starttime",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "acquisitions": [
-                {
-                  "id": 0,
-                  "starttime": -1
-                }
-              ],
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "acquisitions": [
+              {
+                "id": 0,
+                "starttime": -1
+              }
+            ],
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -839,34 +812,33 @@
     {
       "formerly": "plate/acquisition_noninteger_endtime",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "acquisitions": [
-                {
-                  "id": 0,
-                  "endtime": "2022-05-13T13:48:06+00:00"
-                }
-              ],
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "acquisitions": [
+              {
+                "id": 0,
+                "endtime": "2022-05-13T13:48:06+00:00"
+              }
+            ],
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -875,34 +847,33 @@
     {
       "formerly": "plate/negative_endtime",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "acquisitions": [
-                {
-                  "id": 0,
-                  "endtime": -1
-                }
-              ],
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "acquisitions": [
+              {
+                "id": 0,
+                "endtime": -1
+              }
+            ],
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },
@@ -911,29 +882,28 @@
     {
       "formerly": "plate/zero_field_count",
       "data": {
-        "attributes": {
-          "ome": {
-            "version": "0.5",
-            "plate": {
-              "columns": [
-                {
-                  "name": "A"
-                }
-              ],
-              "field_count": 0,
-              "rows": [
-                {
-                  "name": "1"
-                }
-              ],
-              "wells": [
-                {
-                  "path": "A/1",
-                  "rowIndex": 0,
-                  "columnIndex": 0
-                }
-              ]
-            }
+        "ome": {
+          "version": "0.5",
+          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+          "plate": {
+            "columns": [
+              {
+                "name": "A"
+              }
+            ],
+            "field_count": 0,
+            "rows": [
+              {
+                "name": "1"
+              }
+            ],
+            "wells": [
+              {
+                "path": "A/1",
+                "rowIndex": 0,
+                "columnIndex": 0
+              }
+            ]
           }
         }
       },

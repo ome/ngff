@@ -6,16 +6,12 @@
     },
     {
       "properties": {
-        "attributes": {
+        "ome": {
           "properties": {
-            "ome": {
-              "properties": {
-                "image-label": {
-                  "required": [
-                    "colors"
-                  ]
-                }
-              }
+            "image-label": {
+              "required": [
+                "colors"
+              ]
             }
           }
         }
