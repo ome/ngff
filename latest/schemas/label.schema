@@ -14,15 +14,11 @@
         },
         "version": {
           "$ref": "https://ngff.openmicroscopy.org/latest/schemas/_version.schema"
-        },
-        "schema_url": {
-          "$ref": "https://ngff.openmicroscopy.org/latest/schemas/_schema_url.schema"
         }
       },
       "required": [
         "image-label",
-        "version",
-        "schema_url"
+        "version"
       ]
     }
   },

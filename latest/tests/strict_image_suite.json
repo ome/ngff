@@ -10,7 +10,6 @@
       "data": {
         "ome": {
           "version": "0.5",
-          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
           "multiscales": [
             {
               "name": "example",
@@ -97,7 +96,6 @@
       "data": {
         "ome": {
           "version": "0.5",
-          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
           "multiscales": [
             {
               "axes": [
@@ -146,7 +144,6 @@
       "data": {
         "ome": {
           "version": "0.5",
-          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
           "@id": "top",
           "@type": "ngff:Image",
           "multiscales": [
@@ -197,7 +194,6 @@
       "data": {
         "ome": {
           "version": "0.5",
-          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
           "multiscales": [
             {
               "axes": [
@@ -240,7 +236,6 @@
       "data": {
         "ome": {
           "version": "0.5",
-          "schema_url": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
           "multiscales": [
             {
               "axes": [

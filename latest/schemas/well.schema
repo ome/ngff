@@ -42,15 +42,11 @@
         },
         "version": {
           "$ref": "https://ngff.openmicroscopy.org/latest/schemas/_version.schema"
-        },
-        "schema_url": {
-          "$ref": "https://ngff.openmicroscopy.org/latest/schemas/_schema_url.schema"
         }
       },
       "required": [
         "well",
-        "version",
-        "schema_url"
+        "version"
       ]
     }
   },
