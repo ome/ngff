@@ -106,6 +106,12 @@ This RFC is currently being responded to (R4).
     - BioVisionCenter, University of Zurich
     - 2024-09-10
     - [Endorse](https://github.com/ome/ngff/pull/258)
+*   - Reviewer
+    - Kevin Yamauchi, Joel Lüthi, Virginie Uhlmann
+    - kevinyamauchi, jluethi, vuhlmann
+    - ETH, BiovisionCenter
+    - 2024-10-03
+    - [Accept](./reviews/1b/index)
 ```
 
 ## Overview
