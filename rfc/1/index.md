@@ -429,7 +429,13 @@ That being said, not every RFC MUST be sent to **Reviewers**. Priority will be g
 
 ### Choice of Reviewers
 
-Where possible, **Reviewers** SHOULD be chosen to represent a cross-section of the community. Which cross-sections are chosen MAY depend on a given RFC but might include geographic distributions, the variety of imaging modalities, and/or programming languages of the expected implementations. An attempt MUST also be made to select both positive and negative voices from the community. Editors and Reviewers should proactively disclose any potential conflicts of interest to ensure a transparent review process.
+Where possible, **Reviewers** SHOULD be chosen to represent a cross-section of
+the community. Which cross-sections are chosen MAY depend on a given RFC but
+might include geographic distributions, the variety of imaging modalities,
+and/or programming languages of the expected implementations. An attempt MUST
+also be made to select both positive and negative voices from the community.
+*Editors* and *Reviewers* should proactively disclose any potential conflicts
+of interest to ensure a transparent review process.
 
 ### Deadline enforcement
 
