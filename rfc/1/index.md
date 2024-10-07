@@ -228,7 +228,7 @@ right direction. **Reviewers** should strive to provide feedback which informs *
 
 ## Implementation
 
-The RFC process can be represented as a state diagram with the various stakeholders (in bold) responsible for forward motion.
+The RFC process can be represented as a state diagram with the various stakeholders responsible for forward motion.
 
 ![State diagram of the RFC process](./diagram.png)
 
@@ -323,8 +323,8 @@ should only be used when necessary.)
 * “Minor changes” suggests that if the described changes are made, that
   **Editors** can move forward with an RFC without a further review.
 * “Accept” is a positive vote and no text review is strictly necessary, though
-  may be provided to add context to the written record. This is equivalent to
-  the **Reviewer** joining the list of endorsements.
+  may be provided to add context to the written record. A **Reviewer** who accepts
+  an RFC is joining the list of endorsements.
 
 Three additional versions of the "Accept" recommendation are available for
 **Reviewers** who additionally maintain an implementation of the NGFF
@@ -338,6 +338,7 @@ most useful way. A [template markdown file](templates/review_template)
 is available but not mandatory. Useful sections include:
 
 * Summary
+* Conflicts of interest (if they exist)
 * Significant comments and questions
 * Minor comments and questions
 * Recommendation
@@ -428,7 +429,7 @@ That being said, not every RFC MUST be sent to **Reviewers**. Priority will be g
 
 ### Choice of Reviewers
 
-Where possible, **Reviewers** SHOULD be chosen to represent a cross-section of the community. Which cross-sections are chosen MAY depend on a given RFC but might include geographic distributions, the variety of imaging modalities, and/or programming languages of the expected implementations. An attempt MUST also be made to select both positive and negative voices from the community.
+Where possible, **Reviewers** SHOULD be chosen to represent a cross-section of the community. Which cross-sections are chosen MAY depend on a given RFC but might include geographic distributions, the variety of imaging modalities, and/or programming languages of the expected implementations. An attempt MUST also be made to select both positive and negative voices from the community. Editors and Reviewers should proactively disclose any potential conflicts of interest to ensure a transparent review process.
 
 ### Deadline enforcement
 
@@ -664,3 +665,4 @@ Definitions for terms used throughout this RFC have been collected below.
 | ---------- | ---------------------------- | ---------------------------------------------------------------------------- |
 | 2024-04-24 | Apply changes from comment 1 | [https://github.com/ome/ngff/pull/231](https://github.com/ome/ngff/pull/231) |
 | 2024-08-30 | Apply changes from reviewers | [https://github.com/ome/ngff/pull/258](https://github.com/ome/ngff/pull/258) |
+| 2024-10-07 | Apply changes from reviewers | [https://github.com/ome/ngff/pull/263](https://github.com/ome/ngff/pull/263) |
