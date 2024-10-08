@@ -112,6 +112,12 @@ This RFC is currently being responded to (R4).
     - ETH, BiovisionCenter
     - 2024-10-03
     - [Accept](./reviews/1b/index)
+*   - Reviewer
+    - Matthew Hartley
+    - mrmh2
+    - EMBL-EBI
+    - 2024-10-08
+    - Accept (email)
 ```
 
 ## Overview
