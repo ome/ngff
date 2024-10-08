@@ -614,13 +614,9 @@ scientist in need of affine or non-linear transformations.
 
 This RFC has been discussed in:
 
-* [This github pull-request](https://github.com/ome/ngff/pull/138)
-* These github issues:
-    * https://github.com/ome/ngff/issues/84
-    * https://github.com/ome/ngff/issues/94
-    * https://github.com/ome/ngff/issues/101
-    * https://github.com/ome/ngff/issues/146
-* Several OME-Zarr community calls ([one example](https://forum.image.sc/t/ome-ngff-community-call-transforms-and-tables/71792)
+* [PR 138](https://github.com/ome/ngff/pull/138)
+* Issues [84](https://github.com/ome/ngff/issues/84), [94](https://github.com/ome/ngff/issues/94), [101](https://github.com/ome/ngff/issues/101), and [146](https://github.com/ome/ngff/issues/146)
+* Several OME-Zarr community calls ([one example](https://forum.image.sc/t/ome-ngff-community-call-transforms-and-tables/71792))
 
 ## Implementation
 
