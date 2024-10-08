@@ -1,29 +1,146 @@
 # RFC-2: Zarr v3
 
+```{toctree}
+:hidden:
+:maxdepth: 1
+reviews/index
+comments/index
+responses/index
+versions/index
+```
+
 Adopt the version 3 of Zarr for OME-Zarr.
 
 ## Status
 
-This RFC is currently in RFC state (R5).
+This RFC is currently in SPEC state (S1).
 
-| Role     | Name                                                          | GitHub Handle                                       | Institution                                        | Date       | Status                                                                  |
-| -------- | -------------------                                           | --------------------------------------------------- | -------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
-| Author   | Norman Rzepka                                                 | [normanrz](https://github.com/normanrz)             | [scalable minds](https://scalableminds.com)        | 2024-02-14 |                                                                         |
-| Endorser | Davis Bennett                                                 | [d-v-b](https://github.com/d-v-b)                   |                                                    | 2024-02-14 | Endorse                                                                 |
-| Endorser | Kevin Yamauchi                                                | [kevinyamauchi](https://github.com/kevinyamauchi)   | ETH Zürich                                         | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1947942934) |
-| Endorser | John Bogivic                                                  | [bogovicj](https://github.com/bogovicj)             | HHMI Janelia Research Campus                       | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948547356) |
-| Endorser | Matthew Hartley                                               | [matthewh-ebi](https://github.com/matthewh-ebi)     | EMBL-EBI                                           | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948912814) |
-| Endorser | Christian Tischer                                             | [tischi](https://github.com/tischi)                 | EMBL                                               | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949058616) |
-| Endorser | Joel Lüthi                                                    | [jluethi](https://github.com/jluethi)               | BioVisionCenter, University of Zurich              | 2024-02-16 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949333769) |
-| Endorser | Constantin Pape                                               | [constantinpape](https://github.com/constantinpape) | University Göttingen                               | 2024-02-18 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1951318754) |
-| Endorser | Will Moore                                                    | [will-moore](https://github.com/will-moore)         | OME, University of Dundee                          | 2024-02-19 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1952057704) |
-| Endorser | Juan Nunez-Iglesias                                           | [jni](https://github.com/jni)                       | Biomedicine Discovery Institute, Monash University | 2024-02-20 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1953922897) |
-| Endorser | Eric Perlman                                                  | [perlman](https://github.com/perlman)               |                                                    | 2024-02-22 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1960272942) |
-| Endorser | Ziwen Liu                                                     | [ziw-liu](https://github.com/ziw-liu)               | Chan Zuckerberg Biohub                             | 2024-03-12 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1992588774) |
-| Endorser | Lachlan Deakin                                                | [LDeakin](https://github.com/LDeakin)               | Australian National University                     | 2024-03-14 | [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1998594492) |
-| Reviewer | Melissa Linkert, Sebastién Besson, Chris Allan, Jason Swedlow | glencoesoftware                                     | Glencoe Software                                   | 2024-05-23 | [Review](./review_1.md)                                                 |
-| Reviewer | Yaroslav O. Halchenko                                         | yarikoptic                                          | Dartmouth College, DANDI Project                   | 2024-06-10 | [Review](./review_2.md)                                                 |
-| Reviewer | Jeremy Maitin-Shepard                                         | jbms                                                | Google                                             | 2024-04-30 | [Review](./review_3.md)                                                 |
+```{list-table} Record
+:widths: 8, 20, 20, 20, 15, 10
+:header-rows: 1
+:stub-columns: 1
+
+*   - Role
+    - Name
+    - GitHub Handle
+    - Institution
+    - Date
+    - Status
+*   - Author
+    - Norman Rzepka
+    - [normanrz](https://github.com/normanrz)
+    - [scalable minds](https://scalableminds.com)
+    - 2024-02-14
+    -
+*   - Endorser
+    - Davis Bennett
+    - [d-v-b](https://github.com/d-v-b)
+    -
+    - 2024-02-14
+    - Endorse
+*   - Endorser
+    - Kevin Yamauchi
+    - [kevinyamauchi](https://github.com/kevinyamauchi)
+    - ETH Zürich
+    - 2024-02-16
+    - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1947942934)
+*   - Endorser
+    - John Bogivic
+    - [bogovicj](https://github.com/bogovicj)
+    - HHMI Janelia Research Campus
+    - 2024-02-16
+    - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948547356)
+*   - Endorser
+    - Matthew Hartley
+    - [matthewh-ebi](https://github.com/matthewh-ebi)
+    - EMBL-EBI
+    - 2024-02-16
+    - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1948912814)
+*   - Endorser
+    - Christian Tischer
+    - [tischi](https://github.com/tischi)
+    - EMBL
+    - 2024-02-16
+    - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949058616)
+*   - Endorser
+    - Joel Lüthi
+    - [jluethi](https://github.com/jluethi)
+    - BioVisionCenter, University of Zurich
+    - 2024-02-16
+    - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1949333769)
+*   - Endorser
+    - Constantin Pape
+    - [constantinpape](https://github.com/constantinpape)
+    - University Göttingen
+    - 2024-02-18
+    - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1951318754)
+*   - Endorser
+    - Will Moore
+    - [will-moore](https://github.com/will-moore)
+    - OME, University of Dundee
+    - 2024-02-19
+    - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1952057704)
+*   - Endorser
+    - Juan Nunez-Iglesias
+    - [jni](https://github.com/jni)
+    - Biomedicine Discovery Institute, Monash University
+    - 2024-02-20
+    - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1953922897)
+*   - Endorser
+    - Eric Perlman
+    - [perlman](https://github.com/perlman)
+    -
+    - 2024-02-22
+    - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1960272942)
+*   - Endorser
+    - Ziwen Liu
+    - [ziw-liu](https://github.com/ziw-liu)
+    - Chan Zuckerberg Biohub
+    - 2024-03-12
+    - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1992588774)
+*   - Endorser
+    - Lachlan Deakin
+    - [LDeakin](https://github.com/LDeakin)
+    - Australian National University
+    - 2024-03-14
+    - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1998594492)
+*   - Reviewer
+    - Melissa Linkert, Sébastien Besson, Chris Allan, Jason Swedlow
+    - glencoesoftware
+    - Glencoe Software
+    - 2024-05-23
+    - [Review](./reviews/1/index)
+*   - Reviewer
+    - Yaroslav O. Halchenko
+    - yarikoptic
+    - Dartmouth College, DANDI Project
+    - 2024-06-10
+    - [Review](./reviews/2/index)
+*   - Reviewer
+    - Jeremy Maitin-Shepard
+    - jbms
+    - Google
+    - 2024-04-30
+    - [Review](./reviews/3/index)
+*   - Reviewer
+    - Melissa Linkert, Sébastien Besson, Chris Allan, Jason Swedlow
+    - glencoesoftware
+    - Glencoe Software
+    - 2024-08-05
+    - [Accept](./reviews/1b/index)
+*   - Reviewer
+    - Jeremy Maitin-Shepard
+    - jbms
+    - Google
+    - 2024-09-11
+    - [Accept](./reviews/3b/index)
+*   - Reviewer
+    - Yaroslav O. Halchenko
+    - yarikoptic
+    - Dartmouth College, DANDI Project
+    - 2024-09-11
+    - [Accept](./reviews/2b/index)
+```
 
 ## Overview
 

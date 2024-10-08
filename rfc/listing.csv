@@ -1,4 +1,5 @@
 RFC,Description,Date,Status
-`0 <0/index.html>`_,Original consensus model for decision making,2021,
-`1 <1/index.html>`_,RFC Process Proposal,2024,
-`2 <2/index.html>`_,Zarr V3 Support,2024,
+[0](0/index.md),Original consensus model for decision making,2021,N/A
+[1](1/index.md),RFC Process,2024,Under review
+[2](2/index.md),Zarr V3 Support,2024,Accepted
+[3](3/index.md),Axis Anatomical Orientation,Under review

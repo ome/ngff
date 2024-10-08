@@ -1,4 +1,4 @@
-# Review of RFC1
+# RFC-1: Review 1
 
 ## Review authors
 This review was written by:
