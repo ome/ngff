@@ -1,6 +1,6 @@
 # Versions
 
-Key versions of the RFC which have been sent for review, etc.
+Key versions of RFC-4 which have been sent for review, etc.
 
 ```{toctree}
 :maxdepth: 1

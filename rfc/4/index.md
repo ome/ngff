@@ -3,7 +3,6 @@
 ```{toctree}
 :hidden:
 :maxdepth: 1
-templates/index
 reviews/index
 comments/index
 responses/index

@@ -1,4 +1,13 @@
-# RFC-X Coordinate systems and transformations
+# RFC-5 Coordinate systems and transformations
+
+```{toctree}
+:hidden:
+:maxdepth: 1
+reviews/index
+comments/index
+responses/index
+versions/index
+```
 
 Add named coordinate systems and expand and clarify coordinate transformations.
 
