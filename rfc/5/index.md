@@ -719,4 +719,4 @@ choose between different options, or software could choose a default (e.g. the f
 
 | Date       | Description                  | Link                                                                         |
 | ---------- | ---------------------------- | ---------------------------------------------------------------------------- |
-| 2024-10-08 | RFC number assigned          | [https://github.com/ome/ngff/pull/255](https://github.com/ome/ngff/pull/255) |
+| 2024-10-08 | RFC assigned and published   | [https://github.com/ome/ngff/pull/255](https://github.com/ome/ngff/pull/255) |
