@@ -715,3 +715,8 @@ choose between different options, or software could choose a default (e.g. the f
 [`multiscales` in version 0.4](https://ngff.openmicroscopy.org/0.4/#multiscale-md) has a similar consideration.
 
 
+## Changelog
+
+| Date       | Description                  | Link                                                                         |
+| ---------- | ---------------------------- | ---------------------------------------------------------------------------- |
+| 2024-10-08 | RFC number assigned          | [https://github.com/ome/ngff/pull/255](https://github.com/ome/ngff/pull/255) |
