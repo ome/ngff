@@ -15,17 +15,72 @@ Remove restrictions on the number of dimensions stored in OME-NGFF arrays.
 
 This RFC is currently in RFC state `R1` (send for review).
 
-| Name      | GitHub Handle | Institution | Date       | Status                                 |
-|-----------|---------------|-------------|------------|----------------------------------------|
-| Davis Bennett | [d-v-b](https://github.com/d-v-b) | N/A | 2024-05-01 | [Implementing][implementation] |
-| Juan Nunez-Iglesias | [jni](https://github.com/jni) | Monash University | 2024-05-21 | Author |
-| Talley Lambert | [tlambert03](https://github.com/tlambert03) | Harvard Medical School | 2024-05-21 | [Endorse](https://github.com/ome/ngff/pull/239#issuecomment-2122795327) | -->
-| Norman Rzepka | [normanrz](https://github.com/normanrz) | Scalable Minds | 2024-05-21 | [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425) | -->
-| Davis Bennett | [d-v-b](https://github.com/d-v-b) |  | 2024-05-21 | [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425) | -->
-| Doug Shepherd | [dpshepherd](https://github.com/dpshepherd) | Arizona State University | 2024-05-22 | [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425) | -->
-| John Bogovic | [bogovicj](https://github.com/bogovicj) | HHMI Janelia Research Campus | 2024-05-22 | [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425) | -->
-| Eric Perlman | [perlman](https://github.com/perlman) |  | 2024-05-22 | [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425) | -->
-| Lachlan Deakin | [LDeakin](https://github.com/LDeakin) | Australian National University | 2024-05-22 | [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425) | -->
+```{list-table} Record
+:widths: 8, 20, 20, 20, 15, 10
+:header-rows: 1
+:stub-columns: 1
+
+*   - Role
+    - Name
+    - GitHub Handle
+    - Institution
+    - Date
+    - Status
+*   - Author
+    - Juan Nunez-Iglesias
+    - [jni](https://github.com/jni)
+    - Monash University
+    - 2024-05-21
+    -
+*   - Implementor
+    - Davis Bennett
+    - [d-v-b](https://github.com/d-v-b)
+    - N/A
+    - 2024-05-01
+    - [Implementing][implementation]
+*   - Endorser
+    - Talley Lambert
+    - [tlambert03](https://github.com/tlambert03)
+    - Harvard Medical School
+    - 2024-05-21
+    - [Endorse](https://github.com/ome/ngff/pull/239#issuecomment-2122795327)
+*   - Endorser
+    - Norman Rzepka
+    - [normanrz](https://github.com/normanrz)
+    - Scalable Minds
+    - 2024-05-21
+    - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+*   - Endorser
+    - Davis Bennett
+    - [d-v-b](https://github.com/d-v-b)
+    -
+    - 2024-05-21
+    - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+*   - Endorser
+    - Doug Shepherd
+    - [dpshepherd](https://github.com/dpshepherd)
+    - Arizona State University
+    - 2024-05-22
+    - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+*   - Endorser
+    - John Bogovic
+    - [bogovicj](https://github.com/bogovicj)
+    - HHMI Janelia Research Campus
+    - 2024-05-22
+    - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+*   - Endorser
+    - Eric Perlman
+    - [perlman](https://github.com/perlman)
+    -
+    - 2024-05-22
+    - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+*   - Endorser
+    - Lachlan Deakin
+    - [LDeakin](https://github.com/LDeakin)
+    - Australian National University
+    - 2024-05-22
+    - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+```
 
 ## Overview
 
