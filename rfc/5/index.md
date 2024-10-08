@@ -107,7 +107,7 @@ A "coordinate system" is a collection of "axes" / dimensions with a name. Every 
 
 
 The order of the `"axes"` list matters and defines the index of each array dimension and coordinates for points in that
-coordinate system. For the above example, the `"x"` dimension is the first dimension. The "dimensionality" of a coordinate system
+coordinate system. The "dimensionality" of a coordinate system
 is indicated by the length of its "axes" array. The "volume_micrometers" example coordinate system above is three dimensional (3D).
 
 The axes of a coordinate system (see below) give information about the types, units, and other properties of the coordinate
