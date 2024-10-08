@@ -32,7 +32,7 @@ This RFC is currently in RFC state `R1` (send for review).
     - Monash University
     - 2024-05-21
     -
-*   - Implementor
+*   - Implementer
     - Davis Bennett
     - [d-v-b](https://github.com/d-v-b)
     - N/A
