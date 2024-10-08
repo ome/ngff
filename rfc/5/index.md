@@ -191,46 +191,46 @@ input space to *points* in the output space.
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
 
 <table>
-  <tr><th>`identity`
+  <tr><th><code>identity</code>
     <td> 
     <td>The identity transformation is the default transformation and is typically not explicitly defined.
-  <tr><th>`mapAxis`
-    <td>`"mapAxis":Dict[String:String]`
-    <td> A `maxAxis` transformation specifies an axis permutation as a map between axis names.
-  <tr><th>`translation`
-    <td> one of: <br>`"translation":List[number]`, <br>`"path":str`
-    <td>translation vector, stored either as a list of numbers (`"translation"`) or as binary data at a location
-    in this container (`path`).
-  <tr><th>`scale`
-    <td> one of: <br>`"scale":List[number]`, <br>`"path":str`
-    <td>scale vector, stored either as a list of numbers (`scale`) or as binary data at a location in this
-    container (`path`).
-  <tr><th>`affine`
-    <td> one of: <br>`"affine": List[List[number]]`, <br>`"path":str`
+  <tr><th><code>mapAxis</code>
+    <td><code>"mapAxis":Dict[String:String]</code>
+    <td> A <code>maxAxis</code> transformation specifies an axis permutation as a map between axis names.
+  <tr><th><code>translation</code>
+    <td> one of: <br><code>"translation":List[number]</code>, <br><code>"path":str</code>
+    <td>translation vector, stored either as a list of numbers (<code>"translation"</code>) or as binary data at a location
+    in this container (<code>path</code>).
+  <tr><th><code>scale</code>
+    <td> one of: <br><code>"scale":List[number]</code>, <br><code>"path":str</code>
+    <td>scale vector, stored either as a list of numbers (<code>scale</code>) or as binary data at a location in this
+    container (<code>path</code>).
+  <tr><th><code>affine</code>
+    <td> one of: <br><code>"affine": List[List[number]]</code>, <br><code>"path":str</code>
     <td>affine transformation matrix stored as a flat array stored either with json uing the affine field
     or as binary data at a location in this container (path). If both are present, the binary values at path should be used.
-  <tr><th>`rotation`
-    <td> one of: <br>`"rotation":List[number]`, <br>`"path":str`
+  <tr><th><code>rotation</code>
+    <td> one of: <br><code>"rotation":List[number]</code>, <br><code>"path":str</code>
     <td>rotation transformation matrix stored as an array stored either
         with json or as binary data at a location in this container (path).
         If both are present, the binary parameters at path are used.
-  <tr><th>`sequence`
-    <td> `"transformations":List[Transformation]`
+  <tr><th><code>sequence</code>
+    <td> <code>"transformations":List[Transformation]</code>
     <td>A sequence of transformations, Applying the sequence applies the composition of all transforms in the list, in order.
-  <tr><th>`displacements`
-    <td>`"path":str`<br>`"interpolation":str`
+  <tr><th><code>displacements</code>
+    <td><code>"path":str</code><br><code>"interpolation":str</code>
     <td>Displacement field transformation located at (path).
-  <tr><th>`coordinates`
-    <td>`"path":str`<br>`"interpolation":str`
+  <tr><th><code>coordinates</code>
+    <td><code>"path":str</code><br><code>"interpolation":str</code>
     <td>Coordinate field transformation located at (path).
-  <tr><th>`inverseOf`
-    <td>`"transform":Transform`
+  <tr><th><code>inverseOf</code>
+    <td><code>"transform":Transform</code>
     <td>The inverse of a transformation. Useful if a transform is not closed-form invertible. See Forward and inverse for details and examples.
-  <tr><th>`bijection`
-    <td>`"forward":Transform`<br>`"inverse":Transform`
+  <tr><th><code>bijection</code>
+    <td><code>"forward":Transform</code><br><code>"inverse":Transform</code>
     <td>Explicitly define an invertible transformation by providing a forward transformation and its inverse.
-  <tr><th>`byDimension`
-    <td>`"transformations":List[Transformation]`
+  <tr><th><code>byDimension</code>
+    <td><code>"transformations":List[Transformation]</code>
     <td>Define a high dimensional transformation using lower dimensional transformations on subsets of
     dimensions.
  <thead>
@@ -367,9 +367,9 @@ invertible.
 <dl>
   <dt><strong>path</strong></dt>
   <dd>  The path to a zarr-array containing the translation parameters.
-	The array at this path MUST be 1D, and its length MUST be `N`.</dd>
+	The array at this path MUST be 1D, and its length MUST be <code>N</code>.</dd>
   <dt><strong>translation</strong></dt>
-  <dd> 	The translation parameters stored as a JSON list of numbers. The list MUST have length `N`.</dd>
+  <dd> 	The translation parameters stored as a JSON list of numbers. The list MUST have length <code>N</code>.</dd>
 </dl>
 
 
@@ -383,9 +383,9 @@ transformations are invertible.
 <dl>
   <dt><strong>path</strong></dt>
   <dd>  The path to a zarr-array containing the scale parameters.
-	The array at this path MUST be 1D, and its length MUST be `N`.</dd>
+	The array at this path MUST be 1D, and its length MUST be <code>N</code>.</dd>
   <dt><strong>scale</strong></dt>
-  <dd> 	The scale parameters stored as a JSON list of numbers. The list MUST have length `N`.</dd>
+  <dd> 	The scale parameters stored as a JSON list of numbers. The list MUST have length <code>N</code>.</dd>
 </dl>
 
 
@@ -399,10 +399,10 @@ invertible when `N` equals `M`.  The matrix MUST be stored as a 2D array either 
 <dl>
   <dt><strong>path</strong></dt>
   <dd>  The path to a zarr-array containing the affine parameters.
-	The array at this path MUST be 2D whose shape MUST be `(M)x(N+1)`.</dd>
+	The array at this path MUST be 2D whose shape MUST be <code>(M)x(N+1)</code>.</dd>
   <dt><strong>affine</strong></dt>
   <dd> 	The affine parameters stored in JSON. The matrix MUST be stored as 2D nested array where the outer array MUST be length
-  `M` and the inner arrays MUST be length `N+1`.</dd>
+  <code>M</code> and the inner arrays MUST be length <code>N+1</code>.</dd>
 </dl>
 
 
@@ -416,10 +416,10 @@ MUST be stored as a 2D array either as json or in a zarr array. `rotation` trans
 <dl>
   <dt><strong>path</strong></dt>
   <dd>  The path to an array containing the affine parameters.
-	The array at this path MUST be 2D whose shape MUST be `N x N`.</dd>
+	The array at this path MUST be 2D whose shape MUST be <code>N x N</code>.</dd>
   <dt><strong>rotation</strong></dt>
-  <dd> 	The  parameters stored in JSON. The matrix MUST be stored as a 2D nested array where the outer array MUST be length `N`
-  and the inner arrays MUST be length `N`.</dd>
+  <dd> 	The  parameters stored in JSON. The matrix MUST be stored as a 2D nested array where the outer array MUST be length <code>N</code>
+  and the inner arrays MUST be length <code>N</code>.</dd>
 </dl>
 
 
@@ -430,14 +430,13 @@ transforming points from output to input coordinate systems is possible using th
 Transforming points from the input to the output coordinate systems requires the inverse of the contained
 transformation (if it exists).
 
-<div class=note>
-    Software libraries that perform image registration often return the transformation from fixed image
-    coordinates to moving image coordinates, because this "inverse" transformation is most often required
-    when rendering the transformed moving image. Results such as this may be enclosed in an `inverseOf`
-    transformation. This enables the "outer" coordinate transformation to specify the moving image coordinates
-    as `input` and fixed image coordinates as `output`, a choice that many users and developers find intuitive.
-</div>
-
+```{note}
+Software libraries that perform image registration often return the transformation from fixed image
+coordinates to moving image coordinates, because this "inverse" transformation is most often required
+when rendering the transformed moving image. Results such as this may be enclosed in an `inverseOf`
+transformation. This enables the "outer" coordinate transformation to specify the moving image coordinates
+as `input` and fixed image coordinates as `output`, a choice that many users and developers find intuitive.
+```
 
 
 #### <a name="sequence">sequence</a>
@@ -497,7 +496,7 @@ inverses. Metadata for these coordinate transforms have the following field:
   <dt><strong>path</strong></dt>
   <dd>  The location of the coordinate array in this (or another) container.</dd>
   <dt><strong>interpolation</strong></dt>
-  <dd>  The `interpolation` attributes MAY be provided. It's value indicates
+  <dd>  The <code>interpolation</code> attributes MAY be provided. It's value indicates
         the interpolation to use if transforming points not on the array's discrete grid.
         Values could be:
         <ul>
@@ -527,7 +526,7 @@ For `displacements`:
 * `input` and `output` MUST have an equal number of dimensions.
 
 
-#### byDimension {#trafo-byDimension}
+#### <a name=trafo-byDimension>byDimension</a>
 
 `byDimension` transformations build a high dimensional transformation using lower dimensional transformations
 on subsets of dimensions.
@@ -535,9 +534,9 @@ on subsets of dimensions.
 <dl>
   <dt><strong>transformations</strong></dt>
   <dd>  A list of transformations, each of which applies to a (non-strict) subset of input and output dimensions (axes). 
-        The values of `input` and `output` fields MUST be an array of strings.
-        Every axis name in `input` MUST correspond to a name of some axis in this parent object's `input` coordinate system.
-        Every axis name in the parent byDimension's `output` MUST appear in exactly one of its child transformations' `output`.
+        The values of <code>input</code> and <code>output</code> fields MUST be an array of strings.
+        Every axis name in <code>input</code> MUST correspond to a name of some axis in this parent object's <code>input</code> coordinate system.
+        Every axis name in the parent byDimension's <code>output</code> MUST appear in exactly one of its child transformations' <code>output</code>.
         </dd>
 </dl>
 
