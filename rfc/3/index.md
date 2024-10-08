@@ -1,10 +1,19 @@
 # RFC-3: more dimensions for thee
 
+```{toctree}
+:hidden:
+:maxdepth: 1
+reviews/index
+comments/index
+responses/index
+versions/index
+```
+
 Remove restrictions on the number of dimensions stored in OME-NGFF arrays.
 
 ## Status
 
-Draft (D3).
+This RFC is currently in RFC state `R1` (send for review).
 
 | Name      | GitHub Handle | Institution | Date       | Status                                 |
 |-----------|---------------|-------------|------------|----------------------------------------|
@@ -156,3 +165,9 @@ This RFC is placed in the public domain.
 [implementation]: https://github.com/ome/ngff/pull/235
 [trafo spec]: https://github.com/ome/ngff/pull/138
 [space dims comment]: https://github.com/ome/ngff/pull/138#issuecomment-1852891720
+
+## Changelog
+
+| Date       | Description                  | Link                                                                         |
+| ---------- | ---------------------------- | ---------------------------------------------------------------------------- |
+| 2024-10-08 | RFC assigned and published   | [https://github.com/ome/ngff/pull/239](https://github.com/ome/ngff/pull/239) |
