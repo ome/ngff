@@ -24,6 +24,3 @@ Sample NGFF datasets provided by the community can be found under :doc:`data/ind
    specifications/index
    rfc/index
    tools/index
-
-.. raw:: html
-
