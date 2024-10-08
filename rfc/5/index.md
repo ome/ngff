@@ -364,13 +364,11 @@ translation transformation should be preferred to its equivalent affine. Input a
 identical and MUST equal the the length of the "translation" array (N). `translation` transformations are
 invertible.
 
-<dl>
-  <dt><strong>path</strong></dt>
-  <dd>  The path to a zarr-array containing the translation parameters.
-	The array at this path MUST be 1D, and its length MUST be <code>N</code>.</dd>
-  <dt><strong>translation</strong></dt>
-  <dd> 	The translation parameters stored as a JSON list of numbers. The list MUST have length <code>N</code>.</dd>
-</dl>
+<strong>path</strong>
+: The path to a zarr-array containing the translation parameters. The array at this path MUST be 1D, and its length MUST be `N`.
+
+<strong>translation</strong>
+: The translation parameters stored as a JSON list of numbers. The list MUST have length `N`.
 
 
 #### scale
@@ -380,13 +378,11 @@ SHOULD be preferred to its equivalent affine. Input and output dimensionality MU
 the the length of the "scale" array (N). Values in the `scale` array SHOULD be non-zero; in that case, `scale`
 transformations are invertible.
 
-<dl>
-  <dt><strong>path</strong></dt>
-  <dd>  The path to a zarr-array containing the scale parameters.
-	The array at this path MUST be 1D, and its length MUST be <code>N</code>.</dd>
-  <dt><strong>scale</strong></dt>
-  <dd> 	The scale parameters stored as a JSON list of numbers. The list MUST have length <code>N</code>.</dd>
-</dl>
+<strong>path</strong>
+: The path to a zarr-array containing the scale parameters. The array at this path MUST be 1D, and its length MUST be `N`.
+
+<strong>scale</strong>
+: The scale parameters stored as a JSON list of numbers. The list MUST have length `N`.
 
 
 #### <a name="affine">affine</a>
@@ -396,14 +392,11 @@ represented as the upper `(M)x(N+1)` sub-matrix of a `(M+1)x(N+1)` matrix in [ho
 coordinates](https://en.wikipedia.org/wiki/Homogeneous_coordinates) (see examples). This transformation type may be (but is not necessarily)
 invertible when `N` equals `M`.  The matrix MUST be stored as a 2D array either as json or as a zarr array.
 
-<dl>
-  <dt><strong>path</strong></dt>
-  <dd>  The path to a zarr-array containing the affine parameters.
-	The array at this path MUST be 2D whose shape MUST be <code>(M)x(N+1)</code>.</dd>
-  <dt><strong>affine</strong></dt>
-  <dd> 	The affine parameters stored in JSON. The matrix MUST be stored as 2D nested array where the outer array MUST be length
-  <code>M</code> and the inner arrays MUST be length <code>N+1</code>.</dd>
-</dl>
+<strong>path</strong>
+:  The path to a zarr-array containing the affine parameters. The array at this path MUST be 2D whose shape MUST be `(M)x(N+1)`.
+
+<strong>affine</strong>
+: The affine parameters stored in JSON. The matrix MUST be stored as 2D nested array where the outer array MUST be length `M` and the inner arrays MUST be length `N+1`.
 
 
 #### <a name="rotation">rotation</a>
@@ -413,14 +406,11 @@ transformation SHOULD be preferred to its equivalent affine. Input and output di
 are stored as `NxN` matrices, see below, and MUST have determinant equal to one, with orthonormal rows and columns. The matrix
 MUST be stored as a 2D array either as json or in a zarr array. `rotation` transformations are invertible.
 
-<dl>
-  <dt><strong>path</strong></dt>
-  <dd>  The path to an array containing the affine parameters.
-	The array at this path MUST be 2D whose shape MUST be <code>N x N</code>.</dd>
-  <dt><strong>rotation</strong></dt>
-  <dd> 	The  parameters stored in JSON. The matrix MUST be stored as a 2D nested array where the outer array MUST be length <code>N</code>
-  and the inner arrays MUST be length <code>N</code>.</dd>
-</dl>
+<strong>path</strong>
+: The path to an array containing the affine parameters. The array at this path MUST be 2D whose shape MUST be `N x N`.
+
+<strong>rotation</strong>
+: The parameters stored in JSON. The matrix MUST be stored as a 2D nested array where the outer array MUST be length `N` and the inner arrays MUST be length `N`.
 
 
 #### <a name="inverseOf">inverseOf</a>
@@ -462,10 +452,8 @@ outlined below:
     below), and under all other conditions.
 
 
-<dl>
-  <dt><strong>transformations</strong></dt>
-  <dd>A non-empty array of transformations.</dd>
-</dl>
+<strong>transformations</strong>
+: A non-empty array of transformations.
 
 
 #### <a name=coordinates-displacements>coordinates and displacements</a>
