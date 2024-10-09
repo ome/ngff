@@ -276,8 +276,6 @@ needs of real-world acquisitions.
 
 ## Prior art and references
 
-###
-
 - [ITK Coordinate Systems](https://www.slicer.org/wiki/Coordinate_systems#Anatomical_coordinate_system)
 - [Nifti Orientation](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Orientation%20Explained#:~:text=A%20valid%20NIfTI%20image%20can,way%20aro)
 - [Allen Institute Data Schema](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/24d3899823557c7b45d1cdff844993dee3c63e9d/src/aind_data_schema/imaging/acquisition.py#L26)
