@@ -316,3 +316,9 @@ End-user applications SHOULD display the encoded information with, for example, 
 [IETF RFC 2119]: https://tools.ietf.org/html/rfc2119
 [rubber duck debugging]: https://en.wikipedia.org/wiki/Rubber_duck_debugging
 [template]: https://works.hashicorp.com/articles/rfc-template
+
+## Changelog
+
+| Date       | Description                  | Link                                                                         |
+| ---------- | ---------------------------- | ---------------------------------------------------------------------------- |
+| 2024-09-13 | RFC assigned and published   | [https://github.com/ome/ngff/pull/253](https://github.com/ome/ngff/pull/253) |
