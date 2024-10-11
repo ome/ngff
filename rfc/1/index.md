@@ -118,6 +118,12 @@ This RFC is currently being responded to (R4).
     - EMBL-EBI
     - 2024-10-08
     - Accept (email)
+*   - Reviewer
+    - John Bogovic, Michael Innerberger, Virginia Scarlett
+    - bogovicj, minnerbe, virginiascarlett
+    - Janelia
+    - 2024-10-11
+    - [Accept](./reviews/2b/index)
 ```
 
 ## Overview
