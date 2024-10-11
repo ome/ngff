@@ -1,7 +1,7 @@
 {
   "description": "Tests for the strict plate JSON schema",
   "schema": {
-    "id": "schemas/strict_plate.schema"
+    "id": "schemas/strict_plate.schema.json"
   },
   "tests": [
     {

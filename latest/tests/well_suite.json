@@ -1,7 +1,7 @@
 {
   "description": "Tests for the well JSON schema",
   "schema": {
-    "id": "schemas/well.schema"
+    "id": "schemas/well.schema.json"
   },
   "tests": [
     {

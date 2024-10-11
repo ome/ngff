@@ -1,7 +1,7 @@
 {
   "description": "Tests for the image-label JSON schema",
   "schema": {
-    "id": "schemas/label.schema"
+    "id": "schemas/label.schema.json"
   },
   "tests": [
     {
