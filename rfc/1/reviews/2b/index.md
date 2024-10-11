@@ -20,7 +20,7 @@ Most of the present reviewers feel that the proposed review process remains over
 Nevertheless, even though the reviewers feel that the proposal still requires major changes, they change their recommendation to 'accept', acknowledging the importance of forward progress. 
 As the OME-Zarr community moves forward using this proposed process, the reviewers hope that their concerns will be kept in mind and revisited if / when these concerns become practical issues.
 
-Below are some minor changes the author may consider. If the author chooses not implement them, the reviewers will not contest that decision.
+Below are some minor changes the author may consider. If the author chooses not to implement them, the reviewers will not contest that decision.
 
 ## Suggested Minor Changes 
 
