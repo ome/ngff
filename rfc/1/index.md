@@ -15,7 +15,7 @@ versions/index
 
 ## Status
 
-This RFC is currently being responded to (R4).
+This RFC has been adopted (S4).
 
 ```{list-table} Record
 :widths: 8, 20, 20, 20, 15, 10
