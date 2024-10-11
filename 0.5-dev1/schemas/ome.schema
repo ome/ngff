@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/latest/schemas/ome.schema",
+  "title": "NGFF group produced by bioformats2raw to contain OME metadata",
+  "description": "JSON from OME-NGFF OME/.zattrs linked to an OME-XML file",
+  "type": "object",
+  "properties": {
+    "series": {
+      "description": "An array of the same length and the same order as the images defined in the OME-XML",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minContains": 1
+    }
+  }
+}
