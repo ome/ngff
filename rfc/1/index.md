@@ -685,3 +685,5 @@ Definitions for terms used throughout this RFC have been collected below.
 | 2024-04-24 | Apply changes from comment 1 | [https://github.com/ome/ngff/pull/231](https://github.com/ome/ngff/pull/231) |
 | 2024-08-30 | Apply changes from reviewers | [https://github.com/ome/ngff/pull/258](https://github.com/ome/ngff/pull/258) |
 | 2024-10-07 | Apply changes from reviewers | [https://github.com/ome/ngff/pull/263](https://github.com/ome/ngff/pull/263) |
+| 2024-10-10 | Apply changes from reviewers | [https://github.com/ome/ngff/pull/266](https://github.com/ome/ngff/pull/266) |
+| 2024-10-25 | Adopted                      |                                                                              |
