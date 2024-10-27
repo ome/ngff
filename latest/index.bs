@@ -93,19 +93,23 @@ For this example we assume an image with 5 dimensions and axes called `t,c,z,y,x
     │                         # "multiscales" and "omero" (see below). In addition, the group level attributes
     │                         # may also contain "_ARRAY_DIMENSIONS" for compatibility with xarray if this group directly contains multi-scale arrays.
     │
-    ├── 0                     # Each multiscale level is stored as a separate Zarr array,
-    │   ...                   # which is a folder containing chunk files which compose the array.
-    ├── n                     # The name of the array is arbitrary with the ordering defined by
+    ├── 0                     # Each multiscale level is stored as a separate Zarr group
+    │                         # which contains arrays of data at that particular resolution level.
+    │   ...
+    ├── n                     # The name of the group is arbitrary with the ordering defined by
     │   │                     # by the "multiscales" metadata, but is often a sequence starting at 0.
     │   │
-    │   ├── .zarray           # All image arrays must be up to 5-dimensional
-    │   │                     # with the axis of type time before type channel, before spatial axes.
-    │   │
-    │   └─ t                  # Chunks are stored with the nested directory layout.
-    │      └─ c               # All but the last chunk element are stored as directories.
-    │         └─ z            # The terminal chunk is a file. Together the directory and file names
-    │            └─ y         # provide the "chunk coordinate" (t, c, z, y, x), where the maximum coordinate
-    │               └─ x      # will be `dimension_size / chunk_size`.
+    │   └── image             # Within the group, there will typically be a single array named "image".
+    │       │                 # Other arrays may be added in future versions.
+    │       │
+    │       ├── .zarray       # All image arrays must be up to 5-dimensional
+    │       │                 # with the axis of type time before type channel, before spatial axes.
+    │       │
+    │       └─ t              # Chunks are stored with the nested directory layout.
+    │          └─ c           # All but the last chunk element are stored as directories.
+    │             └─ z        # The terminal chunk is a file. Together the directory and file names
+    │                └─ y     # provide the "chunk coordinate" (t, c, z, y, x), where the maximum coordinate
+    │                   └─ x  # will be `dimension_size / chunk_size`.
     │
     └── labels
         │
