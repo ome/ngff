@@ -15,7 +15,7 @@ versions/index
 
 ## Status
 
-This RFC is currently being responded to (R4).
+This RFC has been adopted (S4).
 
 ```{list-table} Record
 :widths: 8, 20, 20, 20, 15, 10
@@ -112,6 +112,18 @@ This RFC is currently being responded to (R4).
     - ETH, BiovisionCenter
     - 2024-10-03
     - [Accept](./reviews/1b/index)
+*   - Reviewer
+    - Matthew Hartley
+    - mrmh2
+    - EMBL-EBI
+    - 2024-10-08
+    - Accept (email)
+*   - Reviewer
+    - John Bogovic, Michael Innerberger, Virginia Scarlett
+    - bogovicj, minnerbe, virginiascarlett
+    - Janelia
+    - 2024-10-11
+    - [Accept](./reviews/2b/index)
 ```
 
 ## Overview
@@ -433,7 +445,7 @@ Where possible, **Reviewers** SHOULD be chosen to represent a cross-section of
 the community. Which cross-sections are chosen MAY depend on a given RFC but
 might include geographic distributions, the variety of imaging modalities,
 and/or programming languages of the expected implementations. An attempt MUST
-also be made to select both positive and negative voices from the community.
+also be made to select both supporting and dissenting voices from the community.
 *Editors* and *Reviewers* should proactively disclose any potential conflicts
 of interest to ensure a transparent review process.
 
@@ -597,7 +609,8 @@ This RFC does not try to define all aspects of the NGFF community process and
 instead focuses on the most immediate block which covers what is typically
 thought of as the voting process. By establishing this as a foundation, future
 RFCs can extend the community process either adding or simplifying structure as
-feedback determines. In fact, sections like [“Policies”](#policies) are explicitly intended to be updated to reference future RFCs as they are defined.
+feedback determines. In fact, sections like [“Policies”](#policies) are explicitly
+intended to be updated to reference future RFCs as they are defined.
 The following items are therefore considered out of scope for the purposes of
 this RFC but future work is intended to evolve the community process.
 
@@ -672,3 +685,5 @@ Definitions for terms used throughout this RFC have been collected below.
 | 2024-04-24 | Apply changes from comment 1 | [https://github.com/ome/ngff/pull/231](https://github.com/ome/ngff/pull/231) |
 | 2024-08-30 | Apply changes from reviewers | [https://github.com/ome/ngff/pull/258](https://github.com/ome/ngff/pull/258) |
 | 2024-10-07 | Apply changes from reviewers | [https://github.com/ome/ngff/pull/263](https://github.com/ome/ngff/pull/263) |
+| 2024-10-10 | Apply changes from reviewers | [https://github.com/ome/ngff/pull/266](https://github.com/ome/ngff/pull/266) |
+| 2024-10-25 | Adopted                      |                                                                              |
