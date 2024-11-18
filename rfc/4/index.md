@@ -39,6 +39,7 @@ Existing standards provide some prior art for this proposal:
 - The Brain Image Library uses a more explicit controlled vocabulary, asking submitters to choose orientation for each axis (e.g., `left-to-right`, `anterior-to-posterior`). This approach is used at the Allen Institute for Neural Dynamics.
 - The open Metadata Initiative for Neuroscience Data Structures (openMINDS) Metadata Initiative defines `anatomicalAxesOrientation` to record this information in tuples like `RAS`.
 - The Digital Imaging and Communications in Medicine (DICOM) standard explicitly specifies anatomical orientation for bipeds as x-axis is increasing to the left hand side of the patient, the y-axis is increasing to the posterior side of the patient, and the z-axis is increasing toward the head of the patient and has a similar dorsal, cranial, rostral, proximal, and distal for quadrupeds. See [DICOM Standard C.7.6.2.1.1 Image Position and Image Orientation](https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.6.2.html#sect_C.7.6.2.1.1). Name of additional axes are defined in [DICOM Standard C.7.6.1.1.1 Patient Orientation](https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.6.html#sect_C.7.6.1.1.1)
+- Descriptions and classifications of [anatomical orientation in Wikipedia](https://en.wikipedia.org/wiki/Anatomical_terms_of_location).
 
 ## Proposal
 
@@ -62,8 +63,20 @@ The controlled vocabulary for the `anatomicalOrientation` field will include:
 - `dorsal-to-ventral`
 - `ventral-to-dorsal`
 
+- `dorsal-to-palmar`
+- `palmar-to-dorsal`
+
+- `dorsal-to-plantar`
+- `plantar-to-dorsal`
+
 - `rostral-to-caudal`
 - `caudal-to-rostral`
+
+- `cranial-to-caudal`
+- `caudal-to-cranial`
+
+- `proximal-to-distal`
+- `distal-to-proximal`
 
 A set of NGFF `axes` MUST only have one of the set `{ "left-to-right", "right-to-left" }` or `{ "anterior-to-posterior", "posterior-to-anterior" }` or the remaining values.
 
@@ -92,22 +105,28 @@ and provides their descriptions:
 
 Anatomical orientation refers to the specific arrangement and directional alignment of anatomical structures within an imaging dataset. It is crucial for ensuring accurate alignment and comparison of images to anatomical atlases, facilitating consistent analysis and interpretation of biological data.
 
-#### Permissible Values
+## Permissible Values
 
 | Text | Description | Meaning | Other Information |
 | :--- | :---: | :---: | ---: |
-| left-to-right | Describes the directional orientation from the left side to the right side of an anatomical structure or body. |  |  |
-| right-to-left | Describes the directional orientation from the right side to the left side of an anatomical structure or body. |  |  |
+| left-to-right | Describes the directional orientation from the left side to the right lateral side of an anatomical structure or body. |  |  |
+| right-to-left | Describes the directional orientation from the right side to the left lateral side of an anatomical structure or body. |  |  |
 | anterior-to-posterior | Describes the directional orientation from the front (anterior) to the back (posterior) of an anatomical structure or body. |  |  |
 | posterior-to-anterior | Describes the directional orientation from the back (posterior) to the front (anterior) of an anatomical structure or body. |  |  |
-| inferior-to-superior | Describes the directional orientation from the lower (inferior) to the upper (superior) part of an anatomical structure or body. |  |  |
-| superior-to-inferior | Describes the directional orientation from the upper (superior) to the lower (inferior) part of an anatomical structure or body. |  |  |
-| dorsal-to-ventral | Describes the directional orientation from the back (dorsal) to the front (ventral) of an anatomical structure or body. |  |  |
-| ventral-to-dorsal | Describes the directional orientation from the front (ventral) to the back (dorsal) of an anatomical structure or body. |  |  |
-| rostral-to-caudal | Describes the directional orientation from the front (rostral) to the back (caudal) end of an anatomical structure, typically used in reference to the central nervous system. |  |  |
-| caudal-to-rostral | Describes the directional orientation from the back (caudal) to the front (rostral) end of an anatomical structure, typically used in reference to the central nervous system. |  |  |
-
-Which corresponds to the following JSON Schema,
+| inferior-to-superior | Describes the directional orientation from below (inferior) to above (superior) in an anatomical structure or body. |  |  |
+| superior-to-inferior | Describes the directional orientation from above (superior) to below (inferior) in an anatomical structure or body. |  |  |
+| dorsal-to-ventral | Describes the directional orientation from the top/upper (dorsal) to the belly/lower (ventral) in an anatomical structure or body. |  |  |
+| ventral-to-dorsal | Describes the directional orientation from the belly/lower (ventral) to the top/upper (dorsal) in an anatomical structure or body. |  |  |
+| dorsal-to-palmar | Describes the directional orientation from the top/upper (dorsal) to the palm of the hand (palmar) in a body. |  |  |
+| palmar-to-dorsal | Describes the directional orientation from the palm of the hand (palmar) to the top/upper (dorsal) in a body. |  |  |
+| dorsal-to-plantar | Describes the directional orientation from the top/upper (dorsal) to the sole of the foot (plantar) in a body. |  |  |
+| plantar-to-dorsal | Describes the directional orientation from the sole of the foot (plantar) to the top/upper (dorsal) in a body. |  |  |
+| rostral-to-caudal | Describes the directional orientation from the nasal (rostral) to the tail (caudal) end of an anatomical structure, typically used in reference to the central nervous system. |  |  |
+| caudal-to-rostral | Describes the directional orientation from the tail (caudal) to the nasal (rostral) end of an anatomical structure, typically used in reference to the central nervous system. |  |  |
+| cranial-to-caudal | Describes the directional orientation from the head (cranial) to the tail (caudal) end of an anatomical structure or body. |  |  |
+| caudal-to-cranial | Describes the directional orientation from the tail (caudal) to the head (cranial) end of an anatomical structure or body. |  |  |
+| proximal-to-distal | Describes the directional orientation from the center of the body to the periphery of an anatomical structure or limb. |  |  |
+| distal-to-proximal | Describes the directional orientation from the periphery of an anatomical structure or limb to the center of the body. |  |  |
 
 ## Requirements
 
@@ -171,8 +190,16 @@ In JSON-Schema:
                 "superior-to-inferior",
                 "dorsal-to-ventral",
                 "ventral-to-dorsal",
+                "dorsal-to-palmar",
+                "palmar-to-dorsal",
+                "dorsal-to-plantar",
+                "plantar-to-dorsal",
                 "rostral-to-caudal",
-                "caudal-to-rostral"
+                "caudal-to-rostral",
+                "cranial-to-caudal",
+                "caudal-to-cranial",
+                "proximal-to-distal",
+                "distal-to-proximal"
             ],
             "title": "Orientation",
             "type": "string"
@@ -182,9 +209,9 @@ In JSON-Schema:
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "additionalProperties": true,
     "metamodel_version": "1.7.0",
-    "title": "orientation",
+    "title": "anatomicalOrientation",
     "type": "object",
-    "version": "0.1.0"
+    "version": "0.2.0"
 }
 ```
 
@@ -197,55 +224,84 @@ class Orientation(str, Enum):
     """
     Anatomical orientation refers to the specific arrangement and directional alignment of anatomical structures within an imaging dataset. It is crucial for ensuring accurate alignment and comparison of images to anatomical atlases, facilitating consistent analysis and interpretation of biological data.
     """
-    # Describes the directional orientation from the left side to the right side of an anatomical structure or body.
+    # Describes the directional orientation from the left side to the right lateral side of an anatomical structure or body.
     left_to_right = "left-to-right"
-    # Describes the directional orientation from the right side to the left side of an anatomical structure or body.
+    # Describes the directional orientation from the right side to the left lateral side of an anatomical structure or body.
     right_to_left = "right-to-left"
     # Describes the directional orientation from the front (anterior) to the back (posterior) of an anatomical structure or body.
     anterior_to_posterior = "anterior-to-posterior"
     # Describes the directional orientation from the back (posterior) to the front (anterior) of an anatomical structure or body.
     posterior_to_anterior = "posterior-to-anterior"
-    # Describes the directional orientation from the lower (inferior) to the upper (superior) part of an anatomical structure or body.
+    # Describes the directional orientation from below (inferior) to above (superior) in an anatomical structure or body.
     inferior_to_superior = "inferior-to-superior"
-    # Describes the directional orientation from the upper (superior) to the lower (inferior) part of an anatomical structure or body.
+    # Describes the directional orientation from above (superior) to below (inferior) in an anatomical structure or body.
     superior_to_inferior = "superior-to-inferior"
-    # Describes the directional orientation from the back (dorsal) to the front (ventral) of an anatomical structure or body.
+    # Describes the directional orientation from the top/upper (dorsal) to the belly/lower (ventral) in an anatomical structure or body.
     dorsal_to_ventral = "dorsal-to-ventral"
-    # Describes the directional orientation from the front (ventral) to the back (dorsal) of an anatomical structure or body.
+    # Describes the directional orientation from the belly/lower (ventral) to the top/upper (dorsal) in an anatomical structure or body.
     ventral_to_dorsal = "ventral-to-dorsal"
-    # Describes the directional orientation from the front (rostral) to the back (caudal) end of an anatomical structure, typically used in reference to the central nervous system.
+    # Describes the directional orientation from the top/upper (dorsal) to the palm of the hand (palmar) in a body.
+    dorsal_to_palmar = "dorsal-to-palmar"
+    # Describes the directional orientation from the palm of the hand (palmar) to the top/upper (dorsal) in a body.
+    palmar_to_dorsal = "palmar-to-dorsal"
+    # Describes the directional orientation from the top/upper (dorsal) to the sole of the foot (plantar) in a body.
+    dorsal_to_plantar = "dorsal-to-plantar"
+    # Describes the directional orientation from the sole of the foot (plantar) to the top/upper (dorsal) in a body.
+    plantar_to_dorsal = "plantar-to-dorsal"
+    # Describes the directional orientation from the nasal (rostral) to the tail (caudal) end of an anatomical structure, typically used in reference to the central nervous system.
     rostral_to_caudal = "rostral-to-caudal"
-    # Describes the directional orientation from the back (caudal) to the front (rostral) end of an anatomical structure, typically used in reference to the central nervous system.
+    # Describes the directional orientation from the tail (caudal) to the nasal (rostral) end of an anatomical structure, typically used in reference to the central nervous system.
     caudal_to_rostral = "caudal-to-rostral"
+    # Describes the directional orientation from the head (cranial) to the tail (caudal) end of an anatomical structure or body.
+    cranial_to_caudal = "cranial-to-caudal"
+    # Describes the directional orientation from the tail (caudal) to the head (cranial) end of an anatomical structure or body.
+    caudal_to_cranial = "caudal-to-cranial"
+    # Describes the directional orientation from the center of the body to the periphery of an anatomical structure or limb.
+    proximal_to_distal = "proximal-to-distal"
+    # Describes the directional orientation from the periphery of an anatomical structure or limb to the center of the body.
+    distal_to_proximal = "distal-to-proximal"
 ```
 
 A possible TypeScript definition is generated from `orientation.yml` looks similar to this::
 
 ```typescript
-/**
-* Anatomical orientation refers to the specific arrangement and directional alignment of anatomical structures within an imaging dataset. It is crucial for ensuring accurate alignment and comparison of images to anatomical atlases, facilitating consistent analysis and interpretation of biological data.
-*/
 export enum Orientation {
-    /** Describes the directional orientation from the left side to the right side of an anatomical structure or body. */
+    /** Describes the directional orientation from the left side to the right lateral side of an anatomical structure or body. */
     left_to_right = "left-to-right",
-    /** Describes the directional orientation from the right side to the left side of an anatomical structure or body. */
+    /** Describes the directional orientation from the right side to the left lateral side of an anatomical structure or body. */
     right_to_left = "right-to-left",
     /** Describes the directional orientation from the front (anterior) to the back (posterior) of an anatomical structure or body. */
     anterior_to_posterior = "anterior-to-posterior",
     /** Describes the directional orientation from the back (posterior) to the front (anterior) of an anatomical structure or body. */
     posterior_to_anterior = "posterior-to-anterior",
-    /** Describes the directional orientation from the lower (inferior) to the upper (superior) part of an anatomical structure or body. */
+    /** Describes the directional orientation from below (inferior) to above (superior) in an anatomical structure or body. */
     inferior_to_superior = "inferior-to-superior",
-    /** Describes the directional orientation from the upper (superior) to the lower (inferior) part of an anatomical structure or body. */
+    /** Describes the directional orientation from above (superior) to below (inferior) in an anatomical structure or body. */
     superior_to_inferior = "superior-to-inferior",
-    /** Describes the directional orientation from the back (dorsal) to the front (ventral) of an anatomical structure or body. */
+    /** Describes the directional orientation from the top/upper (dorsal) to the belly/lower (ventral) in an anatomical structure or body. */
     dorsal_to_ventral = "dorsal-to-ventral",
-    /** Describes the directional orientation from the front (ventral) to the back (dorsal) of an anatomical structure or body. */
+    /** Describes the directional orientation from the belly/lower (ventral) to the top/upper (dorsal) in an anatomical structure or body. */
     ventral_to_dorsal = "ventral-to-dorsal",
-    /** Describes the directional orientation from the front (rostral) to the back (caudal) end of an anatomical structure, typically used in reference to the central nervous system. */
+    /** Describes the directional orientation from the top/upper (dorsal) to the palm of the hand (palmar) in a body. */
+    dorsal_to_palmar = "dorsal-to-palmar",
+    /** Describes the directional orientation from the palm of the hand (palmar) to the top/upper (dorsal) in a body. */
+    palmar_to_dorsal = "palmar-to-dorsal",
+    /** Describes the directional orientation from the top/upper (dorsal) to the sole of the foot (plantar) in a body. */
+    dorsal_to_plantar = "dorsal-to-plantar",
+    /** Describes the directional orientation from the sole of the foot (plantar) to the top/upper (dorsal) in a body. */
+    plantar_to_dorsal = "plantar-to-dorsal",
+    /** Describes the directional orientation from the nasal (rostral) to the tail (caudal) end of an anatomical structure, typically used in reference to the central nervous system. */
     rostral_to_caudal = "rostral-to-caudal",
-    /** Describes the directional orientation from the back (caudal) to the front (rostral) end of an anatomical structure, typically used in reference to the central nervous system. */
+    /** Describes the directional orientation from the tail (caudal) to the nasal (rostral) end of an anatomical structure, typically used in reference to the central nervous system. */
     caudal_to_rostral = "caudal-to-rostral",
+    /** Describes the directional orientation from the head (cranial) to the tail (caudal) end of an anatomical structure or body. */
+    cranial_to_caudal = "cranial-to-caudal",
+    /** Describes the directional orientation from the tail (caudal) to the head (cranial) end of an anatomical structure or body. */
+    caudal_to_cranial = "caudal-to-cranial",
+    /** Describes the directional orientation from the center of the body to the periphery of an anatomical structure or limb. */
+    proximal_to_distal = "proximal-to-distal",
+    /** Describes the directional orientation from the periphery of an anatomical structure or limb to the center of the body. */
+    distal_to_proximal = "distal-to-proximal",
 };
 ```
 
@@ -320,3 +376,4 @@ End-user applications SHOULD display the encoded information with, for example, 
 | Date       | Description                  | Link                                                                         |
 | ---------- | ---------------------------- | ---------------------------------------------------------------------------- |
 | 2024-09-13 | RFC assigned and published   | [https://github.com/ome/ngff/pull/253](https://github.com/ome/ngff/pull/253) |
+| 2024-11-18 | Values expanded and descriptions improved. | [https://github.com/ome/ngff/pull/267](https://github.com/ome/ngff/pull/267) |
