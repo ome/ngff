@@ -1,7 +1,7 @@
 {
   "description": "TBD",
   "schema": {
-    "id": "schemas/image.schema"
+    "id": "schemas/image.schema.json"
   },
   "tests": [
     {
