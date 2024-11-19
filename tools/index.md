@@ -90,12 +90,6 @@ A Nextflow based command-line tool that wraps bioformats2raw for parallelised co
 Various libraries for reading/writing OME-Zarr files in Python were evaluated as part of the BioVisionCenter "Next generation bioimage analysis workflows hackathon" 2023 in Zurich, Switzerland: https://github.com/jwindhager/ome-ngff-readers-writers/.
 
 
-### AICSImageIO
-<https://github.com/AllenCellModeling/aicsimageio>
-
-Image Reading, Metadata Conversion, and Image Writing for Microscopy Images in pure Python.
-
-
 ### bfio
 <https://github.com/PolusAI/bfio>
 
@@ -106,6 +100,14 @@ A Python interface to Bioformats using jpype for direct access to the library.
 <https://github.com/ome/bioformats>
 
 A standalone Java library for reading and writing life sciences image file formats.
+
+
+### BioIO
+<https://github.com/bioio-devs/bioio>
+
+(formerly AICSImageIO <https://github.com/AllenCellModeling/aicsimageio>)
+
+Image Reading, Metadata Conversion, and Image Writing for Microscopy Images in pure Python.
 
 
 ### ngff-zarr
