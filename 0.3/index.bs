@@ -8,8 +8,7 @@ URL: https://ngff.openmicroscopy.org/0.3/
 Repository: https://github.com/ome/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
-Local Boilerplate: header yes
-Local Boilerplate: copyright yes
+Local Boilerplate: header yes, copyright yes
 Boilerplate: style-darkmode off
 Markup Shorthands: markdown yes
 Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
