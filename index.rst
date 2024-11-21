@@ -6,7 +6,7 @@
 Next-generation file formats (NGFF)
 ===================================
 
-OME-NGFF is an initiative by the bioimaging community to develop imaging format specifications to
+NGFF is an initiative by the bioimaging community to develop imaging format specifications to
 address issues of scalability and interoperability.
 Please see the :doc:`about/index` section for an introduction.
 The OME-Zarr specification is detailed under :doc:`specifications/index`.

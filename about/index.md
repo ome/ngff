@@ -50,7 +50,7 @@ separate files or in cloud-based object stores as separate keys.
 An [updated Zarr version (v3)](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html)
 has been accepted to unify the two similar specifications to provide a single binary
 specification. See this [blog post](https://zarr.dev/blog/zep1-update/) for more information.
-The file format now is called "OME-Zarr". The term "NGFF" is still referred to the community and [specification process](../rfc/index.md).
+The file format is called "OME-Zarr". The term "NGFF" still refers to the community and [specification process](../rfc/index.md).
 
 In addition to the [OME-Zarr specification](../specifications/index.md),
 the pages listed below are intended to provide an overview of external resources available
