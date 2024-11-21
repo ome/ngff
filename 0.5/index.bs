@@ -14,7 +14,7 @@ Local Boilerplate: copyright yes
 Boilerplate: style-darkmode off
 Markup Shorthands: markdown yes
 Editor: Josh Moore, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0003-4028-811X
-Text Macro: NGFFVERSION 0.5-dev
+Text Macro: NGFFVERSION 0.5
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
 Abstract: All specifications are submitted to the https://image.sc community for review.
@@ -629,6 +629,12 @@ Version History {#history}
       <td>Description</td>
     </tr>
   </thead>
+  <tr>
+    <td>0.5</td>
+    <td>2024-11-21</td>
+    <td>use Zarr v3 in OME-Zarr, see [RFC-2](https://ngff.openmicroscopy.org/rfc/2/index.html).</td>
+  </tr>
+  
   <tr>
     <td>0.4.1</td>
     <td>2023-02-09</td>
