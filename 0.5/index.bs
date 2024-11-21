@@ -2,9 +2,9 @@
 Title: OME-Zarr specification
 Shortname: ome-zarr
 Level: 1
-Status: LS-COMMIT
 Status: w3c/ED
-URL: https://ngff.openmicroscopy.org/latest/
+TR: https://ngff.openmicroscopy.org/0.5/
+URL: https://ngff.openmicroscopy.org/0.5/
 Repository: https://github.com/ome/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
