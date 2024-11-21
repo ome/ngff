@@ -6,9 +6,9 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'NGFF'
-copyright = '2024, NGFF Community'
-author = 'NGFF Community'
+project = "NGFF"
+copyright = "2024, NGFF Community"
+author = "NGFF Community"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -18,44 +18,53 @@ source_suffix = [".rst", ".md"]
 myst_heading_anchors = 5
 myst_enable_extensions = ["deflist"]
 
-templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.git', '.pytest_cache', '**/.pytest_cache', '**/.tox', 'README.md', 'LICENSE.md', 'CONTRIBUTING.md']
-
+templates_path = ["_templates"]
+exclude_patterns = [
+    "_build",
+    "Thumbs.db",
+    ".DS_Store",
+    ".git",
+    ".pytest_cache",
+    "**/.pytest_cache",
+    "**/.tox",
+    "README.md",
+    "LICENSE.md",
+    "CONTRIBUTING.md",
+]
 
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_book_theme'
+html_theme = "sphinx_book_theme"
 
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 html_css_files = [
-    'https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css',
+    "https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css",
 ]
 
 html_js_files = [
-    'https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js',
-    'main.js',
+    "https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js",
+    "main.js",
 ]
 
 html_extra_path = [
-    '_bikeshed',
+    "_bikeshed",
 ]
 
 # ####################################
 # Run bikeshed build
 # ####################################
 
-def bikeshed():
 
+def bikeshed():
     import glob
     import os
     import shutil
     import subprocess
 
     for index_file in ["latest/index.bs"] + glob.glob("[0-9]*/index.bs"):
-
         output_file = index_file.replace("bs", "html")
         output_dir = os.path.dirname(output_file)
         target_dir = os.path.join("_bikeshed", output_dir)
@@ -71,11 +80,14 @@ def bikeshed():
                 run_bikeshed = False
 
         if run_bikeshed:
-            subprocess.check_call(f"bikeshed  spec {index_file} {output_file}", shell=True)
+            subprocess.check_call(
+                f"bikeshed -f spec {index_file} {output_file}", shell=True
+            )
 
         if os.path.exists(target_dir):
             shutil.rmtree(target_dir)
         shutil.copytree(output_dir, target_dir)
+
 
 bikeshed()
 del bikeshed
