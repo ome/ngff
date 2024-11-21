@@ -12,7 +12,7 @@ Local Boilerplate: header yes
 Local Boilerplate: copyright yes
 Boilerplate: style-darkmode off
 Markup Shorthands: markdown yes
-Editor: Josh Moore, University of Dundee (UoD) https://www.dundee.ac.uk, https://orcid.org/0000-0003-4028-811X
+Editor: Josh Moore, German BioImaging, e.V., https://gerbi-gmb.de/, https://orcid.org/0000-0003-4028-811X
 Text Macro: NGFFVERSION 0.5
 Abstract: This document contains next-generation file format (NGFF)
 Abstract: specifications for storing bioimaging data in the cloud.
