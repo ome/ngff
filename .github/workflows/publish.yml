@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v2
-      - uses: ome/spec-prod@main
+      - uses: normanrz/spec-prod@patch-1
         with:
           GH_PAGES_BRANCH: gh-pages
           VALIDATE_LINKS: false
