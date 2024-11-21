@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ngff.openmicroscopy.org/latest/schemas/image.schema",
+  "$id": "https://ngff.openmicroscopy.org/0.5/schemas/image.schema",
   "title": "OME-Zarr Image",
   "description": "The zarr.json attributes key",
   "type": "object",
@@ -16,7 +16,7 @@
           "$ref": "#/$defs/omero"
         },
         "version": {
-          "$ref": "https://ngff.openmicroscopy.org/latest/schemas/_version.schema"
+          "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/_version.schema"
         }
       },
       "required": [

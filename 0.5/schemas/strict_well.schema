@@ -1,8 +1,8 @@
 {
-  "$id": "https://ngff.openmicroscopy.org/latest/schemas/strict_well.schema",
+  "$id": "https://ngff.openmicroscopy.org/0.5/schemas/strict_well.schema",
   "allOf": [
     {
-      "$ref": "https://ngff.openmicroscopy.org/latest/schemas/well.schema"
+      "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/well.schema"
     }
   ]
 }

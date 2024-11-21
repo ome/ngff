@@ -1,8 +1,8 @@
 {
-  "$id": "https://ngff.openmicroscopy.org/latest/schemas/strict_plate.schema",
+  "$id": "https://ngff.openmicroscopy.org/0.5/schemas/strict_plate.schema",
   "allOf": [
     {
-      "$ref": "https://ngff.openmicroscopy.org/latest/schemas/plate.schema"
+      "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/plate.schema"
     },
     {
       "properties": {

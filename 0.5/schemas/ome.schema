@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ngff.openmicroscopy.org/latest/schemas/ome.schema",
+  "$id": "https://ngff.openmicroscopy.org/0.5/schemas/ome.schema",
   "title": "OME-Zarr group produced by bioformats2raw to contain OME metadata",
   "description": "The zarr.json attributes key",
   "type": "object",
@@ -18,7 +18,7 @@
           "minContains": 1
         },
         "version": {
-          "$ref": "https://ngff.openmicroscopy.org/latest/schemas/_version.schema"
+          "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/_version.schema"
         }
       },
       "required": [

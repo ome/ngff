@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ngff.openmicroscopy.org/latest/schemas/label.schema",
+  "$id": "https://ngff.openmicroscopy.org/0.5/schemas/label.schema",
   "title": "OME-Zarr labelled image schema",
   "description": "The zarr.json attributes key",
   "type": "object",
@@ -13,7 +13,7 @@
           "$ref": "#/$defs/image-label"
         },
         "version": {
-          "$ref": "https://ngff.openmicroscopy.org/latest/schemas/_version.schema"
+          "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/_version.schema"
         }
       },
       "required": [
