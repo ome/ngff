@@ -3,7 +3,6 @@ Title: Next-generation file formats (NGFF)
 Shortname: ome-ngff
 Level: 1
 Status: w3c/CG-FINAL
-Group: ome
 URL: https://ngff.openmicroscopy.org/0.3/
 Repository: https://github.com/ome/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff

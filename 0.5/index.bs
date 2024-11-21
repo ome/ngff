@@ -4,7 +4,6 @@ Shortname: ome-zarr
 Level: 1
 Status: LS-COMMIT
 Status: w3c/ED
-Group: ome
 URL: https://ngff.openmicroscopy.org/latest/
 Repository: https://github.com/ome/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
@@ -632,7 +631,7 @@ Version History {#history}
   <tr>
     <td>0.5</td>
     <td>2024-11-21</td>
-    <td>use Zarr v3 in OME-Zarr, see [RFC-2](https://ngff.openmicroscopy.org/rfc/2/index.html).</td>
+    <td>use Zarr v3 in OME-Zarr, see <a href="https://ngff.openmicroscopy.org/rfc/2">RFC-2</a>.</td>
   </tr>
   <tr>
     <td>0.4.1</td>
