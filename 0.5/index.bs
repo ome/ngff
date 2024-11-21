@@ -200,7 +200,7 @@ The "dimension_names" attribute in the `zarr.json` of the Zarr array of a multis
 The need for the collection stems from the common "multi-image file" scenario in microscopy. Parsers like Bio-Formats
 define a strict, stable ordering of the images in a single container that can be used to refer to them by other tools.
 
-In order to capture that information within an OME-NGFF dataset, `bioformats2raw` internally introduced a wrapping layer.
+In order to capture that information within an OME-Zarr dataset, `bioformats2raw` internally introduced a wrapping layer.
 The bioformats2raw layout has been added to v0.4 as a transitional specification to specify filesets that already exist
 in the wild. An upcoming NGFF specification will replace this layout with explicit metadata.
 
@@ -422,7 +422,7 @@ In addition to the `multiscales` key, the OME-Zarr Metadata in this image-level 
 whose value is also a JSON object. The `image-label` object stores information about the display colors, source image, and optionally, 
 further arbitrary properties of the label image. That `image-label` object SHOULD contain the following keys: first, a `colors` key, 
 whose value MUST be a JSON array describing color information for the unique label values. Second, a `version` key, whose value MUST be a 
-string specifying the version of the OME-NGFF `image-label` schema.
+string specifying the version of the OME-Zarr `image-label` schema.
 
 Conforming readers SHOULD display labels using the colors specified by the `colors` JSON array, as follows. This array contains one 
 JSON object for each unique custom label. Each of these objects MUST contain the `label-value` key, whose value MUST be the integer 
@@ -570,43 +570,7 @@ were added before this was adopted, but they should be updated in due course.
 Implementations {#implementations}
 ==================================
 
-Projects which support reading and/or writing OME-NGFF data include:
-
-<dl>
-
-  <dt><strong>[bigdataviewer-ome-zarr](https://github.com/mobie/bigdataviewer-ome-zarr)</strong></dt>
-  <dd>Fiji-plugin for reading OME-Zarr.</dd>
-
-  <dt><strong>[bioformats2raw](https://github.com/glencoesoftware/bioformats2raw)</strong></dt>
-  <dd>A performant, Bio-Formats image file format converter.</dd>
-
-  <dt><strong>[omero-ms-zarr](https://github.com/ome/omero-ms-zarr)</strong></dt>
-  <dd>A microservice for OMERO.server that converts images stored in OMERO to OME-Zarr files on the fly, served via a web API.</dd>
-
-  <dt><strong>[idr-zarr-tools](https://github.com/IDR/idr-zarr-tools)</strong></dt>
-  <dd>A full workflow demonstrating the conversion of IDR images to OME-Zarr images on S3.</dd>
-
-  <dt><strong>[OMERO CLI Zarr plugin](https://github.com/ome/omero-cli-zarr)</strong></dt>
-  <dd>An OMERO CLI plugin that converts images stored in OMERO.server into a local Zarr file.</dd>
-
-  <dt><strong>[ome-zarr-py](https://github.com/ome/ome-zarr-py)</strong></dt>
-  <dd>A napari plugin for reading ome-zarr files.</dd>
-
-  <dt><strong>[vizarr](https://github.com/hms-dbmi/vizarr/)</strong></dt>
-  <dd>A minimal, purely client-side program for viewing Zarr-based images with Viv & ImJoy.</dd>
-
-  <dt><strong>[ITKIOOMEZarrNGFF](https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF/)</strong></dt>
-  <dd>ITK IO for images stored in OME-NGFF format.</dd>
-
-</dl>
-
-<img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png" alt="Diagram of related projects"></img>
-
-All implementations prevent an equivalent representation of a dataset which can be downloaded or uploaded freely. An interactive
-version of this diagram is available from the [OME2020 Workshop](https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/).
-Mouseover the blackboxes representing the implementations above to get a quick tip on how to use them.
-
-Note: If you would like to see your project listed, please open an issue or PR on the [ome/ngff](https://github.com/ome/ngff) repository.
+See [Tools](https://ngff.openmicroscopy.org/tools/index.html).
 
 Citing {#citing}
 ================
