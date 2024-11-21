@@ -81,7 +81,7 @@ def bikeshed():
 
         if run_bikeshed:
             subprocess.check_call(
-                f"bikeshed -f spec {index_file} {output_file}", shell=True
+                f"bikeshed spec {index_file} {output_file}", shell=True
             )
 
         if os.path.exists(target_dir):
