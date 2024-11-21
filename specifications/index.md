@@ -3,8 +3,6 @@ Specifications
 
 The current released version of the OME-Zarr specification is <a href="../0.5/index.html">0.5</a>.
 
-The <a href="../latest/index.html">latest</a> version is still undergoing changes and is not yet released.
-
 Version history:
 
 <ul>
