@@ -4,7 +4,6 @@ Shortname: ome-zarr
 Level: 1
 Status: LS-COMMIT
 Status: w3c/ED
-Group: ome
 URL: https://ngff.openmicroscopy.org/latest/
 Repository: https://github.com/ome/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
