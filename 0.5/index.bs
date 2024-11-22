@@ -65,7 +65,7 @@ like S3 or GCS.
 Images {#image-layout}
 ----------------------
 
-The following layout describes the expected Zarr hierarchy for images with
+The following layout shows an example valid Zarr hierarchy for images with
 multiple levels of resolutions and optionally associated labels.
 Note that the number of dimensions is variable between 2 and 5 and that axis names are arbitrary, see [[#multiscale-md]] for details.
 
