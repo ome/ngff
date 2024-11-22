@@ -11,8 +11,16 @@
                 "superior-to-inferior",
                 "dorsal-to-ventral",
                 "ventral-to-dorsal",
+                "dorsal-to-palmar",
+                "palmar-to-dorsal",
+                "dorsal-to-plantar",
+                "plantar-to-dorsal",
                 "rostral-to-caudal",
-                "caudal-to-rostral"
+                "caudal-to-rostral",
+                "cranial-to-caudal",
+                "caudal-to-cranial",
+                "proximal-to-distal",
+                "distal-to-proximal"
             ],
             "title": "Orientation",
             "type": "string"
@@ -22,7 +30,7 @@
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "additionalProperties": true,
     "metamodel_version": "1.7.0",
-    "title": "orientation",
+    "title": "anatomicalOrientation",
     "type": "object",
-    "version": "0.1.0"
+    "version": "0.2.0"
 }
