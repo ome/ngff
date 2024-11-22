@@ -652,6 +652,15 @@ Version History {#history}
   </tr>
 </table>
 
+Changelog {#changelog}
+======================
+
+Version 0.6
+-----------
+
+- Clarified that the example file layout given in section 2.1 is
+  an example of a valid layout, and not *the* expected layout.
+
 
 <pre class="biblio">
 {
