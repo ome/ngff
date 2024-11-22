@@ -2,7 +2,7 @@
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Next-generation file formats (NGFF)</title>
+  <title>OME-Zarr specification</title>
 <style data-fill-with="stylesheet">/******************************************************************************
  *                   Style sheet for the W3C specifications                   *
  *
@@ -1488,10 +1488,11 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
-  <link href="https://ngff.openmicroscopy.org/latest/" rel="canonical">
+  <meta content="Bikeshed version 742f3d674, updated Mon Nov 4 14:56:54 2024 -0800" name="generator">
+  <link href="https://ngff.openmicroscopy.org/0.5/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="ea93d4e6d366385293f14590701fe1aa6333864b" name="document-revision">
+  <meta content="3fc518be1c1bdc5661ba15f1077a7c928dd2b660" name="revision">
+  <meta content="dark light" name="color-scheme">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -1563,7 +1564,6 @@ pre .property::before, pre .property::after {
 }
 </style>
 <style>/* Boilerplate: style-colors */
-
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
 :root {
     color-scheme: light dark;
@@ -1817,11 +1817,15 @@ figcaption:not(.no-marker)::before {
 :root {
     --dfnpanel-bg: #ddd;
     --dfnpanel-text: var(--text);
+    --dfnpanel-target-bg: #ffc;
+    --dfnpanel-target-outline: orange;
 }
 @media (prefers-color-scheme: dark) {
     :root {
         --dfnpanel-bg: #222;
         --dfnpanel-text: var(--text);
+        --dfnpanel-target-bg: #333;
+        --dfnpanel-target-outline: silver;
     }
 }
 .dfn-panel {
@@ -1844,11 +1848,13 @@ figcaption:not(.no-marker)::before {
 .dfn-panel > b { display: block; }
 .dfn-panel a { color: var(--dfnpanel-text); }
 .dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel a:focus {
+    outline: 5px auto Highlight;
+    outline: 5px auto -webkit-focus-ring-color;
+}
 .dfn-panel > b + b { margin-top: 0.25em; }
 .dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
 .dfn-panel li a {
-    white-space: pre;
-    display: inline-block;
     max-width: calc(300px - 1.5em - 1em);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1857,14 +1863,79 @@ figcaption:not(.no-marker)::before {
 .dfn-panel.activated {
     display: inline-block;
     position: fixed;
-    left: .5em;
+    left: 8px;
     bottom: 2em;
     margin: 0 auto;
     max-width: calc(100vw - 1.5em - .4em - .5em);
     max-height: 30vh;
+    transition: left 1s ease-out, bottom 1s ease-out;
 }
 
-.dfn-paneled[role="button"] { cursor: pointer; }
+.dfn-panel .link-item:hover {
+    text-decoration: underline;
+}
+.dfn-panel .link-item .copy-icon {
+    opacity: 0;
+}
+.dfn-panel .link-item:hover .copy-icon,
+.dfn-panel .link-item .copy-icon:focus {
+    opacity: 1;
+}
+
+.dfn-panel .copy-icon {
+    display: inline-block;
+    margin-right: 0.5em;
+    width: 0.85em;
+    height: 1em;
+    border-radius: 3px;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.dfn-panel .copy-icon .icon {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.dfn-panel .copy-icon .icon::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    background-color: #ccc;
+    opacity: 0.25;
+    transform: translate(3px, -3px);
+}
+
+.dfn-panel .copy-icon:active .icon::before {
+    opacity: 1;
+}
+
+.dfn-paneled[role="button"] { cursor: help; }
+
+.highlighted {
+    animation: target-fade 3s;
+}
+
+@keyframes target-fade {
+    from {
+        background-color: var(--dfnpanel-target-bg);
+        outline: 5px solid var(--dfnpanel-target-outline);
+    }
+    to {
+        color: var(--a-normal-text);
+        background-color: transparent;
+        outline: transparent;
+    }
+}
 </style>
 <style>/* Boilerplate: style-issues */
 a[href].issue-return {
@@ -1885,8 +1956,40 @@ a[href].issue-return {
     margin-bottom: 0;
 }
 </style>
-<style>/* Boilerplate: style-selflinks */
+<style>/* Boilerplate: style-ref-hints */
+:root {
+    --ref-hint-bg: #ddd;
+    --ref-hint-text: var(--text);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ref-hint-bg: #222;
+        --ref-hint-text: var(--text);
+    }
+}
 
+.ref-hint {
+    display: inline-block;
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.5em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--ref-hint-bg);
+    color: var(--ref-hint-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+
+.ref-hint * { margin: 0; padding: 0; text-indent: 0; }
+
+.ref-hint ul { padding: 0 0 0 1em; list-style: none; }
+</style>
+<style>/* Boilerplate: style-selflinks */
 :root {
     --selflink-text: white;
     --selflink-bg: gray;
@@ -1946,7 +2049,6 @@ a.self-link::before            { content: "¶"; }
 dfn > a.self-link::before      { content: "#"; }
 </style>
 <style>/* Boilerplate: style-syntax-highlighting */
-
 code.highlight { padding: .1em; border-radius: .3em; }
 pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
 
@@ -2003,7 +2105,6 @@ c-[vc] { color: #0077aa } /* Name.Variable.Class */
 c-[vg] { color: #0077aa } /* Name.Variable.Global */
 c-[vi] { color: #0077aa } /* Name.Variable.Instance */
 c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
-
 
 @media (prefers-color-scheme: dark) {
     .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
@@ -2071,17 +2172,21 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
  <body class="h-entry">
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="https://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
-   <h1 class="p-name no-ref" id="title">Next-generation file formats (NGFF)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2024-10-25">25 October 2024</time></span></h2>
+   <h1 class="p-name no-ref" id="title">OME-Zarr specification</h1>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Final Community Group Report, <time class="dt-updated" datetime="2024-11-22">22 November 2024</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
-     <dd><a class="u-url" href="https://ngff.openmicroscopy.org/latest/">https://ngff.openmicroscopy.org/latest/</a>
-     <dt>Issue Tracking:
+     <dd><a class="u-url" href="https://ngff.openmicroscopy.org/0.5/">https://ngff.openmicroscopy.org/0.5/</a>
+     <dt>Latest published version:
+     <dd><a href="https://ngff.openmicroscopy.org/0.5/">https://ngff.openmicroscopy.org/0.5/</a>
+     <dt>Editor's Draft:
+     <dd><a href="https://ngff.openmicroscopy.org/0.5/">https://ngff.openmicroscopy.org/0.5/</a>
+     <dt>Feedback:
      <dd><a href="https://forum.image.sc/tag/ome-ngff">Forums</a>
      <dd><a href="https://github.com/ome/ngff/issues/">GitHub</a>
      <dt class="editor">Editor:
-     <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://orcid.org/0000-0003-4028-811X">Josh Moore</a> (<a class="p-org org" href="https://www.dundee.ac.uk">University of Dundee (UoD)</a>)
+     <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://gerbi-gmb.de/">Josh Moore</a> (<span class="p-org org">German BioImaging e.V.</span>) <a class="u-email email" href="mailto:https://orcid.org/0000-0003-4028-811X">https://orcid.org/0000-0003-4028-811X</a>
     </dl>
    </div>
    <div data-fill-with="warning"></div>
@@ -2092,14 +2197,13 @@ OME trademark rules apply. </p>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
    <p>This document contains next-generation file format (NGFF)
-
 specifications for storing bioimaging data in the cloud.
 All specifications are submitted to the https://image.sc community for review.</p>
   </div>
   <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
    <p></p>
-   <p>The current released version of this specification is <a href="../0.4/index.html">0.4</a>. Migration scripts
+   <p>The current released version of this specification is 0.5. Migration scripts
 will be provided between numbered versions. Data written with these latest changes
 (an "editor’s draft") will not necessarily be supported.</p>
   </div>
@@ -2108,13 +2212,13 @@ will be provided between numbered versions. Data written with these latest chang
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
     <li>
-     <a href="#on-disk"><span class="secno">1</span> <span class="content">On-disk (or in-cloud) layout</span></a>
+     <a href="#storage-format"><span class="secno">1</span> <span class="content">Storage format</span></a>
      <ol class="toc">
       <li><a href="#image-layout"><span class="secno">1.1</span> <span class="content">Images</span></a>
       <li><a href="#hcs-layout"><span class="secno">1.2</span> <span class="content">High-content screening</span></a>
      </ol>
     <li>
-     <a href="#metadata"><span class="secno">2</span> <span class="content">Metadata</span></a>
+     <a href="#metadata"><span class="secno">2</span> <span class="content">OME-Zarr Metadata</span></a>
      <ol class="toc">
       <li><a href="#axes-md"><span class="secno">2.1</span> <span class="content">"axes" metadata</span></a>
       <li><a href="#bf2raw"><span class="secno">2.2</span> <span class="content">"bioformats2raw.layout" (transitional)</span></a>
@@ -2133,7 +2237,6 @@ will be provided between numbered versions. Data written with these latest chang
      <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
      <ol class="toc">
       <li><a href="#w3c-conventions"><span class="secno"></span> <span class="content">Document conventions</span></a>
-      <li><a href="#w3c-conformant-algorithms"><span class="secno"></span> <span class="content">Conformant Algorithms</span></a>
      </ol>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -2144,20 +2247,14 @@ will be provided between numbered versions. Data written with these latest chang
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
      <ol class="toc">
       <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
-      <li><a href="#informative"><span class="secno"></span> <span class="content">Informative References</span></a>
      </ol>
    </ol>
   </nav>
   <main>
-   <h3 class="heading settled" id="ome-ngff"><span class="content">OME-NGFF</span></h3>
+   <h3 class="heading settled" id="ome-zarr"><span class="content">OME-Zarr specification</span></h3>
    <p>The conventions and specifications defined in this document are designed to
 enable next-generation file formats to represent the same bioimaging data
-that can be represented in <a href="http://www.openmicroscopy.org/ome-files/">OME-TIFF</a> and beyond. However, the conventions will also be usable by HDF5 and other sufficiently advanced
-binary containers. Eventually, we hope, the moniker "next-generation" will no longer be
-applicable, and this will simply be the most efficient, common, and useful representation
-of bioimaging data, whether during acquisition or sharing in the cloud.</p>
-   <p class="note" role="note"><span class="marker">Note:</span> The following text makes use of OME-Zarr <a data-link-type="biblio" href="#biblio-ome-zarr-py" title="ome-zarr-py: Experimental implementation of next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.">[ome-zarr-py]</a>, the current prototype implementation,
-for all examples.</p>
+that can be represented in <a href="http://www.openmicroscopy.org/ome-files/">OME-TIFF</a> and beyond.</p>
    <h3 class="heading settled" id="document-conventions"><span class="content">Document conventions</span></h3>
    <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”,
 “RECOMMENDED”, “MAY”, and “OPTIONAL” are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
@@ -2168,66 +2265,57 @@ be optional (MAY). Examples of transitional metadata include custom additions by
 implementations that are later submitted as a formal specification. (See <a href="#bf2raw">§ 2.2 "bioformats2raw.layout" (transitional)</a>) </p>
    <p>Some of the JSON examples in this document include comments. However, these are only for
 clarity purposes and comments MUST NOT be included in JSON objects.</p>
-   <h2 class="heading settled" data-level="1" id="on-disk"><span class="secno">1. </span><span class="content">On-disk (or in-cloud) layout</span><a class="self-link" href="#on-disk"></a></h2>
+   <h2 class="heading settled" data-level="1" id="storage-format"><span class="secno">1. </span><span class="content">Storage format</span><a class="self-link" href="#storage-format"></a></h2>
+   <p>OME-Zarr is implemented using the Zarr format as defined by the <a href="https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html">version 3 of the Zarr specification</a>.
+All features of the Zarr format including codecs, chunk grids, chunk 
+key encodings, data types and storage transformers may be used with 
+OME-Zarr unless explicitly disallowed in this specification.</p>
    <p>An overview of the layout of an OME-Zarr fileset should make
 understanding the following metadata sections easier. The hierarchy
 is represented here as it would appear locally but could equally
 be stored on a web server to be accessed via HTTP or in object storage
 like S3 or GCS.</p>
-   <p>OME-Zarr is an implementation of the OME-NGFF specification using the Zarr
-format. Arrays MUST be defined and stored in a hierarchical organization as
-defined by the <a href="https://zarr.readthedocs.io/en/stable/spec/v2.html">version 2 of the Zarr specification </a>.
-OME-NGFF metadata MUST be stored as attributes in the corresponding Zarr
-groups.</p>
    <h3 class="heading settled" data-level="1.1" id="image-layout"><span class="secno">1.1. </span><span class="content">Images</span><a class="self-link" href="#image-layout"></a></h3>
    <p>The following layout describes the expected Zarr hierarchy for images with
 multiple levels of resolutions and optionally associated labels.
-Note that the number of dimensions is variable between 2 and 5 and that axis names are arbitrary, see <a href="#multiscale-md">§ 2.4 "multiscales" metadata</a> for details.
-For this example we assume an image with 5 dimensions and axes called <code>t,c,z,y,x</code>.</p>
-<pre>.                             # Root folder, potentially in S3,
-│                             # with a flat list of images by image ID.
+Note that the number of dimensions is variable between 2 and 5 and that axis names are arbitrary, see <a href="#multiscale-md">§ 2.4 "multiscales" metadata</a> for details.</p>
+<pre>├── 123.zarr                  # One OME-Zarr image (id=123).
+│   ...
 │
-├── 123.zarr                  # One image (id=123) converted to Zarr.
-│
-└── 456.zarr                  # Another image (id=456) converted to Zarr.
+└── 456.zarr                  # Another OME-Zarr image (id=456).
     │
-    ├── .zgroup               # Each image is a Zarr group, or a folder, of other groups and arrays.
-    ├── .zattrs               # Group level attributes are stored in the .zattrs file and include
-    │                         # "multiscales" and "omero" (see below). In addition, the group level attributes
-    │                         # may also contain "_ARRAY_DIMENSIONS" for compatibility with xarray if this group directly contains multi-scale arrays.
+    ├── zarr.json             # Each image is a Zarr group of other groups and arrays.
+    │                         # Group level attributes are stored in the <code>zarr.json</code> file and include
+    │                         # "multiscales" and "omero" (see below).
     │
     ├── 0                     # Each multiscale level is stored as a separate Zarr array,
     │   ...                   # which is a folder containing chunk files which compose the array.
     ├── n                     # The name of the array is arbitrary with the ordering defined by
     │   │                     # by the "multiscales" metadata, but is often a sequence starting at 0.
     │   │
-    │   ├── .zarray           # All image arrays must be up to 5-dimensional
+    │   ├── zarr.json         # All image arrays must be up to 5-dimensional
     │   │                     # with the axis of type time before type channel, before spatial axes.
     │   │
-    │   └─ t                  # Chunks are stored with the nested directory layout.
-    │      └─ c               # All but the last chunk element are stored as directories.
-    │         └─ z            # The terminal chunk is a file. Together the directory and file names
-    │            └─ y         # provide the "chunk coordinate" (t, c, z, y, x), where the maximum coordinate
-    │               └─ x      # will be <code>dimension_size / chunk_size</code>.
+    │   └─ ...                # Chunks are stored conforming to the Zarr array specification and 
+    │                         # metadata as specified in the array’s <code>zarr.json</code>.
     │
     └── labels
         │
-        ├── .zgroup           # The labels group is a container which holds a list of labels to make the objects easily discoverable
-        │
-        ├── .zattrs           # All labels will be listed in <code>.zattrs</code> e.g. <code>{ "labels": [ "original/0" ] }</code>
-        │                     # Each dimension of the label <code>(t, c, z, y, x)</code> should be either the same as the
+        ├── zarr.json         # The labels group is a container which holds a list of labels to make the objects easily discoverable
+        │                     # All labels will be listed in <code>zarr.json</code> e.g. <code>{ "labels": [ "original/0" ] }</code>
+        │                     # Each dimension of the label should be either the same as the
         │                     # corresponding dimension of the image, or <code>1</code> if that dimension of the label
         │                     # is irrelevant.
         │
         └── original          # Intermediate folders are permitted but not necessary and currently contain no extra metadata.
             │
             └── 0             # Multiscale, labeled image. The name is unimportant but is registered in the "labels" group above.
-                ├── .zgroup   # Zarr Group which is both a multiscaled image as well as a labeled image.
-                ├── .zattrs   # Metadata of the related image and as well as display information under the "image-label" key.
+                ├── zarr.json # Zarr Group which is both a multiscaled image as well as a labeled image.
+                │             # Metadata of the related image and as well as display information under the "image-label" key.
                 │
                 ├── 0         # Each multiscale level is stored as a separate Zarr array, as above, but only integer values
-                │   ...       # are supported.
-                └── n
+                └── ...       # are supported.
+                
 </pre>
    <h3 class="heading settled" data-level="1.2" id="hcs-layout"><span class="secno">1.2. </span><span class="content">High-content screening</span><a class="self-link" href="#hcs-layout"></a></h3>
    <p>The following specification defines the hierarchy for a high-content screening
@@ -2244,43 +2332,50 @@ collection of wells organized in rows and columns. It MUST implement the <a href
    </ul>
    <p>A well row group SHOULD NOT be present if there are no images in the well row.
 A well group SHOULD NOT be present if there are no images in the well.</p>
-<pre>.                             # Root folder, potentially in S3,
+<pre>.
 │
-└── 5966.zarr                 # One plate (id=5966) converted to Zarr
-    ├── .zgroup
-    ├── .zattrs               # Implements "plate" specification
+└── 5966.zarr                 # One OME-Zarr plate (id=5966)
+    ├── zarr.json             # Implements "plate" specification
     ├── A                     # First row of the plate
-    │   ├── .zgroup
+    │   ├── zarr.json
     │   │
     │   ├── 1                 # First column of row A
-    │   │   ├── .zgroup
-    │   │   ├── .zattrs       # Implements "well" specification
+    │   │   ├── zarr.json     # Implements "well" specification
     │   │   │
     │   │   ├── 0             # First field of view of well A1
     │   │   │   │
-    │   │   │   ├── .zgroup
-    │   │   │   ├── .zattrs   # Implements "multiscales", "omero"
-    │   │   │   ├── 0
-    │   │   │   │   ...       # Resolution levels
-    │   │   │   ├── n
+    │   │   │   ├── zarr.json # Implements "multiscales", "omero"
+    │   │   │   ├── 0         # Resolution levels          
+    │   │   │   ├── ...
     │   │   │   └── labels    # Labels (optional)
-    │   │   ├── ...           # Fields of view
-    │   │   └── m
-    │   ├── ...               # Columns
-    │   └── 12
-    ├── ...                   # Rows
-    └── H
+    │   │   └── ...           # Other fields of view
+    │   └── ...               # Other columns
+    └── ...                   # Other rows
 </pre>
-   <h2 class="heading settled" data-level="2" id="metadata"><span class="secno">2. </span><span class="content">Metadata</span><a class="self-link" href="#metadata"></a></h2>
-   <p>The various <code>.zattrs</code> files throughout the above array hierarchy may contain metadata
-keys as specified below for discovering certain types of data, especially images.</p>
+   <h2 class="heading settled" data-level="2" id="metadata"><span class="secno">2. </span><span class="content">OME-Zarr Metadata</span><a class="self-link" href="#metadata"></a></h2>
+   <p>The "OME-Zarr Metadata" contains metadata keys as specified below
+for discovering certain types of data, especially images.</p>
+   <p>The OME-Zarr Metadata is stored in the various <code>zarr.json</code> files throughout the above array
+hierarchy. In this file, the metadata is stored under the namespaced key <code>ome</code> in <code>attributes</code>.
+The version of the OME-Zarr Metadata is denoted as a string in the <code>version</code> attribute within the <code>ome</code> namespace.</p>
+   <p>The OME-Zarr Metadata version MUST be consistent within a hierarchy.</p>
+<pre class="language-json highlight"><c- p>{</c->
+  ...
+  <c- f>"attributes"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"ome"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5"</c-><c- p>,</c->
+      ...
+    <c- p>}</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
    <h3 class="heading settled" data-level="2.1" id="axes-md"><span class="secno">2.1. </span><span class="content">"axes" metadata</span><a class="self-link" href="#axes-md"></a></h3>
    <p>"axes" describes the dimensions of a physical coordinate space. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:</p>
    <ul>
     <li data-md>
      <p>MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.</p>
     <li data-md>
-     <p>SHOULD contain the field "type". It SHOULD be one of "space", "time" or "channel", but MAY take other values for custom axis types that are not part of this specification yet.</p>
+     <p>SHOULD contain the field "type". It SHOULD be one of "space", "time" or "channel", but MAY take other string values for custom axis types that are not part of this specification yet.</p>
     <li data-md>
      <p>SHOULD contain the field "unit" to specify the physical unit of this dimension. The value SHOULD be one of the following strings, which are valid units according to UDUNITS-2.</p>
      <ul>
@@ -2290,68 +2385,96 @@ keys as specified below for discovering certain types of data, especially images
        <p>Units for "time" axes: <a class="property css" data-link-type="property">attosecond</a>, <a class="property css" data-link-type="property">centisecond</a>, <a class="property css" data-link-type="property">day</a>, <a class="property css" data-link-type="property">decisecond</a>, <a class="property css" data-link-type="property">exasecond</a>, <a class="property css" data-link-type="property">femtosecond</a>, <a class="property css" data-link-type="property">gigasecond</a>, <a class="property css" data-link-type="property">hectosecond</a>, <a class="property css" data-link-type="property">hour</a>, <a class="property css" data-link-type="property">kilosecond</a>, <a class="property css" data-link-type="property">megasecond</a>, <a class="property css" data-link-type="property">microsecond</a>, <a class="property css" data-link-type="property">millisecond</a>, <a class="property css" data-link-type="property">minute</a>, <a class="property css" data-link-type="property">nanosecond</a>, <a class="property css" data-link-type="property">petasecond</a>, <a class="property css" data-link-type="property">picosecond</a>, <a class="property css" data-link-type="property">second</a>, <a class="property css" data-link-type="property">terasecond</a>, <a class="property css" data-link-type="property">yoctosecond</a>, <a class="property css" data-link-type="property">yottasecond</a>, <a class="property css" data-link-type="property">zeptosecond</a>, <a class="property css" data-link-type="property">zettasecond</a></p>
      </ul>
    </ul>
-   <p>If part of <a href="#multiscale-md">§ 2.4 "multiscales" metadata</a>, the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.</p>
+   <p>The "axes" are used as part of <a href="#multiscale-md">§ 2.4 "multiscales" metadata</a>. The length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.</p>
+   <p>The "dimension_names" attribute in the <code>zarr.json</code> of the Zarr array of a multiscale level MUST match the names in the "axes" metadata.</p>
    <h3 class="heading settled" data-level="2.2" id="bf2raw"><span class="secno">2.2. </span><span class="content">"bioformats2raw.layout" (transitional)</span><a class="self-link" href="#bf2raw"></a></h3>
    <p><a data-link-type="dfn" href="#transitional" id="ref-for-transitional">Transitional</a> "bioformats2raw.layout" metadata identifies a group which implicitly describes a series of images.
 The need for the collection stems from the common "multi-image file" scenario in microscopy. Parsers like Bio-Formats
 define a strict, stable ordering of the images in a single container that can be used to refer to them by other tools.</p>
-   <p>In order to capture that information within an OME-NGFF dataset, <code>bioformats2raw</code> internally introduced a wrapping layer.
+   <p>In order to capture that information within an OME-Zarr dataset, <code>bioformats2raw</code> internally introduced a wrapping layer.
 The bioformats2raw layout has been added to v0.4 as a transitional specification to specify filesets that already exist
 in the wild. An upcoming NGFF specification will replace this layout with explicit metadata.</p>
    <h4 class="no-toc heading settled" data-level="2.2.1" id="bf2raw-layout"><span class="secno">2.2.1. </span><span class="content">Layout</span><a class="self-link" href="#bf2raw-layout"></a></h4>
    <p>Typical Zarr layout produced by running <code>bioformats2raw</code> on a fileset that contains more than one image (series > 1):</p>
 <pre>series.ome.zarr               # One converted fileset from bioformats2raw
-    ├── .zgroup
-    ├── .zattrs               # Contains "bioformats2raw.layout" metadata
+    ├── zarr.json             # Contains "bioformats2raw.layout" metadata
     ├── OME                   # Special group for containing OME metadata
-    │   ├── .zgroup
-    │   ├── .zattrs           # Contains "series" metadata
+    │   ├── zarr.json         # Contains "series" metadata
     │   └── METADATA.ome.xml  # OME-XML file stored within the Zarr fileset
     ├── 0                     # First image in the collection
     ├── 1                     # Second image in the collection
     └── ...
 </pre>
    <h4 class="no-toc heading settled" data-level="2.2.2" id="bf2raw-attributes"><span class="secno">2.2.2. </span><span class="content">Attributes</span><a class="self-link" href="#bf2raw-attributes"></a></h4>
-   <p>The top-level <code>.zattrs</code> file must contain the <code>bioformats2raw.layout</code> key:</p>
+   <p>The OME-Zarr Metadata in the top-level <code>zarr.json</code> file must contain the <code>bioformats2raw.layout</code> key:</p>
 <pre class="include-code highlight"><c- p>{</c->
-  <c- f>"bioformats2raw.layout"</c-> <c- p>:</c-> <c- mi>3</c->
-<c- p>}</c-></pre>
+  <c- f>"zarr_format"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+  <c- f>"node_type"</c-><c- p>:</c-> <c- u>"group"</c-><c- p>,</c->
+  <c- f>"attributes"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"ome"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5"</c-><c- p>,</c->
+      <c- f>"bioformats2raw.layout"</c-><c- p>:</c-> <c- mi>3</c->
+    <c- p>}</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
    <p>If the top-level group represents a plate, the <code>bioformats2raw.layout</code> metadata will be present but
 the "plate" key MUST also be present, takes precedence and parsing of such datasets should follow <a href="#plate-md">§ 2.7 "plate" metadata</a>. It is not
 possible to mix collections of images with plates at present.</p>
 <pre class="include-code highlight"><c- p>{</c->
-  <c- f>"bioformats2raw.layout"</c-> <c- p>:</c-> <c- mi>3</c-><c- p>,</c->
-  <c- f>"plate"</c-> <c- p>:</c-> <c- p>{</c->
-    <c- f>"columns"</c-> <c- p>:</c-> <c- p>[</c-> <c- p>{</c->
-      <c- f>"name"</c-> <c- p>:</c-> <c- u>"1"</c->
-    <c- p>}</c-> <c- p>],</c->
-    <c- f>"name"</c-> <c- p>:</c-> <c- u>"Plate Name 0"</c-><c- p>,</c->
-    <c- f>"wells"</c-> <c- p>:</c-> <c- p>[</c-> <c- p>{</c->
-      <c- f>"path"</c-> <c- p>:</c-> <c- u>"A/1"</c-><c- p>,</c->
-      <c- f>"rowIndex"</c-> <c- p>:</c-> <c- mi>0</c-><c- p>,</c->
-      <c- f>"columnIndex"</c-> <c- p>:</c-> <c- mi>0</c->
-    <c- p>}</c-> <c- p>],</c->
-    <c- f>"field_count"</c-> <c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-    <c- f>"rows"</c-> <c- p>:</c-> <c- p>[</c-> <c- p>{</c->
-      <c- f>"name"</c-> <c- p>:</c-> <c- u>"A"</c->
-    <c- p>}</c-> <c- p>],</c->
-    <c- f>"acquisitions"</c-> <c- p>:</c-> <c- p>[</c-> <c- p>{</c->
-      <c- f>"id"</c-> <c- p>:</c-> <c- mi>0</c->
-    <c- p>}</c-> <c- p>],</c->
-    <c- f>"version"</c-> <c- p>:</c-> <c- u>"0.4"</c->
+  <c- f>"zarr_format"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+  <c- f>"node_type"</c-><c- p>:</c-> <c- u>"group"</c-><c- p>,</c->
+  <c- f>"attributes"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"ome"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5"</c-><c- p>,</c->
+      <c- f>"bioformats2raw.layout"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+      <c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
+        <c- f>"columns"</c-><c- p>:</c-> <c- p>[</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"1"</c->
+          <c- p>}</c->
+        <c- p>],</c->
+        <c- f>"name"</c-><c- p>:</c-> <c- u>"Plate Name 0"</c-><c- p>,</c->
+        <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
+          <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"A/1"</c-><c- p>,</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>0</c->
+          <c- p>}</c->
+        <c- p>],</c->
+        <c- f>"field_count"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+        <c- f>"rows"</c-><c- p>:</c-> <c- p>[</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"A"</c->
+          <c- p>}</c->
+        <c- p>],</c->
+        <c- f>"acquisitions"</c-><c- p>:</c-> <c- p>[</c->
+          <c- p>{</c->
+            <c- f>"id"</c-><c- p>:</c-> <c- mi>0</c->
+          <c- p>}</c->
+        <c- p>]</c->
+      <c- p>}</c->
+    <c- p>}</c->
   <c- p>}</c->
 <c- p>}</c->
 </pre>
-   <p>The <code>.zattrs</code> file within the OME group may contain the "series" key:</p>
+   <p>The OME-Zarr Metadata in the <code>zarr.json</code> file within the OME group may contain the "series" key:</p>
 <pre class="include-code highlight"><c- p>{</c->
-  <c- f>"series"</c-> <c- p>:</c-> <c- p>[</c-> <c- u>"0"</c-><c- p>,</c-> <c- u>"1"</c-> <c- p>]</c->
+  <c- f>"zarr_format"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+  <c- f>"node_type"</c-><c- p>:</c-> <c- u>"group"</c-><c- p>,</c->
+  <c- f>"attributes"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"ome"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5"</c-><c- p>,</c->
+      <c- f>"series"</c-><c- p>:</c-> <c- p>[</c-><c- u>"0"</c-><c- p>,</c-> <c- u>"1"</c-><c- p>]</c->
+    <c- p>}</c->
+  <c- p>}</c->
 <c- p>}</c->
 </pre>
    <h4 class="no-toc heading settled" data-level="2.2.3" id="bf2raw-details"><span class="secno">2.2.3. </span><span class="content">Details</span><a class="self-link" href="#bf2raw-details"></a></h4>
    <p>Conforming groups:</p>
    <ul>
     <li data-md>
-     <p>MUST have the value "3" for the "bioformats2raw.layout" key in their <code>.zattrs</code> metadata at the top of the hierarchy;</p>
+     <p>MUST have the value "3" for the "bioformats2raw.layout" key in their OME-Zarr Metadata in the <code>zarr.json</code> at the top of the hierarchy;</p>
     <li data-md>
      <p>SHOULD have OME metadata representing the entire collection of images in a file named "OME/METADATA.ome.xml" which:</p>
      <ul>
@@ -2399,7 +2522,7 @@ possible to mix collections of images with plates at present.</p>
     <li data-md>
      <p>MAY use the "series" attribute in the "OME" group to determine a list of valid groups to display;</p>
     <li data-md>
-     <p>MAY choose to show all images within the collection or offer the user a choice of images, as with <dfn data-dfn-type="dfn" data-export id="hcs"><abbr title="High-content screening">HCS</abbr><a class="self-link" href="#hcs"></a></dfn> plates;</p>
+     <p>MAY choose to show all images within the collection or offer the user a choice of images, as with <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="hcs"><abbr title="High-content screening">HCS</abbr></dfn> plates;</p>
     <li data-md>
      <p>MAY ignore other groups or arrays under the root of the hierarchy.</p>
    </ul>
@@ -2431,7 +2554,9 @@ Additional fields for the entry depend on "type" and are defined by the column <
    </table>
    <p>The transformations in the list are applied sequentially and in order.</p>
    <h3 class="heading settled" data-level="2.4" id="multiscale-md"><span class="secno">2.4. </span><span class="content">"multiscales" metadata</span><a class="self-link" href="#multiscale-md"></a></h3>
-   <p>Metadata about an image can be found under the "multiscales" key in the group-level metadata. Here, image refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes. It is stored in a multiple resolution representation.</p>
+   <p>Metadata about an image can be found under the "multiscales" key in the group-level OME-Zarr Metadata.
+Here, image refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes. 
+It is stored in a multiple resolution representation.</p>
    <p>"multiscales" contains a list of dictionaries where each entry describes a multiscale image.</p>
    <p>Each "multiscales" dictionary MUST contain the field "axes", see <a href="#axes-md">§ 2.1 "axes" metadata</a>.
 The length of "axes" must be between 2 and 5 and MUST be equal to the dimensionality of the zarr arrays storing the image data (see "datasets:path").
@@ -2451,63 +2576,78 @@ The requirements (only <code>scale</code> and <code>translation</code>, restrict
    <p>Each "multiscales" dictionary MAY contain the field "coordinateTransformations", describing transformations that are applied to all resolution levels in the same manner.
 The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.
 They can for example be used to specify the <code>scale</code> for a dimension that is the same for all resolutions.</p>
-   <p>Each "multiscales" dictionary SHOULD contain the field "name". It MUST contain the field "version", which indicates the version of the multiscale metadata of this image (current version is 0.5-dev).</p>
+   <p>Each "multiscales" dictionary SHOULD contain the field "name".</p>
    <p>Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.</p>
 <pre class="include-code highlight"><c- p>{</c->
-    <c- f>"multiscales"</c-><c- p>:</c-> <c- p>[</c->
+  <c- f>"zarr_format"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+  <c- f>"node_type"</c-><c- p>:</c-> <c- u>"group"</c-><c- p>,</c->
+  <c- f>"attributes"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"ome"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5"</c-><c- p>,</c->
+      <c- f>"multiscales"</c-><c- p>:</c-> <c- p>[</c->
         <c- p>{</c->
-            <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c-><c- p>,</c->
-            <c- f>"name"</c-><c- p>:</c-> <c- u>"example"</c-><c- p>,</c->
-            <c- f>"axes"</c-><c- p>:</c-> <c- p>[</c->
-                <c- p>{</c-><c- f>"name"</c-><c- p>:</c-> <c- u>"t"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"time"</c-><c- p>,</c-> <c- f>"unit"</c-><c- p>:</c-> <c- u>"millisecond"</c-><c- p>},</c->
-                <c- p>{</c-><c- f>"name"</c-><c- p>:</c-> <c- u>"c"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"channel"</c-><c- p>},</c->
-                <c- p>{</c-><c- f>"name"</c-><c- p>:</c-> <c- u>"z"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"space"</c-><c- p>,</c-> <c- f>"unit"</c-><c- p>:</c-> <c- u>"micrometer"</c-><c- p>},</c->
-                <c- p>{</c-><c- f>"name"</c-><c- p>:</c-> <c- u>"y"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"space"</c-><c- p>,</c-> <c- f>"unit"</c-><c- p>:</c-> <c- u>"micrometer"</c-><c- p>},</c->
-                <c- p>{</c-><c- f>"name"</c-><c- p>:</c-> <c- u>"x"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"space"</c-><c- p>,</c-> <c- f>"unit"</c-><c- p>:</c-> <c- u>"micrometer"</c-><c- p>}</c->
-            <c- p>],</c->
-            <c- f>"datasets"</c-><c- p>:</c-> <c- p>[</c->
+          <c- f>"name"</c-><c- p>:</c-> <c- u>"example"</c-><c- p>,</c->
+          <c- f>"axes"</c-><c- p>:</c-> <c- p>[</c->
+            <c- p>{</c-> <c- f>"name"</c-><c- p>:</c-> <c- u>"t"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"time"</c-><c- p>,</c-> <c- f>"unit"</c-><c- p>:</c-> <c- u>"millisecond"</c-> <c- p>},</c->
+            <c- p>{</c-> <c- f>"name"</c-><c- p>:</c-> <c- u>"c"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"channel"</c-> <c- p>},</c->
+            <c- p>{</c-> <c- f>"name"</c-><c- p>:</c-> <c- u>"z"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"space"</c-><c- p>,</c-> <c- f>"unit"</c-><c- p>:</c-> <c- u>"micrometer"</c-> <c- p>},</c->
+            <c- p>{</c-> <c- f>"name"</c-><c- p>:</c-> <c- u>"y"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"space"</c-><c- p>,</c-> <c- f>"unit"</c-><c- p>:</c-> <c- u>"micrometer"</c-> <c- p>},</c->
+            <c- p>{</c-> <c- f>"name"</c-><c- p>:</c-> <c- u>"x"</c-><c- p>,</c-> <c- f>"type"</c-><c- p>:</c-> <c- u>"space"</c-><c- p>,</c-> <c- f>"unit"</c-><c- p>:</c-> <c- u>"micrometer"</c-> <c- p>}</c->
+          <c- p>],</c->
+          <c- f>"datasets"</c-><c- p>:</c-> <c- p>[</c->
+            <c- p>{</c->
+              <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c-><c- p>,</c->
+              <c- f>"coordinateTransformations"</c-><c- p>:</c-> <c- p>[</c->
                 <c- p>{</c->
-                    <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c-><c- p>,</c->
-                    <c- f>"coordinateTransformations"</c-><c- p>:</c-> <c- p>[{</c->
-                        <c- c1>// the voxel size for the first scale level (0.5 micrometer)</c->
-                        <c- f>"type"</c-><c- p>:</c-> <c- u>"scale"</c-><c- p>,</c->
-                        <c- f>"scale"</c-><c- p>:</c-> <c- p>[</c-><c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>0.5</c-><c- p>,</c-> <c- mf>0.5</c-><c- p>,</c-> <c- mf>0.5</c-><c- p>]</c->
-                    <c- p>}]</c->
-                <c- p>},</c->
-                <c- p>{</c->
-                    <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c-><c- p>,</c->
-                    <c- f>"coordinateTransformations"</c-><c- p>:</c-> <c- p>[{</c->
-                        <c- c1>// the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)</c->
-                        <c- f>"type"</c-><c- p>:</c-> <c- u>"scale"</c-><c- p>,</c->
-                        <c- f>"scale"</c-><c- p>:</c-> <c- p>[</c-><c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>]</c->
-                    <c- p>}]</c->
-                <c- p>},</c->
-                <c- p>{</c->
-                    <c- f>"path"</c-><c- p>:</c-> <c- u>"2"</c-><c- p>,</c->
-                    <c- f>"coordinateTransformations"</c-><c- p>:</c-> <c- p>[{</c->
-                        <c- c1>// the voxel size for the third scale level (downscaled by a factor of 4 -> 2 micrometer)</c->
-                        <c- f>"type"</c-><c- p>:</c-> <c- u>"scale"</c-><c- p>,</c->
-                        <c- f>"scale"</c-><c- p>:</c-> <c- p>[</c-><c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>2.0</c-><c- p>,</c-> <c- mf>2.0</c-><c- p>,</c-> <c- mf>2.0</c-><c- p>]</c->
-                    <c- p>}]</c->
+                  <c- c1>// the voxel size for the first scale level (0.5 micrometer)</c->
+                  <c- f>"type"</c-><c- p>:</c-> <c- u>"scale"</c-><c- p>,</c->
+                  <c- f>"scale"</c-><c- p>:</c-> <c- p>[</c-><c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>0.5</c-><c- p>,</c-> <c- mf>0.5</c-><c- p>,</c-> <c- mf>0.5</c-><c- p>]</c->
                 <c- p>}</c->
-            <c- p>],</c->
-            <c- f>"coordinateTransformations"</c-><c- p>:</c-> <c- p>[{</c->
-                <c- c1>// the time unit (0.1 milliseconds), which is the same for each scale level</c->
-                <c- f>"type"</c-><c- p>:</c-> <c- u>"scale"</c-><c- p>,</c->
-                <c- f>"scale"</c-><c- p>:</c-> <c- p>[</c-><c- mf>0.1</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>]</c->
-            <c- p>}],</c->
-            <c- f>"type"</c-><c- p>:</c-> <c- u>"gaussian"</c-><c- p>,</c->
-            <c- f>"metadata"</c-><c- p>:</c-> <c- p>{</c->
-                <c- f>"description"</c-><c- p>:</c-> <c- u>"the fields in metadata depend on the downscaling implementation. Here, the parameters passed to the skimage function are given"</c-><c- p>,</c->
-                <c- f>"method"</c-><c- p>:</c-> <c- u>"skimage.transform.pyramid_gaussian"</c-><c- p>,</c->
-                <c- f>"version"</c-><c- p>:</c-> <c- u>"0.16.1"</c-><c- p>,</c->
-                <c- f>"args"</c-><c- p>:</c-> <c- u>"[true]"</c-><c- p>,</c->
-                <c- f>"kwargs"</c-><c- p>:</c-> <c- p>{</c-><c- f>"multichannel"</c-><c- p>:</c-> <c- kc>true</c-><c- p>}</c->
+              <c- p>]</c->
+            <c- p>},</c->
+            <c- p>{</c->
+              <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c-><c- p>,</c->
+              <c- f>"coordinateTransformations"</c-><c- p>:</c-> <c- p>[</c->
+                <c- p>{</c->
+                  <c- c1>// the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)</c->
+                  <c- f>"type"</c-><c- p>:</c-> <c- u>"scale"</c-><c- p>,</c->
+                  <c- f>"scale"</c-><c- p>:</c-> <c- p>[</c-><c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>]</c->
+                <c- p>}</c->
+              <c- p>]</c->
+            <c- p>},</c->
+            <c- p>{</c->
+              <c- f>"path"</c-><c- p>:</c-> <c- u>"2"</c-><c- p>,</c->
+              <c- f>"coordinateTransformations"</c-><c- p>:</c-> <c- p>[</c->
+                <c- p>{</c->
+                  <c- c1>// the voxel size for the third scale level (downscaled by a factor of 4 -> 2 micrometer)</c->
+                  <c- f>"type"</c-><c- p>:</c-> <c- u>"scale"</c-><c- p>,</c->
+                  <c- f>"scale"</c-><c- p>:</c-> <c- p>[</c-><c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>2.0</c-><c- p>,</c-> <c- mf>2.0</c-><c- p>,</c-> <c- mf>2.0</c-><c- p>]</c->
+                <c- p>}</c->
+              <c- p>]</c->
             <c- p>}</c->
+          <c- p>],</c->
+          <c- f>"coordinateTransformations"</c-><c- p>:</c-> <c- p>[</c->
+            <c- p>{</c->
+              <c- c1>// the time unit (0.1 milliseconds), which is the same for each scale level</c->
+              <c- f>"type"</c-><c- p>:</c-> <c- u>"scale"</c-><c- p>,</c->
+              <c- f>"scale"</c-><c- p>:</c-> <c- p>[</c-><c- mf>0.1</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>,</c-> <c- mf>1.0</c-><c- p>]</c->
+            <c- p>}</c->
+          <c- p>],</c->
+          <c- f>"type"</c-><c- p>:</c-> <c- u>"gaussian"</c-><c- p>,</c->
+          <c- f>"metadata"</c-><c- p>:</c-> <c- p>{</c->
+            <c- f>"description"</c-><c- p>:</c-> <c- u>"the fields in metadata depend on the downscaling implementation. Here, the parameters passed to the skimage function are given"</c-><c- p>,</c->
+            <c- f>"method"</c-><c- p>:</c-> <c- u>"skimage.transform.pyramid_gaussian"</c-><c- p>,</c->
+            <c- f>"version"</c-><c- p>:</c-> <c- u>"0.16.1"</c-><c- p>,</c->
+            <c- f>"args"</c-><c- p>:</c-> <c- u>"[true]"</c-><c- p>,</c->
+            <c- f>"kwargs"</c-><c- p>:</c-> <c- p>{</c-> <c- f>"multichannel"</c-><c- p>:</c-> <c- kc>true</c-> <c- p>}</c->
+          <c- p>}</c->
         <c- p>}</c->
-    <c- p>]</c->
-<c- p>}</c-></pre>
+      <c- p>]</c->
+    <c- p>}</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
    <p>If only one multiscale is provided, use it. Otherwise, the user can choose by
 name, using the first multiscale as a fallback:</p>
 <pre class="language-python highlight"><c- n>datasets</c-> <c- o>=</c-> <c- p>[]</c->
@@ -2524,7 +2664,6 @@ name, using the first multiscale as a fallback:</p>
 can be found under the "omero" key in the group-level metadata:</p>
 <pre class="language-json highlight"><c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->                              # ID i<c- kc>n</c-> OMERO
 <c- f>"name"</c-><c- p>:</c-> <c- u>"example.tif"</c-><c- p>,</c->                # Name as show<c- kc>n</c-> i<c- kc>n</c-> <c- kc>t</c->he UI
-<c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c-><c- p>,</c->                 # Curre<c- kc>nt</c-> versio<c- kc>n</c->
 <c- f>"channels"</c-><c- p>:</c-> <c- p>[</c->                         # Array ma<c- kc>t</c->chi<c- kc>n</c->g <c- kc>t</c->he c dime<c- kc>ns</c->io<c- kc>n</c-> size
     <c- p>{</c->
         <c- f>"active"</c-><c- p>:</c-> <c- kc>true</c-><c- p>,</c->
@@ -2558,21 +2697,28 @@ Such an image is referred to in this specification as a 'label image'.</p>
 The "labels" group is not itself an image; it contains images. The pixels of the label images MUST be integer data types, i.e. one of 
 [<code>uint8</code>, <code>int8</code>, <code>uint16</code>, <code>int16</code>, <code>uint32</code>, <code>int32</code>, <code>uint64</code>, <code>int64</code>]. Intermediate groups between "labels" and the images within it are allowed, 
 but these MUST NOT contain metadata. Names of the images in the "labels" group are arbitrary.</p>
-   <p>The <code>.zattrs</code> file associated with the "labels" group MUST contain a JSON object with the key <code>labels</code>, whose value is a JSON array of paths to the
+   <p>The OME-Zarr Metadata in the <code>zarr.json</code> file associated with the "labels" group MUST contain a JSON object with the key <code>labels</code>, whose value is a JSON array of paths to the
 labeled multiscale image(s). All label images SHOULD be listed within this metadata file. For example:</p>
 <pre class="language-json highlight"><c- p>{</c->
-  <c- f>"labels"</c-><c- p>:</c-> <c- p>[</c->
-    <c- u>"cell_space_segmentation"</c->
-  <c- p>]</c->
+  ...
+  <c- f>"attributes"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"ome"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5"</c-><c- p>,</c->
+      <c- f>"schema_url"</c-><c- p>:</c-> <c- u>"https://ngff.openmicroscopy.org/latest/schemas/ome_zarr.schema"</c-><c- p>,</c->
+      <c- f>"labels"</c-><c- p>:</c-> <c- p>[</c->
+        <c- u>"cell_space_segmentation"</c->
+      <c- p>]</c->
+    <c- p>}</c->
+  <c- p>}</c->
 <c- p>}</c->
 </pre>
-   <p>The <code>.zattrs</code> file for the label image MUST implement the multiscales specification. Within the <code>multiscales</code> object, the JSON array
+   <p>The <code>zarr.json</code> file for the label image MUST implement the multiscales specification. Within the <code>multiscales</code> object, the JSON array
 associated with the <code>datasets</code> key MUST have the same number of entries (scale levels) as the original unlabeled image.</p>
-   <p>In addition to the <code>multiscales</code> key, the JSON object in this image-level <code>.zattrs</code> file SHOULD contain another key, <code>image-label</code>,
+   <p>In addition to the <code>multiscales</code> key, the OME-Zarr Metadata in this image-level <code>zarr.json</code> file SHOULD contain another key, <code>image-label</code>,
 whose value is also a JSON object. The <code>image-label</code> object stores information about the display colors, source image, and optionally, 
 further arbitrary properties of the label image. That <code>image-label</code> object SHOULD contain the following keys: first, a <code>colors</code> key, 
 whose value MUST be a JSON array describing color information for the unique label values. Second, a <code>version</code> key, whose value MUST be a 
-string specifying the version of the OME-NGFF <code>image-label</code> schema.</p>
+string specifying the version of the OME-Zarr <code>image-label</code> schema.</p>
    <p>Conforming readers SHOULD display labels using the colors specified by the <code>colors</code> JSON array, as follows. This array contains one
 JSON object for each unique custom label. Each of these objects MUST contain the <code>label-value</code> key, whose value MUST be the integer 
 corresponding to a particular label. In addition to the <code>label-value</code> key, the objects in this array MAY contain an <code>rgba</code> key whose 
@@ -2589,33 +2735,39 @@ This object MAY include a key <code>image</code>, whose value MUST be a string s
 The default value is <code>../../</code> since most labeled images are stored in a "labels" group that is nested within the original image group.</p>
    <p>Here is an example of a simple <code>image-label</code> object for a label image in which 0s and 1s represent intercellular and cellular space, respectively:</p>
 <pre class="include-code highlight"><c- p>{</c->
-  <c- f>"image-label"</c-><c- p>:</c-> <c- p>{</c->
-    <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c-><c- p>,</c->
-    <c- f>"colors"</c-><c- p>:</c-> <c- p>[</c->
-      <c- p>{</c->
-        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
-        <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>0</c-><c- p>,</c-> <c- mi>0</c-><c- p>,</c-> <c- mi>128</c-><c- p>,</c-> <c- mi>128</c-><c- p>]</c->
-      <c- p>},</c->
-      <c- p>{</c->
-        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-        <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>0</c-><c- p>,</c-> <c- mi>128</c-><c- p>,</c-> <c- mi>0</c-><c- p>,</c-> <c- mi>128</c-><c- p>]</c->
+  <c- f>"zarr_format"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+  <c- f>"node_type"</c-><c- p>:</c-> <c- u>"group"</c-><c- p>,</c->
+  <c- f>"attributes"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"ome"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5"</c-><c- p>,</c->
+      <c- f>"image-label"</c-><c- p>:</c-> <c- p>{</c->
+        <c- f>"colors"</c-><c- p>:</c-> <c- p>[</c->
+          <c- p>{</c->
+            <c- f>"label-value"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>0</c-><c- p>,</c-> <c- mi>0</c-><c- p>,</c-> <c- mi>128</c-><c- p>,</c-> <c- mi>128</c-><c- p>]</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"rgba"</c-><c- p>:</c-> <c- p>[</c-><c- mi>0</c-><c- p>,</c-> <c- mi>128</c-><c- p>,</c-> <c- mi>0</c-><c- p>,</c-> <c- mi>128</c-><c- p>]</c->
+          <c- p>}</c->
+        <c- p>],</c->
+        <c- f>"properties"</c-><c- p>:</c-> <c- p>[</c->
+          <c- p>{</c->
+            <c- f>"label-value"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"area (pixels)"</c-><c- p>:</c-> <c- mi>1200</c-><c- p>,</c->
+            <c- f>"class"</c-><c- p>:</c-> <c- u>"intercellular space"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"area (pixels)"</c-><c- p>:</c-> <c- mi>1650</c-><c- p>,</c->
+            <c- f>"class"</c-><c- p>:</c-> <c- u>"cell"</c-><c- p>,</c->
+            <c- f>"cell type"</c-><c- p>:</c-> <c- u>"neuron"</c->
+          <c- p>}</c->
+        <c- p>],</c->
+        <c- f>"source"</c-><c- p>:</c-> <c- p>{</c->
+          <c- f>"image"</c-><c- p>:</c-> <c- u>"../../"</c->
+        <c- p>}</c->
       <c- p>}</c->
-    <c- p>],</c->
-    <c- f>"properties"</c-><c- p>:</c-> <c- p>[</c->
-      <c- p>{</c->
-        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
-        <c- f>"area (pixels)"</c-><c- p>:</c-> <c- mi>1200</c-><c- p>,</c->
-        <c- f>"class"</c-><c- p>:</c-> <c- u>"intercellular space"</c->
-      <c- p>},</c->
-      <c- p>{</c->
-        <c- f>"label-value"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-        <c- f>"area (pixels)"</c-><c- p>:</c-> <c- mi>1650</c-><c- p>,</c->
-        <c- f>"class"</c-><c- p>:</c-> <c- u>"cell"</c-><c- p>,</c->
-        <c- f>"cell type"</c-><c- p>:</c-> <c- u>"neuron"</c->
-      <c- p>}</c->
-    <c- p>],</c->
-    <c- f>"source"</c-><c- p>:</c-> <c- p>{</c->
-      <c- f>"image"</c-><c- p>:</c-> <c- u>"../../"</c->
     <c- p>}</c->
   <c- p>}</c->
 <c- p>}</c->
@@ -2669,170 +2821,182 @@ the index into the <code>columns</code> list. <code>rowIndex</code> and <code>co
    <p>For example the following JSON object defines a plate with two acquisitions and
 6 wells (2 rows and 3 columns), containing up to 2 fields of view per acquisition.</p>
 <pre class="include-code highlight"><c- p>{</c->
-    <c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
+  <c- f>"zarr_format"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+  <c- f>"node_type"</c-><c- p>:</c-> <c- u>"group"</c-><c- p>,</c->
+  <c- f>"attributes"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"ome"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5"</c-><c- p>,</c->
+      <c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
         <c- f>"acquisitions"</c-><c- p>:</c-> <c- p>[</c->
-            <c- p>{</c->
-                <c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-                <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"Meas_01(2012-07-31_10-41-12)"</c-><c- p>,</c->
-                <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343731272000</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"id"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
-                <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"Meas_02(201207-31_11-56-41)"</c-><c- p>,</c->
-                <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343735801000</c->
-            <c- p>}</c->
+          <c- p>{</c->
+            <c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"Meas_01(2012-07-31_10-41-12)"</c-><c- p>,</c->
+            <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343731272000</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"id"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+            <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"Meas_02(201207-31_11-56-41)"</c-><c- p>,</c->
+            <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343735801000</c->
+          <c- p>}</c->
         <c- p>],</c->
         <c- f>"columns"</c-><c- p>:</c-> <c- p>[</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"1"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"2"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"3"</c->
-            <c- p>}</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"1"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"2"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"3"</c->
+          <c- p>}</c->
         <c- p>],</c->
         <c- f>"field_count"</c-><c- p>:</c-> <c- mi>4</c-><c- p>,</c->
         <c- f>"name"</c-><c- p>:</c-> <c- u>"test"</c-><c- p>,</c->
         <c- f>"rows"</c-><c- p>:</c-> <c- p>[</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"A"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
-            <c- p>}</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"A"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
+          <c- p>}</c->
         <c- p>],</c->
-        <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c-><c- p>,</c->
         <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
-            <c- p>{</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"A/1"</c-><c- p>,</c->
-                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
-                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>0</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"A/2"</c-><c- p>,</c->
-                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
-                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>1</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"A/3"</c-><c- p>,</c->
-                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
-                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>2</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"B/1"</c-><c- p>,</c->
-                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>0</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"B/2"</c-><c- p>,</c->
-                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>1</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"B/3"</c-><c- p>,</c->
-                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>2</c->
-            <c- p>}</c->
+          <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"A/1"</c-><c- p>,</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>0</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"A/2"</c-><c- p>,</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>1</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"A/3"</c-><c- p>,</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>2</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"B/1"</c-><c- p>,</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>0</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"B/2"</c-><c- p>,</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>1</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"B/3"</c-><c- p>,</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>2</c->
+          <c- p>}</c->
         <c- p>]</c->
+      <c- p>}</c->
     <c- p>}</c->
+  <c- p>}</c->
 <c- p>}</c->
 </pre>
    <p>The following JSON object defines a sparse plate with one acquisition and
 2 wells in a 96 well plate, containing one field of view per acquisition.</p>
 <pre class="include-code highlight"><c- p>{</c->
-    <c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
+  <c- f>"zarr_format"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+  <c- f>"node_type"</c-><c- p>:</c-> <c- u>"group"</c-><c- p>,</c->
+  <c- f>"attributes"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"ome"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5"</c-><c- p>,</c->
+      <c- f>"plate"</c-><c- p>:</c-> <c- p>{</c->
         <c- f>"acquisitions"</c-><c- p>:</c-> <c- p>[</c->
-            <c- p>{</c->
-                <c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-                <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"single acquisition"</c-><c- p>,</c->
-                <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343731272000</c->
-            <c- p>}</c->
+          <c- p>{</c->
+            <c- f>"id"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"maximumfieldcount"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"single acquisition"</c-><c- p>,</c->
+            <c- f>"starttime"</c-><c- p>:</c-> <c- mi>1343731272000</c->
+          <c- p>}</c->
         <c- p>],</c->
         <c- f>"columns"</c-><c- p>:</c-> <c- p>[</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"1"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"2"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"3"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"4"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"5"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"6"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"7"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"8"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"9"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"10"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"11"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"12"</c->
-            <c- p>}</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"1"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"2"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"3"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"4"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"5"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"6"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"7"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"8"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"9"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"10"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"11"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"12"</c->
+          <c- p>}</c->
         <c- p>],</c->
         <c- f>"field_count"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
         <c- f>"name"</c-><c- p>:</c-> <c- u>"sparse test"</c-><c- p>,</c->
         <c- f>"rows"</c-><c- p>:</c-> <c- p>[</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"A"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"C"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"D"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"E"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"F"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"G"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"name"</c-><c- p>:</c-> <c- u>"H"</c->
-            <c- p>}</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"A"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"B"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"C"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"D"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"E"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"F"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"G"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"name"</c-><c- p>:</c-> <c- u>"H"</c->
+          <c- p>}</c->
         <c- p>],</c->
-        <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c-><c- p>,</c->
         <c- f>"wells"</c-><c- p>:</c-> <c- p>[</c->
-            <c- p>{</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"C/5"</c-><c- p>,</c->
-                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
-                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>4</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"D/7"</c-><c- p>,</c->
-                <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
-                <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>6</c->
-            <c- p>}</c->
+          <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"C/5"</c-><c- p>,</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>4</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"D/7"</c-><c- p>,</c->
+            <c- f>"rowIndex"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+            <c- f>"columnIndex"</c-><c- p>:</c-> <c- mi>6</c->
+          <c- p>}</c->
         <c- p>]</c->
+      <c- p>}</c->
     <c- p>}</c->
+  <c- p>}</c->
 <c- p>}</c->
 </pre>
    <h3 class="heading settled" data-level="2.8" id="well-md"><span class="secno">2.8. </span><span class="content">"well" metadata</span><a class="self-link" href="#well-md"></a></h3>
@@ -2850,78 +3014,69 @@ version of the well specification.</p>
 view. The first two fields of view were part of the first acquisition while
 the last two fields of view were part of the second acquisition.</p>
 <pre class="include-code highlight"><c- p>{</c->
-    <c- f>"well"</c-><c- p>:</c-> <c- p>{</c->
+  <c- f>"zarr_format"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+  <c- f>"node_type"</c-><c- p>:</c-> <c- u>"group"</c-><c- p>,</c->
+  <c- f>"attributes"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"ome"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5"</c-><c- p>,</c->
+      <c- f>"well"</c-><c- p>:</c-> <c- p>{</c->
         <c- f>"images"</c-><c- p>:</c-> <c- p>[</c->
-            <c- p>{</c->
-                <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"2"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"3"</c->
-            <c- p>}</c->
-        <c- p>],</c->
-        <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c->
+          <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>1</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"2"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>2</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"3"</c->
+          <c- p>}</c->
+        <c- p>]</c->
+      <c- p>}</c->
     <c- p>}</c->
-<c- p>}</c-></pre>
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
    <p>The following JSON object defines a well with two fields of view in a plate with
 four acquisitions. The first field is part of the first acquisition, and the second
 field is part of the last acquisition.</p>
 <pre class="include-code highlight"><c- p>{</c->
-    <c- f>"well"</c-><c- p>:</c-> <c- p>{</c->
+  <c- f>"zarr_format"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+  <c- f>"node_type"</c-><c- p>:</c-> <c- u>"group"</c-><c- p>,</c->
+  <c- f>"attributes"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"ome"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5"</c-><c- p>,</c->
+      <c- f>"well"</c-><c- p>:</c-> <c- p>{</c->
         <c- f>"images"</c-><c- p>:</c-> <c- p>[</c->
-            <c- p>{</c->
-                <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c->
-            <c- p>},</c->
-            <c- p>{</c->
-                <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
-                <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c->
-            <c- p>}</c->
-        <c- p>],</c->
-        <c- f>"version"</c-><c- p>:</c-> <c- u>"0.5-dev"</c->
+          <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>0</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"0"</c->
+          <c- p>},</c->
+          <c- p>{</c->
+            <c- f>"acquisition"</c-><c- p>:</c-> <c- mi>3</c-><c- p>,</c->
+            <c- f>"path"</c-><c- p>:</c-> <c- u>"1"</c->
+          <c- p>}</c->
+        <c- p>]</c->
+      <c- p>}</c->
     <c- p>}</c->
-<c- p>}</c-></pre>
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
    <h2 class="heading settled" data-level="3" id="naming-style"><span class="secno">3. </span><span class="content">Specification naming style</span><a class="self-link" href="#naming-style"></a></h2>
    <p>Multi-word keys in this specification should use the <code>camelCase</code> style.
 NB: some parts of the specification don’t obey this convention as they
 were added before this was adopted, but they should be updated in due course.</p>
    <h2 class="heading settled" data-level="4" id="implementations"><span class="secno">4. </span><span class="content">Implementations</span><a class="self-link" href="#implementations"></a></h2>
-   <p>Projects which support reading and/or writing OME-NGFF data include:</p>
-   <dl>
-    <dt><strong><a href="https://github.com/mobie/bigdataviewer-ome-zarr">bigdataviewer-ome-zarr</a></strong>
-    <dd>Fiji-plugin for reading OME-Zarr.
-    <dt><strong><a href="https://github.com/glencoesoftware/bioformats2raw">bioformats2raw</a></strong>
-    <dd>A performant, Bio-Formats image file format converter.
-    <dt><strong><a href="https://github.com/ome/omero-ms-zarr">omero-ms-zarr</a></strong>
-    <dd>A microservice for OMERO.server that converts images stored in OMERO to OME-Zarr files on the fly, served via a web API.
-    <dt><strong><a href="https://github.com/IDR/idr-zarr-tools">idr-zarr-tools</a></strong>
-    <dd>A full workflow demonstrating the conversion of IDR images to OME-Zarr images on S3.
-    <dt><strong><a href="https://github.com/ome/omero-cli-zarr">OMERO CLI Zarr plugin</a></strong>
-    <dd>An OMERO CLI plugin that converts images stored in OMERO.server into a local Zarr file.
-    <dt><strong><a href="https://github.com/ome/ome-zarr-py">ome-zarr-py</a></strong>
-    <dd>A napari plugin for reading ome-zarr files.
-    <dt><strong><a href="https://github.com/hms-dbmi/vizarr/">vizarr</a></strong>
-    <dd>A minimal, purely client-side program for viewing Zarr-based images with Viv &amp; ImJoy.
-    <dt><strong><a href="https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF/">ITKIOOMEZarrNGFF</a></strong>
-    <dd>ITK IO for images stored in OME-NGFF format.
-   </dl>
-   <p><img alt="Diagram of related projects" src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png"></p>
-   <p>All implementations prevent an equivalent representation of a dataset which can be downloaded or uploaded freely. An interactive
-version of this diagram is available from the <a href="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/">OME2020 Workshop</a>.
-Mouseover the blackboxes representing the implementations above to get a quick tip on how to use them.</p>
-   <p class="note" role="note"><span class="marker">Note:</span> If you would like to see your project listed, please open an issue or PR on the <a href="https://github.com/ome/ngff">ome/ngff</a> repository.</p>
+   <p>See <a href="https://ngff.openmicroscopy.org/tools/index.html">Tools</a>.</p>
    <h2 class="heading settled" data-level="5" id="citing"><span class="secno">5. </span><span class="content">Citing</span><a class="self-link" href="#citing"></a></h2>
    <p><a href="https://ngff.openmicroscopy.org/0.4">Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</a> J. Moore, <em>et al</em>. Open Microscopy Environment Consortium, 8 February 2022.
-This edition of the specification is <a href="https://ngff.openmicroscopy.org/0.4/]">https://ngff.openmicroscopy.org/0.4/</a>.
+This edition of the specification is <a href="https://ngff.openmicroscopy.org/0.5/]">https://ngff.openmicroscopy.org/0.5/</a>.
 The latest edition is available at <a href="https://ngff.openmicroscopy.org/latest/">https://ngff.openmicroscopy.org/latest/</a>. <a href="https://doi.org/10.5281/zenodo.4282107">(doi:10.5281/zenodo.4282107)</a></p>
    <h2 class="heading settled" data-level="6" id="history"><span class="secno">6. </span><span class="content">Version History</span><a class="self-link" href="#history"></a></h2>
    <table>
@@ -2931,6 +3086,10 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
       <td>Date
       <td>Description
     <tbody>
+     <tr>
+      <td>0.5
+      <td>2024-11-21
+      <td>use Zarr v3 in OME-Zarr, see <a href="https://ngff.openmicroscopy.org/rfc/2">RFC-2</a>.
      <tr>
       <td>0.4.1
       <td>2023-02-09
@@ -3003,24 +3162,8 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
     with <code>class="note"</code>,
     like this: </p>
    <p class="note" role="note">Note, this is an informative note.</p>
-   <section>
-    <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
-    <p>Requirements phrased in the imperative as part of algorithms
-    (such as "strip any leading space characters"
-    or "return false and abort these steps")
-    are to be interpreted with the meaning of the key word
-    ("must", "should", "may", etc)
-    used in introducing the algorithm. </p>
-    <p>Conformance requirements phrased as algorithms or specific steps
-    can be implemented in any manner,
-    so long as the end result is equivalent.
-    In particular, the algorithms defined in this specification
-    are intended to be easy to understand
-    and are not intended to be performant.
-    Implementers are encouraged to optimize. </p>
-   </section>
   </div>
-<script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
+  <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
@@ -3033,169 +3176,8 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
   </dl>
-  <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
-  <dl>
-   <dt id="biblio-ome-zarr-py">[OME-ZARR-PY]
-   <dd>OME; et al. <a href="https://doi.org/10.5281/zenodo.4113931"><cite>ome-zarr-py: Experimental implementation of next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.</cite></a>. 06 October 2020. Informational. URL: <a href="https://doi.org/10.5281/zenodo.4113931">https://doi.org/10.5281/zenodo.4113931</a>
-  </dl>
-<script>/* Boilerplate: script-dfn-panel */
-"use strict";
-{
-    const dfnsJson = window.dfnsJson || {};
-
-    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
-        return mk.aside({
-            class: "dfn-panel",
-            id: `infopanel-for-${dfnID}`,
-            "data-for": dfnID,
-            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
-            },
-            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
-                `Info about the '${dfnText}' ${external?"external":""} reference.`),
-            mk.a({href:url}, url),
-            mk.b({}, "Referenced in:"),
-            mk.ul({},
-                ...refSections.map(section=>
-                    mk.li({},
-                        ...section.refs.map((ref, refI)=>
-                            [
-                                mk.a({
-                                    href: `#${ref.id}`
-                                    },
-                                    (refI == 0) ? section.title : `(${refI + 1})`
-                                ),
-                                " ",
-                            ]
-                        ),
-                    ),
-                ),
-            ),
-        );
-    }
-
-    function genAllDfnPanels() {
-        for(const panelData of Object.values(window.dfnpanelData)) {
-            const dfnID = panelData.dfnID;
-            const dfn = document.getElementById(dfnID);
-            if(!dfn) {
-                console.log(`Can't find dfn#${dfnID}.`, panelData);
-            } else {
-                const panel = genDfnPanel(panelData);
-                append(document.body, panel);
-                insertDfnPopupAction(dfn, panel)
-            }
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", ()=>{
-        genAllDfnPanels();
-
-        // Add popup behavior to all dfns to show the corresponding dfn-panel.
-        var dfns = queryAll('.dfn-paneled');
-        for(let dfn of dfns) { ; }
-
-        document.body.addEventListener("click", (e) => {
-            // If not handled already, just hide all dfn panels.
-            hideAllDfnPanels();
-        });
-    })
-
-
-    function hideAllDfnPanels() {
-        // Turn off any currently "on" or "activated" panels.
-        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
-    }
-
-    function showDfnPanel(dfnPanel, dfn) {
-        hideAllDfnPanels(); // Only display one at this time.
-        dfn.setAttribute("aria-expanded", "true");
-        dfnPanel.classList.add("on");
-        dfnPanel.style.left = "5px";
-        dfnPanel.style.top = "0px";
-        const panelRect = dfnPanel.getBoundingClientRect();
-        const panelWidth = panelRect.right - panelRect.left;
-        if (panelRect.right > document.body.scrollWidth) {
-            // Panel's overflowing the screen.
-            // Just drop it below the dfn and flip it rightward instead.
-            // This still wont' fix things if the screen is *really* wide,
-            // but fixing that's a lot harder without 'anchor()'.
-            dfnPanel.style.top = "1.5em";
-            dfnPanel.style.left = "auto";
-            dfnPanel.style.right = "0px";
-        }
-    }
-
-    function pinDfnPanel(dfnPanel) {
-        // Switch it to "activated" state, which pins it.
-        dfnPanel.classList.add("activated");
-        dfnPanel.style.left = null;
-        dfnPanel.style.top = null;
-    }
-
-    function hideDfnPanel(dfnPanel, dfn) {
-        if(!dfn) {
-            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
-        }
-        dfn.setAttribute("aria-expanded", "false")
-        dfnPanel.classList.remove("on");
-        dfnPanel.classList.remove("activated");
-    }
-
-    function toggleDfnPanel(dfnPanel, dfn) {
-        if(dfnPanel.classList.contains("on")) {
-            hideDfnPanel(dfnPanel, dfn);
-        } else {
-            showDfnPanel(dfnPanel, dfn);
-        }
-    }
-
-    function insertDfnPopupAction(dfn, dfnPanel) {
-        // Find dfn panel
-        const panelWrapper = document.createElement('span');
-        panelWrapper.appendChild(dfnPanel);
-        panelWrapper.style.position = "relative";
-        panelWrapper.style.height = "0px";
-        dfn.insertAdjacentElement("afterend", panelWrapper);
-        dfn.setAttribute('role', 'button');
-        dfn.setAttribute('aria-expanded', 'false')
-        dfn.tabIndex = 0;
-        dfn.classList.add('has-dfn-panel');
-        dfn.addEventListener('click', (event) => {
-            showDfnPanel(dfnPanel, dfn);
-            event.stopPropagation();
-        });
-        dfn.addEventListener('keypress', (event) => {
-            const kc = event.keyCode;
-            // 32->Space, 13->Enter
-            if(kc == 32 || kc == 13) {
-                toggleDfnPanel(dfnPanel, dfn);
-                event.stopPropagation();
-                event.preventDefault();
-            }
-        });
-
-        dfnPanel.addEventListener('click', (event) => {
-            if (event.target.nodeName == 'A') {
-                pinDfnPanel(dfnPanel);
-            }
-            event.stopPropagation();
-        });
-
-        dfnPanel.addEventListener('keydown', (event) => {
-            if(event.keyCode == 27) { // Escape key
-                hideDfnPanel(dfnPanel, dfn);
-                event.stopPropagation();
-                event.preventDefault();
-            }
-        })
-    }
-}
-</script>
-<script>/* Boilerplate: script-dfn-panel-json */
-window.dfnpanelData = {};
-window.dfnpanelData['transitional'] = {"dfnID": "transitional", "url": "#transitional", "dfnText": "Transitional", "refSections": [{"refs": [{"id": "ref-for-transitional"}], "title": "2.2. \"bioformats2raw.layout\" (transitional)"}, {"refs": [{"id": "ref-for-transitional\u2460"}], "title": "2.5. \"omero\" metadata (transitional)"}], "external": false};
-</script>
 <script>/* Boilerplate: script-dom-helper */
+"use strict";
 function query(sel) { return document.querySelector(sel); }
 
 function queryAll(sel) { return [...document.querySelectorAll(sel)]; }
@@ -3389,5 +3371,597 @@ function parseHTML(markup) {
 		el.innerHTML = markup;
 		return el.content;
 	}
+}</script>
+<script>/* Boilerplate: script-dfn-panel */
+"use strict";
+{
+let dfnPanelData = {
+"hcs": {"dfnID":"hcs","dfnText":"HCS","external":false,"refSections":[],"url":"#hcs"},
+"transitional": {"dfnID":"transitional","dfnText":"Transitional","external":false,"refSections":[{"refs":[{"id":"ref-for-transitional"}],"title":"2.2. \"bioformats2raw.layout\" (transitional)"},{"refs":[{"id":"ref-for-transitional\u2460"}],"title":"2.5. \"omero\" metadata (transitional)"}],"url":"#transitional"},
+};
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    genAllDfnPanels();
+
+    document.body.addEventListener("click", (e) => {
+        // If not handled already, just hide all dfn panels.
+        hideAllDfnPanels();
+    });
+});
+
+window.addEventListener("resize", () => {
+    // Pin any visible dfn panel
+    queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>positionDfnPanel(el));
+});
+
+function genAllDfnPanels() {
+    for(const panelData of Object.values(dfnPanelData)) {
+        const dfnID = panelData.dfnID;
+        const dfn = document.getElementById(dfnID);
+        if(!dfn) {
+            console.log(`Can't find dfn#${dfnID}.`, panelData);
+            continue;
+        }
+        dfn.panelData = panelData;
+        insertDfnPopupAction(dfn);
+    }
+}
+
+function genDfnPanel(dfn, { dfnID, url, dfnText, refSections, external }) {
+    const dfnPanel = mk.aside({
+        class: "dfn-panel on",
+        id: `infopanel-for-${dfnID}`,
+        "data-for": dfnID,
+        "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+        },
+        mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+            `Info about the '${dfnText}' ${external?"external":""} reference.`),
+        mk.a({href:url, class:"dfn-link"}, url),
+        refSections.length == 0 ? [] :
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({ href: `#${ref.id}` },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        genLinkingSyntaxes(dfn),
+    );
+
+    dfnPanel.addEventListener('click', (event) => {
+        if (event.target.nodeName == 'A') {
+            scrollToTargetAndHighlight(event);
+            pinDfnPanel(dfnPanel);
+        }
+        event.stopPropagation();
+        refocusOnTarget(event);
+    });
+    dfnPanel.addEventListener('keydown', (event) => {
+        if(event.keyCode == 27) { // Escape key
+            hideDfnPanel({dfnPanel});
+            event.stopPropagation();
+            event.preventDefault();
+        }
+    });
+
+    dfnPanel.dfn = dfn;
+    dfn.dfnPanel = dfnPanel;
+    return dfnPanel;
+}
+
+
+
+function hideAllDfnPanels() {
+    // Delete the currently-active dfn panel.
+    queryAll(".dfn-panel").forEach(dfnPanel=>hideDfnPanel({dfnPanel}));
+}
+
+function showDfnPanel(dfn) {
+    hideAllDfnPanels(); // Only display one at a time.
+
+    dfn.setAttribute("aria-expanded", "true");
+
+    const dfnPanel = genDfnPanel(dfn, dfn.panelData);
+
+    // Give the dfn a unique tabindex, and then
+    // give all the tabbable panel bits successive indexes.
+    let tabIndex = 100;
+    dfn.tabIndex = tabIndex++;
+    const tabbable = dfnPanel.querySelectorAll(":is(a, button)");
+    for (const el of tabbable) {
+        el.tabIndex = tabIndex++;
+    }
+
+    append(document.body, dfnPanel);
+    positionDfnPanel(dfnPanel);
+}
+
+function positionDfnPanel(dfnPanel) {
+    const dfn = dfnPanel.dfn;
+    const dfnPos = getBounds(dfn);
+    dfnPanel.style.top = dfnPos.bottom + "px";
+    dfnPanel.style.left = dfnPos.left + "px";
+
+    const panelPos = dfnPanel.getBoundingClientRect();
+    const panelMargin = 8;
+    const maxRight = document.body.parentNode.clientWidth - panelMargin;
+    if (panelPos.right > maxRight) {
+        const overflowAmount = panelPos.right - maxRight;
+        const newLeft = Math.max(panelMargin, dfnPos.left - overflowAmount);
+        dfnPanel.style.left = newLeft + "px";
+    }
+}
+
+function pinDfnPanel(dfnPanel) {
+    // Switch it to "activated" state, which pins it.
+    dfnPanel.classList.add("activated");
+    dfnPanel.style.position = "fixed";
+    dfnPanel.style.left = null;
+    dfnPanel.style.top = null;
+}
+
+function hideDfnPanel({dfn, dfnPanel}) {
+    if(!dfnPanel) dfnPanel = dfn.dfnPanel;
+    if(!dfn) dfn = dfnPanel.dfn;
+    dfn.dfnPanel = undefined;
+    dfnPanel.dfn = undefined;
+    dfn.setAttribute("aria-expanded", "false");
+    dfn.tabIndex = undefined;
+    dfnPanel.remove()
+}
+
+function toggleDfnPanel(dfn) {
+    if(dfn.dfnPanel) {
+        hideDfnPanel(dfn);
+    } else {
+        showDfnPanel(dfn);
+    }
+}
+
+function insertDfnPopupAction(dfn) {
+    dfn.setAttribute('role', 'button');
+    dfn.setAttribute('aria-expanded', 'false')
+    dfn.tabIndex = 0;
+    dfn.classList.add('has-dfn-panel');
+    dfn.addEventListener('click', (event) => {
+        toggleDfnPanel(dfn);
+        event.stopPropagation();
+    });
+    dfn.addEventListener('keypress', (event) => {
+        const kc = event.keyCode;
+        // 32->Space, 13->Enter
+        if(kc == 32 || kc == 13) {
+            toggleDfnPanel(dfn);
+            event.stopPropagation();
+            event.preventDefault();
+        }
+    });
+}
+
+function refocusOnTarget(event) {
+    const target = event.target;
+    setTimeout(() => {
+        // Refocus on the event.target element.
+        // This is needed after browser scrolls to the destination.
+        target.focus();
+    });
+}
+
+// TODO: shared util
+// Returns the root-level absolute position {left and top} of element.
+function getBounds(el, relativeTo=document.body) {
+    const relativeRect = relativeTo.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const top = elRect.top - relativeRect.top;
+    const left = elRect.left - relativeRect.left;
+    return {
+        top,
+        left,
+        bottom: top + elRect.height,
+        right: left + elRect.width,
+    }
+}
+
+function scrollToTargetAndHighlight(event) {
+    let hash = event.target.hash;
+    if (hash) {
+        hash = decodeURIComponent(hash.substring(1));
+        const dest = document.getElementById(hash);
+        if (dest) {
+            dest.classList.add('highlighted');
+            setTimeout(() => dest.classList.remove('highlighted'), 1000);
+        }
+    }
+}
+
+// Functions, divided by link type, that wrap an autolink's
+// contents with the appropriate outer syntax.
+// Alternately, a string naming another type they format
+// the same as.
+function needsFor(type) {
+    switch(type) {
+        case "descriptor":
+        case "value":
+        case "element-attr":
+        case "attr-value":
+        case "element-state":
+        case "method":
+        case "constructor":
+        case "argument":
+        case "attribute":
+        case "const":
+        case "dict-member":
+        case "event":
+        case "enum-value":
+        case "stringifier":
+        case "serializer":
+        case "iterator":
+        case "maplike":
+        case "setlike":
+        case "state":
+        case "mode":
+        case "context":
+        case "facet": return true;
+
+        default: return false;
+    }
+}
+function refusesFor(type) {
+    switch(type) {
+        case "property":
+        case "element":
+        case "interface":
+        case "namespace":
+        case "callback":
+        case "dictionary":
+        case "enum":
+        case "exception":
+        case "typedef":
+        case "http-header":
+        case "permission": return true;
+
+        default: return false;
+    }
+}
+function linkFormatterFromType(type) {
+    switch(type) {
+        case 'scheme':
+        case 'permission':
+        case 'dfn': return (text) => `[=${text}=]`;
+
+        case 'abstract-op': return (text) => `[\$${text}\$]`;
+
+        case 'function':
+        case 'at-rule':
+        case 'selector':
+        case 'value': return (text) => `''${text}''`;
+
+        case 'http-header': return (text) => `[:${text}:]`;
+
+        case 'interface':
+        case 'constructor':
+        case 'method':
+        case 'argument':
+        case 'attribute':
+        case 'callback':
+        case 'dictionary':
+        case 'dict-member':
+        case 'enum':
+        case 'enum-value':
+        case 'exception':
+        case 'const':
+        case 'typedef':
+        case 'stringifier':
+        case 'serializer':
+        case 'iterator':
+        case 'maplike':
+        case 'setlike':
+        case 'extended-attribute':
+        case 'event':
+        case 'idl': return (text) => `{{${text}}}`;
+
+        case 'element-state':
+        case 'element-attr':
+        case 'attr-value':
+        case 'element': return (element) => `<{${element}}>`;
+
+        case 'grammar': return (text) => `${text} (within a <pre class=prod>)`;
+
+        case 'type': return (text)=> `<<${text}>>`;
+
+        case 'descriptor':
+        case 'property': return (text) => `'${text}'`;
+
+        default: return;
+    };
+};
+
+function genLinkingSyntaxes(dfn) {
+    if(dfn.tagName != "DFN") return;
+
+    const type = dfn.getAttribute('data-dfn-type');
+    if(!type) {
+        console.log(`<dfn> doesn't have a data-dfn-type:`, dfn);
+        return [];
+    }
+
+    // Return a function that wraps link text based on the type
+    const linkFormatter = linkFormatterFromType(type);
+    if(!linkFormatter) {
+        console.log(`<dfn> has an unknown data-dfn-type:`, dfn);
+        return [];
+    }
+
+    let ltAlts;
+    if(dfn.hasAttribute('data-lt')) {
+        ltAlts = dfn.getAttribute('data-lt')
+            .split("|")
+            .map(x=>x.trim());
+    } else {
+        ltAlts = [dfn.textContent.trim()];
+    }
+    if(type == "type") {
+        // lt of "<foo>", but "foo" is the interior;
+        // <<foo/bar>> is how you write it with a for,
+        // not <foo/<bar>> or whatever.
+        for(var i = 0; i < ltAlts.length; i++) {
+            const lt = ltAlts[i];
+            const match = /<(.*)>/.exec(lt);
+            if(match) { ltAlts[i] = match[1]; }
+        }
+    }
+
+    let forAlts;
+    if(dfn.hasAttribute('data-dfn-for')) {
+        forAlts = dfn.getAttribute('data-dfn-for')
+            .split(",")
+            .map(x=>x.trim());
+    } else {
+        forAlts = [''];
+    }
+
+    let linkingSyntaxes = [];
+    if(!needsFor(type)) {
+        for(const lt of ltAlts) {
+            linkingSyntaxes.push(linkFormatter(lt));
+        }
+    }
+    if(!refusesFor(type)) {
+        for(const f of forAlts) {
+            linkingSyntaxes.push(linkFormatter(`${f}/${ltAlts[0]}`))
+        }
+    }
+    return [
+        mk.b({}, 'Possible linking syntaxes:'),
+        mk.ul({},
+            ...linkingSyntaxes.map(link => {
+                const copyLink = async () =>
+                    await navigator.clipboard.writeText(link);
+                return mk.li({},
+                    mk.div({ class: 'link-item' },
+                        mk.button({
+                            class: 'copy-icon', title: 'Copy',
+                            type: 'button',
+                            _onclick: copyLink,
+                            tabindex: 0,
+                        }, mk.span({ class: 'icon' }) ),
+                        mk.span({}, link)
+                    )
+                );
+            })
+        )
+    ];
+}
+}
+</script>
+<script>/* Boilerplate: script-ref-hints */
+"use strict";
+{
+let refsData = {
+"#transitional": {"displayText":"transitional","export":true,"for_":[],"level":"1","normative":true,"shortname":"ome-zarr","spec":"ome-zarr-1","status":"local","text":"transitional","type":"dfn","url":"#transitional"},
+};
+
+function mkRefHint(link, ref) {
+    const linkText = link.textContent;
+    let dfnTextElements = '';
+    if (ref.displayText.toLowerCase() != linkText.toLowerCase()) {
+        // Give the original term if it's being displayed in a different way.
+        // But allow casing differences, they're insignificant.
+        dfnTextElements =
+            mk.li({},
+                mk.b({}, "Term: "),
+                mk.span({}, ref.displayText)
+            );
+    }
+    const forList = ref.for_;
+    let forListElements;
+    if(forList.length == 0) {
+        forListElements = [];
+    } else if(forList.length == 1) {
+        forListElements = mk.li({},
+            mk.b({}, "For: "),
+            mk.span({}, forList[0]),
+        );
+    } else {
+        forListElements = mk.li({},
+            mk.b({}, "For: "),
+            mk.ul({},
+                ...forList.map(forItem =>
+                    mk.li({},
+                        mk.span({}, forItem)
+                    ),
+                ),
+            ),
+        );
+    }
+    const url = ref.url;
+    const safeUrl = encodeURIComponent(url);
+    const hintPanel = mk.aside({
+        class: "ref-hint",
+        id: `ref-hint-for-${safeUrl}`,
+        "data-for": url,
+        "aria-labelled-by": `ref-hint-for-${safeUrl}`,
+    },
+        mk.ul({},
+            dfnTextElements,
+            mk.li({},
+                mk.b({}, "URL: "),
+                mk.a({ href: url, class: "ref" }, url),
+            ),
+            mk.li({},
+                mk.b({}, "Type: "),
+                mk.span({}, `${ref.type}`),
+            ),
+            mk.li({},
+                mk.b({}, "Spec: "),
+                mk.span({}, `${ref.spec ? ref.spec : ''}`),
+            ),
+            forListElements
+        ),
+    );
+    hintPanel.forLink = link;
+    setupRefHintEventListeners(link, hintPanel);
+    return hintPanel;
+}
+
+function hideAllRefHints() {
+    queryAll(".ref-hint").forEach(el=>hideRefHint(el));
+}
+
+function hideRefHint(refHint) {
+    const link = refHint.forLink;
+    link.setAttribute("aria-expanded", "false");
+    if(refHint.teardownEventListeners) {
+        refHint.teardownEventListeners();
+    }
+    refHint.remove();
+}
+
+function showRefHint(link) {
+    if(link.classList.contains("dfn-link")) return;
+    const url = link.getAttribute("href");
+    const ref = refsData[url];
+    if(!ref) return;
+
+    hideAllRefHints(); // Only display one at this time.
+
+    const refHint = mkRefHint(link, ref);
+    append(document.body, refHint);
+    link.setAttribute("aria-expanded", "true");
+    positionRefHint(refHint);
+}
+
+function setupRefHintEventListeners(link, refHint) {
+    if (refHint.teardownEventListeners) return;
+    // Add event handlers to hide the refHint after the user moves away
+    // from both the link and refHint, if not hovering either within one second.
+    let timeout = null;
+    const startHidingRefHint = (event) => {
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+        timeout = setTimeout(() => {
+            hideRefHint(refHint);
+        }, 1000);
+    }
+    const resetHidingRefHint = (event) => {
+        if (timeout) clearTimeout(timeout);
+        timeout = null;
+    };
+    link.addEventListener("mouseleave", startHidingRefHint);
+    link.addEventListener("mouseenter", resetHidingRefHint);
+    link.addEventListener("blur", startHidingRefHint);
+    link.addEventListener("focus", resetHidingRefHint);
+    refHint.addEventListener("mouseleave", startHidingRefHint);
+    refHint.addEventListener("mouseenter", resetHidingRefHint);
+    refHint.addEventListener("blur", startHidingRefHint);
+    refHint.addEventListener("focus", resetHidingRefHint);
+
+    refHint.teardownEventListeners = () => {
+        // remove event listeners
+        resetHidingRefHint();
+        link.removeEventListener("mouseleave", startHidingRefHint);
+        link.removeEventListener("mouseenter", resetHidingRefHint);
+        link.removeEventListener("blur", startHidingRefHint);
+        link.removeEventListener("focus", resetHidingRefHint);
+        refHint.removeEventListener("mouseleave", startHidingRefHint);
+        refHint.removeEventListener("mouseenter", resetHidingRefHint);
+        refHint.removeEventListener("blur", startHidingRefHint);
+        refHint.removeEventListener("focus", resetHidingRefHint);
+    };
+}
+
+function positionRefHint(refHint) {
+    const link = refHint.forLink;
+    const linkPos = getBounds(link);
+    refHint.style.top = linkPos.bottom + "px";
+    refHint.style.left = linkPos.left + "px";
+
+    const panelPos = refHint.getBoundingClientRect();
+    const panelMargin = 8;
+    const maxRight = document.body.parentNode.clientWidth - panelMargin;
+    if (panelPos.right > maxRight) {
+        const overflowAmount = panelPos.right - maxRight;
+        const newLeft = Math.max(panelMargin, linkPos.left - overflowAmount);
+        refHint.style.left = newLeft + "px";
+    }
+}
+
+// TODO: shared util
+// Returns the root-level absolute position {left and top} of element.
+function getBounds(el, relativeTo=document.body) {
+    const relativeRect = relativeTo.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const top = elRect.top - relativeRect.top;
+    const left = elRect.left - relativeRect.left;
+    return {
+        top,
+        left,
+        bottom: top + elRect.height,
+        right: left + elRect.width,
+    }
+}
+
+function showRefHintListener(e) {
+    // If the target isn't in a link (or is a link),
+    // just ignore it.
+    let link = e.target.closest("a");
+    if(!link) return;
+
+    // If the target is in a ref-hint panel
+    // (aka a link in the already-open one),
+    // also just ignore it.
+    if(link.closest(".ref-hint")) return;
+
+    // Otherwise, show the panel for the link.
+    showRefHint(link);
+}
+
+function hideAllHintsListener(e) {
+    // If the click is inside a ref-hint panel, ignore it.
+    if(e.target.closest(".ref-hint")) return;
+    // Otherwise, close all the current panels.
+    hideAllRefHints();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.body.addEventListener("mousedown", showRefHintListener);
+    document.body.addEventListener("focus", showRefHintListener);
+
+    document.body.addEventListener("click", hideAllHintsListener);
+});
+
+window.addEventListener("resize", () => {
+    // Hide any open ref hint.
+    hideAllRefHints();
+});
 }
 </script>

@@ -1,16 +1,22 @@
 {
-  "$id": "https://ngff.openmicroscopy.org/latest/schemas/strict_image.schema",
+  "$id": "https://ngff.openmicroscopy.org/0.5/schemas/strict_image.schema",
   "allOf": [
     {
-      "$ref": "https://ngff.openmicroscopy.org/latest/schemas/image.schema"
+      "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/image.schema"
     },
     {
       "properties": {
-        "multiscales": {
-          "items": {
-            "required": [
-              "version", "metadata", "type", "name"
-            ]
+        "ome": {
+          "properties": {
+            "multiscales": {
+              "items": {
+                "required": [
+                  "metadata",
+                  "type",
+                  "name"
+                ]
+              }
+            }
           }
         }
       }
