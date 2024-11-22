@@ -19,11 +19,11 @@ factor before publication is possible. Without a common effort, each lab or
 resource is left building the tools they need and maintaining that
 infrastructure often without dedicated funding.
 
-This document defines a specification for bioimaging data to make it possible
-to enable the conversion of proprietary formats into a common, cloud-ready one.
-Such next-generation file formats layout data so that individual portions, or
-"chunks", of large data are reference-able eliminating the need to download
-entire datasets.
+This document defines OME-Zarr, a specification for bioimaging data to make it 
+possible to enable the conversion of proprietary formats into a common, 
+cloud-ready one. Such a next-generation file format layouts data so that 
+individual portions, or "chunks", of large data are reference-able eliminating 
+the need to download entire datasets.
 
 
 Why "NGFF"?
@@ -47,13 +47,14 @@ the limitations of HDF5 ("N5" was originally short for "Not-HDF5").
 Both of these formats permit storing individual chunks of data either locally in
 separate files or in cloud-based object stores as separate keys.
 
-An [updated Zarr version (v3)](https://zarr-specs.readthedocs.io/)
-is underway to unify the two similar specifications to provide a single binary
+An [updated Zarr version (v3)](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html)
+has been accepted to unify the two similar specifications to provide a single binary
 specification. See this [blog post](https://zarr.dev/blog/zep1-update/) for more information.
+The file format is called "OME-Zarr". The term "NGFF" still refers to the community and [specification process](../rfc/index.md).
 
-In addition to the next-generation file format (NGFF) [specifications](../specifications/index.md),
+In addition to the [OME-Zarr specification](../specifications/index.md),
 the pages listed below are intended to provide an overview of external resources available
-for working with NGFF data.
+for working with OME-Zarr data.
 
 The following pages are intended to provide an overview of the available resources in the NGFF space:
 
@@ -74,3 +75,4 @@ Additionally, notes and recordings of the past NGFF community calls are availabl
 |6 (0.4/axes)| 2022-01-27| Constantin, Will, Seb| [image.sc](https://forum.image.sc/t/next-call-on-next-gen-bioimaging-data-tools-2022-01-27/60885)| [hackmd](https://hackmd.io/QfiBKHIoTZ-CJSp3q0Wykg)|
 |7 (0.5/tables & transforms)| 2022-10-05| Kevin & John| [image.sc](https://forum.image.sc/t/ome-ngff-community-call-transforms-and-tables/71792)| [hackmd](https://hackmd.io/TyfrLiCqRteL0Xfc8HRiOA) |
 |8 (Metadata) | 2023-03-15 | Wouter-Michiel | [image.sc](https://forum.image.sc/t/community-call-metadata-in-ome-ngff/77570/10) | [hackmd](https://hackmd.io/BqnK9Wm4QpGYAhYOoaFBQQ) |
+|9 (Collections and labels) | 2024-04-03 | Norman | [image.sc](https://forum.image.sc/t/ome-ngff-community-call-labels-and-other-collections/93815) | [hackmd](https://hackmd.io/So61knrQR0iLftd2LGAVjA) |

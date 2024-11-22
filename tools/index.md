@@ -1,6 +1,6 @@
 # Tools
 
-A list of tools and libraries with OME-Zarr support. These are developed by various members of the OME-NGFF community. If you think your tool/library should be listed here, please [open a pull request](https://github.com/ome/ngff).
+A list of tools and libraries with OME-Zarr support. These are developed by various members of the NGFF community. If you think your tool/library should be listed here, please [open a pull request](https://github.com/ome/ngff).
 
 In addition to this collection, an evaluation of selected tools/libraries is available on <https://ome.github.io/ome-ngff-tools/>.
 

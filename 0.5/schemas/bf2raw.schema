@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/0.5/schemas/bf2raw.schema",
+  "title": "OME-Zarr container produced by bioformats2raw",
+  "description": "The zarr.json attributes key",
+  "type": "object",
+  "properties": {
+    "ome": {
+      "description": "The versioned OME-Zarr Metadata namespace",
+      "type": "object",
+      "properties": {
+        "bioformats2raw.layout": {
+          "description": "The top-level identifier metadata added by bioformats2raw",
+          "type": "number",
+          "enum": [
+            3
+          ]
+        },
+        "version": {
+          "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/_version.schema"
+        }
+      },
+      "required": [
+        "bioformats2raw.layout",
+        "version"
+      ]
+    }
+  },
+  "required": [
+    "ome"
+  ]
+}
