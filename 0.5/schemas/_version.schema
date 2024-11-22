@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/0.5/schemas/_version.schema",
+  "title": "OME-Zarr Metadata version",
+  "description": "The version of the OME-Zarr Metadata",
+  "type": "string",
+  "enum": [
+    "0.5"
+  ]
+}

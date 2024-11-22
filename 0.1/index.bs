@@ -3,13 +3,12 @@ Title: Next-generation file formats (NGFF)
 Shortname: ome-ngff
 Level: 1
 Status: w3c/CG-FINAL
-Group: ome
+TR: https://ngff.openmicroscopy.org/0.1/
 URL: https://ngff.openmicroscopy.org/0.1/
 Repository: https://github.com/ome/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
-Local Boilerplate: header yes
-Local Boilerplate: copyright yes
+Local Boilerplate: header yes, copyright yes
 Boilerplate: style-darkmode off
 Markup Shorthands: markdown yes
 Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
