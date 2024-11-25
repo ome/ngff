@@ -404,7 +404,6 @@ labeled multiscale image(s). All label images SHOULD be listed within this metad
   "attributes": {
     "ome": {
       "version": "0.5",
-      "schema_url": "https://ngff.openmicroscopy.org/latest/schemas/ome_zarr.schema",
       "labels": [
         "cell_space_segmentation"
       ]
