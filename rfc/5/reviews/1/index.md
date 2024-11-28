@@ -1,11 +1,11 @@
 # RFC-5: Review 1
 
 ## Review authors
-This review was written by: Daniel Toloudis^1^, David Feng^2^, Forrest Collman^3^, Nathalie Gaudreault^1^
+This review was written by: Daniel Toloudis^1, David Feng^2, Forrest Collman^3, Nathalie Gaudreault^1
 
-^1^Allen Institute for Cell Science
-^2^Allen Institute for Neural Dynamics
-^3^Allen Institute for Brain Science
+^1 Allen Institute for Cell Science
+^2 Allen Institute for Neural Dynamics
+^3 Allen Institute for Brain Science
 
 
 ## Summary
