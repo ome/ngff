@@ -19,6 +19,7 @@ Sample OME-Zarr datasets provided by the community can be found under :doc:`data
 
    about/index
    community/index
+   contributing/index
    data/index
    publications/index
    specifications/index
