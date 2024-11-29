@@ -52,8 +52,8 @@ Storage format {#storage-format}
 
 OME-Zarr is implemented using the Zarr format as defined by the
 [version 3 of the Zarr specification](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html).
-All features of the Zarr format including codecs, chunk grids, chunk 
-key encodings, data types and storage transformers may be used with 
+All features of the Zarr format including codecs, chunk grids, chunk
+key encodings, data types and storage transformers may be used with
 OME-Zarr unless explicitly disallowed in this specification.
 
 An overview of the layout of an OME-Zarr fileset should make
@@ -87,7 +87,7 @@ Note that the number of dimensions is variable between 2 and 5 and that axis nam
     │   ├── zarr.json         # All image arrays must be up to 5-dimensional
     │   │                     # with the axis of type time before type channel, before spatial axes.
     │   │
-    │   └─ ...                # Chunks are stored conforming to the Zarr array specification and 
+    │   └─ ...                # Chunks are stored conforming to the Zarr array specification and
     │                         # metadata as specified in the array's `zarr.json`.
     │
     └── labels
@@ -106,7 +106,7 @@ Note that the number of dimensions is variable between 2 and 5 and that axis nam
                 │
                 ├── 0         # Each multiscale level is stored as a separate Zarr array, as above, but only integer values
                 └── ...       # are supported.
-                
+
 </pre>
 
 
@@ -143,7 +143,7 @@ A well group SHOULD NOT be present if there are no images in the well.
     │   │   ├── 0             # First field of view of well A1
     │   │   │   │
     │   │   │   ├── zarr.json # Implements "multiscales", "omero"
-    │   │   │   ├── 0         # Resolution levels          
+    │   │   │   ├── 0         # Resolution levels
     │   │   │   ├── ...
     │   │   │   └── labels    # Labels (optional)
     │   │   └── ...           # Other fields of view
@@ -154,11 +154,11 @@ A well group SHOULD NOT be present if there are no images in the well.
 OME-Zarr Metadata {#metadata}
 =============================
 
-The "OME-Zarr Metadata" contains metadata keys as specified below 
+The "OME-Zarr Metadata" contains metadata keys as specified below
 for discovering certain types of data, especially images.
 
 The OME-Zarr Metadata is stored in the various `zarr.json` files throughout the above array
-hierarchy. In this file, the metadata is stored under the namespaced key 
+hierarchy. In this file, the metadata is stored under the namespaced key
 `ome` in `attributes`.
 The version of the OME-Zarr Metadata is denoted as a string in the `version` attribute within the `ome` namespace.
 
@@ -293,8 +293,8 @@ The transformations in the list are applied sequentially and in order.
 "multiscales" metadata {#multiscale-md}
 ---------------------------------------
 
-Metadata about an image can be found under the "multiscales" key in the group-level OME-Zarr Metadata. 
-Here, image refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes. 
+Metadata about an image can be found under the "multiscales" key in the group-level OME-Zarr Metadata.
+Here, image refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes.
 It is stored in a multiple resolution representation.
 
 "multiscales" contains a list of dictionaries where each entry describes a multiscale image.
@@ -384,18 +384,18 @@ for more information.
 "labels" metadata {#labels-md}
 ------------------------------
 
-In OME-Zarr, Zarr arrays representing pixel-annotation data are stored in a group called "labels". Some applications--notably image segmentation--produce 
-a new image that is in the same coordinate system as a corresponding multiscale image (usually having the same dimensions and coordinate transformations). 
-This new image is composed of integer values corresponding to certain labels with custom meanings. For example, pixels take the value 1 or 0 
-if the corresponding pixel in the original image represents cellular space or intercellular space, respectively. 
-Such an image is referred to in this specification as a 'label image'. 
+In OME-Zarr, Zarr arrays representing pixel-annotation data are stored in a group called "labels". Some applications--notably image segmentation--produce
+a new image that is in the same coordinate system as a corresponding multiscale image (usually having the same dimensions and coordinate transformations).
+This new image is composed of integer values corresponding to certain labels with custom meanings. For example, pixels take the value 1 or 0
+if the corresponding pixel in the original image represents cellular space or intercellular space, respectively.
+Such an image is referred to in this specification as a 'label image'.
 
-The "labels" group is nested within an image group, at the same level of the Zarr hierarchy as the resolution levels for the original image. 
-The "labels" group is not itself an image; it contains images. The pixels of the label images MUST be integer data types, i.e. one of 
-[`uint8`, `int8`, `uint16`, `int16`, `uint32`, `int32`, `uint64`, `int64`]. Intermediate groups between "labels" and the images within it are allowed, 
+The "labels" group is nested within an image group, at the same level of the Zarr hierarchy as the resolution levels for the original image.
+The "labels" group is not itself an image; it contains images. The pixels of the label images MUST be integer data types, i.e. one of
+[`uint8`, `int8`, `uint16`, `int16`, `uint32`, `int32`, `uint64`, `int64`]. Intermediate groups between "labels" and the images within it are allowed,
 but these MUST NOT contain metadata. Names of the images in the "labels" group are arbitrary.
 
-The OME-Zarr Metadata in the `zarr.json` file associated with the "labels" group MUST contain a JSON object with the key `labels`, whose value is a JSON array of paths to the 
+The OME-Zarr Metadata in the `zarr.json` file associated with the "labels" group MUST contain a JSON object with the key `labels`, whose value is a JSON array of paths to the
 labeled multiscale image(s). All label images SHOULD be listed within this metadata file. For example:
 
 ```json
@@ -412,32 +412,32 @@ labeled multiscale image(s). All label images SHOULD be listed within this metad
 }
 ```
 
-The `zarr.json` file for the label image MUST implement the multiscales specification. Within the `multiscales` object, the JSON array 
-associated with the `datasets` key MUST have the same number of entries (scale levels) as the original unlabeled image. 
+The `zarr.json` file for the label image MUST implement the multiscales specification. Within the `multiscales` object, the JSON array
+associated with the `datasets` key MUST have the same number of entries (scale levels) as the original unlabeled image.
 
-In addition to the `multiscales` key, the OME-Zarr Metadata in this image-level `zarr.json` file SHOULD contain another key, `image-label`, 
-whose value is also a JSON object. The `image-label` object stores information about the display colors, source image, and optionally, 
-further arbitrary properties of the label image. That `image-label` object SHOULD contain the following keys: first, a `colors` key, 
-whose value MUST be a JSON array describing color information for the unique label values. Second, a `version` key, whose value MUST be a 
+In addition to the `multiscales` key, the OME-Zarr Metadata in this image-level `zarr.json` file SHOULD contain another key, `image-label`,
+whose value is also a JSON object. The `image-label` object stores information about the display colors, source image, and optionally,
+further arbitrary properties of the label image. That `image-label` object SHOULD contain the following keys: first, a `colors` key,
+whose value MUST be a JSON array describing color information for the unique label values. Second, a `version` key, whose value MUST be a
 string specifying the version of the OME-Zarr `image-label` schema.
 
-Conforming readers SHOULD display labels using the colors specified by the `colors` JSON array, as follows. This array contains one 
-JSON object for each unique custom label. Each of these objects MUST contain the `label-value` key, whose value MUST be the integer 
-corresponding to a particular label. In addition to the `label-value` key, the objects in this array MAY contain an `rgba` key whose 
-value MUST be an array of four integers between 0 and 255, inclusive. These integers represent the `uint8` values of red, green, and 
-blue that comprise the final color to be displayed at the pixels with this label. The fourth integer in the `rgba` array represents alpha, 
-or the opacity of the color. Additional keys under `colors` are allowed. 
+Conforming readers SHOULD display labels using the colors specified by the `colors` JSON array, as follows. This array contains one
+JSON object for each unique custom label. Each of these objects MUST contain the `label-value` key, whose value MUST be the integer
+corresponding to a particular label. In addition to the `label-value` key, the objects in this array MAY contain an `rgba` key whose
+value MUST be an array of four integers between 0 and 255, inclusive. These integers represent the `uint8` values of red, green, and
+blue that comprise the final color to be displayed at the pixels with this label. The fourth integer in the `rgba` array represents alpha,
+or the opacity of the color. Additional keys under `colors` are allowed.
 
 Next, the `image-label` object MAY contain the following keys: a `properties` key, and a `source` key.
 
-Like the `colors` key, the value of the `properties` key MUST be an array of JSON objects describing the set of unique possible pixel values. 
-Each object in the `properties` array MUST contain the `label-value` key, whose value again MUST be an integer specifying the pixel value for that label. 
-Additionally, an arbitrary number of key-value pairs MAY be present for each label value, denoting arbitrary metadata associated with that label. 
+Like the `colors` key, the value of the `properties` key MUST be an array of JSON objects describing the set of unique possible pixel values.
+Each object in the `properties` array MUST contain the `label-value` key, whose value again MUST be an integer specifying the pixel value for that label.
+Additionally, an arbitrary number of key-value pairs MAY be present for each label value, denoting arbitrary metadata associated with that label.
 Label-value objects within the `properties` array do not need to have the same keys.
 
-The value of the `source` key MUST be a JSON object containing information about the original image from which the label image derives. 
-This object MAY include a key `image`, whose value MUST be a string specifying the relative path to a Zarr image group.  
-The default value is `../../` since most labeled images are stored in a "labels" group that is nested within the original image group. 
+The value of the `source` key MUST be a JSON object containing information about the original image from which the label image derives.
+This object MAY include a key `image`, whose value MUST be a string specifying the relative path to a Zarr image group.
+The default value is `../../` since most labeled images are stored in a "labels" group that is nested within the original image group.
 
 Here is an example of a simple `image-label` object for a label image in which 0s and 1s represent intercellular and cellular space, respectively:
 
@@ -446,8 +446,8 @@ path: examples/label_strict/colors_properties.json
 highlight: json
 </pre>
 
-In this case, the pixels consisting of a 0 in the Zarr array will be displayed as 50% blue and 50% opacity. Pixels with a 1 in the Zarr array, 
-which correspond to cellular space, will be displayed as 50% green and 50% opacity. 
+In this case, the pixels consisting of a 0 in the Zarr array will be displayed as 50% blue and 50% opacity. Pixels with a 1 in the Zarr array,
+which correspond to cellular space, will be displayed as 50% green and 50% opacity.
 
 "plate" metadata {#plate-md}
 ----------------------------
@@ -563,6 +563,12 @@ Specification naming style {#naming-style}
 Multi-word keys in this specification should use the `camelCase` style.
 NB: some parts of the specification don't obey this convention as they
 were added before this was adopted, but they should be updated in due course.
+
+Changelog
+=========
+
+Next version (unreleased)
+-------------------------
 
 Implementations {#implementations}
 ==================================
