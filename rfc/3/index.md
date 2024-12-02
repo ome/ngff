@@ -216,7 +216,20 @@ in the "axes" metadata, and the special type called "space".
 
 ## Performance
 
-This proposal has no performance implications.
+The current OME-Zarr specification ensures arrays are stored in order TCZYX.
+With C-order array data, this ensures efficient access for *some* but not *all*
+access patterns. By removing restrictions on axis orderings, a new class of
+"mistake" is possible, as someone could save an array in order XYTCZ, which
+would combine poorly with C-order arrays to view XY planes. However, it is
+arguable that Zarr chunking is in fact more important here — XYTCZ *could* be
+a perfectly cromulent axis ordering for XY planes if the Zarr chunk size was
+(1024, 1024, 1, 1, 1).
+
+Therefore, this proposal argues that any performance implications are better
+addressed through good documentation and good defaults. Indeed, more flexible
+dimension ordering could *improve* performance in some scenarios, such as
+"pixel drilling", that is, extracting the value of a single x/y position over
+time.
 
 ## Testing
 
