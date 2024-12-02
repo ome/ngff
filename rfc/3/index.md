@@ -210,10 +210,6 @@ z, but might not know what to do with axes called foo, bar, and baz. However,
 this concern is fully and properly addressed by the existence of the "type" key
 in the "axes" metadata, and the special type called "space".
 
-<!-- Empty section templates; can be deleted on merge. -->
-<!-- ## Abandoned Ideas (Optional Header) -->
-<!-- ## Future possibilities (Optional Header) -->
-
 ## Performance
 
 The current OME-Zarr specification ensures arrays are stored in order TCZYX.
