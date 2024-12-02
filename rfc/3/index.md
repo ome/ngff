@@ -130,6 +130,37 @@ illumination directions, or views respectively. To say nothing of synthetic data
 that may contain "artificial" dimensions such as principal components or axes of
 other dimensionality reduction-techniques from many images.
 
+## Motivation
+
+In addition to the .czi datasets mentioned in the preceding paragraph, this
+section describes six dataset types that are currently impossible to represent
+in OME-Zarr:
+
+- in [electron backscatter diffraction (EBSD)][ebsd], a microscopy technique
+  common in materials science, a beam of electrons is scanned over a surface,
+  and for each (2D) position in the scan, a full 2D diffraction pattern is
+  recorded, resulting in a 4-dimensional data array.
+- from the diffraction patterns, it is possible to obtain an *orientation map*,
+  containing a 3D angle at each 2D position of the material.
+- the same principles apply to [diffusion tensor imaging][dti], where a
+  three-dimensional diffusion tensor is measured at each voxel.
+- it is common to compute Fourier transforms of 3D images. The datasets have
+  three dimensions but they are measured in *frequency*, not space.
+- when computing segmentations, one may use finer or coarser priors, resulting
+  in overlapping, equally valid segmentations, for example, of organelles at
+  one level, cells at another, and tissues at yet another. One common way to
+  store such a segmentation is to add a dimension for "coarseness".
+- computed spaces may have arbitrary dimensions related to the computation. For
+  exmaple, in subtomogram averaging of [cryo electron tomography][CryoET],
+  single particles from a tomogram are picked and aligned, producing many
+  instances of the same 3-dimensional particle. One may wish to store all the
+  instances in a single 4-dimensional array (one dimension being the *instance
+  number*). Or, one may use dimension-reduction techniques such as PCA, then
+  browse average particles along each PCA axis. This creates a virtual 5D space
+  containing the three spatial dimensions, then a "component number" axis for
+  the PCA components and a "position" axis for the position along that
+  component.
+
 ## Proposal
 
 This document proposes removing any restrictions on the number of dimensions
@@ -264,6 +295,8 @@ This RFC is placed in the public domain.
 [recap comment]: https://github.com/ome/ngff/pull/239#issuecomment-2327451719
 [trafo spec]: https://github.com/ome/ngff/pull/138
 [space dims comment]: https://github.com/ome/ngff/pull/138#issuecomment-1852891720
+[ebsd]: https://en.wikipedia.org/wiki/Electron_backscatter_diffraction
+[dti]: https://en.wikipedia.org/wiki/Diffusion-weighted_magnetic_resonance_imaging
 
 [^1]: https://github.com/ome/ngff/pull/239#issuecomment-2122809286
 [^2]: https://github.com/ome/ngff/pull/239#issuecomment-2149119404
