@@ -237,7 +237,7 @@ the space of possible implementations. This reduces the overall complexity of
 supporting a file format and the burden on implementations.
 
 Comments on the [pull request adding this proposal][this pr] and on the related
-pull request [updating the specification text][implementation] have indeed
+pull request [updating the specification text][spec update] have indeed
 centered on this complexity.
 
 One particular concern that has been voiced is that in general,
@@ -291,7 +291,7 @@ This RFC is placed in the public domain.
 [ngff 0.4 multiscales metadata]: https://ngff.openmicroscopy.org/0.4/index.html#multiscale-md
 [ngff 0.4 axes metadata]: https://ngff.openmicroscopy.org/0.4/index.html#axes-md
 [czi format dimensions]: https://web.archive.org/web/20240521085825/https://zeiss.github.io/libczi/imagedocumentconcept.html#autotoc_md7
-[implementation]: https://github.com/ome/ngff/pull/235
+[spec update]: https://github.com/ome/ngff/pull/235
 [this pr]: https://github.com/ome/ngff/pull/239
 [recap comment]: https://github.com/ome/ngff/pull/239#issuecomment-2327451719
 [trafo spec]: https://github.com/ome/ngff/pull/138
