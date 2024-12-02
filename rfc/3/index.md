@@ -204,11 +204,27 @@ The main reason specifications make restrictions on a file format is to limit
 the space of possible implementations. This reduces the overall complexity of
 supporting a file format and the burden on implementations.
 
-One particular concern that has been voiced in the past is that in general,
+Comments on the [pull request adding this proposal][this pr] and on the related
+pull request [updating the specification text][implementation] have indeed
+centered on this complexity.
+
+One particular concern that has been voiced is that in general,
 software dealing with these images knows what to do with axes called x, y, and
 z, but might not know what to do with axes called foo, bar, and baz. However,
-this concern is fully and properly addressed by the existence of the "type" key
+this concern is properly addressed by the existence of the "type" key
 in the "axes" metadata, and the special type called "space".
+
+Further, this proposal recommends that, in the absence of other considerations,
+spatial axes SHOULD be a subset of x, y, and z, to simplify implementations. It
+also takes the position that partial implementations are OK: a software package
+designed to view xyz volumetric, light microscopy data should feel free to
+error when presented with axes foo, bar, and baz with type "arbitrary". This
+mechanism allows maximum flexibility for the format while ensuring
+domain-specific implementations do not need to grapple with its full
+complexity.
+
+The addition of "SHOULD" recommendations for common microscopy data [seems to
+have assuaged most implementation concerns][recap comment].
 
 ## Performance
 
@@ -244,6 +260,8 @@ This RFC is placed in the public domain.
 [ngff 0.4 axes metadata]: https://ngff.openmicroscopy.org/0.4/index.html#axes-md
 [czi format dimensions]: https://web.archive.org/web/20240521085825/https://zeiss.github.io/libczi/imagedocumentconcept.html#autotoc_md7
 [implementation]: https://github.com/ome/ngff/pull/235
+[this pr]: https://github.com/ome/ngff/pull/239
+[recap comment]: https://github.com/ome/ngff/pull/239#issuecomment-2327451719
 [trafo spec]: https://github.com/ome/ngff/pull/138
 [space dims comment]: https://github.com/ome/ngff/pull/138#issuecomment-1852891720
 
