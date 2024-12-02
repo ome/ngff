@@ -10,7 +10,7 @@ versions/index
 ```
 
 Remove restrictions on the number, names, ordering, and type of dimensions
-stored in OME-NGFF arrays.
+stored in OME-Zarr arrays.
 
 ## Status
 
@@ -85,25 +85,26 @@ This RFC is currently in RFC state `R1` (send for review).
 
 ## Overview
 
-OME-NGFF version 0.4 restricts the number, names, ordering, and type of axes
+OME-Zarr version 0.4 restricts the number, names, ordering, and type of axes
 that are allowed in the axes metadata. These restrictions have limited
 conversion of proprietary datasets, usage by microscope vendors[^1], and usage
 by novel microscopy modalities[^2].
 
 This RFC removes these restrictions, opening NGFF to many more users within its
 target domain (and beyond). Because it *only* removes restrictions, existing
-valid OME-NGFF datasets will remain valid after implementation of this
+valid OME-Zarr datasets will remain valid after implementation of this
 proposal.
 
 ## Background
 
-OME-NGFF [aims][nat methods paper] to provide a unified open format for
+OME-Zarr [aims][nat methods paper] to provide a unified open format for
 bioimaging data and metadata to make it findable, accessible, interoperable,
-and reusable. The [paper describing NGFF][nat methods paper] notes that "the
-diversity of [biological imaging's] applications have prevented the
+and reusable. The [paper describing NGFF and OME-Zarr][nat methods paper] notes
+that "the diversity of [biological imaging's] applications have prevented the
 establishment of a community-agreed standardized data format", but, [for
-historical reasons][ome-model], [version 0.4 of the NGFF specification][ngff
-0.4] [imposes][ngff 0.4 multiscales metadata] strict restrictions on the
+historical reasons][ome-model], [version 0.4 of the OME-Zarr
+specification][ngff 0.4] [imposes][ngff 0.4 multiscales metadata] strict
+restrictions on the
 applications:
 
 > The length of "axes" must be between 2 and 5 and MUST be equal to the
@@ -124,7 +125,7 @@ And:
 > NOT have more than 5 dimensions.
 
 These restrictions prevent users from converting existing
-datasets to NGFF. For example, Zeiss .czi datasets [may contain][czi format
+datasets to OME-Zarr. For example, Zeiss .czi datasets [may contain][czi format
 dimensions] dimensions such as H, I, and V to store different phases,
 illumination directions, or views respectively. To say nothing of synthetic data
 that may contain "artificial" dimensions such as principal components or axes of
@@ -164,15 +165,15 @@ in OME-Zarr:
 ## Proposal
 
 This document proposes removing any restrictions on the number of dimensions
-stored in NGFF arrays. Additionally, it removes restrictions on the names and
-types of included dimensions.
+stored in OME-Zarr arrays. Additionally, it removes restrictions on the names
+and types of included dimensions.
 
 To maximise compatibility with existing software, this proposal recommends that
 images with 2-3 spatial dimensions SHOULD name them from the subset of "zyx"
 and that they SHOULD have type "space". Similarly, if a dataset contains a
 single time dimension, it SHOULD have name "t" and type "time".
 
-After this specification change, tools may encounter NGFF files that don't
+After this specification change, tools may encounter OME-Zarr files that don't
 match the earlier expectations of containing a subset of the TCZYX axes. This
 proposal is agnostic as to what to do in those situations, and indeed the
 appropriate action depends on the tool, but some suggestions include:
