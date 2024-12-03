@@ -71,6 +71,14 @@ def bikeshed():
 
         run_bikeshed = True
 
+        for version in ["0.1", "0.2", "0.3", "0.4", "0.5"]:
+            os.makedirs(".cache", exist_ok=True)
+            subprocess.check_call(
+                f"git clone --depth=1 --branch {version}.0 https://github.com/ome/ngff.git .cache/{version}",
+                shell=True,
+            )
+            os.symlink(f".cache/{version}/{version}", f"{version}")
+
         # Give the loop a chance to skip files if no build is needed/requested
         if "BIKESHED" not in os.environ and os.path.exists(output_file):
             src_time = os.path.getmtime(index_file)
