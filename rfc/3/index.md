@@ -152,7 +152,7 @@ in OME-Zarr:
   one level, cells at another, and tissues at yet another. One common way to
   store such a segmentation is to add a dimension for "coarseness".
 - computed spaces may have arbitrary dimensions related to the computation. For
-  exmaple, in subtomogram averaging of [cryo electron tomography][CryoET],
+  example, in subtomogram averaging of [cryo electron tomography][CryoET],
   single particles from a tomogram are picked and aligned, producing many
   instances of the same 3-dimensional particle. One may wish to store all the
   instances in a single 4-dimensional array (one dimension being the *instance
