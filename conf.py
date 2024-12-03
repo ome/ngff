@@ -67,7 +67,7 @@ def bikeshed():
     for version in ["0.1", "0.2", "0.3", "0.4"]:
         os.makedirs(".cache", exist_ok=True)
         subprocess.check_call(
-            f"git clone --depth=1 --branch {version}.0 https://github.com/ome/ngff.git .cache/{version}",
+            f"git clone --depth=1 --branch main https://github.com/ome/ngff.git .cache/{version}",
             shell=True,
         )
         os.symlink(f".cache/{version}/{version}", f"{version}")
