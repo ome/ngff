@@ -206,10 +206,6 @@ Who has a stake in whether this RFC is accepted?
 * Socialization:
   - image.sc: <https://forum.image.sc/t/ome-ngff-update-postponing-transforms-previously-v0-5/95617/2>
 
-## Implementation
-
-To Be Determined.
-
 ## Backwards Compatibility
 
 Since this proposal only removes restrictions, these changes are backwards
