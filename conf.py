@@ -64,26 +64,7 @@ def bikeshed():
     import shutil
     import subprocess
 
-    branches = subprocess.check_output(
-            f"git branch -l v/*",
-            shell=True,
-    ).split()
-    branches = [x.decode("utf-8").strip() for x in branches]
-    # TODO: generate specifications/index.md
-    for branch in branches:
-        version = branch[2:]
-        os.makedirs(".cache", exist_ok=True)
-        subprocess.check_call(
-            #f"git clone --depth=1 --branch v/{version} https://github.com/ome/ngff.git .cache/{version}",
-            f"git clone --depth=1 --branch {branch} . .cache/{version}",
-            shell=True,
-        )
-        os.symlink(f".cache/{version}/{version}", f"{version}")
-
-    # TODO: skip this step on a tag
-    os.symlink("spec", "draft")
-
-    for index_file in ["draft/index.bs"] + glob.glob("[0-9]*/index.bs"):
+    for index_file in glob.glob("[0-9]*/index.bs"):
         output_file = index_file.replace("bs", "html")
         output_dir = os.path.dirname(output_file)
         target_dir = os.path.join("_bikeshed", output_dir)
