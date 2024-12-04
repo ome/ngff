@@ -122,8 +122,8 @@
             "type": "string"
           }
         },
-        "required": ["name", "type"]
-      },
+        "required": ["name"]
+      }
     },
     "coordinateTransformations": {
       "type": "array",
