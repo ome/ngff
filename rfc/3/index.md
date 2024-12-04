@@ -298,6 +298,7 @@ This RFC is placed in the public domain.
 [space dims comment]: https://github.com/ome/ngff/pull/138#issuecomment-1852891720
 [ebsd]: https://en.wikipedia.org/wiki/Electron_backscatter_diffraction
 [dti]: https://en.wikipedia.org/wiki/Diffusion-weighted_magnetic_resonance_imaging
+[CryoET]: https://en.wikipedia.org/wiki/Cryogenic_electron_tomography
 
 [^1]: https://github.com/ome/ngff/pull/239#issuecomment-2122809286
 [^2]: https://github.com/ome/ngff/pull/239#issuecomment-2149119404
