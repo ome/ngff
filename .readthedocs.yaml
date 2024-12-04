@@ -7,6 +7,7 @@ build:
 
 submodules:
   include: all
+  recursive: true
 
 sphinx:
   configuration: conf.py
