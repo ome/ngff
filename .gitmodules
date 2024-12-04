@@ -18,3 +18,7 @@
 	path = 0.5
 	url = https://github.com/joshmoore/ngff-specifications
 	branch = 0.5
+[submodule "latest"]
+	path = latest
+	url = https://github.com/joshmoore/ngff-specifications
+	branch = 0.5

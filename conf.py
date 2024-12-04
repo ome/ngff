@@ -64,7 +64,7 @@ def bikeshed():
     import shutil
     import subprocess
 
-    for index_file in glob.glob("[0-9]*/index.bs"):
+    for index_file in ["latest/index.bs"] + glob.glob("[0-9]*/index.bs"):
         output_file = index_file.replace("bs", "html")
         output_dir = os.path.dirname(output_file)
         target_dir = os.path.join("_bikeshed", output_dir)
