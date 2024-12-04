@@ -209,12 +209,14 @@ Who has a stake in whether this RFC is accepted?
 ## Backwards Compatibility
 
 Since this proposal only removes restrictions, these changes are backwards
-compatible at the file level: v0.4 files would transparently be v0.5 files if
-this proposal is approved.
+compatible at the file level and appropriate for a non-breaking release.
 
 Any readers or writers that proactively checked the dimension restrictions
-(number of dimensions, dimension names, dimension types) would need to remove
-those checks. However, this should be a small amount of work in most cases.
+(number of dimensions, dimension names, dimension types) MAY remove
+those checks or update the exception raised to specify that the dimensions
+are not supported.
+
+This should be a small amount of work in most cases.
 
 ## Forward Compatibility
 
