@@ -116,7 +116,7 @@
             "type": "string"
           },
           "type": {
-            "type": "string",
+            "type": "string"
           },
           "unit": {
             "type": "string"
