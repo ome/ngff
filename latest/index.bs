@@ -305,7 +305,7 @@ Metadata about an image can be found under the "multiscales" key in the group-le
 Each "multiscales" dictionary MUST contain the field "axes", see [[#axes-md]].
 The length of "axes" must be equal to the dimensionality of the zarr arrays storing the image data (see "datasets:path").
 The order of the entries MUST correspond to the order of dimensions of the zarr arrays. 
-
+Axis names MUST be unique: no two elements of "axes" can have the same "name" attribute.
 Each "multiscales" dictionary MUST contain the field "datasets", which is a list of dictionaries describing the arrays storing the individual resolution levels.
 Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
 to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest. All arrays denoted by a "path" field MUST have the same number of dimensions. The number of dimensions of each array must match the length of the "axes" metadata.
