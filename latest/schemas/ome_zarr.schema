@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/0.5/schemas/ome_zarr.schema",
+  "anyOf": [
+    {
+      "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/bf2raw.schema"
+    },
+    {
+      "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/image.schema"
+    },
+    {
+      "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/label.schema"
+    },
+    {
+      "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/ome.schema"
+    },
+    {
+      "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/plate.schema"
+    },
+    {
+      "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/well.schema"
+    }
+  ]
+}
