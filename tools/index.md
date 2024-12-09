@@ -17,6 +17,9 @@ In addition to this collection, an evaluation of selected tools/libraries is ava
 | AICS Image Viewer | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/allen-cell-animated/website-3d-cell-viewer) | A browser-based volume viewer built with React and WebGL (Three.js). |
 
 ## File Conversion
+
+Many of the tools in the *File Reading/Writing* section below also support format conversion.
+
 | Name    | Link | Description |
 | -------- | ------- | ------- |
 | bioformats2raw | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/bioformats2raw) | Java application to convert image file formats, including .mrxs, to an intermediate Zarr structure compatible with the OME-NGFF specification. |
