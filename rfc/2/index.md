@@ -287,6 +287,18 @@ See [Background](#background) for a list of v3-capable Zarr libraries.
 
 Support for the OME-Zarr 0.5 metadata is under development in [ome-zarr-py](https://github.com/ome/ome-zarr-py/pull/383/files) and other implementations.
 
+[ngff-zarr](https://ngff-zarr.readthedocs.io/) supports creating [OME-Zarr 0.5
+from
+Python](https://ngff-zarr.readthedocs.io/en/latest/python.html#array-to-ngff-image)
+via Zarr-Python or
+[Tensorstore](https://ngff-zarr.readthedocs.io/en/latest/python.html#writing-with-tensorstore),
+[converting
+OME-Zarr](https://ngff-zarr.readthedocs.io/en/latest/python.html#convert-ome-zarr-versions)
+version 0.4 to 0.5 and 0.5 to 0.4, [validating OME-Zarr 0.5
+metadata](https://ngff-zarr.readthedocs.io/en/latest/python.html#validate-ome-zarr-metadata),
+and [converting other file formats to OME-Zarr
+0.5](https://ngff-zarr.readthedocs.io/en/latest/cli.html).
+
 ## Drawbacks, risks, alternatives, and unknowns
 
 While it is clear that Zarr v3 will become the predominant version of the specification moving forward, current library support for v3 is still under active development.
