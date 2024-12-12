@@ -1,16 +1,48 @@
 # RFC-6: Multiscale
 
-Turn the `multiscales` array into a single `multiscale` obejct.
+Turn the `multiscales` array into a single `multiscale` object.
 
 
 ## Status
 
 This proposal is very early. Status: D1
 
-| Name      | GitHub Handle | Institution | Date       | Status                                |
-| --------- | ------------- | ----------- | ---------- | ------------------------------------- |
-| Norman Rzepka    | [normanrz](https://github.com/normanrz)           | scalable minds         | 2024-12-03 | Author                                |
-| David Stansby    | [dstansby](https://github.com/dstansby)           | University College London        | 2024-12-03 | Author                                |
+```{list-table} Record
+:widths: 8, 20, 20, 20, 15, 10
+:header-rows: 1
+:stub-columns: 1
+
+*   - Role
+    - Name
+    - GitHub Handle
+    - Institution
+    - Date
+    - Status
+*   - Author
+    - Norman Rzepka
+    - @normanrz
+    - scalable minds
+    - 2024-12-03
+    - 
+*   - Author
+    - David Stansby
+    - @dstansby
+    - University College London
+    - 2024-12-03
+    - 
+*   - Endorser
+    - Davis Bennett
+    - @d-v-b
+    - 
+    - 2024-12-12
+    -
+*   - Endorser
+    - Will Moore
+    - @will-moore
+    - OME Dundee
+    - 2024-12-12
+    -
+```
 
 ## Overview
 
@@ -113,7 +145,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## Stakeholders
 
-The main stakeholders for this RFC are OME-Zarr tool developers and exsiting OME-Zarr image providers. Developers will have to update their implementations to account for the breaking change. Because this change is not backwards compatible, it will require a change to existing OME-Zarr images to make them compatible with this RFC.
+The main stakeholders for this RFC are OME-Zarr tool developers and existing OME-Zarr image providers. Developers will have to update their implementations to account for the breaking change. Because this change is not backwards compatible, it will require a change to existing OME-Zarr images to make them compatible with this RFC.
 
 ### Socialization
 
