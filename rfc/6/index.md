@@ -39,8 +39,14 @@ This proposal is very early. Status: D1
 *   - Endorser
     - Will Moore
     - @will-moore
-    - OME Dundee
+    - OME, University of Dundee
     - 2024-12-12
+    -
+*   - Endorser
+    - Lachlan Deakin
+    - LDeakin
+    - Australian National University
+    - 2024-12-17
     -
 ```
 
