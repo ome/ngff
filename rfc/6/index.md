@@ -48,6 +48,12 @@ This proposal is very early. Status: D1
     - Australian National University
     - 2024-12-17
     -
+*   - Endorser
+    - Joel Lüthi
+    - jluethi
+    - BioVisionCenter, University of Zurich
+    - 2024-12-18
+    -
 ```
 
 ## Overview
