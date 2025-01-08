@@ -44,14 +44,20 @@ This proposal is very early. Status: D1
     -
 *   - Endorser
     - Lachlan Deakin
-    - LDeakin
+    - @LDeakin
     - Australian National University
     - 2024-12-17
     -
 *   - Endorser
     - Joel Lüthi
-    - jluethi
+    - @jluethi
     - BioVisionCenter, University of Zurich
+    - 2024-12-18
+    -
+*   - Endorser
+    - Eric Perlman
+    - @perlman
+    - 
     - 2024-12-18
     -
 ```
