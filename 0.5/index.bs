@@ -381,6 +381,12 @@ can be found under the "omero" key in the group-level metadata:
 See the [OMERO WebGateway documentation](https://omero.readthedocs.io/en/stable/developers/Web/WebGateway.html#imgdata)
 for more information.
 
+The "omero" metadata is optional, but if present it MUST contain the field "channels", which is an array of dictionaries describing the channels of the image.
+Each dictionary in "channels" MUST contain the field "color", which is a string of 6 hexadecimal digits specifying the color of the channel in RGB format.
+Each dictionary in "channels" MUST contain the field "window", which is a dictionary describing the windowing of the channel.
+The field "window" MUST contain the fields "min" and "max", which are the minimum and maximum values of the window, respectively.
+It MUST also contain the fields "start" and "end", which are the start and end values of the window, respectively.
+
 "labels" metadata {#labels-md}
 ------------------------------
 
@@ -590,7 +596,12 @@ Version History {#history}
     </tr>
   </thead>
   <tr>
-    <td>0.5</td>
+    <td>0.5.1</td>
+    <td>2025-01-10</td>
+    <td>Re-add the improved omero description in PR-191.</td>
+  </tr>
+  <tr>
+    <td>0.5.0</td>
     <td>2024-11-21</td>
     <td>use Zarr v3 in OME-Zarr, see <a href="https://ngff.openmicroscopy.org/rfc/2">RFC-2</a>.</td>
   </tr>
