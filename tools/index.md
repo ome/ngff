@@ -22,9 +22,9 @@ Many of the tools in the *File Reading/Writing* section below also support forma
 
 | Name    | Link | Description |
 | -------- | ------- | ------- |
-| bioformats2raw | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/bioformats2raw) | Java application to convert image file formats, including .mrxs, to an intermediate Zarr structure compatible with the OME-NGFF specification. |
-| NGFF-Converter | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/NGFF-Converter) | A GUI application for conversion of bioimage formats into OME-NGFF (Next-Generation File Format) or OME-TIFF. |
-| stack_to_multiscale_ngff | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/CBI-PITT/stack_to_multiscale_ngff) | A tool for converting multi-terabyte stacks of images into a multiscale OME-NGFF Zarr. |
+| bioformats2raw | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/bioformats2raw) | Java application to convert image file formats, including .mrxs, to an intermediate Zarr structure compatible with the OME-Zarr specification. |
+| NGFF-Converter | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/NGFF-Converter) | A GUI application for conversion of bioimage formats into OME-Zarr or OME-TIFF. |
+| stack_to_multiscale_ngff | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/CBI-PITT/stack_to_multiscale_ngff) | A tool for converting multi-terabyte stacks of images into a multiscale OME-Zarr. |
 | BatchConvert | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Euro-BioImaging/BatchConvert) | A Nextflow based command-line tool that wraps bioformats2raw for parallelised conversion of image data collections to OME-Zarr. |
 
 ## File Reading/Writing
@@ -37,15 +37,15 @@ Various libraries for reading/writing OME-Zarr files in Python were evaluated as
 | Bio-Formats | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/bioformats) | A standalone Java library for reading and writing life sciences image file formats. |
 | BioIO | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/bioio-devs/bioio) | (formerly AICSImageIO <https://github.com/AllenCellModeling/aicsimageio>) Image Reading, Metadata Conversion, and Image Writing for Microscopy Images in pure Python. |
 | ngff-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/thewtex/ngff-zarr) | A lean and kind Open Microscopy Environment (OME) Next Generation File Format (NGFF) Zarr implementation. |
-| multiscale-spatial-image | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/spatial-image/multiscale-spatial-image) | Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-NGFF. |
-| ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME NGFF spec. |
-| ITKIOOMEZarrNGFF | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF) | An ITK external module for IO of images stored in Zarr-backed OME-NGFF file format. |
+| multiscale-spatial-image | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/spatial-image/multiscale-spatial-image) | Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-Zarr. |
+| ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. |
+| ITKIOOMEZarrNGFF | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF) | An ITK external module for IO of images stored in OME-Zarr file format. |
 
 ## Other Tools and Libraries
 | Name    | Link | Description |
 | -------- | ------- | ------- |
 | Fractal | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://fractal-analytics-platform.github.io/) | A framework to process OME-Zarr data at scale with modular processing tasks and to prepare it for interactive visualization. |
 | Nyxus | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/nyxus) | A scalable library for calculating features from intensity-label image data. |
-| ome-ngff-validator | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-ngff-validator) | Web page for validating OME-NGFF files. |
+| ome-ngff-validator | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-ngff-validator) | Web page for validating OME-Zarr files. |
 | SpatialData | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/scverse/spatialdata) | An open and universal framework for processing spatial omics data. |
 | tensorstore | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/google/tensorstore/) | Library for reading and writing large multi-dimensional arrays (e.g., Zarr). |
