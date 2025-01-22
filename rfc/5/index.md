@@ -62,6 +62,18 @@ This RFC is currently in RFC state `R1` (send for review).
     - Scalable Minds
     - 2024-08-22
     -
+*   - Reviewer
+    - Dan Toloudis, David Feng, Forrest Collman, Nathalie GAudreault, Gideon Dunster
+    - toloudis, dyf, fcollman
+    - Allen Institutes
+    - 2024-11-28
+    - [Review](./reviews/1/index)
+*   - Reviewer
+    - Will Moore, Jean-Marie Burel, Jason Swedlow
+    - will-moore, jburel, jrswedlow
+    - University of Dundee
+    - 2025-01-22
+    - [Review](./reviews/2/index)
 ```
 
 ## Overview
