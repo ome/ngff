@@ -8,7 +8,7 @@ This review was written by: William Moore<sup>1</sup>, Jean-Marie Burel<sup>1</s
 ## Summary
 
 This review complements the points raised in [Review 1](https://ngff.openmicroscopy.org/rfc/5/reviews/1/index.html).
-We agree with most points raised there, especially on the re-use of existing specifications on scientific
+We agree with most points raised there, especially on the reuse of existing specifications on scientific
 notation and references to external specifications. We have a different view regarding the
 Parameters question.
 
