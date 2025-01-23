@@ -14,7 +14,7 @@ Parameters question.
 
 ## Minor comments and questions
 
-Although the RFC and the [PR #138](https://github.com/me/ngff/pull/138) include several examples of
+Although the RFC and the [PR #138](https://github.com/ome/ngff/pull/138) include several examples of
 individual transforms, the proposed specification relies on the relationship between several images in a graph,
 such as the "coordinateTransformations", "volume" and "crop" images in the example. The format of the
 `.zattrs` and `.zarray` at various points in this graph is not clear. The examples should be updated
