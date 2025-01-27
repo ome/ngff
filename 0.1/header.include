@@ -10,8 +10,7 @@
 <body class="h-entry">
 <div class="head">
 
-  <!--p data-fill-with="logo"></p-->
-  <img src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" alt="OME logo (6 circles in a hexagon)" style="float:right;width:42px;height:42px;"></img>
+  <img src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" alt="OME logo (6 circles in a hexagon)" style="float:right;width:42px;height:42px;"/>
 
   <h1 id="title" class="p-name no-ref">[TITLE]</h1>
   <h2 id="subtitle" class="no-num no-toc no-ref">[LONGSTATUS],
