@@ -596,6 +596,11 @@ Version History {#history}
     </tr>
   </thead>
   <tr>
+    <td>0.5.2</td>
+    <td>2025-01-10</td>
+    <td>Clarify that the <code>dimension_names</code> field in <code>axes</code> MUST be included.</td>
+  </tr>
+  <tr>
     <td>0.5.1</td>
     <td>2025-01-10</td>
     <td>Re-add the improved omero description in PR-191.</td>
