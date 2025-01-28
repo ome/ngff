@@ -1488,10 +1488,10 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version ac5ea272d, updated Fri Dec 6 15:45:15 2024 -0800" name="generator">
+  <meta content="Bikeshed version c67c745b1, updated Fri Jan 17 14:27:28 2025 -0800" name="generator">
   <link href="https://ngff.openmicroscopy.org/0.5/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="9f88c770233c6ab57b911c6d0b4a0494fcc10f75" name="revision">
+  <meta content="5cdf83b6806b5e500477c7af69dae9ed2adcf77d" name="revision">
   <meta content="dark light" name="color-scheme">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
@@ -2173,7 +2173,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
     <img alt="OME logo (6 circles in a hexagon)" src="https://www.openmicroscopy.org/img/logos/ome-logomark.svg" style="float:right;width:42px;height:42px;"> 
    <h1 class="p-name no-ref" id="title">OME-Zarr specification</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Final Community Group Report, <time class="dt-updated" datetime="2025-01-15">15 January 2025</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Final Community Group Report, <time class="dt-updated" datetime="2025-01-28">28 January 2025</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2254,7 +2254,8 @@ will be provided between numbered versions. Data written with these latest chang
    <h3 class="heading settled" id="ome-zarr"><span class="content">OME-Zarr specification</span></h3>
    <p>The conventions and specifications defined in this document are designed to
 enable next-generation file formats to represent the same bioimaging data
-that can be represented in <a href="http://www.openmicroscopy.org/ome-files/">OME-TIFF</a> and beyond.</p>
+that can be represented in [OME-TIFF](http://www.openmicroscopy.org/ome-files/)
+and beyond.</p>
    <h3 class="heading settled" id="document-conventions"><span class="content">Document conventions</span></h3>
    <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”,
 “RECOMMENDED”, “MAY”, and “OPTIONAL” are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
@@ -2386,7 +2387,7 @@ The version of the OME-Zarr Metadata is denoted as a string in the <code>version
      </ul>
    </ul>
    <p>The "axes" are used as part of <a href="#multiscale-md">§ 2.4 "multiscales" metadata</a>. The length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.</p>
-   <p>The "dimension_names" attribute in the <code>zarr.json</code> of the Zarr array of a multiscale level MUST match the names in the "axes" metadata.</p>
+   <p>The "dimension_names" attribute MUST be included in the <code>zarr.json</code> of the Zarr array of a multiscale level and MUST match the names in the "axes" metadata.</p>
    <h3 class="heading settled" data-level="2.2" id="bf2raw"><span class="secno">2.2. </span><span class="content">"bioformats2raw.layout" (transitional)</span><a class="self-link" href="#bf2raw"></a></h3>
    <p><a data-link-type="dfn" href="#transitional" id="ref-for-transitional">Transitional</a> "bioformats2raw.layout" metadata identifies a group which implicitly describes a series of images.
 The need for the collection stems from the common "multi-image file" scenario in microscopy. Parsers like Bio-Formats
@@ -3090,6 +3091,10 @@ The latest edition is available at <a href="https://ngff.openmicroscopy.org/late
       <td>Date
       <td>Description
     <tbody>
+     <tr>
+      <td>0.5.2
+      <td>2025-01-10
+      <td>Clarify that the <code>dimension_names</code> field in <code>axes</code> MUST be included.
      <tr>
       <td>0.5.1
       <td>2025-01-10
