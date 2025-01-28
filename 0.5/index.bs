@@ -390,19 +390,21 @@ It MUST also contain the fields "start" and "end", which are the start and end v
 "labels" metadata {#labels-md}
 ------------------------------
 
-In OME-Zarr, Zarr arrays representing pixel-annotation data are stored in a group called "labels". Some applications--notably image segmentation--produce 
-a new image that is in the same coordinate system as a corresponding multiscale image (usually having the same dimensions and coordinate transformations). 
-This new image is composed of integer values corresponding to certain labels with custom meanings. For example, pixels take the value 1 or 0 
+In OME-Zarr, Zarr arrays representing pixel-annotation data are stored in a Zarr group called "labels". Some applications--notably image segmentation--produce 
+a new image that is in the same coordinate system as a corresponding image. 
+This new image is composed of integer values corresponding to certain labels with custom meanings. For example, pixels can take the value 1 or 0 
 if the corresponding pixel in the original image represents cellular space or intercellular space, respectively. 
 Such an image is referred to in this specification as a 'label image'. 
 
-The "labels" group is nested within an image group, at the same level of the Zarr hierarchy as the resolution levels for the original image. 
-The "labels" group is not itself an image; it contains images. The pixels of the label images MUST be integer data types, i.e. one of 
-[`uint8`, `int8`, `uint16`, `int16`, `uint32`, `int32`, `uint64`, `int64`]. Intermediate groups between "labels" and the images within it are allowed, 
-but these MUST NOT contain metadata. Names of the images in the "labels" group are arbitrary.
+The "labels" Zarr group is nested within an image Zarr group, at the same level as the resolution levels for the image. 
+The "labels" group contains other Zarr groups that contain image datasets with label data.
+Every multiscales Zarr array within a labels Zarr group contains integers and MUST have a data type from the following list: [`uint8`, `int8`, `uint16`, `int16`, `uint32`, `int32`, `uint64`, `int64`].
+Intermediate groups between "labels" and the images within it are allowed, but these MUST NOT contain any OME-Zarr metadata in the `zarr.json` file associated with the intermediate Zarr groups.
+Names of the images in the "labels" group are arbitrary.
 
 The OME-Zarr Metadata in the `zarr.json` file associated with the "labels" group MUST contain a JSON object with the key `labels`, whose value is a JSON array of paths to the 
-labeled multiscale image(s). All label images SHOULD be listed within this metadata file. For example:
+labeled multiscale image(s).
+All label images SHOULD be listed within this metadata file. For example:
 
 ```json
 {
@@ -417,9 +419,8 @@ labeled multiscale image(s). All label images SHOULD be listed within this metad
   }
 }
 ```
-
-The `zarr.json` file for the label image MUST implement the multiscales specification. Within the `multiscales` object, the JSON array 
-associated with the `datasets` key MUST have the same number of entries (scale levels) as the original unlabeled image. 
+Every path within the `labels` key MUST contain a Zarr group that implements the multiscales specification.
+Within the `multiscales` object, the JSON array associated with the `datasets` key MUST have the same number of entries (scale levels) as the original unlabeled image. 
 
 In addition to the `multiscales` key, the OME-Zarr Metadata in this image-level `zarr.json` file SHOULD contain another key, `image-label`, 
 whose value is also a JSON object. The `image-label` object stores information about the display colors, source image, and optionally, 
