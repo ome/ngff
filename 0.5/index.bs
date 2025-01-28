@@ -188,7 +188,7 @@ The OME-Zarr Metadata version MUST be consistent within a hierarchy.
 
 The "axes" are used as part of [[#multiscale-md]]. The length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
-The "dimension_names" attribute in the `zarr.json` of the Zarr array of a multiscale level, if defined, MUST match the names in the "axes" metadata.
+The "dimension_names" attribute MUST be included in the `zarr.json` of the Zarr array of a multiscale level and MUST match the names in the "axes" metadata.
 
 
 "bioformats2raw.layout" (transitional) {#bf2raw}
@@ -595,6 +595,11 @@ Version History {#history}
       <td>Description</td>
     </tr>
   </thead>
+  <tr>
+    <td>0.5.2</td>
+    <td>2025-01-10</td>
+    <td>Clarify that the <code>dimension_names</code> field in <code>axes</code> MUST be included.</td>
+  </tr>
   <tr>
     <td>0.5.1</td>
     <td>2025-01-10</td>
