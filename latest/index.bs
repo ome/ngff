@@ -193,11 +193,11 @@ dataset. Three groups MUST be defined above the images:
 A well row group SHOULD NOT be present if there are no images in the well row.
 A well group SHOULD NOT be present if there are no images in the well.
 
-Note: Field of views of the microscope may be saved as individual images in each
-well to allow for maximal flexibility regarding translations between field of views.
+Note: Fields of view of the microscope may be saved as individual images in each
+well to allow for maximal flexibility regarding translations between fields of view.
 However, having wells with many individual images does not scale well for visualisation of
 large plates. In that case, combining the fields and saving as a single image
-per Well is likely to improve performance.
+per well is likely to improve performance.
 
 
 <pre>
