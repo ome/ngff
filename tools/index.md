@@ -26,6 +26,7 @@ Many of the tools in the *File Reading/Writing* section below also support forma
 | NGFF-Converter | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/NGFF-Converter) | A GUI application for conversion of bioimage formats into OME-Zarr or OME-TIFF. |
 | stack_to_multiscale_ngff | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/CBI-PITT/stack_to_multiscale_ngff) | A tool for converting multi-terabyte stacks of images into a multiscale OME-Zarr. |
 | BatchConvert | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Euro-BioImaging/BatchConvert) | A Nextflow based command-line tool that wraps bioformats2raw for parallelised conversion of image data collections to OME-Zarr. |
+| stack-to-chunk | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://stack-to-chunk.readthedocs.io) | A Python library to convert stacks of 2D images to OME-Zarr with minimal memory use and maximum concurrency. |
 
 ## File Reading/Writing
 
