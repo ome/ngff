@@ -382,10 +382,14 @@ See the [OMERO WebGateway documentation](https://omero.readthedocs.io/en/stable/
 for more information.
 
 The "omero" metadata is optional, but if present it MUST contain the field "channels", which is an array of dictionaries describing the channels of the image.
+The "channels" array length SHOULD correspond to the size of the "c" axis.
 Each dictionary in "channels" MAY contain the field "color", which is a string of 6 hexadecimal digits specifying the color of the channel in RGB format.
+Each dictionary in "channels" MAY contain the field "label", which is a string and a boolean "active" field to indicate whether the channel
+should be displayed.
 Each dictionary in "channels" MAY contain the field "window", which is a dictionary describing the windowing of the channel.
 The field "window" MAY contain the fields "min" and "max", which should correspond to the minimum and maximum pixel intensities for that channel, respectively.
 It MAY also contain the fields "start" and "end", which are the suggested start and end rendering settings of the window, respectively.
+Each dictionary in "channels" MAY contain the boolean field "inverted". If true, the renderinging of darkest to brightest pixels should be inverted.
 
 "labels" metadata {#labels-md}
 ------------------------------
