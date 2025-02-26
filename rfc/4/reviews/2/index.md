@@ -4,7 +4,7 @@
 
 Juan Nunez-Iglesias <jni@fastmail.com>
 
-## Conflicts of interest (optional)
+## Conflicts of interest
 
 None.
 
@@ -49,7 +49,7 @@ The namespacing issue can be resolved in two ways:
           "name": "x",
           "type": "space",
           "unit": "millimeter",
-          {"orientation": {"type": "anatomical", "value": "left-to-right"}}
+          "orientation": {"type": "anatomical", "value": "left-to-right"}
       },
       ...
    ]
