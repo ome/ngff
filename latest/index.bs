@@ -339,7 +339,7 @@ A "coordinate system" is a collection of "axes" / dimensions with a name. Every 
 </div>
 
 The order of the `"axes"` list matters and defines the index of each array dimension and coordinates for points in that
-coordinate system. For the above example, the `"x"` dimension is the first dimension. The "dimensionality" of a coordinate system
+coordinate system. For the above example, the `"x"` dimension is the last dimension. The "dimensionality" of a coordinate system
 is indicated by the length of its "axes" array. The "volume_micrometers" example coordinate system above is three dimensional (3D).
 
 The axes of a coordinate system (see below) give information about the types, units, and other properties of the coordinate
@@ -400,7 +400,8 @@ image.
 
 ### "axes" metadata
 
-"axes" describes the dimensions of a coordinate systems. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
+"axes" describes the dimensions of a coordinate systems and adds an interpretation to the samples along that dimension.
+It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.
 - SHOULD contain the field "type". It SHOULD be one of the strings "array", "space", "time", "channel", "coordinate", or
     "displacement" but MAY take other string values for custom axis types that are not part of this specification yet.
@@ -431,9 +432,9 @@ Examples of valid axes:
 
 Arrays are inherently discrete (see Array coordinate systems, below) but are often used to store discrete samples of a
 continuous variable. The continuous values "in between" discrete samples can be retrieved using an *interpolation* method. If an
-axis is continuous (`"discrete" : false`), it indicates that interpolation is well-defined. Axes representing `space` and
-`time` are usually continuous. Similarly, joint interpolation across axes is well-defined only for axes of the same `type`. In
-contrast, discrete axes (`"discrete" : true`) may be indexed only by integers. Axes of representing a `channel`, `coordinate`,
+axis is continuous (`"discrete" : false`), it indicates that interpolation is well-defined. Axes representing `space` and `time`
+are usually continuous. Similarly, joint interpolation across axes is well-defined only for axes of the same `type`. In
+contrast, discrete axes (`"discrete" : true`) may be indexed only by integers.  Axes of representing a `channel`, `coordinate`,
 or `displacement` are usually discrete.
 
 Note: The most common methods for interpolation are "nearest neighbor", "linear", "cubic", and "windowed sinc". Here, we refer
@@ -460,18 +461,22 @@ Indexing an image at the point `(0.1, 0.2, 0.3, 0.4)` is not valid, because the 
 to the discrete axis `"c"`.  Indexing an image at the point `(1, 0.2, 0.3, 0.4)` is valid.
 </div>
 
-
 ### Array coordinate systems
 
-Every array has a default coordinate system whose parameters need not be explicitly defined.  Its name is the path to the array
+The dimensions of an array do not have an interpretation until they are associated with a coordinate system via a coordinate
+transformation. Nevertheless, it can be useful to refer to the "raw" coordinates of the array. Some applications might prefer to
+define points or regions-of-interest in "pixel coordinates" rather than "physical coordinates," for example. Indicating that
+choice explicitly will be important for interoperability. This is possible by using **array coordinate systems**.
+
+Every array has a default coordinate system whose parameters need not be explicitly defined. Its name is the path to the array
 in the container, its axes have `"type":"array"`, are unitless, and have default "name"s. The ith axis has `"name":"dim_i"`
 (these are the same default names used by [xarray](https://docs.xarray.dev/en/stable/user-guide/terminology.html)).
 <div class=example>
-For example, a 3D array at path `my/data/array` defines the coordinate system:
+For example, a 3D array at path `0` defines the coordinate system:
 
 ```json
 {
-    "name" : "my/data/array",
+    "name" : "0",
     "axes" : [
         {"name": "dim_0", "type": "array"},
         {"name": "dim_1", "type": "array"},
@@ -491,7 +496,7 @@ chunks. As described in the [zarr array metadata](https://zarr.readthedocs.io/en
 the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded. 
 
 <div class=example>
-For example, if `my/data/array/.zarray` contains:
+For example, if `0/.zarray` contains:
 
 ```json
 {
