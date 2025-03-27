@@ -3,13 +3,12 @@ Title: Next-generation file formats (NGFF)
 Shortname: ome-ngff
 Level: 1
 Status: w3c/CG-FINAL
-Group: ome
+TR: https://ngff.openmicroscopy.org/0.3/
 URL: https://ngff.openmicroscopy.org/0.3/
 Repository: https://github.com/ome/ngff
 Issue Tracking: Forums https://forum.image.sc/tag/ome-ngff
 Logo: http://www.openmicroscopy.org/img/logos/ome-logomark.svg
-Local Boilerplate: header yes
-Local Boilerplate: copyright yes
+Local Boilerplate: header yes, copyright yes
 Boilerplate: style-darkmode off
 Markup Shorthands: markdown yes
 Editor: Josh Moore, Open Microscopy Environment (OME) https://www.openmicroscopy.org
@@ -249,7 +248,7 @@ It SHOULD contain the field "metadata", which contains a dictionary with additio
             ],
             "type": "gaussian",
             "metadata": {                                       # the fields in metadata depend on the downscaling implementation
-                "method": "skimage.transform.pyramid_gaussian", # here, the paramters passed to the skimage function are given
+                "method": "skimage.transform.pyramid_gaussian", # here, the parameters passed to the skimage function are given
                 "version": "0.16.1",
                 "args": "[true]",
                 "kwargs": {"multichannel": true}
@@ -432,7 +431,7 @@ custom attributes of the plate group under the `plate` key.
 </dl>
 
 For example the following JSON object defines a plate with two acquisition and
-6 wells (2 rows and 3 columns), containing up 2 fields of view per acquistion.
+6 wells (2 rows and 3 columns), containing up 2 fields of view per acquisition.
 
 ```json
 "plate": {
@@ -569,8 +568,7 @@ Projects which support reading and/or writing OME-NGFF data include:
 
 </dl>
 
-<img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png"
-    alt="Diagram of related projects"/>
+<img src="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/images/zarr-ome-diagram.png" alt="Diagram of related projects">
 
 All implementations prevent an equivalent representation of a dataset which can be downloaded or uploaded freely. An interactive
 version of this diagram is available from the [OME2020 Workshop](https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/NGFF/zarr_diagram/).
@@ -582,7 +580,7 @@ Citing {#citing}
 ================
 
 [Next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.](https://ngff.openmicroscopy.org/0.3)
-J. Moore, *et al*. Editors. Open Microscopy Environment Consortium, 20 November 2020.
+J. Moore, *et al*. Open Microscopy Environment Consortium, 20 November 2020.
 This edition of the specification is [https://ngff.openmicroscopy.org/0.3/](https://ngff.openmicroscopy.org/0.3/]).
 The latest edition is available at [https://ngff.openmicroscopy.org/latest/](https://ngff.openmicroscopy.org/latest/).
 [(doi:10.5281/zenodo.4282107)](https://doi.org/10.5281/zenodo.4282107)
