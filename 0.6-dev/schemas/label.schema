@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/0.5/schemas/label.schema",
+  "title": "OME-Zarr labelled image schema",
+  "description": "The zarr.json attributes key",
+  "type": "object",
+  "properties": {
+    "ome": {
+      "description": "The versioned OME-Zarr Metadata namespace",
+      "type": "object",
+      "properties": {
+        "image-label": {
+          "$ref": "#/$defs/image-label"
+        },
+        "version": {
+          "$ref": "https://ngff.openmicroscopy.org/0.5/schemas/_version.schema"
+        }
+      },
+      "required": [
+        "image-label",
+        "version"
+      ]
+    }
+  },
+  "required": [
+    "ome"
+  ],
+  "$defs": {
+    "image-label": {
+      "type": "object",
+      "properties": {
+        "colors": {
+          "description": "The colors for this label image",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label-value": {
+                "description": "The value of the label",
+                "type": "number"
+              },
+              "rgba": {
+                "description": "The RGBA color stored as an array of four integers between 0 and 255",
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                },
+                "minItems": 4,
+                "maxItems": 4
+              }
+            },
+            "required": [
+              "label-value"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "properties": {
+          "description": "The properties for this label image",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label-value": {
+                "description": "The pixel value for this label",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "label-value"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "source": {
+          "description": "The source of this label image",
+          "type": "object",
+          "properties": {
+            "image": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

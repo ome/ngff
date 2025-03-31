@@ -1,0 +1,18 @@
+{
+  "$id": "https://ngff.openmicroscopy.org/latest/schemas/strict_coordinate_systems.schema",
+  "allOf" : [
+    {
+      "$ref": "coordinate_systems.schema"
+    },
+    {
+      "items": {
+        "type": "object",
+        "properties": {
+          "axes": {
+            "$ref": "strict_axes.schema"
+          }
+        }
+      }
+    }
+  ]
+}

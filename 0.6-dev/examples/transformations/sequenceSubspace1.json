@@ -1,0 +1,17 @@
+{
+    "coordinateSystems" : [
+        { "name" : "in", "axes" : [ {"name" : "i"}, {"name" : "j"} ] },
+        { "name" : "out", "axes" : [ {"name" : "x"}, {"name" : "y"} ] }
+    ],
+    "coordinateTransformations" : [
+        {
+            "type" : "sequence",
+            "input" : "in",
+            "output" : "out",
+            "transformations" : [
+                { "type" : "coordinates", "path" : "/coordinates", "inputAxes" : ["i"], "outputAxes" : ["x"]},
+                { "type" : "scale", "scale" : [2.0], "inputAxes" : ["j"], "outputAxes" : ["y"]}
+            ]
+        }
+    ]
+}

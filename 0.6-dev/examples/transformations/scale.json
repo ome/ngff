@@ -1,0 +1,14 @@
+{
+    "coordinateSystems": [
+        { "name": "in", "axes": [{"name": "j"}, {"name": "i"}] },
+        { "name": "out", "axes": [{"name": "y"}, {"name": "x"}] }
+    ],
+    "coordinateTransformations": [ 
+        {
+            "type": "scale",
+            "scale": [3.12, 2],
+            "input": "in",
+            "output": "out"
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+{
+    "coordinateSystems": [
+        { "name": "in", "axes": [ {"name": "j"}, {"name": "i"} ]},
+        { "name": "out", "axes": [ {"name": "y"}, {"name": "x"} ]}
+    ],
+    "coordinateTransformations": [ 
+        { "type": "identity", "input": "in", "output": "out" }
+    ]
+}

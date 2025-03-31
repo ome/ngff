@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ngff.openmicroscopy.org/latest/schemas/coordinate_systems.schema",
+  "title": "NGFF CoordinateSystem",
+  "description": "JSON from OME-NGFF .zattrs",
+  "type": "array",
+  "uniqueItems": true,
+  "items": {
+    "$ref": "#/$defs/coordinateSystem"
+  },
+  "$defs": {
+    "coordinateSystem": {
+      "description": "Coordinate Systems for OME-NGFF",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of coordinate system"
+        },
+        "axes": {
+          "$ref": "axes.schema"
+        }
+      },
+      "required": [
+        "name",
+        "axes"
+      ]
+    }
+  }
+}
