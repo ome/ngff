@@ -7,7 +7,7 @@ The below sections explain how to contributed in different ways to the `OME-Zarr
 ## Major changes to the specification
 
 Any suggested major changes to the `OME-Zarr` specification should be opened as request for comment (RFC) documents.
-In the future we will flesh out this page with a guide to RFCs, but in the meantime the RFC process is outlined in the [Implementaiton section of RFC 1](https://ngff.openmicroscopy.org/rfc/1/index.html#implementation).
+In the future we will flesh out this page with a guide to RFCs, but in the meantime the RFC process is outlined in the [Implementation section of RFC 1](https://ngff.openmicroscopy.org/rfc/1/index.html#implementation).
 
 ## Comment on a request for comment (RFC)
 
