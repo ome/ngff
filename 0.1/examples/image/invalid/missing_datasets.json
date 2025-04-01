@@ -1,9 +1,0 @@
-{
-    "@type": "ngff:Image",
-    "multiscales": [
-        {
-            "version": "0.1",
-            "name": "example"
-        }
-    ]
-}
