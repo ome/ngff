@@ -1,8 +1,0 @@
-# Environment for building sphinx locally
-channels:
-  - conda-forge
-dependencies:
-  - myst-parser
-  - sphinx-book-theme
-  - pip:
-    - bikeshed
