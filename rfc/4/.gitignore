@@ -1,7 +1,0 @@
-# pixi environments
-.pixi
-*.egg-info
-
-markdown/types
-markdown/index.md
-orientation.py
