@@ -1,6 +1,0 @@
-{
-    "@context": {
-        "@vocab" : "http://localhost:8000/context.json#",
-        "ngff" : "http://localhost:8000/context.json#"
-    }
-}
