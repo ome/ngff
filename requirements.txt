@@ -1,4 +1,0 @@
-bikeshed<4.2
-myst-parser
-sphinx-book-theme
-testresources
