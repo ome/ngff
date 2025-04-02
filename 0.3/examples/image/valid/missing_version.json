@@ -1,0 +1,18 @@
+{
+    "@type": "ngff:Image",
+    "multiscales": [
+        {
+            "name": "example",
+            "datasets": [
+                {
+                    "path": "path/to/0"
+                }
+            ],
+            "axes": [
+                "z",
+                "y",
+                "x"
+            ]
+        }
+    ]
+}

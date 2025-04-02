@@ -1,0 +1,12 @@
+{
+    "@type": "ngff:Image",
+    "multiscales": [
+        {
+            "datasets": [
+                {"path": "path/to/0"},
+                {"path": "1"},
+                {"path": "2"}
+            ]
+        }
+    ]
+}
