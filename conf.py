@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "NGFF"
-copyright = "2024, NGFF Community"
+copyright = "2020-2025, NGFF Community"
 author = "NGFF Community"
 
 # -- General configuration ---------------------------------------------------
