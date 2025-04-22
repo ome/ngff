@@ -85,7 +85,7 @@ def get_version_index_html(*, version: str, schmea_fnames: list[Path]) -> str:
     <meta charset="utf-8"/>
 
 
-    <title>OME-zarr verison {version}</title>
+    <title>OME-zarr version {version}</title>
 </head>
 <body onload="anchorOnLoad();" id="root">
 
