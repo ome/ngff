@@ -9,6 +9,16 @@
           "name": "example",
           "coordinateSystems": [
               {
+                "name": "default",
+                "axes": [
+                  { "name": "t", "type": "time", "unit": "millisecond" },
+                  { "name": "c", "type": "channel" },
+                  { "name": "z", "type": "space", "unit": "micrometer" },
+                  { "name": "y", "type": "space", "unit": "micrometer" },
+                  { "name": "x", "type": "space", "unit": "micrometer" }
+                ]
+              },
+              {
                 "name": "example",
                 "axes": [
                   { "name": "t", "type": "time", "unit": "millisecond" },
@@ -24,34 +34,40 @@
               "path": "0",
               "coordinateTransformation": {
                 // the voxel size for the first scale level (0.5 micrometer)
-                // and the time unit (0.1 milliseconds), which is the same for each scale level
                 "type": "scale",
-                "scale": [0.1, 1.0, 0.5, 0.5, 0.5],
+                "scale": [1.0, 1.0, 0.5, 0.5, 0.5],
                 "input": "0",
-                "output": "example"
+                "output": "default"
               }
             },
             {
               "path": "1",
               "coordinateTransformation": {
                 // the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)
-                // and the time unit (0.1 milliseconds), which is the same for each scale level
                 "type": "scale",
-                "scale": [0.1, 1.0, 1.0, 1.0, 1.0],
+                "scale": [1.0, 1.0, 1.0, 1.0, 1.0],
                 "input": "1",
-                "output": "example"
+                "output": "default"
               }
             },
             {
               "path": "2",
               "coordinateTransformation": {
                 // the voxel size for the third scale level (downscaled by a factor of 4 -> 2 micrometer)
-                // and the time unit (0.1 milliseconds), which is the same for each scale level
                 "type": "scale",
-                "scale": [0.1, 1.0, 2.0, 2.0, 2.0],
+                "scale": [1.0, 1.0, 2.0, 2.0, 2.0],
                 "input": "2",
-                "output": "example"
+                "output": "default"
               }
+            }
+          ],
+          "coordinateTransformations": [
+            {
+              // the time unit (0.1 milliseconds), which is the same for each scale level
+              "type": "scale",
+              "scale": [0.1, 1.0, 1.0, 1.0, 1.0],
+              "input": "default",
+              "output": "example"
             }
           ],
           "type": "gaussian",

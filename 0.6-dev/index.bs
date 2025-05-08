@@ -1313,32 +1313,52 @@ highlight: json
 ---------------------------------------
 
 Metadata about an image can be found under the "multiscales" key in the group-level OME-Zarr Metadata. 
-Here, image refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes. 
+Here, "image" refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes.
 It is stored in a multiple resolution representation.
 
 "multiscales" contains a list of dictionaries where each entry describes a multiscale image.
 
-Each "multiscales" dictionary MUST contain the field "coordinateSystems", see [[#coord-sys-md]], with the following constraints.
-The length of "axes" must be between 2 and 5 and MUST be equal to the dimensionality of the zarr arrays storing the image data (see "datasets:path").
-The "axes" MUST contain 2 or 3 entries of "type:space" and MAY contain one additional entry of "type:time" and MAY contain one additional entry of "type:channel" or a null / custom type.
-The order of the entries MUST correspond to the order of dimensions of the zarr arrays. In addition, the entries MUST be ordered by "type" where the "time" axis must come first (if present), followed by the  "channel" or custom axis (if present) and the axes of type "space".
-If there are three spatial axes where two correspond to the image plane ("yx") and images are stacked along the other (anisotropic) axis ("z"), the spatial axes SHOULD be ordered as "zyx".
+Each "multiscales" dictionary MUST contain the field "coordinateSystems", whose value is an array containing valid coordinate
+system metadata (see [[#coord-sys-md]]). The first entry of this array is the "default" coordinate system, and should be
+used for viewing and processing unless a use case dictates otherwise. It will generally be a representation of the image
+in its native physical coordinate system.
 
-Each "multiscales" dictionary MUST contain the field "datasets", which is a list of dictionaries describing the arrays storing the individual resolution levels.
-Each dictionary in "datasets" MUST contain the field "path", whose value contains the path to the array for this resolution relative
-to the current zarr group. The "path"s MUST be ordered from largest (i.e. highest resolution) to smallest.
+The following MUST hold for all coordinate systems.
+The length of "axes" must be between 2 and 5 and MUST be equal to the dimensionality of the Zarr arrays storing the image data (see "datasets:path").
+The "axes" MUST contain 2 or 3 entries of "type:space" and MAY contain one additional entry of "type:time" and MAY contain one
+additional entry of "type:channel" or a null / custom type.  The order of the entries MUST correspond to the order of dimensions
+of the Zarr arrays. In addition, the entries MUST be ordered by "type" where the "time" axis must come first (if present),
+followed by the  "channel" or custom axis (if present) and the axes of type "space".  If there are three spatial axes where two
+correspond to the image plane ("yx") and images are stacked along the other (anisotropic) axis ("z"), the spatial axes SHOULD be
+ordered as "zyx".
 
-Each "datasets" dictionary MUST have the same number of dimensions and MUST NOT have more than 5 dimensions. The number of dimensions and order MUST correspond to number and order of "axes".
-Each dictionary in "datasets" MUST contain the field "coordinateTransformations", which contains a list of transformations that map the data coordinates to the physical coordinates (as specified by "axes") for this resolution level.
-The transformations are defined according to [[#trafo-md]]. 
+Each "multiscales" dictionary MUST contain the field "datasets", which is a list of dictionaries describing the arrays storing
+the individual resolution levels.  Each dictionary in "datasets" MUST contain the field "path", whose value is a string
+containing the path to the Zarr array for this resolution relative to the current Zarr group. The "path"s MUST be ordered from
+largest (i.e. highest resolution) to smallest.  Every Zarr array referred to by a "path" MUST have the same number of dimensions
+and MUST NOT have more than 5 dimensions.  The number of dimensions and order MUST correspond to number and order of "axes".
 
-They MUST contain exactly one `scale` transformation that specifies the pixel size in physical units or time duration. If scaling information is not available or applicable for one of the axes, the value MUST express the scaling factor between the current resolution and the first resolution for the given axis, defaulting to 1.0 if there is no downsampling along the axis.
-It MAY contain exactly one `translation` that specifies the offset from the origin in physical units. If `translation` is given it MUST be listed after `scale` to ensure that it is given in physical coordinates.
-The requirements (only `scale` and `translation`, restrictions on order) are in place to provide a simple mapping from data coordinates to physical coordinates while being compatible with the general transformation spec.
+Each dictionary in "datasets" MUST contain the field "coordinateTransformation", whose value is a dictionary that defines a
+transformation that maps Zarr array coordinates for this resolution level to the default coordinate system (the first entry of
+the "coordinateSystems" array). The transformation is defined according to [[#trafo-md]].  The transformation MUST take as input
+points in the array coordinate system corresponding to the Zarr array at location "path." The value of "input" SHOULD equal the
+value of "path", but implementations should always treat the value of "input" as if it were equal to the value of "path". The
+value of the transformation’s "output" MUST be the name of the default coordinate system.
 
-Each "multiscales" dictionary MAY contain the field "coordinateTransformations", describing transformations that are applied to all resolution levels in the same manner.
-The transformations MUST follow the same rules about allowed types, order, etc. as in "datasets:coordinateTransformations" and are applied after them.
-They can for example be used to specify the `scale` for a dimension that is the same for all resolutions.
+This transformation SHOULD be one of the following:
+
+* A single scale transformation
+* A sequence transformation containing one scale and one translation transformation.
+
+In these cases, the scale transformation specifies the pixel size in physical units or time duration. If scaling information is
+not available or applicable for one of the axes, the value MUST express the scaling factor between the current resolution and
+the first resolution for the given axis, defaulting to 1.0 if there is no downsampling along the axis. This is strongly
+recommended so that the the "default" coordinate system of the image avoids more complex transformations.
+
+If applications require additional transformations, each "multiscales" dictionary MAY contain the field
+"coordinateTransformations", describing transformations that are applied to all resolution levels in the same manner, after
+being transformed to the array at location "path." The value of "input" SHOULD equal the value of "path", but implementations
+should always treat the value of "input" as if it were equal to the value of "path".
 
 Each "multiscales" dictionary SHOULD contain the field "name".
 
