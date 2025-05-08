@@ -330,11 +330,19 @@ transformation. Nevertheless, it can be useful to refer to the "raw" coordinates
 define points or regions-of-interest in "pixel coordinates" rather than "physical coordinates," for example. Indicating that
 choice explicitly will be important for interoperability. This is possible by using **array coordinate systems**.
 
-Every array has a default coordinate system whose parameters need not be explicitly defined. Its name is the path to the array
-in the container, its axes have `"type":"array"`, are unitless, and have default "name"s. The ith axis has `"name":"dim_i"`
-(these are the same default names used by [xarray](https://docs.xarray.dev/en/stable/user-guide/terminology.html)).
+Every array has a default coordinate system whose parameters need not be explicitly defined.  The dimensionality of each array
+coordinate system equals the dimensionality of its corresponding zarr array.  Its name is the path to the array in the
+container, its axes have `"type":"array"`, are unitless, and have "name"s corresponding to the `dimension_names` in zarr.
+
 <div class=example>
-For example, a 3D array at path `0` defines the coordinate system:
+
+For example, a 3D array at path `0` whose zarr.json contains:
+
+```json
+"dimension_names": ["dim_0", "dim_1", "dim_2"]
+```
+
+implcitly defines the coordinate system:
 
 ```json
 {
@@ -348,45 +356,6 @@ For example, a 3D array at path `0` defines the coordinate system:
 ```
 
 though this object should not and need not explicitly appear in metadata. 
-</div>
-
-
-The dimensionality of each array coordinate system equals the dimensionality of its corresponding zarr array.  The axis with
-name `"dim_i"` is the ith element of the `"axes"` list. The axes and their order align with the `shape`
-attribute in the zarr array attributes, and whose data depends on the byte order used to store
-chunks. As described in the [zarr array metadata](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#array-metadata),
-the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded. 
-
-<div class=example>
-For example, if `0/zarr.json` contains:
-
-
-```json
-{
-    "zarr_format": 3,
-    "node_type": "array",
-    "shape": [4, 3, 5],
-    ...
-}
-```
-
-Then `dim_0` has length 4, `dim_1` has length 3, and `dim_2` has length 5.
-</div>
-
-The name and axes names MAY be customized by including a `arrayCoordinateSystem` field in
-the user-defined attributes of the array whose value is a coordinate system object. The length of
-`axes` MUST be equal to the dimensionality. The value of `"type"` for each object in the 
-axes array MUST equal `"array"`.
-
-<div class=example>
-
-<pre class=include-code>
-path: examples/coordSystems/arrayCoordSys.json
-highlight: json
-</pre>
-
-Note that dimension `i` is contiguous in memory.
-
 </div>
 
 
