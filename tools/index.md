@@ -14,7 +14,7 @@ In addition to this collection, an evaluation of selected tools/libraries is ava
 | Neuroglancer | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/google/neuroglancer) | A WebGL-based viewer for volumetric data. |
 | Viv (Avivator, Vizarr, Vitessce, ...) | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/hms-dbmi/viv) | A WebGL-powered toolkit for interactive visualization of high-resolution, multiplexed bioimaging datasets. The viv toolkit is used by the [Avivator](https://avivator.gehlenborglab.org), [Vizarr](https://github.com/hms-dbmi/vizarr) and [Vitessce](http://vitessce.io) image viewers, among others. |
 | WEBKNOSSOS | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/scalableminds/webknossos) | An open-source tool for annotating and exploring large 3D image datasets. |
-| AICS Image Viewer | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/allen-cell-animated/website-3d-cell-viewer) | A browser-based volume viewer built with React and WebGL (Three.js). |
+| Vol-E | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/allen-cell-animated/vole-app) | A browser-based volume viewer built with React and WebGL (Three.js). |
 
 ## File Conversion
 
