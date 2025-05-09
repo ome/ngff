@@ -1,7 +1,6 @@
-# RFC-6: Multiscale
+# RFC-6: Flattening the multiscales array
 
 Turn the `multiscales` array into a single `multiscale` object.
-
 
 ## Status
 
