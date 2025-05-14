@@ -551,6 +551,11 @@ store.zarr                      # Root folder of the zarr store
 
 ### Additional details
 
+Input and output dimensionality of a transformation may be determined by the value of the "input" and "output" fields,
+respectively. If the value of "input" ("output") is an array, its length gives the number of input (output) dimensions,
+otherwise the length of "axes" for the coordinate system with the name of the "input" ("output") value gives the number of input
+(output) dimensions.
+
 Most coordinate transformations MUST specify their input and output coordinate systems using `input` and `output` with a string value
 corresponding to the name of a coordinate system. The coordinate system's name may be the path to an array, and therefore may
 not appear in the list of coordinate systems.
@@ -685,13 +690,6 @@ results in the point [2,-1,3] because it is computed with the matrix-vector mult
 
 
 ### Transformation types
-
-Input and output dimensionality may be determined by the value of the "input" and "output" fields, respectively. If the value
-of "input" is an array, its length gives the input dimension, otherwise the length of "axes" for the coordinate
-system with the name of the "input" value gives the input dimension. If the value of "input" is an array, its
-length gives the input dimension, otherwise it is given by the length of "axes" for the coordinate system with
-the name of the "input". If the value of "output" is an array, its length gives the output dimension,
-otherwise it is given by the length of "axes" for the coordinate system with the name of the "output".
 
 #### <a name="identity">identity</a>
 
