@@ -192,8 +192,6 @@ It is a list of dictionaries, where each dictionary describes a dimension (axis)
 
 The "axes" are used as part of [[#multiscale-md]]. The length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
-The "dimension_names" attribute MUST be included in the `zarr.json` of the Zarr array of a multiscale level and MUST match the names in the "axes" metadata.
-
 <div class=example>
 
 Examples of valid axes:
@@ -330,9 +328,10 @@ transformation. Nevertheless, it can be useful to refer to the "raw" coordinates
 define points or regions-of-interest in "pixel coordinates" rather than "physical coordinates," for example. Indicating that
 choice explicitly will be important for interoperability. This is possible by using **array coordinate systems**.
 
-Every array has a default coordinate system whose parameters need not be explicitly defined.  The dimensionality of each array
-coordinate system equals the dimensionality of its corresponding zarr array.  Its name is the path to the array in the
+Every array has a default coordinate system whose parameters need not be explicitly defined. The dimensionality of each array
+coordinate system equals the dimensionality of its corresponding zarr array. Its name is the path to the array in the
 container, its axes have `"type":"array"`, are unitless, and have "name"s corresponding to the `dimension_names` in zarr.
+The `dimension_names` must be unique and non-null.
 
 <div class=example>
 
