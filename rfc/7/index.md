@@ -20,6 +20,18 @@ reading this paragraph(s). -->
 
 ## Background
 
+OME-Zarr excels at storing large bioimaging datasets (often consisting of multiple images) in the cloud. This is primarily achieved by storing individual image chunks as separate objects (object storage) or files on the file system (`DirectoryStore` implementation in Zarr v2, [file system store specification](https://zarr-specs.readthedocs.io/en/latest/v3/stores/filesystem/index.html) in Zarr v3). However, for conventional use cases (e.g. reasonably small images stored on the local file system), splitting a single image across many (often thousands of) files presents several challenges:
+- File systems: [...]
+- Existing tooling: [...]
+- Operating systems: [...]
+
+While the file system-related issues can be somewhat alleviated by the [sharding codec](https://zarr-specs.readthedocs.io/en/latest/v3/codecs/sharding-indexed/index.html) introduced with Zarr v3, the user experience (operating systems, existing tooling)-related challenges remain. Addressing the latter would:
+- Make OME-Zarr applicable to conventional use cases
+- Facilitate tool adoption of (a specialization of) OME-Zarr
+- Contribute to further data standardization in the community
+
+Most bioimage analysis workflows build on the notion of analyzing individual "logical" images, which in turn can consist of multiple related "physical" images (e.g. fields of views, images of the same sample from different imaging modalities, derived data such as label masks).
+
 <!-- The next section is the "Background" section. This section should be at least
 two paragraphs and can take up to a whole page in some cases. The \*\*guiding goal
 of the background section\*\* is: as a newcomer to this project (new employee, team
