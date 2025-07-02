@@ -1,6 +1,6 @@
 # RFC-7: Single-image OME-Zarr
 
-A specification for storing a single logical image (potentially consisting of multiple field of views, imaging modalities, derived data, ...) using OME-Zarr.
+Add a specialization for storing a single logical image (potentially consisting of multiple field of views, imaging modalities, derived data, ...) using OME-Zarr.
 
 ## Status
 
