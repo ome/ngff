@@ -1,6 +1,6 @@
 # RFC-7: Single-image OME-Zarr
 
-Add a specialization for storing a single logical image (potentially consisting of multiple field of views, imaging modalities, derived data, ...).
+Add a specialization for storing a single composite image (potentially consisting of multiple field of views, imaging modalities, derived data, ...).
 
 ## Status
 
@@ -20,29 +20,15 @@ reading this paragraph(s). -->
 
 ## Background
 
-OME-Zarr excels at storing large bioimaging datasets (often consisting of multiple images) in the cloud. This is primarily achieved by storing individual image chunks as separate objects (object storage) or files on the file system (`DirectoryStore` implementation in Zarr v2, [file system store specification](https://zarr-specs.readthedocs.io/en/latest/v3/stores/filesystem/index.html) in Zarr v3). However, for conventional use cases (e.g. reasonably small images stored on the local file system), splitting a single image across many (often thousands of) files presents several challenges:
-- File systems: [...]
-- Existing tooling: [...]
-- Operating systems: [...]
+OME-Zarr excels at storing large bioimaging datasets (often consisting of multiple images) in the cloud. This is primarily achieved by storing individual image chunks as separate objects (object storage) or files on the file system (`DirectoryStore` implementation in Zarr v2, [file system store specification](https://zarr-specs.readthedocs.io/en/latest/v3/stores/filesystem/index.html) in Zarr v3). However, for conventional use cases (e.g. reasonably small images stored on the local file system), splitting a single image across many (often thousands of) files presents the following challenges:
 
-While the file system-related issues can be somewhat alleviated by the [sharding codec](https://zarr-specs.readthedocs.io/en/latest/v3/codecs/sharding-indexed/index.html) introduced with Zarr v3, the user experience (operating systems, existing tooling)-related challenges remain. Addressing the latter would:
-- Make OME-Zarr applicable to conventional use cases
-- Facilitate tool adoption of (a specialization of) OME-Zarr
-- Contribute to further data standardization in the community
+**Technical challenges**: Most modern file systems are not optimized for the storage of many small files and can run out of inodes. This is particularly relevant in multi-user HPC settings, where allocations often come with hard quotas for the number of files a user is allowed to store. OME-Zarr, especially with small chunk sizes, can quickly exceed such quotas.
 
-Most bioimage analysis workflows build on the notion of analyzing individual "logical" images, which in turn can consist of multiple related "physical" images (e.g. fields of views, images of the same sample from different imaging modalities, derived data such as label masks).
+**Challenges in tool development**: Many tools in the bioimaging domain operate on individual files as atoms (e.g. images). For example, the "File open" dialog in ImageJ/Fiji lets users open files as images, but not (e.g. OME-Zarr) directory structures. Similarly, most operating systems expect an atom (e.g. image) to be stored in a single file, as apparent by e.g. file system permissions, file types/file name extensions, functionality associated with file types (e.g., double-click, right-click, drag-and-drop, preview), etc. This file-centric view further extends to established protocols such as email (files - but not directories - can be attached to messages) and FTP (files - but not directories - can be transferred). For tool developers, the reliance on file system directories increases technical complexity in adopting OME-Zarr support. Furthermore, OME-Zarr's capability to store multiple, potentially unrelated (composite) images within a single Zarr hierarchy presents conceptual challenges (e.g. single-image viewers may need to implement their own "image browser" for opening OME-Zarrs).
+ 
+**User experience-related challenges**: For the same reasons as described in the previous paragraph, combined with the resulting complex (and therefore slow) adoption of OME-Zarr by both new and existing tooling, the user experience of interacting with OME-Zarr files in conventional workflows lags behind "traditional" file formats such as (OME-)TIFF. As a consequence, users cannot associate file types with their favorite image viewer (no "double click" functionality), cannot simply drag-and-drop their images into existing tooling, cannot easily share a few small images with collaborators via email, etc. This hampers the adoption of OME-Zarr in conventional use cases (and in turn the motivation for tool developers to support OME-Zarr).
 
-<!-- The next section is the "Background" section. This section should be at least
-two paragraphs and can take up to a whole page in some cases. The \*\*guiding goal
-of the background section\*\* is: as a newcomer to this project (new employee, team
-transfer), can I read the background section and follow any links to get the
-full context of why this change is necessary? 
-
-If you can't show a random engineer the background section and have them
-acquire nearly full context on the necessity for the RFC, then the background
-section is not full enough. To help achieve this, link to prior RFCs,
-discussions, and more here as necessary to provide context so you don't have to
-simply repeat yourself. -->
+The technical issues have been somewhat alleviated upstream by the [sharding codec](https://zarr-specs.readthedocs.io/en/latest/v3/codecs/sharding-indexed/index.html) introduced with Zarr v3. However, the challenges related to tool development and user experience remain.
 
 ## Proposal
 
@@ -137,7 +123,25 @@ the future, it is common to walk the same path and fall into the same pitfalls
 that we've since matured from. Abandoned ideas are a way to recognize that path
 and explain the pitfalls and why they were abandoned. -->
 
-## Prior art and references (Optional Header)
+## Prior art and references
+
+Prior discussions related to (OME-)Zarr specifications:
+- Pull request #311 *Draft zip file store specification* in the Zarr specification. https://github.com/zarr-developers/zarr-specs/pull/311.
+- Section 2.2.3 *Single-file ("ZIP") OME-Zarr* in: Lüthi et al (2025). *2024 OME-NGFF workflows hackathon*. https://doi.org/10.37044/osf.io/5uhwz_v2.
+- The *zipstorers* topic in the *Zarr* channel of the Open Source Science (OSSci) Initiative Zulip chat. https://ossci.zulipchat.com/#narrow/channel/423692-Zarr/topic/zipstorers/with/526841953.
+
+Existing single-file (zipped) OME-Zarr implementations:
+- Table 1 *Surveyed Zarr implementations and their capabilities to read single archive files* in: Lüthi et al (2025). *2024 OME-NGFF workflows hackathon*. https://doi.org/10.37044/osf.io/5uhwz_v2.
+
+Existing single-file (zipped) OME-Zarr datasets:
+- https://spatialdata.scverse.org/en/latest/tutorials/notebooks/datasets/README.html#spatial-omics-datasets
+
+Related concepts and file formats:
+- Java archives (.jar)
+- Office Open XML (.docx, .pptx, .xlsx)
+- OpenDocument (.odt, .odp, .ods, .odg)
+- OmniGraffle documents (.graffle)
+- Blender's [packed data](https://docs.blender.org/manual/en/latest/files/blend/packed_data.html)
 
 <!-- Is there any background material that might be helpful when reading this
 proposal? For instance, do other operating systems address the same problem
