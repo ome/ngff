@@ -43,7 +43,7 @@ Specifically:
 - Specify a specialization of OME-Zarr for storing a single composite image
 - Remain agnostic to implementation details/storage backends (e.g., "ZIPStore", "DirectoryStore")
 
-Most processing workflows in bioimage analysis independently apply the same set of operations to individual images, which can in turn consist of multiple parts (fields of view, multiple imaging modalities, dervided data such as label masks, etc). Such "composite images" are well-suited to be stored as OME-Zarr, not least because of OME-Zarr's planned support for coordinate systems and transformations (RFC-5) as well as collections (RFC-8). In the context of this RFC, **composite images** are semantically defined by the (e.g. spatial) relatedness of their contents and by their independence (i.e. notion of atomic processing units) shared among a large majority of tools. 
+Most processing workflows in bioimage analysis independently apply the same set of operations to individual images, which can in turn consist of multiple parts (fields of view, multiple imaging modalities, dervided data such as label masks, etc). Such "composite images" are well-suited for storage as OME-Zarr, not least because of OME-Zarr's planned support for coordinate systems and transformations (RFC-5) as well as collections (RFC-8). In the context of this RFC, **composite images** are semantically defined by the (e.g. spatial) relatedness of their contents and by their independence (i.e. notion of atomic processing units) shared among a large majority of tools. 
 
 Naturally, while abstract in definition, a composite image as defined above is what should constitute the sole contents of a **single-image OME-Zarr**. As such, this RFC specifices a specialization of OME-Zarr in its general form. With such a definition in place, when presented with a single-image OME-Zarr, tools supporting the specialization should in principle rely on being able to consume it as a single unit for processing. For example, an image viewer could be prompted to load and visualize a single-image OME-Zarr in its entirety, without having to present an "image browser" to the user for selecting which parts to load.
 
@@ -77,8 +77,10 @@ interpreted as described in [IETF RFC 2119](https://tools.ietf.org/html/rfc2119)
 ## Stakeholders
 
 - People who work in conventional settings (e.g. reasonably small images stored on the local file system) and want to use OME-Zarr
-- Developers who want to make their new or existing tools available to both conventional use cases and use cases poised for OME-Zarr usage
+- Developers who want to make their new or existing tools available to both conventional use cases and use cases poised for OME-Zarr
 - Anyone benefitting from further file format standardization/OME-Zarr adoption within the bioimaging community
+
+The storage of single images as single-file (e.g. zipped) OME-Zarrs has been frequently requested in online forums, community calls, events, GitHub issues, etc. While too numerous to list here, relevant search phrase include "OME-Zarr single file", "OME-Zarr zip", "OME-Zarr local file system", "Zarr ZipStore".
 
 <!-- Who has a stake in whether this RFC is accepted?
 
