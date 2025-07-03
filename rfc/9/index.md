@@ -4,7 +4,7 @@ Add a specialization for storing a single composite image (potentially consistin
 
 ## Status
 
-This PR is currently in RFC state `D3` (DRAFT PR).
+This PR is currently in RFC state `D2` (gather support) / `D3` (draft PR).
 
 | Name | GitHub Handle | Institution | Date | Status |
 | --- | --- | --- | --- | --- |
