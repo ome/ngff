@@ -10,6 +10,8 @@ This PR is currently in RFC state `D3` (DRAFT PR).
 | --- | --- | --- | --- | --- |
 | Jonas Windhager | @jwindhager | SciLifeLab / Uppsala University, Sweden | 2025-07-02 | Author |
 
+TODO ...
+
 ## Overview
 
 TODO
@@ -34,7 +36,9 @@ The technical issues have to a certain extent been alleviated by the [sharding c
 
 ## Proposal
 
-To improve user experience with OME-Zarr in conventional use cases, standardize the storage of (potentially composite) images in single files. Specifically:
+To improve user experience with OME-Zarr in conventional use cases, standardize the storage of (potentially composite) images in single files.
+
+Specifically:
 - Semantically define the term "composite image"
 - Specify a specialization of OME-Zarr for storing a single composite image
 - Remain agnostic to implementation details/storage backends (e.g., "ZIPStore", "DirectoryStore")
@@ -59,21 +63,22 @@ gain context).
 
 Sections often are split further into sub-sections styled "Heading 3" and beyond. These sub-sections just further help to organize data to ease reading and discussion. -->
 
-## Requirements (Recommended Header)
+## Requirements
 
-TODO
+TODO ...
 
 <!-- For the problem(s) solved by this RFC, what constrains the possible solutions?
-List other RFCs, or standards (ISO, etc.) which are applicable. It is suggested
-that the following text SHOULD be used in all RFCs:
+List other RFCs, or standards (ISO, etc.) which are applicable. -->
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
-interpreted as described in [IETF RFC 2119](https://tools.ietf.org/html/rfc2119) -->
+interpreted as described in [IETF RFC 2119](https://tools.ietf.org/html/rfc2119).
 
-## Stakeholders (Recommended Header)
+## Stakeholders
 
-TODO
+- People who work in conventional settings (e.g. reasonably small images stored on the local file system) and want to use OME-Zarr
+- Developers who want to make their new or existing tools available to both conventional use cases and use cases poised for OME-Zarr usage
+- Anyone benefitting from further file format standardization/OME-Zarr adoption within the bioimaging community
 
 <!-- Who has a stake in whether this RFC is accepted?
 
@@ -132,10 +137,10 @@ TODO
 
 ## Abandoned Ideas (Optional Header)
 
-TODO
-
 - Specify a single-file storage backend (ZIP, HDF5, ...), either on Zarr or OME-Zarr level
 - Specify a single entrypoint without a semantic definition of the single-image OME-Zarr's content
+
+TODO ...
 
 <!-- As RFCs evolve, it is common that there are ideas that are abandoned. Rather
 than simply deleting them from the document, you should try to organize them
@@ -148,8 +153,6 @@ that we've since matured from. Abandoned ideas are a way to recognize that path
 and explain the pitfalls and why they were abandoned. -->
 
 ## Prior art and references
-
-TODO
 
 Prior discussions related to (OME-)Zarr specifications:
 - Pull request #311 *Draft zip file store specification* in the Zarr specification. https://github.com/zarr-developers/zarr-specs/pull/311.
@@ -168,6 +171,8 @@ Related concepts and file formats:
 - OpenDocument (.odt, .odp, .ods, .odg)
 - OmniGraffle documents (.graffle)
 - Blender's [packed data](https://docs.blender.org/manual/en/latest/files/blend/packed_data.html)
+
+TODO ...
 
 <!-- Is there any background material that might be helpful when reading this
 proposal? For instance, do other operating systems address the same problem
@@ -191,9 +196,9 @@ us whether they are brand new or if it is an adaptation from other languages.
 Note that while precedent set by other languages is some motivation, it does
 not on its own motivate an RFC. -->
 
-## Future possibilities (Optional Header)
+## Future possibilities
 
-TODO
+TODO ZEP-8, ...
 
 <!-- Think about what the natural extension and evolution of your proposal would be
 and how it would affect the specification and project as a whole in a holistic
@@ -213,7 +218,7 @@ merely provides additional information. -->
 
 ## Performance (Recommended Header)
 
-TODO
+TODO recommend storage backends with index support (e.g. ZIP) --> range requests, ...
 
 <!-- What impact will this proposal have on performance? What benchmarks should we
 create to evaluate the proposal? To evaluate the implementation? Which of those
@@ -228,7 +233,7 @@ is still a design), how will you track that these will be created? -->
 
 ## Compatibility (Recommended Header)
 
-TODO
+TODO check existing implementations (see hackathon preprint), ...
 
 <!-- How does this proposal affect backwards and forwards compatibility?
 
