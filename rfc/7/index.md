@@ -1,4 +1,4 @@
-# RFC-7: Single-image OME-Zarr
+# RFC-9: Single-image OME-Zarr
 
 Add a specialization for storing a single composite image (potentially consisting of multiple field of views, imaging modalities, derived data, ...).
 
@@ -12,6 +12,8 @@ This PR is currently in RFC state `D3` (DRAFT PR).
 
 ## Overview
 
+TODO
+
 <!-- The RFC begins with a brief overview. This section should be one or two
 paragraphs that just explains what the goal of this RFC is going to be, but
 without diving too deeply into the "why", "why now", "how", etc. Ensure anyone
@@ -20,23 +22,32 @@ reading this paragraph(s). -->
 
 ## Background
 
-OME-Zarr excels at storing large bioimaging datasets (often consisting of multiple images) in the cloud. This is primarily achieved by storing individual image chunks as separate objects (object storage) or files on the file system (`DirectoryStore` implementation in Zarr v2, [file system store specification](https://zarr-specs.readthedocs.io/en/latest/v3/stores/filesystem/index.html) in Zarr v3). However, for conventional use cases (e.g. reasonably small images stored on the local file system), splitting a single image across many (often thousands of) files presents the following challenges:
+OME-Zarr excels at storing large bioimaging datasets (often consisting of multiple images) in the cloud. This is primarily achieved by storing individual image chunks as separate objects (object storage) or files on the file system (`DirectoryStore` implementation in Zarr v2, [file system store](https://zarr-specs.readthedocs.io/en/latest/v3/stores/filesystem/index.html) specification in Zarr v3). However, for conventional use cases (e.g. reasonably small images stored on the local file system), splitting a single image across many (often thousands of) files presents the following challenges:
 
 **Technical challenges**: Most modern file systems are not optimized for the storage of many small files and can run out of inodes. This is particularly relevant in multi-user HPC settings, where allocations often come with hard quotas for the number of files a user is allowed to store. OME-Zarr, especially with small chunk sizes, can quickly exceed such quotas.
 
-**Challenges in tool development**: Many tools in the bioimaging domain operate on individual files as atoms (e.g. images). For example, the "File open" dialog in ImageJ/Fiji lets users open files as images, but not (e.g. OME-Zarr) directory structures. Similarly, most operating systems expect an atom (e.g. image) to be stored in a single file, as apparent by e.g. file system permissions, file types/file name extensions, functionality associated with file types (e.g., double-click, right-click, drag-and-drop, preview), etc. This file-centric view further extends to established protocols such as email (files - but not directories - can be attached to messages) and FTP (files - but not directories - can be transferred). For tool developers, the reliance on file system directories increases technical complexity in adopting OME-Zarr support. Furthermore, OME-Zarr's capability to store multiple, potentially unrelated (composite) images within a single Zarr hierarchy presents conceptual challenges (e.g. single-image viewers may need to implement their own "image browser" for opening OME-Zarrs).
+**Challenges in tool development**: Many tools in the bioimaging domain independently operate on individual files as atoms (e.g. images). For example, the "File open" dialog in ImageJ/Fiji lets users open files as images, but not (e.g. OME-Zarr) directory structures. Similarly, most operating systems expect such an atom (e.g. image) to be stored in a single file, as apparent by e.g. file system permissions, file types/file name extensions, functionality associated with file types (e.g., double-click, right-click, drag-and-drop, preview), etc. This file-centric view further extends to established protocols such as email (files - but not directories - can be attached to messages) and FTP (files - but not directories - can be transferred). For tool developers, the reliance on file system directories increases technical complexity in adopting OME-Zarr support. Furthermore, OME-Zarr's capability to store multiple, potentially unrelated (composite) images within a single Zarr hierarchy presents conceptual challenges (e.g. single-image viewers may need to implement their own "image browser" for opening OME-Zarrs).
  
 **User experience-related challenges**: For the same reasons as described in the previous paragraph, combined with the resulting complex (and therefore slow) adoption of OME-Zarr by both new and existing tooling, the user experience of interacting with OME-Zarr files in conventional workflows lags behind "traditional" file formats such as (OME-)TIFF. As a consequence, users cannot associate file types with their favorite image viewer (no "double click" functionality), cannot simply drag-and-drop their images into existing tooling, cannot easily share a few small images with collaborators via email, etc. This hampers the adoption of OME-Zarr in conventional use cases (and in turn the motivation for tool developers to support OME-Zarr).
 
-The technical issues have been somewhat alleviated upstream by the [sharding codec](https://zarr-specs.readthedocs.io/en/latest/v3/codecs/sharding-indexed/index.html) introduced with Zarr v3. However, the challenges related to tool development and user experience remain.
+The technical issues have to a certain extent been alleviated by the [sharding codec](https://zarr-specs.readthedocs.io/en/latest/v3/codecs/sharding-indexed/index.html) introduced upstream with Zarr v3. However, the challenges related to tool development and user experience remain. To address the latter, users and implementors have already begun to store OME-Zarr hierarchies in archive (specifically, ZIP) files, albeit in an unstandardized fashion (see *Prior art and references* section). This may lead to file format incompatibilities and thus not only prevents widespread adoption of OME-Zarr in conventional use cases, but undermines one of the core goals of the OME-NGFF community.
 
 ## Proposal
 
-<!-- The next required section is "Proposal". Given the background above, this
-section proposes a solution. This should be an overview of the "how" for the
-solution, but for details further sections will be used. -->
+To improve user experience with OME-Zarr in conventional use cases, standardize the storage of (potentially composite) images in single files. Specifically:
+- Semantically define the term "composite image"
+- Specify a specialization of OME-Zarr for storing a single composite image
+- Remain agnostic to implementation details/storage backends (e.g., "ZIPStore", "DirectoryStore")
+
+Most processing workflows in bioimage analysis independently apply the same set of operations to individual images, which can in turn consist of multiple parts (fields of view, multiple imaging modalities, dervided data such as label masks, etc). Such "composite images" are well-suited to be stored as OME-Zarr, not least because of OME-Zarr's planned support for coordinate systems and transformations (RFC-5) as well as collections (RFC-8). In the context of this RFC, **composite images** are semantically defined by the (e.g. spatial) relatedness of their contents and by their independence (i.e. notion of atomic processing units) shared among a large majority of tools. 
+
+Naturally, while abstract in definition, a composite image as defined above is what should constitute the sole contents of a **single-image OME-Zarr**. As such, this RFC specifices a specialization of OME-Zarr in its general form. With such a definition in place, when presented with a single-image OME-Zarr, tools supporting the specialization should in principle rely on being able to consume it as a single unit for processing. For example, an image viewer could be prompted to load and visualize a single-image OME-Zarr in its entirety, without having to present an "image browser" to the user for selecting which parts to load.
+
+How single-image OME-Zarrs are to be stored (i.e. storage backend) should remain implementation-specific. However, to avoid file format incompatibilities among images stored using the same backend, the **discovery of data** within the storage unit (e.g. file system directory, archive) should be specified. Specifically, for a single-image OME-Zarr to be valid, the storage unit's root must correspond to the Zarr root (single entrypoint). This should, for example, discourage the creation of "single-image" archives (e.g. zipped OME-Zarr) where the Zarr's root-level `zarr.json` is located somewhere else than in the archive's root. Note that - unlike the semantic defition regarding the contents of a single-image OME-Zarr (see above) - this single entrypoint specification can be formally validated.
 
 ## Sections
+
+TODO
 
 <!-- From this point onwards, the sections and headers are generally freeform
 depending on the RFC, though it is typically preferable to make use of the
@@ -50,6 +61,8 @@ Sections often are split further into sub-sections styled "Heading 3" and beyond
 
 ## Requirements (Recommended Header)
 
+TODO
+
 <!-- For the problem(s) solved by this RFC, what constrains the possible solutions?
 List other RFCs, or standards (ISO, etc.) which are applicable. It is suggested
 that the following text SHOULD be used in all RFCs:
@@ -59,6 +72,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 interpreted as described in [IETF RFC 2119](https://tools.ietf.org/html/rfc2119) -->
 
 ## Stakeholders (Recommended Header)
+
+TODO
 
 <!-- Who has a stake in whether this RFC is accepted?
 
@@ -79,6 +94,8 @@ interpreted as described in [IETF RFC 2119](https://tools.ietf.org/html/rfc2119)
 
 ## Implementation (Recommended Header)
 
+TODO
+
 <!-- Many RFCs have an "implementation" section which details how the implementation
 will work. This section should explain the rough specification changes. The
 goal is to give an idea to reviewers about the subsystems that require change
@@ -94,6 +111,8 @@ as "[rubber duck debugging](https://en.wikipedia.org/wiki/Rubber_duck_debugging)
 issues or unknown unknowns prior to writing any real code. -->
 
 ## Drawbacks, risks, alternatives, and unknowns (Recommended Header)
+
+TODO
 
 <!-- * What are the costs of implementing this proposal?
 * What known risks exist? What factors may complicate your project? Include:
@@ -113,6 +132,11 @@ issues or unknown unknowns prior to writing any real code. -->
 
 ## Abandoned Ideas (Optional Header)
 
+TODO
+
+- Specify a single-file storage backend (ZIP, HDF5, ...), either on Zarr or OME-Zarr level
+- Specify a single entrypoint without a semantic definition of the single-image OME-Zarr's content
+
 <!-- As RFCs evolve, it is common that there are ideas that are abandoned. Rather
 than simply deleting them from the document, you should try to organize them
 into sections that make it clear they're abandoned while explaining why they
@@ -124,6 +148,8 @@ that we've since matured from. Abandoned ideas are a way to recognize that path
 and explain the pitfalls and why they were abandoned. -->
 
 ## Prior art and references
+
+TODO
 
 Prior discussions related to (OME-)Zarr specifications:
 - Pull request #311 *Draft zip file store specification* in the Zarr specification. https://github.com/zarr-developers/zarr-specs/pull/311.
@@ -167,6 +193,8 @@ not on its own motivate an RFC. -->
 
 ## Future possibilities (Optional Header)
 
+TODO
+
 <!-- Think about what the natural extension and evolution of your proposal would be
 and how it would affect the specification and project as a whole in a holistic
 way. Try to use this section as a tool to more fully consider all possible
@@ -185,6 +213,8 @@ merely provides additional information. -->
 
 ## Performance (Recommended Header)
 
+TODO
+
 <!-- What impact will this proposal have on performance? What benchmarks should we
 create to evaluate the proposal? To evaluate the implementation? Which of those
 benchmarks should we monitor on an ongoing basis?
@@ -198,6 +228,8 @@ is still a design), how will you track that these will be created? -->
 
 ## Compatibility (Recommended Header)
 
+TODO
+
 <!-- How does this proposal affect backwards and forwards compatibility?
 
 Does it restrict existing assumptions or remove existing restrictions?
@@ -205,6 +237,8 @@ Does it restrict existing assumptions or remove existing restrictions?
 How are implementations expected to handle these changes? -->
 
 ## Testing (Recommended Header)
+
+TODO
 
 <!-- How will you test your feature? A typical testing strategy involves unit,
 integration, and end-to-end tests. Are our existing test frameworks and
@@ -216,6 +250,8 @@ people test that they have implemented the contract correctly? Consider, for
 example, creating a conformance test suite for this purpose. -->
 
 ## Tutorials and Examples (Recommended Header)
+
+TODO
 
 <!-- It is strongly recommended to provide as many examples as possible of what both users and developers can expect if the RFC were to be accepted. Sample data should be shared publicly. If longer-term is not available, contact the **Editors** for assistance.
 
@@ -261,6 +297,8 @@ intolerable or there is a way to make a change while preserving compatibility,
 that should be explored. -->
 
 ## Style Notes (EXAMPLE)
+
+TODO
 
 <!-- All RFCs should follow similar styling and structure to ease reading.
 
