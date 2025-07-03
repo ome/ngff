@@ -80,7 +80,7 @@ interpreted as described in [IETF RFC 2119](https://tools.ietf.org/html/rfc2119)
 - Developers who want to make their new or existing tools available to both conventional use cases and use cases poised for OME-Zarr
 - Anyone benefitting from further file format standardization/OME-Zarr adoption within the bioimaging community
 
-The storage of single images as single-file (e.g. zipped) OME-Zarrs has been frequently requested in online forums, community calls, events, GitHub issues, etc. While too numerous to list here, relevant search phrase include "OME-Zarr single file", "OME-Zarr zip", "OME-Zarr local file system", "Zarr ZipStore".
+The storage of single images as single-file (e.g. zipped) OME-Zarrs has been frequently requested in online forums, community calls, events, GitHub issues, etc. While too numerous to list here, relevant search phrases include "OME-Zarr single file", "OME-Zarr zip", "OME-Zarr local file system" and "Zarr ZipStore".
 
 <!-- Who has a stake in whether this RFC is accepted?
 
