@@ -47,7 +47,7 @@ Most processing workflows in bioimage analysis independently apply the same set 
 
 Naturally, while abstract in definition, a composite image as defined above is what should constitute the sole contents of a **single-image OME-Zarr**. As such, this RFC specifices a specialization of OME-Zarr in its general form. With such a definition in place, when presented with a single-image OME-Zarr, tools supporting the specialization should in principle rely on being able to consume it as a single unit for processing. For example, an image viewer could be prompted to load and visualize a single-image OME-Zarr in its entirety, without having to present an "image browser" to the user for selecting which parts to load.
 
-How single-image OME-Zarrs are to be stored (i.e. storage backend) should remain implementation-specific. However, to avoid file format incompatibilities among images stored using the same backend, the **discovery of data** within the storage unit (e.g. file system directory, archive) should be specified. Specifically, for a single-image OME-Zarr to be valid, the storage unit's root must correspond to the Zarr root (single entrypoint). This should, for example, discourage the creation of "single-image" archives (e.g. zipped OME-Zarr) where the Zarr's root-level `zarr.json` is located somewhere else than in the archive's root. Note that - unlike the semantic defition regarding the contents of a single-image OME-Zarr (see above) - this single entrypoint specification can be formally validated.
+How single-image OME-Zarrs are to be stored (i.e. storage backend) should remain implementation-specific. However, to avoid file format incompatibilities among images stored using the same backend, the **discovery of data** within the storage unit (e.g. file system directory, archive) should be specified. Specifically, for a single-image OME-Zarr to be valid, the storage unit's root must either correspond to the Zarr root, or contain exactly one directory which is the Zarr root (entrypoint specification). This should, for example, discourage the creation of "single-image" archives (e.g. zipped OME-Zarr) where the Zarr's root-level `zarr.json` is located somewhere else than in the archive's root or in a single directory below it. Note that - unlike the semantic defition regarding the contents of a single-image OME-Zarr (see above) - this entrypoint specification can be formally validated.
 
 ## Sections
 
@@ -165,6 +165,7 @@ Existing single-file (zipped) OME-Zarr implementations:
 - Table 1 *Surveyed Zarr implementations and their capabilities to read single archive files* in: Lüthi et al (2025). *2024 OME-NGFF workflows hackathon*. https://doi.org/10.37044/osf.io/5uhwz_v2.
 
 Existing single-file (zipped) OME-Zarr datasets:
+- https://zenodo.org/search?q=OME-Zarr&f=resource_type%3Adataset&f=access_status%3Aopen&f=resource_type%3Aimage&f=file_type%3Azip&l=list&p=1&s=10&sort=bestmatch
 - https://spatialdata.scverse.org/en/latest/tutorials/notebooks/datasets/README.html#spatial-omics-datasets
 
 Related concepts and file formats:
