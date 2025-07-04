@@ -69,11 +69,35 @@ interpreted as described in [IETF RFC 2119](https://tools.ietf.org/html/rfc2119)
 
 ## Stakeholders
 
+In principle:
 - People who work in conventional settings (e.g. reasonably small images stored on the local file system) and want to use OME-Zarr
 - Developers who want to make their new or existing tools available to both conventional use cases and use cases poised for OME-Zarr
 - Anyone benefitting from further file format standardization/OME-Zarr adoption within the bioimaging community
 
 The storage of single images as single-file (e.g. zipped) OME-Zarrs has been frequently requested in online forums, community calls, events, GitHub issues, etc. While too numerous to list here, relevant search phrases include "OME-Zarr single file", "OME-Zarr zip", "OME-Zarr local file system" and "Zarr ZipStore".
+
+TODO facilitator, reviewers
+
+Consulted: everyone mentioned in [PR #316](https://github.com/ome/ngff/pull/316)
+
+Socialization: see Prior art and references
+
+<!-- Who has a stake in whether this RFC is accepted?
+
+* Facilitator: The person appointed to shepherd this RFC through the RFC
+  process.
+* Reviewers: List people whose vote (+1 or -1) will be taken into consideration
+  by the editor when deciding whether this RFC is accepted or rejected. Where
+  applicable, also list the area they are expected to focus on. In some cases
+  this section may be initially left blank and stakeholder discovery completed
+  after an initial round of socialization. Care should be taken to keep the
+  number of reviewers manageable, although the exact number will depend on the
+  scope of the RFC in question.
+* Consulted: List people who should review the RFC, but whose approval is not
+  required.
+* Socialization: This section may be used to describe how the design was
+  socialized before advancing to the "Iterate" stage of the RFC process. For
+  example: "This RFC was discussed at a working group meetings from 20xx-20yy" -->
 
 ## Implementation (Recommended Header)
 
