@@ -10,8 +10,6 @@ This PR is currently in RFC state `D2` (gather support) / `D3` (draft PR).
 | --- | --- | --- | --- | --- |
 | Jonas Windhager | @jwindhager | SciLifeLab / Uppsala University, Sweden | 2025-07-02 | Author |
 
-TODO ...
-
 ## Overview
 
 TODO
@@ -51,24 +49,19 @@ How single-image OME-Zarrs are to be stored (i.e. storage backend) should remain
 
 ## Sections
 
-TODO
+Amend the specification with the following section:
 
-<!-- From this point onwards, the sections and headers are generally freeform
-depending on the RFC, though it is typically preferable to make use of the
-sections listed below changing the order as necessary. Sections are styled as
-"Heading 2". Try to organize your information into self-contained sections that
-answer some critical question, and organize your sections into an order that
-builds up knowledge necessary (rather than forcing a reader to jump around to
-gain context).
+### Single-image OME-Zarr
 
-Sections often are split further into sub-sections styled "Heading 3" and beyond. These sub-sections just further help to organize data to ease reading and discussion. -->
+This section specifies a "single-image" specialization of OME-Zarr in its general form. 
+
+An image composed of one or more related parts (e.g. fields of view, multimodal data, label masks) that form an independent semantic unit MAY be jointly stored in a single OME-Zarr hierarchy.
+
+For an OME-Zarr hierarchy to be referred to as single-image OME-Zarr, it MUST contain data from exactly one such (potentially composite) image; it SHALL NOT contain any additional, unrelated data.
+
+For a store-specific storage unit (e.g. file system directory, archive file) to be referred to as single-image OME-Zarr, its root MUST correspond to the root of a single-image OME-Zarr hierarchy. Alternatively, when using an iterable single-file store, the root of the storage unit ("archive") MAY instead contain exactly one sub-directory, which then MUST correspond to the root of a single-image OME-Zarr hierarchy. It is RECOMMENDED to only use stores that allow for direct access to chunks (e.g. archive stores with random access support).
 
 ## Requirements
-
-TODO ...
-
-<!-- For the problem(s) solved by this RFC, what constrains the possible solutions?
-List other RFCs, or standards (ISO, etc.) which are applicable. -->
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
@@ -81,23 +74,6 @@ interpreted as described in [IETF RFC 2119](https://tools.ietf.org/html/rfc2119)
 - Anyone benefitting from further file format standardization/OME-Zarr adoption within the bioimaging community
 
 The storage of single images as single-file (e.g. zipped) OME-Zarrs has been frequently requested in online forums, community calls, events, GitHub issues, etc. While too numerous to list here, relevant search phrases include "OME-Zarr single file", "OME-Zarr zip", "OME-Zarr local file system" and "Zarr ZipStore".
-
-<!-- Who has a stake in whether this RFC is accepted?
-
-* Facilitator: The person appointed to shepherd this RFC through the RFC
-  process.
-* Reviewers: List people whose vote (+1 or -1) will be taken into consideration
-  by the editor when deciding whether this RFC is accepted or rejected. Where
-  applicable, also list the area they are expected to focus on. In some cases
-  this section may be initially left blank and stakeholder discovery completed
-  after an initial round of socialization. Care should be taken to keep the
-  number of reviewers manageable, although the exact number will depend on the
-  scope of the RFC in question.
-* Consulted: List people who should review the RFC, but whose approval is not
-  required.
-* Socialization: This section may be used to describe how the design was
-  socialized before advancing to the "Iterate" stage of the RFC process. For
-  example: "This RFC was discussed at a working group meetings from 20xx-20yy" -->
 
 ## Implementation (Recommended Header)
 
@@ -141,8 +117,7 @@ TODO
 
 - Specify a single-file storage backend (ZIP, HDF5, ...), either on Zarr or OME-Zarr level
 - Specify a single entrypoint without a semantic definition of the single-image OME-Zarr's content
-
-TODO ...
+- ...
 
 <!-- As RFCs evolve, it is common that there are ideas that are abandoned. Rather
 than simply deleting them from the document, you should try to organize them
@@ -174,30 +149,6 @@ Related concepts and file formats:
 - OpenDocument (.odt, .odp, .ods, .odg)
 - OmniGraffle documents (.graffle)
 - Blender's [packed data](https://docs.blender.org/manual/en/latest/files/blend/packed_data.html)
-
-TODO ...
-
-<!-- Is there any background material that might be helpful when reading this
-proposal? For instance, do other operating systems address the same problem
-this proposal addresses?
-
-Discuss prior art, both the good and the bad, in relation to this proposal. A
-few examples of what this can include are:
-
-Does this feature exist in other formats and what experiences has their
-community had?
-
-Are there any published papers or great posts that discuss this? If you have
-some relevant papers to refer to, this can serve as a more detailed theoretical
-background.
-
-This section is intended to encourage you as an author to think about the
-lessons from other domains, and provide readers of your RFC with a fuller
-picture. If there is no prior art, that is fine - your ideas are interesting to
-us whether they are brand new or if it is an adaptation from other languages.
-
-Note that while precedent set by other languages is some motivation, it does
-not on its own motivate an RFC. -->
 
 ## Future possibilities
 
