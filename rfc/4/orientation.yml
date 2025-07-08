@@ -54,9 +54,11 @@ classes:
     is_a: Axis
     slot_usage:
       name:
+        range: string
         equals_string: c
         ifabsent: string(c)
       type:
+        range: string
         equals_string: channel
         ifabsent: string(channel)
     defining_slots:
@@ -69,6 +71,7 @@ classes:
       name:
         range: SpaceAxesNames
       type:
+        range: string
         equals_string: space
         ifabsent: string(space)
     attributes:
@@ -92,9 +95,11 @@ classes:
     is_a: Axis
     slot_usage:
       name:
+        range: string
         equals_string: t
         ifabsent: string(t)
       type:
+        range: string
         equals_string: time
         ifabsent: string(time)
     attributes:
@@ -118,6 +123,16 @@ classes:
         range: AnatomicalOrientationValues
         required: true
 
+
+slots:
+  name:
+    description: The name identifier for an axis
+    range: AxesNames
+    required: true
+  type:  
+    description: The type category of an axis
+    range: AxisType
+    required: true
 
 enums:
   # AxesNames are bound to change after RFC3 is implemented so this enum is subject to change.
