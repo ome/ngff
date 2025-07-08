@@ -1,6 +1,25 @@
 {
     "$defs": {
-        "Orientation": {
+        "AnatomicalOrientation": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "type": {
+                    "const": "anatomical",
+                    "type": "string"
+                },
+                "value": {
+                    "$ref": "#/$defs/AnatomicalOrientationValues"
+                }
+            },
+            "required": [
+                "type",
+                "value"
+            ],
+            "title": "AnatomicalOrientation",
+            "type": "object"
+        },
+        "AnatomicalOrientationValues": {
             "description": "Anatomical orientation refers to the specific arrangement and directional alignment of anatomical structures within an imaging dataset. It is crucial for ensuring accurate alignment and comparison of images to anatomical atlases, facilitating consistent analysis and interpretation of biological data.",
             "enum": [
                 "left-to-right",
@@ -14,15 +33,214 @@
                 "dorsal-to-palmar",
                 "palmar-to-dorsal",
                 "dorsal-to-plantar",
-                "plantar-to-dorsal",
-                "rostral-to-caudal",
-                "caudal-to-rostral",
-                "cranial-to-caudal",
-                "caudal-to-cranial",
-                "proximal-to-distal",
-                "distal-to-proximal"
+                "plantar-to-dorsal"
             ],
-            "title": "Orientation",
+            "title": "AnatomicalOrientationValues",
+            "type": "string"
+        },
+        "Axes": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "axes": {
+                    "description": "A list of axes. Although serialized as list, it MUST be dealt with as being a set as in the name of each axis MUST be unique. Furthermore, if the attribute orientation is defined for one axis of type space, it  MUST be defined for all the axes of type space. In this case, the type of each orientation MUST be the same and the value MUST be unique.\n",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/SpaceAxis"
+                            },
+                            {
+                                "$ref": "#/$defs/TimeAxis"
+                            },
+                            {
+                                "$ref": "#/$defs/ChannelAxis"
+                            }
+                        ],
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "title": "Axes",
+            "type": "object"
+        },
+        "AxesNames": {
+            "description": "",
+            "enum": [
+                "t",
+                "c",
+                "z",
+                "y",
+                "x"
+            ],
+            "title": "AxesNames",
+            "type": "string"
+        },
+        "AxisType": {
+            "description": "",
+            "enum": [
+                "channel",
+                "space",
+                "time"
+            ],
+            "title": "AxisType",
+            "type": "string"
+        },
+        "ChannelAxis": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "name": {
+                    "const": "c",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "channel",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "type"
+            ],
+            "title": "ChannelAxis",
+            "type": "object"
+        },
+        "SpaceAxesNames": {
+            "description": "",
+            "enum": [
+                "z",
+                "y",
+                "x"
+            ],
+            "title": "SpaceAxesNames",
+            "type": "string"
+        },
+        "SpaceAxis": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "name": {
+                    "$ref": "#/$defs/SpaceAxesNames"
+                },
+                "orientation": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/AnatomicalOrientation"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The direction of an axis of type space.",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "space",
+                    "type": "string"
+                },
+                "unit": {
+                    "$ref": "#/$defs/SpaceUnit",
+                    "description": "Physical unit for spatial measurement along the axis, selected from a standardized list of distance units  (e.g., micrometer, nanometer).\n"
+                }
+            },
+            "required": [
+                "unit",
+                "name",
+                "type"
+            ],
+            "title": "SpaceAxis",
+            "type": "object"
+        },
+        "SpaceUnit": {
+            "description": "",
+            "enum": [
+                "angstrom",
+                "attometer",
+                "centimeter",
+                "decimeter",
+                "exameter",
+                "femtometer",
+                "foot",
+                "gigameter",
+                "hectometer",
+                "inch",
+                "kilometer",
+                "megameter",
+                "meter",
+                "micrometer",
+                "mile",
+                "millimeter",
+                "nanometer",
+                "parsec",
+                "petameter",
+                "picometer",
+                "terameter",
+                "yard",
+                "yoctometer",
+                "yottameter",
+                "zeptometer",
+                "zettameter"
+            ],
+            "title": "SpaceUnit",
+            "type": "string"
+        },
+        "TimeAxis": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "name": {
+                    "const": "t",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "time",
+                    "type": "string"
+                },
+                "unit": {
+                    "$ref": "#/$defs/TimeUnit",
+                    "description": "Temporal unit of measurement for the axis, selected from standardized time units (e.g., second, minute, hour).\n"
+                }
+            },
+            "required": [
+                "unit",
+                "name",
+                "type"
+            ],
+            "title": "TimeAxis",
+            "type": "object"
+        },
+        "TimeUnit": {
+            "description": "",
+            "enum": [
+                "attosecond",
+                "centisecond",
+                "day",
+                "decisecond",
+                "exasecond",
+                "femtosecond",
+                "gigasecond",
+                "hectosecond",
+                "hour",
+                "kilosecond",
+                "megasecond",
+                "microsecond",
+                "millisecond",
+                "minute",
+                "nanosecond",
+                "petasecond",
+                "picosecond",
+                "second",
+                "terasecond",
+                "yoctosecond",
+                "yottasecond",
+                "zeptosecond",
+                "zettasecond"
+            ],
+            "title": "TimeUnit",
             "type": "string"
         }
     },
@@ -30,7 +248,7 @@
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "additionalProperties": true,
     "metamodel_version": "1.7.0",
-    "title": "anatomicalOrientation",
+    "title": "OME_NGFF_Axes",
     "type": "object",
     "version": "0.2.0"
 }
