@@ -175,7 +175,14 @@ export interface TimeAxis extends Axis {
 
 
 
-export interface AnatomicalOrientation {
+export interface Orientation {
+    type: string,
+    value: string,
+}
+
+
+
+export interface AnatomicalOrientation extends Orientation {
     type: string,
     value: string,
 }

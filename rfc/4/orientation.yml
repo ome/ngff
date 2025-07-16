@@ -111,16 +111,25 @@ classes:
         range: TimeUnit
         required: true
     defining_slots:
-      - name
-      - type
       - unit
 
+  Orientation:
+    abstract: true
+    attributes:
+      type:
+        range: string
+        required: true
+      value:
+        required: true
+
   AnatomicalOrientation:
+    is_a: Orientation
     attributes:
       type:
         range: string
         required: true
         equals_string: "anatomical"
+        ifabsent: string(anatomical)
       value:
         range: AnatomicalOrientationValues
         required: true
