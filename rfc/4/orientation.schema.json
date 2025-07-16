@@ -33,7 +33,13 @@
                 "dorsal-to-palmar",
                 "palmar-to-dorsal",
                 "dorsal-to-plantar",
-                "plantar-to-dorsal"
+                "plantar-to-dorsal",
+                "rostral-to-caudal",
+                "caudal-to-rostral",
+                "cranial-to-caudal",
+                "caudal-to-cranial",
+                "proximal-to-distal",
+                "distal-to-proximal"
             ],
             "title": "AnatomicalOrientationValues",
             "type": "string"

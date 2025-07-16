@@ -121,6 +121,18 @@ export enum AnatomicalOrientationValues {
     dorsal_to_plantar = "dorsal-to-plantar",
     /** Describes the directional orientation from the sole of the foot (plantar) to the top/upper (dorsal) in a body. */
     plantar_to_dorsal = "plantar-to-dorsal",
+    /** Describes the directional orientation from the nasal (rostral) to the tail (caudal) end of an anatomical structure, typically used in reference to the central nervous system. */
+    rostral_to_caudal = "rostral-to-caudal",
+    /** Describes the directional orientation from the tail (caudal) to the nasal (rostral) end of an anatomical structure, typically used in reference to the central nervous system. */
+    caudal_to_rostral = "caudal-to-rostral",
+    /** Describes the directional orientation from the head (cranial) to the tail (caudal) end of an anatomical structure or body. */
+    cranial_to_caudal = "cranial-to-caudal",
+    /** Describes the directional orientation from the tail (caudal) to the head (cranial) end of an anatomical structure or body. */
+    caudal_to_cranial = "caudal-to-cranial",
+    /** Describes the directional orientation from the center of the body to the periphery of an anatomical structure or limb. */
+    proximal_to_distal = "proximal-to-distal",
+    /** Describes the directional orientation from the periphery of an anatomical structure or limb to the center of the body. */
+    distal_to_proximal = "distal-to-proximal",
 };
 
 

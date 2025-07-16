@@ -328,3 +328,9 @@ enums:
       palmar-to-dorsal: Describes the directional orientation from the palm of the hand (palmar) to the top/upper (dorsal) in a body.
       dorsal-to-plantar: Describes the directional orientation from the top/upper (dorsal) to the sole of the foot (plantar) in a body.
       plantar-to-dorsal: Describes the directional orientation from the sole of the foot (plantar) to the top/upper (dorsal) in a body.
+      rostral-to-caudal: Describes the directional orientation from the nasal (rostral) to the tail (caudal) end of an anatomical structure, typically used in reference to the central nervous system.
+      caudal-to-rostral: Describes the directional orientation from the tail (caudal) to the nasal (rostral) end of an anatomical structure, typically used in reference to the central nervous system.
+      cranial-to-caudal: Describes the directional orientation from the head (cranial) to the tail (caudal) end of an anatomical structure or body.
+      caudal-to-cranial: Describes the directional orientation from the tail (caudal) to the head (cranial) end of an anatomical structure or body.
+      proximal-to-distal: Describes the directional orientation from the center of the body to the periphery of an anatomical structure or limb.
+      distal-to-proximal: Describes the directional orientation from the periphery of an anatomical structure or limb to the center of the body.
