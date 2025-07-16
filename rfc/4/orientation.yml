@@ -20,7 +20,9 @@ default_prefix: ngff
 
 created_on: "2025-05-29"
 created_by: orcid:0000-0003-1666-5421
-contributors: orcid:0000-0001-9475-3756
+contributors:
+  - orcid:0000-0001-9475-3756
+  - orcid:0000-0002-4920-8123
 
 classes:
   # Class pertaining to OME-NGFF axes definition
