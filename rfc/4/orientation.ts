@@ -183,8 +183,6 @@ export interface Orientation {
 
 
 export interface AnatomicalOrientation extends Orientation {
-    type: string,
-    value: string,
 }
 
 

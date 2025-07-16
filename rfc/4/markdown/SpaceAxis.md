@@ -28,8 +28,6 @@ URI: [ngff:SpaceAxis](https://w3id.org/ome/ngff/SpaceAxis)
      * Description: The direction of an axis of type space.
      * Range: [String](types/String.md)
  * [SpaceAxis➞name](SpaceAxis_name.md)  <sub>1..1</sub>
-     * Description: The name identifier for an axis
      * Range: [SpaceAxesNames](SpaceAxesNames.md)
  * [SpaceAxis➞type](SpaceAxis_type.md)  <sub>1..1</sub>
-     * Description: The type category of an axis
      * Range: [String](types/String.md)

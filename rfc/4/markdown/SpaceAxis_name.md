@@ -1,7 +1,7 @@
 
 # Slot: name
 
-The name identifier for an axis
+
 
 URI: [ngff:SpaceAxis_name](https://w3id.org/ome/ngff/SpaceAxis_name)
 

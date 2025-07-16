@@ -1,7 +1,7 @@
 
 # Slot: name
 
-The name identifier for an axis
+
 
 URI: [ngff:ChannelAxis_name](https://w3id.org/ome/ngff/ChannelAxis_name)
 

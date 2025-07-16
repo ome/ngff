@@ -25,8 +25,6 @@ URI: [ngff:TimeAxis](https://w3id.org/ome/ngff/TimeAxis)
 
      * Range: [TimeUnit](TimeUnit.md)
  * [TimeAxis➞name](TimeAxis_name.md)  <sub>1..1</sub>
-     * Description: The name identifier for an axis
      * Range: [String](types/String.md)
  * [TimeAxis➞type](TimeAxis_type.md)  <sub>1..1</sub>
-     * Description: The type category of an axis
      * Range: [String](types/String.md)

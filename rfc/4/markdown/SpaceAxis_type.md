@@ -1,7 +1,7 @@
 
 # Slot: type
 
-The type category of an axis
+
 
 URI: [ngff:SpaceAxis_type](https://w3id.org/ome/ngff/SpaceAxis_type)
 

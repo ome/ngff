@@ -124,26 +124,9 @@ classes:
 
   AnatomicalOrientation:
     is_a: Orientation
-    attributes:
-      type:
-        range: string
-        required: true
-        equals_string: "anatomical"
-        ifabsent: string(anatomical)
-      value:
-        range: AnatomicalOrientationValues
-        required: true
-
-
 slots:
   name:
-    description: The name identifier for an axis
-    range: AxesNames
-    required: true
-  type:  
-    description: The type category of an axis
-    range: AxisType
-    required: true
+  type:
 
 enums:
   # AxesNames are bound to change after RFC3 is implemented so this enum is subject to change.

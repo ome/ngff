@@ -21,8 +21,6 @@ URI: [ngff:ChannelAxis](https://w3id.org/ome/ngff/ChannelAxis)
 ### Own
 
  * [ChannelAxis➞name](ChannelAxis_name.md)  <sub>1..1</sub>
-     * Description: The name identifier for an axis
      * Range: [String](types/String.md)
  * [ChannelAxis➞type](ChannelAxis_type.md)  <sub>1..1</sub>
-     * Description: The type category of an axis
      * Range: [String](types/String.md)

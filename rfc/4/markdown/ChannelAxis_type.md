@@ -1,7 +1,7 @@
 
 # Slot: type
 
-The type category of an axis
+
 
 URI: [ngff:ChannelAxis_type](https://w3id.org/ome/ngff/ChannelAxis_type)
 

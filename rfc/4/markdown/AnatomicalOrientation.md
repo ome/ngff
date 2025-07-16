@@ -6,7 +6,7 @@
 URI: [ngff:AnatomicalOrientation](https://w3id.org/ome/ngff/AnatomicalOrientation)
 
 
-[![img](https://yuml.me/diagram/nofunky;dir:TB/class/[Orientation],[Orientation]^-[AnatomicalOrientation&#124;type:string;value:AnatomicalOrientationValues])](https://yuml.me/diagram/nofunky;dir:TB/class/[Orientation],[Orientation]^-[AnatomicalOrientation&#124;type:string;value:AnatomicalOrientationValues])
+[![img](https://yuml.me/diagram/nofunky;dir:TB/class/[Orientation],[Orientation]^-[AnatomicalOrientation&#124;type(i):string;value(i):string])](https://yuml.me/diagram/nofunky;dir:TB/class/[Orientation],[Orientation]^-[AnatomicalOrientation&#124;type(i):string;value(i):string])
 
 ## Parents
 
@@ -15,9 +15,9 @@ URI: [ngff:AnatomicalOrientation](https://w3id.org/ome/ngff/AnatomicalOrientatio
 ## Attributes
 
 
-### Own
+### Inherited from Orientation:
 
- * [➞type](anatomicalOrientation__type.md)  <sub>1..1</sub>
+ * [➞type](orientation__type.md)  <sub>1..1</sub>
      * Range: [String](types/String.md)
- * [➞value](anatomicalOrientation__value.md)  <sub>1..1</sub>
-     * Range: [AnatomicalOrientationValues](AnatomicalOrientationValues.md)
+ * [➞value](orientation__value.md)  <sub>1..1</sub>
+     * Range: [String](types/String.md)

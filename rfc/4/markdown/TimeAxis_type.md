@@ -1,7 +1,7 @@
 
 # Slot: type
 
-The type category of an axis
+
 
 URI: [ngff:TimeAxis_type](https://w3id.org/ome/ngff/TimeAxis_type)
 

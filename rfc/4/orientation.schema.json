@@ -5,11 +5,10 @@
             "description": "",
             "properties": {
                 "type": {
-                    "const": "anatomical",
                     "type": "string"
                 },
                 "value": {
-                    "$ref": "#/$defs/AnatomicalOrientationValues"
+                    "type": "string"
                 }
             },
             "required": [
