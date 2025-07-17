@@ -1,4 +1,4 @@
-# RFC-4: Axis Anatomical Orientation
+# RFC-4: Axis Orientation
 
 ```{toctree}
 :hidden:
@@ -9,7 +9,7 @@ responses/index
 versions/index
 ```
 
-Summary: An optional, explicit field for specification of imaging axis-aligned anatomical orientation for bipeds or quadrupeds.
+Summary: An optional, explicit field for specification of imaging axis orientation, with primary focus on anatomical orientation for bipeds or quadrupeds.
 
 ## Status
 
@@ -23,9 +23,9 @@ Brief description of status, including, e.g., `WIP | In-Review | Approved | With
 
 ## Overview
 
-This RFC proposes the addition of an optional `anatomicalOrientation` field to the OME-NGFF axis description.
-This field will provide explicit metadata about the anatomical orientation in an image using a
-controlled vocabulary. The goal is to preserve essential biological information and eliminate assumptions
+This RFC proposes the addition of an optional `orientation` field to the OME-NGFF axis description.
+This field will provide explicit metadata about the orientation in an image using a
+controlled vocabulary. For anatomical data, this includes anatomical orientation information. The goal is to preserve essential biological information and eliminate assumptions
 about orientation which can lead to errors in downstream analysis and alignment to anatomical atlases.
 
 ## Background
@@ -44,15 +44,53 @@ Existing standards provide some prior art for this proposal:
 
 ## Proposal
 
-We propose adding an OPTIONAL `anatomicalOrientation` field to the `axes` metadata in the OME-Zarr specification. This field will use a controlled vocabulary to explicitly define the anatomical orientation of the image.
+We propose adding an OPTIONAL `orientation` field to the `axes` metadata in the OME-Zarr specification. This field will use a controlled vocabulary to explicitly define the orientation of the image.
 
-The `anatomicalOrientation` field MUST only be used on spatial axes (axes with `type` field set to `"space"`). It MUST NOT be used on non-spatial axes such as channel, time, or other axis types.
+The `orientation` field MUST only be used on spatial axes (axes with `type` field set to `"space"`). It MUST NOT be used on non-spatial axes such as channel, time, or other axis types.
 
-This metadata data MUST only be used in cases where there is a single subject in the acquired volume or extracted image region-of-interest and the subject is roughly aligned to the imaging axes.
+This metadata MUST only be used in cases where there is a single subject in the acquired volume or extracted image region-of-interest and the subject is roughly aligned to the imaging axes.
+
+The `orientation` field is structured as an object with a `type` field that specifies the orientation domain (e.g., "anatomical") and a `value` field that specifies the specific orientation within that domain.
+
+### Example
+
+For anatomical data, an example axis configuration would look like:
+
+```json
+{
+  "axes": [
+    {
+      "name": "x",
+      "type": "space",
+      "unit": "millimeter",
+      "orientation": {"type": "anatomical", "value": "left-to-right"}
+    },
+    {
+      "name": "y", 
+      "type": "space",
+      "unit": "millimeter",
+      "orientation": {"type": "anatomical", "value": "anterior-to-posterior"}
+    },
+    {
+      "name": "z",
+      "type": "space", 
+      "unit": "millimeter",
+      "orientation": {"type": "anatomical", "value": "inferior-to-superior"}
+    }
+  ]
+}
+```
 
 ### Controlled Vocabulary
 
-The controlled vocabulary for the `anatomicalOrientation` field will include:
+This RFC focuses on anatomical orientation as the primary use case, but the structure is designed to be extensible to other orientation domains in the future, such as:
+
+- engineering/microfluidics: upstream/downstream (flow direction)
+- geographical: north/south, east/west
+- oceanographic: increasing-depth
+- histological: basal/apical
+
+For anatomical orientation, the controlled vocabulary for the `orientation` field's `value` will include:
 
 - `left-to-right`
 - `right-to-left`
@@ -85,19 +123,9 @@ A set of NGFF `axes` MUST only have one of the set `{ "left-to-right", "right-to
 
 ### Default Value
 
-For images of biped or quadruped subjects, `anatomicalOrientation` SHOULD be explicitly specified.
+For images of biped or quadruped subjects, anatomical `orientation` SHOULD be explicitly specified.
 
-If no orientation is specified, the implicit default value will be
-
-```json
-  "axes": [
-    { "name": "z", "type": "space", "unit": "micrometer", "anatomicalOrientation": "inferior-to-superior" },
-    { "name": "y", "type": "space", "unit": "micrometer", "anatomicalOrientation": "posterior-to-anterior" },
-    { "name": "x", "type": "space", "unit": "micrometer", "anatomicalOrientation": "left-to-right" }
-  ]
-```
-
-To maintain consistency with the Nifti standard.
+If no orientation is specified, there is no implicit default value. Applications MAY assume a default orientation but SHOULD warn users that orientation metadata is expected but missing.
 
 ## Coding Scheme
 
@@ -183,36 +211,44 @@ In JSON-Schema:
 {
     "$defs": {
         "Orientation": {
-            "description": "Anatomical orientation refers to the specific arrangement and directional alignment of anatomical structures within an imaging dataset. It is crucial for ensuring accurate alignment and comparison of images to anatomical atlases, facilitating consistent analysis and interpretation of biological data.",
-            "enum": [
-                "left-to-right",
-                "right-to-left",
-                "anterior-to-posterior",
-                "posterior-to-anterior",
-                "inferior-to-superior",
-                "superior-to-inferior",
-                "dorsal-to-ventral",
-                "ventral-to-dorsal",
-                "dorsal-to-palmar",
-                "palmar-to-dorsal",
-                "dorsal-to-plantar",
-                "plantar-to-dorsal",
-                "rostral-to-caudal",
-                "caudal-to-rostral",
-                "cranial-to-caudal",
-                "caudal-to-cranial",
-                "proximal-to-distal",
-                "distal-to-proximal"
-            ],
-            "title": "Orientation",
-            "type": "string"
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": ["anatomical"]
+                },
+                "value": {
+                    "type": "string",
+                    "enum": [
+                        "left-to-right",
+                        "right-to-left",
+                        "anterior-to-posterior",
+                        "posterior-to-anterior",
+                        "inferior-to-superior",
+                        "superior-to-inferior",
+                        "dorsal-to-ventral",
+                        "ventral-to-dorsal",
+                        "dorsal-to-palmar",
+                        "palmar-to-dorsal",
+                        "dorsal-to-plantar",
+                        "plantar-to-dorsal",
+                        "rostral-to-caudal",
+                        "caudal-to-rostral",
+                        "cranial-to-caudal",
+                        "caudal-to-cranial",
+                        "proximal-to-distal",
+                        "distal-to-proximal"
+                    ]
+                }
+            },
+            "required": ["type", "value"]
         }
     },
     "$id": "https://w3id.org/ome/ngff",
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "additionalProperties": true,
     "metamodel_version": "1.7.0",
-    "title": "anatomicalOrientation",
+    "title": "orientation",
     "type": "object",
     "version": "0.2.0"
 }
@@ -222,8 +258,9 @@ In Pydantic:
 
 ```python
 from enum import Enum
+from pydantic import BaseModel
 
-class Orientation(str, Enum):
+class AnatomicalOrientationValue(str, Enum):
     """
     Anatomical orientation refers to the specific arrangement and directional alignment of anatomical structures within an imaging dataset. It is crucial for ensuring accurate alignment and comparison of images to anatomical atlases, facilitating consistent analysis and interpretation of biological data.
     """
@@ -263,12 +300,36 @@ class Orientation(str, Enum):
     proximal_to_distal = "proximal-to-distal"
     # Describes the directional orientation from the periphery of an anatomical structure or limb to the center of the body.
     distal_to_proximal = "distal-to-proximal"
+
+class Orientation(BaseModel):
+    """
+    Orientation object that can represent different types of orientation information.
+    """
+    type: str
+    value: str
+
+class AnatomicalOrientation(Orientation):
+    """
+    Anatomical orientation specific implementation.
+    """
+    type: str = "anatomical"
+    value: AnatomicalOrientationValue
 ```
 
-A possible TypeScript definition is generated from `orientation.yml` looks similar to this::
+A possible TypeScript definition is generated from `orientation.yml` looks similar to this:
 
 ```typescript
-export enum Orientation {
+interface Orientation {
+    type: string;
+    value: string;
+}
+
+interface AnatomicalOrientation extends Orientation {
+    type: "anatomical";
+    value: AnatomicalOrientationValue;
+}
+
+enum AnatomicalOrientationValue {
     /** Describes the directional orientation from the left side to the right lateral side of an anatomical structure or body. */
     left_to_right = "left-to-right",
     /** Describes the directional orientation from the right side to the left lateral side of an anatomical structure or body. */
@@ -305,7 +366,7 @@ export enum Orientation {
     proximal_to_distal = "proximal-to-distal",
     /** Describes the directional orientation from the periphery of an anatomical structure or limb to the center of the body. */
     distal_to_proximal = "distal-to-proximal",
-};
+}
 ```
 
 ## Drawbacks, risks, alternatives, and unknowns
@@ -327,8 +388,10 @@ Fourth, since NGFF axes are encoded
 separately, it is most natural to encode each axis direction separately.
 Conversion between different orientations can be computationally expensive.
 
-A free-form value in `anatomicalOrientation` or `long_name` fields was considered, but
-a consistently understood controlled vocabuary is desired.
+A free-form value in `orientation` or `long_name` fields was considered, but
+a consistently understood controlled vocabulary is desired.
+
+A direct `anatomicalOrientation` field (without the structured `type`/`value` approach) was considered, but the current structure allows for future extension to other orientation domains beyond anatomy.
 
 Defining only a default implicit orientation was considered, but this did not meet the
 needs of real-world acquisitions.
@@ -352,7 +415,11 @@ For simplicity and to address the most common use cases, only instances where a 
 
 ## Future possibilities
 
-Future work may include expanding the controlled vocabulary based on community feedback and evolving requirements.
+Future work may include expanding the controlled vocabulary based on community feedback and evolving requirements. Additional orientation types beyond "anatomical" could be added to support other scientific domains (e.g., geographical, engineering).
+
+## Interaction with RFC-5
+
+This RFC is designed to work complementarily with RFC-5 (coordinate transformations). In cases where anatomical axes are not aligned with imaging axes, RFC-5 transformations can be used to define the relationship between image space and anatomical space. The `orientation` field would then apply to the axes of the anatomical coordinate system, not the imaging coordinate system.
 
 ## Performance
 
@@ -364,7 +431,7 @@ The proposed change is backwards compatible, as it introduces a new optional fie
 
 ## Testing
 
-Testing will include validating the presence and correctness of the `anatomicalOrientation` field in the metadata and ensuring compatibility with existing tools and workflows.
+Testing will include validating the presence and correctness of the `orientation` field in the metadata and ensuring compatibility with existing tools and workflows.
 
 ## UI/UX
 
@@ -381,3 +448,4 @@ End-user applications SHOULD display the encoded information with, for example, 
 | 2024-09-13 | RFC assigned and published   | [https://github.com/ome/ngff/pull/253](https://github.com/ome/ngff/pull/253) |
 | 2024-11-18 | Values expanded and descriptions improved. | [https://github.com/ome/ngff/pull/267](https://github.com/ome/ngff/pull/267) |
 | 2025-07-16 | Changed structure to support other orientations. Remove default orientation. | [https://github.com/ome/ngff/pull/318](https://github.com/ome/ngff/pull/318) |
+| 2025-07-17 | Updated field name from `anatomicalOrientation` to `orientation` with structured `type`/`value` approach to support extensibility to other orientation domains. | [https://github.com/ome/ngff/pull/318](https://github.com/ome/ngff/pull/318) |
