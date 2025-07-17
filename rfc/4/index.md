@@ -18,7 +18,8 @@ Brief description of status, including, e.g., `WIP | In-Review | Approved | With
 | Name      | GitHub Handle | Institution | Date       | Status                                 |
 |-----------|---------------|-------------|------------|----------------------------------------|
 | David Feng    | dyf           | Allen Institute for Neural Dynamics | 2023-07-26 | Author                             |
-| Matthew McCormick    | thewtex       | Kitware         | 2024-07-27 | Author                             |
+| Matthew McCormick    | thewtex       | Fideus Labs         | 2024-07-27 | Author                             |
+| Wouter-Michiel Vierdag | melonora | EMBL         | 2025-07-16 | Author                             |
 
 ## Overview
 
