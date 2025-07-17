@@ -46,6 +46,8 @@ Existing standards provide some prior art for this proposal:
 
 We propose adding an OPTIONAL `anatomicalOrientation` field to the `axes` metadata in the OME-Zarr specification. This field will use a controlled vocabulary to explicitly define the anatomical orientation of the image.
 
+The `anatomicalOrientation` field MUST only be used on spatial axes (axes with `type` field set to `"space"`). It MUST NOT be used on non-spatial axes such as channel, time, or other axis types.
+
 This metadata data MUST only be used in cases where there is a single subject in the acquired volume or extracted image region-of-interest and the subject is roughly aligned to the imaging axes.
 
 ### Controlled Vocabulary
