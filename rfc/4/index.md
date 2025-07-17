@@ -205,6 +205,10 @@ Who has a stake in whether this RFC is accepted?
 The implementation will involve adding the `orientation` field to the `axes` metadata
 in the NGFF schema. The field will use the controlled vocabulary specified above.
 
+A complete working implementation of this RFC is available in the `ngff-zarr` package, including validation, serialization, and examples. See the [ngff-zarr RFC-4 documentation](https://ngff-zarr.readthedocs.io/en/latest/rfc4.html) for detailed usage examples and API reference.
+
+### Schema Definitions
+
 In JSON-Schema:
 
 ```json
