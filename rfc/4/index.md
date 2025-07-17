@@ -378,3 +378,4 @@ End-user applications SHOULD display the encoded information with, for example, 
 | ---------- | ---------------------------- | ---------------------------------------------------------------------------- |
 | 2024-09-13 | RFC assigned and published   | [https://github.com/ome/ngff/pull/253](https://github.com/ome/ngff/pull/253) |
 | 2024-11-18 | Values expanded and descriptions improved. | [https://github.com/ome/ngff/pull/267](https://github.com/ome/ngff/pull/267) |
+| 2025-07-16 | Changed structure to support other orientations. Remove default orientation. | [https://github.com/ome/ngff/pull/318](https://github.com/ome/ngff/pull/318) |
