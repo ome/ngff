@@ -63,19 +63,19 @@ For anatomical data, an example axis configuration would look like:
       "name": "x",
       "type": "space",
       "unit": "millimeter",
-      "orientation": {"type": "anatomical", "value": "left-to-right"}
+      "orientation": {"type": "anatomical", "value": "right-to-left"}
     },
     {
-      "name": "y", 
+      "name": "y",
       "type": "space",
       "unit": "millimeter",
       "orientation": {"type": "anatomical", "value": "anterior-to-posterior"}
     },
     {
       "name": "z",
-      "type": "space", 
+      "type": "space",
       "unit": "millimeter",
-      "orientation": {"type": "anatomical", "value": "inferior-to-superior"}
+      "orientation": {"type": "anatomical", "value": "superior-to-inferior"}
     }
   ]
 }
