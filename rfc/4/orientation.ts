@@ -1,6 +1,6 @@
 
 export enum AxesNames {
-    
+
     /** Axis name relating to the time axis. */
     t = "t",
     /** Axis name relating to the channel axis. */
@@ -14,7 +14,7 @@ export enum AxesNames {
 };
 
 export enum SpaceAxesNames {
-    
+
     /** Axis name relating to the z or depth axis. */
     z = "z",
     /** Axis relating to the y or height axis. */
@@ -24,7 +24,7 @@ export enum SpaceAxesNames {
 };
 
 export enum AxisType {
-    
+
     /** Represents distinct image acquisition channels, typically corresponding to different fluorescence markers,  stains, or detection modalities. Each channel captures a specific signal or wavelength, and the axis  distinguishes among them in the image data.
  */
     channel = "channel",
@@ -37,7 +37,7 @@ export enum AxisType {
 };
 
 export enum SpaceUnit {
-    
+
     angstrom = "angstrom",
     attometer = "attometer",
     centimeter = "centimeter",
@@ -67,7 +67,7 @@ export enum SpaceUnit {
 };
 
 export enum TimeUnit {
-    
+
     attosecond = "attosecond",
     centisecond = "centisecond",
     day = "day",
@@ -96,7 +96,7 @@ export enum TimeUnit {
 * Anatomical orientation refers to the specific arrangement and directional alignment of anatomical structures within an imaging dataset. It is crucial for ensuring accurate alignment and comparison of images to anatomical atlases, facilitating consistent analysis and interpretation of biological data.
 */
 export enum AnatomicalOrientationValues {
-    
+
     /** Describes the directional orientation from the left side to the right lateral side of an anatomical structure or body. */
     left_to_right = "left-to-right",
     /** Describes the directional orientation from the right side to the left lateral side of an anatomical structure or body. */
@@ -145,6 +145,7 @@ export interface Axes {
 
 
 
+   /** More type constraints could be added here. */
 export interface Axis {
     name: string,
     type: string,
