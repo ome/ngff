@@ -1,6 +1,6 @@
 
 export enum AxesNames {
-
+    
     /** Axis name relating to the time axis. */
     t = "t",
     /** Axis name relating to the channel axis. */
@@ -14,7 +14,7 @@ export enum AxesNames {
 };
 
 export enum SpaceAxesNames {
-
+    
     /** Axis name relating to the z or depth axis. */
     z = "z",
     /** Axis relating to the y or height axis. */
@@ -24,20 +24,20 @@ export enum SpaceAxesNames {
 };
 
 export enum AxisType {
-
-    /** Represents distinct image acquisition channels, typically corresponding to different fluorescence markers,  stains, or detection modalities. Each channel captures a specific signal or wavelength, and the axis  distinguishes among them in the image data.
+    
+    /** Represents distinct image acquisition channels, typically corresponding to different fluorescence markers, stains, or detection modalities. Each channel captures a specific signal or wavelength, and the axis distinguishes among them in the image data.
  */
     channel = "channel",
-    /** Denotes spatial dimensions of the image, such as physical axes in 2D or 3D (e.g., x, y, z). These axes map  directly to coordinates in the sample or scene and often have associated physical units like microns.
+    /** Denotes spatial dimensions of the image, such as physical axes in 2D or 3D (e.g., x, y, z). These axes map directly to coordinates in the sample or scene and often have associated physical units like microns.
  */
     space = "space",
-    /** Represents a temporal axis capturing the progression of image data over time points or frames.  It is used in time-lapse imaging or dynamic studies to distinguish image slices acquired at different moments.
+    /** Represents a temporal axis capturing the progression of image data over time points or frames. It is used in time-lapse imaging or dynamic studies to distinguish image slices acquired at different moments.
  */
     time = "time",
 };
 
 export enum SpaceUnit {
-
+    
     angstrom = "angstrom",
     attometer = "attometer",
     centimeter = "centimeter",
@@ -67,7 +67,7 @@ export enum SpaceUnit {
 };
 
 export enum TimeUnit {
-
+    
     attosecond = "attosecond",
     centisecond = "centisecond",
     day = "day",
@@ -96,7 +96,7 @@ export enum TimeUnit {
 * Anatomical orientation refers to the specific arrangement and directional alignment of anatomical structures within an imaging dataset. It is crucial for ensuring accurate alignment and comparison of images to anatomical atlases, facilitating consistent analysis and interpretation of biological data.
 */
 export enum AnatomicalOrientationValues {
-
+    
     /** Describes the directional orientation from the left side to the right lateral side of an anatomical structure or body. */
     left_to_right = "left-to-right",
     /** Describes the directional orientation from the right side to the left lateral side of an anatomical structure or body. */
@@ -138,14 +138,13 @@ export enum AnatomicalOrientationValues {
 
 
 export interface Axes {
-    /** A list of axes. Although serialized as list, it MUST be dealt with as being a set as in the name of each axis MUST be unique. Furthermore, if the attribute orientation is defined for one axis of type space, it  MUST be defined for all the axes of type space. In this case, the type of each orientation MUST be the same and the value MUST be unique.
+    /** A list of axes. Although serialized as list, it MUST be dealt with as being a set as in the name of each axis MUST be unique. Furthermore, if the attribute orientation is defined for one axis of type space, it MUST be defined for all the axes of type space. In this case, the type of each orientation MUST be the same and the value MUST be unique.
  */
     axes?: string[],
 }
 
 
 
-   /** More type constraints could be added here. */
 export interface Axis {
     name: string,
     type: string,
@@ -159,7 +158,7 @@ export interface ChannelAxis extends Axis {
 
 
 export interface SpaceAxis extends Axis {
-    /** Physical unit for spatial measurement along the axis, selected from a standardized list of distance units  (e.g., micrometer, nanometer).
+    /** Physical unit for spatial measurement along the axis, selected from a standardized list of distance units (e.g., micrometer, nanometer).
  */
     unit: string,
     /** The direction of an axis of type space. */

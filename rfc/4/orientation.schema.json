@@ -48,7 +48,7 @@
             "description": "",
             "properties": {
                 "axes": {
-                    "description": "A list of axes. Although serialized as list, it MUST be dealt with as being a set as in the name of each axis MUST be unique. Furthermore, if the attribute orientation is defined for one axis of type space, it  MUST be defined for all the axes of type space. In this case, the type of each orientation MUST be the same and the value MUST be unique.\n",
+                    "description": "A list of axes. Although serialized as list, it MUST be dealt with as being a set as in the name of each axis MUST be unique. Furthermore, if the attribute orientation is defined for one axis of type space, it MUST be defined for all the axes of type space. In this case, the type of each orientation MUST be the same and the value MUST be unique.\n",
                     "items": {
                         "anyOf": [
                             {
@@ -149,7 +149,7 @@
                 },
                 "unit": {
                     "$ref": "#/$defs/SpaceUnit",
-                    "description": "Physical unit for spatial measurement along the axis, selected from a standardized list of distance units  (e.g., micrometer, nanometer).\n"
+                    "description": "Physical unit for spatial measurement along the axis, selected from a standardized list of distance units (e.g., micrometer, nanometer).\n"
                 }
             },
             "required": [

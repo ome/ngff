@@ -21,7 +21,7 @@ URI: [ngff:SpaceAxis](https://w3id.org/ome/ngff/SpaceAxis)
 ### Own
 
  * [➞unit](spaceAxis__unit.md)  <sub>1..1</sub>
-     * Description: Physical unit for spatial measurement along the axis, selected from a standardized list of distance units  (e.g., micrometer, nanometer).
+     * Description: Physical unit for spatial measurement along the axis, selected from a standardized list of distance units (e.g., micrometer, nanometer).
 
      * Range: [SpaceUnit](SpaceUnit.md)
  * [➞orientation](spaceAxis__orientation.md)  <sub>0..1</sub>

@@ -1,7 +1,7 @@
 
 # Slot: unit
 
-Physical unit for spatial measurement along the axis, selected from a standardized list of distance units  (e.g., micrometer, nanometer).
+Physical unit for spatial measurement along the axis, selected from a standardized list of distance units (e.g., micrometer, nanometer).
 
 URI: [ngff:spaceAxis__unit](https://w3id.org/ome/ngff/spaceAxis__unit)
 
