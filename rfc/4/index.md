@@ -199,6 +199,7 @@ Who has a stake in whether this RFC is accepted?
   - Discussed at the [Get Your Brain Together HCK02](https://github.com/InsightSoftwareConsortium/GetYourBrainTogether/blob/main/HCK02_2023_Allen_Institute_Hybrid/BoFBreakouts/Anatomic_orientation_in_OME-Zarr_NGFF_BoF_notes.md)
   - ome/ngff GitHub Issue #208
   - Discussed at the Get Your Brain Together HKC03
+  - Discussed at the OME-Zarr 2024 Zurich hackathon
 
 ## Implementation
 
