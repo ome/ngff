@@ -92,32 +92,31 @@ This RFC focuses on anatomical orientation as the primary use case, but the stru
 
 For anatomical orientation, the controlled vocabulary for the `orientation` field's `value` will include:
 
+**Common to both bipeds and quadrupeds:**
 - `left-to-right`
 - `right-to-left`
-
-- `anterior-to-posterior`
-- `posterior-to-anterior`
-
-- `inferior-to-superior`
-- `superior-to-inferior`
-
-- `dorsal-to-ventral`
-- `ventral-to-dorsal`
-
-- `dorsal-to-palmar`
-- `palmar-to-dorsal`
-
-- `dorsal-to-plantar`
-- `plantar-to-dorsal`
-
-- `rostral-to-caudal`
-- `caudal-to-rostral`
-
-- `cranial-to-caudal`
-- `caudal-to-cranial`
-
 - `proximal-to-distal`
 - `distal-to-proximal`
+
+**Primarily for bipeds (humans):**
+- `anterior-to-posterior` (front-to-back)
+- `posterior-to-anterior` (back-to-front)
+- `inferior-to-superior` (feet-to-head)
+- `superior-to-inferior` (head-to-feet)
+- `dorsal-to-palmar` (back of hand to palm)
+- `palmar-to-dorsal` (palm to back of hand)
+- `dorsal-to-plantar` (top of foot to sole)
+- `plantar-to-dorsal` (sole to top of foot)
+
+**Primarily for quadrupeds:**
+- `rostral-to-caudal` (nose/beak-to-tail, especially for nervous system)
+- `caudal-to-rostral` (tail-to-nose/beak, especially for nervous system)
+- `cranial-to-caudal` (head-to-tail)
+- `caudal-to-cranial` (tail-to-head)
+- `dorsal-to-ventral` (back/top-to-belly/bottom)
+- `ventral-to-dorsal` (belly/bottom-to-back/top)
+
+Note: In bipeds, the terms rostral/caudal and dorsal/ventral are ambiguous because their orientation depends on the anatomical structure. For example, these directions are orthogonal when describing the human brain versus the spinal cord. Therefore, the unambiguous terms anterior/posterior and inferior/superior (sometimes referred to as head/foot) are generally preferred for bipeds.
 
 A set of NGFF `axes` MUST only have one of the set `{ "left-to-right", "right-to-left" }` or `{ "anterior-to-posterior", "posterior-to-anterior" }` or the remaining values.
 
