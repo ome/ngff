@@ -1,4 +1,5 @@
 bikeshed<4.2
 myst-parser
 sphinx-book-theme
+json-schema-for-humans
 testresources
