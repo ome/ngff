@@ -3,10 +3,6 @@
 ```{toctree}
 :hidden:
 :maxdepth: 1
-reviews/index
-comments/index
-responses/index
-versions/index
 ```
 
 Summary: An optional, explicit field for specification of imaging axis-aligned anatomical orientation for bipeds or quadrupeds.
@@ -85,7 +81,7 @@ To maintain consistency with the Nifti standard.
 
 ## Coding Scheme
 
-We define the [LinkML encoding scheme](./orientation.yml) to enumerate the possible values
+We define the [LinkML encoding scheme](../../orientation.yml) to enumerate the possible values
 and provides their descriptions:
 
 ### Enum: Orientation

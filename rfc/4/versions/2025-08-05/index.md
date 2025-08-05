@@ -3,11 +3,6 @@
 ```{toctree}
 :hidden:
 :maxdepth: 1
-reviews/index
-comments/index
-responses/index
-versions/index
-markdown/index
 ```
 
 Summary: An optional, explicit field for specification of imaging axis orientation, with primary focus on anatomical orientation for bipeds or quadrupeds.
@@ -129,7 +124,7 @@ If no orientation is specified, there is no implicit default value. Applications
 
 ## Coding Scheme
 
-We define the [LinkML encoding scheme](./orientation.yml) to enumerate the possible values
+We define the [LinkML encoding scheme](../.../orientation.yml) to enumerate the possible values
 and provides their descriptions:
 
 ### Enum: Orientation
