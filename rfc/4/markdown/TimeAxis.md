@@ -1,3 +1,6 @@
+---
+orphan: true
+---
 
 # Class: TimeAxis
 

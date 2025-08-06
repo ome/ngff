@@ -1,7 +1,8 @@
+---
+orphan: true
+---
 
 # Class: AnatomicalOrientation
-
-
 
 URI: [ngff:AnatomicalOrientation](https://w3id.org/ome/ngff/AnatomicalOrientation)
 

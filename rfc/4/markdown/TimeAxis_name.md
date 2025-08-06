@@ -1,3 +1,6 @@
+---
+orphan: true
+---
 
 # Slot: name
 

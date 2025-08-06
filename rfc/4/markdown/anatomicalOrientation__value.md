@@ -1,7 +1,8 @@
+---
+orphan: true
+---
 
 # Slot: value
-
-
 
 URI: [ngff:anatomicalOrientation__value](https://w3id.org/ome/ngff/anatomicalOrientation__value)
 
