@@ -7,7 +7,6 @@ reviews/index
 comments/index
 responses/index
 versions/index
-markdown/index
 ```
 
 Summary: An optional, explicit field for specification of imaging axis orientation, with primary focus on anatomical orientation for bipeds or quadrupeds.
