@@ -1,21 +1,312 @@
 id: https://w3id.org/ome/ngff
-name: anatomicalOrientation
+name: OME_NGFF_Axes
 version: 0.2.0
 description: >-
-  The orientation field provides explicit metadata about the anatomical orientation in an image using a
-  controlled vocabulary. The goal is to preserve essential biological information and eliminate assumptions
-  about orientation which can lead to errors in downstream analysis and alignment to anatomical atlases.
+  This schema defines a standardized way to describe the axes of multidimensional image data. It allows each axis to
+  be clearly labeled (e.g., spatial, temporal, channel), assigned appropriate units (such as micrometers or seconds),
+  and, when relevant, include orientation information to specify the direction of measurement. The goal is to make
+  axis metadata explicit, consistent, and machine-readable—helping tools, datasets, and users work together seamlessly
+  and reduce ambiguity in data interpretation and processing.
+
 prefixes:
   ome: https://w3id.org/ome/
   ngff: https://w3id.org/ome/ngff/
   linkml: https://w3id.org/linkml/
+  orcid: https://orcid.org/
 imports:
   - linkml:types
 default_range: string
 default_prefix: ngff
 
-enums:
+created_on: "2025-05-29"
+created_by: orcid:0000-0003-1666-5421
+contributors:
+  - orcid:0000-0001-9475-3756
+  - orcid:0000-0002-4920-8123
+
+classes:
+  # Class pertaining to OME-NGFF axes definition
+  # Example of individual axis object: { "name": "z", "type": "space", "unit": "micrometer"}
+  Axes:
+    attributes:
+      axes:
+        description: >
+          A list of axes. Although serialized as list, it MUST be dealt with as being a set as in the name of each axis
+          MUST be unique. Furthermore, if the attribute orientation is defined for one axis of type space, it
+          MUST be defined for all the axes of type space. In this case, the type of each orientation MUST be the same
+          and the value MUST be unique.
+        multivalued: true
+        any_of:
+          - range: SpaceAxis
+          - range: TimeAxis
+          - range: ChannelAxis
+
+  Axis:
+    abstract: true
+    attributes:
+      name:
+        required: true
+        range: AxesNames
+      type:
+        range: AxisType
+        required: true
+
+
+  ChannelAxis:
+    is_a: Axis
+    slot_usage:
+      name:
+        range: string
+        equals_string: c
+        ifabsent: string(c)
+      type:
+        range: string
+        equals_string: channel
+        ifabsent: string(channel)
+    defining_slots:
+      - name
+      - type
+
+  SpaceAxis:
+    is_a: Axis
+    slot_usage:
+      name:
+        range: SpaceAxesNames
+      type:
+        range: string
+        equals_string: space
+        ifabsent: string(space)
+    attributes:
+      unit:
+        description: >
+          Physical unit for spatial measurement along the axis, selected from a standardized list of distance units
+          (e.g., micrometer, nanometer).
+        range: SpaceUnit
+        required: true
+      orientation:
+        description: The direction of an axis of type space.
+        any_of:
+          - range: AnatomicalOrientation
+        required: false
+    defining_slots:
+      - name
+      - type
+      - unit
+
+  TimeAxis:
+    is_a: Axis
+    slot_usage:
+      name:
+        range: string
+        equals_string: t
+        ifabsent: string(t)
+      type:
+        range: string
+        equals_string: time
+        ifabsent: string(time)
+    attributes:
+      unit:
+        description: >
+          Temporal unit of measurement for the axis, selected from standardized time units (e.g., second, minute, hour).
+        range: TimeUnit
+        required: true
+    defining_slots:
+      - unit
+
   Orientation:
+    abstract: true
+    attributes:
+      type:
+        range: string
+        required: true
+      value:
+        required: true
+
+  AnatomicalOrientation:
+    is_a: Orientation
+slots:
+  name:
+  type:
+
+enums:
+  # AxesNames are bound to change after RFC3 is implemented so this enum is subject to change.
+  AxesNames:
+    permissible_values:
+      t: Axis name relating to the time axis.
+      c: Axis name relating to the channel axis.
+      z: Axis name relating to the z or depth axis.
+      y: Axis relating to the y or height axis.
+      x: Axis relating to the x or width axis.
+  SpaceAxesNames:
+    permissible_values:
+      z: Axis name relating to the z or depth axis.
+      y: Axis relating to the y or height axis.
+      x: Axis relating to the x or width axis.
+  AxisType:
+    permissible_values:
+      channel: >
+        Represents distinct image acquisition channels, typically corresponding to different fluorescence markers,
+        stains, or detection modalities. Each channel captures a specific signal or wavelength, and the axis
+        distinguishes among them in the image data.
+      space: >
+        Denotes spatial dimensions of the image, such as physical axes in 2D or 3D (e.g., x, y, z). These axes map
+        directly to coordinates in the sample or scene and often have associated physical units like microns.
+      time: >
+        Represents a temporal axis capturing the progression of image data over time points or frames.
+        It is used in time-lapse imaging or dynamic studies to distinguish image slices acquired at different moments.
+  SpaceUnit:
+    permissible_values:
+      angstrom:
+        unit:
+          ucum_code: Ao
+      attometer:
+        unit:
+          ucum_code: am
+      centimeter:
+        unit:
+          ucum_code: cm
+      decimeter:
+        unit:
+          ucum_code: dm
+      exameter:
+        unit:
+          ucum_code: Em
+      femtometer:
+        unit:
+          ucum_code: fm
+      foot:
+        unit:
+          ucum_code: [ft_i] # also us
+      gigameter:
+        unit:
+          ucum_code: Gm
+      hectometer:
+        unit:
+          ucum_code: hm
+      inch:
+        unit:
+          ucum_code: [ in_i ]  # there is also us inch though.
+      kilometer:
+        unit:
+          ucum_code: km
+      megameter:
+        unit:
+          ucum_code: Mm
+      meter:
+        unit:
+          ucum_code: m
+      micrometer:
+        unit:
+          ucum_code: um
+      mile:
+        unit:
+          ucum_code: [mi_i]  # or mi_i depending on the context
+      millimeter:
+        unit:
+          ucum_code: mm
+      nanometer:
+        unit:
+          ucum_code: nm
+      parsec:
+        unit:
+          ucum_code: pc
+      petameter:
+        unit:
+          ucum_code: Pm
+      picometer:
+        unit:
+          ucum_code: pm
+      terameter:
+        unit:
+          ucum_code: Tm
+      yard:
+        unit:
+          ucum_code: [ yd_i ]  # or [yd_us] for US survey yard
+      yoctometer:
+        unit:
+          ucum_code: ym
+      yottameter:
+        unit:
+          ucum_code: Ym
+      zeptometer:
+        unit:
+          ucum_code: zm
+      zettameter:
+        unit:
+          ucum_code: Zm
+  TimeUnit:
+    permissible_values:
+      attosecond:
+        unit:
+          ucum_code: as
+      centisecond:
+        unit:
+          ucum_code: cs
+      day:
+        unit:
+          ucum_code: d
+      decisecond:
+        unit:
+          ucum_code: ds
+      exasecond:
+        unit:
+          ucum_code: Es
+      femtosecond:
+        unit:
+          ucum_code: fs
+      gigasecond:
+        unit:
+          ucum_code: Gs
+      hectosecond:
+        unit:
+          ucum_code: hs
+      hour:
+        unit:
+          ucum_code: h
+      kilosecond:
+        unit:
+          ucum_code: ks
+      megasecond:
+        unit:
+          ucum_code: Ms
+      microsecond:
+        unit:
+          ucum_code: us
+      millisecond:
+        unit:
+          ucum_code: ms
+      minute:
+        unit:
+          ucum_code: min
+      nanosecond:
+        unit:
+          ucum_code: ns
+      petasecond:
+        unit:
+          ucum_code: Ps
+      picosecond:
+        unit:
+          ucum_code: ps
+      second:
+        unit:
+          ucum_code: s
+      terasecond:
+        unit:
+          ucum_code: Ts
+      yoctosecond:
+        unit:
+          ucum_code: ys
+      yottasecond:
+        unit:
+          ucum_code: Ys
+      zeptosecond:
+        unit:
+          ucum_code: zs
+      zettasecond:
+        unit:
+          ucum_code: Zs
+  # This enum related to the current RFC.
+  AnatomicalOrientationValues:
     description: >-
       Anatomical orientation refers to the specific arrangement and directional alignment of anatomical structures within an imaging dataset. It is crucial for ensuring accurate alignment and comparison of images to anatomical atlases, facilitating consistent analysis and interpretation of biological data.
     permissible_values:
