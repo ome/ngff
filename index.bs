@@ -158,11 +158,12 @@ The "OME-Zarr Metadata" contains metadata keys as specified below
 for discovering certain types of data, especially images.
 
 The OME-Zarr Metadata is stored in the various `zarr.json` files throughout the above array
-hierarchy. In this file, the metadata is stored under the namespaced key 
-`ome` in `attributes`.
-The version of the OME-Zarr Metadata is denoted as a string in the `version` attribute within the `ome` namespace.
+hierarchy. The OME-Zarr Metadata version MUST be consistent within a hierarchy. The top-level `ome`
+group MUST contain a `version` key whose value MUST be a string specifying the version of the
+metadata specification.
 
-The OME-Zarr Metadata version MUST be consistent within a hierarchy.
+In this file, the metadata is stored under the namespaced key 
+`ome` in `attributes`.
 
 ```json
 {
@@ -423,9 +424,8 @@ associated with the `datasets` key MUST have the same number of entries (scale l
 
 In addition to the `multiscales` key, the OME-Zarr Metadata in this image-level `zarr.json` file SHOULD contain another key, `image-label`, 
 whose value is also a JSON object. The `image-label` object stores information about the display colors, source image, and optionally, 
-further arbitrary properties of the label image. That `image-label` object SHOULD contain the following keys: first, a `colors` key, 
-whose value MUST be a JSON array describing color information for the unique label values. Second, a `version` key, whose value MUST be a 
-string specifying the version of the OME-Zarr `image-label` schema.
+further arbitrary properties of the label image. That `image-label` object SHOULD contain a `colors` key, whose value MUST be a JSON array
+describing color information for the unique label values.
 
 Conforming readers SHOULD display labels using the colors specified by the `colors` JSON array, as follows. This array contains one 
 JSON object for each unique custom label. Each of these objects MUST contain the `label-value` key, whose value MUST be the integer 
@@ -486,9 +486,6 @@ case-insensitive filesystems (e.g. avoid using both `Aa` and `aA`).
 The `plate` dictionary SHOULD contain a `field_count` key whose value MUST be a positive integer
 defining the maximum number of fields per view across all wells.
 
-The `plate` dictionary SHOULD contain a `name` key whose value MUST be a string defining the
-name of the plate.
-
 The `plate` dictionary MUST contain a `rows` key whose value MUST be a list of JSON objects
 defining the rows of the plate. Each row object defines the properties of
 the row at the index of the object in the list. Each row in the physical plate
@@ -541,9 +538,6 @@ MUST contain only alphanumeric characters, MUST be case-sensitive, and MUST NOT 
 of any other `path` in the `images` list. If multiple acquisitions were performed in the plate,
 it MUST contain an `acquisition` key whose value MUST be an integer identifying the acquisition
 which MUST match one of the acquisition JSON objects defined in the plate metadata (see #plate-md).
-
-The `well` dictionary SHOULD contain a `version` key whose value MUST be a string specifying the
-version of the well specification.
 
 For example the following JSON object defines a well with four fields of
 view. The first two fields of view were part of the first acquisition while
