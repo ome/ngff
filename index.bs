@@ -158,12 +158,13 @@ The "OME-Zarr Metadata" contains metadata keys as specified below
 for discovering certain types of data, especially images.
 
 The OME-Zarr Metadata is stored in the various `zarr.json` files throughout the above array
-hierarchy. The OME-Zarr Metadata version MUST be consistent within a hierarchy. The top-level `ome`
-group MUST contain a `version` key whose value MUST be a string specifying the version of the
-metadata specification.
+hierarchy. The OME-Zarr Metadata version MUST be consistent within a hierarchy.
+
+The group `attributes` MUST contain a key `ome`. The value of the `ome` key MUST be a JSON
+object that MUST contain a `version` key, the value of which MUST be a string.
 
 In this file, the metadata is stored under the namespaced key 
-`ome` in `attributes`.
+`ome` in `attributes`:
 
 ```json
 {
