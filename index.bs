@@ -51,9 +51,8 @@ Extra keys in JSON objects
 --------------------------
 
 Unless otherwise stated, a JSON object defined in this document MAY contain additional keys
-beyond those enumerated in its definition. OME-Zarr Implementations MUST allow extra keys in
-such JSON objects. This means that, when reading OME-Zarr data, the presence of an extra key
-in such a JSON object MUST NOT be treated as an error.
+beyond those enumerated in its definition. The presence of an additional key in such a JSON
+object MUST NOT be treated as an error by implementations.
 
 Whether an implementation ignores the extra keys or propagates them is up to that particular
 implementation. It is recommended that implementations clearly declare how they handle extra
