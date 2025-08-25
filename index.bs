@@ -62,6 +62,20 @@ is represented here as it would appear locally but could equally
 be stored on a web server to be accessed via HTTP or in object storage
 like S3 or GCS.
 
+Extra keys in JSON objects {#extra-keys}
+----------------------------------------
+
+Unless otherwise stated, a JSON object defined in this document MAY contain additional keys
+beyond those enumerated in its definition. OME-Zarr Implementations MUST allow extra keys in
+such JSON objects. This means that, when reading OME-Zarr data, the presence of an extra key
+in such a JSON object MUST NOT be treated as an error.
+
+Whether an implementation ignores the extra keys or propagates them is up to that particular
+implementation. It is recommended that implementations clearly declare how they handle extra
+keys, with a particular emphasis on informing users in the context of irreversible operations.
+For example, an implementation that resaves OME-Zarr data and ignores extra keys could implement
+a routine that warns users when they attempt to resave OME-Zarr data with extra keys.
+
 Images {#image-layout}
 ----------------------
 
