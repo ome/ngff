@@ -47,20 +47,6 @@ implementations that are later submitted as a formal specification. (See [[#bf2r
 Some of the JSON examples in this document include comments. However, these are only for
 clarity purposes and comments MUST NOT be included in JSON objects.
 
-Extra keys in JSON objects
---------------------------
-
-Unless otherwise stated, a JSON object defined in this document MAY contain additional keys
-beyond those enumerated in its definition. The presence of an additional key in such a JSON
-object MUST NOT be treated as an error by implementations.
-
-Whether an implementation ignores the extra keys or propagates them is up to that particular
-implementation. It is recommended that implementations clearly declare how they handle extra
-keys, with a particular emphasis on informing users in the context of irreversible operations.
-For example, an implementation that resaves OME-Zarr data and ignores extra keys could implement
-a routine that warns users when they attempt to resave OME-Zarr data with extra keys.
-
-
 Storage format {#storage-format}
 ================================
 
