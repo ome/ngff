@@ -154,7 +154,7 @@ TODO:
   - Other packing (e.g. TAR), either of a single shard (i.e., single volume) or of an entire OME-Zarr hierarchy + perhaps a custom "central directory" --> new file format, would require custom logic for packing/unpacking
 - Alternative file extensions (also used for ZIP archive comment):
   - `.zarrx` or `.zar` - not OME-specific
-  - Multi-level file extensions (e.g. `.ome.zarr.zip`, `.ome.zarrx`, `.ome.zar`) - not good for UX
+  - Multi-part file extensions (e.g. `.ome.zarr.zip`, `.ome.zarrx`, `.ome.zar`) - not good for UX
   - Any permutation of `oz[pzx]` other than `.ozx` that is not yet in use by other software
 
 <!-- As RFCs evolve, it is common that there are ideas that are abandoned. Rather than simply deleting them from the document, you should try to organize them into sections that make it clear they’re abandoned while explaining why they were abandoned.
