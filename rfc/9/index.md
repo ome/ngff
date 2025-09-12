@@ -25,13 +25,28 @@ reading this paragraph(s). -->
 
 ## Background
 
-OME-Zarr excels at storing large bioimaging datasets (often consisting of multiple images) in the cloud. This is primarily achieved by storing individual image chunks as separate objects (object storage) or files on the file system (`DirectoryStore` implementation in Zarr v2, [file system store](https://zarr-specs.readthedocs.io/en/latest/v3/stores/filesystem/index.html) specification in Zarr v3). However, for conventional use cases (e.g. reasonably small images stored on the local desktop file system), splitting a single image across multiple (few or many) files presents the following challenges:
+OME-Zarr excels at storing large bioimaging datasets (often consisting of multiple images) in the cloud.
+This is primarily achieved by storing individual image chunks as separate objects (object storage) or files on the file system (`DirectoryStore` implementation in Zarr v2, [file system store](https://zarr-specs.readthedocs.io/en/latest/v3/stores/filesystem/index.html) specification in Zarr v3).
+However, for conventional use cases (e.g. reasonably small images stored on the local desktop file system), splitting a single image across multiple (few or many) files presents the following challenges:
 
-**User experience-related challenges**: Many tools in the bioimaging domain operate on individual files as independent entities (e.g. images). For example, the "File open" dialog in ImageJ/Fiji lets users open files as images, but not directories. Similarly, most operating systems expect an image to be stored in a single file, as apparent by e.g. file permission systems, file type concepts (e.g. file name extensions) and file type-dependent functionality (e.g., double/right-click, drag-and-drop, preview). This file-centric view further extends to established protocols such as SMTP, HTTP and FTP, which can natively transfer files, but not directories. OME-Zarr, on the other hand, does not currently specify how to store data in a single file, but primarily relies on nested directory structures. As a consequence, the user experience of interacting with OME-Zarr data in conventional use cases lags behind "traditional" file formats such as (OME-)TIFF. For example, users currently cannot associate an OME-Zarr file type with their favorite image viewer (no "double click" functionality), cannot effortlessly use their OME-Zarr images with existing file-centric tooling, nor can they easily share a few small OME-Zarr images with collaborators via email. OME-Zarr's lack of support for file-centric workflows hampers its adoption in conventional use cases (and in turn the motivation for tool developers to support OME-Zarr).
+**User experience-related challenges**:
+Many tools in the bioimaging domain operate on individual files as independent entities (e.g. images).
+For example, the "File open" dialog in ImageJ/Fiji lets users open files as images, but not directories.
+Similarly, most operating systems expect an image to be stored in a single file, as apparent by e.g. file permission systems, file type concepts (e.g. file name extensions) and file type-dependent functionality (e.g., double/right-click, drag-and-drop, preview).
+This file-centric view further extends to established protocols such as SMTP, HTTP and FTP, which can natively transfer files, but not directories.
+OME-Zarr, on the other hand, does not currently specify how to store data in a single file, but primarily relies on nested directory structures.
+As a consequence, the user experience of interacting with OME-Zarr data in conventional use cases lags behind "traditional" file formats such as (OME-)TIFF.
+For example, users currently cannot associate an OME-Zarr file type with their favorite image viewer (no "double click" functionality), cannot effortlessly use their OME-Zarr images with existing file-centric tooling, nor can they easily share a few small OME-Zarr images with collaborators via email.
+OME-Zarr's lack of support for file-centric workflows hampers its adoption in conventional use cases (and in turn the motivation for tool developers to support OME-Zarr).
 
-**Challenges in tool development**: For tool developers, the reliance on file system directories increases technical complexity in adopting OME-Zarr. For example, most existing tools cannot merely adapt their current (file-centric) mechanisms for data handling, but need entirely new execution paths dedicated to handling (OME-Zarr) directories (e.g. dialogs for opening/saving data in directories, directory-specific drag-and-drop handlers, advanced input validation logic). Furthermore, tool developers cannot rely on file-specific functionality/APIs provided by the operating system (e.g. file type associations, MIME types), making it more difficult to enable user-friendly interactions. Taken together, these challenges may discourage tool developers from implementing (user-friendly) OME-Zarr support, which would in turn negatively affect user experience with OME-Zarr.
+**Challenges in tool development**:
+For tool developers, the reliance on file system directories increases technical complexity in adopting OME-Zarr.
+For example, most existing tools cannot merely adapt their current (file-centric) mechanisms for data handling, but need entirely new execution paths dedicated to handling (OME-Zarr) directories (e.g. dialogs for opening/saving data in directories, directory-specific drag-and-drop handlers, advanced input validation logic).
+Furthermore, tool developers cannot rely on file-specific functionality/APIs provided by the operating system (e.g. file type associations, MIME types), making it more difficult to enable user-friendly interactions.
+Taken together, these challenges may discourage tool developers from implementing (user-friendly) OME-Zarr support, which would in turn negatively affect user experience with OME-Zarr.
 
-In light of the challenges related to user experience and tool development, users and implementers have already begun to store OME-Zarr hierarchies in (primarily ZIP, see *Prior art and references* section) archives, albeit in an unstandardized and thus uncoordinated fashion. This can lead to format incompatibilities that may not only affect the adoption of OME-Zarr in conventional use cases, but may undermine the standardization goals of the OME-NGFF community as a whole.
+In light of the challenges related to user experience and tool development, users and implementers have already begun to store OME-Zarr hierarchies in (primarily ZIP, see *Prior art and references* section) archives, albeit in an unstandardized and thus uncoordinated fashion.
+This can lead to format incompatibilities that may not only affect the adoption of OME-Zarr in conventional use cases, but may undermine the standardization goals of the OME-NGFF community as a whole.
 
 ## Proposal
 
@@ -44,15 +59,26 @@ Specifically:
 - Do not allow embedding zipped OME-Zarr files in parent OME-Zarr hierarchies ("recursion").
 - Define an OME-Zarr-specific file extension for zipped OME-Zarr files.
 
-To minimize implementation effort and maximize compatibility, this RFC proposes a concrete archive file format as a single-file OME-Zarr storage container. The ZIP archive file format was chosen for its simplicity, widespread adoption (e.g. on-board tooling of various operating systems, existing OME-Zarr implementations) and possibility for chunked file access enabled by the "central directory" header. Considering the intended (conventional) use cases for zipped OME-Zarr, these advantages were considered to outweigh disadvantages such as limitations of the ZIP archive file format in efficiently overwriting file contents (e.g. when using ZIP-level compression or if the new content differs in size). Note that the ZIP archive file format is already being used to realize comparable single-file formats in other domains, such as Java archives (.jar), Office Open XML (.docx, .pptx, .xlsx), or OpenDocument (.odt, .odt, .ods, .odg).
+To minimize implementation effort and maximize compatibility, this RFC proposes a concrete archive file format as a single-file OME-Zarr storage container.
+The ZIP archive file format was chosen for its simplicity, widespread adoption (e.g. on-board tooling of various operating systems, existing OME-Zarr implementations) and possibility for chunked file access enabled by the "central directory" header.
+Considering the intended (conventional) use cases for zipped OME-Zarr, these advantages were considered to outweigh disadvantages such as limitations of the ZIP archive file format in efficiently overwriting file contents (e.g. when using ZIP-level compression or if the new content differs in size).
+Note that the ZIP archive file format is already being used to realize comparable single-file formats in other domains, such as Java archives (.jar), Office Open XML (.docx, .pptx, .xlsx), or OpenDocument (.odt, .odt, .ods, .odg).
 
-To enable the intended user experience (e.g. avoid additional prompting of users when opening a zipped OME-Zarr file), the location of the OME-Zarr root relative to the ZIP archive root needs to be specified. In order to avoid inconsistencies when renaming zipped OME-Zarr files, this RFC proposes to require the archive root to coincide with the OME-Zarr root directory. In other words, according to this specification, the OME-Zarr's root-level `zarr.json` must be located in the root of the ZIP archive. Potential problems (e.g. loss of data) resulting from "accidentally" extracting the archive file in-place (e.g. using on-board tooling of some operating systems) can be alleviated by introducing a custom file extension (see below).
+To enable the intended user experience (e.g. avoid additional prompting of users when opening a zipped OME-Zarr file), the location of the OME-Zarr root relative to the ZIP archive root needs to be specified.
+In order to avoid inconsistencies when renaming zipped OME-Zarr files, this RFC proposes to require the archive root to coincide with the OME-Zarr root directory.
+In other words, according to this specification, the OME-Zarr's root-level `zarr.json` must be located in the root of the ZIP archive.
+Potential problems (e.g. loss of data) resulting from "accidentally" extracting the archive file in-place (e.g. using on-board tooling of some operating systems) can be alleviated by introducing a custom file extension (see below).
 
-To facilitate the performant reading of zipped OME-Zarr files, a set of essential ZIP/Zarr storage parameters are recommended in this RFC. These include recommendations to disable ZIP-level compression (to avoid "double compression" when using Zarr compression codecs), to make use of Zarr's sharding codec (to avoid inflating the number of central directory records in the ZIP file header), to list all `zarr.json` files at the beginning of the central directory header in a breadth-first order (to enable efficient metadata parsing), and to write the root-level `zarr.json` as the first ZIP file entry (to enable efficient reading by tools that do not consider the central directory header). Zipped OME-Zarr files may include an OME-Zarr-specific "archive comment" in the ZIP file header to indicate compliance with these recommendations, further facilitating efficient data/metadata access.
+To facilitate the performant reading of zipped OME-Zarr files, a set of essential ZIP/Zarr storage parameters are recommended in this RFC.
+These include recommendations to disable ZIP-level compression (to avoid "double compression" when using Zarr compression codecs), to make use of Zarr's sharding codec (to avoid inflating the number of central directory records in the ZIP file header), to list all `zarr.json` files at the beginning of the central directory header in a breadth-first order (to enable efficient metadata parsing), and to write the root-level `zarr.json` as the first ZIP file entry (to enable efficient reading by tools that do not consider the central directory header).
+Zipped OME-Zarr files may include an OME-Zarr-specific "archive comment" in the ZIP file header to indicate compliance with these recommendations, further facilitating efficient data/metadata access.
 
-To reduce implementation complexity, this RFC explicitly prohibits embedding a zipped OME-Zarr file as subhierarchy of a parent OME-Zarr hierarchy. Note that this also implicitly prohibits "recursive zipping", i.e. the embedding of single-file OME-Zarr files within a parent ZIP archive that would otherwise be a valid single-file OME-Zarr file. This restriction may be revised in the future, especially in the light of the "collections" RFC.
+To reduce implementation complexity, this RFC explicitly prohibits embedding a zipped OME-Zarr file as subhierarchy of a parent OME-Zarr hierarchy.
+Note that this also implicitly prohibits "recursive zipping", i.e. the embedding of single-file OME-Zarr files within a parent ZIP archive that would otherwise be a valid single-file OME-Zarr file.
+This restriction may be revised in the future, especially in the light of the "collections" RFC.
 
-Finally, this RFC also defines a new file extension to be used specifically with zipped OME-Zarr files. This should enable file type detection (in absence of a magic number), improve user experience (e.g. by enabling file type association), avoid "accidental" in-place extraction (e.g. using on-board tooling of some operating systems) and encourage the use of OME-Zarr-specific tooling for creating zipped OME-Zarr files (to follow the recommendations listed earlier).
+Finally, this RFC also defines a new file extension to be used specifically with zipped OME-Zarr files.
+This should enable file type detection (in absence of a magic number), improve user experience (e.g. by enabling file type association), avoid "accidental" in-place extraction (e.g. using on-board tooling of some operating systems) and encourage the use of OME-Zarr-specific tooling for creating zipped OME-Zarr files (to follow the recommendations listed earlier).
 
 ## Sections
 
@@ -66,9 +92,14 @@ This section specifies how to store an OME-Zarr hierarchy within a single file.
 
 An OME-Zarr hierarchy MAY be stored within a ZIP archive.
 
-For a ZIP file to be referred to as a single-file OME-Zarr file, its root MUST correspond to the root of an OME-Zarr hierarchy. In other words, the OME-Zarr's root-level `zarr.json` MUST be located in the root of the ZIP archive.
+For a ZIP file to be referred to as a single-file OME-Zarr file, its root MUST correspond to the root of an OME-Zarr hierarchy.
+In other words, the OME-Zarr's root-level `zarr.json` MUST be located in the root of the ZIP archive.
 
-When creating zipped OME-Zarr files, it is RECOMMENDED to disable ZIP-level compression. It is further RECOMMENDED to use Zarr's sharding codec to reduce the number of entries within the ZIP archive. All `zarr.json` files SHOULD be listed first in the central directory header, in a breadth-first order. The root-level `zarr.json` SHOULD be the first ZIP file entry. The null-terminated UTF-8-encoded string `OZX####` (with `####` replaced by the zero-padded semantic OME-Zarr MAJOR.MINOR version, e.g. `OZX0102` for version 1.2) MAY be used as a ZIP archive comment to indicate that a zipped OME-Zarr file adheres to all recommendations in this paragraph.
+When creating zipped OME-Zarr files, it is RECOMMENDED to disable ZIP-level compression.
+It is further RECOMMENDED to use Zarr's sharding codec to reduce the number of entries within the ZIP archive.
+All `zarr.json` files SHOULD be listed first in the central directory header, in a breadth-first order.
+The root-level `zarr.json` SHOULD be the first ZIP file entry.
+The null-terminated UTF-8-encoded string `OZX####` (with `####` replaced by the zero-padded semantic OME-Zarr MAJOR.MINOR version, e.g. `OZX0102` for version 1.2) MAY be used as a ZIP archive comment to indicate that a zipped OME-Zarr file adheres to all recommendations in this paragraph.
 
 Zipped OME-Zarr files SHALL NOT be embedded in a parent OME-Zarr hierarchy (as a sub-hierarchy or otherwise).
 
@@ -87,7 +118,8 @@ In principle:
 - Developers who want to make their new or existing tools available to both conventional use cases and use cases poised for OME-Zarr
 - Anyone benefitting from further file format standardization/OME-Zarr adoption within the bioimaging community
 
-The storage of single images as single-file (e.g. zipped) OME-Zarrs has been frequently requested in online forums, community calls, events, GitHub issues, etc. While too numerous to list here, relevant search phrases include "OME-Zarr single file", "OME-Zarr zip", "OME-Zarr local file system" and "Zarr ZipStore".
+The storage of single images as single-file (e.g. zipped) OME-Zarrs has been frequently requested in online forums, community calls, events, GitHub issues, etc.
+While too numerous to list here, relevant search phrases include "OME-Zarr single file", "OME-Zarr zip", "OME-Zarr local file system" and "Zarr ZipStore".
 
 Facilitator: Josh Moore (German BioImaging)
 
