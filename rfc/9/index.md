@@ -11,7 +11,6 @@ This PR is currently in RFC state `D3` (draft PR).
 | Jonas Windhager | @jwindhager | SciLifeLab / Uppsala University, Sweden | 2025-07-02 | [Author](https://github.com/ome/ngff/pull/316) |
 | Norman Rzepka | @normanrz | scalable minds GmbH, Germany | 2025-08-27 | |
 | Mark Kittisopikul | @mkitti | HHMI Janelia, United States | 2025-08-27 | |
-| Dominik Kutra | @k-dominik | EMBL Heidelberg, Germany | 2025-08-27 | |
 
 ## Overview
 
@@ -126,6 +125,7 @@ Facilitator: Josh Moore (German BioImaging)
 Suggested reviewers:
 - Curtis Rueden (University of Wisconsin-Madison, United States) @ctrueden
 - Davis Bennett (Germany) @d-v-b
+- Dominik Kutra (EMBL Heidelberg, Germany) @k-dominik
 - Juan Nunez-Iglesias (Monash University, Australia) @jni
 - Tong Li (Wellcome Sanger Institute, United Kingdom) @BioinfoTongLI
 - BioImage Archive team members (EMBL-EBI, United Kingdom), e.g. @matthewh-ebi @kbab
