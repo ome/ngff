@@ -55,7 +55,7 @@ Specifically:
 - Add the ZIP format as a single-file storage container for OME-Zarr.
 - Specify the location of OME-Zarr's root-level `zarr.json` within the ZIP archive.
 - Recommend essential ZIP/Zarr storage parameters for creating zipped OME-Zarr files.
-- Do not allow embedding zipped OME-Zarr files in parent OME-Zarr hierarchies ("recursion").
+- Disallow embedding zipped OME-Zarr files in parent OME-Zarr hierarchies ("recursion").
 - Define an OME-Zarr-specific file extension for zipped OME-Zarr files.
 
 To minimize implementation effort and maximize compatibility, this RFC proposes a concrete archive file format as a single-file OME-Zarr storage container.
