@@ -51,7 +51,7 @@ The namespacing issue can be resolved in two ways:
           "unit": "millimeter",
           "orientation": {"type": "anatomical", "value": "left-to-right"}
       },
-      ...
+      "..."
    ]
    ```
 
