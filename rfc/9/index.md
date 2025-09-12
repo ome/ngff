@@ -65,7 +65,7 @@ Note that the ZIP archive file format is already being used to realize comparabl
 
 To enable the intended user experience (e.g. avoid additional prompting of users when opening a zipped OME-Zarr file), the location of the OME-Zarr root relative to the ZIP archive root needs to be specified.
 In order to avoid inconsistencies when renaming zipped OME-Zarr files, this RFC proposes to require the archive root to coincide with the OME-Zarr root directory.
-In other words, according to this specification, the OME-Zarr's root-level `zarr.json` must be located in the root of the ZIP archive.
+In other words, according to this specification, the OME-Zarr's root-level `zarr.json` MUST be located in the root of the ZIP archive and not in a subfolder within the ZIP archive.
 Potential problems (e.g. loss of data) resulting from "accidentally" extracting the archive file in-place (e.g. using on-board tooling of some operating systems) can be alleviated by introducing a custom file extension (see below).
 
 To facilitate the performant reading of zipped OME-Zarr files, a set of essential ZIP/Zarr storage parameters are recommended in this RFC.
