@@ -126,8 +126,11 @@ Suggested reviewers:
 - Curtis Rueden (University of Wisconsin-Madison, United States) @ctrueden
 - Davis Bennett (Germany) @d-v-b
 - Dominik Kutra (EMBL Heidelberg, Germany) @k-dominik
+<!-- - Johannes Soltwedel (TU Dresden, Germany) @jo-mueller -->
 - Juan Nunez-Iglesias (Monash University, Australia) @jni
-- Tong Li (Wellcome Sanger Institute, United Kingdom) @BioinfoTongLI
+- Luca Marconato (EMBL Heidelberg, Germany) @LucaMarconato
+<!-- - Matthew McCormick (Fideus Labs, United States) @thewtex -->
+<!-- - Tong Li (Wellcome Sanger Institute, United Kingdom) @BioinfoTongLI -->
 - BioImage Archive team members (EMBL-EBI, United Kingdom), e.g. @matthewh-ebi @kbab
 
 Consulted: everyone mentioned in [PR #316](https://github.com/ome/ngff/pull/316)
