@@ -31,7 +31,7 @@ However, for conventional use cases (e.g. reasonably small images stored on the 
 **User experience-related challenges**:
 Many tools in the bioimaging domain operate on individual files as independent entities (e.g. images).
 For example, the "File open" dialog in ImageJ/Fiji lets users open files as images, but not directories.
-Similarly, most operating systems expect an image to be stored in a single file, as apparent by e.g. file permission systems, file type concepts (e.g. file name extensions) and file type-dependent functionality (e.g., double/right-click, drag-and-drop, preview).
+Similarly, some operating systems expect an image to be stored in a single file, as apparent by e.g. file permission systems, file type concepts (e.g. file name extensions) and file type-dependent functionality (e.g., double/right-click, drag-and-drop, preview).
 This file-centric view further extends to established protocols such as SMTP, HTTP and FTP, which perform better for transfering files instead of directories.
 OME-Zarr, on the other hand, does not currently specify how to store data in a single file, but primarily relies on nested directory structures.
 As a consequence, the user experience of interacting with OME-Zarr data in conventional use cases lags behind "traditional" file formats such as (OME-)TIFF.
