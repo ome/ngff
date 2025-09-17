@@ -73,8 +73,7 @@ To facilitate the performant reading of zipped OME-Zarr files, a set of essentia
 These include recommendations to disable ZIP-level compression (to avoid "double compression" when using Zarr compression codecs), to make use of Zarr's sharding codec (to avoid inflating the number of central directory records in the ZIP file header), to list all `zarr.json` files at the beginning of the central directory header in a breadth-first order (to enable efficient metadata parsing), and to write the root-level `zarr.json` as the first ZIP file entry (to enable efficient reading by tools that do not consider the central directory header).
 Zipped OME-Zarr files may include an OME-Zarr-specific "archive comment" in the ZIP file header to indicate compliance with these recommendations, further facilitating efficient data/metadata access.
 
-To reduce implementation complexity, this RFC explicitly prohibits embedding a zipped OME-Zarr file as subhierarchy of a parent OME-Zarr hierarchy.
-Note that this also implicitly prohibits "recursive zipping", i.e. the embedding of single-file OME-Zarr files within a parent ZIP archive that would otherwise be a valid single-file OME-Zarr file.
+This RFC explicitly prohibits embedding a zipped OME-Zarr file as subhierarchy of a parent OME-Zarr hierarchy. In particular this prohibits "recursive zipping", the embedding of single-file OME-Zarr ZIP archive within a parent ZIP archive.
 This restriction may be revised in the future, especially in the light of the "collections" RFC.
 
 Finally, this RFC also defines a new file extension to be used specifically with zipped OME-Zarr files.
