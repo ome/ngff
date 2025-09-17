@@ -141,7 +141,10 @@ Socialization: see Prior art and references; the draft was further discussed amo
 
 ## Implementation (Recommended Header)
 
-TODO
+TODO:
+- https://github.com/ome/ngff/pull/316#discussion_r2344743194
+- https://github.com/ome/ngff/pull/316#issuecomment-3302456557
+- https://github.com/ome/ngff/pull/316#issuecomment-3302595684
 
 <!-- Many RFCs have an "implementation" section which details how the implementation
 will work. This section should explain the rough specification changes. The
