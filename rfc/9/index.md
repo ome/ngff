@@ -79,6 +79,8 @@ This restriction may be revised in the future, especially in the light of the "c
 Finally, this RFC also defines a new file extension to be used specifically with zipped OME-Zarr files.
 This should enable file type detection (in absence of a magic number), improve user experience (e.g. by enabling file type association), avoid "accidental" in-place extraction (e.g. using on-board tooling of some operating systems) and encourage the use of OME-Zarr-specific tooling for creating zipped OME-Zarr files (to follow the recommendations listed earlier).
 
+Note that this RFC does not - semantically or otherwise - restrict the data content of OME-Zarr hierarchies to be stored in zipped OME-Zarr files.
+
 ## Sections
 
 Amend the specification with the following section:
