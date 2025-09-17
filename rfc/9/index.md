@@ -44,7 +44,7 @@ For example, most existing tools cannot merely adapt their current (file-centric
 Furthermore, tool developers cannot rely on file-specific functionality/APIs provided by the operating system (e.g. file type associations, MIME types), making it more difficult to enable user-friendly interactions.
 Taken together, these challenges may discourage tool developers from implementing (user-friendly) OME-Zarr support, which would in turn negatively affect user experience with OME-Zarr.
 
-In light of the challenges related to user experience and tool development, users and implementers have already begun to store OME-Zarr hierarchies in (primarily ZIP, see *Prior art and references* section) archives, albeit in an unstandardized and thus uncoordinated fashion.
+Users and implementers have already begun to store OME-Zarr hierarchies in ZIP archives (see *Prior art and references* section). Because storage of OME-Zarr images in ZIP archives is not standardized, it is difficult to implement efficient storage and access patterns.
 This can lead to format incompatibilities that may not only affect the adoption of OME-Zarr in conventional use cases, but may undermine the standardization goals of the OME-NGFF community as a whole.
 
 ## Proposal
