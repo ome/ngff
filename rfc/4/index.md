@@ -13,13 +13,38 @@ Summary: An optional, explicit field for specification of imaging axis orientati
 
 ## Status
 
-Brief description of status, including, e.g., `WIP | In-Review | Approved | Withdrawn | Obsolete`.
+This RFC is currently in RFC state `R1` (send for review).
 
-| Name      | GitHub Handle | Institution | Date       | Status                                 |
-|-----------|---------------|-------------|------------|----------------------------------------|
-| David Feng    | dyf           | Allen Institute for Neural Dynamics | 2023-07-26 | Author                             |
-| Matthew McCormick    | thewtex       | Fideus Labs         | 2024-07-27 | Author                             |
-| Wouter-Michiel Vierdag | melonora | EMBL         | 2025-07-16 | Author                             |
+```{list-table} Record
+:widths: 8, 20, 20, 20, 15, 10
+:header-rows: 1
+:stub-columns: 1
+
+*   - Role
+    - Name
+    - GitHub Handle
+    - Institution
+    - Date
+    - Status
+*   - Author
+    - David Feng
+    - [dyf](https://github.com/dyf)
+    - Allen Institute for Neural Dynamics
+    - 2023-07-26
+    -
+*   - Author
+    - Matthew McCormick
+    - [thewtex](https://github.com/thewtex)
+    - Fideus Labs
+    - 2024-07-27
+    -
+*   - Author
+    - Wouter-Michiel Vierdag
+    - [melonora](https://github.com/melonora)
+    - EMBL
+    - 2025-07-16
+    -
+```
 
 ## Overview
 
