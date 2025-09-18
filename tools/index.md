@@ -42,6 +42,9 @@ Various libraries for reading/writing OME-Zarr files in Python were evaluated as
 | multiscale-spatial-image | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/spatial-image/multiscale-spatial-image) | Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-Zarr. |
 | ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. |
 | ITKIOOMEZarrNGFF | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF) | An ITK external module for IO of images stored in OME-Zarr file format. |
+| iohub| [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/czbiohub-sf/iohub) | Pythonic and parallelizable I/O for N-dimensional imaging data with OME metadata |
+
+
 
 ## Other Tools and Libraries
 | Name    | Link | Description |
