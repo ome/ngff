@@ -75,7 +75,7 @@ The `orientation` field MUST only be used on spatial axes (axes with `type` fiel
 
 This metadata MUST only be used in cases where there is a single subject in the acquired volume or extracted image region-of-interest and the subject is roughly aligned to the imaging axes.
 
-The `orientation` field is structured as an object with a `type` field that specifies the orientation domain (e.g., "anatomical") and a `value` field that specifies the specific orientation within that domain.
+The `orientation` field is structured as an object and MUST have a `type` field that specifies the orientation domain (e.g., "anatomical") and MUST have a `value` field that specifies the specific orientation within that domain. Valid `type` strings are defined in this document -- currently only `"anatomical"`.
 
 ### Example
 
