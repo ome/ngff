@@ -290,6 +290,7 @@ In Pydantic:
 
 ```python
 from enum import Enum
+from typing import Literal
 from pydantic import BaseModel
 
 class AnatomicalOrientationValue(str, Enum):
@@ -344,7 +345,7 @@ class AnatomicalOrientation(Orientation):
     """
     Anatomical orientation specific implementation.
     """
-    type: str = "anatomical"
+    type: Literal["anatomical"]
     value: AnatomicalOrientationValue
 ```
 
