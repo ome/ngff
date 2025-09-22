@@ -232,6 +232,9 @@ in the NGFF schema. The field will use the controlled vocabulary specified above
 
 A complete working implementation of this RFC is available in the `ngff-zarr` package, including validation, serialization, and examples. See the [ngff-zarr RFC-4 documentation](https://ngff-zarr.readthedocs.io/en/latest/rfc4.html) for detailed usage examples and API reference.
 
+A second independent implementation of this RFC is available in the `ome-zarr-models` package, on the [`rfc4` branch](https://github.com/ome-zarr-models/ome-zarr-models-py/tree/rfc4).
+Changes required to implement the RFC can be seen in [pull request #257](https://github.com/ome-zarr-models/ome-zarr-models-py/pull/257).
+
 ### Schema Definitions
 
 In JSON-Schema:
