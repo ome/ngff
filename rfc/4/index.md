@@ -482,3 +482,5 @@ End-user applications SHOULD display the encoded information with, for example, 
 | 2024-11-18 | Values expanded and descriptions improved. | [https://github.com/ome/ngff/pull/267](https://github.com/ome/ngff/pull/267) |
 | 2025-07-16 | Changed structure to support other orientations. Remove default orientation. | [https://github.com/ome/ngff/pull/318](https://github.com/ome/ngff/pull/318) |
 | 2025-07-17 | Updated field name from `anatomicalOrientation` to `orientation` with structured `type`/`value` approach to support extensibility to other orientation domains. | [https://github.com/ome/ngff/pull/318](https://github.com/ome/ngff/pull/318) |
+| 2025-07-23 | Clarify that the type fields are MUST's and the only currently defined value is "anatomical". | [https://github.com/ome/ngff/pull/329](https://github.com/ome/ngff/pull/329) |
+| 2025-07-23 | Use a Pydantic Literal for anatomical type | [https://github.com/ome/ngff/pull/330](https://github.com/ome/ngff/pull/330) |
