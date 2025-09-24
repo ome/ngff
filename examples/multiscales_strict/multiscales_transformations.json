@@ -20,7 +20,7 @@
           ],
           "datasets": [
             {
-              "path": "0",
+              "path": "s0",
               "coordinateTransformations": [
                 {
                   "scale": [1, 1],
