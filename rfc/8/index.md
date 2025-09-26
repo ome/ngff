@@ -4,7 +4,7 @@ Adding groupings of images and other objects to OME-Zarr.
 
 ## Status
 
-This proposal is very early. Status: D1
+This proposal is early. Status: D1
 
 | Name      | GitHub Handle | Institution | Date       | Status                                |
 | --------- | ------------- | ----------- | ---------- | ------------------------------------- |
@@ -133,7 +133,7 @@ Implementations of this concept include:
 
 For example, [this table](https://docs.google.com/spreadsheets/d/1t5xB0p0zd2-a6ynV-JAuLJqs-mg-pFFikhfmQGZwRpI/edit?usp=sharing) defines a MoBIE grid view of three OpenOrganelle vEM images along with label images of mitochondria segmenation. It can be opened in MoBIE via the "Open Simple Collection Table" menu entry: 
 
-![Clipboard](https://hackmd.io/_uploads/HklvOUrDexg.jpg)
+![MoBIE grid view](./assets/mobie_grid_view.jpg)
 
 
 
@@ -625,7 +625,8 @@ See https://neuroglancer-docs.web.app/json/api/index.html
 <details>
     <summary>JSON example</summary>
 Shortened version from https://fafb-ffn1.storage.googleapis.com/landing.html
-```json
+
+<pre>
 {
   "dimensions": {
     "x": [
@@ -692,7 +693,7 @@ Shortened version from https://fafb-ffn1.storage.googleapis.com/landing.html
   "showSlices": false,
   "layout": "xy-3d"
 }
-```
+</pre>
 </details>
 
 
@@ -720,7 +721,7 @@ Webknossos uses a JSON format to define "datasets", which is a non-nestable coll
 
 <details>
 <summary>JSON example</summary>
-```json
+<pre>
 {
   "id": {
     "name": "l4_sample3",
@@ -836,7 +837,7 @@ Webknossos uses a JSON format to define "datasets", which is a non-nestable coll
     "unit": "nanometer"
   }
 }
-```
+</pre>
 </details>
 
 ### STAC
@@ -855,10 +856,11 @@ OMERO.figure uses a JSON file to specify the layout and rendering settings for i
 
 The OMERO.figure json format is [described here](https://github.com/ome/omero-figure/blob/master/docs/figure_file_format.rst#json-format).
 
-<detatils>
+<details>
 <summary>JSON example</summary>
 Shortened version from https://gist.githubusercontent.com/will-moore/fe0e260544b46af6e1e523b288fc85bc/raw/30547e61d4d8753ef0016f0a70435f1aafb43c2f/OMERO.figure_NGFF_demo.json
-```json
+
+<pre>
 {
     "panels": [
         {
@@ -924,6 +926,7 @@ Shortened version from https://gist.githubusercontent.com/will-moore/fe0e260544b
         }
     ]
 }
+</pre>
 </details>
 
 <!--
