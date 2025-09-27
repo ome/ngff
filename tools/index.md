@@ -8,7 +8,6 @@ In addition to this collection, an evaluation of selected tools/libraries is ava
 | Name    | Link | Description |
 | -------- | ------- | ------- |
 | AGAVE | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/allen-cell-animated/agave) | A desktop application for viewing multichannel volume data. |
-| ITKWidgets | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/InsightSoftwareConsortium/itkwidgets) | A Python interface for visualization on the web platform to interactively generate insights into multidimensional images, point sets, and geometry. |
 | Microscopy Nodes | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/aafkegros/MicroscopyNodes) | A Blender add-on for visualizing high-dimensional microscopy data. |
 | MoBIE/BDV | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/mobie/mobie-viewer-fiji) | A Fiji plugin for exploring and sharing big multi-modal image and associated tabular data. |
 | napari |  [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/napari/napari) | A fast, interactive, multi-dimensional image viewer for Python that supports OME-Zarr with the [napari-ome-zarr](https://github.com/ome/napari-ome-zarr) plugin. |
@@ -36,7 +35,6 @@ Various libraries for reading/writing OME-Zarr files in Python were evaluated as
 | Name    | Link | Description |
 | -------- | ------- | ------- |
 | bfio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/bfio) | A Python interface to Bioformats using jpype for direct access to the library. |
-| Bio-Formats | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/bioformats) | A standalone Java library for reading and writing life sciences image file formats. |
 | BioIO | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/bioio-devs/bioio) | (formerly AICSImageIO <https://github.com/AllenCellModeling/aicsimageio>) Image Reading, Metadata Conversion, and Image Writing for Microscopy Images in pure Python. |
 | ngff-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/thewtex/ngff-zarr) | A lean and kind Open Microscopy Environment (OME) Next Generation File Format (NGFF) Zarr implementation. |
 | multiscale-spatial-image | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/spatial-image/multiscale-spatial-image) | Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-Zarr. |
@@ -54,4 +52,3 @@ Various libraries for reading/writing OME-Zarr files in Python were evaluated as
 | Nyxus | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/nyxus) | A scalable library for calculating features from intensity-label image data. |
 | ome-ngff-validator | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-ngff-validator) | Web page for validating OME-Zarr files. |
 | SpatialData | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/scverse/spatialdata) | An open and universal framework for processing spatial omics data. |
-| tensorstore | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/google/tensorstore/) | Library for reading and writing large multi-dimensional arrays (e.g., Zarr). |
