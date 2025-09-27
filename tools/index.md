@@ -4,7 +4,7 @@ A list of tools and libraries with OME-Zarr support. These are developed by vari
 
 In addition to this collection, an evaluation of selected tools/libraries is available on <https://ome.github.io/ome-ngff-tools/>.
 
-## Image Viewers
+## Dataset Viewers
 | Name    | Link | Description |
 | -------- | ------- | ------- |
 | AGAVE | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/allen-cell-animated/agave) | A desktop application for viewing multichannel volume data. |
@@ -16,7 +16,7 @@ In addition to this collection, an evaluation of selected tools/libraries is ava
 | WEBKNOSSOS | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/scalableminds/webknossos) | An open-source tool for annotating and exploring large 3D image datasets. |
 | Vol-E | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/allen-cell-animated/vole-app) | A browser-based volume viewer built with React and WebGL (Three.js). |
 
-## File Conversion
+## Dataset Conversion
 
 Many of the tools in the *File Reading/Writing* section below also support format conversion.
 
@@ -28,7 +28,7 @@ Many of the tools in the *File Reading/Writing* section below also support forma
 | BatchConvert | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Euro-BioImaging/BatchConvert) | A Nextflow based command-line tool that wraps bioformats2raw for parallelised conversion of image data collections to OME-Zarr. |
 | stack-to-chunk | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://stack-to-chunk.readthedocs.io) | A Python library to convert stacks of 2D images to OME-Zarr with minimal memory use and maximum concurrency. |
 
-## File Reading/Writing
+## Dataset Reading/Writing
 
 Various libraries for reading/writing OME-Zarr files in Python were evaluated as part of the BioVisionCenter "Next generation bioimage analysis workflows hackathon" 2023 in Zurich, Switzerland: https://github.com/jwindhager/ome-ngff-readers-writers/.
 
@@ -43,7 +43,7 @@ Various libraries for reading/writing OME-Zarr files in Python were evaluated as
 | iohub| [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/czbiohub-sf/iohub) | Pythonic and parallelizable I/O for N-dimensional imaging data with OME metadata |
 
 
-## File validation
+## Dataset Validation
 
 | Name    | Link | Description |
 | -------- | ------- | ------- |
