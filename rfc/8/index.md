@@ -143,7 +143,7 @@ Implementations of this concept include:
 - [MoBIE grid views](https://mobie.github.io/tutorials/image_grids_and_tables.html)
 - [OME2024 NGFF challenge](https://ome.github.io/ome2024-ngff-challenge/)
 
-For example, [this table](https://docs.google.com/spreadsheets/d/1t5xB0p0zd2-a6ynV-JAuLJqs-mg-pFFikhfmQGZwRpI/edit?usp=sharing) defines a MoBIE grid view of three OpenOrganelle vEM images along with label images of mitochondria segmenation. It can be opened in MoBIE via the "Open Simple Collection Table" menu entry: 
+For example, [this table](https://docs.google.com/spreadsheets/d/1t5xB0p0zd2-a6ynV-JAuLJqs-mg-pFFikhfmQGZwRpI/edit?usp=sharing) defines a MoBIE grid view of three OpenOrganelle vEM images along with label images of mitochondria segmentation. It can be opened in MoBIE via the "Open Simple Collection Table" menu entry: 
 
 ![MoBIE grid view](./assets/mobie_grid_view.jpg)
 
@@ -1043,7 +1043,7 @@ How are implementations expected to handle these changes?
 ## Testing
 
 As part of the changes to the OME-Zarr specification, JSON schema files will be provided that can be used to validate collections metadata.
-Additional link checkers can be used to verify the existance and validity of nodes.
+Additional link checkers can be used to verify the existence and validity of nodes.
 
 <!--
 How will you test your feature? A typical testing strategy involves unit,
