@@ -14,6 +14,15 @@ This proposal is early. Status: D1
 | Christian Tischer | [tischi](https://github.com/tischi) | EMBL | 2025-02-01 | Author |
 | Matthew Hartley | [matthewh-ebi](https://github.com/matthewh-ebi) |  EMBL-EBI | 2025-05-05 | Author |
 
+<!-- 
+| Author    | N/A           | N/A         | xxxx-xx-xx | Author; Implemented (link to release) |
+| Commenter | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
+| Commenter | N/A           | N/A         | xxxx-xx-xx | Not yet (link to comment)             |
+| Endorser  | N/A           | N/A         | xxxx-xx-xx | Endorse (no link needed)              |
+| Endorser  | N/A           | N/A         | xxxx-xx-xx | Implementing (link to branch/PR)      |
+| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
+| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Requested by editor                   |-->
+
 ## Overview
 
 This proposal adds a new "collection" concept to OME-Zarr.
@@ -98,7 +107,9 @@ The current HCS spec also has its limitations: It has a strict definition of pot
 
 
 #### 6. Image Archive
-* TODO for Matthew
+Data archives that support deposition and access to OME-Zarr formatted images have two primary use cases for collections of images. For the first, users submitting data to deposition databases need ways to aggregate collections of images in their data upload structure, and do so in a way that supports describing how those images relate (e.g. parts of the same acquisition series, plate/well data as mentioned above). This can then be parsed during data submission, and used to create appropriate database records.
+
+Secondly, when providing outgoing access to data, archives want to provide groupings of images that allow compatibility with data exploration and visualisation tools. Given the increasingly rich ecosystem of these tools (mentioned across these use cases, and including grid views, segmentations, multiple images and plate/well data) standardisation is necessary to avoid the need to produce view/exploration schema for each tool.
 
 #### 7. Rendering settings
 Viewers, such as Webknossos, Neuroglancer, MoBIE and OMERO.figure, are capable of visualizing multiple OME-Zarr images ("layers") in a view.
@@ -175,19 +186,19 @@ This RFC defines two main objects for OME-Zarr: `Collection`, `CollectionNode`.
 
 #### `Collection` keys
 
-* `"node_type"` (required). Value must be `"collection"`.
+* `"type"` (required). Value must be `"collection"`.
 * `"nodes"` (required). Value must be an array of `CollectionNode` or `Collection` objects.
-* `"name"` (required). Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`.
+* `"name"` (required). Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within one collections JSON file.
 * `"attributes"` (optional). Value must be a dictionary. See below.
 
 A `Collection` object may be used as the root object of the `ome` key, in which case a `version` key, as defined in previous spec versions, is also required.
 
 #### `CollectionNode` keys
 
-* `"node_type"` (required). Must be a valid node type string, which is currently either `"multiscale"` or `"collection"`. Future RFCs might add more node types.
+* `"type"` (required). Must be a valid node type string, which is currently either `"multiscale"` or `"collection"`. Future RFCs might add more node types.
   - `"multiscale"` references a node that represents an OME-Zarr multiscale image.
   - `"collection"` references a node that is a collection itself, i.e. a nested collection.
-* `"name"` (required). Value must be a non-empty string. The name must be unique within the parent collection. It should be a string that be matches `[a-zA-Z0-9-_.]+`.
+* `"name"` (required). Value must be a non-empty string. The name must be unique within the parent collection. It should be a string that be matches `[a-zA-Z0-9-_.]+`. Must be unique within one collections JSON file.
 * `"path"` (required). Value must be a string containing a path (see below).
 * `"attributes"` (optional). Value must be a dictionary. See below.
 
@@ -226,11 +237,11 @@ Strategies could include falling back to basic collection semantics, providing s
 {
     "ome": {
         "version": "0.x",
-        "node_type": "collection",
+        "type": "collection",
         "name": "jrc_hela-1",
         "nodes": [{
             "name": "raw",
-            "node_type": "multiscale", // image or collection
+            "type": "multiscale", // image or collection
             "path": "./raw", // a relative or absolute path
             "attributes": {    
                 "example-viewer:settings": {
@@ -241,7 +252,7 @@ Strategies could include falling back to basic collection semantics, providing s
             },
         }, {
             "name": "..",
-            "node_type": "collection",
+            "type": "collection",
             "path": "./nested_collection.json"
         }, ... ],
         "attributes": {
@@ -267,7 +278,7 @@ Also note some MoBIE specific attributes:
 {
     "ome": {
         "version": "0.x",
-        "node_type": "collection",
+        "type": "collection",
         "name": "openorganelle-mito-gallery",
         "attributes": {
             "mobie:grid": "true"
@@ -275,17 +286,17 @@ Also note some MoBIE specific attributes:
         "nodes": [
             {
                 "name": "jrc_hela-3",
-                "node_type": "collection",
+                "type": "collection",
                 "nodes": [
                     {
-                        "node_type": "multiscale",
+                        "type": "multiscale",
                         "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_hela-3/jrc_hela-3.zarr/em/fibsem-uint16",
                         "attributes": {
                             "mobie:voxelType": "intensities"
                         }
                     },
                     {
-                        "node_type": "multiscale",
+                        "type": "multiscale",
                         "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_hela-3/jrc_hela-3.zarr/labels/mito_seg",
                         "attributes": {
                             "mobie:voxelType": "labels"
@@ -295,17 +306,17 @@ Also note some MoBIE specific attributes:
             },
             {
                 "name": "jrc_macrophage-2",
-                "node_type": "collection",
+                "type": "collection",
                 "nodes": [
                     {
-                        "node_type": "multiscale",
+                        "type": "multiscale",
                         "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_macrophage-2/jrc_macrophage-2.zarr/em/fibsem-uint16",
                         "attributes": {
                             "mobie:voxelType": "intensities"
                         }
                     },
                     {
-                        "node_type": "multiscale",
+                        "type": "multiscale",
                         "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_macrophage-2/jrc_macrophage-2.zarr/labels/mito_seg",
                         "attributes": {
                             "mobie:voxelType": "labels"
@@ -315,17 +326,17 @@ Also note some MoBIE specific attributes:
             },
             {
                 "name": "jrc_jurkat-1",
-                "node_type": "collection",
+                "type": "collection",
                 "nodes": [
                     {
-                        "node_type": "multiscale",
+                        "type": "multiscale",
                         "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_jurkat-1/jrc_jurkat-1.zarr/em/fibsem-uint16",
                         "attributes": {
                             "mobie:voxelType": "intensities"
                         }
                     },
                     {
-                        "node_type": "multiscale",
+                        "type": "multiscale",
                         "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_jurkat-1/jrc_jurkat-1.zarr/labels/mito_seg",
                         "attributes": {
                             "mobie:voxelType": "labels"
@@ -345,7 +356,7 @@ Also note some MoBIE specific attributes:
 
 ### HCS metadata
 
-High content screening data is commonnly composed of multiple multiscale images ("well") that are arranged in a grid on a "plate".
+High content screening data is commonly composed of multiple multiscale images ("well") that are arranged in a grid on a "plate".
 Additional metadata for organizing the wells on a plate is introduced here.
 
 Open questions Joel:
@@ -360,7 +371,7 @@ How do we represent images in wells that can optionally be related to labels and
 {
     "ome": {
         "version": "0.x",
-        "node_type": "collection",
+        "type": "collection",
         "name": "hcs-plate-001",
         "attributes": {
             "plate": {
@@ -371,7 +382,7 @@ How do we represent images in wells that can optionally be related to labels and
         }
         "nodes": [
             {
-            "node_type": "collection",
+            "type": "collection",
             "name": "well A01",
             "attributes": {
                 "well": {
@@ -382,12 +393,12 @@ How do we represent images in wells that can optionally be related to labels and
             }
             "nodes": [
                 {
-                    "node_type": "multiscale",
+                    "type": "multiscale",
                     "name": "well-001-001",
                     "path": "./A/01/001.img.zarr",
                 },
                 {
-                    "node_type": "multiscale",
+                    "type": "multiscale",
                     "name": "A01_0_nuclei",
                     "path": "/full/path/A/01/nuclei.img.zarr",
                     "attributes": {
@@ -423,10 +434,10 @@ This is particularly useful for defining the nodes that are stored within a Zarr
     "attributes": {
         "ome": {
             "version": "0.x",
-            "node_type": "collection",
+            "type": "collection",
             "name": "zarr.json-example",
             "nodes": [{
-                "node_type": "multiscale",
+                "type": "multiscale",
                 "name": "image1",
                 "path": "./image1.img.zarr"
             }, ...]
@@ -444,10 +455,10 @@ Standalone files are useful for persisting groupings of images that may or may n
 {
     "ome": {
         "version": "0.x",
-        "node_type": "collection",
+        "type": "collection",
         "name": "standalone-example",
         "nodes": [{
-            "node_type": "multiscale",
+            "type": "multiscale",
             "path": "https://example.com/image1.img.zarr"
         }, ...]
     }
@@ -623,9 +634,8 @@ Initial discussions started here: https://github.com/ome/ngff/issues/31
 See https://neuroglancer-docs.web.app/json/api/index.html
 
 <details>
-    <summary>JSON example</summary>
+<summary>JSON example</summary>
 Shortened version from https://fafb-ffn1.storage.googleapis.com/landing.html
-
 <pre>
 {
   "dimensions": {
@@ -859,7 +869,6 @@ The OMERO.figure json format is [described here](https://github.com/ome/omero-fi
 <details>
 <summary>JSON example</summary>
 Shortened version from https://gist.githubusercontent.com/will-moore/fe0e260544b46af6e1e523b288fc85bc/raw/30547e61d4d8753ef0016f0a70435f1aafb43c2f/OMERO.figure_NGFF_demo.json
-
 <pre>
 {
     "panels": [
