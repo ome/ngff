@@ -183,25 +183,47 @@ Images may be added as nodes to multiple collections.
 
 ### Metadata
 
-This RFC defines two main objects for OME-Zarr: `Collection`, `CollectionNode`. 
+This RFC defines a basic interface for a OME-Zarr metadata object, which we name `Node`.
+Objects that implement `Node` must have the following fields:
 
-#### `Collection` keys
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"type"` | string | yes | Identifies the type of the node |
+| `"name"` | string | yes | Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within one collections JSON file. |
+| `"attributes"` | object | no | [See attributes section](#attributes) |
 
-* `"type"` (required). Value must be `"collection"`.
-* `"nodes"` (required). Value must be an array of `CollectionNode` or `Collection` objects.
-* `"name"` (required). Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within one collections JSON file.
-* `"attributes"` (optional). Value must be a dictionary. See below.
+The `type` field of a `Node` defines the additional fields, if any, it has. 
+This RFC proposed two Node types: `Collection` and `Multiscale`.
+Future RFCs might add more Node types, including custom Node types.
+
+#### `Collection` Node
+
+References a Node that is a collection of Nodes. 
+Collections can be nested.
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"type"` | string | yes | Value must be `"collection"`. |
+| `"nodes"` | array | no | Value must be an array of `Node` objects. |
+| `"path"` | string | no | Value must be a string containing a path. [See paths section](#paths) |
+| `"name"` | string | yes | Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within one collections JSON file. |
+| `"attributes"` | object | no | Value must be a dictionary. [See attributes section](#attributes). |
+
+Either `"nodes"` or `"path"` must be present, but not both.
 
 A `Collection` object may be used as the root object of the `ome` key, in which case a `version` key, as defined in previous spec versions, is also required.
+Non-root `Collection` objects SHOULD not have `version` field and MUST NOT have a different `version` value than the root `Collection`.
 
-#### `CollectionNode` keys
+#### `Multiscale` Node
 
-* `"type"` (required). Must be a valid node type string, which is currently either `"multiscale"` or `"collection"`. Future RFCs might add more node types.
-  - `"multiscale"` references a node that represents an OME-Zarr multiscale image.
-  - `"collection"` references a node that is a collection itself, i.e. a nested collection.
-* `"name"` (required). Value must be a non-empty string. The name must be unique within the parent collection. It should be a string that be matches `[a-zA-Z0-9-_.]+`. Must be unique within one collections JSON file.
-* `"path"` (required). Value must be a string containing a path (see below).
-* `"attributes"` (optional). Value must be a dictionary. See below.
+References a Node that represents an OME-Zarr multiscale image.
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"type"` | string | yes | Value must be `"multiscale"`. |
+| `"name"` | string | yes | Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within one collections JSON file. |
+| `"path"` | string | yes | Value must be a string containing a path. [See paths section](#paths) |
+| `"attributes"` | string | no | Value must be a dictionary. [See attributes section](#attributes). |
 
 
 #### Attributes
@@ -231,10 +253,35 @@ Implementations are encouraged to provide graceful fallback strategies for speci
 Strategies could include falling back to basic collection semantics, providing selector screens, or rendering nodes with default settings.
 
 
+#### Paths
+
+This proposal uses paths are referencing nodes of collections.
+This paths can be one of the following types:
+
+- **Relative paths.**
+  To reference nodes that are on the same file system namespace as the json file describing the collection, relative paths may be used.
+  Relative paths are interpreted relative to the json file describing the collection.
+  Relative paths follow the relative path notation defined in [IETF RFC1808](https://datatracker.ietf.org/doc/html/rfc1808).
+  Briefly, `.` and `..` are used to navigate the hierarchy and the hierarchy is separated by `/`.
+  Relative paths may be used for data stored on traditional file systems as well as other storage protocols, such as HTTP or S3.
+- **Absolute file paths.**
+  On traditional file systems, absolute paths may be used.
+  Please note that absolute file paths are generally not portable across operating systems or file systems.
+  - On Windows systems, paths commonly begin with a drive letter followed by `:\`. The folder hierarchy is separated by `\`. UNC paths are also permissible.
+  - On POSIX-like systems, paths commonly start with a `/` and the folder hierarchy is separated by `/`.
+- **HTTP(S) URLs.** 
+  To reference nodes that are stored remotely, URLs with the `http` or `https` scheme may be used.
+  URLs follow the notation defined in [IETF RFC1738](https://datatracker.ietf.org/doc/html/rfc1738).
+
+Future RFCs may propose additional paths, such as S3 URLs or chained paths (e.g. for referencing files within a zip file).
+In any case, implementations may impose access restrictions on any type of paths.
+
+
+
 ### Examples
 
 #### Simple example
-```json
+```jsonc
 {
     "ome": {
         "version": "0.x",
@@ -275,7 +322,7 @@ Also note some MoBIE specific attributes:
 - `"mobie:voxelType": "intensities"` (or `"labels"`) specifies the voxel data type; in the future, we would propose that this information is encoded within the OME-Zarr images themselves, such that this attribute could be omitted.
 
 
-```json
+```jsonc
 {
     "ome": {
         "version": "0.x",
@@ -368,7 +415,7 @@ We have a well with X images. All of the images can have labels and tables. And 
 How do we represent images in wells that can optionally be related to labels and optionally be related to tables? Does the well always contain a nested collection (we called that “the OME-Zarr container”, e.g. the object that knows about the image data, label data and related table data like ROI tables in our work so far)? Or is it sometimes nested, sometimes not?
 
 #### Example
-```json
+```jsonc
 {
     "ome": {
         "version": "0.x",
@@ -428,7 +475,7 @@ Collection metadata may be stored either in the `ome` key of the `attributes` co
 This is particularly useful for defining the nodes that are stored within a Zarr group. However, there is no limitation to only reference nodes within the Zarr group.
 
 #### Example
-```json
+```jsonc
 {
     "zarr_format": 3,
     "node_type": "group",
@@ -452,7 +499,7 @@ Here, the metadata is stored in the `ome` key of the root object.
 Standalone files are useful for persisting groupings of images that may or may not be stored on in the same folder hierarchy.
 
 ### Example
-```json
+```jsonc
 {
     "ome": {
         "version": "0.x",
@@ -465,29 +512,6 @@ Standalone files are useful for persisting groupings of images that may or may n
     }
 }
 ```
-
-### Paths
-
-This proposal uses paths are referencing nodes of collections.
-This paths can be one of the following types:
-
-- **Relative paths.**
-  To reference nodes that are on the same file system namespace as the json file describing the collection, relative paths may be used.
-  Relative paths are interpreted relative to the json file describing the collection.
-  Relative paths follow the relative path notation defined in [IETF RFC1808](https://datatracker.ietf.org/doc/html/rfc1808).
-  Briefly, `.` and `..` are used to navigate the hierarchy and the hierarchy is separated by `/`.
-  Relative paths may be used for data stored on traditional file systems as well as other storage protocols, such as HTTP or S3.
-- **Absolute file paths.**
-  On traditional file systems, absolute paths may be used.
-  Please note that absolute file paths are generally not portable across operating systems or file systems.
-  - On Windows systems, paths commonly begin with a drive letter followed by `:\`. The folder hierarchy is separated by `\`. UNC paths are also permissible.
-  - On POSIX-like systems, paths commonly start with a `/` and the folder hierarchy is separated by `/`.
-- **HTTP(S) URLs.** 
-  To reference nodes that are stored remotely, URLs with the `http` or `https` scheme may be used.
-  URLs follow the notation defined in [IETF RFC1738](https://datatracker.ietf.org/doc/html/rfc1738).
-
-Future RFCs may propose additional paths, such as S3 URLs or chained paths (e.g. for referencing files within a zip file).
-In any case, implementations may impose access restrictions on any type of paths.
 
 
 ## Requirements
