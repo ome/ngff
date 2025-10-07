@@ -161,9 +161,8 @@ The center of a 2d pixel corresponding to the origin `(0,0)` in the discrete arr
 
 "coordinateTransformations" describe the mapping between two coordinate systems (defined by "axes").
 For example, to map an array's discrete coordinate system to its corresponding physical coordinates.
-Coordinate transforms are in the "forward" direction. They represent functions from *points* in the
-input space to *points* in the output space. 
-
+Coordinate transforms are in the "forward" direction.
+They represent functions from *points* in the input space to *points* in the output space. 
 
 - MUST contain the field "type".
 - MUST contain any other fields required by the given "type" (see table below).
