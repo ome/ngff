@@ -153,12 +153,8 @@ The name and axes names MAY be customized by including a `arrayCoordinateSystem`
 
 **The pixel/voxel center is the origin of the continuous coordinate system.**
 
-It is vital to consistently define relationship between the discrete/array and continuous/interpolated
-coordinate systems. A pixel/voxel is the continuous region (rectangle) that corresponds to a single sample
-in the discrete array, i.e., the area corresponding to nearest-neighbor (NN) interpolation of that sample.
-The center of a 2d pixel corresponding to the origin `(0,0)` in the discrete array is the origin of the continuous coordinate
-system `(0.0, 0.0)` (when the transformation is the identity). The continuous rectangle of the pixel is given by the
-half-open interval `[-0.5, 0.5) x [-0.5, 0.5)` (i.e., -0.5 is included, +0.5 is excluded). See chapter 4 and figure 4.1 of the ITK Software Guide.
+It is vital to consistently define relationship between the discrete/array and continuous/interpolated coordinate systems. A pixel/voxel is the continuous region (rectangle) that corresponds to a single sample in the discrete array, i.e., the area corresponding to nearest-neighbor (NN) interpolation of that sample.
+The center of a 2d pixel corresponding to the origin `(0,0)` in the discrete array is the origin of the continuous coordinate system `(0.0, 0.0)` (when the transformation is the identity). The continuous rectangle of the pixel is given by the half-open interval `[-0.5, 0.5) x [-0.5, 0.5)` (i.e., -0.5 is included, +0.5 is excluded). See chapter 4 and figure 4.1 of the ITK Software Guide.
 
 
 ### "coordinateTransformations" metadata
