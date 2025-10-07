@@ -18,13 +18,19 @@ Daniel Toloudis, David Feng, Forrest Collman, and Nathalie Gaudreault at the All
 
 ### Axes metadata
 
-We agree that the issue raised here with respect to axis alignment and orientation is important and additional motivating
-examples would be helpful. We will coordinate with the authors of RFC-4 which we agree is essential for ensuring consistent 
-orientations of spatial (and maybe other) axis types.
+We agree that the issue raised here with respect to axis alignment and orientation is important and additional motivating examples would be helpful. However, until RFC-4 has officially been made a part of the spec we feel it would be out of scope to reference such examples in this RFC. We do think, though, that the suggested `coordinateSystems` group can provide the necessary structure to remove the ambiguity of orientation adressed in RFC4. An orientation field could easily be added there in the following manner:
 
-There are now some examples provided using the metadata proposed in RFC-4 that will clarify this point.
+```json
+{
+    "name" : "volume_micrometers",
+    "axes" : [
+        {"name": "z", "type": "space", "unit": "micrometer", "orientation": "superior-to-inferior"},
+        {"name": "y", "type": "space", "unit": "micrometer", "orientation": "anterior-to-posterior"},
+        {"name": "x", "type": "space", "unit": "micrometer", "orientation": "left-to-right"}
+    ]
+}
+```
 
-(TODO link)
 
 ### CoordinateSystem
 
