@@ -101,7 +101,7 @@ transformed to the same coordinate system before doing analysis. See the example
     - Units for "time" axes: 'attosecond', 'centisecond', 'day', 'decisecond', 'exasecond', 'femtosecond', 'gigasecond', 'hectosecond', 'hour', 'kilosecond', 'megasecond', 'microsecond', 'millisecond', 'minute', 'nanosecond', 'petasecond', 'picosecond', 'second', 'terasecond', 'yoctosecond', 'yottasecond', 'zeptosecond', 'zettasecond'
 - MAY contain the field "longName". The value MUST be a string, and can provide a longer name or description of an axis and its properties.
 
-If part of multiscales metadata, the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
+If part of metadata, the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
 Arrays are inherently discrete (see Array coordinate systems, below) but are often used to store discrete samples of a
 continuous variable. The continuous values "in between" discrete samples can be retrieved using an *interpolation* method. If an
