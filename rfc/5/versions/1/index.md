@@ -61,10 +61,26 @@ A "coordinate system" is a collection of "axes" / dimensions with a name. Every 
 - MUST contain the field "name". The value MUST be a non-empty string that is unique among all entries under `coordinateSystems`.
 - MUST contain the field "axes", whose value is an array of valid "axes" (see below).
 
+The order of the `"axes"` list matters and defines the index of each array dimension and coordinates for points in that coordinate system.
+For the above example, the `"x"` dimension is the last dimension.
+The "dimensionality" of a coordinate system is indicated by the length of its "axes" array.
+The "volume_micrometers" example coordinate system above is three dimensional (3D).
 
-The order of the `"axes"` list matters and defines the index of each array dimension and coordinates for points in that
-coordinate system. The "dimensionality" of a coordinate system
-is indicated by the length of its "axes" array. The "volume_micrometers" example coordinate system above is three dimensional (3D).
+````{admonition} Example
+
+Coordinate Systems metadata example
+
+```json
+{
+    "name" : "volume_micrometers",
+    "axes" : [
+        {"name": "z", "type": "space", "unit": "micrometer"},
+        {"name": "y", "type": "space", "unit": "micrometer"},
+        {"name": "x", "type": "space", "unit": "micrometer"}
+    ]
+}
+```
+````
 
 The axes of a coordinate system (see below) give information about the types, units, and other properties of the coordinate
 system's dimensions. Axis `name`s may contain semantically meaningful information, but can be arbitrary. As a result, two
