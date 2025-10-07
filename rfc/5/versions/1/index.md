@@ -427,7 +427,7 @@ transformations are invertible.
 : The path to a zarr-array containing the scale parameters. The array at this path MUST be 1D, and its length MUST be `N`.
 
 <strong>scale</strong>
-: The scale parameters stored as a JSON list of numbers. The list MUST have length `N`.
+: The scale parameters are stored as a JSON list of numbers. The list MUST have length `N`.
 
 
 ##### <a name="affine">affine</a>
