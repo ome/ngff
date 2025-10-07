@@ -59,7 +59,7 @@ that we hope continues.
 
 ### “Array” coordinate system
 
-Thank you for the feedback, we have edited this section with motivation and clarity[1]. We hope that the edits along with motivating examples will.
+Thank you for the feedback, we have edited this section with motivation and clarity. We hope that the edits along with motivating examples will help to make the applications for array coordinate systems clearer.
 
 ### Units
 
