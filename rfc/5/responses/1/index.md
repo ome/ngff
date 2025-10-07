@@ -65,8 +65,7 @@ Thank you for the feedback, we have edited this section with motivation and clar
 
 > Why have these explicit listed units and not just follow SI and specify the exponent on the SI unit that you are going for?
 
-This RFC does change some parts of the Axes metadata, but not the specification of units which remains unchanged
-relative to [v0.4](https://github.com/ome/ngff/blob/5067681721cc73ddf8b64692456cdda604cc659a/0.4/index.bs#L227-L229).
+This RFC does change some parts of the Axes metadata, but not the specification of units which remains unchanged relative to [v0.4](https://github.com/ome/ngff/blob/5067681721cc73ddf8b64692456cdda604cc659a/0.4/index.bs#L227-L229).
 As such, this is out of the scope of this RFC.
 
 This is an interesting and valuable idea though, and revisiting units would be good topic for a new RFC in my opinion, since
