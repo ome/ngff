@@ -523,7 +523,7 @@ The `i`th value of the array along the `coordinate` or `displacement` axis refer
 of the `i`th output axis. See the example below.
 
 `coordinates` and `displacements` transformations are not invertible in general, but implementations MAY approximate their
-inverses. Metadata for these coordinate transforms have the following field: 
+inverses. Metadata for these coordinate transforms have the following fields: 
 
 <dl>
   <dt><strong>path</strong></dt>
