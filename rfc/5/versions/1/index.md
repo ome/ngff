@@ -521,6 +521,154 @@ Practically, non-invertible transformations have finite extents, so bijection tr
 to be correct / consistent for points that fall within those extents. It may not be correct for any point of
 appropriate dimensionality.
 
+### "multiscales" metadata
+
+Metadata about an image can be found under the "multiscales" key in the group-level OME-Zarr Metadata. Here, "image" refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes.
+It is stored in a multiple resolution representation.
+
+"multiscales" contains a list of dictionaries where each entry describes a multiscale image.
+
+Each "multiscales" dictionary MUST contain the field "coordinateSystems", whose value is an array containing valid coordinate
+system metadata (see [coordinate systems](#coordinatesystems-metadata)). The last entry of this array is the "default" coordinate system and MUST contain
+transformations from array to physical coordinates. It should be used for viewing and processing unless a use case dictates
+otherwise. It will generally be a representation of the image in its native physical coordinate system. 
+
+The following MUST hold for all coordinate systems.
+The length of "axes" must be between 2 and 5 and MUST be equal to the dimensionality of the Zarr arrays storing the image data (see "datasets:path").
+The "axes" MUST contain 2 or 3 entries of "type:space" and MAY contain one additional entry of "type:time" and MAY contain one
+additional entry of "type:channel" or a null / custom type.  The order of the entries MUST correspond to the order of dimensions
+of the Zarr arrays. In addition, the entries MUST be ordered by "type" where the "time" axis must come first (if present),
+followed by the  "channel" or custom axis (if present) and the axes of type "space".  If there are three spatial axes where two
+correspond to the image plane ("yx") and images are stacked along the other (anisotropic) axis ("z"), the spatial axes SHOULD be
+ordered as "zyx".
+
+Each "multiscales" dictionary MUST contain the field "datasets", which is a list of dictionaries describing the arrays storing
+the individual resolution levels.  Each dictionary in "datasets" MUST contain the field "path", whose value is a string
+containing the path to the Zarr array for this resolution relative to the current Zarr group. The "path"s MUST be ordered from
+largest (i.e. highest resolution) to smallest.  Every Zarr array referred to by a "path" MUST have the same number of dimensions
+and MUST NOT have more than 5 dimensions.  The number of dimensions and order MUST correspond to number and order of "axes".
+
+Each dictionary in "datasets" MUST contain the field "coordinateTransformations", whose value is a dictionary that defines a
+transformation that maps Zarr array coordinates for this resolution level to the default coordinate system (the last entry of
+the "coordinateSystems" array). The transformation is defined according to [transformations metadata](#transformation-types). 
+The transformation MUST take as input points in the array coordinate system corresponding to the Zarr array at location "path".
+The value of "input" SHOULD equal the value of "path", but implementations should always treat the value of "input"
+as if it were equal to the value of "path".
+The value of the transformation’s "output" MUST be the name of the default coordinate system.
+
+This transformation MUST be one of the following:
+
+* A single scale or identity transformation
+* A sequence transformation containing one scale and one translation transformation.
+
+In these cases, the scale transformation specifies the pixel size in physical units or time duration. If scaling information is
+not available or applicable for one of the axes, the value MUST express the scaling factor between the current resolution and
+the first resolution for the given axis, defaulting to 1.0 if there is no downsampling along the axis. This is strongly
+recommended so that the the "default" coordinate system of the image avoids more complex transformations.
+
+If applications require additional transformations, each "multiscales" dictionary MAY contain the field "coordinateTransformations",
+describing transformations that are applied to all resolution levels in the same manner.
+The value of "input" SHOULD equal the name of the "default" coordinate system.
+
+Each "multiscales" dictionary SHOULD contain the field "name".
+
+Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
+It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
+
+````{admonition} Example
+
+A complete example of json-file for a 5D (TCZYX) multiscales with 3 resolution levels could look like this:
+
+```json
+{
+  "zarr_format": 3,
+  "node_type": "group",
+  "attributes": {
+    "ome": {
+      "version": "0.5",
+      "multiscales": [
+        {
+          "name": "example",
+          "coordinateSystems": [
+              {
+                "name": "example",
+                "axes": [
+                  { "name": "t", "type": "time", "unit": "millisecond" },
+                  { "name": "c", "type": "channel" },
+                  { "name": "z", "type": "space", "unit": "micrometer" },
+                  { "name": "y", "type": "space", "unit": "micrometer" },
+                  { "name": "x", "type": "space", "unit": "micrometer" }
+                ]
+              }
+          ],
+          "datasets": [
+            {
+              "path": "0",
+              "coordinateTransformations": {
+                // the voxel size for the first scale level (0.5 micrometer)
+                // and the time unit (0.1 milliseconds), which is the same for each scale level
+                "type": "scale",
+                "scale": [1.0, 1.0, 0.5, 0.5, 0.5],
+                "input": "0",
+                "output": "example"
+              }
+            },
+            {
+              "path": "1",
+              "coordinateTransformations": {
+                // the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)
+                // and the time unit (0.1 milliseconds), which is the same for each scale level
+                "type": "scale",
+                "scale": [1.0, 1.0, 1.0, 1.0, 1.0],
+                "input": "1",
+                "output": "example"
+              }
+            },
+            {
+              "path": "2",
+              "coordinateTransformations": {
+                // the voxel size for the third scale level (downscaled by a factor of 4 -> 2 micrometer)
+                // and the time unit (0.1 milliseconds), which is the same for each scale level
+                "type": "scale",
+                "scale": [1.0, 1.0, 2.0, 2.0, 2.0],
+                "input": "2",
+                "output": "example"
+              }
+            }
+          ],
+          "type": "gaussian",
+          "metadata": {
+            "description": "the fields in metadata depend on the downscaling implementation. Here, the parameters passed to the skimage function are given",
+            "method": "skimage.transform.pyramid_gaussian",
+            "version": "0.16.1",
+            "args": "[true]",
+            "kwargs": { "multichannel": true }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+````
+
+
+
+If only one multiscale is provided, use it. Otherwise, the user can choose by
+name, using the first multiscale as a fallback:
+
+```python
+datasets = []
+for named in multiscales:
+    if named["name"] == "3D":
+        datasets = [x["path"] for x in named["datasets"]]
+        break
+if not datasets:
+    # Use the first by default. Or perhaps choose based on chunk size.
+    datasets = [x["path"] for x in multiscales[0]["datasets"]]
+```
+
+
 ## Specific feedback requested
 
 We ask the reviewers for one specific piece of feedback. Specifically about whether parameters for transformations should
