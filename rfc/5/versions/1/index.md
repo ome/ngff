@@ -894,7 +894,7 @@ Adds coordinate systems, these contain axes which are backward-compatible with t
 
 ## Testing
 
-Public examples of transformations with expected input/output pairs will be provided.
+Public examples of transformations with expected input/output pairs are provided [here](https://github.com/bogovicj/ngff-rfc5-coordinate-transformation-examples/releases/tag/0.6-dev1-rev1)
 
 ## UI/UX
 
