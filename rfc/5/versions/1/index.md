@@ -164,11 +164,11 @@ For example, to map an array's discrete coordinate system to its corresponding p
 Coordinate transforms are in the "forward" direction.
 They represent functions from *points* in the input space to *points* in the output space. 
 
-- MUST contain the field "type".
+- MUST contain the field "type" (string).
 - MUST contain any other fields required by the given "type" (see table below).
-- MUST contain the field "output", unless part of a `sequence` or `inverseOf` (see details).
-- MUST contain the field "input", unless part of a `sequence` or `inverseOf` (see details).
-- MAY contain the field "name". Its value MUST be unique across all "name" fields for coordinate transformations.
+- MUST contain the field "output" (string), unless part of a `sequence` or `inverseOf` (see details).
+- MUST contain the field "input" (string), unless part of a `sequence` or `inverseOf` (see details). The value of "input", if used, MUST specify the path to the input image.
+- MAY contain the field "name" (string). Its value MUST be unique across all "name" fields for coordinate transformations.
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
 
 <table>
