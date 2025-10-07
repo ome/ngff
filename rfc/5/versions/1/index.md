@@ -171,6 +171,7 @@ They represent functions from *points* in the input space to *points* in the out
 - MAY contain the field "name" (string). Its value MUST be unique across all "name" fields for coordinate transformations.
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
 
+The following transformations are supported:
 <table>
   <tr><th><code>identity</code>
     <td> 
