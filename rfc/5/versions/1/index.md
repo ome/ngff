@@ -259,6 +259,65 @@ store.zarr                      # Root folder of the zarr store
             └── .zarr.json      # physical coordinate system and transformations here
 </pre>
 
+````{admonition} Example
+Two instruments simultaneously image the same sample from two different angles, and the 3D data from both instruments are calibrated to "micrometer" units.
+Two samples are collected ("sampleA" and "sampleB"). An analysis of sample A requires measurements from both instruments' images at certain points in space.
+Suppose a region of interest (ROI) is determined from the image obtained from instrument 2, but quantification from that region is needed for instrument 1.
+Since measurements were collected at different angles,
+a measurement by instrument 1 at the point with coordinates (x,y,z) may not correspond to the measurement at the same point in instrument 2
+(i.e., it may not be the same physical location in the sample).
+To analyze both images together, they must be in the same coordinate system.
+
+The set of coordinate transformations encodes relationships between coordinate systems,
+specifically, how to convert points and images to different coordinate systems.
+Implementations can apply the coordinate transform to images or points in coordinate system "sampleA_instrument2" to bring them into the "sampleA_instrument1" coordinate system.
+In this case, the ROI should be transformed to the "sampleA_image1" coordinate system, then used for quantification with the instrument 1 image.
+
+The `coordinateTransformations` in the parent-level metadata would contain the following data.
+The transformation parameters are stored in a separate zarr-group under `coordinateTransformations/sampleA_instrument2-to-instrument1`
+as shown above.
+
+```json
+"coordinateTransformations": [
+    {
+        "type": "affine",
+        "path": "coordinateTransformations/sampleA_instrument2-to-instrument1",
+        "input": "sampleA_instrument2",
+        "output": "sampleA_instrument1"
+    }
+]
+```
+
+And the image under `root/sampleA_instrument1` would have the following as the first coordinate system:
+
+```json
+"coordinateSystems": [
+    {
+        "name": "sampleA-instrument1",
+        "axes": [
+            {"name": "z", "type": "space", "unit": "micrometer"},
+            {"name": "y", "type": "space", "unit": "micrometer"},
+            {"name": "x", "type": "space", "unit": "micrometer"}
+        ]
+    },
+]
+```
+
+The image under `root/sampleA_instrument2` would have this as the first listed coordinate system:
+
+```json
+[
+    {
+        "name": "sampleA-instrument2",
+        "axes": [
+            {"name": "z", "type": "space", "unit": "micrometer"},
+            {"name": "y", "type": "space", "unit": "micrometer"},
+            {"name": "x", "type": "space", "unit": "micrometer"}
+        ]
+    }
+],
+```
+````
 
 #### Additional details
 
