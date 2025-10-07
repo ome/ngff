@@ -166,7 +166,7 @@ input space to *points* in the output space.
     <td>affine transformation matrix stored as a flat array stored either with json uing the affine field
     or as binary data at a location in this container (path). If both are present, the binary values at path should be used.
   <tr><th><code>rotation</code>
-    <td> one of: <br><code>"rotation":List[number]</code>, <br><code>"path":str</code>
+    <td> one of: <br><code>"rotation":List[List[number]]</code>, <br><code>"path":str</code>
     <td>rotation transformation matrix stored as an array stored either
         with json or as binary data at a location in this container (path).
         If both are present, the binary parameters at path are used.

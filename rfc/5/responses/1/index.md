@@ -87,7 +87,7 @@ If encountering a transformation that cannot be parsed, readers/viewers SHOULD d
 > ... 
 > Should it be `List[List[number]]`?
 
-Yes, thank you for catching this. It is now [correct](https://github.com/bogovicj/ngff/commit/649f6234c2a2bef475b5873d1982f70cd6ee8d07).
+Yes, thank you for catching this. It is now correct.
 
 
 ### Parameters
