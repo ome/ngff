@@ -49,8 +49,10 @@ axis types.
 
 ## Proposal
 
-Below is a slightly abridged copy of the proposed changes to the specification (examples are omitted), the full set of changes
-including all examples are publicly available on the [github pull request](https://github.com/ome/ngff/pull/138).
+Below is a complete copy of the proposed changes including suggestions from reviewers and contributors of the previously
+associated [github pull request](https://github.com/ome/ngff/pull/138).
+The changes, if approved, shall be translated into bikeshed syntax and added to the ngff repository in a separate PR.
+This PR will then comprise complete json schemas when the RFC enters the SPEC phase (see RFC1).
 
 
 ### "coordinateSystems" metadata
