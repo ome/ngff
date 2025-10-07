@@ -239,27 +239,24 @@ Implementations SHOULD prefer to store transformations as a sequence of less exp
 <pre>
 store.zarr                      # Root folder of the zarr store
 │
-├── .zattrs                     # coordinate transformations describing the relationship between two image coordinate systems
+├── zarr.json                   # coordinate transformations describing the relationship between two image coordinate systems
 │                               # are stored in the attributes of their parent group.
 │                               # transformations between 'volume' and 'crop' coordinate systems are stored here.
 │
 ├── coordinateTransformations   # transformations that use array storage go in a "coordinateTransformations" zarr group.
 │   └── displacements           # for example, a zarr array containing a displacement field
-│       ├── .zattrs
-│       └── .zarray
+│       └── zarr.json
 │
 ├── volume
-│   ├── .zattrs                 # group level attributes (multiscales)
+│   ├── .zarr.json              # group level attributes (multiscales)
 │   └── 0                       # a group containing the 0th scale
 │       └── image               # a zarr array
-│           ├── .zattrs         # physical coordinate system and transformations here
-│           └── .zarray         # the array attributes
+│           └── .zarr.json      # physical coordinate system and transformations here
 └── crop
-    ├── .zattrs                 # group level attributes (multiscales)
+    ├── .zarr.json              # group level attributes (multiscales)
     └── 0                       # a group containing the 0th scale
         └── image               # a zarr array
-            ├── .zattrs         # physical coordinate system and transformations here
-            └── .zarray         # the array attributes
+            └── .zarr.json      # physical coordinate system and transformations here
 </pre>
 
 
