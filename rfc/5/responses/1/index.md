@@ -159,6 +159,14 @@ Some clarifying text under the `Array coordinate systems` section was added.
 Good point, and I agree; but the zarr spec is more permissive than the ngff spec, specifically because it [allows null or duplicate `dimension_names`](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#dimension-names).
 As a result, we will need require adding additional constraints to the dimension names that they be unique and not null. This is currently a requirement for the [names of axes](https://ngff.openmicroscopy.org/0.5/index.html#axes-md)
 
+> It is a bit unfortunate that coordinateTransforms now require that the input and output spaces be named for multiscale datasets,
+> where it was previously implicit, since (a) it is redundant and (b) it means existing multiscale metadata is no longer valid
+> under this new version.
+
+To our knowledge, every version in the past introduced breaking changes to the specification with the result that ome-zarr files
+of newer version could not be read anymore. As for the redundancy of specifiying input- and output-spaces in multiscales transformations,
+we agree in principle. However, we also see no harm in additional explicitness.
+
 
 ## Other 
 
