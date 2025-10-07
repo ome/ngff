@@ -74,7 +74,7 @@ regions of interest, etc., SHOULD ensure that they are in the same coordinate sy
 transformed to the same coordinate system before doing analysis. See the example below.
 
 
-### "axes" metadata
+#### "axes" metadata
 
 "axes" describes the dimensions of a coordinate systems. It is a list of dictionaries, where each dictionary describes a dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension. The values MUST be unique across all "name" fields.
@@ -136,7 +136,7 @@ the last dimension of an array in "C" order are stored contiguously on disk or i
 The name and axes names MAY be customized by including a `arrayCoordinateSystem` field in the user-defined attributes of the array whose value is a coordinate system object. The length of `axes` MUST be equal to the dimensionality. The value of `"type"` for each object in the axes array MUST equal `"array"`.
 
 
-### Coordinate convention
+#### Coordinate convention
 
 **The pixel/voxel center is the origin of the continuous coordinate system.**
 
@@ -251,7 +251,8 @@ store.zarr                      # Root folder of the zarr store
             └── .zarray         # the array attributes
 </pre>
 
-### Additional details
+
+#### Additional details
 
 Most coordinate transformations MUST specify their input and output coordinate systems using `input` and `output` with a string value.
 Exceptions are if the the coordinate transformation appears in the `transformations` list of a `sequence` or is the `transformation` of an `inverseOf` transformation.
@@ -309,7 +310,7 @@ stored as a 2D zarr array, the first dimension indexes rows and the second dimen
 [4,5,6]]` has 2 rows and 3 columns).
 
 
-### Transformation types
+#### Transformation types
 
 Input and output dimensionality may be determined by the value of the "input" and "output" fields, respectively. If the value
 of "input" is an array, it's length gives the input dimension, otherwise the length of "axes" for the coordinate
@@ -318,14 +319,14 @@ length gives the input dimension, otherwise it is given by the length of "axes" 
 the name of the "input".  If the value of "output" is an array, its length gives the output dimension,
 otherwise it is given by the length of "axes" for the coordinate system with the name of the "output".
 
-#### <a name="identity">identity</a>
+##### <a name="identity">identity</a>
 
 `identity` transformations map input coordinates to output coordinates without modification. The position of
 the ith axis of the output coordinate system is set to the position of the ith axis of the input coordinate
 system. `identity` transformations are invertible.
 
 
-#### <a name="mapAxis">mapAxis</a>
+##### <a name="mapAxis">mapAxis</a>
 
 `mapAxis` transformations describe axis permutations as a mapping of axis names. Transformations MUST include a `mapAxis` field
 whose value is an object, all of whose values are strings. If the object contains `"x":"i"`, then the transform sets the value 
@@ -334,7 +335,7 @@ system, the `mapAxis` MUST have a corresponding field. For every value of the ob
 coordinate system with that name. Note that the order of the keys could be reversed.
 
 
-#### <a name="translation">translation</a>
+##### <a name="translation">translation</a>
 
 `translation` transformations are special cases of affine transformations. When possible, a 
 translation transformation should be preferred to its equivalent affine. Input and output dimensionality MUST be
@@ -348,7 +349,7 @@ invertible.
 : The translation parameters stored as a JSON list of numbers. The list MUST have length `N`.
 
 
-#### scale
+##### <a name="scale">scale</a>
 
 `scale` transformations are special cases of affine transformations. When possible, a scale transformation
 SHOULD be preferred to its equivalent affine. Input and output dimensionality MUST be identical and MUST equal
@@ -362,7 +363,7 @@ transformations are invertible.
 : The scale parameters stored as a JSON list of numbers. The list MUST have length `N`.
 
 
-#### <a name="affine">affine</a>
+##### <a name="affine">affine</a>
 
 `affine`s are [matrix transformations](#matrix-transformations) from N-dimensional inputs to M-dimensional outputs are
 represented as the upper `(M)x(N+1)` sub-matrix of a `(M+1)x(N+1)` matrix in [homogeneous
@@ -376,7 +377,7 @@ invertible when `N` equals `M`.  The matrix MUST be stored as a 2D array either 
 : The affine parameters stored in JSON. The matrix MUST be stored as 2D nested array where the outer array MUST be length `M` and the inner arrays MUST be length `N+1`.
 
 
-#### <a name="rotation">rotation</a>
+##### <a name="rotation">rotation</a>
 
 `rotation`s are [matrix transformations](#matrix-transformations) that are special cases of affine transformations. When possible, a rotation
 transformation SHOULD be preferred to its equivalent affine. Input and output dimensionality (N) MUST be identical. Rotations
@@ -390,7 +391,7 @@ MUST be stored as a 2D array either as json or in a zarr array. `rotation` trans
 : The parameters stored in JSON. The matrix MUST be stored as a 2D nested array where the outer array MUST be length `N` and the inner arrays MUST be length `N`.
 
 
-#### <a name="inverseOf">inverseOf</a>
+##### <a name="inverseOf">inverseOf</a>
 
 An `inverseOf` transformation contains another transformation (often non-linear), and indicates that
 transforming points from output to input coordinate systems is possible using the contained transformation.
@@ -406,7 +407,7 @@ as `input` and fixed image coordinates as `output`, a choice that many users and
 ```
 
 
-#### <a name="sequence">sequence</a>
+##### <a name="sequence">sequence</a>
 
 A `sequence` transformation consists of an ordered array of coordinate transformations, and is invertible if every coordinate
 transform in the array is invertible (though could be invertible in other cases as well). To apply a sequence transformation
@@ -433,7 +434,7 @@ outlined below:
 : A non-empty array of transformations.
 
 
-#### <a name=coordinates-displacements>coordinates and displacements</a>
+##### <a name=coordinates-displacements>coordinates and displacements</a>
 
 `coordinates` and `displacements` transformations store coordinates or displacements in an array and interpret them as a vector
 field that defines a transformation. The arrays must have a dimension corresponding to every axis of the input coordinate
@@ -491,7 +492,6 @@ For `displacements`:
 * `input` and `output` MUST have an equal number of dimensions.
 
 
-#### <a name=trafo-byDimension>byDimension</a>
 
 `byDimension` transformations build a high dimensional transformation using lower dimensional transformations
 on subsets of dimensions.
@@ -506,7 +506,7 @@ on subsets of dimensions.
 </dl>
 
 
-#### <a name="bijection">bijection</a>
+##### <a name="bijection">bijection</a>
 
 A bijection transformation is an invertible transformation in which both the `forward` and `inverse` transformations
 are explicitly defined. Each direction SHOULD be a transformation type that is not closed-form invertible.
