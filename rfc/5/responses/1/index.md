@@ -378,34 +378,16 @@ be an undue burden. We agreed with and shared this concern.
 
 As a result, a group of hackathon attendees agreed to a set of constraints
 that would decrease the burden on implementors, without reducing the
-expressibility [3]. To summarize the constraints:
+expressibility (see `"multiscales" metadata` section).
 
-* The first coordinate system in the list is a *default* coordinate system
+A series of follow-up discussions further refined these constraints and metadata design layouts.
+
+To summarize the constraints *inside* multiscales:
+
+* The last coordinate system in the list is a *default* coordinate system
     * ususally an image's "native" physical coordinate system
-* There MUST be exactly one coordinate transformation per dataset in the multiscales whose output is the *default* coordinate system
-    * as a result, the field was renamed to the singular `coordinateTransformation` and changed from a json list to json object.
-    * this transformation SHOULD be simple (defined precisely in the spec).
-* Any other transformations belong outside the datasets
+* There MUST be exactly one coordinate transformation per dataset in the multiscales whose output is the *default* coordinate system.
+  This transformation SHOULD be simple (defined precisely in the spec).
+* Any other transformations belong outside the datasets (i.e., under `multiscales > coordinateTransformations`)
     * the `input`s of these transformations MUST be the *default* coordinate system
     * the `output`s of these transformations are the other coordinate systems
-
-### Example 1
-
-* There exist two coordinate systems "A", and "B" and two datasets "0", and "1".
-* There exist two coordinate transforms in the "0" dataset, one from "0" to "A", and one from "0" to "B".
-* There exist two coordinate transforms in the "1" dataset, one from "1" to "A", and one from "1" to "B".
-* There exist no coordinate transformations outside the datasets.
-
-### Example 2
-
-* There exist two coordinate systems "A", and "B" and two datasets "0", and "1".
-* There exist one coordinate transforms in the "0" dataset, from "0" to "A".
-* There exist one coordinate transforms in the "1" dataset, from "1" to "A".
-* There exist one coordinate transforms outside the datasets, from "A" to "B".
-
-
-## References
-
-[1] [Motivation and clarification of array coordinate systems](https://github.com/bogovicj/ngff/commit/db1e7d1c16206125a83a9c7bd4ea2146f01143e7)
-[2] [constraints on zarr `dimension_names`](https://github.com/bogovicj/ngff/commit/cd89608ea3baca8ea36447f88fbb4e3ea1909299)
-[3] [constraints on ](https://github.com/bogovicj/ngff/commit/3822dd0d9d2e388a12b6b74d0bffc7a215298e42)
