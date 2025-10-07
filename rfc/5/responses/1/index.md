@@ -1,4 +1,4 @@
-# RFC-5: Response 1 (2025-05-06 version)
+# RFC-5: Response 1 (2025-10-07 version)
 
 The authors extend their most sincere thanks and appreciation to all the reviewers of this RFC.
 

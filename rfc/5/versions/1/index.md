@@ -1,13 +1,4 @@
-# RFC-5 Coordinate systems and transformations
-
-```{toctree}
-:hidden:
-:maxdepth: 1
-reviews/index
-comments/index
-responses/index
-versions/index
-```
+# RFC-5 (2025-10-07 version)
 
 Add named coordinate systems and expand and clarify coordinate transformations.
 
