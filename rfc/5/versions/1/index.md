@@ -103,16 +103,13 @@ transformed to the same coordinate system before doing analysis. See the example
 
 If part of metadata, the length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
-Arrays are inherently discrete (see Array coordinate systems, below) but are often used to store discrete samples of a
-continuous variable. The continuous values "in between" discrete samples can be retrieved using an *interpolation* method. If an
-axis is continuous (`"discrete" : false`), it indicates that interpolation is well-defined. Axes representing `space` and
-`time` are usually continuous. Similarly, joint interpolation across axes is well-defined only for axes of the same `type`. In
-contrast, discrete axes (`"discrete" : true`) may be indexed only by integers. Axes of representing a `channel`, `coordinate`, or `displacement` are
-usually discrete.
+Arrays are inherently discrete (see Array coordinate systems, below) but are often used to store discrete samples of a continuous variable. The continuous values "in between" discrete samples can be retrieved using an *interpolation* method. If an axis is continuous (`"discrete" : false`), it indicates that interpolation is well-defined. Axes representing `space` and `time` are usually continuous. Similarly, joint interpolation across axes is well-defined only for axes of the same `type`. In contrast, discrete axes (`"discrete" : true`) may be indexed only by integers. Axes of representing a `channel`, `coordinate`, or `displacement` are usually discrete.
 
-Note: The most common methods for interpolation are "nearest neighbor", "linear", "cubic", and "windowed sinc". Here, we refer
-to any method that obtains values at real-valued coordinates using discrete samples as an "interpolator". As such, label images
-may be interpolated using "nearest neighbor" to obtain labels at points along the continuum.
+```{note}
+The most common methods for interpolation are "nearest neighbor", "linear", "cubic", and "windowed sinc".
+Here, we refer to any method that obtains values at real-valued coordinates using discrete samples as an "interpolator".
+As such, label images may be interpolated using "nearest neighbor" to obtain labels at points along the continuum.
+```
 
 #### Array coordinate systems
 
