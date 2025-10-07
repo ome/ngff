@@ -4,68 +4,19 @@ Add named coordinate systems and expand and clarify coordinate transformations.
 
 ## Status
 
-This RFC is currently in RFC state `R1` (send for review).
+This RFC is currently in RFC state `R4` (authors prepare responses).
 
-```{list-table} Record
-:widths: 8, 20, 20, 20, 15, 10
-:header-rows: 1
-:stub-columns: 1
-
-*   - Role
-    - Name
-    - GitHub Handle
-    - Institution
-    - Date
-    - Status
-*   - Author
-    - John Bogovic
-    - @bogovicj
-    - HHMI Janelia
-    - 2024-07-30
-    - Implemented
-*   - Author
-    - Davis Bennett
-    - @d-v-b
-    -
-    - 2024-07-30
-    - Implemented validation
-*   - Author
-    - Luca Marconato
-    - @LucaMarconato
-    - EMBL
-    - 2024-07-30
-    - Implemented
-*   - Author
-    - Matt McCormick
-    - @thewtex
-    - ITK
-    - 2024-07-30
-    - Implemented
-*   - Author
-    - Stephan Saalfeld
-    - @axtimwalde
-    - HHMI Janelia
-    - 2024-07-30
-    - Implemented (with JB)
-*   - Endorser
-    - Norman Rzepka
-    - @normanrz
-    - Scalable Minds
-    - 2024-08-22
-    -
-*   - Reviewer
-    - Dan Toloudis, David Feng, Forrest Collman, Nathalie GAudreault, Gideon Dunster
-    - toloudis, dyf, fcollman
-    - Allen Institutes
-    - 2024-11-28
-    - [Review](./reviews/1/index)
-*   - Reviewer
-    - Will Moore, Jean-Marie Burel, Jason Swedlow
-    - will-moore, jburel, jrswedlow
-    - University of Dundee
-    - 2025-01-22
-    - [Review](./reviews/2/index)
-```
+| **Role** | Name | GitHub Handle | Institution | Date | Status |
+|----------|------|---------------|-------------|------|--------|
+| **Author** | John Bogovic | @bogovicj | HHMI Janelia | 2024-07-30 | Implemented |
+| **Author** | Davis Bennett | @d-v-b | | 2024-07-30 | Implemented validation |
+| **Author** | Luca Marconato | @LucaMarconato | EMBL | 2024-07-30 | Implemented |
+| **Author** | Matt McCormick | @thewtex | ITK | 2024-07-30 | Implemented |
+| **Author** | Stephan Saalfeld | @axtimwalde | HHMI Janelia | 2024-07-30 | Implemented (with JB) |
+| **Author** | Johannes Soltwedel | @jo-mueller | German Bioimaging e.V. | 2025-09-19 | Implemented |
+| **Endorser** | Norman Rzepka | @normanrz | Scalable Minds | 2024-08-22 | |
+| **Reviewer** | Dan Toloudis, David Feng, Forrest Collman, Nathalie GAudreault, Gideon Dunster | toloudis, dyf, fcollman | Allen Institutes | 2024-11-28 | [Review](rfcs:rfc5:review1) |
+| **Reviewer** | Will Moore, Jean-Marie Burel, Jason Swedlow | will-moore, jburel, jrswedlow | University of Dundee | 2025-01-22 | [Review](rfcs:rfc5:review2)|
 
 ## Overview
 
