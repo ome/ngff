@@ -124,6 +124,198 @@ Swedlow from the University of Dundee.
 
 ### Clarifications
 
+>> “Coordinate transformations from array to physical coordinates MUST be stored in multiscales, and MUST be duplicated in the attributes of the zarr array”
+>>
+> Why is this duplication necessary and what does the array zarr.json look like?
+
+The multiscales metadata block was designed as a self-contained description on how to read the data therein. The addition of an additional `coordinateTransformations` key inside the multiscale's attributes was originally intended to provide a clear, authoritiative coordinate transformation, the configuration of which would apply to all multiscales and make it easier for a reader to identify the correct default coordinate system of a multiscale image.
+
+However, we have removed this requirement and furthermore tightened the requirements for `coordinateTransformations`.
+
+- **Inside `multiscales > datasets`**: `coordinateTransformations` herein MUST be restricted to a single `scale`, `identity` or sequence of `translation` and `scale` transformations.
+  The output of these `coordinateTransformations` MUST be the default coordinate system, which is the last entry in the list of coordinate systems.
+- **Inside `multiscales > coordinateTransformations`**: One MAY store additional transformations here. 
+  The `input` to these transformations MUST be the default coordinate system and the `output` can be another coordinate system defined under `multiscales > coordinateSystems`.
+- **Parent-level `coordinateTransformations`**: Transformations between two or more images MUST be stored in the parent-level `coordinateTransformations` group. The `input` to these transformations MUST be paths to the respective images. The `output` can be a path to an image or the name of a coordinate system. If both path and name exist, the path takes precedence. The authoritiative coordinate system under `path` is the *first* coordinate system in the list.
+
+This separation of transformations (inside `multiscales > datasets`, under `multiscales > coordinateTransformations` and under `coordinateTransformations` in the parent-level) provides flexbility for different usecases while still maintaining a level of rigidity for easier implementations.
+
+````{admonition} Example
+
+Consider the following example for the use of all possible places to store `coordinateTransformations`.
+It comes from the SCAPE microscopy context, where lightsheet stacks are acquired under a skew angle,
+and need to be *deskewed* with an affine transformation. The acquired stack also comes with a set of relevant microscope motor coordinates,
+which place the object in world coordinates. 
+One may wish to attach the affine transformation to the multiscales itself, without having to read the parent-level zarr group that defines the world coordinate system.
+
+The `multiscales` metadata contains this:
+```json
+{
+    "multiscales": [{
+        "version": "0.5-dev",
+        "name": "example",
+        "coordinateSystems" : [
+            {
+            "name" : "deskewed",
+            "axes": [
+                {"name": "z", "type": "space", "unit": "micrometer"},
+                {"name": "y", "type": "space", "unit": "micrometer"},
+                {"name": "x", "type": "space", "unit": "micrometer"}
+                ]
+            },
+            {
+            "name" : "physical",
+            "axes": [
+                {"name": "z", "type": "space", "unit": "micrometer"},
+                {"name": "y", "type": "space", "unit": "micrometer"},
+                {"name": "x", "type": "space", "unit": "micrometer"}
+                ]
+            }
+        ],
+        "datasets": [
+            {
+                "path": "0",
+                // the transformation of other arrays are defined relative to this, the highest resolution, array
+                "coordinateTransformations": [{
+                    "type": "identity",
+                    "input": "/0",
+                    "output": "physical"
+                }]
+            },
+            {
+                "path": "1",
+                "coordinateTransformations": [{
+                    // the second scale level (downscaled by a factor of 2 relative to "0" in zyx)
+                    "type": "scale",
+                    "scale": [2, 2, 2],
+                    "input" : "/1",
+                    "output" : "physical"
+                }]
+            },
+            {
+                "path": "2",
+                "coordinateTransformations": [{
+                    // the third scale level (downscaled by a factor of 4 relative to "0" in zyx)
+                    "type": "scale",
+                    "scale": [4, 4, 4],
+                    "input" : "/2",
+                    "output" : "physical"
+                }]
+            }
+        ],
+        },
+        "coordinateTransformations": [
+            {
+                "type": "affine",
+                "name": "deskew-transformation",
+                "input": "physical",
+                "output": "deskewed",
+                "affine": [
+                    [1, 0, 0, 0],
+                    [0, 1, 0, 0],
+                    [0, 0.785, 1, 0],
+                    [0, 0, 0, 1]
+                ]
+            }
+        ]
+    ]
+}
+```
+
+The metadata on a parent-level zarr group would then look as follows - the `input` to the translation transform that locates the stack at the correct location in world coordinates is the path to the input image. 
+The output is a defined coordinate system:
+
+```json
+"ome": {
+    "coordinateSystems":[
+        {
+        "name" : "world",
+        "axes": [
+            {"name": "z", "type": "space", "unit": "micrometer"},
+            {"name": "y", "type": "space", "unit": "micrometer"},
+            {"name": "x", "type": "space", "unit": "micrometer"}
+            ]
+        }
+    ],
+    "coordinateTransformations": [
+        {
+            "name": "stack0-to-world",
+            "type": "translation",
+            "translation": [0, 10234, 41232],
+            "input": "path/to/stack",
+            "output" "world"
+        }
+    ]
+}
+
+```
+The first coordinate system defined under the `multiscales` group above (`deskewed`) serves as the authoritative coordinate system for the multiscales image.
+````
+
+> In what format or structure is this data stored?
+
+In a simplified way, the root level of the store should resemble this structure:
+
+ ```
+ root
+ ├─── imageA
+ ├─── imageA
+ └─── zarr.json
+ ```
+
+ If the inputs and outputs to the transformations to the top-level `zarr.json` are images, the content MUST provide information about the spatial relationship (`coordinateTransformations`) between them:
+
+ ```json
+ ...
+ "ome": {
+    "version": "0.6",
+    "coordinateTransformations": [
+        {
+            "type": "affine",
+            "input": "path/to/image_A",
+            "output": "path/to/image_B",
+            "affine": ["actual affine matrix"],
+            "name": "Transform that aligns imageA with imageB"
+        }
+    ]
+ }
+ ```
+
+> Does the parent zarr group contain the paths to the child images?
+
+In the present form, the spec states that "[...] *the coordinate system's name may be the path to an array.*"
+We agree that this lacks clarity.
+We therefore added that the `input` of a `coordinateTransformation` entry in the parent-level zarr group MUST be the path to the input image.
+
+> Do the top-level `coordinateTransformations` refer to coordinateSystems that are in child images?
+
+Yes, although they do so implictly.
+If a `coordinateTransformation` in the parent-level group refers to child images through its `input`/`output` fields, the authoritiative coordinate transformation of the linked (multiscales) image is the *first* `coordinateSystem` therein.
+The first `coordinateSystem` therein is authoritiative for the image.
+This formalism also provides enough distinction from an image's "default" (aka "physical") coordinate system,
+which is the *last* `coordinateSystem` inside the image. 
+If no additional `coordinateTransformations` are defined under `multiscales > coordinateTransformations`, only one `coordinateSystem` needs to be defined in the multiscales.
+This coordinate system then serves as "default" coordinate system as well as authoritative coordinate system for a parent-level reference.
+
+ > Are these child images referred to via a /path/to/volume/zarr.json?
+
+Yes. We have changed the spec, so that `"input": /path/to/volume/"` is the required way of referencing an input image/coordinateSystem.
+
+ > What is the expectation for a conforming viewer when opening the top-level group? Should the viewer also open and display all the child images?
+
+ This is an important and valid point to raise. The *in silico* behavior that comes to mind, is to open all present images along with their
+ correct transformations as separate layers, which can be toggled on or off. The spec currently requires conforming readers to read scale and translation transformations, which has remained unchanged. However, readers/viewers are now recommended to output an informative warning if a transformation is encountered that cannot be parsed.
+
+ > It seems like the top-level zarr group with "coordinate transformations describing the relationship between two image coordinate systems" introduces a 
+ “Collection” of images. The discussion on adding support for Collection to the specification has been captured in Collections Specification but it has
+ not been introduced yet.
+ > 
+ > Are you also proposing to introduce support for Collection as part of this RFC? In our opinion, this is probably out of scope at this stage, but an example might clarify the importance in the authors’ view.
+
+ It is true that storing several images under the same root-store as proposed here, resembles the proposed [Collections](https://github.com/ome/ngff/issues/31). However, the spatial relationship between images in a root zarr provides a distinctively meaningful kind of collections of images, namely their spatial relationship. Other solutions like storing images with spatial relationships into separate files along with references to each other come at the risk of putting the spatial reationship at the mercy of tidy file management. With this proposal, we seek a self-contained solution to spatial relationships, which require storage in a common location. 
+
+Moreover, while images with coordinate transforms in a root zarr provide a kind of collection, they don't do so more than a multiscale, a plate or a well object does.
+
 
 ### Implementation section
 
@@ -146,7 +338,7 @@ Some clarifying text was added.
 
 > Rebasing to take into account the change to zarr v3 (e.g. remove references to .zarray and replace with zarr.json) / “ome” top-level key would be helpful for clarity.
 
-[Done.](https://github.com/bogovicj/ngff/commit/52d7924f1522bdf917ea912fc416ae55b3229ebb)
+Done.
 
 > Axis type of “array” is a bit confusing. It basically means “unknown”?
 

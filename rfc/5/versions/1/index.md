@@ -217,10 +217,13 @@ Conforming readers:
 - SHOULD be able to apply transformations to points;
 - SHOULD be able to apply transformations to images;
 
-Coordinate transformations from array to physical coordinates MUST be stored in multiscales,
-and MUST be duplicated in the attributes of the zarr array. Transformations between different images MUST be stored in the
-attributes of a parent zarr group. For transformations that store data or parameters in a zarr array, those zarr arrays SHOULD
-be stored in a zarr group `"coordinateTransformations"`.
+Coordinate transformations can be stored in multiple places to reflect different usecases.
+     
+- Multiscale transformations represent a special case of transformations and are explained [below](#multiscales-metadata)
+- Additional transformations for single images MUST be stored in group-level attributes of the multiscales.
+- Transformations between two or more images MUST be stored in the attributes of a parent zarr group. For transformations that store data or parameters in a zarr array, those zarr arrays SHOULD be stored in a zarr group `"coordinateTransformations"`.
+
+Implementations SHOULD prefer to store transformations as a sequence of less expressive transformations (i.e., sequence[translation, rotation] instead of affine transformation with translation/rotation) component. 
 
 <pre>
 store.zarr                      # Root folder of the zarr store
@@ -250,18 +253,19 @@ store.zarr                      # Root folder of the zarr store
 
 ### Additional details
 
-Most coordinate transformations MUST specify their input and output coordinate systems using `input` and `output` with a string value
-corresponding to the name of a coordinate system. The coordinate system's name may be the path to an array, and therefore may
-not appear in the list of coordinate systems.
+Most coordinate transformations MUST specify their input and output coordinate systems using `input` and `output` with a string value.
+Exceptions are if the the coordinate transformation appears in the `transformations` list of a `sequence` or is the `transformation` of an `inverseOf` transformation.
+In these two cases input and output could, in some cases, be omitted (see below for details).
 
-Exceptions are if the the coordinate transformation appears in the `transformations` list of a `sequence` or is the
-`transformation` of an `inverseOf` transformation. In these two cases input and output could, in some cases, be omitted (see below for
-details).
+If used in a parent-level zarr-group, the `input` field MUST be a path to the input image. 
+The authoritative coordinate system for the input image is the first `coordinateSystem` defined therein.
+The `output` field can be a `path` to an output image or the name of a `coordinateSystem` defined in the parent-level zarr group.
+If the names of `input` or `output` can be both a `path` or the name of a `coordinateSystem`, `path` MUST take precedent.
 
-Transformations in the `transformations` list of a `byDimensions` transformation MUST provide `input` and `output` as arrays
-of strings corresponding to axis names of the parent transformation's input and output coordinate systems (see below for
-details).
+For usage in multiscales, see [multiscales section](#multiscales-metadata) for details.
 
+Transformations in the `transformations` list of a `byDimensions` transformation MUST provide `input` and `output`
+as arrays of strings corresponding to axis names of the parent transformation's input and output coordinate systems (see below for details).
 
 Coordinate transformations are functions of *points* in the input space to *points* in the output space. We call this the "forward" direction.
 Points are ordered lists of coordinates, where a coordinate is the location/value of that point along its corresponding axis.
