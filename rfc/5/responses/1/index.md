@@ -137,10 +137,9 @@ I agree that having some fixed value to mean "no units" would be a reasonable ch
 > of a continuous variable.` isn’t true of everything? Aren’t the images themselves samplings? In general I wasn’t totally clear
 > on how interpolation works - I understand it is a user-applied “transformation” in which case I think that should be clear.
 
-I agree that digital images always contain samples. The purpose of this distinction is to communicate, to humans and
-software, a property of *the signal that is being sampled,* not the representation that is stored. That is the reason
-that "array coordinate systems" have discrete axes - because they have no additional interpretation.
-I added some clarifying text [1].
+I agree that digital images always contain samples. The purpose of this distinction is to communicate, to humans and software, a property of *the signal that is being sampled,* not the representation that is stored. That is the reason that "array coordinate systems" have discrete axes - because they have no additional interpretation.
+
+Some clarifying text was added.
 
 
 ## Comment-2
@@ -151,17 +150,14 @@ I added some clarifying text [1].
 
 > Axis type of “array” is a bit confusing. It basically means “unknown”?
 
-It could mean "unknown" if there are no other coordinate systems that label it. More importantly, it serves as a placeholder
-for operations that work in "pixel coordinates," not "physical coordinates."
-I added some clarifying text [1].
-
+It could mean "unknown" if there are no other coordinate systems that label it.
+More importantly, it serves as a placeholder for operations that work in "pixel coordinates," not "physical coordinates."
+Some clarifying text under the `Array coordinate systems` section was added.
 
 > arrayCoordinateSystem specifying dimension names is now redundant with zarr v3 dimension names
 
-Good point, and I agree; but the zarr spec is more permissive than the ngff spec, specifically because it 
-[allows null or duplicate `dimension_names`](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#dimension-names).
-As a result, we will need require adding additional constraints to the dimension names that they be unique and not null [2].
-This is currently a requirement for the names of axes](https://ngff.openmicroscopy.org/0.5/index.html#axes-md)
+Good point, and I agree; but the zarr spec is more permissive than the ngff spec, specifically because it [allows null or duplicate `dimension_names`](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#dimension-names).
+As a result, we will need require adding additional constraints to the dimension names that they be unique and not null. This is currently a requirement for the [names of axes](https://ngff.openmicroscopy.org/0.5/index.html#axes-md)
 
 
 ## Other 

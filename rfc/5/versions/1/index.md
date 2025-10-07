@@ -98,25 +98,42 @@ Note: The most common methods for interpolation are "nearest neighbor", "linear"
 to any method that obtains values at real-valued coordinates using discrete samples as an "interpolator". As such, label images
 may be interpolated using "nearest neighbor" to obtain labels at points along the continuum.
 
+#### Array coordinate systems
 
-### Array coordinate systems
+The dimensions of an array do not have an interpretation until they are associated with a coordinate system via a coordinate transformation.
+Nevertheless, it can be useful to refer to the "raw" coordinates of the array.
+Some applications might prefer to define points or regions-of-interest in "pixel coordinates" rather than "physical coordinates," for example.
+Indicating that choice explicitly will be important for interoperability.
+This is possible by using **array coordinate systems**.
 
-Every array has a default coordinate system whose parameters need not be explicitly defined.  Its name is the path to the array
-in the container, its axes have `"type":"array"`, are unitless, and have default "name"s. The ith axis has `"name":"dim_i"`
-(these are the same default names used by [xarray](https://docs.xarray.dev/en/stable/user-guide/terminology.html)).
+Every array has a default coordinate system whose parameters need not be explicitly defined.
+The dimensionality of each array coordinate system equals the dimensionality of its corresponding zarr array.
+Its name is the path to the array in the container, its axes have `"type":"array"`, are unitless, and have default "name"s.
+The ith axis has `"name":"dim_i"` (these are the same default names used by [xarray](https://docs.xarray.dev/en/stable/user-guide/terminology.html)).
+The `dimension_names` must be unique and non-null.
 
+````{admonition} Example
+```json
+{
+    "name": "0",
+    "axes": [
+        {"name": "dim_0", "type": "array"},
+        {"name": "dim_1", "type": "array"},
+        {"name": "dim_2", "type": "array"}
+    ]
+}
+```
+````
 
-The dimensionality of each array coordinate system equals the dimensionality of its corresponding zarr array.  The axis with
-name `"dim_i"` is the ith element of the `"axes"` list. The axes and their order align with the `shape`
-attribute in the zarr array attributes (in `.zarray`), and whose data depends on the byte order used to store
-chunks. As described in the [zarr array metadata](https://zarr.readthedocs.io/en/stable/spec/v2.html#arrays),
+The dimensionality of each array coordinate system equals the dimensionality of its corresponding zarr array.
+The axis with name `"dim_i"` is the ith element of the `"axes"` list.
+The axes and their order align with the `shape` attribute in the zarr array attributes (in `.zarray`),
+and whose data depends on the byte order used to store chunks.
+As described in the [zarr array metadata](https://zarr.readthedocs.io/en/stable/spec/v2.html#arrays),
 the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded. 
 
 
-The name and axes names MAY be customized by including a `arrayCoordinateSystem` field in
-the user-defined attributes of the array whose value is a coordinate system object. The length of
-`axes` MUST be equal to the dimensionality. The value of `"type"` for each object in the 
-axes array MUST equal `"array"`.
+The name and axes names MAY be customized by including a `arrayCoordinateSystem` field in the user-defined attributes of the array whose value is a coordinate system object. The length of `axes` MUST be equal to the dimensionality. The value of `"type"` for each object in the axes array MUST equal `"array"`.
 
 
 ### Coordinate convention
