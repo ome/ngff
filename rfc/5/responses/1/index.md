@@ -75,7 +75,13 @@ since they seem not to have been reconsidered since they [were first introduced 
 
 > We think that conforming reading MUST be able to parse Affine transformations.
 
-TODO
+This is an important point to address.
+Some transformations (i.e., scale, translations, rotations) can be expressed in terms of an affine transformation.
+However, displaying affine transformations is implemented to different degrees in the field.
+For some applications (e.g., image registration), affine transformations are a quintessential part of the metadata whereas other fields rarely encounter it.
+
+We have added statements to the proposal, recommending that writers SHOULD prefer less expressive transformations (e.g., a sequence of scale and translation) over affine transformations if possible.
+If encountering a transformation that cannot be parsed, readers/viewers SHOULD display a warning to inform the user of how metadata is handled.
 
 > Rotation: there appears to be inconsistency in the doc
 > ... 

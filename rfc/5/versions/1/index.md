@@ -193,10 +193,10 @@ input space to *points* in the output space.
    <tr><th>type<th>fields<th>description
 </table>
 
-
 Conforming readers:
 - MUST parse `identity`, `scale`, `translation` transformations;
-- SHOULD parse `mapAxis`, `affine` transformations;
+- SHOULD parse `mapAxis`, `affine`, `rotation` transformations;
+- SHOULD display an informative warning if encountering transformations that cannot be parsed;
 - SHOULD be able to apply transformations to points;
 - SHOULD be able to apply transformations to images;
 
