@@ -58,7 +58,7 @@ This PR will then comprise complete json schemas when the RFC enters the SPEC ph
 ### "coordinateSystems" metadata
 
 A "coordinate system" is a collection of "axes" / dimensions with a name. Every coordinate system:
-- MUST contain the field "name". The value MUST be a non-empty string that is unique among `coordinateSystem`s.
+- MUST contain the field "name". The value MUST be a non-empty string that is unique among all entries under `coordinateSystems`.
 - MUST contain the field "axes", whose value is an array of valid "axes" (see below).
 
 
