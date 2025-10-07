@@ -14,7 +14,7 @@ for viewing these examples with BigWarp, a reference implementation.
 ## Review 1
 
 Daniel Toloudis, David Feng, Forrest Collman, and Nathalie Gaudreault at the Allen Institute provided 
-[Review 1](https://ngff.openmicroscopy.org/rfc/5/reviews/1/index.html).
+[Review 1](rfcs:rfc5:review1).
 
 ### Axes metadata
 
@@ -105,7 +105,7 @@ The next revision of this RFC will refer to that specific version.
 
 ## Review 2
 
-[Review 2](https://ngff.openmicroscopy.org/rfc/5/reviews/2/index.html) was written by William Moore, Jean-Marie Burel, Jason
+[Review 2](rfcs:rfc5:review2) was written by William Moore, Jean-Marie Burel, Jason
 Swedlow from the University of Dundee.
 
 ### Clarifications
