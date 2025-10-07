@@ -131,8 +131,7 @@ Swedlow from the University of Dundee.
 
 > Why not require a value for units and then make “arbitrary” or some sentinel the value that people must specify to say “no coordinates?”
 
-I agree that having some fixed value to mean "no units" would be a reasonable choice. In my opinion, having no units key
-reflects that "there are no units" better than a placeholder (and it avoids having to choose the value of the placeholder).
+I agree that having some fixed value to mean "no units" would be a reasonable choice. In my opinion, having no units key reflects that "there are no units" better than a placeholder (and it avoids having to choose the value of the placeholder).
 
 > I wonder why `Arrays are inherently discrete (see Array coordinate systems, below) but are often used to store discrete samples
 > of a continuous variable.` isn’t true of everything? Aren’t the images themselves samplings? In general I wasn’t totally clear
