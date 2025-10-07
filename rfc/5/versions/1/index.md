@@ -559,6 +559,7 @@ For `displacements`:
 * `input` and `output` MUST have an equal number of dimensions.
 
 
+##### <a name=trafo-byDimension>byDimension</a>
 
 `byDimension` transformations build a high dimensional transformation using lower dimensional transformations
 on subsets of dimensions.
