@@ -903,8 +903,8 @@ non-linear transformations), and inform users what action will be taken. The det
 application dependent, but ignoring the unsupported transformation or falling back to a simpler transformation are likely
 to be common choices.
 
-Implementations MAY choose to communicate if and when an image can be displayed in multiple coordinate systems. Users might
-choose between different options, or software could choose a default (e.g. the first listed coordinate system). The
+Implementations SHOULD communicate if and when an image can be displayed in multiple coordinate systems. Users might
+choose between different options, or software could choose a default (e.g. the first or last listed coordinate system). The
 [`multiscales` in version 0.4](https://ngff.openmicroscopy.org/0.4/#multiscale-md) has a similar consideration.
 
 
