@@ -100,8 +100,12 @@ is the consensus, so the parameters will remain as they are.
 
 ### Process
 
-> Should it be customary to provide a sample implementation? 
+> Should it be customary to provide a sample implementation?
 
+We believe that sammple implementations are outside the scope of RFCs, even if the changes are substantial as in this case.
+Writing implementations would certainly fail to address the variety of programming languages and tools in the community
+and thus inadvertantly prioritize some tools over others.
+However, one could consider the json-schemas as a sort of implementation that allows implementors to test their written data against a common baseline to ensure the integrity of written data.
 
 > Is it okay for an RFC to link out to other things, rather than being
 > completely self-contained? If it's not there is a danger of it
