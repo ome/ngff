@@ -380,11 +380,10 @@ stored as a 2D zarr array, the first dimension indexes rows and the second dimen
 
 #### Transformation types
 
-Input and output dimensionality may be determined by the value of the "input" and "output" fields, respectively. If the value
-of "input" is an array, it's length gives the input dimension, otherwise the length of "axes" for the coordinate
-system with the name of the "input" value gives the input dimension.  If the value of "input" is an array, it's
-length gives the input dimension, otherwise it is given by the length of "axes" for the coordinate system with
-the name of the "input".  If the value of "output" is an array, its length gives the output dimension,
+Input and output dimensionality may be determined by the value of the "input" and "output" fields, respectively. 
+If the value of "input" is an array, its shape gives the input dimension,
+otherwise it is given by the length of "axes" for the coordinate system with the name of the "input".
+If the value of "output" is an array, its shape gives the output dimension,
 otherwise it is given by the length of "axes" for the coordinate system with the name of the "output".
 
 ##### <a name="identity">identity</a>
