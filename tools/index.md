@@ -48,7 +48,7 @@ Various libraries for reading/writing OME-Zarr files in Python were evaluated as
 | Name    | Link | Description |
 | -------- | ------- | ------- |
 | ome-ngff-validator | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-ngff-validator) | Web page for validating OME-Zarr files. |
-| ome-zarr-models | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome-zarr-models/ome-zarr-models-py) | Python package and and command line interface that can validate OME-Zarr files |
+| ome-zarr-models | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome-zarr-models/ome-zarr-models-py) | Python package and command line interface that can validate OME-Zarr files |
 
 ## Other Tools and Libraries
 | Name    | Link | Description |
