@@ -41,7 +41,7 @@ Various libraries for reading/writing OME-Zarr files in Python were evaluated as
 | multiscale-spatial-image | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/spatial-image/multiscale-spatial-image) | Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-Zarr. |
 | ngff-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/thewtex/ngff-zarr) | A lean and kind Open Microscopy Environment (OME) Next Generation File Format (NGFF) Zarr implementation. |
 | ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. |
-
+| OMEZarrReader | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ZarrReader) | A plugin enabling the [Bio-Formats standalone Java library](https://github.com/ome/bioformats) to read and write OME-Zarr datasets. |
 
 ## Dataset Validation
 
