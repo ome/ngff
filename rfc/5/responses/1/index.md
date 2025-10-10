@@ -307,7 +307,11 @@ Yes. We have changed the spec, so that `"input": /path/to/volume/"` is the requi
  > What is the expectation for a conforming viewer when opening the top-level group? Should the viewer also open and display all the child images?
 
  This is an important and valid point to raise. The *in silico* behavior that comes to mind, is to open all present images along with their
- correct transformations as separate layers, which can be toggled on or off. The spec currently requires conforming readers to read scale and translation transformations, which has remained unchanged. However, readers/viewers are now recommended to output an informative warning if a transformation is encountered that cannot be parsed.
+ correct transformations as separate layers, which can be toggled on or off.
+ For more complex transformations, viewer could let users decide the coordinate system in which the data should be displayed,
+ which may provide useful views on the data for bijection transforms in the registration research field.
+ The spec currently requires conforming readers to read scale and translation transformations, which has remained unchanged.
+ However, readers/viewers are now recommended to output an informative warning if a transformation is encountered that cannot be parsed.
 
  > It seems like the top-level zarr group with "coordinate transformations describing the relationship between two image coordinate systems" introduces a 
  “Collection” of images. The discussion on adding support for Collection to the specification has been captured in Collections Specification but it has
