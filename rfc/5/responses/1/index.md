@@ -8,7 +8,8 @@ We have added many motivating examples for common use cases, but also for many e
 The metadata are mirrored as a versioned [zenodo repository](https://zenodo.org/records/17308336)
 
 As well, [we provide instructions](https://github.com/bogovicj/ngff-rfc5-coordinate-transformation-examples/blob/main/bigwarp/README.md) 
-for viewing these examples with BigWarp, a reference implementation. These examples will not be made a part of the specification repository but can still be accessed later as part of the RFC-process.
+for viewing these examples with BigWarp, a reference implementation.
+These examples will not be made a part of the specification repository but can still be accessed later as part of the RFC-process.
 
 ## Review 1
 
@@ -17,7 +18,10 @@ Daniel Toloudis, David Feng, Forrest Collman, and Nathalie Gaudreault at the All
 
 ### Axes metadata
 
-We agree that the issue raised here with respect to axis alignment and orientation is important and additional motivating examples would be helpful. However, until RFC-4 has officially been made a part of the spec we feel it would be out of scope to reference such examples in this RFC. We do think, though, that the suggested `coordinateSystems` group can provide the necessary structure to remove the ambiguity of orientation adressed in RFC4. An orientation field could easily be added there in the following manner:
+We agree that the issue raised here with respect to axis alignment and orientation is important and additional motivating examples would be helpful.
+However, until RFC-4 has officially been made a part of the spec we feel it would be out of scope to reference such examples in this RFC.
+We do think, though, that the suggested `coordinateSystems` group can provide the necessary structure to remove the ambiguity of orientation adressed in RFC4.
+An orientation field could easily be added there in the following manner:
 
 ```json
 {
@@ -58,7 +62,8 @@ that we hope continues.
 
 ### “Array” coordinate system
 
-Thank you for the feedback, we have edited this section with motivation and clarity. We hope that the edits along with motivating examples will help to make the applications for array coordinate systems clearer.
+Thank you for the feedback, we have edited this section with motivation and clarity.
+We hope that the edits along with motivating examples will help to make the applications for array coordinate systems clearer.
 
 ### Units
 
@@ -348,7 +353,8 @@ Some clarifying text under the `Array coordinate systems` section was added.
 > arrayCoordinateSystem specifying dimension names is now redundant with zarr v3 dimension names
 
 Good point, and I agree; but the zarr spec is more permissive than the ngff spec, specifically because it [allows null or duplicate `dimension_names`](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#dimension-names).
-As a result, we will need require adding additional constraints to the dimension names that they be unique and not null. This is currently a requirement for the [names of axes](https://ngff.openmicroscopy.org/0.5/index.html#axes-md)
+As a result, we will need require adding additional constraints to the dimension names that they be unique and not null.
+This is currently a requirement for the [names of axes](https://ngff.openmicroscopy.org/0.5/index.html#axes-md).
 
 > It is a bit unfortunate that coordinateTransforms now require that the input and output spaces be named for multiscale datasets,
 > where it was previously implicit, since (a) it is redundant and (b) it means existing multiscale metadata is no longer valid
@@ -372,8 +378,9 @@ and those outside the datasets (that were previously said to apply to all
 scale levels). Implementers were concerned that if the transformation
 corresponding to a particular coordinate system could be found anywhere,
 that there would be a large number of valid ways to describe the same set of
-coordinate systems and transformations (see the examples below). This would
-be an undue burden. We agreed with and shared this concern.
+coordinate systems and transformations.
+This would be an undue burden.
+We agreed with and shared this concern.
 
 As a result, a group of hackathon attendees agreed to a set of constraints
 that would decrease the burden on implementors, without reducing the
@@ -387,6 +394,6 @@ To summarize the constraints *inside* multiscales:
     * ususally an image's "native" physical coordinate system
 * There MUST be exactly one coordinate transformation per dataset in the multiscales whose output is the *default* coordinate system.
   This transformation SHOULD be simple (defined precisely in the spec).
-* Any other transformations belong outside the datasets (i.e., under `multiscales > coordinateTransformations`)
+* Any other transformations belong outside the `datasets` (i.e., under `multiscales > coordinateTransformations`)
     * the `input`s of these transformations MUST be the *default* coordinate system
     * the `output`s of these transformations are the other coordinate systems
