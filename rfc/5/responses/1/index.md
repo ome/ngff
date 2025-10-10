@@ -375,6 +375,10 @@ we agree in principle. However, we also see no harm in additional explicitness.
 
 ## Other 
 
+This section contains other changes to the specification following the reviews as well as other discussions
+
+### Multiscales constraints
+
 In conversations, at the OME community meeting and hackathon in April 2025,
 several attendees expressed confusion about how to specify situations with
 many coordinate systems, specifically when there exist more than one
@@ -405,3 +409,12 @@ To summarize the constraints *inside* multiscales:
 * Any other transformations belong outside the `datasets` (i.e., under `multiscales > coordinateTransformations`)
     * the `input`s of these transformations MUST be the *default* coordinate system
     * the `output`s of these transformations are the other coordinate systems
+
+### Preferred less expressive transforms
+
+Transformations are powerful and as written before, there are often many different ways to specify the same transform.
+For example, a sequence of a rotation and a translation can be combined into a single affine transform.
+This was [discussed on github](https://github.com/ome/ngff/issues/331).
+As a result of discussion, we recommend writers to use sequences of less expressive transforms
+(i.e. `sequence[rotation, translation]` instead of a single affine containing these) to ensure a level of simplicity for image readers.
+
