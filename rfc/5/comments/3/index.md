@@ -1,8 +1,6 @@
-# RFC-5: Review 3
+# RFC-5: Comment 3
 
-Replace the title above of this file with “RFC-NUM: Review NUM”
-
-## Review authors
+## Comment authors
 
 David Stansby
 
@@ -20,7 +18,7 @@ The axes are not referred to by name.
 Of the basic (not compound) transformations, this is true for "translation", "scale", "affine", "rotation", "coordinates", and "displacements".
 
 Other transformations operate on a set of axes addressed by their names.
-For exmaple, the metadata in "mapAxis" specifies a permutation of axes names, not a permutation of axes indices.
+For example, the metadata in "mapAxis" specifies a permutation of axes names, not a permutation of axes indices.
 Of the basic (not compound) transformations, this is true for "mapAxis" and "byDimension".
 
 These two different methods of addressing axes has resulted in confusion for us around how to implement a consistent interface for operating on points with each transformation.
@@ -35,7 +33,7 @@ This could be done by:
 - For "affine" and "rotation", adding "input_axes" which store a list of the axis name for each row in the affine matrix/rotation.
 - For "coordinates" and "displacements", requiring that the "dimension_names" metadata for the Zarr array is interpreted as the input axis names.
 
-### Do `input`/`ouput` fields specify a coordinate system name or a list of axes?
+### Do `input`/`output` fields specify a coordinate system name or a list of axes?
 
 As currently written the `input` and `output` metadata fields in most cases store coordinate system names.
 This is what is specified in the [Additional Details section](https://ngff.openmicroscopy.org/rfc/5/index.html#additional-details):
@@ -49,7 +47,7 @@ This is what is specified in the [Additional Details section](https://ngff.openm
 This divergence makes it hard to implement a consistent interface for parsing all coordinate transforms.
 It also means that `byDimension` cannot exist outside a context (e.g., a sequence transform) where the input and output coordinate systems must be defined.
 
-We recommend that `byDimension` instead has a consistent treatment of the `input`/`ouput` fields to store the input and output coordiante system names, and new fields (`input_axes`, `output_axes`) are added to specify the input/output axes.
+We recommend that `byDimension` instead has a consistent treatment of the `input`/`output` fields to store the input and output coordinate system names, and new fields (`input_axes`, `output_axes`) are added to specify the input/output axes.
 
 ### Redundancy of `inverseOf`
 
@@ -58,7 +56,7 @@ The divergence in definition of the `input`/`output` fields in `inverseOf` is a 
 
 ## Minor comments and questions
 
-- "byDimension" is missing from the [coordinate transformations metdata table](https://ngff.openmicroscopy.org/rfc/5/index.html#coordinatetransformations-metadata).
+- "byDimension" is missing from the [coordinate transformations metadata table](https://ngff.openmicroscopy.org/rfc/5/index.html#coordinatetransformations-metadata).
 - In the [sequence section](https://ngff.openmicroscopy.org/rfc/5/index.html#sequence) constraints on whether `input`/`output` must be specified are listed that apply to transformations other than "sequence". For clarity we recommend these constraints are moved to the relevant transformations in the RFC, or to their own distinct section.
 
 ## Recommendation
