@@ -123,8 +123,8 @@ This is possible by using **array coordinate systems**.
 
 Every array has a default coordinate system whose parameters need not be explicitly defined.
 The dimensionality of each array coordinate system equals the dimensionality of its corresponding zarr array.
-Its name is the path to the array in the container, its axes have `"type":"array"`, are unitless, and have default "name"s.
-The ith axis has `"name":"dim_i"` (these are the same default names used by [xarray](https://docs.xarray.dev/en/stable/user-guide/terminology.html)).
+Its name is the path to the array in the container, its axes have `"type":"array"`, are unitless, and have default `name`s.
+The i-th axis has `"name":"dim_i"` (these are the same default names used by [xarray](https://docs.xarray.dev/en/stable/user-guide/terminology.html)).
 The `dimension_names` must be unique and non-null.
 
 ````{admonition} Example
@@ -141,7 +141,7 @@ The `dimension_names` must be unique and non-null.
 ````
 
 The dimensionality of each array coordinate system equals the dimensionality of its corresponding zarr array.
-The axis with name `"dim_i"` is the ith element of the `"axes"` list.
+The axis with name `"dim_i"` is the i-th element of the `"axes"` list.
 The axes and their order align with the `shape` attribute in the zarr array attributes (in `.zarray`),
 and whose data depends on the byte order used to store chunks.
 As described in the [zarr array metadata](https://zarr.readthedocs.io/en/stable/spec/v2.html#arrays),
@@ -230,7 +230,7 @@ Conforming readers:
 
 Coordinate transformations can be stored in multiple places to reflect different usecases.
      
-- Multiscale transformations represent a special case of transformations and are explained [below](#multiscales-metadata)
+- Multiscale transformations represent a special case of transformations and are explained [below](#multiscales-metadata).
 - Additional transformations for single images MUST be stored in group-level attributes of the multiscales.
 - Transformations between two or more images MUST be stored in the attributes of a parent zarr group. For transformations that store data or parameters in a zarr array, those zarr arrays SHOULD be stored in a zarr group `"coordinateTransformations"`.
 
@@ -591,12 +591,12 @@ appropriate dimensionality.
 
 ### "multiscales" metadata
 
-Metadata about an image can be found under the "multiscales" key in the group-level OME-Zarr Metadata. Here, "image" refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes.
+Metadata about an image can be found under the `multiscales` key in the group-level OME-Zarr Metadata. Here, "image" refers to 2 to 5 dimensional data representing image or volumetric data with optional time or channel axes.
 It is stored in a multiple resolution representation.
 
-"multiscales" contains a list of dictionaries where each entry describes a multiscale image.
+`multiscales` contains a list of dictionaries where each entry describes a multiscale image.
 
-Each "multiscales" dictionary MUST contain the field "coordinateSystems", whose value is an array containing valid coordinate
+Each `multiscales` dictionary MUST contain the field "coordinateSystems", whose value is an array containing valid coordinate
 system metadata (see [coordinate systems](#coordinatesystems-metadata)). The last entry of this array is the "default" coordinate system and MUST contain
 transformations from array to physical coordinates. It should be used for viewing and processing unless a use case dictates
 otherwise. It will generally be a representation of the image in its native physical coordinate system. 
@@ -610,19 +610,21 @@ followed by the  "channel" or custom axis (if present) and the axes of type "spa
 correspond to the image plane ("yx") and images are stacked along the other (anisotropic) axis ("z"), the spatial axes SHOULD be
 ordered as "zyx".
 
-Each "multiscales" dictionary MUST contain the field "datasets", which is a list of dictionaries describing the arrays storing
-the individual resolution levels.  Each dictionary in "datasets" MUST contain the field "path", whose value is a string
-containing the path to the Zarr array for this resolution relative to the current Zarr group. The "path"s MUST be ordered from
-largest (i.e. highest resolution) to smallest.  Every Zarr array referred to by a "path" MUST have the same number of dimensions
-and MUST NOT have more than 5 dimensions.  The number of dimensions and order MUST correspond to number and order of "axes".
+Each `multiscales` dictionary MUST contain the field `dataset`,
+which is a list of dictionaries describing the arrays storing the individual resolution levels.
+Each dictionary in `dataset` MUST contain the field `path`,
+whose value is a string containing the path to the Zarr array for this resolution relative to the current Zarr group.
+The `path`s MUST be ordered from largest (i.e. highest resolution) to smallest.
+Every Zarr array referred to by a `path` MUST have the same number of dimensions and MUST NOT have more than 5 dimensions.
+The number of dimensions and order MUST correspond to number and order of `axes`.
 
-Each dictionary in "datasets" MUST contain the field "coordinateTransformations", whose value is a dictionary that defines a
-transformation that maps Zarr array coordinates for this resolution level to the default coordinate system (the last entry of
-the "coordinateSystems" array). The transformation is defined according to [transformations metadata](#transformation-types). 
-The transformation MUST take as input points in the array coordinate system corresponding to the Zarr array at location "path".
-The value of "input" SHOULD equal the value of "path", but implementations should always treat the value of "input"
-as if it were equal to the value of "path".
-The value of the transformation’s "output" MUST be the name of the default coordinate system.
+Each dictionary in `dataset` MUST contain the field `coordinateTransformations`,
+whose value is a dictionary that defines a transformation that maps Zarr array coordinates for this resolution level to the "default" coordinate system
+(the last entry of the `coordinateSystems` array).
+The transformation is defined according to [transformations metadata](#transformation-types).
+The transformation MUST take as input points in the array coordinate system corresponding to the Zarr array at location `path`.
+The value of "input" SHOULD equal the value of `path`, but implementations should always treat the value of `input` as if it were equal to the value of `path`.
+The value of the transformation’s `output` MUST be the name of the default coordinate system.
 
 This transformation MUST be one of the following:
 
@@ -634,13 +636,13 @@ not available or applicable for one of the axes, the value MUST express the scal
 the first resolution for the given axis, defaulting to 1.0 if there is no downsampling along the axis. This is strongly
 recommended so that the the "default" coordinate system of the image avoids more complex transformations.
 
-If applications require additional transformations, each "multiscales" dictionary MAY contain the field "coordinateTransformations",
+If applications require additional transformations, each `multiscales` dictionary MAY contain the field `coordinateTransformations`,
 describing transformations that are applied to all resolution levels in the same manner.
-The value of "input" SHOULD equal the name of the "default" coordinate system.
+The value of `input` SHOULD equal the name of the "default" coordinate system.
 
-Each "multiscales" dictionary SHOULD contain the field "name".
+Each `multiscales` dictionary SHOULD contain the field `name`.
 
-Each "multiscales" dictionary SHOULD contain the field "type", which gives the type of downscaling method used to generate the multiscale image pyramid.
+Each `multiscales` dictionary SHOULD contain the field `type`, which gives the type of downscaling method used to generate the multiscale image pyramid.
 It SHOULD contain the field "metadata", which contains a dictionary with additional information about the downscaling method.
 
 ````{admonition} Example
