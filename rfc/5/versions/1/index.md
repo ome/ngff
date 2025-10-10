@@ -618,7 +618,7 @@ The `path`s MUST be ordered from largest (i.e. highest resolution) to smallest.
 Every Zarr array referred to by a `path` MUST have the same number of dimensions and MUST NOT have more than 5 dimensions.
 The number of dimensions and order MUST correspond to number and order of `axes`.
 
-Each dictionary in `dataset` MUST contain the field `coordinateTransformations`,
+Each dictionary in `datasets` MUST contain the field `coordinateTransformations`,
 whose value is a dictionary that defines a transformation that maps Zarr array coordinates for this resolution level to the "default" coordinate system
 (the last entry of the `coordinateSystems` array).
 The transformation is defined according to [transformations metadata](#transformation-types).
