@@ -370,13 +370,13 @@ implementations MAY estimate an inverse, or MAY output a warning that the reques
 
 #### Matrix transformations
 
-Two transformation types ([affine](#affine) and [rotation](#rotation)) are parametrized by matrices.  Matrices are applied to
-column vectors that represent points in the input coordinate system. The first (last) axis in a coordinate system is the top
-(bottom) entry in the column vector. Matrices are stored as two-dimensional arrays, either as json or in a zarr array. When
-stored as a 2D zarr array, the first dimension indexes rows and the second dimension indexes columns (e.g., an array of
-`"shape":[3,4]` has 3 rows and 4 columns). When stored as a 2D json array, the inner array contains rows (e.g. `[[1,2,3],
-[4,5,6]]` has 2 rows and 3 columns).
-
+Two transformation types ([affine](#affine) and [rotation](#rotation)) are parametrized by matrices.
+Matrices are applied to column vectors that represent points in the input coordinate system.
+The first and last axes in a coordinate system correspond to the top and bottom entries in the column vector, respectively.
+Matrices are stored as two-dimensional arrays, either as json or in a zarr array.
+When stored as a 2D zarr array, the first dimension indexes rows and the second dimension indexes columns
+(e.g., an array of `"shape":[3,4]` has 3 rows and 4 columns).
+When stored as a 2D json array, the inner array contains rows (e.g. `[[1,2,3], [4,5,6]]` has 2 rows and 3 columns).
 
 #### Transformation types
 
