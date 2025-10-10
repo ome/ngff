@@ -5,8 +5,7 @@ The authors extend their most sincere thanks and appreciation to all the reviewe
 ## General comments
 
 We have added many motivating examples for common use cases, but also for many edge-cases.
-These examples can be found on `s3://ngff-rfc5-coordinate-transformation-examples/`.
-The metadata are also mirrored as versioned [github repository](https://github.com/bogovicj/ngff-rfc5-coordinate-transformation-examples)
+The metadata are mirrored as a versioned [zenodo repository](https://zenodo.org/records/17308336)
 
 As well, [we provide instructions](https://github.com/bogovicj/ngff-rfc5-coordinate-transformation-examples/blob/main/bigwarp/README.md) 
 for viewing these examples with BigWarp, a reference implementation. These examples will not be made a part of the specification repository but can still be accessed later as part of the RFC-process.
