@@ -295,7 +295,6 @@ We therefore added that the `input` of a `coordinateTransformation` entry in the
 
 Yes, although they do so implictly.
 If a `coordinateTransformation` in the parent-level group refers to child images through its `input`/`output` fields, the authoritiative coordinate transformation of the linked (multiscales) image is the *first* `coordinateSystem` therein.
-The first `coordinateSystem` therein is authoritiative for the image.
 This formalism also provides enough distinction from an image's "default" (aka "physical") coordinate system,
 which is the *last* `coordinateSystem` inside the image. 
 If no additional `coordinateTransformations` are defined under `multiscales > coordinateTransformations`, only one `coordinateSystem` needs to be defined in the multiscales.
