@@ -638,7 +638,8 @@ recommended so that the the "default" coordinate system of the image avoids more
 
 If applications require additional transformations, each `multiscales` dictionary MAY contain the field `coordinateTransformations`,
 describing transformations that are applied to all resolution levels in the same manner.
-The value of `input` SHOULD equal the name of the "default" coordinate system.
+The value of `input` MUST equal the name of the "default" coordinate system.
+The value of `output` MUST be the name of the output coordinate System which is different from the "default" coordinate system.
 
 Each `multiscales` dictionary SHOULD contain the field `name`.
 
