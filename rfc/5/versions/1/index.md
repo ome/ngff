@@ -610,9 +610,9 @@ followed by the  "channel" or custom axis (if present) and the axes of type "spa
 correspond to the image plane ("yx") and images are stacked along the other (anisotropic) axis ("z"), the spatial axes SHOULD be
 ordered as "zyx".
 
-Each `multiscales` dictionary MUST contain the field `dataset`,
+Each `multiscales` dictionary MUST contain the field `datasets`,
 which is a list of dictionaries describing the arrays storing the individual resolution levels.
-Each dictionary in `dataset` MUST contain the field `path`,
+Each dictionary in `datasets` MUST contain the field `path`,
 whose value is a string containing the path to the Zarr array for this resolution relative to the current Zarr group.
 The `path`s MUST be ordered from largest (i.e. highest resolution) to smallest.
 Every Zarr array referred to by a `path` MUST have the same number of dimensions and MUST NOT have more than 5 dimensions.
