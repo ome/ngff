@@ -321,8 +321,10 @@ The image under `root/sampleA_instrument2` would have this as the first listed c
 
 #### Additional details
 
-Most coordinate transformations MUST specify their input and output coordinate systems using `input` and `output` with a string value.
-Exceptions are if the the coordinate transformation appears in the `transformations` list of a `sequence` or is the `transformation` of an `inverseOf` transformation.
+Most coordinate transformations MUST specify their input and output coordinate systems
+using `input` and `output` with a string value that MUST correspond to the name of a coordinate system or the path to a multiscales group.
+Exceptions are if the the coordinate transformation appears in the `transformations` list of a `sequence`
+or is the `transformation` of an `inverseOf` transformation.
 In these two cases input and output could, in some cases, be omitted (see below for details).
 
 If used in a parent-level zarr-group, the `input` field MUST be a path to the input image. 
