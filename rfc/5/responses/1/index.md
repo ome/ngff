@@ -319,9 +319,14 @@ Yes. We have changed the spec, so that `"input": /path/to/volume/"` is the requi
  > 
  > Are you also proposing to introduce support for Collection as part of this RFC? In our opinion, this is probably out of scope at this stage, but an example might clarify the importance in the authors’ view.
 
- It is true that storing several images under the same root-store as proposed here, resembles the proposed [Collections](https://github.com/ome/ngff/issues/31). However, the spatial relationship between images in a root zarr provides a distinctively meaningful kind of collections of images, namely their spatial relationship. Other solutions like storing images with spatial relationships into separate files along with references to each other come at the risk of putting the spatial reationship at the mercy of tidy file management. With this proposal, we seek a self-contained solution to spatial relationships, which require storage in a common location. 
-
+It is true that storing several images under the same root-store as proposed here, resembles the proposed [Collections](https://github.com/ome/ngff/issues/31).
+However, the spatial relationship between images in a root zarr provides a distinctively meaningful kind of collections of images, namely their spatial relationship.
+Other solutions like storing images with spatial relationships into separate files along with references to each other come at the risk of putting the spatial reationship at the mercy of tidy file management.
+With this proposal, we seek a self-contained solution to spatial relationships, which require storage in a common location. 
 Moreover, while images with coordinate transforms in a root zarr provide a kind of collection, they don't do so more than a multiscale, a plate or a well object does.
+
+In the future, we envision the transformations metadata to be moved under the `attributes` key of a `Collection` metadata field.
+A collection of images bound to each other by spatial relationship would then become merely a particular type of a Collection.
 
 
 ### Implementation section
