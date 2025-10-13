@@ -4,7 +4,7 @@ Data Resources
 | Catalog                                                                  | Hosting                                              | Zarr Files   | Size     |
 | ------------------------------------------------------------------------ | -----------------------------------------------------| ------------ | -------- |
 | [BIA Samples](https://bit.ly/bia-ome-ngff-samples)                       | EBI                                                  | 90           | 200 GB   |
-| [CryoET Data Portal](https://cryoetdataportal.czscience.com))            | AWS Open Data Program                                | 37585        | 70 TB    |
+| [CryoET Data Portal](https://cryoetdataportal.czscience.com)             | AWS Open Data Program                                | 37585        | 70 TB    |
 | [Cell Painting Gallery](https://github.com/broadinstitute/cellpainting-gallery) | AWS Open Data Program                         | 136          | 20 TB    |
 | [CZB-Zebrahub](https://zebrahub.ds.czbiohub.org/imaging)                 | czbiohub                                             | 5            | 1.2 TB   |
 | [DANDI](https://dandiarchive.org/dandiset/000108) ([identifiers.org][dandi2],[github][dandi3]) | AWS Open Data Program          | 3914         | 355 TB   |
