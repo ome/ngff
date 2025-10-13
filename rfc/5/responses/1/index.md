@@ -372,6 +372,48 @@ To our knowledge, every version in the past introduced breaking changes to the s
 of newer version could not be read anymore. As for the redundancy of specifiying input- and output-spaces in multiscales transformations,
 we agree in principle. However, we also see no harm in additional explicitness.
 
+## Comment-3
+
+Thank you for the additional comments in inquiries to this rfc.
+
+> In our opinion, it is clearer to interpret the transformation metadata when it refers explicitly to axes names instead of indices, so we recommend adapting “translation”, “scale”, “affine”, “rotation”, “coordinates”, and “displacements”.
+
+It is true that there is some inconsistency regarding how transformation parameters are specified with regard to the different axes of the coordinate systems.
+The decision to express the mentioned transforms (`mapAxis` and `byDimension`) originated from discussions at the previous ngff Hackathon,
+which we regret aren't reflect in this rfc process. 
+
+Regarding expressing all transformations by named reference to the express,
+we decided against this as it would require additinal sets of constraints for the axes ordering of the `input_axes` and `output_axes` fields for matrix transformations.
+For example, the same rotation matrix could be expressed with different axis ordering,
+which would correspond to a reordering of the column/row vectors of the corresponding transformation matrix.
+Simply referring to the axes ordering specified in the `coordinateSystems` seemed like a simple solution for this.
+
+This is not to say that we do not see merrit in introducing the proposed axis ordering in 0.6dev3 if there is sufficient consensus in the community about it.
+
+> [...] We recommend that `byDimension` instead has a consistent treatment of the input/output fields to store the input and output coordinate system names, and new fields (input_axes, output_axes) are added to specify the input/output axes.
+
+TODO
+
+> It is not clear what inverseOf achieves, that can’t be achieved by defining the same transformation but simply swapping the values of the input and output coordinate system names. [...]
+
+We agree on the fact that this may seem confusing at first, and it reflects a common confusion regarding the directionality of transformations.
+In this rfc5, we set the important constraint that transformations are to be written down in their *forward direction*.
+However, many registration tools (noteably, [elastix](https://elastix.dev/index.php)),
+specify derived transformations for a given moving and a fixed image in the *opposite* direction (from fixed to moving image)
+to be able to restrict the sampling process to the relevant sample locations in the target image's domain (see section 2.6 "Transforms", [elastix manual](https://elastix.dev/doxygen/index.html)).
+To alleviate this inconsistency, we introduced the `inverseOf` transformation.
+This allows to store such inverse-under-the-hood transformations as forward transformations while informing implementations how to treat them.
+Alternatively, users could be instructed to use registration tools like the aforementioned in a backward sense (see elastix manual, section 6.1.6, inverting transforms).
+However, we feel like this would introduce requirements that lie out of scope for this rfc (and of the specification, respectively).
+
+> In the sequence section constraints on whether input/output must be specified are listed that apply to transformations other than “sequence”.
+> For clarity we recommend these constraints are moved to the relevant transformations in the RFC, or to their own distinct section.
+
+Thank you for the suggestion, it was changed accordingly. We also realized that the `sequence` setion previously permitted nested sequences.
+This possibility was removed to avoid complex, nested transformations.
+
+
+
 
 ## Other 
 

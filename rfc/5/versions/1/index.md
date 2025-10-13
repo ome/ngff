@@ -386,17 +386,19 @@ When stored as a 2D json array, the inner array contains rows (e.g. `[[1,2,3], [
 
 #### Transformation types
 
-Input and output dimensionality may be determined by the value of the "input" and "output" fields, respectively. 
-If the value of "input" is an array, its shape gives the input dimension,
-otherwise it is given by the length of "axes" for the coordinate system with the name of the "input".
-If the value of "output" is an array, its shape gives the output dimension,
-otherwise it is given by the length of "axes" for the coordinate system with the name of the "output".
+Input and output dimensionality may be determined by the value of the `input` and `output` fields, respectively. 
+If the value of `input` is an array, its shape gives the input dimension,
+otherwise it is given by the length of `axes` for the coordinate system with the name of the `input`.
+If the value of `output` is an array, its shape gives the output dimension,
+otherwise it is given by the length of `axes` for the coordinate system with the name of the `output`.
 
 ##### <a name="identity">identity</a>
 
 `identity` transformations map input coordinates to output coordinates without modification. The position of
 the ith axis of the output coordinate system is set to the position of the ith axis of the input coordinate
 system. `identity` transformations are invertible.
+
+The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
 
 
 ##### <a name="mapAxis">mapAxis</a>
@@ -407,6 +409,8 @@ of the output coordinate for axis "x" to the value of the coordinate of input ax
 system, the `mapAxis` MUST have a corresponding field. For every value of the object there MUST be an axis of the input
 coordinate system with that name. Note that the order of the keys could be reversed.
 
+The `input` and `output` fields MUST always be included for this transformations type.
+
 
 ##### <a name="translation">translation</a>
 
@@ -414,6 +418,8 @@ coordinate system with that name. Note that the order of the keys could be rever
 translation transformation should be preferred to its equivalent affine. Input and output dimensionality MUST be
 identical and MUST equal the the length of the "translation" array (N). `translation` transformations are
 invertible.
+
+The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
 
 <strong>path</strong>
 : The path to a zarr-array containing the translation parameters. The array at this path MUST be 1D, and its length MUST be `N`.
@@ -429,6 +435,8 @@ SHOULD be preferred to its equivalent affine. Input and output dimensionality MU
 the the length of the "scale" array (N). Values in the `scale` array SHOULD be non-zero; in that case, `scale`
 transformations are invertible.
 
+The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
+
 <strong>path</strong>
 : The path to a zarr-array containing the scale parameters. The array at this path MUST be 1D, and its length MUST be `N`.
 
@@ -443,12 +451,13 @@ represented as the upper `(M)x(N+1)` sub-matrix of a `(M+1)x(N+1)` matrix in [ho
 coordinates](https://en.wikipedia.org/wiki/Homogeneous_coordinates) (see examples). This transformation type may be (but is not necessarily)
 invertible when `N` equals `M`.  The matrix MUST be stored as a 2D array either as json or as a zarr array.
 
+The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
+
 <strong>path</strong>
 :  The path to a zarr-array containing the affine parameters. The array at this path MUST be 2D whose shape MUST be `(M)x(N+1)`.
 
 <strong>affine</strong>
 : The affine parameters stored in JSON. The matrix MUST be stored as 2D nested array where the outer array MUST be length `M` and the inner arrays MUST be length `N+1`.
-
 
 ##### <a name="rotation">rotation</a>
 
@@ -456,6 +465,8 @@ invertible when `N` equals `M`.  The matrix MUST be stored as a 2D array either 
 transformation SHOULD be preferred to its equivalent affine. Input and output dimensionality (N) MUST be identical. Rotations
 are stored as `NxN` matrices, see below, and MUST have determinant equal to one, with orthonormal rows and columns. The matrix
 MUST be stored as a 2D array either as json or in a zarr array. `rotation` transformations are invertible.
+
+The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
 
 <strong>path</strong>
 : The path to an array containing the affine parameters. The array at this path MUST be 2D whose shape MUST be `N x N`.
@@ -470,6 +481,8 @@ An `inverseOf` transformation contains another transformation (often non-linear)
 transforming points from output to input coordinate systems is possible using the contained transformation.
 Transforming points from the input to the output coordinate systems requires the inverse of the contained
 transformation (if it exists).
+
+The `input` and `output` fields MAY be omitted for `inverseOf` transformations if those fields may be omitted for the transformation it wraps.
 
 ```{note}
 Software libraries that perform image registration often return the transformation from fixed image
@@ -488,20 +501,8 @@ to a point in the input coordinate system, apply the first transformation in the
 transformation to the result. Repeat until every transformation has been applied. The output of the last transformation is the
 result of the sequence.
 
-The transformations included in the `transformations` array may omit their `input` and `output` fields under the conditions
-outlined below:
-
-- The `input` and `output` fields MAY be omitted for the following transformation types: 
-    - `identity`, `scale`, `translation`, `rotation`, `affine`, `displacements`, `coordinates`
-- The `input` and `output` fields MAY be omitted for `inverseOf` transformations if those fields may be omitted for the
-    transformation it wraps
-- The `input` and `output` fields MAY be omitted for `bijection` transformations if the fields may be omitted for 
-    both its `forward` and `inverse` transformations
-- The `input` and `output` fields MAY be omitted for `sequence` transformations if the fields may be omitted for
-    all transformations in the sequence after flattening the nested sequence lists.
-- The `input` and `output` fields MUST be included for transformations of type: `mapAxis`, and `byDimension` (see the note
-    below), and under all other conditions.
-
+A sequence transformation MUST NOT be part of another sequence transformation.
+The `input` and `output` fields MUST be included for sequence transformations.
 
 <strong>transformations</strong>
 : A non-empty array of transformations.
@@ -518,6 +519,8 @@ displacement of the input point (`displacements`).
 These transformation types refer to an array at location specified by the `"path"` parameter.  The input and output coordinate
 systems for these transformations ("input / output coordinate systems") constrain the array size and the coordinate system
 metadata for the array ("field coordinate system").
+
+The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
 
 * If the input coordinate system has `N` axes, the array at location path MUST have `N+1` dimensions
 * The field coordinate system MUST contain an axis identical to every axis of its input coordinate system in the same order.
@@ -569,6 +572,7 @@ For `displacements`:
 
 `byDimension` transformations build a high dimensional transformation using lower dimensional transformations
 on subsets of dimensions.
+The `input` and `output` fields MUST always be included for this transformations type.
 
 <dl>
   <dt><strong>transformations</strong></dt>
@@ -590,6 +594,8 @@ and inverse transformations MUST match bijection's input and output space dimens
 `input` and `output` fields MAY be omitted for the `forward` and `inverse` transformations, in which case
 the `forward` transformation's `input` and `output` are understood to match the bijection's, and the `inverse`
 transformation's `input` (`output`) matches the bijection's `output` (`input`), see the example below.
+
+The `input` and `output` fields MAY be omitted for `bijection` transformations if the fields may be omitted for both its `forward` and `inverse` transformations
 
 Practically, non-invertible transformations have finite extents, so bijection transforms should only be expected
 to be correct / consistent for points that fall within those extents. It may not be correct for any point of
@@ -728,8 +734,6 @@ A complete example of json-file for a 5D (TCZYX) multiscales with 3 resolution l
 }
 ```
 ````
-
-
 
 If only one multiscale is provided, use it. Otherwise, the user can choose by
 name, using the first multiscale as a fallback:
