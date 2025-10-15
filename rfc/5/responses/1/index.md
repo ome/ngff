@@ -386,8 +386,9 @@ Thank you for the additional comments in inquiries to this rfc.
 > In our opinion, it is clearer to interpret the transformation metadata when it refers explicitly to axes names instead of indices, so we recommend adapting “translation”, “scale”, “affine”, “rotation”, “coordinates”, and “displacements”.
 
 It is true that there is some inconsistency regarding how transformation parameters are specified with regard to the different axes of the coordinate systems.
-The decision to express the mentioned transforms (`mapAxis` and `byDimension`) originated from discussions at the previous ngff Hackathon,
+The decision to express the mentioned transforms (`mapAxis` and `byDimension`) originated from discussions at previous hackathons,
 which we regret aren't reflect in this rfc process. 
+We have changed the `mapAxis` transformation towards being expressed as a transpose vector of integers that refer to the axis orderings of the inut coordinate system.
 
 we decided against this as it would require additinal sets of constraints for the axes ordering of the `input_axes` and `output_axes` fields for matrix transformations.
 For example, the same rotation matrix could be expressed with different axis ordering,

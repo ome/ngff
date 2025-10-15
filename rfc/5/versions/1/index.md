@@ -176,52 +176,21 @@ They represent functions from *points* in the input space to *points* in the out
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
 
 The following transformations are supported:
-<table>
-  <tr><th><code>identity</code>
-    <td> 
-    <td>The identity transformation is the default transformation and is typically not explicitly defined.
-  <tr><th><code>mapAxis</code>
-    <td><code>"mapAxis":Dict[String:String]</code>
-    <td> A <code>maxAxis</code> transformation specifies an axis permutation as a map between axis names.
-  <tr><th><code>translation</code>
-    <td> one of: <br><code>"translation":List[number]</code>, <br><code>"path":str</code>
-    <td>translation vector, stored either as a list of numbers (<code>"translation"</code>) or as binary data at a location
-    in this container (<code>path</code>).
-  <tr><th><code>scale</code>
-    <td> one of: <br><code>"scale":List[number]</code>, <br><code>"path":str</code>
-    <td>scale vector, stored either as a list of numbers (<code>scale</code>) or as binary data at a location in this
-    container (<code>path</code>).
-  <tr><th><code>affine</code>
-    <td> one of: <br><code>"affine": List[List[number]]</code>, <br><code>"path":str</code>
-    <td>affine transformation matrix stored as a flat array stored either with json uing the affine field
-    or as binary data at a location in this container (path). If both are present, the binary values at path should be used.
-  <tr><th><code>rotation</code>
-    <td> one of: <br><code>"rotation":List[List[number]]</code>, <br><code>"path":str</code>
-    <td>rotation transformation matrix stored as an array stored either
-        with json or as binary data at a location in this container (path).
-        If both are present, the binary parameters at path are used.
-  <tr><th><code>sequence</code>
-    <td> <code>"transformations":List[Transformation]</code>
-    <td>A sequence of transformations, Applying the sequence applies the composition of all transforms in the list, in order.
-  <tr><th><code>displacements</code>
-    <td><code>"path":str</code><br><code>"interpolation":str</code>
-    <td>Displacement field transformation located at (path).
-  <tr><th><code>coordinates</code>
-    <td><code>"path":str</code><br><code>"interpolation":str</code>
-    <td>Coordinate field transformation located at (path).
-  <tr><th><code>inverseOf</code>
-    <td><code>"transform":Transform</code>
-    <td>The inverse of a transformation. Useful if a transform is not closed-form invertible. See Forward and inverse for details and examples.
-  <tr><th><code>bijection</code>
-    <td><code>"forward":Transform</code><br><code>"inverse":Transform</code>
-    <td>Explicitly define an invertible transformation by providing a forward transformation and its inverse.
-  <tr><th><code>byDimension</code>
-    <td><code>"transformations":List[Transformation]</code>
-    <td>Define a high dimensional transformation using lower dimensional transformations on subsets of
-    dimensions.
- <thead>
-   <tr><th>type<th>fields<th>description
-</table>
+
+| Type | Fields | Description |
+|------|--------|-------------|
+| `identity` | | The identity transformation is the default transformation and is typically not explicitly defined. |
+| `mapAxis` | `"mapAxis":List[number]` | A `mapAxis` transformation specifies an axis permutation as a transpose array of integer indices that refer to the ordering of the axes in the respective coordinate system. |
+| `translation` | one of:<br>`"translation":List[number]`,<br>`"path":str` | translation vector, stored either as a list of numbers (`"translation"`) or as binary data at a location in this container (`path`). |
+| `scale` | one of:<br>`"scale":List[number]`,<br>`"path":str` | scale vector, stored either as a list of numbers (`scale`) or as binary data at a location in this container (`path`). |
+| `affine` | one of:<br>`"affine": List[List[number]]`,<br>`"path":str` | affine transformation matrix stored as a flat array stored either with json using the affine field or as binary data at a location in this container (path). If both are present, the binary values at path should be used. |
+| `rotation` | one of:<br>`"rotation":List[List[number]]`,<br>`"path":str` | rotation transformation matrix stored as an array stored either with json or as binary data at a location in this container (path). If both are present, the binary parameters at path are used. |
+| `sequence` | `"transformations":List[Transformation]` | A sequence of transformations, Applying the sequence applies the composition of all transforms in the list, in order. |
+| `displacements` | `"path":str`<br>`"interpolation":str` | Displacement field transformation located at (path). |
+| `coordinates` | `"path":str`<br>`"interpolation":str` | Coordinate field transformation located at (path). |
+| `inverseOf` | `"transform":Transform` | The inverse of a transformation. Useful if a transform is not closed-form invertible. See Forward and inverse for details and examples. |
+| `bijection` | `"forward":Transform`<br>`"inverse":Transform` | Explicitly define an invertible transformation by providing a forward transformation and its inverse. |
+| `byDimension` | `"transformations":List[Transformation]` | Define a high dimensional transformation using lower dimensional transformations on subsets of dimensions. |
 
 Conforming readers:
 - MUST parse `identity`, `scale`, `translation` transformations;
@@ -403,13 +372,15 @@ The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequen
 
 ##### <a name="mapAxis">mapAxis</a>
 
-`mapAxis` transformations describe axis permutations as a mapping of axis names. Transformations MUST include a `mapAxis` field
-whose value is an object, all of whose values are strings. If the object contains `"x":"i"`, then the transform sets the value 
-of the output coordinate for axis "x" to the value of the coordinate of input axis "i" (think `x = i`). For every axis in its output coordinate
-system, the `mapAxis` MUST have a corresponding field. For every value of the object there MUST be an axis of the input
-coordinate system with that name. Note that the order of the keys could be reversed.
+`mapAxis` transformations describe axis permutations as a transpose vector of integers.
+Transformations MUST include a `mapAxis` field whose value is an array of integers that specifies the new ordering in terms of indices of the old order.
+The length of the array MUST equal the number of dimensions in both the input and output coordinate systems.
+Each integer in the array MUST be a valid zero-based index into the input coordinate system's axes
+(i.e., between 0 and N-1 for an N-dimensional input).
+Each index MUST appear exactly once in the array.
+The value at position `i` in the array indicates which input axis becomes the `i`-th output axis.
 
-The `input` and `output` fields MUST always be included for this transformations type.
+The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
 
 
 ##### <a name="translation">translation</a>
