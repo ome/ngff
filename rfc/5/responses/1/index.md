@@ -496,3 +496,10 @@ This was [discussed on github](https://github.com/ome/ngff/issues/331).
 As a result of discussion, we recommend writers to use sequences of less expressive transforms
 (i.e. `sequence[rotation, translation]` instead of a single affine containing these) to ensure a level of simplicity for image readers.
 
+### Parameter storage
+
+We are aware of and appreciate the in-depth discussion around the nature, fidelity and efficiency of using zarr-arrays for parameter storage.
+Hence, we would like to express our gratitude to all participants for valuable insights and pointing out the different technical, legal and other aspects to this topic.
+Future versions of this rfc may evolve towards a recommendation on parameter storage as the community discussion develops.
+We are looking forward to further discussion about this topic. 
+We welcome and invite contributors to engage by writing a review or comment to this rfc.
