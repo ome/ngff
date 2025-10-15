@@ -399,7 +399,37 @@ This is not to say that we do not see merrit in introducing the proposed axis or
 
 > [...] We recommend that `byDimension` instead has a consistent treatment of the input/output fields to store the input and output coordinate system names, and new fields (input_axes, output_axes) are added to specify the input/output axes.
 
-TODO
+We agree with the raised recommendation
+We have added the fields `input_axes` and `output_axes` to the `by_dimension` transformation.
+This harmonizes the interface of the transformations across all transformations.
+
+However, we specify that the fields `input_axes` and `output_axes` need to be present for all *wrapped* transformations instead of the parent `byDimension` transformation.
+Otherwise, allowing `byDimension` to wrap a list of transformations would require complicated mappings to subsets of coordinate systems.
+The proposed format offers a clear interface, which allows transformations to be written as follows:
+
+```` {admonition} Example
+```json
+{
+  "type": "byDimension",
+  "input": "high_dimensional_coordinatesystem_A",
+  "output": "high_dimensional_coordinatesystem_B", 
+  "transformations": [
+    {
+      "type": "scale",
+      "input_axes": ["x", "y"],
+      "output_axes": ["x", "y"],
+      "scale": [0.5, 0.5]
+    },
+    {
+      "type": "translation", 
+      "input_axes": ["z"],
+      "output_axes": ["z"],
+      "translation": [10.0]
+    }
+  ]
+}
+```
+````
 
 > It is not clear what inverseOf achieves, that can’t be achieved by defining the same transformation but simply swapping the values of the input and output coordinate system names. [...]
 

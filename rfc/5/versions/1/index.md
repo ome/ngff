@@ -190,7 +190,7 @@ The following transformations are supported:
 | `coordinates` | `"path":str`<br>`"interpolation":str` | Coordinate field transformation located at (path). |
 | `inverseOf` | `"transform":Transform` | The inverse of a transformation. Useful if a transform is not closed-form invertible. See Forward and inverse for details and examples. |
 | `bijection` | `"forward":Transform`<br>`"inverse":Transform` | Explicitly define an invertible transformation by providing a forward transformation and its inverse. |
-| `byDimension` | `"transformations":List[Transformation]` | Define a high dimensional transformation using lower dimensional transformations on subsets of dimensions. |
+| `byDimension` | `"transformations":List[Transformation]`, <br> `"input_axes": List[str]`, <br> `"output_axes": List[str]` | Define a high dimensional transformation using lower dimensional transformations on subsets of dimensions. |
 
 Conforming readers:
 - MUST parse `identity`, `scale`, `translation` transformations;
@@ -547,13 +547,12 @@ The `input` and `output` fields MUST always be included for this transformations
 
 <dl>
   <dt><strong>transformations</strong></dt>
-  <dd>  A list of transformations, each of which applies to a (non-strict) subset of input and output dimensions (axes). 
-        The values of <code>input</code> and <code>output</code> fields MUST be an array of strings.
-        Every axis name in <code>input</code> MUST correspond to a name of some axis in this parent object's <code>input</code> coordinate system.
-        Every axis name in the parent byDimension's <code>output</code> MUST appear in exactly one of its child transformations' <code>output</code>.
+  <dd>  Each child transformation MUST contain <code>input_axes</code> and <code>output_axes</code> fields whose values are arrays of strings.
+        Every axis name in a child transformation's <code>input_axes</code> MUST correspond to a name of some axis in this parent object's <code>input</code> coordinate system.
+        Every axis name in the parent byDimension's <code>output</code> coordinate system MUST appear in exactly one child transformation's <code>output_axes</code> array.
+        Each child transformation's <code>input_axes</code> and <code>output_axes</code> arrays MUST have the same length as that transformation's parameter arrays.
         </dd>
 </dl>
-
 
 ##### <a name="bijection">bijection</a>
 
