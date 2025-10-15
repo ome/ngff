@@ -162,73 +162,74 @@ One may wish to attach the affine transformation to the multiscales itself, with
 The `multiscales` metadata contains this:
 ```json
 {
-    "multiscales": [{
-        "version": "0.5-dev",
-        "name": "example",
-        "coordinateSystems" : [
-            {
-            "name" : "deskewed",
-            "axes": [
-                {"name": "z", "type": "space", "unit": "micrometer"},
-                {"name": "y", "type": "space", "unit": "micrometer"},
-                {"name": "x", "type": "space", "unit": "micrometer"}
-                ]
-            },
-            {
-            "name" : "physical",
-            "axes": [
-                {"name": "z", "type": "space", "unit": "micrometer"},
-                {"name": "y", "type": "space", "unit": "micrometer"},
-                {"name": "x", "type": "space", "unit": "micrometer"}
-                ]
-            }
-        ],
-        "datasets": [
-            {
-                "path": "0",
-                // the transformation of other arrays are defined relative to this, the highest resolution, array
-                "coordinateTransformations": [{
-                    "type": "identity",
-                    "input": "/0",
-                    "output": "physical"
-                }]
-            },
-            {
-                "path": "1",
-                "coordinateTransformations": [{
-                    // the second scale level (downscaled by a factor of 2 relative to "0" in zyx)
-                    "type": "scale",
-                    "scale": [2, 2, 2],
-                    "input" : "/1",
-                    "output" : "physical"
-                }]
-            },
-            {
-                "path": "2",
-                "coordinateTransformations": [{
-                    // the third scale level (downscaled by a factor of 4 relative to "0" in zyx)
-                    "type": "scale",
-                    "scale": [4, 4, 4],
-                    "input" : "/2",
-                    "output" : "physical"
-                }]
-            }
-        ],
-        },
-        "coordinateTransformations": [
-            {
-                "type": "affine",
-                "name": "deskew-transformation",
-                "input": "physical",
-                "output": "deskewed",
-                "affine": [
-                    [1, 0, 0, 0],
-                    [0, 1, 0, 0],
-                    [0, 0.785, 1, 0],
-                    [0, 0, 0, 1]
-                ]
-            }
-        ]
+    "multiscales": [
+        {
+            "version": "0.6dev2",
+            "name": "example",
+            "coordinateSystems": [
+                {
+                    "name": "deskewed",
+                    "axes": [
+                        {"name": "z", "type": "space", "unit": "micrometer"},
+                        {"name": "y", "type": "space", "unit": "micrometer"},
+                        {"name": "x", "type": "space", "unit": "micrometer"}
+                    ]
+                },
+                {
+                    "name": "physical",
+                    "axes": [
+                        {"name": "z", "type": "space", "unit": "micrometer"},
+                        {"name": "y", "type": "space", "unit": "micrometer"},
+                        {"name": "x", "type": "space", "unit": "micrometer"}
+                    ]
+                }
+            ],
+            "datasets": [
+                {
+                    "path": "0",
+                    // the transformation of other arrays are defined relative to this, the highest resolution, array
+                    "coordinateTransformations": [{
+                        "type": "identity",
+                        "input": "0",
+                        "output": "physical"
+                    }]
+                },
+                {
+                    "path": "1",
+                    "coordinateTransformations": [{
+                        // the second scale level (downscaled by a factor of 2 relative to "0" in zyx)
+                        "type": "scale",
+                        "scale": [2, 2, 2],
+                        "input": "1",
+                        "output": "physical"
+                    }]
+                },
+                {
+                    "path": "2",
+                    "coordinateTransformations": [{
+                        // the third scale level (downscaled by a factor of 4 relative to "0" in zyx)
+                        "type": "scale",
+                        "scale": [4, 4, 4],
+                        "input": "2",
+                        "output": "physical"
+                    }]
+                }
+            ],
+            "coordinateTransformations": [
+                {
+                    "type": "affine",
+                    "name": "deskew-transformation",
+                    "input": "physical",
+                    "output": "deskewed",
+                    "affine": [
+                        [1, 0, 0, 0],
+                        [0, 1, 0, 0],
+                        [0, 0.785, 1, 0],
+                        [0, 0, 0, 1]
+                    ]
+                }
+            ]
+        }
     ]
 }
 ```
@@ -238,13 +239,13 @@ The output is a defined coordinate system:
 
 ```json
 "ome": {
-    "coordinateSystems":[
+    "coordinateSystems": [
         {
-        "name" : "world",
-        "axes": [
-            {"name": "z", "type": "space", "unit": "micrometer"},
-            {"name": "y", "type": "space", "unit": "micrometer"},
-            {"name": "x", "type": "space", "unit": "micrometer"}
+            "name": "world",
+            "axes": [
+                {"name": "z", "type": "space", "unit": "micrometer"},
+                {"name": "y", "type": "space", "unit": "micrometer"},
+                {"name": "x", "type": "space", "unit": "micrometer"}
             ]
         }
     ],
