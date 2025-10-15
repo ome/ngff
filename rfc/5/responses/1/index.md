@@ -460,3 +460,31 @@ This was [discussed on github](https://github.com/ome/ngff/issues/331).
 As a result of discussion, we recommend writers to use sequences of less expressive transforms
 (i.e. `sequence[rotation, translation]` instead of a single affine containing these) to ensure a level of simplicity for image readers.
 
+
+### Parameters in zarr arrays
+
+This RFC allows for the parameters of most transformations to be stored either as zarr arrays or as a JSON array.  There has
+been [debate on github](https://github.com/ome/ngff/pull/138) as to whether the parameters of "simple" transformaions (scale,
+translation, affines) should be restricted to _only_ be in the JSON metadata and not in zarr arrays.
+
+In summary, we feel that the benefits of the zarr array representation for those who choose to use it is worth the additional
+costs at this time.
+
+We agree there are compelling reasons to prefer / require that the parameters are stored in JSON. Specifically that
+implementations could be simpler because the parameters can be in exactly one place, and it would save IO.  As well, there are
+good reasons to allow storage of parameters in zarr arrays include, specifically that the decoding of floating point numbers
+from arrays is more precise and robust that from JSON, and that the array ordering for multidimensional arrays is clearer, among
+others.
+
+First, the issue of floating point precision is a critical one. In principle, it is possible to decode floating point numbers from
+their JSON representation reliably, precisely, and consistently across programming languagues. We feel that the mechanism for
+this should be specified by Zarr (not by OME-Zarr), and while 
+[a proposal exists at this time](https://github.com/zarr-developers/zarr-extensions/issues/22) for a relevant zarr extension,
+it has not been adopted, nor tested across languages. We should revist this proposal in the future if and when it is adopted.
+
+Second, regarding additional code complexity: any complete implementation of this RFC requires that parameters be read from zarr
+arrays for some transformations (coordinate and displacement fields). As a result, many implementations will necessarily accept
+the implementation burden, while others are free not to.
+
+This is why we feel that, at this time, the implementation burden of storing the parameters in zarr arrays is small enough to justify 
+their benefits.
