@@ -117,7 +117,7 @@ However, one could consider the json-schemas as a sort of implementation that al
 
 This is an important point. Exactly how and if linking to outside artifacts is allowed may belong in a broader community
 discussion. To keep resources relevant to, but "outside of" this RFC versioned and stable, they will be posted and archived
-in a permanent repository, and assigned a DOI. The next revision of this RFC will refer to that specific version.
+in a permanent repository, and assigned a DOI.
 Since the RFC and revision texts (such as this one), are ultimately historic artifacts and not authoritative, we think
 that example collections can be part of the RFC text, but should be kept outside the core specification document.
 
