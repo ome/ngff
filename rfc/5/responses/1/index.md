@@ -446,10 +446,9 @@ However, we feel like this would introduce requirements that lie out of scope fo
 > In the sequence section constraints on whether input/output must be specified are listed that apply to transformations other than “sequence”.
 > For clarity we recommend these constraints are moved to the relevant transformations in the RFC, or to their own distinct section.
 
-Thank you for the suggestion, it was changed accordingly. We also realized that the `sequence` setion previously permitted nested sequences.
+Thank you for the suggestion, it was changed accordingly.
+We also realized that the `sequence` setion previously permitted nested sequences.
 This possibility was removed to avoid complex, nested transformations.
-
-
 
 
 ## Other 
