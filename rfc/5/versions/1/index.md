@@ -221,15 +221,15 @@ store.zarr                      # Root folder of the zarr store
 │       └── zarr.json
 │
 ├── volume
-│   ├── .zarr.json              # group level attributes (multiscales)
+│   ├── zarr.json              # group level attributes (multiscales)
 │   └── 0                       # a group containing the 0th scale
 │       └── image               # a zarr array
-│           └── .zarr.json      # physical coordinate system and transformations here
+│           └── zarr.json      # physical coordinate system and transformations here
 └── crop
-    ├── .zarr.json              # group level attributes (multiscales)
+    ├── zarr.json              # group level attributes (multiscales)
     └── 0                       # a group containing the 0th scale
         └── image               # a zarr array
-            └── .zarr.json      # physical coordinate system and transformations here
+            └── zarr.json      # physical coordinate system and transformations here
 </pre>
 
 ````{admonition} Example

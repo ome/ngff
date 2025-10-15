@@ -255,7 +255,7 @@ The output is a defined coordinate system:
             "type": "translation",
             "translation": [0, 10234, 41232],
             "input": "path/to/stack",
-            "output" "world"
+            "output": "world"
         }
     ]
 }
@@ -271,7 +271,7 @@ In a simplified way, the root level of the store should resemble this structure:
  ```
  root
  ├─── imageA
- ├─── imageA
+ ├─── imageB
  └─── zarr.json
  ```
 
