@@ -132,9 +132,11 @@ Swedlow from the University of Dundee.
 >>
 > Why is this duplication necessary and what does the array zarr.json look like?
 
-The multiscales metadata block was designed as a self-contained description on how to read the data therein. The addition of an additional `coordinateTransformations` key inside the multiscale's attributes was originally intended to provide a clear, authoritiative coordinate transformation, the configuration of which would apply to all multiscales and make it easier for a reader to identify the correct default coordinate system of a multiscale image.
+The requirement for this duplication originates from the fact that some implementations do not provide a native way of opening and displaying multiscales.
+Currently, such implementations need to chose a specific scale level to open and then "look up" in the parent level to discover the corresponding metadata.
+The suggested duplication would allow easier metadata discovery for such implementation. However, we realized that this may be out of scope for this RFC and have removed the respective statement.
 
-However, we have removed this requirement and furthermore tightened the requirements for `coordinateTransformations`.
+We have refined the statements regarding where (and how) `coordinateTransformations` can be stored:
 
 - **Inside `multiscales > datasets`**: `coordinateTransformations` herein MUST be restricted to a single `scale`, `identity` or sequence of `translation` and `scale` transformations.
   The output of these `coordinateTransformations` MUST be the default coordinate system, which is the last entry in the list of coordinate systems.
