@@ -20,7 +20,7 @@ Daniel Toloudis, David Feng, Forrest Collman, and Nathalie Gaudreault at the All
 
 We agree that the issue raised here with respect to axis alignment and orientation is important and additional motivating examples would be helpful.
 However, until RFC-4 has officially been made a part of the spec we feel it would be out of scope to reference such examples in this RFC.
-We do think, though, that the suggested `coordinateSystems` group can provide the necessary structure to remove the ambiguity of orientation adressed in RFC4.
+We do think, though, that the suggested `coordinateSystems` group can provide the necessary structure to remove the ambiguity of orientation addressed in RFC4.
 An orientation field could easily be added there in the following manner:
 
 ```json
@@ -108,8 +108,8 @@ is the consensus, so the parameters will remain as they are.
 
 We believe that sammple implementations are outside the scope of RFCs, even if the changes are substantial as in this case.
 Writing implementations would certainly fail to address the variety of programming languages and tools in the community
-and thus inadvertantly prioritize some tools over others.
-However, one could consider the json-schemas as a sort of implementation that allows implementors to test their written data against a common baseline to ensure the integrity of written data.
+and thus inadvertently prioritize some tools over others.
+However, one could consider the json-schemas as a sort of implementation that allows implementers to test their written data against a common baseline to ensure the integrity of written data.
 
 > Is it okay for an RFC to link out to other things, rather than being
 > completely self-contained? If it's not there is a danger of it
@@ -149,7 +149,7 @@ We have refined the statements regarding where (and how) `coordinateTransformati
     The authoritiative coordinate system under `path` is the *first* coordinate system in the list.
 
 This separation of transformations (inside `multiscales > datasets`, under `multiscales > coordinateTransformations` and under parent-level `coordinateTransformations`) 
-provides flexbility for different usecases while still maintaining a level of rigidity for implementations.
+provides flexibility for different usecases while still maintaining a level of rigidity for implementations.
 
 ````{admonition} Example
 
@@ -300,7 +300,7 @@ We therefore added that the `input` of a `coordinateTransformation` entry in the
 
 > Do the top-level `coordinateTransformations` refer to coordinateSystems that are in child images?
 
-Yes, although they do so implictly.
+Yes, although they do so implicitly.
 If a `coordinateTransformation` in the parent-level group refers to child images through its `input`/`output` fields, the authoritiative coordinate transformation of the linked (multiscales) image is the *first* `coordinateSystem` therein.
 This formalism also provides enough distinction from an image's "default" (aka "physical") coordinate system,
 which is the *last* `coordinateSystem` inside the image. 
@@ -376,7 +376,7 @@ This is currently a requirement for the [names of axes](https://ngff.openmicrosc
 > under this new version.
 
 To our knowledge, every version in the past introduced breaking changes to the specification with the result that ome-zarr files
-of newer version could not be read anymore. As for the redundancy of specifiying input- and output-spaces in multiscales transformations,
+of newer version could not be read anymore. As for the redundancy of specifying input- and output-spaces in multiscales transformations,
 we agree in principle. However, we also see no harm in additional explicitness.
 
 ## Comment-3
@@ -388,9 +388,9 @@ Thank you for the additional comments in inquiries to this rfc.
 It is true that there is some inconsistency regarding how transformation parameters are specified with regard to the different axes of the coordinate systems.
 The decision to express the mentioned transforms (`mapAxis` and `byDimension`) originated from discussions at previous hackathons,
 which we regret aren't reflect in this rfc process. 
-We have changed the `mapAxis` transformation towards being expressed as a transpose vector of integers that refer to the axis orderings of the inut coordinate system.
+We have changed the `mapAxis` transformation towards being expressed as a transpose vector of integers that refer to the axis orderings of the input coordinate system.
 
-we decided against this as it would require additinal sets of constraints for the axes ordering of the `input_axes` and `output_axes` fields for matrix transformations.
+we decided against this as it would require additional sets of constraints for the axes ordering of the `input_axes` and `output_axes` fields for matrix transformations.
 For example, the same rotation matrix could be expressed with different axis ordering,
 which would correspond to a reordering of the column/row vectors of the corresponding transformation matrix.
 Simply referring to the axes ordering specified in the `coordinateSystems` seemed like a simple solution for this.
@@ -435,7 +435,7 @@ The proposed format offers a clear interface, which allows transformations to be
 
 We agree on the fact that this may seem confusing at first, and it reflects a common confusion regarding the directionality of transformations.
 In this rfc5, we set the important constraint that transformations are to be written down in their *forward direction*.
-However, many registration tools (noteably, [elastix](https://elastix.dev/index.php)),
+However, many registration tools (notably, [elastix](https://elastix.dev/index.php)),
 specify derived transformations for a given moving and a fixed image in the *opposite* direction (from fixed to moving image)
 to be able to restrict the sampling process to the relevant sample locations in the target image's domain (see section 2.6 "Transforms", [elastix manual](https://elastix.dev/doxygen/index.html)).
 To alleviate this inconsistency, we introduced the `inverseOf` transformation.
@@ -447,7 +447,7 @@ However, we feel like this would introduce requirements that lie out of scope fo
 > For clarity we recommend these constraints are moved to the relevant transformations in the RFC, or to their own distinct section.
 
 Thank you for the suggestion, it was changed accordingly.
-We also realized that the `sequence` setion previously permitted nested sequences.
+We also realized that the `sequence` section previously permitted nested sequences.
 This possibility was removed to avoid complex, nested transformations.
 
 
@@ -473,7 +473,7 @@ This would be an undue burden.
 We agreed with and shared this concern.
 
 As a result, a group of hackathon attendees agreed to a set of constraints
-that would decrease the burden on implementors, without reducing the
+that would decrease the burden on implementers, without reducing the
 expressibility (see `"multiscales" metadata` section).
 
 A series of follow-up discussions further refined these constraints and metadata design layouts.
@@ -481,7 +481,7 @@ A series of follow-up discussions further refined these constraints and metadata
 To summarize the constraints *inside* multiscales:
 
 * The last coordinate system in the list is a *default* coordinate system
-    * ususally an image's "native" physical coordinate system
+    * usually an image's "native" physical coordinate system
 * There MUST be exactly one coordinate transformation per dataset in the multiscales whose output is the *default* coordinate system.
   This transformation SHOULD be simple (defined precisely in the spec).
 * Any other transformations belong outside the `datasets` (i.e., under `multiscales > coordinateTransformations`)
