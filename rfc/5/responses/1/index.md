@@ -134,17 +134,22 @@ Swedlow from the University of Dundee.
 
 The requirement for this duplication originates from the fact that some implementations do not provide a native way of opening and displaying multiscales.
 Currently, such implementations need to chose a specific scale level to open and then "look up" in the parent level to discover the corresponding metadata.
-The suggested duplication would allow easier metadata discovery for such implementation. However, we realized that this may be out of scope for this RFC and have removed the respective statement.
+The suggested duplication would allow easier metadata discovery for such implementation.
+However, we realized that this may be out of scope for this RFC and have removed the respective statement.
 
 We have refined the statements regarding where (and how) `coordinateTransformations` can be stored:
 
 - **Inside `multiscales > datasets`**: `coordinateTransformations` herein MUST be restricted to a single `scale`, `identity` or sequence of `translation` and `scale` transformations.
-  The output of these `coordinateTransformations` MUST be the default coordinate system, which is the last entry in the list of coordinate systems.
+    The output of these `coordinateTransformations` MUST be the default coordinate system, which is the last entry in the list of coordinate systems.
 - **Inside `multiscales > coordinateTransformations`**: One MAY store additional transformations here. 
-  The `input` to these transformations MUST be the default coordinate system and the `output` can be another coordinate system defined under `multiscales > coordinateSystems`.
-- **Parent-level `coordinateTransformations`**: Transformations between two or more images MUST be stored in the parent-level `coordinateTransformations` group. The `input` to these transformations MUST be paths to the respective images. The `output` can be a path to an image or the name of a coordinate system. If both path and name exist, the path takes precedence. The authoritiative coordinate system under `path` is the *first* coordinate system in the list.
+    The `input` to these transformations MUST be the default coordinate system and the `output` can be another coordinate system defined under `multiscales > coordinateSystems`.
+- **Parent-level `coordinateTransformations`**: Transformations between two or more images MUST be stored in the parent-level `coordinateTransformations` group.
+    The `input` to these transformations MUST be paths to the respective images. The `output` can be a path to an image or the name of a coordinate system.
+    If both path and name exist, the path takes precedence.
+    The authoritiative coordinate system under `path` is the *first* coordinate system in the list.
 
-This separation of transformations (inside `multiscales > datasets`, under `multiscales > coordinateTransformations` and under `coordinateTransformations` in the parent-level) provides flexbility for different usecases while still maintaining a level of rigidity for easier implementations.
+This separation of transformations (inside `multiscales > datasets`, under `multiscales > coordinateTransformations` and under parent-level `coordinateTransformations`) 
+provides flexbility for different usecases while still maintaining a level of rigidity for implementations.
 
 ````{admonition} Example
 
@@ -384,7 +389,6 @@ It is true that there is some inconsistency regarding how transformation paramet
 The decision to express the mentioned transforms (`mapAxis` and `byDimension`) originated from discussions at the previous ngff Hackathon,
 which we regret aren't reflect in this rfc process. 
 
-Regarding expressing all transformations by named reference to the express,
 we decided against this as it would require additinal sets of constraints for the axes ordering of the `input_axes` and `output_axes` fields for matrix transformations.
 For example, the same rotation matrix could be expressed with different axis ordering,
 which would correspond to a reordering of the column/row vectors of the corresponding transformation matrix.
