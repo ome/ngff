@@ -296,7 +296,7 @@ The image under `root/sampleA_instrument2` would have this as the first listed c
 
 Most coordinate transformations MUST specify their input and output coordinate systems
 using `input` and `output` with a string value that MUST correspond to the name of a coordinate system or the path to a multiscales group.
-Exceptions are if the the coordinate transformation appears in the `transformations` list of a `sequence`
+Exceptions are if the coordinate transformation appears in the `transformations` list of a `sequence`
 or is the `transformation` of an `inverseOf` transformation.
 In these two cases input and output could, in some cases, be omitted (see below for details).
 
