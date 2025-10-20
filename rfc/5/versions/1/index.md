@@ -396,7 +396,9 @@ the `inverseOf` transformation type, for example:
     "transformation" : {
         "type": "displacements",
         "path": "/path/to/displacements",
-    }
+    },
+    "input": "input_image",
+    "output": "output_image",
 }
 ```
 
