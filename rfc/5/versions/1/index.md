@@ -250,7 +250,7 @@ Coordinate transformations can be stored in multiple places to reflect different
 - Multiscale transformations represent a special case of transformations
   and are explained [below](#multiscales-metadata).
 - Additional transformations for single images MUST be stored under a field `coordinateTransformations`
-  in the multiscales dictionary.
+  in the multiscales dictionaries.
   This `coordinateTransformations` field MUST contain a list of valid [transformations](#transformation-types).
 - Transformations between two or more images MUST be stored in the attributes of a parent zarr group.
   For transformations that store data or parameters in a zarr array,
