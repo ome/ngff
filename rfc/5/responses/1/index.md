@@ -394,17 +394,38 @@ This is not to say that we do not see merrit in introducing the proposed axis or
 
 TODO
 
+## inverseOf
+
 > It is not clear what inverseOf achieves, that can’t be achieved by defining the same transformation but simply swapping the values of the input and output coordinate system names. [...]
 
-We agree on the fact that this may seem confusing at first, and it reflects a common confusion regarding the directionality of transformations.
-In this rfc5, we set the important constraint that transformations are to be written down in their *forward direction*.
-However, many registration tools (noteably, [elastix](https://elastix.dev/index.php)),
-specify derived transformations for a given moving and a fixed image in the *opposite* direction (from fixed to moving image)
-to be able to restrict the sampling process to the relevant sample locations in the target image's domain (see section 2.6 "Transforms", [elastix manual](https://elastix.dev/doxygen/index.html)).
-To alleviate this inconsistency, we introduced the `inverseOf` transformation.
-This allows to store such inverse-under-the-hood transformations as forward transformations while informing implementations how to treat them.
-Alternatively, users could be instructed to use registration tools like the aforementioned in a backward sense (see elastix manual, section 6.1.6, inverting transforms).
-However, we feel like this would introduce requirements that lie out of scope for this rfc (and of the specification, respectively).
+This RFC motivates the `inverseOf` tranformation:
+
+> When rendering transformed images and interpolating, implementations may need the "inverse" transformation - from the output
+> to the input coordinate system. Inverse transformations will not be explicitly specified when they can be computed in closed
+> form from the forward transformation. Inverse transformations used for image rendering may be specified using the inverseOf
+> transformation type...
+
+though we appreciate that more clarity could be helpful. The storage of transformations for _images_ (not point coordinates), is
+a main motivator of this transformation.
+
+There is not consensus among image registration algorithms on whether their output transformation takes points from the moving
+to fixed image ("forward") or fixed to moving ("inverse"), when the transformation type is closed-form invertible.  When 
+the transformation type is not closed-form invertible, the algorithms are obliged to output the inverse transformation.
+
+We would like to recommend that registration algorithms store the "forward" transformation (where the input is moving image's
+coordinate system, and the output is the fixed image's coordinate system) because this matches the intuitions of users and
+practitioners. Given an "inverse" transformation, that is not closed-form invertible, the `inverseOf` wrapper 
+enables their storage as if they were a "forward" transformations while informing implementations how to treat them.
+
+It is true that we could remove `inverseOf` and swap the input / output coordinate systems. In that case we do one of
+
+* not recommend which direction to store for the transformations
+    * one downside is that implementations will not know what to expect and could distinguish moving from fixed coordinate
+      system from the transformation
+* recommend that the "inverse" transformation is stored
+    * one downside is that this does not align with intuition
+
+In our opinion, the cost of adding of this simple transformation type is worth avoiding one of these downsides.
 
 > In the sequence section constraints on whether input/output must be specified are listed that apply to transformations other than “sequence”.
 > For clarity we recommend these constraints are moved to the relevant transformations in the RFC, or to their own distinct section.
