@@ -365,11 +365,6 @@ If unused, the `input` and `output` fields MAY be null.
 
 For usage in multiscales, see [multiscales section](#multiscales-metadata) for details.
 
-Transformations in the `transformations` list of a `byDimensions` transformation
-MUST provide `input` and `output` as arrays of strings
-corresponding to axis names of the parent transformation's input and output coordinate systems
-(see below for details).
-
 Coordinate transformations are functions of *points* in the input space to *points* in the output space.
 We call this the "forward" direction.
 Points are ordered lists of coordinates,
