@@ -360,7 +360,7 @@ In these two cases input and output could, in some cases, be omitted (see below 
 If used in a parent-level zarr-group, the `input` field MUST be a path to the input image. 
 The authoritative coordinate system for the input image is the first `coordinateSystem` defined therein.
 The `output` field can be a `path` to an output image or the name of a `coordinateSystem` defined in the parent-level zarr group.
-If the names of `input` or `output` can be both a `path` or the name of a `coordinateSystem`, `path` MUST take precedent.
+If the names of `input` or `output` can be both a `path` or the name of a `coordinateSystem`, `coordinateSystem` MUST take precedent.
 If unused, the `input` and `output` fields MAY be null.
 
 For usage in multiscales, see [multiscales section](#multiscales-metadata) for details.

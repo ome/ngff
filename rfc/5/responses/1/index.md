@@ -2,6 +2,8 @@
 
 The authors extend their most sincere thanks and appreciation to all the reviewers of this RFC.
 
+
+
 ## General comments
 
 We have added many motivating examples for common use cases, but also for many edge-cases.
@@ -145,7 +147,7 @@ We have refined the statements regarding where (and how) `coordinateTransformati
     The `input` to these transformations MUST be the default coordinate system and the `output` can be another coordinate system defined under `multiscales > coordinateSystems`.
 - **Parent-level `coordinateTransformations`**: Transformations between two or more images MUST be stored in the parent-level `coordinateTransformations` group.
     The `input` to these transformations MUST be paths to the respective images. The `output` can be a path to an image or the name of a coordinate system.
-    If both path and name exist, the path takes precedence.
+    If both path and name exist, the name (i.e., the corresponding `coordinateSystem`) takes precedence.
     The authoritiative coordinate system under `path` is the *first* coordinate system in the list.
 
 This separation of transformations (inside `multiscales > datasets`, under `multiscales > coordinateTransformations` and under parent-level `coordinateTransformations`) 
