@@ -19,7 +19,7 @@ Button styling for our theme needs work
 <p><font size="4">We'll be hosting office hours on Wednesdays, rotating between
 APAC/AU/EU- and AMER/AU/EU-friendly times.
 
-Please join the Office Hours you have questions about NGFF and want to learn more about
+Please join the Office Hours if you have questions about NGFF and want to learn more about
 the OME-Zarr storage format. We'll discuss the specification, the implementations,
 what's new in the ecosystem, how you can get involved in the community and
 much more.</font></p>
