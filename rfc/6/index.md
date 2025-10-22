@@ -59,6 +59,12 @@ This RFC is currently open for reviews (R1).
     - 
     - 2024-12-18
     -
+*   - Endorser
+    - Johannes Soltwedel
+    - @jo-mueller
+    - German BioImaging e.V.
+    - 2025-10-22
+    -
 ```
 
 ## Overview
