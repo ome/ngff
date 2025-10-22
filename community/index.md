@@ -5,7 +5,7 @@
 
 The Community Calls welcome everyone — developers, users, and enthusiasts alike. Whether you have just heard about OME-NGFF and are curious to learn more or if you have been working with it every day, consider yourself invited.</font></p>
 
-<p><font size="4">The next community call will be held in December (date to be announced soon). Please see the NGFF community calendar below for details.timings.</font></p>
+<p><font size="4">The next community call will be held in December (date to be announced soon). Please see the NGFF community calendar below for details and timings.</font></p>
 
 ## Office Hours
 
