@@ -246,7 +246,7 @@ Conforming readers:
 
 Coordinate transformations can be stored in multiple places to reflect different usecases.
      
-- Transformations in indvidual mutliscale datasets represent a special case of transformations
+- Transformations in individual mutliscale datasets represent a special case of transformations
   and are explained [below](#multiscales-metadata).
 - Additional transformations for single multiscale images MUST be stored under a field `coordinateTransformations`
   in the multiscales dictionaries.
@@ -297,7 +297,7 @@ The set of coordinate transformations encodes relationships between coordinate s
 specifically, how to convert points from one coordinate system to another.
 Implementations can apply the coordinate transform to images or points
 in coordinate system "sampleA_instrument2" to bring them into the "sampleA_instrument1" coordinate system.
-In this case, image data within the ROI definned in image2 should be transformed to the "sampleA_image1" coordinate system,
+In this case, image data within the ROI defined in image2 should be transformed to the "sampleA_image1" coordinate system,
 then used for quantification with the instrument 1 image.
 
 The `coordinateTransformations` in the parent-level metadata would contain the following data.

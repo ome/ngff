@@ -438,7 +438,7 @@ The proposed format offers a clear interface, which allows transformations to be
 
 > It is not clear what inverseOf achieves, that can’t be achieved by defining the same transformation but simply swapping the values of the input and output coordinate system names. [...]
 
-The RFC motivates the `inverseOf` tranformation:
+The RFC motivates the `inverseOf` transformation:
 
 > When rendering transformed images and interpolating, implementations may need the "inverse" transformation - from the output
 > to the input coordinate system. Inverse transformations will not be explicitly specified when they can be computed in closed
@@ -540,8 +540,8 @@ from arrays is more precise and robust that from JSON, and that the array orderi
 others.
 
 First, the issue of floating point precision is a critical one. In principle, it is possible to decode floating point numbers from
-their JSON representation reliably, precisely, and consistently across programming languagues. We feel that the mechanism for
-this should be specified by Zarr (not by OME-Zarr), and while 
+their JSON representation reliably, precisely, and consistently across programming languages. We feel that the mechanism for
+this should be specified by Zarr (not by OME-Zarr), and while
 [a proposal exists at this time](https://github.com/zarr-developers/zarr-extensions/issues/22) for a relevant zarr extension,
 it has not been adopted, nor tested across languages. We should revisit this proposal in the future if and when it is adopted.
 
