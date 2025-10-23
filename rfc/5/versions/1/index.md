@@ -388,12 +388,15 @@ that MUST correspond to the name of a coordinate system or the path to a multisc
 Exceptions are if the coordinate transformation appears in the `transformations` list of a `sequence`
 or is the `transformation` of an `inverseOf` transformation.
 In these two cases input and output could, in some cases, be omitted (see below for details).
-
-If used in a parent-level zarr-group, the `input` field MUST be a path to the input multiscale image group. 
-The authoritative coordinate system for the input image is the first `coordinateSystem` defined therein.
-The `output` field can be a `path` to another output multiscale image group or the name of a `coordinateSystem` defined in the same parent-level zarr group.
-If the names of `input` or `output` correspond to both an existing path to a multiscale image group and the name of a `coordinateSystem` defined in the same metadata document, the `coordinateSystem` MUST take precedent.
 If unused, the `input` and `output` fields MAY be null.
+
+If used in a parent-level zarr-group, the `input` and `output` fields
+can be the name of a `coordinateSystem` in the same parent-level group or the path to a multiscale image group.
+If either `input` or `output` is a path to a multiscale image group,
+the authoritative coordinate system for the respective image is the first `coordinateSystem` defined therein.
+If the names of `input` or `output` correspond to both an existing path to a multiscale image group
+and the name of a `coordinateSystem` defined in the same metadata document,
+the `coordinateSystem` MUST take precedent.
 
 For usage in multiscales, see [the multiscales section](#multiscales-metadata) for details.
 
