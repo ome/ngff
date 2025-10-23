@@ -105,7 +105,7 @@ refer to different physical entities and therefore should not be analyzed jointl
 Tasks that require images, annotations, regions of interest, etc.,
 SHOULD ensure that they are in the same coordinate system (same name and location within the Zarr hierarchy, with identical axes)
 or can be transformed to the same coordinate system before doing analysis.
-See the example below.
+See the [example below](example:coordinate_transformation).
 
 #### "axes" metadata
 
@@ -233,7 +233,7 @@ The following transformations are supported:
 | `sequence` | `"transformations":List[Transformation]` | sequence of transformations. Applying the sequence applies the composition of all transforms in the list, in order. |
 | `displacements` | `"path":str`<br>`"interpolation":str` | Displacement field transformation located at `path`. |
 | `coordinates` | `"path":str`<br>`"interpolation":str` | Coordinate field transformation located at `path`. |
-| `inverseOf` | `"transformation":Transformation` | The inverse of a transformation. Useful if a transform is not closed-form invertible. See forward and inverse of [bijections](#bijections) for details and examples. |
+| `inverseOf` | `"transformation":Transformation` | The inverse of a transformation. Useful if a transform is not closed-form invertible. See forward and inverse of [bijections](#bijection) for details and examples. |
 | `bijection` | `"forward":Transformation`<br>`"inverse":Transformation` | An invertible transformation providing an explicit forward transformation and its inverse. |
 | `byDimension` | `"transformations":List[Transformation]`, <br> `"input_axes": List[str]`, <br> `"output_axes": List[str]` | A high dimensional transformation using lower dimensional transformations on subsets of dimensions. |
 
@@ -282,6 +282,7 @@ store.zarr                      # Root folder of the zarr store
 </pre>
 
 ````{admonition} Example
+(example:coordinate_transformation)=
 Two instruments simultaneously image the same sample from two different angles,
 and the 3D data from both instruments are calibrated to "micrometer" units.
 An analysis of sample A requires measurements from images taken from both instruments at certain points in space.
