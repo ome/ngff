@@ -228,8 +228,8 @@ The following transformations are supported:
 | `mapAxis` | `"mapAxis":List[number]` | an axis permutation as a transpose array of integer indices that refer to the ordering of the axes in the respective coordinate system. |
 | `translation` | one of:<br>`"translation":List[number]`,<br>`"path":str` | Translation vector, stored either as a list of numbers (`"translation"`) or as binary data at a location in this container (`path`). |
 | `scale` | one of:<br>`"scale":List[number]`,<br>`"path":str` | Scale vector, stored either as a list of numbers (`scale`) or as binary data at a location in this container (`path`). |
-| `affine` | one of:<br>`"affine":List[List[number]]`,<br>`"path":str` | affine transformation matrix stored either with JSON (`affine`) or as binary data at a location in this container (`path`). |
-| `rotation` | one of:<br>`"rotation":List[List[number]]`,<br>`"path":str` | rotation transformation matrix stored as an array stored either with json (`rotation`) or as binary data at a location in this container (`path`).|
+| `affine` | one of:<br>`"affine":List[List[number]]`,<br>`"path":str` | 2D affine transformation matrix stored either with JSON (`affine`) or as binary data at a location in this container (`path`). |
+| `rotation` | one of:<br>`"rotation":List[List[number]]`,<br>`"path":str` | 2D rotation transformation matrix stored as an array stored either with json (`rotation`) or as binary data at a location in this container (`path`).|
 | `sequence` | `"transformations":List[Transformation]` | sequence of transformations. Applying the sequence applies the composition of all transforms in the list, in order. |
 | `displacements` | `"path":str`<br>`"interpolation":str` | Displacement field transformation located at `path`. |
 | `coordinates` | `"path":str`<br>`"interpolation":str` | Coordinate field transformation located at `path`. |
