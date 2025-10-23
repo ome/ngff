@@ -434,17 +434,38 @@ The proposed format offers a clear interface, which allows transformations to be
 ```
 ````
 
+## inverseOf
+
 > It is not clear what inverseOf achieves, that can’t be achieved by defining the same transformation but simply swapping the values of the input and output coordinate system names. [...]
 
-We agree on the fact that this may seem confusing at first, and it reflects a common confusion regarding the directionality of transformations.
-In this rfc5, we set the important constraint that transformations are to be written down in their *forward direction*.
-However, many registration tools (notably, [elastix](https://elastix.dev/index.php)),
-specify derived transformations for a given moving and a fixed image in the *opposite* direction (from fixed to moving image)
-to be able to restrict the sampling process to the relevant sample locations in the target image's domain (see section 2.6 "Transforms", [elastix manual](https://elastix.dev/doxygen/index.html)).
-To alleviate this inconsistency, we introduced the `inverseOf` transformation.
-This allows to store such inverse-under-the-hood transformations as forward transformations while informing implementations how to treat them.
-Alternatively, users could be instructed to use registration tools like the aforementioned in a backward sense (see elastix manual, section 6.1.6, inverting transforms).
-However, we feel like this would introduce requirements that lie out of scope for this rfc (and of the specification, respectively).
+The RFC motivates the `inverseOf` tranformation:
+
+> When rendering transformed images and interpolating, implementations may need the "inverse" transformation - from the output
+> to the input coordinate system. Inverse transformations will not be explicitly specified when they can be computed in closed
+> form from the forward transformation. Inverse transformations used for image rendering may be specified using the inverseOf
+> transformation type...
+
+though we appreciate that more clarity could be helpful. The storage of transformations for _images_ (not point coordinates), is
+a main motivator of this transformation.
+
+There is no consensus among image registration algorithms on whether their output transformation takes points from the moving
+to fixed image ("forward") or fixed to moving ("inverse"), when the transformation type is closed-form invertible. When 
+the transformation type is not closed-form invertible, the algorithms are obliged to output the inverse transformation.
+
+We would like to recommend that registration algorithms store the "forward" transformation (where the input is moving image's
+coordinate system, and the output is the fixed image's coordinate system) because this matches the intuition of users and
+practitioners. Given an "inverse" transformation, that is not closed-form invertible, the `inverseOf` wrapper 
+enables their storage as if they were a "forward" transformations while informing implementations how to treat them.
+
+It is true that we could remove `inverseOf` and swap the input / output coordinate systems. In that case we do one of
+
+* not recommend which direction to store for the transformations
+    * one downside is that implementations will not know what to expect and could not distinguish moving from fixed coordinate
+      system from the transformation
+* recommend that the "inverse" transformation is stored
+    * one downside is that this does not align with intuition
+
+In our opinion, the cost of adding of this simple transformation type is worth avoiding one of these downsides.
 
 > In the sequence section constraints on whether input/output must be specified are listed that apply to transformations other than “sequence”.
 > For clarity we recommend these constraints are moved to the relevant transformations in the RFC, or to their own distinct section.
@@ -499,10 +520,34 @@ This was [discussed on github](https://github.com/ome/ngff/issues/331).
 As a result of discussion, we recommend writers to use sequences of less expressive transforms
 (i.e. `sequence[rotation, translation]` instead of a single affine containing these) to ensure a level of simplicity for image readers.
 
-### Parameter storage
 
-We are aware of and appreciate the in-depth discussion around the nature, fidelity and efficiency of using zarr-arrays for parameter storage.
-Hence, we would like to express our gratitude to all participants for valuable insights and pointing out the different technical, legal and other aspects to this topic.
-Future versions of this rfc may evolve towards a recommendation on parameter storage as the community discussion develops.
-We are looking forward to further discussion about this topic. 
-We welcome and invite contributors to engage by writing a review or comment to this rfc.
+### Parameters in zarr arrays
+
+This RFC allows for the parameters of most transformations to be stored either as zarr arrays or as a JSON array. There has
+been a [debate on github](https://github.com/ome/ngff/pull/138) as to whether the parameters of "simple" transformaions (scale,
+translation, affines) should be restricted to _only_ be in the JSON metadata and not in zarr arrays.
+We appreciate the in-depth discussion around the nature, fidelity and efficiency of using zarr-arrays for parameter storage.
+Hence, we would like to thank all participants for valuable insights and pointing out the different technical,
+legal and other aspects to this topic.
+
+In summary, we feel that the benefits of the zarr array representation for those who choose to use it is worth the additional
+costs at this time.
+
+We agree there are compelling reasons to prefer / require that the parameters are stored in JSON. Specifically that
+implementations could be simpler because the parameters can be in exactly one place, and it would save IO. As well, there are
+good reasons to allow storage of parameters in zarr arrays. Specifically, that the decoding of floating point numbers
+from arrays is more precise and robust that from JSON, and that the array ordering for multidimensional arrays is clearer, among
+others.
+
+First, the issue of floating point precision is a critical one. In principle, it is possible to decode floating point numbers from
+their JSON representation reliably, precisely, and consistently across programming languagues. We feel that the mechanism for
+this should be specified by Zarr (not by OME-Zarr), and while 
+[a proposal exists at this time](https://github.com/zarr-developers/zarr-extensions/issues/22) for a relevant zarr extension,
+it has not been adopted, nor tested across languages. We should revisit this proposal in the future if and when it is adopted.
+
+Second, regarding additional code complexity: any complete implementation of this RFC requires that parameters be read from zarr
+arrays for some transformations (coordinate and displacement fields). As a result, many implementations will necessarily accept
+the implementation burden, while others are free not to.
+
+This is why we feel that, at this time, the implementation burden of storing the parameters in zarr arrays is small enough to justify 
+their benefits.
