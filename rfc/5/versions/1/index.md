@@ -233,7 +233,7 @@ The following transformations are supported:
 | `sequence` | `"transformations":List[Transformation]` | sequence of transformations. Applying the sequence applies the composition of all transforms in the list, in order. |
 | `displacements` | `"path":str`<br>`"interpolation":str` | Displacement field transformation located at `path`. |
 | `coordinates` | `"path":str`<br>`"interpolation":str` | Coordinate field transformation located at `path`. |
-| `inverseOf` | `"transformation":Transformation` | The inverse of a transformation. Useful if a transform is not closed-form invertible. See Forward and inverse for details and examples. |
+| `inverseOf` | `"transformation":Transformation` | The inverse of a transformation. Useful if a transform is not closed-form invertible. See forward and inverse of [bijections](#bijections) for details and examples. |
 | `bijection` | `"forward":Transformation`<br>`"inverse":Transformation` | An invertible transformation providing an explicit forward transformation and its inverse. |
 | `byDimension` | `"transformations":List[Transformation]`, <br> `"input_axes": List[str]`, <br> `"output_axes": List[str]` | A high dimensional transformation using lower dimensional transformations on subsets of dimensions. |
 
