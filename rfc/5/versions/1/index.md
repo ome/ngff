@@ -207,7 +207,9 @@ See chapter 4 and figure 4.1 of the ITK Software Guide.
 "coordinateTransformations" describe the mapping between two coordinate systems (defined by "coordinateSystems").
 For example, to map an array's discrete coordinate system to its corresponding physical coordinates.
 Coordinate transforms are in the "forward" direction.
-This means they represent functions from *points* in the input space to *points* in the output space.
+This means they represent functions from *points* in the input space to *points* in the output space
+(see [example below](example:coordinate_transformation_scale)).
+
 They:
 
 - MUST contain the field "type" (string).
@@ -236,6 +238,37 @@ The following transformations are supported:
 | `inverseOf` | `"transformation":Transformation` | The inverse of a transformation. Useful if a transform is not closed-form invertible. See forward and inverse of [bijections](#bijection) for details and examples. |
 | `bijection` | `"forward":Transformation`<br>`"inverse":Transformation` | An invertible transformation providing an explicit forward transformation and its inverse. |
 | `byDimension` | `"transformations":List[Transformation]`, <br> `"input_axes": List[str]`, <br> `"output_axes": List[str]` | A high dimensional transformation using lower dimensional transformations on subsets of dimensions. |
+
+````{admonition} Example
+(example:coordinate_transformation_scale)=
+
+```json
+{
+  "coordinateSystems": [
+    { "name": "in", "axes": [{"name": "j"}, {"name": "i"}] },
+    { "name": "out", "axes": [{"name": "y"}, {"name": "x"}] }
+  ],
+  "coordinateTransformations": [ 
+    {
+      "type": "scale",
+      "scale": [2, 3.12],
+      "input": "in",
+      "output": "out"
+    }
+  ]
+}
+
+```
+
+For example, the scale transformation above defines the function:
+
+```
+x = 3.12 * i
+y = 2 * j
+```
+
+i.e., the mapping from the first input axis to the first output axis is determined by the first scale parameter.
+````
 
 Conforming readers:
 - MUST parse `identity`, `scale`, `translation` transformations;
@@ -369,14 +402,6 @@ We call this the "forward" direction.
 Points are ordered lists of coordinates,
 where a coordinate is the location/value of that point along its corresponding axis.
 The indexes of axis dimensions correspond to indexes into transformation parameter arrays.
-For example, the scale transformation above defines the function:
-
-```
-x = 0.5 * i
-y = 1.2 * j
-```
-
-i.e., the mapping from the first input axis to the first output axis is determined by the first scale parameter.
 
 When rendering transformed images and interpolating,
 implementations may need the "inverse" transformation - 
