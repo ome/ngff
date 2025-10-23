@@ -727,8 +727,8 @@ that maps Zarr array coordinates for this resolution level to the "default" coor
 The transformation is defined according to [transformations metadata](#transformation-types).
 The transformation MUST take as input points in the array coordinate system
 corresponding to the Zarr array at location `path`.
-The value of "input" SHOULD equal the value of `path`,
-but implementations should always treat the value of `input` as if it were equal to the value of `path`.
+The value of "input" MUST equal the value of `path`, 
+implementations should always treat the value of `input` as if it were equal to the value of `path`.
 The value of the transformation’s `output` MUST be the name of the default [coordinate system](#coordinatesystems-metadata).
 
 This transformation MUST be one of the following:
