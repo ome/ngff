@@ -207,7 +207,7 @@ See chapter 4 and figure 4.1 of the ITK Software Guide.
 "coordinateTransformations" describe the mapping between two coordinate systems (defined by "coordinateSystems").
 For example, to map an array's discrete coordinate system to its corresponding physical coordinates.
 Coordinate transforms are in the "forward" direction.
-They represent functions from *points* in the input space to *points* in the output space.
+This means they represent functions from *points* in the input space to *points* in the output space.
 They:
 
 - MUST contain the field "type" (string).
@@ -234,7 +234,7 @@ The following transformations are supported:
 | `displacements` | `"path":str`<br>`"interpolation":str` | Displacement field transformation located at `path`. |
 | `coordinates` | `"path":str`<br>`"interpolation":str` | Coordinate field transformation located at `path`. |
 | `inverseOf` | `"transformation":Transformation` | The inverse of a transformation. Useful if a transform is not closed-form invertible. See Forward and inverse for details and examples. |
-| `bijection` | `"forward":Transformation`<br>`"inverse":Transformation` | An invertible transformation providing a forward transformation and its inverse. |
+| `bijection` | `"forward":Transformation`<br>`"inverse":Transformation` | An invertible transformation providing an explicit forward transformation and its inverse. |
 | `byDimension` | `"transformations":List[Transformation]`, <br> `"input_axes": List[str]`, <br> `"output_axes": List[str]` | A high dimensional transformation using lower dimensional transformations on subsets of dimensions. |
 
 Conforming readers:
