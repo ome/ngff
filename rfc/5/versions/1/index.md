@@ -322,8 +322,8 @@ An analysis of sample A requires measurements from images taken from both instru
 Suppose a region of interest (ROI) is determined from the image obtained from instrument 2,
 but quantification from that region is needed for instrument 1.
 Since measurements were collected at different angles,
-a measurement by instrument 1 at the point with coordinates (x,y,z)
-may not correspond to the measurement at the same point in instrument 2
+a measurement by instrument 1 at the point with image array coordinates (x,y,z)
+may not correspond to the measurement at the same array coordiantes in instrument 2
 (i.e., it may not be the same physical location in the sample).
 To analyze both images together, they must be transformed to a common coordinate system.
 
