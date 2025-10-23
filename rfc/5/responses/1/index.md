@@ -2,10 +2,12 @@
 
 The authors extend their most sincere thanks and appreciation to all the reviewers of this RFC.
 
+
+
 ## General comments
 
 We have added many motivating examples for common use cases, but also for many edge-cases.
-The metadata are mirrored as a versioned [zenodo repository](https://zenodo.org/records/17313420)
+The metadata are mirrored as a versioned [zenodo repository](https://zenodo.org/records/17313420/latest)
 
 As well, [we provide instructions](https://github.com/bogovicj/ngff-rfc5-coordinate-transformation-examples/blob/main/bigwarp/README.md) 
 for viewing these examples with BigWarp, a reference implementation.
@@ -20,7 +22,7 @@ Daniel Toloudis, David Feng, Forrest Collman, and Nathalie Gaudreault at the All
 
 We agree that the issue raised here with respect to axis alignment and orientation is important and additional motivating examples would be helpful.
 However, until RFC-4 has officially been made a part of the spec we feel it would be out of scope to reference such examples in this RFC.
-We do think, though, that the suggested `coordinateSystems` group can provide the necessary structure to remove the ambiguity of orientation adressed in RFC4.
+We do think, though, that the suggested `coordinateSystems` group can provide the necessary structure to remove the ambiguity of orientation addressed in RFC4.
 An orientation field could easily be added there in the following manner:
 
 ```json
@@ -108,8 +110,8 @@ is the consensus, so the parameters will remain as they are.
 
 We believe that sammple implementations are outside the scope of RFCs, even if the changes are substantial as in this case.
 Writing implementations would certainly fail to address the variety of programming languages and tools in the community
-and thus inadvertantly prioritize some tools over others.
-However, one could consider the json-schemas as a sort of implementation that allows implementors to test their written data against a common baseline to ensure the integrity of written data.
+and thus inadvertently prioritize some tools over others.
+However, one could consider the json-schemas as a sort of implementation that allows implementers to test their written data against a common baseline to ensure the integrity of written data.
 
 > Is it okay for an RFC to link out to other things, rather than being
 > completely self-contained? If it's not there is a danger of it
@@ -117,7 +119,7 @@ However, one could consider the json-schemas as a sort of implementation that al
 
 This is an important point. Exactly how and if linking to outside artifacts is allowed may belong in a broader community
 discussion. To keep resources relevant to, but "outside of" this RFC versioned and stable, they will be posted and archived
-in a permanent repository, and assigned a DOI. The next revision of this RFC will refer to that specific version.
+in a permanent repository, and assigned a DOI.
 Since the RFC and revision texts (such as this one), are ultimately historic artifacts and not authoritative, we think
 that example collections can be part of the RFC text, but should be kept outside the core specification document.
 
@@ -132,17 +134,24 @@ Swedlow from the University of Dundee.
 >>
 > Why is this duplication necessary and what does the array zarr.json look like?
 
-The multiscales metadata block was designed as a self-contained description on how to read the data therein. The addition of an additional `coordinateTransformations` key inside the multiscale's attributes was originally intended to provide a clear, authoritiative coordinate transformation, the configuration of which would apply to all multiscales and make it easier for a reader to identify the correct default coordinate system of a multiscale image.
+The requirement for this duplication originates from the fact that some implementations do not provide a native way of opening and displaying multiscales.
+Currently, such implementations need to chose a specific scale level to open and then "look up" in the parent level to discover the corresponding metadata.
+The suggested duplication would allow easier metadata discovery for such implementation.
+However, we realized that this may be out of scope for this RFC and have removed the respective statement.
 
-However, we have removed this requirement and furthermore tightened the requirements for `coordinateTransformations`.
+We have refined the statements regarding where (and how) `coordinateTransformations` can be stored:
 
 - **Inside `multiscales > datasets`**: `coordinateTransformations` herein MUST be restricted to a single `scale`, `identity` or sequence of `translation` and `scale` transformations.
-  The output of these `coordinateTransformations` MUST be the default coordinate system, which is the last entry in the list of coordinate systems.
+    The output of these `coordinateTransformations` MUST be the default coordinate system, which is the last entry in the list of coordinate systems.
 - **Inside `multiscales > coordinateTransformations`**: One MAY store additional transformations here. 
-  The `input` to these transformations MUST be the default coordinate system and the `output` can be another coordinate system defined under `multiscales > coordinateSystems`.
-- **Parent-level `coordinateTransformations`**: Transformations between two or more images MUST be stored in the parent-level `coordinateTransformations` group. The `input` to these transformations MUST be paths to the respective images. The `output` can be a path to an image or the name of a coordinate system. If both path and name exist, the path takes precedence. The authoritiative coordinate system under `path` is the *first* coordinate system in the list.
+    The `input` to these transformations MUST be the default coordinate system and the `output` can be another coordinate system defined under `multiscales > coordinateSystems`.
+- **Parent-level `coordinateTransformations`**: Transformations between two or more images MUST be stored in the parent-level `coordinateTransformations` group.
+    The `input` to these transformations MUST be paths to the respective images. The `output` can be a path to an image or the name of a coordinate system.
+    If both path and name exist, the name (i.e., the corresponding `coordinateSystem`) takes precedence.
+    The authoritiative coordinate system under `path` is the *first* coordinate system in the list.
 
-This separation of transformations (inside `multiscales > datasets`, under `multiscales > coordinateTransformations` and under `coordinateTransformations` in the parent-level) provides flexbility for different usecases while still maintaining a level of rigidity for easier implementations.
+This separation of transformations (inside `multiscales > datasets`, under `multiscales > coordinateTransformations` and under parent-level `coordinateTransformations`) 
+provides flexibility for different usecases while still maintaining a level of rigidity for implementations.
 
 ````{admonition} Example
 
@@ -155,73 +164,74 @@ One may wish to attach the affine transformation to the multiscales itself, with
 The `multiscales` metadata contains this:
 ```json
 {
-    "multiscales": [{
-        "version": "0.5-dev",
-        "name": "example",
-        "coordinateSystems" : [
-            {
-            "name" : "deskewed",
-            "axes": [
-                {"name": "z", "type": "space", "unit": "micrometer"},
-                {"name": "y", "type": "space", "unit": "micrometer"},
-                {"name": "x", "type": "space", "unit": "micrometer"}
-                ]
-            },
-            {
-            "name" : "physical",
-            "axes": [
-                {"name": "z", "type": "space", "unit": "micrometer"},
-                {"name": "y", "type": "space", "unit": "micrometer"},
-                {"name": "x", "type": "space", "unit": "micrometer"}
-                ]
-            }
-        ],
-        "datasets": [
-            {
-                "path": "0",
-                // the transformation of other arrays are defined relative to this, the highest resolution, array
-                "coordinateTransformations": [{
-                    "type": "identity",
-                    "input": "/0",
-                    "output": "physical"
-                }]
-            },
-            {
-                "path": "1",
-                "coordinateTransformations": [{
-                    // the second scale level (downscaled by a factor of 2 relative to "0" in zyx)
-                    "type": "scale",
-                    "scale": [2, 2, 2],
-                    "input" : "/1",
-                    "output" : "physical"
-                }]
-            },
-            {
-                "path": "2",
-                "coordinateTransformations": [{
-                    // the third scale level (downscaled by a factor of 4 relative to "0" in zyx)
-                    "type": "scale",
-                    "scale": [4, 4, 4],
-                    "input" : "/2",
-                    "output" : "physical"
-                }]
-            }
-        ],
-        },
-        "coordinateTransformations": [
-            {
-                "type": "affine",
-                "name": "deskew-transformation",
-                "input": "physical",
-                "output": "deskewed",
-                "affine": [
-                    [1, 0, 0, 0],
-                    [0, 1, 0, 0],
-                    [0, 0.785, 1, 0],
-                    [0, 0, 0, 1]
-                ]
-            }
-        ]
+    "multiscales": [
+        {
+            "version": "0.6dev2",
+            "name": "example",
+            "coordinateSystems": [
+                {
+                    "name": "deskewed",
+                    "axes": [
+                        {"name": "z", "type": "space", "unit": "micrometer"},
+                        {"name": "y", "type": "space", "unit": "micrometer"},
+                        {"name": "x", "type": "space", "unit": "micrometer"}
+                    ]
+                },
+                {
+                    "name": "physical",
+                    "axes": [
+                        {"name": "z", "type": "space", "unit": "micrometer"},
+                        {"name": "y", "type": "space", "unit": "micrometer"},
+                        {"name": "x", "type": "space", "unit": "micrometer"}
+                    ]
+                }
+            ],
+            "datasets": [
+                {
+                    "path": "0",
+                    // the transformation of other arrays are defined relative to this, the highest resolution, array
+                    "coordinateTransformations": [{
+                        "type": "identity",
+                        "input": "0",
+                        "output": "physical"
+                    }]
+                },
+                {
+                    "path": "1",
+                    "coordinateTransformations": [{
+                        // the second scale level (downscaled by a factor of 2 relative to "0" in zyx)
+                        "type": "scale",
+                        "scale": [2, 2, 2],
+                        "input": "1",
+                        "output": "physical"
+                    }]
+                },
+                {
+                    "path": "2",
+                    "coordinateTransformations": [{
+                        // the third scale level (downscaled by a factor of 4 relative to "0" in zyx)
+                        "type": "scale",
+                        "scale": [4, 4, 4],
+                        "input": "2",
+                        "output": "physical"
+                    }]
+                }
+            ],
+            "coordinateTransformations": [
+                {
+                    "type": "affine",
+                    "name": "deskew-transformation",
+                    "input": "physical",
+                    "output": "deskewed",
+                    "affine": [
+                        [1, 0, 0, 0],
+                        [0, 1, 0, 0],
+                        [0, 0.785, 1, 0],
+                        [0, 0, 0, 1]
+                    ]
+                }
+            ]
+        }
     ]
 }
 ```
@@ -231,13 +241,13 @@ The output is a defined coordinate system:
 
 ```json
 "ome": {
-    "coordinateSystems":[
+    "coordinateSystems": [
         {
-        "name" : "world",
-        "axes": [
-            {"name": "z", "type": "space", "unit": "micrometer"},
-            {"name": "y", "type": "space", "unit": "micrometer"},
-            {"name": "x", "type": "space", "unit": "micrometer"}
+            "name": "world",
+            "axes": [
+                {"name": "z", "type": "space", "unit": "micrometer"},
+                {"name": "y", "type": "space", "unit": "micrometer"},
+                {"name": "x", "type": "space", "unit": "micrometer"}
             ]
         }
     ],
@@ -247,7 +257,7 @@ The output is a defined coordinate system:
             "type": "translation",
             "translation": [0, 10234, 41232],
             "input": "path/to/stack",
-            "output" "world"
+            "output": "world"
         }
     ]
 }
@@ -263,7 +273,7 @@ In a simplified way, the root level of the store should resemble this structure:
  ```
  root
  ├─── imageA
- ├─── imageA
+ ├─── imageB
  └─── zarr.json
  ```
 
@@ -293,7 +303,7 @@ We therefore added that the `input` of a `coordinateTransformation` entry in the
 
 > Do the top-level `coordinateTransformations` refer to coordinateSystems that are in child images?
 
-Yes, although they do so implictly.
+Yes, although they do so implicitly.
 If a `coordinateTransformation` in the parent-level group refers to child images through its `input`/`output` fields, the authoritiative coordinate transformation of the linked (multiscales) image is the *first* `coordinateSystem` therein.
 This formalism also provides enough distinction from an image's "default" (aka "physical") coordinate system,
 which is the *last* `coordinateSystem` inside the image. 
@@ -369,7 +379,7 @@ This is currently a requirement for the [names of axes](https://ngff.openmicrosc
 > under this new version.
 
 To our knowledge, every version in the past introduced breaking changes to the specification with the result that ome-zarr files
-of newer version could not be read anymore. As for the redundancy of specifiying input- and output-spaces in multiscales transformations,
+of newer version could not be read anymore. As for the redundancy of specifying input- and output-spaces in multiscales transformations,
 we agree in principle. However, we also see no harm in additional explicitness.
 
 ## Comment-3
@@ -379,11 +389,11 @@ Thank you for the additional comments in inquiries to this rfc.
 > In our opinion, it is clearer to interpret the transformation metadata when it refers explicitly to axes names instead of indices, so we recommend adapting “translation”, “scale”, “affine”, “rotation”, “coordinates”, and “displacements”.
 
 It is true that there is some inconsistency regarding how transformation parameters are specified with regard to the different axes of the coordinate systems.
-The decision to express the mentioned transforms (`mapAxis` and `byDimension`) originated from discussions at the previous ngff Hackathon,
+The decision to express the mentioned transforms (`mapAxis` and `byDimension`) originated from discussions at previous hackathons,
 which we regret aren't reflect in this rfc process. 
+We have changed the `mapAxis` transformation towards being expressed as a transpose vector of integers that refer to the axis orderings of the input coordinate system.
 
-Regarding expressing all transformations by named reference to the express,
-we decided against this as it would require additinal sets of constraints for the axes ordering of the `input_axes` and `output_axes` fields for matrix transformations.
+we decided against this as it would require additional sets of constraints for the axes ordering of the `input_axes` and `output_axes` fields for matrix transformations.
 For example, the same rotation matrix could be expressed with different axis ordering,
 which would correspond to a reordering of the column/row vectors of the corresponding transformation matrix.
 Simply referring to the axes ordering specified in the `coordinateSystems` seemed like a simple solution for this.
@@ -392,13 +402,43 @@ This is not to say that we do not see merrit in introducing the proposed axis or
 
 > [...] We recommend that `byDimension` instead has a consistent treatment of the input/output fields to store the input and output coordinate system names, and new fields (input_axes, output_axes) are added to specify the input/output axes.
 
-TODO
+We agree with the raised recommendation
+We have added the fields `input_axes` and `output_axes` to the `by_dimension` transformation.
+This harmonizes the interface of the transformations across all transformations.
+
+However, we specify that the fields `input_axes` and `output_axes` need to be present for all *wrapped* transformations instead of the parent `byDimension` transformation.
+Otherwise, allowing `byDimension` to wrap a list of transformations would require complicated mappings to subsets of coordinate systems.
+The proposed format offers a clear interface, which allows transformations to be written as follows:
+
+```` {admonition} Example
+```json
+{
+  "type": "byDimension",
+  "input": "high_dimensional_coordinatesystem_A",
+  "output": "high_dimensional_coordinatesystem_B", 
+  "transformations": [
+    {
+      "type": "scale",
+      "input_axes": ["x", "y"],
+      "output_axes": ["x", "y"],
+      "scale": [0.5, 0.5]
+    },
+    {
+      "type": "translation", 
+      "input_axes": ["z"],
+      "output_axes": ["z"],
+      "translation": [10.0]
+    }
+  ]
+}
+```
+````
 
 ## inverseOf
 
 > It is not clear what inverseOf achieves, that can’t be achieved by defining the same transformation but simply swapping the values of the input and output coordinate system names. [...]
 
-This RFC motivates the `inverseOf` tranformation:
+The RFC motivates the `inverseOf` tranformation:
 
 > When rendering transformed images and interpolating, implementations may need the "inverse" transformation - from the output
 > to the input coordinate system. Inverse transformations will not be explicitly specified when they can be computed in closed
@@ -408,19 +448,19 @@ This RFC motivates the `inverseOf` tranformation:
 though we appreciate that more clarity could be helpful. The storage of transformations for _images_ (not point coordinates), is
 a main motivator of this transformation.
 
-There is not consensus among image registration algorithms on whether their output transformation takes points from the moving
-to fixed image ("forward") or fixed to moving ("inverse"), when the transformation type is closed-form invertible.  When 
+There is no consensus among image registration algorithms on whether their output transformation takes points from the moving
+to fixed image ("forward") or fixed to moving ("inverse"), when the transformation type is closed-form invertible. When 
 the transformation type is not closed-form invertible, the algorithms are obliged to output the inverse transformation.
 
 We would like to recommend that registration algorithms store the "forward" transformation (where the input is moving image's
-coordinate system, and the output is the fixed image's coordinate system) because this matches the intuitions of users and
+coordinate system, and the output is the fixed image's coordinate system) because this matches the intuition of users and
 practitioners. Given an "inverse" transformation, that is not closed-form invertible, the `inverseOf` wrapper 
 enables their storage as if they were a "forward" transformations while informing implementations how to treat them.
 
 It is true that we could remove `inverseOf` and swap the input / output coordinate systems. In that case we do one of
 
 * not recommend which direction to store for the transformations
-    * one downside is that implementations will not know what to expect and could distinguish moving from fixed coordinate
+    * one downside is that implementations will not know what to expect and could not distinguish moving from fixed coordinate
       system from the transformation
 * recommend that the "inverse" transformation is stored
     * one downside is that this does not align with intuition
@@ -430,10 +470,9 @@ In our opinion, the cost of adding of this simple transformation type is worth a
 > In the sequence section constraints on whether input/output must be specified are listed that apply to transformations other than “sequence”.
 > For clarity we recommend these constraints are moved to the relevant transformations in the RFC, or to their own distinct section.
 
-Thank you for the suggestion, it was changed accordingly. We also realized that the `sequence` setion previously permitted nested sequences.
+Thank you for the suggestion, it was changed accordingly.
+We also realized that the `sequence` section previously permitted nested sequences.
 This possibility was removed to avoid complex, nested transformations.
-
-
 
 
 ## Other 
@@ -458,7 +497,7 @@ This would be an undue burden.
 We agreed with and shared this concern.
 
 As a result, a group of hackathon attendees agreed to a set of constraints
-that would decrease the burden on implementors, without reducing the
+that would decrease the burden on implementers, without reducing the
 expressibility (see `"multiscales" metadata` section).
 
 A series of follow-up discussions further refined these constraints and metadata design layouts.
@@ -466,7 +505,7 @@ A series of follow-up discussions further refined these constraints and metadata
 To summarize the constraints *inside* multiscales:
 
 * The last coordinate system in the list is a *default* coordinate system
-    * ususally an image's "native" physical coordinate system
+    * usually an image's "native" physical coordinate system
 * There MUST be exactly one coordinate transformation per dataset in the multiscales whose output is the *default* coordinate system.
   This transformation SHOULD be simple (defined precisely in the spec).
 * Any other transformations belong outside the `datasets` (i.e., under `multiscales > coordinateTransformations`)
@@ -484,16 +523,19 @@ As a result of discussion, we recommend writers to use sequences of less express
 
 ### Parameters in zarr arrays
 
-This RFC allows for the parameters of most transformations to be stored either as zarr arrays or as a JSON array.  There has
-been [debate on github](https://github.com/ome/ngff/pull/138) as to whether the parameters of "simple" transformaions (scale,
+This RFC allows for the parameters of most transformations to be stored either as zarr arrays or as a JSON array. There has
+been a [debate on github](https://github.com/ome/ngff/pull/138) as to whether the parameters of "simple" transformaions (scale,
 translation, affines) should be restricted to _only_ be in the JSON metadata and not in zarr arrays.
+We appreciate the in-depth discussion around the nature, fidelity and efficiency of using zarr-arrays for parameter storage.
+Hence, we would like to thank all participants for valuable insights and pointing out the different technical,
+legal and other aspects to this topic.
 
 In summary, we feel that the benefits of the zarr array representation for those who choose to use it is worth the additional
 costs at this time.
 
 We agree there are compelling reasons to prefer / require that the parameters are stored in JSON. Specifically that
-implementations could be simpler because the parameters can be in exactly one place, and it would save IO.  As well, there are
-good reasons to allow storage of parameters in zarr arrays include, specifically that the decoding of floating point numbers
+implementations could be simpler because the parameters can be in exactly one place, and it would save IO. As well, there are
+good reasons to allow storage of parameters in zarr arrays. Specifically, that the decoding of floating point numbers
 from arrays is more precise and robust that from JSON, and that the array ordering for multidimensional arrays is clearer, among
 others.
 
@@ -501,7 +543,7 @@ First, the issue of floating point precision is a critical one. In principle, it
 their JSON representation reliably, precisely, and consistently across programming languagues. We feel that the mechanism for
 this should be specified by Zarr (not by OME-Zarr), and while 
 [a proposal exists at this time](https://github.com/zarr-developers/zarr-extensions/issues/22) for a relevant zarr extension,
-it has not been adopted, nor tested across languages. We should revist this proposal in the future if and when it is adopted.
+it has not been adopted, nor tested across languages. We should revisit this proposal in the future if and when it is adopted.
 
 Second, regarding additional code complexity: any complete implementation of this RFC requires that parameters be read from zarr
 arrays for some transformations (coordinate and displacement fields). As a result, many implementations will necessarily accept
