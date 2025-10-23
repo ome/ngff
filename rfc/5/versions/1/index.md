@@ -696,7 +696,7 @@ Each `multiscales` dictionary MUST contain the field "coordinateSystems",
 whose value is an array containing valid coordinate system metadata
 (see [coordinate systems](#coordinatesystems-metadata)).
 The last entry of this array is the "default" coordinate system
-and MUST contain transformations from array to physical coordinates.
+and MUST contain axis information pertaining to physical coordinates.
 It should be used for viewing and processing unless a use case dictates otherwise.
 It will generally be a representation of the image in its native physical coordinate system. 
 
