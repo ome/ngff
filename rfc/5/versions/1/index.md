@@ -720,10 +720,10 @@ It is stored in a multiple resolution representation.
 Each `multiscales` dictionary MUST contain the field "coordinateSystems",
 whose value is an array containing valid coordinate system metadata
 (see [coordinate systems](#coordinatesystems-metadata)).
-The last entry of this array is the "default" coordinate system
+The last entry of this array is the "intrinsic" coordinate system
 and MUST contain axis information pertaining to physical coordinates.
 It should be used for viewing and processing unless a use case dictates otherwise.
-It will generally be a representation of the image in its native physical coordinate system. 
+It will generally be a representation of the image in its native physical coordinate system.
 
 The following MUST hold for all coordinate systems inside multiscales metadata.
 The length of "axes" must be between 2 and 5
@@ -748,14 +748,14 @@ The number of dimensions and order MUST correspond to number and order of `axes`
 
 Each dictionary in `datasets` MUST contain the field `coordinateTransformations`,
 whose value is a list of dictionaries that define a transformation
-that maps Zarr array coordinates for this resolution level to the "default" coordinate system
+that maps Zarr array coordinates for this resolution level to the "intrinsic" coordinate system
 (the last entry of the `coordinateSystems` array).
 The transformation is defined according to [transformations metadata](#transformation-types).
 The transformation MUST take as input points in the array coordinate system
 corresponding to the Zarr array at location `path`.
 The value of "input" MUST equal the value of `path`, 
 implementations should always treat the value of `input` as if it were equal to the value of `path`.
-The value of the transformation’s `output` MUST be the name of the default [coordinate system](#coordinatesystems-metadata).
+The value of the transformation’s `output` MUST be the name of the "intrinsic" [coordinate system](#coordinatesystems-metadata).
 
 This transformation MUST be one of the following:
 
@@ -768,14 +768,14 @@ the value MUST express the scaling factor between the current resolution
 and the first resolution for the given axis,
 defaulting to 1.0 if there is no downsampling along the axis.
 This is strongly recommended
-so that the the "default" coordinate system of the image avoids more complex transformations.
+so that the the "intrinsic" coordinate system of the image avoids more complex transformations.
 
 If applications require additional transformations,
 each `multiscales` dictionary MAY contain the field `coordinateTransformations`,
 describing transformations that are applied to all resolution levels in the same manner.
-The value of `input` MUST equal the name of the "default" coordinate system.
+The value of `input` MUST equal the name of the "intrinsic" coordinate system.
 The value of `output` MUST be the name of the output coordinate System
-which is different from the "default" coordinate system.
+which is different from the "intrinsic" coordinate system.
 
 Each `multiscales` dictionary SHOULD contain the field `name`.
 
@@ -800,7 +800,7 @@ A complete example of json-file for a 5D (TCZYX) multiscales with 3 resolution l
           "name": "example",
           "coordinateSystems": [
               {
-                "name": "example",
+                "name": "intrinsic",
                 "axes": [
                   { "name": "t", "type": "time", "unit": "millisecond" },
                   { "name": "c", "type": "channel" },
@@ -820,7 +820,7 @@ A complete example of json-file for a 5D (TCZYX) multiscales with 3 resolution l
                   "type": "scale",
                   "scale": [1.0, 1.0, 0.5, 0.5, 0.5],
                   "input": "0",
-                  "output": "example"
+                  "output": "intrinsic"
                 }
               ]
             },
@@ -833,7 +833,7 @@ A complete example of json-file for a 5D (TCZYX) multiscales with 3 resolution l
                   "type": "scale",
                   "scale": [1.0, 1.0, 1.0, 1.0, 1.0],
                   "input": "1",
-                  "output": "example"
+                  "output": "intrinsic"
                 }
               ]
             },
@@ -846,7 +846,7 @@ A complete example of json-file for a 5D (TCZYX) multiscales with 3 resolution l
                   "type": "scale",
                   "scale": [1.0, 1.0, 2.0, 2.0, 2.0],
                   "input": "2",
-                  "output": "example"
+                  "output": "intrinsic"
                 }
               ]
             }
