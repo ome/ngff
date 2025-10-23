@@ -239,6 +239,9 @@ The following transformations are supported:
 | `bijection` | `"forward":Transformation`<br>`"inverse":Transformation` | An invertible transformation providing an explicit forward transformation and its inverse. |
 | `byDimension` | `"transformations":List[Transformation]`, <br> `"input_axes": List[str]`, <br> `"output_axes": List[str]` | A high dimensional transformation using lower dimensional transformations on subsets of dimensions. |
 
+Implementations SHOULD prefer to store transformations as a sequence of less expressive transformations where possible
+(e.g., sequence[translation, rotation], instead of affine transformation with translation/rotation). 
+
 ````{admonition} Example
 (example:coordinate_transformation_scale)=
 
@@ -287,9 +290,6 @@ Coordinate transformations can be stored in multiple places to reflect different
 - Transformations between two or more images MUST be stored in the attributes of a parent zarr group.
   For transformations that store data or parameters in a zarr array,
   those zarr arrays SHOULD be stored in a zarr group called "coordinateTransformations".
-
-Implementations SHOULD prefer to store transformations as a sequence of less expressive transformations where possible
-(e.g., sequence[translation, rotation], instead of affine transformation with translation/rotation). 
 
 <pre>
 store.zarr                      # Root folder of the zarr store
