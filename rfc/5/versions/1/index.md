@@ -787,36 +787,42 @@ A complete example of json-file for a 5D (TCZYX) multiscales with 3 resolution l
           "datasets": [
             {
               "path": "0",
-              "coordinateTransformations": {
-                // the voxel size for the first scale level (0.5 micrometer)
-                // and the time unit (0.1 milliseconds), which is the same for each scale level
-                "type": "scale",
-                "scale": [1.0, 1.0, 0.5, 0.5, 0.5],
-                "input": "0",
-                "output": "example"
-              }
+              "coordinateTransformations": [
+                {
+                  // the voxel size for the first scale level (0.5 micrometer)
+                  // and the time unit (0.1 milliseconds), which is the same for each scale level
+                  "type": "scale",
+                  "scale": [1.0, 1.0, 0.5, 0.5, 0.5],
+                  "input": "0",
+                  "output": "example"
+                }
+              ]
             },
             {
               "path": "1",
-              "coordinateTransformations": {
-                // the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)
-                // and the time unit (0.1 milliseconds), which is the same for each scale level
-                "type": "scale",
-                "scale": [1.0, 1.0, 1.0, 1.0, 1.0],
-                "input": "1",
-                "output": "example"
-              }
+              "coordinateTransformations": [
+                {
+                  // the voxel size for the second scale level (downscaled by a factor of 2 -> 1 micrometer)
+                  // and the time unit (0.1 milliseconds), which is the same for each scale level
+                  "type": "scale",
+                  "scale": [1.0, 1.0, 1.0, 1.0, 1.0],
+                  "input": "1",
+                  "output": "example"
+                }
+              ]
             },
             {
               "path": "2",
-              "coordinateTransformations": {
-                // the voxel size for the third scale level (downscaled by a factor of 4 -> 2 micrometer)
-                // and the time unit (0.1 milliseconds), which is the same for each scale level
-                "type": "scale",
-                "scale": [1.0, 1.0, 2.0, 2.0, 2.0],
-                "input": "2",
-                "output": "example"
-              }
+              "coordinateTransformations": [
+                {
+                  // the voxel size for the third scale level (downscaled by a factor of 4 -> 2 micrometer)
+                  // and the time unit (0.1 milliseconds), which is the same for each scale level
+                  "type": "scale",
+                  "scale": [1.0, 1.0, 2.0, 2.0, 2.0],
+                  "input": "2",
+                  "output": "example"
+                }
+              ]
             }
           ],
           "type": "gaussian",
