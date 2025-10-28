@@ -68,9 +68,12 @@ In order to avoid inconsistencies when renaming zipped OME-Zarr files, this RFC 
 In other words, according to this specification, the OME-Zarr's root-level `zarr.json` MUST be located in the root of the ZIP archive and not in a subfolder within the ZIP archive.
 Potential problems (e.g. loss of data) resulting from "accidentally" extracting the archive file in-place (e.g. using on-board tooling of some operating systems) can be alleviated by introducing a custom file extension (see below).
 
-To facilitate the performant reading of zipped OME-Zarr files, a set of essential ZIP/Zarr storage parameters are recommended in this RFC.
-These include recommendations to disable ZIP-level compression (to avoid "double compression" when using Zarr compression codecs), to make use of Zarr's sharding codec (to avoid inflating the number of central directory records in the ZIP file header), to list all `zarr.json` files at the beginning of the central directory header in a breadth-first order (to enable efficient metadata parsing), and to write the root-level `zarr.json` as the first ZIP file entry (to enable efficient reading by tools that do not consider the central directory header).
-Zipped OME-Zarr files may include an OME-Zarr-specific "archive comment" in the ZIP file header to indicate compliance with these recommendations, further facilitating efficient data/metadata access.
+To facilitate the performant reading of zipped OME-Zarr files, a set of essential ZIP/Zarr storage parameters are recommended in this RFC:
+
+- Disable ZIP-level compression. This avoids unnecessary compression of already compressed data (e.g. when using Zarr compression codecs) and makes it easier to directly conduct partial reads of the ZIP archive.
+- Use the Zarr sharding codec. This reduces the number of records in the central directory header.
+- Include all `zarr.json` files at the begining of the file and at the beginning of the central directory header in a breadth-first order, starting with the root-level `zarr.json` as the first entry. This enables efficient metadata processing and discovery of the hierarchy structure.
+- Include an OME-Zarr-specific archive comment in the ZIP file header, indicating compliance with these recommendations. This further facilitates efficient data/metadata access and also allows for additional (optional/recommended) single-file metadata that may be specified in future OME-Zarr versions.
 
 This RFC explicitly prohibits embedding a zipped OME-Zarr file as subhierarchy of a parent OME-Zarr hierarchy.
 In particular this prohibits "recursive zipping", the embedding of a zipped OME-Zarr file within a parent zipped OME-Zarr file.
@@ -96,11 +99,12 @@ An OME-Zarr hierarchy MAY be stored within a ZIP archive.
 For a ZIP file to be referred to as a single-file OME-Zarr file, it MUST contain exactly one OME-Zarr hierarchy.
 The root of the ZIP archive MUST correspond to the root of the OME-Zarr hierarchy, and it MUST contain the the OME-Zarr's root-level `zarr.json`.
 
-When creating zipped OME-Zarr files, it is RECOMMENDED to disable ZIP-level compression.
-It is further RECOMMENDED to use Zarr's sharding codec to reduce the number of entries within the ZIP archive.
-All `zarr.json` files SHOULD be listed first in the central directory header, in a breadth-first order.
-The root-level `zarr.json` SHOULD be the first ZIP file entry.
-The null-terminated UTF-8-encoded string `OZX####` (with `####` replaced by the zero-padded semantic OME-Zarr MAJOR.MINOR version, e.g. `OZX0102` for version 1.2) MAY be used as a ZIP archive comment to indicate that a zipped OME-Zarr file adheres to all recommendations in this paragraph.
+When creating zipped OME-Zarr files, the following are RECOMMENDED:
+
+- ZIP-level compression SHOULD be disabled in favor of Zarr-level compression codecs.
+- The sharding codec SHOULD be used to reduce the number of entries within the ZIP archive.
+- The root-level `zarr.json` file SHOULD be the first ZIP file entry and the first entry in the central directory header; other `zarr.json` files SHOULD follow immediately afterwards, in breadth-first order.
+- The ZIP archive comment SHOULD contain null-terminated UTF-8-encoded JSON with an `ome` attribute containing an OME-Zarr `version` key, equivalent to `{"ome": { "version": "XX.YY"}}`, indicating that the zipped OME-Zarr file adheres to all recommendations in this list.
 
 Zipped OME-Zarr files SHALL NOT be embedded in a parent OME-Zarr hierarchy (as a sub-hierarchy or otherwise).
 
