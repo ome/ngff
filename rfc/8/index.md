@@ -102,6 +102,7 @@ Examples for such workflow systems:
 * CLEM
 
 #### 5. High Content Screening (HCS) plates
+(hcs-plates-collection)=
 OME-Zarr high content screening plates are a current example of a very narrowly defined type of collection. They allow to group OME-Zarr images in multiple hierarchy levels: A plate contains wells, which are organized as row folders with column subfolders in each. Each well folder can contain a number of images. There is defined metadata about which wells are in a plate and about which images are in a well at the different hierarchy levels, typically with some additional optional metadata like the acquisitions that exist in a plate and which image belongs to which acquisition.
 This hierarchy is very useful for typical experiments where researchers imaged a multi-well plate. Multiple viewers like MoBIE, napari & ViZarr support displaying the different wells arranged in the plate format given the OME-Zarr HCS metadata, thus avoiding the need for tool-specific metadata and showing the benefits of such collection concepts.
 The current HCS spec also has its limitations: It has a strict definition of potential metadata fields at the plate and well level. There are multiple areas where it would be interesting to extend this spec. There are [ongoing discussions](https://github.com/ome/ngff/pull/137) about whether individual microscope fields of view (ie. well) should be stored as individual OME-Zarr images or as a single OME-Zarr image. In that context, it is unclear how one would provide metadata about the individual images in a well and what a viewer should do with them. For example, depending on whether an OME-Zarr image in a well is an individual field of view of a given acquisition, a second acquisition of the same region in a plate or an image derived from a given processing operation, the optimal viewer default on whether to show or not show multiple images at once will vary. A flexible metadata field like `attributes` would allow us to better define such image metadata. A more flexible HCS collection system could also allow to provide advanced metadata on well positions [when wells have different sizes](https://github.com/ome/ome-zarr-py/issues/240) or address other edge-cases in the current HCS configuration.
@@ -146,6 +147,14 @@ Implementations of this concept include:
 For example, [this table](https://docs.google.com/spreadsheets/d/1t5xB0p0zd2-a6ynV-JAuLJqs-mg-pFFikhfmQGZwRpI/edit?usp=sharing) defines a MoBIE grid view of three OpenOrganelle vEM images along with label images of mitochondria segmentation. It can be opened in MoBIE via the "Open Simple Collection Table" menu entry: 
 
 ![MoBIE grid view](./assets/mobie_grid_view.jpg)
+
+#### 11. Coordinate transformations
+
+Similar to [HCS plates](hcs-plates-collection), coordinate transformations as defined by RFC5 define a narrow case of image collections.
+In this case, images are part of a collection if they share a common coordinate space that is defined by coordinate systems and coordinate transformations.
+Since the relationships between images are already defined in a graph like schema as proposed in this RFC,
+the transformations metadata can be represented as a specialized collection with coordinate systems and transformations as attributes of the collection and nodes.
+In a way, coordinate transformations and systems simply become a subset of the more general collection concept.
 
 
 
@@ -467,7 +476,72 @@ How do we represent images in wells that can optionally be related to labels and
 
 ### Attaching coordinate transforms
 
-Coordinate transforms as defined in RFC-5
+Coordinate systems and transformations can be stored in three distinct locations:
+For single images, they can be stored in the `ome` key of the `attributes` container in a `zarr.json` file of the multiscales zarr group.
+Since these metadata are entirely self-contained, they are inherently compatible with the proposed collection metadata format.
+For collections of two or more images in a common coordinate system, RFC5 defines a parent-level metadata format.
+In this layout, `coordinateTransformation` define relationships between different images or `coordinateSystems`:
+
+```jsonc
+{
+  "coordinateTransformations": [
+    {
+      "type": "translation",
+      "translation": [0, 0, 100],
+      "input": "image_1",  // can be path or coordinateSystem name
+      "output": "world"  // can be path or coordinateSystem name
+    }
+  ]
+}
+```
+
+To avoid redundancy and ensure a strict mapping from coordinate transformations inputs/outputs to collection nodes,
+the input/output values of coordinate transformations could be allowed to reference collection node names.
+In this case, a collection node name could serve as a place holder for an image path.
+
+```jsonc
+{
+  "ome": {
+    "version": "0.x",
+    "type": "collection",
+    "name": "hcs-plate-001",
+    "attributes": {
+      "coordinateSystems": [
+        {
+          "name": "world",
+          "axes": [...]
+        }
+      ],
+      "coordinateTransformations": [
+        {
+          "type": "translation",
+          "translation": [0, 0, 100],
+          "input": "tile_0",  // references collection node name
+          "output": "world"  // references coordinate system name
+        },
+        {
+          "type": "translation",
+          "translation": [100, 0, 0],
+          "input": "tile_1",  // references collection node name
+          "output": "world"  // references coordinate system name
+        }
+      ]
+    },
+    "nodes": [
+      {
+        "type": "multiscale",
+        "name": "tile_0",
+        "path": "./tile_0.zarr",
+      }, 
+      {
+        "type": "multiscale",
+        "name": "tile_1",
+        "path": "./tile_1.zarr",
+      },
+    ]
+  }
+}
+```
 
 ### Where is this collection metadata stored?
 
