@@ -179,7 +179,7 @@ As with all coordinate systems, the `dimension_names` must be unique and non-nul
 ```
 ````
 
-The axes and their order align with the `shape` attribute in the zarr array attributes (in `.zarray`),
+The axes and their order align with the `shape` attribute in the zarr array attributes (in `zarr.json`),
 and whose data depends on the byte order used to store chunks.
 As described in the [Zarr array metadata](https://zarr.readthedocs.io/en/stable/spec/v3.html#arrays),
 the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded. 
