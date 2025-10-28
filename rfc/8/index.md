@@ -91,7 +91,7 @@ Examples for such workflow systems:
 - [Fractal](https://fractal-analytics-platform.github.io/)
 - [Nextfow](https://www.nextflow.io/)
 
-#### 4. Overriding transforms
+#### 4. Correlative imaging
 
 <!--
 
@@ -99,7 +99,7 @@ Examples for such workflow systems:
 -->
 
 * TODO for Eric
-    * John can help if desired
+* CLEM
 
 #### 5. High Content Screening (HCS) plates
 OME-Zarr high content screening plates are a current example of a very narrowly defined type of collection. They allow to group OME-Zarr images in multiple hierarchy levels: A plate contains wells, which are organized as row folders with column subfolders in each. Each well folder can contain a number of images. There is defined metadata about which wells are in a plate and about which images are in a well at the different hierarchy levels, typically with some additional optional metadata like the acquisitions that exist in a plate and which image belongs to which acquisition.
