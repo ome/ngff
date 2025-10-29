@@ -484,7 +484,6 @@ Each integer in the array MUST be a valid zero-based index into the input coordi
 Each index MUST appear exactly once in the array.
 The value at position `i` in the array indicates which input axis becomes the `i`-th output axis.
 `mapAxis` transforms are invertible.
-`mapAxis` transforms are invertible.
 
 The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
 
