@@ -94,13 +94,29 @@ Examples for such workflow systems:
 
 #### 4. Correlative imaging
 
-<!--
+Several applications in microscopy and other imaging domains involve the acquisition of images
+of the same object from different angles or with different imaging modalities.
+Examples of such applications are (among others) the following:
+- Correlative light and electron microscopy (CLEM): In this case,
+  a sample is examined with both electron and light microscopy,
+  both of which feature their own sets of spatial dimensions.
+  A set of coordinate transformations is used to map between the different images.
+- Multiview lightsheet: For this application,
+  lightsheet microscopes acquire multiple views of the same object from different angles.
+  A set of coordinate transformations is used to map between the different views.
+- Multimodal medical imaging: Different imaging modalities (e.g., CT, MRI, PET, etc),
+  are often used either in conjunction or at different timepoints to observe the same object or anatomical structure. 
 
-    
--->
+Such applications require the storage of collections of images and their mutual relationships,
+the metadata for which has already been defined by RFC5 (Coordinate Transformations in OME-NGFF).
+In the context of RFC5, images are part of a collection if they share a common coordinate space
+that is defined by coordinate systems and coordinate transformations.
+Since the relationships between images are already defined
+in a graph-like schema as proposed in this RFC,
+the transformations metadata can be represented as a specialized collection
+with coordinate systems and transformations as attributes of the collection and nodes.
+In a way, coordinate transformations and systems simply become a subset of the more general collection concept.
 
-* TODO for Eric
-* CLEM
 
 #### 5. High Content Screening (HCS) plates
 (hcs-plates-collection)=
@@ -148,14 +164,6 @@ Implementations of this concept include:
 For example, [this table](https://docs.google.com/spreadsheets/d/1t5xB0p0zd2-a6ynV-JAuLJqs-mg-pFFikhfmQGZwRpI/edit?usp=sharing) defines a MoBIE grid view of three OpenOrganelle vEM images along with label images of mitochondria segmentation. It can be opened in MoBIE via the "Open Simple Collection Table" menu entry: 
 
 ![MoBIE grid view](./assets/mobie_grid_view.jpg)
-
-#### 11. Coordinate transformations
-
-Similar to [HCS plates](hcs-plates-collection), coordinate transformations as defined by RFC5 define a narrow case of image collections.
-In this case, images are part of a collection if they share a common coordinate space that is defined by coordinate systems and coordinate transformations.
-Since the relationships between images are already defined in a graph like schema as proposed in this RFC,
-the transformations metadata can be represented as a specialized collection with coordinate systems and transformations as attributes of the collection and nodes.
-In a way, coordinate transformations and systems simply become a subset of the more general collection concept.
 
 
 
