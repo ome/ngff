@@ -4,7 +4,7 @@
   "attributes": {
     "ome": {
       "version": "0.7",
-      "node_type": "collection",
+      "type": "collection",
       "name": "l4dense_motta_et_al_dev_v2",
       "attributes": {
         "webknossos:rendering": {
@@ -18,7 +18,7 @@
       },
       "nodes": [
         {
-          "node_type": "image",
+          "type": "multiscale",
           "name": "color",
           "attributes": {
             "webknossos:category": "color",
@@ -31,7 +31,7 @@
           "path": "/absolute/path/to/l4dense_motta_et_al_demo/color"
         },
         {
-          "node_type": "image",
+          "type": "multiscale",
           "name": "segmentation",
           "attributes": {
             "webknossos:category": "segmentation",
@@ -45,145 +45,145 @@
           "path": "./segmentation"
         },
         {
-          "node_type": "webknossos:mesh",
+          "type": "webknossos:mesh",
           "name": "meshfile_4-4-2",
           "path": "./segmentation/zarr/meshes/meshfile_4-4-2",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_5",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_5",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_10",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_10",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_15",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_15",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_20",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_20",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_25",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_25",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_30",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_30",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_35",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_35",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_40",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_40",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_45",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_45",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_50",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_50",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_55",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_55",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_60",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_60",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_65",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_65",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_70",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_70",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_75",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_75",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_80",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_80",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_85",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_85",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_90",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_90",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_95",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_95",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:agglomeration",
+          "type": "webknossos:agglomeration",
           "name": "agglomerate_view_100",
           "path": "./segmentation/zarr/agglomerates/agglomerate_view_100",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:segment_index",
+          "type": "webknossos:segment_index",
           "name": "segmentIndex",
           "path": "./segmentation/zarr/segmentIndex/segmentIndex",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "webknossos:connectome",
+          "type": "webknossos:connectome",
           "name": "paper_l4_full_connectome",
           "path": "./segmentation/zarr/connectomes/paper_l4_full_connectome",
           "attributes": { "webknossos:parent": "segmentation" }
         },
         {
-          "node_type": "image",
+          "type": "multiscale",
           "name": "prediction",
           "attributes": {
             "webknossos:category": "color",
