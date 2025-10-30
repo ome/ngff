@@ -132,7 +132,7 @@ where each dictionary describes a dimension (axis) and:
   but MAY take other string values for custom axis types that are not part of this specification yet.
 - MAY contain the field "discrete".
   The value MUST be a boolean,
-  and is `true` if the axis represents a discrete dimension.
+  and is `true` if the axis represents a discrete dimension (see below for details).
 - SHOULD contain the field "unit" to specify the physical unit of this dimension.
   The value SHOULD be one of the following strings,
   which are valid units according to UDUNITS-2.
