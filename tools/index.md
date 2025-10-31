@@ -31,18 +31,18 @@ Many of the tools in the *File Reading/Writing* section below also support forma
 
 ## Dataset Reading/Writing
 
-Various libraries for reading/writing OME-Zarr files in Python were evaluated as part of the BioVisionCenter "Next generation bioimage analysis workflows hackathon" 2023 in Zurich, Switzerland: https://github.com/jwindhager/ome-ngff-readers-writers/.
-
 | Name    | Link | Description |
 | -------- | ------- | ------- |
 | bfio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/bfio) | A Python interface to Bioformats using jpype for direct access to the library. |
-| BioIO | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/bioio-devs/bioio) | (formerly AICSImageIO <https://github.com/AllenCellModeling/aicsimageio>) Image Reading, Metadata Conversion, and Image Writing for Microscopy Images in pure Python. |
+| Bio-Formats | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/bioformats) | A standalone Java library for reading and writing life sciences image file formats. Requires [OMEZarrReader](https://github.com/ome/ZarrReader) |
+| BioIO | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/bioio-devs/bioio) | (formerly AICSImageIO <https://github.com/AllenCellModeling/aicsimageio>) Image Reading, Metadata Conversion, and Image Writing for Microscopy Images in pure Python. Requires [bioio-ome-zarr](https://github.com/bioio-devs/bioio-ome-zarr) |
 | iohub| [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/czbiohub-sf/iohub) | Pythonic and parallelizable I/O for N-dimensional imaging data with OME metadata |
 | ITKIOOMEZarrNGFF | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF) | An ITK external module for IO of images stored in OME-Zarr file format. |
 | multiscale-spatial-image | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/spatial-image/multiscale-spatial-image) | Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-Zarr. |
 | ngff-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/thewtex/ngff-zarr) | A lean and kind Open Microscopy Environment (OME) Next Generation File Format (NGFF) Zarr implementation. |
 | ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. |
-| OMEZarrReader | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ZarrReader) | A plugin enabling the [Bio-Formats standalone Java library](https://github.com/ome/bioformats) to read and write OME-Zarr datasets. |
+
+Various libraries for reading/writing OME-Zarr files in Python were evaluated as part of the BioVisionCenter "Next generation bioimage analysis workflows hackathon" 2023 in Zurich, Switzerland: https://github.com/jwindhager/ome-ngff-readers-writers/.
 
 ## Dataset Validation
 
@@ -52,6 +52,7 @@ Various libraries for reading/writing OME-Zarr files in Python were evaluated as
 | ome-zarr-models | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome-zarr-models/ome-zarr-models-py) | Python package and command line interface that can validate OME-Zarr files |
 
 ## Other Tools and Libraries
+
 | Name    | Link | Description |
 | -------- | ------- | ------- |
 | Fractal | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://fractal-analytics-platform.github.io/) | A framework to process OME-Zarr data at scale with modular processing tasks and to prepare it for interactive visualization. |
