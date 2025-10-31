@@ -287,7 +287,7 @@ i.e., the mapping from the first input axis to the first output axis is determin
 Conforming readers:
 - MUST parse `identity`, `scale`, `translation` transformations;
 - SHOULD parse `mapAxis`, `affine`, `rotation` transformations;
-- SHOULD display an informative warning if encountering transformations that cannot be parsed;
+- SHOULD display an informative warning if encountering transformations that cannot be parsed or displayed;
 - SHOULD be able to apply transformations to points;
 - SHOULD be able to apply transformations to images;
 
