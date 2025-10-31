@@ -177,14 +177,30 @@ As with all coordinate systems, the `dimension_names` must be unique and non-nul
 ````{admonition} Example
 ```json
 {
-    "name": "0",
-    "axes": [
-        {"name": "dim_0", "type": "array"},
-        {"name": "dim_1", "type": "array"},
-        {"name": "dim_2", "type": "array"}
+  "arrayCoordinateSystem" : {
+    "name" : "myDataArray",
+    "axes" : [
+      {"name": "dim_0", "type": "array"},
+      {"name": "dim_1", "type": "array"},
+      {"name": "dim_2", "type": "array"}
     ]
+  }
+}
+
+```
+
+For example, if 0/zarr.json contains:
+```jsonc
+{
+    "zarr_format": 3,
+    "node_type": "array",
+    "shape": [4, 3, 5],
+    //...
 }
 ```
+
+Then `dim_0` has length 4, `dim_1` has length 3, and `dim_2` has length 5.
+
 ````
 
 The axes and their order align with the shape of the corresponding zarr array,
