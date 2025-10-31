@@ -395,8 +395,9 @@ The image at path `sampleA_instrument2` would have this as the first listed coor
 Most coordinate transformations MUST specify their input and output coordinate systems
 using `input` and `output` with a string value
 that MUST correspond to the name of a coordinate system or the path to a multiscales group.
-Exceptions are if the coordinate transformation appears in the `transformations` list of a `sequence`
-or is the `transformation` of an `inverseOf` transformation.
+Exceptions are if the coordinate transformation is wrapped in another transformation,
+e.g. as part of a  `transformations` list of a `sequence` or
+as `transformation` of an `inverseOf` transformation.
 In these two cases input and output could, in some cases, be omitted (see below for details).
 If unused, the `input` and `output` fields MAY be null.
 
@@ -469,7 +470,8 @@ The position of the i-th axis of the output coordinate system
 is set to the position of the ith axis of the input coordinate system.
 `identity` transformations are invertible.
 
-The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 
 ##### <a name="mapAxis">mapAxis</a>
@@ -484,7 +486,8 @@ Each index MUST appear exactly once in the array.
 The value at position `i` in the array indicates which input axis becomes the `i`-th output axis.
 `mapAxis` transforms are invertible.
 
-The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 ##### <a name="translation">translation</a>
 
@@ -494,7 +497,8 @@ Input and output dimensionality MUST be identical
 and MUST equal the the length of the "translation" array (N).
 `translation` transformations are invertible.
 
-The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 <strong>path</strong>
 : The path to a zarr-array containing the translation parameters.
@@ -503,7 +507,6 @@ The array at this path MUST be 1D, and its length MUST be `N`.
 <strong>translation</strong>
 : The translation parameters stored as a JSON list of numbers.
 The list MUST have length `N`.
-
 
 ##### <a name="scale">scale</a>
 
@@ -514,7 +517,8 @@ and MUST equal the the length of the "scale" array (N).
 Values in the `scale` array SHOULD be non-zero;
 in that case, `scale` transformations are invertible.
 
-The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 <strong>path</strong>
 : The path to a zarr-array containing the scale parameters.
@@ -533,7 +537,8 @@ This transformation type may be (but is not necessarily) invertible
 when `N` equals `M`.
 The matrix MUST be stored as a 2D array either as json or as a zarr array.
 
-The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 <strong>path</strong>
 :  The path to a zarr-array containing the affine parameters.
@@ -554,7 +559,8 @@ and MUST have determinant equal to one, with orthonormal rows and columns.
 The matrix MUST be stored as a 2D array either as json or in a zarr array.
 `rotation` transformations are invertible.
 
-The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 <strong>path</strong>
 : The path to an array containing the affine parameters.
@@ -621,7 +627,8 @@ These transformation types refer to an array at location specified by the `"path
 The input and output coordinate systems for these transformations ("input / output coordinate systems")
 constrain the array size and the coordinate system metadata for the array ("field coordinate system").
 
-The `input` and `output` fields MAY be omitted if part of a [`sequence`](#sequence) transformation.
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 * If the input coordinate system has `N` axes,
   the array at location path MUST have `N+1` dimensions
