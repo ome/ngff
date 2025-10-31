@@ -542,7 +542,7 @@ The array at this path MUST be 2D whose shape MUST be `(M)x(N+1)`.
 
 <strong>affine</strong>
 : The affine parameters stored in JSON.
-The matrix MUST be stored as 2D nested array
+The matrix MUST be stored as 2D nested array (an array of arrays of numbers)
 where the outer array MUST be length `M` and the inner arrays MUST be length `N+1`.
 
 ##### <a name="rotation">rotation</a>
@@ -563,7 +563,7 @@ The array at this path MUST be 2D whose shape MUST be `N x N`.
 
 <strong>rotation</strong>
 : The parameters stored in JSON.
-The matrix MUST be stored as a 2D nested array where the outer array MUST be length `N`
+The matrix MUST be stored as a 2D nested array (an array of arrays of numbers) where the outer array MUST be length `N`
 and the inner arrays MUST be length `N`.
 
 
