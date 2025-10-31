@@ -79,14 +79,13 @@ This PR will then comprise complete json schemas when the RFC enters the SPEC ph
 
 ### "coordinateSystems" metadata
 
-A "coordinate system" is a collection of "axes" / dimensions with a name.
+A `coordinateSystem` is a JSON object with a "name" field and a "axes" field.
 Every coordinate system:
 - MUST contain the field "name".
   The value MUST be a non-empty string that is unique among all entries under `coordinateSystems`.
 - MUST contain the field "axes", whose value is an array of valid "axes" (see below).
 
-The order of the `"axes"` list matters
-and defines the index of each array dimension and coordinates for points in that coordinate system.
+The elements of `"axes"` correspond to the index of each array dimension and coordinates for points in that coordinate system.
 For the below example, the `"x"` dimension is the last dimension.
 The "dimensionality" of a coordinate system is indicated by the length of its "axes" array.
 The "volume_micrometers" example coordinate system below is three dimensional (3D).
@@ -188,7 +187,7 @@ As with all coordinate systems, the `dimension_names` must be unique and non-nul
 ```
 ````
 
-The axes and their order align with the `shape` attribute in the zarr array attributes (in `zarr.json`),
+The axes and their order align with the shape of the corresponding zarr array,
 and whose data depends on the byte order used to store chunks.
 As described in the [Zarr array metadata](https://zarr.readthedocs.io/en/stable/spec/v3.html#arrays),
 the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded. 
@@ -293,7 +292,7 @@ Conforming readers:
 
 Coordinate transformations can be stored in multiple places to reflect different usecases.
      
-- Transformations in individual mutliscale datasets represent a special case of transformations
+- Transformations in individual multiscale datasets represent a special case of transformations
   and are explained [below](#multiscales-metadata).
 - Additional transformations for single multiscale images MUST be stored under a field `coordinateTransformations`
   in the multiscales dictionaries.
@@ -646,7 +645,7 @@ Metadata for these coordinate transforms have the following fields:
   <dd>  The location of the coordinate array in this (or another) container.</dd>
   <dt><strong>interpolation</strong></dt>
   <dd>  The <code>interpolation</code> attributes MAY be provided.
-        It's value indicates the interpolation to use
+        Its value indicates the interpolation to use
         if transforming points not on the array's discrete grid.
         Values could be:
         <ul>
@@ -731,7 +730,7 @@ It is stored in a multiple resolution representation.
 `multiscales` contains a list of dictionaries where each entry describes a multiscale image.
 
 Each `multiscales` dictionary MUST contain the field "coordinateSystems",
-whose value is an array containing valid coordinate system metadata
+whose value is an array containing coordinate system metadata
 (see [coordinate systems](#coordinatesystems-metadata)).
 The last entry of this array is the "intrinsic" coordinate system
 and MUST contain axis information pertaining to physical coordinates.
