@@ -14,6 +14,7 @@ Data Resources
 | [IDR Studies](https://uk1s3.embassy.ebi.ac.uk/bia-integrator-data/pages/idr_ngff_data.html) | EBI                               | 1644         | 47 TB    |
 | [MoBIE](https://mobie.github.io/specs/ngff.html)                         | EMBL-HD                                              | 21           | 2 TB     |
 | [Neural Dynamics](https://registry.opendata.aws/allen-nd-open-data/)     | AWS Open Data Program                                | 90           | 200 TB   |
+| [Open SciVis](https://registry.opendata.aws/ome-zarr-open-scivis/)       | AWS Open Data Program                                | 624          | 372 GB   |
 | [Sanger](https://www.sanger.ac.uk/project/ome-zarr/)                     | Sanger, UK                                           | 10           | 1 TB     |
 | [SpatialData](https://github.com/scverse/spatialdata-notebooks/tree/main/datasets)                       | EMBL-HD              | 10           | 25 GB    |
 | [SSBD](https://ssbd.riken.jp/ssbd-ome-ngff-samples)                      | SSBD                                                 | 12           | 196 GB   |
