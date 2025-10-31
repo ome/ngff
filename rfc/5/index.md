@@ -172,7 +172,7 @@ The dimensionality of each array coordinate system equals the dimensionality of 
 Its name is the path to the array in the container,
 its axes have `"type": "array"`, are unitless, and have default names.
 The i-th axis has `"name": "dim_i"` (these are the same default names used by [xarray](https://docs.xarray.dev/en/stable/user-guide/terminology.html)).
-As with all coordinate systems, the `dimension_names` must be unique and non-null.
+As with all coordinate systems, the dimension names must be unique and non-null.
 
 ````{admonition} Example
 ```json
