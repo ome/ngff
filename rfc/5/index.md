@@ -568,7 +568,7 @@ where the outer array MUST be length `M` and the inner arrays MUST be length `N+
 ##### <a name="rotation">rotation</a>
 
 `rotation`s are [matrix transformations](#matrix-transformations) that are special cases of affine transformations.
-When possible, a rotation transformation SHOULD be preferred to its equivalent affine.
+When possible, a rotation transformation SHOULD be used instead of an equivalent affine.
 Input and output dimensionality (N) MUST be identical.
 Rotations are stored as `NxN` matrices, see below,
 and MUST have determinant equal to one, with orthonormal rows and columns.
