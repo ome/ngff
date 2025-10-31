@@ -9,7 +9,7 @@ responses/index
 versions/index
 ```
 
-Add named coordinate systems and expand and clarify coordinate transformations. This document represent the updated proposal following the [original RFC5 proposal](./versions/1/index.md) and incorporates feedback from reviewers and implementers.
+Add named coordinate systems and expand and clarify coordinate transformations. This document represents the updated proposal following the [original RFC5 proposal](./versions/1/index.md) and incorporates feedback from reviewers and implementers.
 
 ## Status
 
