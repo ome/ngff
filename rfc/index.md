@@ -34,6 +34,6 @@ If there are any questions, please contact the editors under
 
 ```{csv-table} RFC Listing
 :header-rows: 1
-:widths: 5, 30, 5, 10
+:widths: 5, 30, 5, 10, 10
 :file: listing.csv
 ```
