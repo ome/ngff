@@ -14,13 +14,18 @@ This PR is currently in RFC state `D3` (draft PR).
 
 ## Overview
 
-TODO
+The goal of this RFC is to standardize the storage of OME-Zarr hierarchies within ZIP archives as single files.
 
-<!-- The RFC begins with a brief overview. This section should be one or two
-paragraphs that just explains what the goal of this RFC is going to be, but
-without diving too deeply into the "why", "why now", "how", etc. Ensure anyone
-opening the document will form a clear understanding of the RFCs intent from
-reading this paragraph(s). -->
+Specifically, this RFC aims to:
+
+- **Improve user experience** by enabling the use of OME-Zarr in conventional file-based workflows, where reasonably small images stored on local desktop file systems are prevalent.
+  This aims to ensure that a broad audience can benefit from existing and future features specific to OME-Zarr.
+- **Simplify tool development** by offering a single-file storage for OME-Zarr that developers can easily integrate into file-centric applications.
+  This aims to facilitate a broad adoption of OME-Zarr, even in tools that are not specifically made for large bioimaging datasets stored in the cloud.
+- **Standardize existing practice** by formally specifying how to store OME-Zarr hierarchies in ZIP archives.
+  This aims to facilitate interoperability among tools, to prevent suboptimal packaging of data, and to contribute to the standardization goals of the OME-NGFF community in general.
+
+The RFC proposes to require the ZIP archive root to match the OME-Zarr root, recommends performance optimizations (disabled ZIP compression, use of sharding codec, order of ZIP file entries), prohibits nested or multi-part ZIP archives, and defines a new file extension for zipped OME-Zarr files.
 
 ## Background
 
