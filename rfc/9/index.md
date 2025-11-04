@@ -160,26 +160,11 @@ Consulted: everyone mentioned in [PR #316](https://github.com/ome/ngff/pull/316)
 
 Socialization: see Prior art and references; the draft was further discussed among co-authors on August 27th, 2025 ([minutes](https://hackmd.io/@eAPtiynRTLOLwk5Vzg8AqQ/rJ403lIYlg)).
 
-## Implementation (Recommended Header)
+## Implementation
 
-TODO:
-- https://github.com/ome/ngff/pull/316#discussion_r2344743194
-- https://github.com/ome/ngff/pull/316#issuecomment-3302456557
-- https://github.com/ome/ngff/pull/316#issuecomment-3302595684
+A first implementation has been prototyped by one of the coauthors in https://github.com/ome/ngff/pull/316#issuecomment-3302456557.
 
-<!-- Many RFCs have an "implementation" section which details how the implementation
-will work. This section should explain the rough specification changes. The
-goal is to give an idea to reviewers about the subsystems that require change
-and the surface area of those changes. 
-
-This knowledge can result in recommendations for alternate approaches that
-perhaps are idiomatic to the project or result in less packages touched. Or, it
-may result in the realization that the proposed solution in this RFC is too
-complex given the problem.
-
-For the RFC author, typing out the implementation in a high-level often serves
-as "[rubber duck debugging](https://en.wikipedia.org/wiki/Rubber_duck_debugging)" and you can catch a lot of
-issues or unknown unknowns prior to writing any real code. -->
+A neuroglancer view of the generated data has kindly been made available by Davis Bennett in https://github.com/ome/ngff/pull/316#issuecomment-3302595684.
 
 ## Drawbacks, risks, alternatives, and unknowns (Recommended Header)
 
