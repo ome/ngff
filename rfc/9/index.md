@@ -38,12 +38,20 @@ For example, users currently cannot associate an OME-Zarr file type with their f
 OME-Zarr's lack of support for file-centric workflows hampers its adoption in conventional use cases (and in turn the motivation for tool developers to support OME-Zarr).
 
 **Challenges in tool development**:
-For tool developers, the reliance on file system directories increases technical complexity in adopting OME-Zarr.
-For example, most existing tools cannot merely adapt their current (file-centric) mechanisms for data handling, but need entirely new execution paths dedicated to handling (OME-Zarr) directories (e.g. dialogs for opening/saving data in directories, directory-specific drag-and-drop handlers, advanced input validation logic).
-Furthermore, tool developers cannot rely on file-specific functionality/APIs provided by the operating system (e.g. file type associations, MIME types), making it more difficult to enable user-friendly interactions.
-Taken together, these challenges may discourage tool developers from implementing (user-friendly) OME-Zarr support, which would in turn negatively affect user experience with OME-Zarr.
+Unlike most existing single-file formats, OME-Zarr organizes image data in hierarchical directory structures.
+Since OME-Zarr represents images as directories, it is unclear to both users and developers how images should be be provided as input to software in otherwise file-centric environments:
 
-Users and implementers have already begun to store OME-Zarr hierarchies in ZIP archives (see *Prior art and references* section).
+- As a workaround, a `zarr.json` file could be provided as input.
+  However, from a developer's perspective, it cannot be assumed that any given `zarr.json` file necessarily represents an image and its Zarr array(s) and groups without further validation.
+  Furthermore, since file types are often determined based on file extensions and because the `.json` extension is not specific to OME-Zarr, developers would not be able to build upon file type-specific features/APIs of the operating system, making it more difficult to prioritize user experience.
+- Instead of a single file, the directory representing the image itself could be provided as input.
+  However, this would differ from other situations where users are expected to provide a single file as input, thus increasing overhead for implementing OME-Zarr support.
+  Specifically, developers of otherwise file-centric tools would need to implement dedicated execution paths for handling directories, such as user interfaces for opening/saving data in/to directories, directory-specific drag-and-drop handlers, and advanced input validation logic.
+
+In either case, the associated technical complexity may discourage tool developers from adopting OME-Zarr in a uniform and user-friendly fashion, which would in turn negatively affect user experience with OME-Zarr.
+
+Taken together, these challenges unnecessarily differentiate OME-Zarr from other formats in use cases where single files may be appropriate.
+Consequently, users and implementers have already begun to store OME-Zarr hierarchies in ZIP archives (see _Prior art and references_ section).
 Because storage of OME-Zarr images in ZIP archives is not standardized, it is difficult to implement efficient storage and access patterns.
 This can lead to format incompatibilities that may not only affect the adoption of OME-Zarr in conventional use cases, but may undermine the standardization goals of the OME-NGFF community as a whole.
 
