@@ -85,7 +85,7 @@ To facilitate the performant reading of zipped OME-Zarr files, a set of essentia
 
 - Disable ZIP-level compression. This avoids unnecessary compression of already compressed data (e.g. when using Zarr compression codecs) and makes it easier to directly conduct partial reads of the ZIP archive.
 - Use the Zarr sharding codec. This reduces the number of records in the central directory header.
-- Include all `zarr.json` files at the begining of the file and at the beginning of the central directory header in a breadth-first order, starting with the root-level `zarr.json` as the first entry. This enables efficient metadata processing and discovery of the hierarchy structure.
+- Include all `zarr.json` files at the beginning of the file and at the beginning of the central directory header in a breadth-first order, starting with the root-level `zarr.json` as the first entry. This enables efficient metadata processing and discovery of the hierarchy structure.
 - Include an OME-Zarr-specific archive comment in the ZIP file header, indicating compliance with these recommendations. This further facilitates efficient data/metadata access and also allows for additional (optional/recommended) single-file metadata that may be specified in future OME-Zarr versions.
 
 This RFC explicitly prohibits embedding a zipped OME-Zarr file as subhierarchy of a parent OME-Zarr hierarchy.
