@@ -254,20 +254,9 @@ not a reason to accept the current or a future RFC; such notes should be in the
 section on motivation or rationale in this or subsequent RFCs. The section
 merely provides additional information. -->
 
-## Performance (Recommended Header)
+## Performance
 
-TODO https://github.com/hamk-uas/datacube-storage-lab
-
-<!-- What impact will this proposal have on performance? What benchmarks should we
-create to evaluate the proposal? To evaluate the implementation? Which of those
-benchmarks should we monitor on an ongoing basis?
-
-Do you expect any (speed / memory)? How will you confirm?
-
-There should be microbenchmarks. Are there?
-
-There should be end-to-end tests and benchmarks. If there are not (since this
-is still a design), how will you track that these will be created? -->
+Unrelated to the OME-NGFF community, Olli Niemitalo and Otto Rosenberg (Häme University of Applied Sciences, Finland) [extensively evaluated](https://github.com/hamk-uas/datacube-storage-lab) the performance of using zipped Zarr files for training machine learning models on geospatial data (Sentinel 2 Level-1C; tiled raster images). As mentioned by the authors, performance aspects of storing raster image data in zipped Zarr files have further been discussed as part of the European Space Agency's decision to disseminate Sentinel-2 satellite images as zipped Zarr, for example [here](https://github.com/csaybar/ESA-zar-zip-decision/issues/6) and [here](https://discourse.pangeo.io/t/whats-the-best-file-format-to-chose-for-raster-imagery-and-masks-products/4555).
 
 ## Compatibility (Recommended Header)
 
