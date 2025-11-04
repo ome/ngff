@@ -99,7 +99,7 @@ This should enable file type detection (in absence of a magic number), improve u
 
 Note that this RFC does not - semantically or otherwise - restrict the data content of OME-Zarr hierarchies to be stored in zipped OME-Zarr files.
 
-## Sections
+## Specification
 
 Amend the specification with the following section:
 
