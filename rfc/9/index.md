@@ -92,6 +92,8 @@ This RFC explicitly prohibits embedding a zipped OME-Zarr file as subhierarchy o
 In particular this prohibits "recursive zipping", the embedding of a zipped OME-Zarr file within a parent zipped OME-Zarr file.
 This restriction may be revised in the future, especially in the light of the "collections" RFC.
 
+Furthermore, this RFC prohibits splitting up the ZIP archive into multiple files ("multi-volume archives"), in favor of directory-backed OME-Zarr and Zarr's sharding codec.
+
 Finally, this RFC also defines a new file extension to be used specifically with zipped OME-Zarr files.
 This should enable file type detection (in absence of a magic number), improve user experience (e.g. by enabling file type association), avoid "accidental" in-place extraction (e.g. using on-board tooling of some operating systems) and encourage the use of OME-Zarr-specific tooling for creating zipped OME-Zarr files (to follow the recommendations listed earlier).
 
@@ -120,6 +122,8 @@ When creating zipped OME-Zarr files, the following are RECOMMENDED:
 - The ZIP archive comment SHOULD contain null-terminated UTF-8-encoded JSON with an `ome` attribute containing an OME-Zarr `version` key, equivalent to `{"ome": { "version": "XX.YY"}}`, indicating that the zipped OME-Zarr file adheres to all recommendations in this list.
 
 Zipped OME-Zarr files SHALL NOT be embedded in a parent OME-Zarr hierarchy (as a sub-hierarchy or otherwise).
+
+Zipped OME-Zarr files SHALL NOT be split into multiple parts.
 
 The name of zipped OME-Zarr files SHOULD end with `.ozx`.
 
