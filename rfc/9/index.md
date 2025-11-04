@@ -268,18 +268,10 @@ Does it restrict existing assumptions or remove existing restrictions?
 
 How are implementations expected to handle these changes? -->
 
-## Testing (Recommended Header)
+## Testing
 
-TODO
-
-<!-- How will you test your feature? A typical testing strategy involves unit,
-integration, and end-to-end tests. Are our existing test frameworks and
-infrastructure sufficient to support these tests or does this proposal require
-additional investment in those areas?
-
-If your proposal defines a contract implemented by other people, how will those
-people test that they have implemented the contract correctly? Consider, for
-example, creating a conformance test suite for this purpose. -->
+Testing will involve the creation of public example data and the adaptation of validators.
+The generated zipped OME-Zarr example data can then be used to test existing implementations.
 
 ## Tutorials and Examples (Recommended Header)
 
