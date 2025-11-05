@@ -1,10 +1,10 @@
-# RFC-6: Review 1
+# RFC-6: Comment 1
 
-(rfcs:rfc6:review1)=
+(rfcs:rfc6:comment1)=
 
-## Review authors
+## Comment authors
 
-This review was written by: Chris Barnes, Davis Bennett.
+This comment was written by: Chris Barnes, Davis Bennett.
 
 ## Summary
 

@@ -1,6 +1,6 @@
-# Reviews
+# Comments
 
-Reviews of RFC-6:
+Additional comments of RFC-6:
 
 ```{toctree}
 :maxdepth: 1
