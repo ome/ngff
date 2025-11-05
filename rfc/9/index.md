@@ -6,11 +6,12 @@ Add a specification for storing an OME-Zarr hierarchy within a ZIP archive.
 
 This PR is currently in RFC state `D3` (draft PR).
 
-| Name              | GitHub Handle | Institution                             | Date       | Status                                                       |
-| ----------------- | ------------- | --------------------------------------- | ---------- | ------------------------------------------------------------ |
-| Jonas Windhager   | @jwindhager   | SciLifeLab / Uppsala University, Sweden | 2025-07-02 | [Corresponding Author](https://github.com/ome/ngff/pull/316) |
-| Norman Rzepka     | @normanrz     | scalable minds GmbH, Germany            | 2025-08-27 | [Co-author](https://github.com/ome/ngff/pull/316)            |
-| Mark Kittisopikul | @mkitti       | HHMI Janelia, United States             | 2025-08-27 | [Co-author](https://github.com/ome/ngff/pull/316)            |
+| Name              | GitHub Handle | Institution                             | Date       | Status                                                          |
+| ----------------- | ------------- | --------------------------------------- | ---------- | --------------------------------------------------------------- |
+| Jonas Windhager   | @jwindhager   | SciLifeLab / Uppsala University, Sweden | 2025-07-02 | Corresponding Author [PR](https://github.com/ome/ngff/pull/316) |
+| Norman Rzepka     | @normanrz     | scalable minds GmbH, Germany            | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316)            |
+| Mark Kittisopikul | @mkitti       | HHMI Janelia, United States             | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316)            |
+| Josh Moore        | @joshmoore    | German BioImaging e.V.                  | 2025-11-05 | Editor                                                          |
 
 ## Overview
 
