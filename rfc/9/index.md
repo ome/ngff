@@ -168,9 +168,8 @@ Socialization: see Prior art and references; the draft was further discussed amo
 
 ## Implementation
 
-A first implementation has been prototyped by one of the coauthors in https://github.com/ome/ngff/pull/316#issuecomment-3302456557.
-
-A neuroglancer view of the generated data has kindly been made available by Davis Bennett in https://github.com/ome/ngff/pull/316#issuecomment-3302595684.
+A first implementation has been [prototyped](https://github.com/ome/ngff/pull/316#issuecomment-3302456557) by one of the coauthors.
+A neuroglancer view of the generated data has kindly been [made available](https://github.com/ome/ngff/pull/316#issuecomment-3302595684) by Davis Bennett.
 
 ## Drawbacks, risks, alternatives, and unknowns (Recommended Header)
 
