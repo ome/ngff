@@ -114,7 +114,7 @@ This section specifies how to store an OME-Zarr hierarchy within a single file.
 
 An OME-Zarr hierarchy MAY be stored within a ZIP archive.
 
-For a ZIP file to be referred to as a single-file OME-Zarr, it MUST contain exactly one OME-Zarr hierarchy.
+For a ZIP file to be referred to as a zipped OME-Zarr file, it MUST contain exactly one OME-Zarr hierarchy.
 The root of the ZIP archive MUST correspond to the root of the OME-Zarr hierarchy, and it MUST contain the the OME-Zarr's root-level `zarr.json`.
 
 When creating zipped OME-Zarr files, the following are RECOMMENDED:
