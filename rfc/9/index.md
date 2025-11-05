@@ -81,8 +81,9 @@ In order to avoid inconsistencies when renaming zipped OME-Zarr files, this RFC 
 In other words, according to this specification, the OME-Zarr's root-level `zarr.json` MUST be located in the root of the ZIP archive and not in a subfolder within the ZIP archive.
 Potential problems (e.g. loss of data) resulting from "accidentally" extracting the ZIP archive in-place (e.g. using on-board tooling of some operating systems) can be alleviated by introducing a custom file extension (see below).
 
-To facilitate the performant reading of zipped OME-Zarr files, a set of essential ZIP/Zarr storage parameters are recommended in this RFC:
+To facilitate efficient storage and access of zipped OME-Zarr files, a set of essential ZIP/Zarr parameters are recommended in this RFC:
 
+- Use the ZIP64 format. This is the default in most modern tooling and enables the creation of single-file OME-Zarr files that are larger than 4 GiB.
 - Disable ZIP-level compression. This avoids unnecessary compression of already compressed data (e.g. when using Zarr compression codecs) and makes it easier to directly conduct partial reads of the ZIP archive.
 - Use the Zarr sharding codec. This reduces the number of records in the central directory header.
 - Include all `zarr.json` files at the beginning of the file and at the beginning of the central directory header in a breadth-first order, starting with the root-level `zarr.json` as the first entry. This enables efficient metadata processing and discovery of the hierarchy structure.
@@ -116,6 +117,7 @@ The root of the ZIP archive MUST correspond to the root of the OME-Zarr hierarch
 
 When creating zipped OME-Zarr files, the following are RECOMMENDED:
 
+- The ZIP64 format extension SHOULD be used to allow for files larger than 4 GiB.
 - ZIP-level compression SHOULD be disabled in favor of Zarr-level compression codecs.
 - The sharding codec SHOULD be used to reduce the number of entries within the ZIP archive.
 - The root-level `zarr.json` file SHOULD be the first ZIP file entry and the first entry in the central directory header; other `zarr.json` files SHOULD follow immediately afterwards, in breadth-first order.
