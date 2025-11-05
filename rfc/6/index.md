@@ -3,7 +3,7 @@
 ```{toctree}
 :hidden:
 :maxdepth: 1
-*/index
+comments/index
 ```
 
 Turn the `multiscales` array into a single `multiscale` object.
