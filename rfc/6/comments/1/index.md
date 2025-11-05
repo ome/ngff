@@ -18,7 +18,7 @@ so any changes which can be made to decrease needless complexity are welcome.
 Zarr (and therefore OME-Zarr) already has a way of representing multiple unrelated groups of datasets: groups.
 
 However, we should respect that this is a breaking change
-and so try to minimise impact on implementors.
+and so try to minimise impact on implementers.
 For that reason, its release should be timed to coincide with that of RFC-5,
 which also targets the multiscale specification and is the only other backwards-incompatible RFC currently on the table.
 RFC-6 probably doesn't add enough value to be worth the breaking change on its own,
