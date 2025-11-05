@@ -119,7 +119,7 @@ The root of the ZIP archive MUST correspond to the root of the OME-Zarr hierarch
 
 When creating zipped OME-Zarr files, the following are RECOMMENDED:
 
-- The ZIP64 format extension SHOULD be used to allow for files larger than 4 GiB.
+- The ZIP64 format extension SHOULD be used, irrespective of the ZIP file size.
 - ZIP-level compression SHOULD be disabled in favor of Zarr-level compression codecs.
 - The sharding codec SHOULD be used to reduce the number of entries within the ZIP archive.
 - The root-level `zarr.json` file SHOULD be the first ZIP file entry and the first entry in the central directory header; other `zarr.json` files SHOULD follow immediately afterwards, in breadth-first order.
