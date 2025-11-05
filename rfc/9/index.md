@@ -65,6 +65,7 @@ This can lead to format incompatibilities that may not only affect the adoption 
 To improve user experience with OME-Zarr in conventional use cases, standardize the storage of OME-Zarr hierarchies within ZIP archives.
 
 Specifically:
+
 - Add the ZIP format as a single-file storage container for OME-Zarr.
 - Specify the location of OME-Zarr's root-level `zarr.json` within the ZIP archive.
 - Recommend essential ZIP/Zarr storage parameters for creating zipped OME-Zarr files.
@@ -83,7 +84,7 @@ Potential problems (e.g. loss of data) resulting from "accidentally" extracting 
 
 To facilitate efficient storage and access of zipped OME-Zarr files, a set of essential ZIP/Zarr parameters are recommended in this RFC:
 
-- Use the ZIP64 format. This is the default in most modern tooling and enables the creation of single-file OME-Zarr files that are larger than 4 GiB.
+- Use the ZIP64 format. This is the default in most modern tooling and enables the creation of single-file OME-Zarr larger than 4 GiB.
 - Disable ZIP-level compression. This avoids unnecessary compression of already compressed data (e.g. when using Zarr compression codecs) and makes it easier to directly conduct partial reads of the ZIP archive.
 - Use the Zarr sharding codec. This reduces the number of records in the central directory header.
 - Include all `zarr.json` files at the beginning of the file and at the beginning of the central directory header in a breadth-first order, starting with the root-level `zarr.json` as the first entry. This enables efficient metadata processing and discovery of the hierarchy structure.
@@ -112,7 +113,7 @@ This section specifies how to store an OME-Zarr hierarchy within a single file.
 
 An OME-Zarr hierarchy MAY be stored within a ZIP archive.
 
-For a ZIP file to be referred to as a single-file OME-Zarr file, it MUST contain exactly one OME-Zarr hierarchy.
+For a ZIP file to be referred to as a single-file OME-Zarr, it MUST contain exactly one OME-Zarr hierarchy.
 The root of the ZIP archive MUST correspond to the root of the OME-Zarr hierarchy, and it MUST contain the the OME-Zarr's root-level `zarr.json`.
 
 When creating zipped OME-Zarr files, the following are RECOMMENDED:
@@ -142,6 +143,7 @@ interpreted as described in [IETF RFC 2119](https://tools.ietf.org/html/rfc2119)
 ## Stakeholders
 
 In principle:
+
 - People who work in conventional settings (e.g. reasonably small images stored on the local file system) and want to use OME-Zarr
 - Developers who want to make their new or existing tools available to both conventional use cases and use cases poised for OME-Zarr
 - Anyone benefitting from further file format standardization/OME-Zarr adoption within the bioimaging community
@@ -152,6 +154,7 @@ While too numerous to list here, relevant search phrases include "OME-Zarr singl
 Facilitator: Josh Moore (German BioImaging)
 
 Suggested reviewers:
+
 - Curtis Rueden (University of Wisconsin-Madison, United States) @ctrueden
 - Davis Bennett (Germany) @d-v-b
 - Dominik Kutra (EMBL Heidelberg, Germany) @k-dominik
@@ -194,6 +197,7 @@ TODO
 ## Abandoned Ideas (Optional Header)
 
 TODO:
+
 - Partially address ZIP storage on the Zarr level --> difficult, moved to future possibilities
 - Embedding zipped OME-Zarr files in OME-Zarr hierarchies/collections --> moved to future possibilities
 - Restrict OME-Zarr file content (semantically or otherwise) --> out of scope, moved to future possibilities
@@ -215,20 +219,24 @@ When sharing your RFC with others or having someone look back on your RFC in the
 ## Prior art and references
 
 Prior discussions related to (OME-)Zarr specifications:
-- Pull request #311 *Draft zip file store specification* in the Zarr specification. https://github.com/zarr-developers/zarr-specs/pull/311
-- Section 2.2.3 *Single-file ("ZIP") OME-Zarr* in: Lüthi et al (2025). *2024 OME-NGFF workflows hackathon*. https://doi.org/10.37044/osf.io/5uhwz_v2
-- The *zipstorers* topic in the *Zarr* channel of the Open Source Science (OSSci) Initiative Zulip chat. https://ossci.zulipchat.com/#narrow/channel/423692-Zarr/topic/.E2.9C.94.20zipstorers/with/527178266
-- The *Single File Format Detection* topic in the *general* channel of the image.sc Zulip chat. https://imagesc.zulipchat.com/#narrow/channel/212929-general/topic/Single.20File.20Format.20Detection/with/536692137
-- The *.zarr.zip on s3* discussion on the zarr-python GitHub repository. https://github.com/zarr-developers/zarr-python/discussions/1613
+
+- [zarr-developers/zarr-specs#311](https://github.com/zarr-developers/zarr-specs/pull/311): _Draft zip file store specification_
+- [2024 OME-NGFF workflows hackathon](https://doi.org/10.37044/osf.io/5uhwz_v2) (Lüthi et al., 2025), Section 2.2.3: _Single-file ("ZIP") OME-Zarr_
+- The [zipstorers](https://ossci.zulipchat.com/#narrow/channel/423692-Zarr/topic/.E2.9C.94.20zipstorers/with/527178266) topic in the Open Source Science (OSSci) Initiative Zulip chat
+- The [Single File Format Detection](https://imagesc.zulipchat.com/#narrow/channel/212929-general/topic/Single.20File.20Format.20Detection/with/536692137) topic in the image.sc Zulip chat
+- The [.zarr.zip on s3](https://github.com/zarr-developers/zarr-python/discussions/1613) discussion on the zarr-python GitHub repository
 
 Existing single-file (zipped) OME-Zarr implementations:
-- Table 1 *Surveyed Zarr implementations and their capabilities to read single archive files* in: Lüthi et al (2025). *2024 OME-NGFF workflows hackathon*. https://doi.org/10.37044/osf.io/5uhwz_v2.
+
+- [2024 OME-NGFF workflows hackathon](https://doi.org/10.37044/osf.io/5uhwz_v2) (Lüthi et al., 2025), Table 1: _Surveyed Zarr implementations and their capabilities to read single archive files_
 
 Existing single-file (zipped) OME-Zarr datasets:
-- https://zenodo.org/search?q=OME-Zarr&f=resource_type%3Adataset&f=access_status%3Aopen&f=resource_type%3Aimage&f=file_type%3Azip&l=list&p=1&s=10&sort=bestmatch
-- https://spatialdata.scverse.org/en/latest/tutorials/notebooks/datasets/README.html#spatial-omics-datasets
+
+- [Open OME-Zarr image datasets with "ZIP" file type on Zenodo](https://zenodo.org/search?q=OME-Zarr&f=resource_type%3Adataset&f=access_status%3Aopen&f=resource_type%3Aimage&f=file_type%3Azip&l=list&p=1&s=10&sort=bestmatch)
+- [SpatialData spatial omics example datasets](https://spatialdata.scverse.org/en/latest/tutorials/notebooks/datasets/README.html#spatial-omics-datasets)
 
 Related concepts and file formats:
+
 - Java archives (.jar)
 - Office Open XML (.docx, .pptx, .xlsx)
 - OpenDocument (.odt, .odp, .ods, .odg)
@@ -238,6 +246,7 @@ Related concepts and file formats:
 ## Future possibilities
 
 TODO:
+
 - Zarr-level specification for single-file (e.g. ZIP) stores
 - Zipped OME-Zarr files as part of collections ("collections" RFC, work in progress)
 - Embedding zipped OME-Zarr files in parent OME-Zarr hierarchies --> "recursion"
@@ -261,7 +270,8 @@ merely provides additional information. -->
 
 ## Performance
 
-Unrelated to the OME-NGFF community, Olli Niemitalo and Otto Rosenberg (Häme University of Applied Sciences, Finland) [extensively evaluated](https://github.com/hamk-uas/datacube-storage-lab) the performance of using zipped Zarr files for training machine learning models on geospatial data (Sentinel 2 Level-1C; tiled raster images). As mentioned by the authors, performance aspects of storing raster image data in zipped Zarr files have further been discussed as part of the European Space Agency's decision to disseminate Sentinel-2 satellite images as zipped Zarr, for example [here](https://github.com/csaybar/ESA-zar-zip-decision/issues/6) and [here](https://discourse.pangeo.io/t/whats-the-best-file-format-to-chose-for-raster-imagery-and-masks-products/4555).
+Unrelated to the OME-NGFF community, Olli Niemitalo and Otto Rosenberg (Häme University of Applied Sciences, Finland) [extensively evaluated](https://github.com/hamk-uas/datacube-storage-lab) the performance of using zipped Zarr files for training machine learning models on geospatial data (Sentinel 2 Level-1C; tiled raster images).
+As mentioned by the authors, performance aspects of storing raster image data in zipped Zarr files have further been discussed as part of the European Space Agency's decision to disseminate Sentinel-2 satellite images as zipped Zarr, for example [here](https://github.com/csaybar/ESA-zar-zip-decision/issues/6) and [here](https://discourse.pangeo.io/t/whats-the-best-file-format-to-chose-for-raster-imagery-and-masks-products/4555).
 
 ## Compatibility (Recommended Header)
 
