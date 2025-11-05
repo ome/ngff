@@ -123,6 +123,7 @@ When creating zipped OME-Zarr files, the following are RECOMMENDED:
 - The root-level `zarr.json` file SHOULD be the first ZIP file entry and the first entry in the central directory header; other `zarr.json` files SHOULD follow immediately afterwards, in breadth-first order.
 
 These recommendations are REQUIRED for a zipped OME-Zarr file specialization from here on referred to as "recommended variant".
+
 If a zipped OME-Zarr file is of the recommended variant, its ZIP archive comment SHOULD contain null-terminated UTF-8-encoded JSON with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, equivalent to `{"ome": { "version": "XX.YY" }}`.
 Conversely, zipped OME-Zarr files that do not meet all requirements for the recommended variant SHALL NOT contain this archive comment.
 
