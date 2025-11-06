@@ -274,7 +274,7 @@ The European Space Agency (ESA) has decided to disseminate Sentinel-2 satellite 
 
 In the future, the following could be considered:
 
-- Reduce the OME-Zarr zip specification to aspects not covered by the Zarr ZipStore specification (once available).
+- Reduce the OME-Zarr zip specification to aspects not covered by the Zarr ZipStore specification (once available)
 - Allow embedding of OME-Zarr zip files in parent OME-Zarr hierarchies
 - Allow embedding of OME-Zarr zip files in parent OME-Zarr zip files
 - Specify a single-volume specialization of OME-Zarr zip files
