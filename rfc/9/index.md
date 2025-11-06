@@ -302,55 +302,7 @@ Implementations are expected to adopt the added support for OME-Zarr zip files.
 Testing will involve the creation of public example data and the adaptation of validators.
 The generated example OME-Zarr zip file can then be used to test existing implementations.
 
-## Tutorials and Examples (Recommended Header)
+## Tutorials and Examples
 
-TODO
-
-<!-- It is strongly recommended to provide as many examples as possible of what both users and developers can expect if the RFC were to be accepted. Sample data should be shared publicly. If longer-term is not available, contact the **Editors** for assistance.
-
-(additional-considerations)=
-## Additional considerations (Optional Header)
-
-Most RFCs will not need to consider all the following issues. They are included here as a checklist  -->
-
-### Security
-
-TODO
-
-<!-- What impact will this proposal have on security? Does the proposal require a
-security review?
-
-A good starting point is to think about how the system might encounter
-untrusted inputs and how those inputs might be used to manipulate the system.
-From there, consider how known classes of vulnerabilities might apply to the
-system and what tools and techniques can be applied to avoid those
-vulnerabilities. -->
-
-### Privacy
-
-TODO
-
-<!-- What impact will this proposal have on privacy? Does the proposal require a
-privacy review?
-
-A good starting point is to think about how user data might be collected,
-stored, or processed by your system. From there, consider the lifecycle of such
-data and any data protection techniques that may be employed. -->
-
-### UI/UX
-
-TODO
-
-<!-- If there are user- or frontend-impacting changes by this RFC, it is important
-to have a "UI/UX" section. User-impacting changes might include changes in how
-images will be rendered. Frontend-impacting changes might include the need to
-perform additional preprocessing of inputs before displaying to users.
-
-This section is effectively the "implementation" section for the user
-experience. The goal is to explain the changes necessary, any impacts to
-backwards compatibility, any impacts to normal workflow, etc.
-
-As a reviewer, this section should be checked to see if the proposed changes
-feel like the rest of the ecosystem. Further, if the breaking changes are
-intolerable or there is a way to make a change while preserving compatibility,
-that should be explored. -->
+A first example dataset has been [created](https://github.com/ome/ngff/pull/316#issuecomment-3302456557) by one of the coauthors.
+A neuroglancer view of this data has kindly been [made available](https://github.com/ome/ngff/pull/316#issuecomment-3302595684) by Davis Bennett.
