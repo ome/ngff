@@ -124,10 +124,12 @@ When creating OME-Zarr zip files, the following are RECOMMENDED:
 - The sharding codec SHOULD be used to reduce the number of entries within the ZIP archive.
 - The root-level `zarr.json` file SHOULD be the first ZIP file entry and the first entry in the central directory header; other `zarr.json` files SHOULD follow immediately afterwards, in breadth-first order.
 
-These recommendations are REQUIRED for an OME-Zarr zip file specialization from here on referred to as "recommended variant".
+These recommendations are REQUIRED for an OME-Zarr zip file specialization that is from here on referred to as "recommended variant".
 
 If an OME-Zarr zip file is of the recommended variant, its ZIP archive comment SHOULD contain null-terminated UTF-8-encoded JSON with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, equivalent to `{"ome": { "version": "XX.YY" }}`.
 Conversely, OME-Zarr zip files that do not meet all requirements for the recommended variant SHALL NOT contain this archive comment.
+
+Software claiming support for OME-Zarr zip files SHOULD at least support the recommended variant.
 
 OME-Zarr zip files SHALL NOT be embedded in a parent OME-Zarr hierarchy (as a sub-hierarchy or otherwise).
 
