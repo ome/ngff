@@ -186,8 +186,8 @@ Risks:
   However, adaptation effort is expected to be manageable, as many existing implementations already support zipped OME-Zarr.
 - **Developers may choose to only support single-file OME-Zarr** (partial OME-Zarr support).
   However, most software relies on third-party packages for reading/writing OME-Zarr, which implement the full OME-Zarr stack.
-  <!-- - **Developers may choose to only support a specific variant of zipped OME-Zarr** (partial zipped OME-Zarr support).
-  This risk is mitigated by specifying a recommended variant as a common denominator. -->
+- **Developers may choose to only support a specific variant of zipped OME-Zarr** (partial zipped OME-Zarr support).
+  This risk is mitigated by specifying a recommended variant as a common denominator.
 - **Users may employ OME-Zarr-agnostic tooling to "zip" OME-Zarr**, resulting in non-compliant or suboptimally stored zipped OME-Zarr.
   This risk is mitigated by introducing a custom file extension for OME-Zarr zip files, requiring manual - and thus deliberate - renaming of ZIP archives created using generic tooling, akin to similar file formats (see _Prior art and references_ section).
 
