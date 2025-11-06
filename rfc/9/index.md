@@ -265,28 +265,12 @@ The European Space Agency (ESA) has decided to disseminate Sentinel-2 satellite 
 
 ## Future possibilities
 
-TODO:
+In the future, the following could be considered:
 
-- Zarr-level specification for single-file (e.g. ZIP) stores
-- OME-Zarr zip files as part of collections ("collections" RFC, work in progress)
-- Embedding OME-Zarr zip files in parent OME-Zarr hierarchies --> "recursion"
-- OME-Zarr file content specialization (e.g. single volume or multi-part image)
-
-<!-- Think about what the natural extension and evolution of your proposal would be
-and how it would affect the specification and project as a whole in a holistic
-way. Try to use this section as a tool to more fully consider all possible
-interactions with the project in your proposal. Also consider how this all fits
-into the roadmap for the project and of the relevant sub-team.
-
-This is also a good place to "dump ideas", if they are out of scope for the RFC
-you are writing but otherwise related. If you have tried and cannot think of
-any future possibilities, you may simply state that you cannot think of
-anything.
-
-Note that having something written down in the future-possibilities section is
-not a reason to accept the current or a future RFC; such notes should be in the
-section on motivation or rationale in this or subsequent RFCs. The section
-merely provides additional information. -->
+- Reduce the OME-Zarr zip specification to aspects not covered by the Zarr ZipStore specification (once available).
+- Allow embedding of OME-Zarr zip files in parent OME-Zarr hierarchies
+- Allow embedding of OME-Zarr zip files in parent OME-Zarr zip files
+- Specify a single-volume specialization of OME-Zarr zip files
 
 ## Performance
 
