@@ -291,15 +291,11 @@ merely provides additional information. -->
 Unrelated to the OME-NGFF community, Olli Niemitalo and Otto Rosenberg (Häme University of Applied Sciences, Finland) [extensively evaluated](https://github.com/hamk-uas/datacube-storage-lab) the performance of using zipped Zarr files for training machine learning models on geospatial data (Sentinel 2 Level-1C; tiled raster images).
 As mentioned by the authors, performance aspects of storing raster image data in zipped Zarr files have further been discussed as part of the European Space Agency's decision to disseminate Sentinel-2 satellite images as zipped Zarr, for example [here](https://github.com/csaybar/ESA-zar-zip-decision/issues/6) and [here](https://discourse.pangeo.io/t/whats-the-best-file-format-to-chose-for-raster-imagery-and-masks-products/4555).
 
-## Compatibility (Recommended Header)
+## Compatibility
 
-TODO check existing implementations (see hackathon preprint)
-
-<!-- How does this proposal affect backwards and forwards compatibility?
-
-Does it restrict existing assumptions or remove existing restrictions?
-
-How are implementations expected to handle these changes? -->
+This proposal adds a new feature to the OME-Zarr specification.
+As such, it is fully backwards-compatible, but not forwards-compatible.
+Implementations are expected to adopt the added support for OME-Zarr zip files.
 
 ## Testing
 
