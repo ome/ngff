@@ -1,4 +1,4 @@
-# RFC-9: Single-file OME-Zarr
+# RFC-9: Zipped OME-Zarr
 
 Add a specification for storing an OME-Zarr hierarchy within a ZIP archive.
 
