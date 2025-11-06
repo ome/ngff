@@ -171,47 +171,66 @@ Socialization: see Prior art and references; the draft was further discussed amo
 A first implementation has been [prototyped](https://github.com/ome/ngff/pull/316#issuecomment-3302456557) by one of the coauthors.
 A neuroglancer view of the generated data has kindly been [made available](https://github.com/ome/ngff/pull/316#issuecomment-3302595684) by Davis Bennett.
 
-## Drawbacks, risks, alternatives, and unknowns (Recommended Header)
+## Drawbacks, risks, alternatives, and unknowns
 
-TODO
+Drawbacks:
 
-<!-- * What are the costs of implementing this proposal?
-* What known risks exist? What factors may complicate your project? Include:
-  security, complexity, compatibility, latency, service immaturity, lack of
-  team expertise, etc.
-* What other strategies might solve the same problem?
-* What questions still need to be resolved, or details iterated upon, to accept
-  this proposal? Your answer to this is likely to evolve as the proposal
-  evolves.
-* What parts of the design do you expect to resolve through the RFC process
-  before this gets merged?
-* What parts of the design do you expect to resolve through the implementation
-  of this feature before stabilization?
-* What related issues do you consider out of scope for this RFC that could be
-  addressed in the future independently of the solution that comes out of this
-  RFC? -->
+- **Disadvantages of the ZIP archive file format** when writing and accessing file contents.
+  These disadvantages were considered to be outweighed by other aspects (see _Proposal_ section).
 
-## Abandoned Ideas (Optional Header)
+Risks:
 
-TODO:
+- **Existing OME-Zarr implementations may require adaptation**.
+  However, adaptation effort is expected to be manageable, as many existing implementations already support zipped OME-Zarr.
+- **Developers may choose to only support single-file OME-Zarr** (partial OME-Zarr support).
+  However, most software relies on third-party packages for reading/writing OME-Zarr, which implement the full OME-Zarr stack.
+  <!-- - **Developers may choose to only support a specific variant of zipped OME-Zarr** (partial zipped OME-Zarr support).
+  This risk is mitigated by specifying a recommended variant as a common denominator. -->
+- **Users may employ OME-Zarr-agnostic tooling to "zip" OME-Zarr**, resulting in non-compliant or suboptimally stored zipped OME-Zarr.
+  This risk is mitigated by introducing a custom file extension for OME-Zarr zip files, requiring manual - and thus deliberate - renaming of ZIP archives created using generic tooling, akin to similar file formats (see _Prior art and references_ section).
 
-- Partially address ZIP storage on the Zarr level --> difficult, moved to future possibilities
-- Embedding OME-Zarr zip files in OME-Zarr hierarchies/collections --> moved to future possibilities
-- Restrict OME-Zarr file content (semantically or otherwise) --> out of scope, moved to future possibilities
-- Specify single-file storage of OME-Zarr without specifying a concrete storage container --> bad for standardization
-- Specify ZIP as the one and only single-file storage container for OME-Zarr --> would prevent future specializations
-- Alternative file formats/approaches:
-  - HDF5 or other alternatives to Zarr as OME-NGFF storage backend --> would harm file format standardization goals of the OME-NGFF community
-  - TIFF with zarr.json in ImageDescription, optionally with appended shard index --> only works for single volumes, would require custom logic for packing/unpacking
-  - Other packing (e.g. TAR), either of a single shard (i.e., single volume) or of an entire OME-Zarr hierarchy + perhaps a custom "central directory" --> new file format, would require custom logic for packing/unpacking
-- Alternative file extensions (also used for ZIP archive comment):
+Alternatives:
+
+- **Do not specify a single-file variant** of OME-Zarr.
+  Drawbacks of this alternative were discussed extensively in the _Background_ section of this RFC.
+- **Use HDF5 or a similar generic single-file container format** as storage backend instead of Zarr.
+  However, creating a "completely new" file format (e.g. "OME-HDF5"; as opposed to building upon OME-Zarr) would harm the standardization efforts of the OME-NGFF community.
+- **Use TIFF as storage backend** instead of Zarr, e.g. with the `zarr.json` contents embedded in the `ImageDescription` tag, and optionally appended with a Zarr shard index.
+  However, this would similarly harm aforementioned standardization efforts and would further restrict file contents to single volumes.
+- **Use an archive file format other than ZIP**.
+  Among other reasons, the ZIP format was chosen for its widespread adoption and support for chunked file access (see _Proposal_ section).
+  Other widely used formats such as TAR could possibly be adapted to enable chunked file access, but the gained advantages over ZIP were not considered to outweigh the required specification complexity and additional implementation effort.
+- **Address the single-file issue on the Zarr-level**, e.g. by adding a ZipStore to the Zarr v3 specification.
+  However, this likely would not cover all aspects proposed in this PR (e.g. file extension, ZIP restrictions) and it is unclear if and when ongoing efforts in this direction will be successful.
+  If a ZipStore is added to the Zarr specification after acceptance of this RFC, the OME-Zarr specification can be amended as necessary at a later stage.
+
+Unknowns:
+
+- **This RFC may inspire further specialization** ("profiles") of OME-Zarr in the future.
+
+## Abandoned Ideas
+
+The following ideas were abandoned:
+
+- **Limit single-file OME-Zarr to single volumes**.
+  Such a specialization would be programmatically verifyable and would bring OME-Zarr closer to existing single-volume-per-file image formats.
+  However, it would simultaneously restrict single-file OME-Zarr to use cases that are already well-served by existing single-file formats, sacrificing features unique to OME-Zarr (e.g. coordinate systems/transforms, collections, derived data) that form part of the original motivation for this RFC.
+  _Note that these drawbacks could potentially be addressed in the future by allowing the embedding of single-file OME-Zarr in larger, more complex OME-Zarr hierarchies, or by the collections RFC._
+- **Semantically restrict the contents** of single-file OME-Zarr.
+  The underlying idea of such a specialization would be to specify a common set of interaction patterns that is shared among different software.
+  For example, one could attempt to restrict the contents of a single-file OME-Zarr to capabilities shared among image viewers, so that these programs e.g. do not need to show additional prompts for which parts of the data to load and display.
+  However, such a semantic specification would necessarily depend on the capabilities of the software considered and would therefore be inherently incomplete as well as difficult to formulate in a generic, software-agnostic fashion.
+  Furthermore, a semantic specification would likely not be programmatically verifyable.
+- **Do not specify a concrete storage backend** for single-file OME-Zarr.
+  Initial drafts of this RFC attempted to specify an abstract, backend-agnostic single-file OME-Zarr format.
+  However, this would allow for an infinite number of concrete realizations (e.g. zip, tar, ...), thereby undermining the standardization efforts of the OME-NGFF community.
+- **Specify ZIP as the one and only storage backend** for single-file OME-Zarr.
+  This would unnecessarily limit the space for future innovation/specialization in the OME-Zarr specification.
+- **Use a file extension other than `.ozx`**.
+  The following candidates were considered:
   - `.zarrx` or `.zar` - not OME-specific
-  - Multi-part file extensions (e.g. `.ome.zarr.zip`, `.ome.zarrx`, `.ome.zar`) - not good for UX
-  - Any permutation of `oz[pzx]` other than `.ozx` that is not yet in use by other software
-
-<!-- As RFCs evolve, it is common that there are ideas that are abandoned. Rather than simply deleting them from the document, you should try to organize them into sections that make it clear they’re abandoned while explaining why they were abandoned.
-
-When sharing your RFC with others or having someone look back on your RFC in the future, it is common to walk the same path and fall into the same pitfalls that we’ve since matured from. Abandoned ideas are a way to recognize that path and explain the pitfalls and why they were abandoned. -->
+  - Multi-part file extensions (e.g. `.ome.zarr.zip`, `.ome.zarrx`, `.ome.zar`) - suboptimal user experience
+  - Any other permutation of `oz[pzx]` that is not yet in active use by other software
 
 ## Prior art and references
 
