@@ -26,7 +26,7 @@ Specifically, this RFC aims to:
 - **Standardize existing practice** by formally specifying how to store OME-Zarr hierarchies in ZIP archives.
   This aims to facilitate interoperability among tools, to prevent suboptimal packaging of data, and to contribute to the standardization goals of the OME-NGFF community in general.
 
-The RFC proposes to require the ZIP archive root to match the OME-Zarr root, recommends performance optimizations (disabled ZIP compression, use of sharding codec, order of ZIP file entries), prohibits nested or multi-part ZIP archives, and defines a new file extension for zipped OME-Zarr files.
+The RFC proposes to require the ZIP archive root to match the OME-Zarr root, recommends performance optimizations (disabled ZIP compression, use of sharding codec, order of ZIP file entries), prohibits nested or multi-part ZIP archives, and defines a new file extension for OME-Zarr zip files.
 
 ## Background
 
@@ -69,21 +69,21 @@ Specifically:
 
 - Add the ZIP format as a single-file storage container for OME-Zarr.
 - Specify the location of OME-Zarr's root-level `zarr.json` within the ZIP archive.
-- Recommend essential ZIP/Zarr storage parameters for creating zipped OME-Zarr files.
-- Disallow embedding zipped OME-Zarr files in parent OME-Zarr hierarchies ("recursion").
-- Define an OME-Zarr-specific file extension for zipped OME-Zarr files.
+- Recommend essential ZIP/Zarr storage parameters for creating OME-Zarr zip files.
+- Disallow embedding OME-Zarr zip files in parent OME-Zarr hierarchies ("recursion").
+- Define an OME-Zarr-specific file extension for OME-Zarr zip files.
 
 To minimize implementation effort and maximize compatibility, this RFC proposes a concrete archive file format as a single-file OME-Zarr storage container.
 The ZIP archive file format was chosen for its simplicity, widespread adoption (e.g. on-board tooling of various operating systems, existing OME-Zarr implementations) and possibility for chunked file access enabled by the "central directory" header.
 Considering the intended use cases for zipped OME-Zarr, these advantages were considered to outweigh disadvantages such as limitations of the ZIP archive file format in efficiently writing and accessing file contents. ZIP archives are traditionally associated with deflate compression which would have redundancy with the per-chunk compression existing in Zarr. Changes in the size of files and compressed chunks could lead to significant fragmentation within a ZIP archive.
 Note that the ZIP archive file format is already being used to realize comparable single-file formats in other domains, such as Java archives (.jar), Office Open XML (.docx, .pptx, .xlsx), or OpenDocument (.odt, .odt, .ods, .odg).
 
-To enable the intended user experience (e.g. avoid additional prompting of users when opening a zipped OME-Zarr file), the location of the OME-Zarr root relative to the ZIP archive root needs to be specified.
-In order to avoid inconsistencies when renaming zipped OME-Zarr files, this RFC proposes to require the ZIP archive root to coincide with the OME-Zarr root directory.
+To enable the intended user experience (e.g. avoid additional prompting of users when opening OME-Zarr zip files), the location of the OME-Zarr root relative to the ZIP archive root needs to be specified.
+In order to avoid inconsistencies when renaming OME-Zarr zip files, this RFC proposes to require the ZIP archive root to coincide with the OME-Zarr root directory.
 In other words, according to this specification, the OME-Zarr's root-level `zarr.json` MUST be located in the root of the ZIP archive and not in a subfolder within the ZIP archive.
 Potential problems (e.g. loss of data) resulting from "accidentally" extracting the ZIP archive in-place (e.g. using on-board tooling of some operating systems) can be alleviated by introducing a custom file extension (see below).
 
-To facilitate efficient storage and access of zipped OME-Zarr files, a set of essential ZIP/Zarr parameters are recommended in this RFC:
+To facilitate efficient storage and access of OME-Zarr zip files, a set of essential ZIP/Zarr parameters are recommended in this RFC:
 
 - Use the ZIP64 format. This is the default in most modern tooling and enables the creation of single-file OME-Zarr larger than 4 GiB.
 - Disable ZIP-level compression. This avoids unnecessary compression of already compressed data (e.g. when using Zarr compression codecs) and makes it easier to directly conduct partial reads of the ZIP archive.
@@ -91,16 +91,16 @@ To facilitate efficient storage and access of zipped OME-Zarr files, a set of es
 - Include all `zarr.json` files at the beginning of the file and at the beginning of the central directory header in a breadth-first order, starting with the root-level `zarr.json` as the first entry. This enables efficient metadata processing and discovery of the hierarchy structure.
 - Include an OME-Zarr-specific archive comment in the ZIP file header, indicating compliance with these recommendations. This further facilitates efficient data/metadata access and also allows for additional (optional/recommended) single-file metadata that may be specified in future OME-Zarr versions.
 
-This RFC explicitly prohibits embedding a zipped OME-Zarr file as subhierarchy of a parent OME-Zarr hierarchy.
-In particular this prohibits "recursive zipping", the embedding of a zipped OME-Zarr file within a parent zipped OME-Zarr file.
+This RFC explicitly prohibits embedding an OME-Zarr zip file as subhierarchy of a parent OME-Zarr hierarchy.
+In particular this prohibits "recursive zipping", the embedding of an OME-Zarr zip file within a parent OME-Zarr zip file.
 This restriction may be revised in the future, especially in the light of the "collections" RFC.
 
 Furthermore, this RFC prohibits splitting up the ZIP archive into multiple files ("multi-volume archives"), in favor of directory-backed OME-Zarr and Zarr's sharding codec.
 
-Finally, this RFC also defines a new file extension to be used specifically with zipped OME-Zarr files.
-This should enable file type detection (in absence of a magic number), improve user experience (e.g. by enabling file type association), avoid "accidental" in-place extraction (e.g. using on-board tooling of some operating systems) and encourage the use of OME-Zarr-specific tooling for creating zipped OME-Zarr files (to follow the recommendations listed earlier).
+Finally, this RFC also defines a new file extension to be used specifically with OME-Zarr zip files.
+This should enable file type detection (in absence of a magic number), improve user experience (e.g. by enabling file type association), avoid "accidental" in-place extraction (e.g. using on-board tooling of some operating systems) and encourage the use of OME-Zarr-specific tooling for creating OME-Zarr zip files (to follow the recommendations listed earlier).
 
-Note that this RFC does not - semantically or otherwise - restrict the data content of OME-Zarr hierarchies to be stored in zipped OME-Zarr files.
+Note that this RFC does not - semantically or otherwise - restrict the data content of OME-Zarr hierarchies to be stored in OME-Zarr zip files.
 
 ## Specification
 
@@ -110,30 +110,30 @@ Amend the specification with the following section:
 
 This section specifies how to store an OME-Zarr hierarchy within a single file.
 
-#### Zipped OME-Zarr files
+#### OME-Zarr zip files
 
 An OME-Zarr hierarchy MAY be stored within a ZIP archive.
 
-For a ZIP file to be referred to as a zipped OME-Zarr file, it MUST contain exactly one OME-Zarr hierarchy.
+For a ZIP file to be referred to as an OME-Zarr zip file, it MUST contain exactly one OME-Zarr hierarchy.
 The root of the ZIP archive MUST correspond to the root of the OME-Zarr hierarchy, and it MUST contain the the OME-Zarr's root-level `zarr.json`.
 
-When creating zipped OME-Zarr files, the following are RECOMMENDED:
+When creating OME-Zarr zip files, the following are RECOMMENDED:
 
 - The ZIP64 format extension SHOULD be used, irrespective of the ZIP file size.
 - ZIP-level compression SHOULD be disabled in favor of Zarr-level compression codecs.
 - The sharding codec SHOULD be used to reduce the number of entries within the ZIP archive.
 - The root-level `zarr.json` file SHOULD be the first ZIP file entry and the first entry in the central directory header; other `zarr.json` files SHOULD follow immediately afterwards, in breadth-first order.
 
-These recommendations are REQUIRED for a zipped OME-Zarr file specialization from here on referred to as "recommended variant".
+These recommendations are REQUIRED for an OME-Zarr zip file specialization from here on referred to as "recommended variant".
 
-If a zipped OME-Zarr file is of the recommended variant, its ZIP archive comment SHOULD contain null-terminated UTF-8-encoded JSON with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, equivalent to `{"ome": { "version": "XX.YY" }}`.
-Conversely, zipped OME-Zarr files that do not meet all requirements for the recommended variant SHALL NOT contain this archive comment.
+If an OME-Zarr zip file is of the recommended variant, its ZIP archive comment SHOULD contain null-terminated UTF-8-encoded JSON with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, equivalent to `{"ome": { "version": "XX.YY" }}`.
+Conversely, OME-Zarr zip files that do not meet all requirements for the recommended variant SHALL NOT contain this archive comment.
 
-Zipped OME-Zarr files SHALL NOT be embedded in a parent OME-Zarr hierarchy (as a sub-hierarchy or otherwise).
+OME-Zarr zip files SHALL NOT be embedded in a parent OME-Zarr hierarchy (as a sub-hierarchy or otherwise).
 
-Zipped OME-Zarr files SHALL NOT be split into multiple parts.
+OME-Zarr zip files SHALL NOT be split into multiple parts.
 
-The name of zipped OME-Zarr files SHOULD end with `.ozx`.
+The name of OME-Zarr zip files SHOULD end with `.ozx`.
 
 ## Requirements
 
@@ -196,7 +196,7 @@ TODO
 TODO:
 
 - Partially address ZIP storage on the Zarr level --> difficult, moved to future possibilities
-- Embedding zipped OME-Zarr files in OME-Zarr hierarchies/collections --> moved to future possibilities
+- Embedding OME-Zarr zip files in OME-Zarr hierarchies/collections --> moved to future possibilities
 - Restrict OME-Zarr file content (semantically or otherwise) --> out of scope, moved to future possibilities
 - Specify single-file storage of OME-Zarr without specifying a concrete storage container --> bad for standardization
 - Specify ZIP as the one and only single-file storage container for OME-Zarr --> would prevent future specializations
@@ -245,8 +245,8 @@ Related concepts and file formats:
 TODO:
 
 - Zarr-level specification for single-file (e.g. ZIP) stores
-- Zipped OME-Zarr files as part of collections ("collections" RFC, work in progress)
-- Embedding zipped OME-Zarr files in parent OME-Zarr hierarchies --> "recursion"
+- OME-Zarr zip files as part of collections ("collections" RFC, work in progress)
+- Embedding OME-Zarr zip files in parent OME-Zarr hierarchies --> "recursion"
 - OME-Zarr file content specialization (e.g. single volume or multi-part image)
 
 <!-- Think about what the natural extension and evolution of your proposal would be
@@ -283,7 +283,7 @@ How are implementations expected to handle these changes? -->
 ## Testing
 
 Testing will involve the creation of public example data and the adaptation of validators.
-The generated zipped OME-Zarr example data can then be used to test existing implementations.
+The generated example OME-Zarr zip file can then be used to test existing implementations.
 
 ## Tutorials and Examples (Recommended Header)
 
