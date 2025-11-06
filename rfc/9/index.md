@@ -259,6 +259,8 @@ Related concepts and file formats:
 - OmniGraffle documents (.graffle)
 - Blender's [packed data](https://docs.blender.org/manual/en/latest/files/blend/packed_data.html)
 
+The European Space Agency (ESA) has decided to disseminate Sentinel-2 satellite images as zipped Zarr, see the [Earth Observation Platform framework documentation](https://cpm.pages.eopf.copernicus.eu/eopf-cpm/main/PSFD/4-storage-formats.html). Data can for example be obtained as zipped Zarr from the [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/).
+
 ## Future possibilities
 
 TODO:
