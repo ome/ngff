@@ -28,6 +28,7 @@ Many of the tools in the *File Reading/Writing* section below also support forma
 | NGFF-Converter | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/NGFF-Converter) | A GUI application for conversion of bioimage formats into OME-Zarr or OME-TIFF. |
 | stack-to-chunk | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://stack-to-chunk.readthedocs.io) | A Python library to convert stacks of 2D images to OME-Zarr with minimal memory use and maximum concurrency. |
 | stack_to_multiscale_ngff | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/CBI-PITT/stack_to_multiscale_ngff) | A tool for converting multi-terabyte stacks of images into a multiscale OME-Zarr. |
+| EuBI-Bridge | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Euro-BioImaging/EuBI-Bridge) | A tool for distributed conversion of microscopic image collections into the OME-Zarr format. |
 
 ## Dataset Reading/Writing
 
@@ -59,3 +60,4 @@ Various libraries for reading/writing OME-Zarr files in Python were evaluated as
 | Mastodon | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://mastodon.readthedocs.io/) | A large-scale tracking and track-editing framework for large, multi-view images. |
 | Nyxus | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/nyxus) | A scalable library for calculating features from intensity-label image data. |
 | SpatialData | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/scverse/spatialdata) | An open and universal framework for processing spatial omics data. |
+| ome-zarr.js | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BioNGFF/ome-zarr.js) | A JavaScript library for simple rendering of thumbnnails and images. |
