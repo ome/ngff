@@ -130,13 +130,7 @@ When creating OME-Zarr zip files, the following are RECOMMENDED:
 - ZIP-level compression SHOULD be disabled in favor of Zarr-level compression codecs.
 - The sharding codec SHOULD be used to reduce the number of entries within the ZIP archive.
 - The root-level `zarr.json` file SHOULD be the first ZIP file entry and the first entry in the central directory header; other `zarr.json` files SHOULD follow immediately afterwards, in breadth-first order.
-
-These recommendations are REQUIRED for an OME-Zarr zip file specialization that is from here on referred to as "recommended variant".
-
-If an OME-Zarr zip file is of the recommended variant, its ZIP archive comment SHOULD contain null-terminated UTF-8-encoded JSON with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, equivalent to `{"ome": { "version": "XX.YY" }}`.
-Conversely, OME-Zarr zip files that do not meet all requirements for the recommended variant SHALL NOT contain this archive comment.
-
-Software claiming support for OME-Zarr zip files SHOULD at least support the recommended variant.
+- The ZIP archive comment SHOULD contain null-terminated UTF-8-encoded JSON with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, equivalent to `{"ome": { "version": "XX.YY" }}`.
 
 OME-Zarr zip files SHALL NOT be embedded in a parent OME-Zarr hierarchy (as a sub-hierarchy or otherwise).
 
@@ -193,8 +187,6 @@ Risks:
   However, adaptation effort is expected to be manageable, as many existing implementations already support zipped OME-Zarr.
 - **Developers may choose to only support single-file OME-Zarr** (partial OME-Zarr support).
   However, most software relies on third-party packages for reading/writing OME-Zarr, which implement the full OME-Zarr stack.
-- **Developers may choose to only support a specific variant of zipped OME-Zarr** (partial zipped OME-Zarr support).
-  This risk is mitigated by specifying a recommended variant as a common denominator.
 - **Users may employ OME-Zarr-agnostic tooling to "zip" OME-Zarr**, resulting in non-compliant or suboptimally stored zipped OME-Zarr.
   This risk is mitigated by introducing a custom file extension for OME-Zarr zip files, requiring manual - and thus deliberate - renaming of ZIP archives created using generic tooling, akin to similar file formats (see _Prior art and references_ section).
 
