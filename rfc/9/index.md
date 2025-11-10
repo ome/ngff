@@ -92,8 +92,8 @@ To facilitate efficient storage and access of OME-Zarr zip files, a set of essen
 - Disable ZIP-level compression.
   This avoids unnecessary compression of already compressed data (e.g. when using Zarr compression codecs) and makes it easier to directly conduct partial reads of the ZIP archive.
 - Use the Zarr sharding codec.
-  This reduces the number of records in the central directory header.
-- Include all `zarr.json` files at the beginning of the file and at the beginning of the central directory header in a breadth-first order, starting with the root-level `zarr.json` as the first entry.
+  This reduces the number of records in the central directory.
+- Include all `zarr.json` files at the beginning of the file and at the beginning of the central directory in a breadth-first order, starting with the root-level `zarr.json` as the first entry.
   This enables efficient metadata processing and discovery of the hierarchy structure.
 - Include an OME-Zarr-specific archive comment in the ZIP file header, indicating compliance with the OME-Zarr specification.
   This further facilitates efficient data/metadata access and also allows for additional (optional/recommended) single-file metadata that may be specified in future OME-Zarr versions.
