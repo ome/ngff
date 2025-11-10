@@ -74,7 +74,7 @@ Specifically:
 - Define an OME-Zarr-specific file extension for OME-Zarr zip files: `.ozx`.
 
 To minimize implementation effort and maximize compatibility, this RFC proposes a concrete archive file format as a single-file OME-Zarr storage container.
-The ZIP archive file format was chosen for its simplicity, widespread adoption (e.g. on-board tooling of various operating systems, existing OME-Zarr implementations) and possibility for chunked file access enabled by the "central directory" header.
+The ZIP archive file format was chosen for its simplicity, widespread adoption (e.g. on-board tooling of various operating systems, existing OME-Zarr implementations) and possibility for chunked file access enabled by the "central directory".
 Considering the intended use cases for zipped OME-Zarr, these advantages were considered to outweigh disadvantages such as limitations of the ZIP archive file format in efficiently writing and accessing file contents.
 ZIP archives are traditionally associated with deflate compression which would have redundancy with the per-chunk compression existing in Zarr.
 Changes in the size of files and compressed chunks could lead to significant fragmentation within a ZIP archive.
