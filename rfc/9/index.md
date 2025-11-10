@@ -121,22 +121,21 @@ This section specifies how to store an OME-Zarr hierarchy within a single file.
 
 An OME-Zarr hierarchy MAY be stored within a ZIP archive.
 
-For a ZIP file to be referred to as an OME-Zarr zip file, it MUST contain exactly one OME-Zarr hierarchy.
-The root of the ZIP archive MUST correspond to the root of the OME-Zarr hierarchy, and it MUST contain the the OME-Zarr's root-level `zarr.json`.
+For a ZIP file to be referred to as an OME-Zarr zip file the following conditions MUST be met:
+
+1. The ZIP file MUST contain exactly one OME-Zarr hierarchy.
+2. The root of the ZIP archive MUST correspond to the root of the OME-Zarr hierarchy. The ZIP file MUST contain the the OME-Zarr's root-level `zarr.json`.
+3. OME-Zarr zip files SHALL NOT be embedded in a parent OME-Zarr hierarchy (as a sub-hierarchy or otherwise).
+4. OME-Zarr zip files SHALL NOT be split into multiple parts.
 
 When creating OME-Zarr zip files, the following are RECOMMENDED:
 
-- The ZIP64 format extension SHOULD be used, irrespective of the ZIP file size.
-- ZIP-level compression SHOULD be disabled in favor of Zarr-level compression codecs.
-- The sharding codec SHOULD be used to reduce the number of entries within the ZIP archive.
-- The root-level `zarr.json` file SHOULD be the first ZIP file entry and the first entry in the central directory header; other `zarr.json` files SHOULD follow immediately afterwards, in breadth-first order.
-- The ZIP archive comment SHOULD contain an UTF-8-encoded JSON string with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, equivalent to `{"ome": { "version": "XX.YY" }}`.
-
-OME-Zarr zip files SHALL NOT be embedded in a parent OME-Zarr hierarchy (as a sub-hierarchy or otherwise).
-
-OME-Zarr zip files SHALL NOT be split into multiple parts.
-
-The name of OME-Zarr zip files SHOULD end with `.ozx`.
+1. The ZIP64 format extension SHOULD be used, irrespective of the ZIP file size.
+2. ZIP-level compression SHOULD be disabled in favor of Zarr-level compression codecs.
+3. The sharding codec SHOULD be used to reduce the number of entries within the ZIP archive.
+4. The root-level `zarr.json` file SHOULD be the first ZIP file entry and the first entry in the central directory header; other `zarr.json` files SHOULD follow immediately afterwards, in breadth-first order.
+5. The ZIP archive comment SHOULD contain null-terminated UTF-8-encoded JSON with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, equivalent to `{"ome": { "version": "XX.YY" }}`.
+6. The name of OME-Zarr zip files SHOULD end with `.ozx`.
 
 ## Requirements
 
