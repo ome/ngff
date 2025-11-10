@@ -178,12 +178,28 @@ A [neuroglancer view](https://neuroglancer-demo.appspot.com/#!%7B%22dimensions%2
 Drawbacks:
 
 - **Disadvantages of the ZIP archive file format** when writing and accessing file contents relate to the structure of the central directory.
-     - ** The zip file central directory is a flat, non-hierarchical list near the end of the file **. While zip files contain a compact central directory that other archive file formats lack, the directory is a simple list occurring in no particular order. This specification exploits the lack of order to list the zarr.json files first, consolidating the metadata while outlining the Zarr hierarchy. Implementations may need to parse the directory into a hash table structure or sort the directory to facilitate locating files efficiently.
-     - ** A large number of entries may make the central directory difficult to parse or search directly. **. The time complexity of the reading the directory is `O(N)` where `N` is the number of all files in the archive. A single array containing a large number of chunks in individual files may adversely affect the ability to locate chunks in other arrays contained within the archive. To mitigate this, shards are recommended to decrease the number of entries in the central directory. The use of the `sharding_indexed` codec delegates the indexing of the numerous chunks to the ordered index in the shard. With Zarr shards, the zip central directory may then mainly consist of entries describing the location of array and group metadata as well as the location of the shards.
-    - ** Adding files to the zip file requires rewriting the central directory **. Since the central directory occurs near the end of the file, adding new files or expanding existing files requires that the central directory be removed, the new content added, and then central directory rewritten. This can be mitigated by adding many files at once and then closing the file once rather than adding them one by one and closing the file after each addition.
-     - ** Individual file headers may describe obsolete files **. While the central directory contains the canonical list of files near the end of a zip archive, obsolete files and their file headers may still be present earlier in the archive. Files detected while streaming a zip file may not represent the latest version of a file or files that may have been deleted. It may be advantageous to extract individual files to manipulate them and then rebuild the archive when processing is complete rather than trying to modify files within the archive.
-    - ** Removing a file from a zip archive, may not reduce the file size of an archive depending on the implementation.** Removing a file from a zip archive may only remove the file's entry in the central directory. Free space within a zip archive is not explicitly tracked and thus cannot be easily reclaimed or reused. Therefore, it is not recommended to overwrite or delete files within a zip archive frequently such as during image processing operations.
-  These disadvantages were considered to be outweighed by other aspects (see _Proposal_ section).
+  - **The zip file central directory is a flat, non-hierarchical list near the end of the file**.
+    While zip files contain a compact central directory that other archive file formats lack, the directory is a simple list occurring in no particular order.
+    This specification exploits the lack of order to list the zarr.json files first, consolidating the metadata while outlining the Zarr hierarchy.
+    Implementations may need to parse the directory into a hash table structure or sort the directory to facilitate locating files efficiently.
+  - **A large number of entries may make the central directory difficult to parse or search directly**.
+    The time complexity of the reading the directory is `O(N)` where `N` is the number of all files in the archive.
+    A single array containing a large number of chunks in individual files may adversely affect the ability to locate chunks in other arrays contained within the archive.
+    To mitigate this, shards are recommended to decrease the number of entries in the central directory.
+    The use of the `sharding_indexed` codec delegates the indexing of the numerous chunks to the ordered index in the shard.
+    With Zarr shards, the zip central directory may then mainly consist of entries describing the location of array and group metadata as well as the location of the shards.
+  - **Adding files to the zip file requires rewriting the central directory**.
+    Since the central directory occurs near the end of the file, adding new files or expanding existing files requires that the central directory be removed, the new content added, and then central directory rewritten.
+    This can be mitigated by adding many files at once and then closing the file once rather than adding them one by one and closing the file after each addition.
+  - **Individual file headers may describe obsolete files**.
+    While the central directory contains the canonical list of files near the end of a zip archive, obsolete files and their file headers may still be present earlier in the archive.
+    Files detected while streaming a zip file may not represent the latest version of a file or files that may have been deleted.
+    It may be advantageous to extract individual files to manipulate them and then rebuild the archive when processing is complete rather than trying to modify files within the archive.
+  - **Removing a file from a zip archive, may not reduce the file size of an archive depending on the implementation**.
+    Removing a file from a zip archive may only remove the file's entry in the central directory.
+    Free space within a zip archive is not explicitly tracked and thus cannot be easily reclaimed or reused.
+    Therefore, it is not recommended to overwrite or delete files within a zip archive frequently such as during image processing operations.
+    These disadvantages were considered to be outweighed by other aspects (see _Proposal_ section).
 
 Risks:
 
@@ -264,7 +280,8 @@ Related concepts and file formats:
 - OmniGraffle documents (.graffle)
 - Blender's [packed data](https://docs.blender.org/manual/en/latest/files/blend/packed_data.html)
 
-The European Space Agency (ESA) has decided to disseminate Sentinel-2 satellite images as zipped Zarr, see the [Earth Observation Platform framework documentation](https://cpm.pages.eopf.copernicus.eu/eopf-cpm/main/PSFD/4-storage-formats.html). Data can for example be obtained as zipped Zarr from the [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/).
+The European Space Agency (ESA) has decided to disseminate Sentinel-2 satellite images as zipped Zarr, see the [Earth Observation Platform framework documentation](https://cpm.pages.eopf.copernicus.eu/eopf-cpm/main/PSFD/4-storage-formats.html).
+Data can for example be obtained as zipped Zarr from the [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/).
 
 ## Future possibilities
 
