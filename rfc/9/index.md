@@ -95,7 +95,7 @@ To facilitate efficient storage and access of OME-Zarr zip files, a set of essen
   This reduces the number of records in the central directory header.
 - Include all `zarr.json` files at the beginning of the file and at the beginning of the central directory header in a breadth-first order, starting with the root-level `zarr.json` as the first entry.
   This enables efficient metadata processing and discovery of the hierarchy structure.
-- Include an OME-Zarr-specific archive comment in the ZIP file header, indicating compliance with these recommendations.
+- Include an OME-Zarr-specific archive comment in the ZIP file header, indicating compliance with the OME-Zarr specification.
   This further facilitates efficient data/metadata access and also allows for additional (optional/recommended) single-file metadata that may be specified in future OME-Zarr versions.
 
 This RFC explicitly prohibits embedding an OME-Zarr zip file as subhierarchy of a parent OME-Zarr hierarchy.
