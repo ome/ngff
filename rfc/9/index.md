@@ -160,6 +160,7 @@ Suggested reviewers:
 
 - BioImage Archive team members (EMBL-EBI, United Kingdom), e.g. @matthewh-ebi @kbab
 - Curtis Rueden (University of Wisconsin-Madison, United States) @ctrueden
+- Lenard Spiecker (Miltenyi, Germany)
 - Luca Marconato (EMBL Heidelberg, Germany) @LucaMarconato
 - Pete Bankhead (University of Edinburgh, United Kingdom) @petebankhead
 - Tong Li (Wellcome Sanger Institute, United Kingdom) @BioinfoTongLI
