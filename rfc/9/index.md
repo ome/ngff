@@ -145,7 +145,7 @@ The `ome` attribute in the zip archive comment MAY contain a `zip_file` attribut
 
 The `central_directory` attribute MAY contain the following keys:
 
-- `breadth_first_json_ordering`: If `true`, this indicates that the `zarr.json` files are ordered breadth-first in the central directory as recommended. This allows the hierarchical structure of the contents to be discovered without parsing the entire central directory, which could contain many entries of Zarr chunks. If this key is omitted, it is assumed to be `false`.
+- `breadth_first_json_ordering`: If `true`, this indicates that the `zarr.json` files are ordered breadth-first in the central directory and precede other content, as recommended above. This allows the hierarchical structure of the contents to be discovered without parsing the entire central directory, which could contain many entries of Zarr chunks. If this key is omitted, it is assumed to be `false`.
 - `is_sorted`: If `true`, this indicates that the remaining entries in the central directory are sorted lexicographically by name. This assists with searching for keys in the directory via particular searching algorithms, such as binary search. If this key is omitted, it is assumed to be `false`.
 - `duplicate_resolution` (string): Specifies which entry to use when duplicate filenames are present.
     - `"first"`: Use the first occurrence of the duplicate filename.
