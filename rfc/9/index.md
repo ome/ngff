@@ -134,8 +134,39 @@ When creating OME-Zarr zip files, the following are RECOMMENDED:
 2. ZIP-level compression SHOULD be disabled in favor of Zarr-level compression codecs.
 3. The sharding codec SHOULD be used to reduce the number of entries within the ZIP archive.
 4. The root-level `zarr.json` file SHOULD be the first ZIP file entry and the first entry in the central directory header; other `zarr.json` files SHOULD follow immediately afterwards, in breadth-first order.
-5. The ZIP archive comment SHOULD contain null-terminated UTF-8-encoded JSON with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, equivalent to `{"ome": { "version": "XX.YY" }}`.
-6. The name of OME-Zarr zip files SHOULD end with `.ozx`.
+5. The name of OME-Zarr zip files SHOULD end with `.ozx`.
+6. The ZIP archive comment SHOULD contain UTF-8-encoded JSON with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, such that `{"ome": { "version": "XX.YY" }}` is the minimum recommended content. Additional optional content is described in the next section.
+
+#### OME-Zarr Zip Comment Structure
+
+The zip comment is intended to provide metadata pertinent to the zip file structure, such as information about the ordering of entries within the central directory. It is not intended for storing metadata about the OME-Zarr's content. Such content-related metadata should be stored within the OME-Zarr hierarchy.
+
+The `ome` attribute in the zip archive comment MAY contain a `zip_file` attribute, which in turn MAY contain a `central_directory` attribute. The `central_directory` attribute provides metadata about the central directory's structure and content.
+
+The `central_directory` attribute MAY contain the following keys:
+
+- `json_breadth_first`: If `true`, this indicates that the `zarr.json` files are ordered breadth-first in the central directory and precede other content, as recommended above. This allows the hierarchical structure of the contents to be discovered without parsing the entire central directory, which could contain many entries of Zarr chunks. If this key is omitted, it is assumed to be `false`.
+- `is_sorted`: If `true`, this indicates that the entries in the central directory are sorted lexicographically by name. The root `zarr.json` MUST always be the first entry. If `json_breadth_first` is `true`, this sorting applies to the non-`zarr.json` file entries. If `json_breadth_first` is `false`, then it applies to all files, including the `zarr.json` files, with the exception of the root `zarr.json`. This assists with searching for keys in the directory via particular searching algorithms, such as binary search. If this key is omitted, it is assumed to be `false`.
+- `duplicate_resolution` (string): Specifies which entry to use when duplicate filenames are present.
+    - `"first"`: Use the first occurrence of the duplicate filename.
+    - `"last"`: Use the last occurrence of the duplicate filename.
+    If this key is omitted, the default behavior is to use the `"last"` entry.
+
+For example,
+```json
+{
+  "ome": {
+    "version": "XX.YY",
+    "zip_file": {
+      "central_directory": {
+        "json_breadth_first": true,
+        "is_sorted": true,
+        "duplicate_resolution": "last"
+      }
+    }
+  }
+}
+```
 
 ## Requirements
 
@@ -250,8 +281,8 @@ The following ideas were abandoned:
   This would unnecessarily limit the space for future innovation/specialization in the OME-Zarr specification.
 - **Use a file extension other than `.ozx`**.
   The following candidates were considered:
-  - `.zarrx` or `.zar` - not OME-specific
-  - Multi-part file extensions (e.g. `.ome.zarr.zip`, `.ome.zarrx`, `.ome.zar`) - suboptimal user experience
+  - `.zarrx` or `.zar` - not OME-specific  <!-- codespell:ignore -->
+  - Multi-part file extensions (e.g. `.ome.zarr.zip`, `.ome.zarrx`, `.ome.zar`) - suboptimal user experience  <!-- codespell:ignore -->
   - Any other permutation of `oz[pzx]` that is not yet in active use by other software
 
 ## Prior art and references
