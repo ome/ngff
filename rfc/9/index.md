@@ -143,7 +143,7 @@ The zip comment is intended to provide metadata pertinent to the zip file struct
 
 The `ome` attribute in the zip archive comment MAY contain a `zip_file` attribute, which in turn MAY contain a `central_directory` attribute. The `central_directory` attribute provides metadata about the central directory's structure and content.
 
-The `central_directory` attribute MAY contain the following boolean keys:
+The `central_directory` attribute MAY contain the following keys:
 
 - `breadth_first_json_ordering`: If `true`, this indicates that the `zarr.json` files are ordered breadth-first in the central directory as recommended. This allows the hierarchical structure of the contents to be discovered without parsing the entire central directory, which could contain many entries of Zarr chunks. If this key is omitted, it is assumed to be `false`.
 - `is_sorted`: If `true`, this indicates that the remaining entries in the central directory are sorted lexicographically by name. This assists with searching for keys in the directory via particular searching algorithms, such as binary search. If this key is omitted, it is assumed to be `false`.
