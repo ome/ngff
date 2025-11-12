@@ -281,8 +281,8 @@ The following ideas were abandoned:
   This would unnecessarily limit the space for future innovation/specialization in the OME-Zarr specification.
 - **Use a file extension other than `.ozx`**.
   The following candidates were considered:
-  - `.zarrx` or `.zar` - not OME-specific
-  - Multi-part file extensions (e.g. `.ome.zarr.zip`, `.ome.zarrx`, `.ome.zar`) - suboptimal user experience
+  - `.zarrx` or `.zar` - not OME-specific  <!-- codespell:ignore -->
+  - Multi-part file extensions (e.g. `.ome.zarr.zip`, `.ome.zarrx`, `.ome.zar`) - suboptimal user experience  <!-- codespell:ignore -->
   - Any other permutation of `oz[pzx]` that is not yet in active use by other software
 
 ## Prior art and references
