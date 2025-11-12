@@ -1,5 +1,11 @@
 # RFC-6: Flattening the multiscales array
 
+```{toctree}
+:hidden:
+:maxdepth: 1
+comments/index
+```
+
 Turn the `multiscales` array into a single `multiscale` object.
 
 ## Status
@@ -58,6 +64,12 @@ This RFC is currently open for reviews (R1).
     - @perlman
     - 
     - 2024-12-18
+    -
+*   - Endorser
+    - Johannes Soltwedel
+    - @jo-mueller
+    - German BioImaging e.V.
+    - 2025-10-22
     -
 ```
 
