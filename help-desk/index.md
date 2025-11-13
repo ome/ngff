@@ -28,8 +28,6 @@ Jump to:
 
 ### G {#g}
 
-**Group** - blabla
-
 [Back to top](#glossary)
 
 ### H {#h}
@@ -47,14 +45,21 @@ Jump to:
 
 ### N {#n}
 **NGFF** - Next Generation File Format.
-**Node** - blabla
 
 [Back to top](#glossary)
 
 ### O {#o}
 
+**OME** - blablah.
 **OMERO** - blablah. To learn more about OMERO visit [OMERO guides](https://omero-guides.readthedocs.io/en/latest) webpage.
+**OME-NGFF** - blablah.
 **OME-Zarr** - blablah. 
+
+[Back to top](#glossary)
+
+### P {#p}
+
+**Processing Unit** - blablah. 
 
 [Back to top](#glossary)
 
@@ -78,7 +83,6 @@ Jump to:
 
 ### U {#u}
 
-**Unit** - blablah. 
 
 [Back to top](#glossary)
 
@@ -91,16 +95,14 @@ Jump to:
 ### Z {#z}
 
 **Zarr** -- blabla.
+**Zarr Group** - blabla
 
 [Back to top](#glossary)
 
 
 ## FAQs
-* Why should I start using OME-Zarr?
 
-* When should I not use OME-Zarr?
-
-* What's the difference among OME, OME-Zarr, OMERO and just Zarr?
+* What's the difference among OME, OMERO, OME-Zarr,and just Zarr?
 
 * What about Deep Learning and OME-Zarr?
 
@@ -113,7 +115,3 @@ If you have questions or need help with OME-Zarr, you can reach out through the 
 | [ome/ngff GitHub Issues](https://github.com/ome/ngff/issues) | The official repository for OME-NGFF specifications and related discussions. | For reporting bugs, suggesting features, or discussing technical aspects of the OME-NGFF specifications. |
 | Office Hours | Regularly scheduled virtual meetings where you can ask questions and get help from the NGFF community | Office hours rotate between APAC/AU/EU- and AMER/AU/EU-friendly times. Join [here](https://openmicroscopy-org.zoom.us/j/82526689042?pwd=ZIde7mcvZugQGmJ8Bm9piFo5Tzwdy1.1) when feeling super lost. |
 | OME-Zarr libraries GitHub Issues/Image.sc Forum | Various repositories for OME-Zarr libraries. | For issues specific to a particular OME-Zarr library, use the respective GitHub repository's issue tracker or use the [ome-zarr-py](https://forum.image.sc/tag/ome-zarr-py) tag in Image.sc Forum.|
-
-Some other helpful conversations on Image.sc Forum:
-* [OME-TIFF vs OME-Zarr ](https://forum.image.sc/t/ome-tiff-vs-ome-zarr/101304).
-* [Beginners experiences on using OME.TIFF](https://forum.image.sc/t/beginners-experiences-on-using-ome-tiff/98077)
