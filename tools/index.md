@@ -7,14 +7,9 @@ A list of tools and libraries with OME-Zarr support. These are developed by vari
 - [Tools with a graphical interface (ex. a website)](#tools-with-a-graphical-interface)
     - [Zarr viewers](#zarr-viewers)
     - [Zarr converters](#zarr-converters-with-a-ui)
-<<<<<<< Updated upstream
 - [Tools for the programmatically inclined](#tools-for-the-programmatically-inclined)
-    - [Zarr readers, writers, and converters](#zarr-readers-writers--converters)
-=======
-- [Tools for the programmaticly inclined](#tools-for-the-programmaticly-inclined)
     - [Zarr converters](#zarr-converters)
     - [Zarr readers and writers](#zarr-readers--writers)
->>>>>>> Stashed changes
     - [Validating Zarr](#zarr-validation)
 - [Other zarr tools and libraries](#other-tools-and-libraries)
 
