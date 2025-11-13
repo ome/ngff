@@ -20,5 +20,9 @@ This section provides additional resources related to NGFF and OME-Zarr intended
 
 * [Basic example of using OME-Zarr in a Nextflow pipeline](https://github.com/BioImageTools/ome-zarr-image-analysis-nextflow). This tutorial contains an example on how to create new gaussian blurred ome-zarr image, segment this image and measure segment shape features.
 
-
 ## Teaching Materials
+* [Jupyter notebook on how to read Zarr Images](https://github.com/ome/EMBL-EBI-imaging-course-04-2025/blob/main/Reading_zarr_images.ipynb). Done under License BSD 2-Clause by University of Dundee for the EMBL-EBI Course 2025.
+
+* [Jupyter notebook on Load Zarr Image from a public S3 store and analyze it in parallel](https://github.com/ome/omero-guide-python/blob/master/notebooks/idr0044_zarr_segmentation_parallel.ipynb). Done under License BSD 2-Clause by University of Dundee. 
+
+* [Load Zarr Image with labels from a public S3 repository, analyze using Cellpose and compare results](https://github.com/ome/omero-guide-python/blob/master/notebooks/idr0062_prediction_zarr_public_s3.ipynb). Done under License BSD 2-Clause by University of Dundee. 

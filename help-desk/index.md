@@ -23,22 +23,26 @@ Jump to:
 ### C {#c}
 
 **Chunk** - blabla
+
 [Back to top](#glossary)
 
 ### G {#g}
 
 **Group** - blabla
+
 [Back to top](#glossary)
 
 ### H {#h}
 
 **HCS** - blabla
 **HDF5** - blabla
+
 [Back to top](#glossary)
 
 ### J {#j}
 
 **JSON file** - blabla
+
 [Back to top](#glossary)
 
 ### N {#n}
@@ -51,36 +55,43 @@ Jump to:
 
 **OMERO** - blablah. To learn more about OMERO visit [OMERO guides](https://omero-guides.readthedocs.io/en/latest) webpage.
 **OME-Zarr** - blablah. 
+
 [Back to top](#glossary)
 
 ### R {#r}
 
 **RFC** - blablah. 
+
 [Back to top](#glossary)
 
 ### S {#s}
 
 **Shard/ing** - blablah. 
+
 [Back to top](#glossary)
 
 ### T {#t}
 
 **Transformation** - blablah. 
+
 [Back to top](#glossary)
 
 ### U {#u}
 
 **Unit** - blablah. 
+
 [Back to top](#glossary)
 
 ### W {#w}
 
 **Workflow** - blablah. 
+
 [Back to top](#glossary)
 
 ### Z {#z}
 
-**Zarr** -- blabla
+**Zarr** -- blabla.
+
 [Back to top](#glossary)
 
 
