@@ -12,9 +12,9 @@ We host community calls quarterly at 9:00 CET and 17:00 CET. The same agenda is 
 
 The Community Calls welcome everyone — developers, users, and enthusiasts alike. Whether you have just heard about OME-NGFF and are curious to learn more or if you have been working with it every day, consider yourself invited.
 
-Community Calls are added to the above calendar and announced on [image.sc](https://forum.image.sc/search?q=%23announcements%20tags%3Aome-ngff%2Bcommunity%20order%3Alatest)
+Community Calls are added to the above calendar and announced on [image.sc](https://forum.image.sc/embed/topics?tags=community):
 
-<iframe src="https://forum.image.sc/embed/topics?tags=community" style="border: 0" width="800" height="400" frameborder="0"></iframe>
+<iframe src="https://forum.image.sc/embed/topics?tags=community" style="border: 0" width="800" height="300" frameborder="0"></iframe>
 
 ## Office Hours
 
@@ -44,9 +44,15 @@ Hackathons have been hosted yearly by the BioVision Center in Zurich:
 | Nov 18-22, 2024 | [2024 OME-NGFF Workflows Hackathon](https://biovisioncenter.uzh.ch/en/events/2024/hackaton_november_2024.html)| [2024 Preprint](https://doi.org/10.37044/osf.io/5uhwz_v1)|
 | Nov 10-14, 2025 | [2025 OME-NGFF Workshop](https://www.biovisioncenter.uzh.ch/en/events/Upcoming-Events/2025-OME-NGFF-workshop.html)| |
 
-<img src="../images/hackathons/IMG_7670.jpeg" alt="Photo of people hacking" width="200"/>
-<img src="../images/hackathons/IMG_7679.jpeg" alt="Photo of people hacking" width="200"/>
-<img src="../images/hackathons/IMG_9605.jpeg" alt="Photo of people hacking" width="200"/>
+```{image} ../images/hackathons/IMG_7670.jpeg
+:scale: 50%
+```
+```{image} ../images/hackathons/IMG_7679.jpeg
+:scale: 50%
+```
+```{image} ../images/hackathons/IMG_9605.jpeg
+:scale: 50%
+```
 
 ## Contributors
 Thank you to all the amazing contributors who make OME-NGFF possible:
