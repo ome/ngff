@@ -1,12 +1,5 @@
 # Community
 
-
-## OME NGFF Community Calendar
-
-<iframe id="calendariframe" src="https://calendar.google.com/calendar/embed?src=14c96687c3814f289f92de53b49bdfa7e5161d458ed1ab02d6a6c8a994522e10%40group.calendar.google.com&ctz=local" style="border: 0" width="800" height="400" frameborder="0" scrolling="no"></iframe> <script>document.getElementById("calendariframe").src = document.getElementById("calendariframe").src.replace("ctz=local", "ctz=" + Intl.DateTimeFormat().resolvedOptions().timeZone)</script>
-
-Download the <a href="https://calendar.google.com/calendar/ical/14c96687c3814f289f92de53b49bdfa7e5161d458ed1ab02d6a6c8a994522e10%40group.calendar.google.com/public/basic.ics">.ics</a> file and add it to your calendar so won't miss any of our meetings!
-
 ## Community Calls
 We host community calls quarterly at 9:00 CET and 17:00 CET. The same agenda is repeated in both time slots to allow participants around the globe to choose the one that fits their schedule best.
 
@@ -14,25 +7,18 @@ The Community Calls welcome everyone — developers, users, and enthusiasts alik
 
 Community Calls are added to the above calendar and announced on [image.sc](https://forum.image.sc/embed/topics?tags=ngff-community-call):
 
-<iframe src="https://forum.image.sc/embed/topics?tags=ngff-community-call" style="border: 0" width="800" height="200" frameborder="0"></iframe>
+<iframe src="https://forum.image.sc/embed/topics?tags=ngff-community-call" width="800" height="200"/>
 
 ## Office Hours
 
-<!--
-Button styling for our theme needs work
-<button type="button" name="office-hours" class="btn" onclick="window.open('https://openmicroscopy-org.zoom.us/j/82526689042?pwd=ZIde7mcvZugQGmJ8Bm9piFo5Tzwdy1.1');">Join here</button>
--->
-
-[**Join here!**](https://openmicroscopy-org.zoom.us/j/82526689042?pwd=ZIde7mcvZugQGmJ8Bm9piFo5Tzwdy1.1)
-
-We'll be hosting office hours on Wednesdays, rotating between
+We host office hours on Wednesdays, rotating between
 APAC/AU/EU- and AMER/AU/EU-friendly times. We are happy to discuss:
 - OME-Zarr specification
 - OME-Zarr tools and implementations
 - how you can get involved in the community
 - ... and much more!
 
-Please see the calendar above for exact times.
+Please see the calendar above for exact time to join at the [**Zoom link**](https://openmicroscopy-org.zoom.us/j/82526689042?pwd=ZIde7mcvZugQGmJ8Bm9piFo5Tzwdy1.1).
 
 ## Hackathons & Symposiums
 
@@ -54,14 +40,13 @@ Hackathons have been hosted yearly by the BioVision Center in Zurich:
 :width: 200px
 ```
 
+## OME NGFF Community Calendar
+
+<iframe id="calendariframe" src="https://calendar.google.com/calendar/embed?src=14c96687c3814f289f92de53b49bdfa7e5161d458ed1ab02d6a6c8a994522e10%40group.calendar.google.com&ctz=local" style="border: 0" width="800" height="400" frameborder="0" scrolling="no"></iframe> <script>document.getElementById("calendariframe").src = document.getElementById("calendariframe").src.replace("ctz=local", "ctz=" + Intl.DateTimeFormat().resolvedOptions().timeZone)</script>
+
+Download the <a href="https://calendar.google.com/calendar/ical/14c96687c3814f289f92de53b49bdfa7e5161d458ed1ab02d6a6c8a994522e10%40group.calendar.google.com/public/basic.ics">.ics</a> file and add it to your calendar so won't miss any of our meetings!
+
 ## Contributors
 Thank you to all the amazing contributors who make OME-NGFF possible:
 
-```{image} ../images/acknowledgements-dark.png
-:class: only-dark
-```
-```{image} ../images/acknowledgements-light.png
-:class: only-light
-```
-
-Updated 2025-11-13. For changes, see the [live version](https://german-bioimaging.github.io/ome-zarr-acknowledgments/).
+<iframe src="https://german-bioimaging.github.io/ome-zarr-acknowledgments/" width="800"/>
