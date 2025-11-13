@@ -7,7 +7,7 @@ A list of tools and libraries with OME-Zarr support. These are developed by vari
 - [Tools with a graphical interface (ex. a website)](#tools-with-a-graphical-interface)
     - [Zarr viewers](#zarr-viewers)
     - [Zarr converters](#zarr-converters-with-a-ui)
-- [Tools for the programmaticly inclined](#tools-for-the-programmaticly-inclined)
+- [Tools for the programmatically inclined](#tools-for-the-programmatically-inclined)
     - [Zarr readers, writers, and converters](#zarr-readers-writers--converters)
     - [Validating Zarr](#zarr-validation)
 - [Other zarr tools and libraries](#other-tools-and-libraries)
@@ -43,7 +43,7 @@ Want to convert your file to Zarr? Use one of these tools that has a user interf
 | -------- | ------- | ------- | 
 | NGFF-Converter | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/NGFF-Converter) | A desktop application for conversion of bioimage formats into OME-Zarr or OME-TIFF. |
 
-## Tools for the programmaticly inclined
+## Tools for the programmatically inclined
 
 ### Zarr readers, writers, & converters
 
