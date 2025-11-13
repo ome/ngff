@@ -14,7 +14,7 @@ The Community Calls welcome everyone — developers, users, and enthusiasts alik
 
 Community Calls are added to the above calendar and announced on [image.sc](https://forum.image.sc/embed/topics?tags=ngff-community-call):
 
-<iframe src="https://forum.image.sc/embed/topics?tags=ngff-community-call" style="border: 0" width="800" height="300" frameborder="0"></iframe>
+<iframe src="https://forum.image.sc/embed/topics?tags=ngff-community-call" style="border: 0" width="800" height="200" frameborder="0"></iframe>
 
 ## Office Hours
 
