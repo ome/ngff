@@ -1,8 +1,8 @@
 # Help Desk
 
-1. [Glossary](#glossary)
-2. [FAQs](#faqs)
-3. [Where to seek for help](#where-to-seek-for-help)
+* [Glossary](#glossary)
+* [FAQs](#faqs)
+* [Where to seek for help](#where-to-seek-for-help)
 
 ## Glossary
 
