@@ -2,75 +2,85 @@
 
 A list of tools and libraries with OME-Zarr support. These are developed by various members of the NGFF community. If you think your tool/library should be listed here, please [open a pull request](https://github.com/ome/ngff).
 
-In addition to this collection, an evaluation of selected tools/libraries is available on <https://ome.github.io/ome-ngff-tools/>.
+## Contents
 
-- [Viewing Zarrs](#zarr-viewers)
-- [Converting files to Zarr](#zarr-conversion)
-- [Reading and writing Zarr](#zarr-readingwriting)
+- [Tools with a graphical interface (ex. a website)](#tools-with-a-graphical-interface)
+    - [Zarr viewers](#zarr-viewers)
+    - [Zarr converters](#zarr-converters-with-a-ui)
+- [Tools for the programmaticly inclined](#tools-for-the-programmaticly-inclined)
+    - [Zarr readers, writers, and converters](#zarr-readers-writers--converters)
     - [Validating Zarr](#zarr-validation)
-- [Other Zarr tools](#other-tools-and-libraries)
+- [Other zarr tools and libraries](#other-tools-and-libraries)
 
 
-## Zarr Viewers
+## Tools with a graphical interface
 
-Want to view your file? Use one of these.
+### Zarr viewers
 
-| Name    | Link | Description | Compatibility |
-| -------- | ------- | ------- | ------- |
-| AGAVE | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/allen-cell-animated/agave) | A desktop application for viewing multichannel volume data. | ------- |
-| ITKWidgets | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/InsightSoftwareConsortium/itkwidgets) | A Python interface for visualization on the web platform to interactively generate insights into multidimensional images, point sets, and geometry. | ------- |
-| Microscopy Nodes | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/aafkegros/MicroscopyNodes) | A Blender add-on for visualizing high-dimensional microscopy data. | ------- |
-| MoBIE/BDV | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/mobie/mobie-viewer-fiji) | A Fiji plugin for exploring and sharing big multi-modal image and associated tabular data. | ------- |
-| napari |  [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/napari/napari) | A fast, interactive, multi-dimensional image viewer for Python that supports OME-Zarr with the [napari-ome-zarr](https://github.com/ome/napari-ome-zarr) plugin. | ------- |
-| Neuroglancer | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/google/neuroglancer) | A WebGL-based viewer for volumetric data. | ------- |
-| Viv (Avivator, Vizarr, Vitessce, ...) | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/hms-dbmi/viv) | A WebGL-powered toolkit for interactive visualization of high-resolution, multiplexed bioimaging datasets. The viv toolkit is used by the [Avivator](https://avivator.gehlenborglab.org), [Vizarr](https://github.com/hms-dbmi/vizarr) and [Vitessce](http://vitessce.io) image viewers, among others. | ------- |
-| Vol-E | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/allen-cell-animated/vole-app) | A browser-based volume viewer built with React and WebGL (Three.js). | ------- |
-| WEBKNOSSOS | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/scalableminds/webknossos) | An open-source tool for annotating and exploring large 3D image datasets. | ------- |
+Want to view a Zarr? Use one of these.
 
-## Zarr Conversion
+[Check this out](https://ome.github.io/ome-ngff-tools/) to see viewer compatibility with various OME-Zarr features & versions.
 
-Want to convert your file to Zarr? Use one of these tools.
 
-Many of the tools in the *File Reading/Writing* section below also support format conversion.
-
-| Name    | Link | Description | Compatibility |
-| -------- | ------- | ------- | ------- |
-| BatchConvert | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Euro-BioImaging/BatchConvert) | A Nextflow based command-line tool that wraps bioformats2raw for parallelised conversion of image data collections to OME-Zarr. | ------- |
-| bioformats2raw | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/bioformats2raw) | Java application to convert image file formats, including .mrxs, to an intermediate Zarr structure compatible with the OME-Zarr specification. | ------- |
-| NGFF-Converter | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/NGFF-Converter) | A GUI application for conversion of bioimage formats into OME-Zarr or OME-TIFF. | ------- |
-| stack-to-chunk | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://stack-to-chunk.readthedocs.io) | A Python library to convert stacks of 2D images to OME-Zarr with minimal memory use and maximum concurrency. | ------- |
-| stack_to_multiscale_ngff | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/CBI-PITT/stack_to_multiscale_ngff) | A tool for converting multi-terabyte stacks of images into a multiscale OME-Zarr. | ------- |
-| EuBI-Bridge | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Euro-BioImaging/EuBI-Bridge) | A tool for distributed conversion of microscopic image collections into the OME-Zarr format. | ------- |
-
-## Zarr Reading/Writing
-
-Want to read or write a Zarr? Use one of these tools.
-
-| Name    | Link | Description |
+| Name    | Link | Description | 
 | -------- | ------- | ------- |
-| bfio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/bfio) | A Python interface to Bioformats using jpype for direct access to the library. |
-| Bio-Formats | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/bioformats) | A standalone Java library for reading and writing life sciences image file formats. Requires [OMEZarrReader](https://github.com/ome/ZarrReader) |
-| BioIO | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/bioio-devs/bioio) | (formerly AICSImageIO <https://github.com/AllenCellModeling/aicsimageio>) Image Reading, Metadata Conversion, and Image Writing for Microscopy Images in pure Python. Requires [bioio-ome-zarr](https://github.com/bioio-devs/bioio-ome-zarr) |
-| iohub| [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/czbiohub-sf/iohub) | Pythonic and parallelizable I/O for N-dimensional imaging data with OME metadata |
-| ITKIOOMEZarrNGFF | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF) | An ITK external module for IO of images stored in OME-Zarr file format. |
-| multiscale-spatial-image | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/spatial-image/multiscale-spatial-image) | Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-Zarr. |
-| ngff-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/thewtex/ngff-zarr) | A lean and kind Open Microscopy Environment (OME) Next Generation File Format (NGFF) Zarr implementation. |
-| ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. |
+| AGAVE | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.allencell.org" alt="AGAVE logo" width="30" height="30">](https://www.allencell.org/pathtrace-rendering.html) | Desktop application for viewing multichannel volume data powered by your GPU | 
+| ITKWidgets | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/InsightSoftwareConsortium/itkwidgets) | Python tool for interactively viewing images (ex. in Jupyter) | 
+| Microscopy Nodes |[![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/aafkegros/MicroscopyNodes) | [Blender](https://www.blender.org/) add-on for visualizing high-dimensional microscopy data | 
+| FIJI (MoBIE / BigDataViewer) | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://fiji.sc/" alt="FIJI logo" width="30" height="30">](https://mobie.github.io/) | [FIJI](https://fiji.sc/) plug-in for exploring and sharing big multi-modal image and associated tabular data | 
+| napari | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://napari.org/" alt="napari logo" width="30" height="30">](https://github.com/ome/napari-ome-zarr) | [napari](https://napari.org/) plug-in for viewing Zarr | 
+| Neuroglancer | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/google/neuroglancer) | A browser-based volume viewer | 
+| Viv (Avivator, Vizarr, Vitessce, ...) | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://vitessce.io/" alt="Viv logo" width="30" height="30">](https://github.com/hms-dbmi/viv) | A toolkit for interactive visualization of high-resolution, multiplexed bioimaging datasets. The viv toolkit is used by the [Avivator](https://avivator.gehlenborglab.org), [Vizarr](https://github.com/hms-dbmi/vizarr) and [Vitessce](http://vitessce.io) image viewers, among others | 
+| Vol-E | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.allencell.org%2Fpathtrace-rendering.html" alt="Vol-E logo" width="30" height="30">](https://vole.allencell.org/) | A browser-based volume viewer | 
+| WEBKNOSSOS | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://home.webknossos.org/" alt="WEBKNOSSOS logo" width="30" height="30">](https://home.webknossos.org/) | An open-source tool for annotating and exploring large 3D image datasets | 
 
-Various libraries for reading/writing OME-Zarr files in Python were evaluated as part of the BioVisionCenter "Next generation bioimage analysis workflows hackathon" 2023 in Zurich, Switzerland: https://github.com/jwindhager/ome-ngff-readers-writers/.
 
-### Zarr Validation
+### Zarr converters (with a UI)
+
+Want to convert your file to Zarr? Use one of these tools that has a user interface.
+
+| Name    | Link | Description | 
+| -------- | ------- | ------- | 
+| NGFF-Converter | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/NGFF-Converter) | A desktop application for conversion of bioimage formats into OME-Zarr or OME-TIFF. |
+
+## Tools for the programmaticly inclined
+
+### Zarr readers, writers, & converters
+
+Want to read or write a Zarr (including convert)? Use one of these tools.
+
+[Check this out](https://github.com/jwindhager/ome-ngff-readers-writers/) to see reader/writer compatibility with various OME-Zarr features & versions.
+
+| Name    | Link | Description | Type | 
+| -------- | ------- | ------- | ------- | 
+| BatchConvert | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Euro-BioImaging/BatchConvert) | A Nextflow based command-line tool that wraps bioformats2raw for parallelised conversion of image data collections to OME-Zarr. | Converter |
+| bfio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/bfio) | A Python interface to Bioformats using jpype for direct access to the library. | Reader & Writer | 
+| bioformats2raw | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/bioformats2raw) | Java application to convert image file formats, including .mrxs, to an intermediate Zarr structure compatible with the OME-Zarr specification. | Converter |
+| Bio-Formats | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/bioformats) | A standalone Java library for reading and writing life sciences image file formats. Requires [OMEZarrReader](https://github.com/ome/ZarrReader) | Reader & Writer | 
+| BioIO | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.allencell.org" alt="AGAVE logo" width="30" height="30">](https://github.com/bioio-devs/bioio) | Image/Metadata Reading Writing for Microscopy Images in pure Python. Requires [bioio-ome-zarr](https://github.com/bioio-devs/bioio-ome-zarr) (formerly [AICSImageIO](https://github.com/AllenCellModeling/aicsimageio))  | Reader & Writer | 
+| BioIO Conversion | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.allencell.org" alt="AGAVE logo" width="30" height="30">](https://github.com/bioio-devs/bioio-conversion) | CLI & scripting tool for easily converting images to OME-Zarr. Requires [bioio-ome-zarr](https://github.com/bioio-devs/bioio-ome-zarr)  | Converter | 
+| EuBI-Bridge | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Euro-BioImaging/EuBI-Bridge) | A tool for distributed conversion of microscopic image collections into the OME-Zarr format. | Converter | 
+| iohub| [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/czbiohub-sf/iohub) | Pythonic and parallelizable I/O for N-dimensional imaging data with OME metadata | Reader & Writer | 
+| ITKIOOMEZarrNGFF | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF) | An ITK external module for IO of images stored in OME-Zarr file format. | Reading & Writing | 
+| multiscale-spatial-image | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/spatial-image/multiscale-spatial-image) | Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-Zarr. | Reading & Writing | 
+| ngio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://biovisioncenter.github.io/ngio/stable/) | Python package for bject-based API for opening, exploring, and manipulating OME-Zarr images and high-content screening (HCS) plates | Reader & Writer | 
+| ngff-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/thewtex/ngff-zarr) | A lean and kind Open Microscopy Environment (OME) Next Generation File Format (NGFF) Zarr implementation. | Reader & Writer | 
+| ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. | Reader & Writer | 
+| stack-to-chunk | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://stack-to-chunk.readthedocs.io) | A Python library to convert stacks of 2D images to OME-Zarr with minimal memory use and maximum concurrency. | Converter | 
+| stack_to_multiscale_ngff | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/CBI-PITT/stack_to_multiscale_ngff) | A tool for converting multi-terabyte stacks of images into a multiscale OME-Zarr. | Converter | 
+
+### Zarr validation
 
 Want to validate a Zarr? Use one of these.
 
 | Name    | Link | Description |
 | -------- | ------- | ------- |
-| ome-ngff-validator | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-ngff-validator) | Web page for validating OME-Zarr files. |
+| ome-ngff-validator | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://ome.github.io/ome-ngff-validator/" alt="OME NGFF Validator logo" width="30" height="30">](https://ome.github.io/ome-ngff-validator/) | Web page for validating OME-Zarr files. |
 | ome-zarr-models | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome-zarr-models/ome-zarr-models-py) | Python package and command line interface that can validate OME-Zarr files |
 
-## Other Tools and Libraries
+## Other tools and libraries
 
-Tools that do not explicitly fit into any of the above categories (ex. Zarr computation platforms)
+Tools that do not explicitly fit into any of the above categories (ex. Zarr computation workflow orchestrators)
 
 | Name    | Link | Description |
 | -------- | ------- | ------- |
