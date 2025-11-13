@@ -8,7 +8,7 @@ The Community Calls welcome everyone — developers, users, and enthusiasts alik
 Community Calls are added to the above calendar and announced on [image.sc](https://forum.image.sc/embed/topics?tags=ngff-community-call):
 
 <div style="overflow:hidden; overflow-y:scroll; height:180px; width:800px;">
-<iframe frameborder="0" scrolling="no" src="https://forum.image.sc/embed/topics?tags=ngff-community-call">iframe not supported!</iframe>
+<iframe frameborder="0" scrolling="no" width="800" height="1000" src="https://forum.image.sc/embed/topics?tags=ngff-community-call">iframe not supported!</iframe>
 </div>
 
 ## Office Hours
@@ -51,4 +51,4 @@ Download the <a href="https://calendar.google.com/calendar/ical/14c96687c3814f28
 ## Contributors
 Thank you to all the amazing contributors who make OME-NGFF possible:
 
-<iframe src="https://german-bioimaging.github.io/ome-zarr-acknowledgments/" width="800" height=800></iframe>
+<iframe src="https://german-bioimaging.github.io/ome-zarr-acknowledgments/" width="800" height="1000"></iframe>
