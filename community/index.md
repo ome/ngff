@@ -12,9 +12,9 @@ We host community calls quarterly at 9:00 CET and 17:00 CET. The same agenda is 
 
 The Community Calls welcome everyone — developers, users, and enthusiasts alike. Whether you have just heard about OME-NGFF and are curious to learn more or if you have been working with it every day, consider yourself invited.
 
-Community Calls are added to the above calendar and announced on [image.sc](https://forum.image.sc/embed/topics?tags=community):
+Community Calls are added to the above calendar and announced on [image.sc](https://forum.image.sc/embed/topics?tags=ngff-community-call):
 
-<iframe src="https://forum.image.sc/embed/topics?tags=community" style="border: 0" width="800" height="300" frameborder="0"></iframe>
+<iframe src="https://forum.image.sc/embed/topics?tags=ngff-community-call" style="border: 0" width="800" height="300" frameborder="0"></iframe>
 
 ## Office Hours
 
@@ -45,13 +45,13 @@ Hackathons have been hosted yearly by the BioVision Center in Zurich:
 | Nov 10-14, 2025 | [2025 OME-NGFF Workshop](https://www.biovisioncenter.uzh.ch/en/events/Upcoming-Events/2025-OME-NGFF-workshop.html)| |
 
 ```{image} ../images/hackathons/IMG_7670.jpeg
-:scale: 50%
+:width: 200px
 ```
 ```{image} ../images/hackathons/IMG_7679.jpeg
-:scale: 50%
+:width: 200px
 ```
 ```{image} ../images/hackathons/IMG_9605.jpeg
-:scale: 50%
+:width: 200px
 ```
 
 ## Contributors
