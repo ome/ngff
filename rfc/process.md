@@ -71,7 +71,7 @@ This stage can be iterative - if all reviewers return a formal "approve" review 
 * close the RFC . This should only be take if all reviewers recommend the RFC is rejected. Authors can re-submit the RFC in the future taking into account feedback shared during the review process.
 * decide that no further changes are necessary and that the RFC should be adopted.
 
-In the last case editors must provide a reply explaining why the decision of the reviwers was overridden. This might occur if consent between the reviewers cannot be reached.
+In the last case editors must provide a reply explaining why the decision of the reviewers was overridden. This might occur if consent between the reviewers cannot be reached.
 
 If the changes requested by the editor are major, then the review process iterates again and the reviewers re-review after authors have updated the RFC.
 
@@ -81,7 +81,7 @@ If at any stage in the process above, reviewers feel it necessary to raise an ob
 
 #### SPEC
 
-During the _SPEC phase_ necessary changes to the specification and implementations are applied so that the RFC can be officially adopted. At this point the primary purpose of the RFC becomes driving implementations. Implementations may raise problems not foreseen during the review process. In this case implementors should engage directly with authors to resolve these queries. For complex RFCs this period may take substantial time to coordinate with implementers. Editors will also contact in-progress implementers regarding the status of their implementations and update the endorsements table accordingly.
+During the _SPEC phase_ necessary changes to the specification and implementations are applied so that the RFC can be officially adopted. At this point the primary purpose of the RFC becomes driving implementations. Implementations may raise problems not foreseen during the review process. In this case implementers should engage directly with authors to resolve these queries. For complex RFCs this period may take substantial time to coordinate with implementers. Editors will also contact in-progress implementers regarding the status of their implementations and update the endorsements table accordingly.
 
 Once two implementations are complete and released, the RFC is considered adopted 🎉
 
@@ -186,7 +186,7 @@ Authors and reviewers are encouraged to be open and honest, both with themselves
 
 ### Implementation requirements
 
-Two separate implementations must have started for an RFC to enter the SPEC phase and two separate implementations (they need not, but can, be the same ones) must be released an RFC to be adopted. In both cases, at least one implementation must come from someone who is not among the RFC authors. Additionally, data written by both implementations must be readable (and therefore validatable) by at least one of the implementations. It is also strongly encouraged that for each specification change, the [ome-ngff-validator](https://github.com/ome/ome-ngff-validator) additionally be updated as a simple to use and widely used too for partial dataset validation. RFCs should provide guidance where possible for implementors on required and optional sections of an RFC.
+Two separate implementations must have started for an RFC to enter the SPEC phase and two separate implementations (they need not, but can, be the same ones) must be released an RFC to be adopted. In both cases, at least one implementation must come from someone who is not among the RFC authors. Additionally, data written by both implementations must be readable (and therefore validatable) by at least one of the implementations. It is also strongly encouraged that for each specification change, the [ome-ngff-validator](https://github.com/ome/ome-ngff-validator) additionally be updated as a simple to use and widely used too for partial dataset validation. RFCs should provide guidance where possible for implementers on required and optional sections of an RFC.
 
 ### RFC Versions
 
@@ -194,7 +194,7 @@ RFCs may be edited, but this should only be done in extraordinary cases for:
 
 - clarification: additional text and examples which simplify the implementation of specifications
 - deprecation: where sections are no longer accurate and especially when they have been replaced by a new RFC, the existing text can be marked and a link to the updated information provided;
-- and extension: references to new RFCs can be added throughout an existing RFC to provide simpler reading for implementors.
+- and extension: references to new RFCs can be added throughout an existing RFC to provide simpler reading for implementers.
 
 RFCs should clearly identify any sections which are anticipated to be deprecated or extended in the future.
 
