@@ -18,4 +18,7 @@ This section provides additional resources related to NGFF and OME-Zarr intended
 
 * [bioio-conversion a CLI tool (or script)](https://github.com/bioio-devs/bioio-conversion/tree/main?tab=readme-ov-file#command-line-interface-bioio-convert). Friendly tool for generating Zarr 2 or 3s. This tool sits on top of [bioio](https://github.com/bioio-devs/bioio) which is a pure Python microscopy image read/write tool.
 
+* [Basic example of using OME-Zarr in a Nextflow pipeline](https://github.com/BioImageTools/ome-zarr-image-analysis-nextflow). This tutorial contains an example on how to create new gaussian blurred ome-zarr image, segment this image and measure segment shape features.
+
+
 ## Teaching Materials
