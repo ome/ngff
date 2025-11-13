@@ -12,7 +12,7 @@ Jump to:
 ---
 
 ### A {#a}
-
+**Array** - blabla
 
 [Back to top](#glossary)
 
@@ -23,6 +23,7 @@ Jump to:
 ### C {#c}
 
 **Chunk** - blabla
+**Codecs** - blabla
 
 [Back to top](#glossary)
 
@@ -40,6 +41,12 @@ Jump to:
 ### J {#j}
 
 **JSON file** - blabla
+
+[Back to top](#glossary)
+
+### M {#m}
+
+**Multiscale** - blablah.
 
 [Back to top](#glossary)
 
