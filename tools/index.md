@@ -7,8 +7,14 @@ A list of tools and libraries with OME-Zarr support. These are developed by vari
 - [Tools with a graphical interface (ex. a website)](#tools-with-a-graphical-interface)
     - [Zarr viewers](#zarr-viewers)
     - [Zarr converters](#zarr-converters-with-a-ui)
+<<<<<<< Updated upstream
 - [Tools for the programmatically inclined](#tools-for-the-programmatically-inclined)
     - [Zarr readers, writers, and converters](#zarr-readers-writers--converters)
+=======
+- [Tools for the programmaticly inclined](#tools-for-the-programmaticly-inclined)
+    - [Zarr converters](#zarr-converters)
+    - [Zarr readers and writers](#zarr-readers--writers)
+>>>>>>> Stashed changes
     - [Validating Zarr](#zarr-validation)
 - [Other zarr tools and libraries](#other-tools-and-libraries)
 
@@ -20,7 +26,6 @@ A list of tools and libraries with OME-Zarr support. These are developed by vari
 Want to view a Zarr? Use one of these.
 
 [Check this out](https://ome.github.io/ome-ngff-tools/) to see viewer compatibility with various OME-Zarr features & versions.
-
 
 | Name    | Link | Description | 
 | -------- | ------- | ------- |
@@ -45,29 +50,38 @@ Want to convert your file to Zarr? Use one of these tools that has a user interf
 
 ## Tools for the programmatically inclined
 
-### Zarr readers, writers, & converters
+### Zarr converters
 
-Want to read or write a Zarr (including convert)? Use one of these tools.
+Want to convert from a different file format to a Zarr? Use one of these tools.
+
+Check out the [readers and writers below](#zarr-readers--writers) to interact with Zarrs in others ways as well conversion.
+
+| Name    | Link | Description |
+| -------- | ------- | ------- |
+| BatchConvert | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Euro-BioImaging/BatchConvert) | A Nextflow based command-line tool that wraps bioformats2raw for parallelised conversion of image data collections to OME-Zarr. | 
+| bioformats2raw | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/bioformats2raw) | Java application to convert image file formats, including .mrxs, to an intermediate Zarr structure compatible with the OME-Zarr specification. | 
+| BioIO Conversion | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.allencell.org" alt="BioIO logo" width="30" height="30">](https://github.com/bioio-devs/bioio-conversion) | CLI & scripting tool for easily converting images to OME-Zarr. Requires [bioio-ome-zarr](https://github.com/bioio-devs/bioio-ome-zarr)  |  
+| EuBI-Bridge | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Euro-BioImaging/EuBI-Bridge) | A tool for distributed conversion of microscopic image collections into the OME-Zarr format. |  
+| ITKIOOMEZarrNGFF | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF) | An ITK external module for IO of images stored in OME-Zarr file format. | Reading & Writing | 
+| multiscale-spatial-image | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/spatial-image/multiscale-spatial-image) | Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-Zarr. | Reading & Writing | 
+| stack-to-chunk | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://stack-to-chunk.readthedocs.io) | A Python library to convert stacks of 2D images to OME-Zarr with minimal memory use and maximum concurrency. |  
+| stack_to_multiscale_ngff | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/CBI-PITT/stack_to_multiscale_ngff) | A tool for converting multi-terabyte stacks of images into a multiscale OME-Zarr. |  
+
+### Zarr readers & writers
+
+Want to read or write a Zarr? Use one of these tools.
 
 [Check this out](https://github.com/jwindhager/ome-ngff-readers-writers/) to see reader/writer compatibility with various OME-Zarr features & versions.
 
-| Name    | Link | Description | Type | 
-| -------- | ------- | ------- | ------- | 
-| BatchConvert | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Euro-BioImaging/BatchConvert) | A Nextflow based command-line tool that wraps bioformats2raw for parallelised conversion of image data collections to OME-Zarr. | Converter |
-| bfio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/bfio) | A Python interface to Bioformats using jpype for direct access to the library. | Reader & Writer | 
-| bioformats2raw | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/bioformats2raw) | Java application to convert image file formats, including .mrxs, to an intermediate Zarr structure compatible with the OME-Zarr specification. | Converter |
-| Bio-Formats | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/bioformats) | A standalone Java library for reading and writing life sciences image file formats. Requires [OMEZarrReader](https://github.com/ome/ZarrReader) | Reader & Writer | 
-| BioIO | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.allencell.org" alt="AGAVE logo" width="30" height="30">](https://github.com/bioio-devs/bioio) | Image/Metadata Reading Writing for Microscopy Images in pure Python. Requires [bioio-ome-zarr](https://github.com/bioio-devs/bioio-ome-zarr) (formerly [AICSImageIO](https://github.com/AllenCellModeling/aicsimageio))  | Reader & Writer | 
-| BioIO Conversion | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.allencell.org" alt="AGAVE logo" width="30" height="30">](https://github.com/bioio-devs/bioio-conversion) | CLI & scripting tool for easily converting images to OME-Zarr. Requires [bioio-ome-zarr](https://github.com/bioio-devs/bioio-ome-zarr)  | Converter | 
-| EuBI-Bridge | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Euro-BioImaging/EuBI-Bridge) | A tool for distributed conversion of microscopic image collections into the OME-Zarr format. | Converter | 
-| iohub| [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/czbiohub-sf/iohub) | Pythonic and parallelizable I/O for N-dimensional imaging data with OME metadata | Reader & Writer | 
-| ITKIOOMEZarrNGFF | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF) | An ITK external module for IO of images stored in OME-Zarr file format. | Reading & Writing | 
-| multiscale-spatial-image | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/spatial-image/multiscale-spatial-image) | Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-Zarr. | Reading & Writing | 
-| ngio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://biovisioncenter.github.io/ngio/stable/) | Python package for bject-based API for opening, exploring, and manipulating OME-Zarr images and high-content screening (HCS) plates | Reader & Writer | 
-| ngff-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/thewtex/ngff-zarr) | A lean and kind Open Microscopy Environment (OME) Next Generation File Format (NGFF) Zarr implementation. | Reader & Writer | 
-| ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. | Reader & Writer | 
-| stack-to-chunk | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://stack-to-chunk.readthedocs.io) | A Python library to convert stacks of 2D images to OME-Zarr with minimal memory use and maximum concurrency. | Converter | 
-| stack_to_multiscale_ngff | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/CBI-PITT/stack_to_multiscale_ngff) | A tool for converting multi-terabyte stacks of images into a multiscale OME-Zarr. | Converter | 
+| Name    | Link | Description | 
+| -------- | ------- | ------- |
+| bfio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/bfio) | A Python interface to Bioformats using jpype for direct access to the library. | 
+| Bio-Formats | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/bioformats) | A standalone Java library for reading and writing life sciences image file formats. Requires [OMEZarrReader](https://github.com/ome/ZarrReader) | 
+| BioIO | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.allencell.org" alt="BioIO logo" width="30" height="30">](https://github.com/bioio-devs/bioio) | Image/Metadata Reading Writing for Microscopy Images in pure Python. Requires [bioio-ome-zarr](https://github.com/bioio-devs/bioio-ome-zarr) (formerly [AICSImageIO](https://github.com/AllenCellModeling/aicsimageio))  | 
+| iohub| [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/czbiohub-sf/iohub) | Pythonic and parallelizable I/O for N-dimensional imaging data with OME metadata | 
+| ngio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://biovisioncenter.github.io/ngio/stable/) | Python package for bject-based API for opening, exploring, and manipulating OME-Zarr images and high-content screening (HCS) plates | 
+| ngff-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/thewtex/ngff-zarr) | A lean and kind Open Microscopy Environment (OME) Next Generation File Format (NGFF) Zarr implementation. | 
+| ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. | 
 
 ### Zarr validation
 
