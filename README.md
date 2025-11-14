@@ -13,6 +13,8 @@ during the Sphinx build step (see conf.py).
 
 [Learn more about bikeshed](https://w3c-ccg.github.io/bikeshed_instructions.html)
 
+More information on [contributing](./CONTRIBUTING.md)
+
 ## Reviewing
 
 Commits on GitHub can be viewed at PR-numbered URLs provided by readthedocs.
