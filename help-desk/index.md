@@ -13,7 +13,7 @@ Jump to:
 
 ### A
 
-**Array** - 
+**Array** - A collection (or list) or multiple items. For example, OME-Zarr files store image data as multi-dimensional arrays (meaning lists of lists of numbers).
 
 [Back to top](#glossary)
 
@@ -23,7 +23,7 @@ Jump to:
 
 ### C
 
-**Chunk** - blabla
+**Chunk** - A chunk in OME-Zarr an is an independent section of pixel data that has been separated so that it can be accessed separately from other pixel data.
 
 **Codecs** - blabla
 
@@ -37,13 +37,13 @@ Jump to:
 
 **HCS** - blabla
 
-**HDF5** - blabla
+**HDF5** - Hierarchical Data Format version 5 (HDF5) and is a data model, file format, and library for organizing, storing, and managing large and complex data.
 
 [Back to top](#glossary)
 
 ### J
 
-**JSON file** - blabla
+**JSON file** - A simple standardized human-readable data format for sharing data using nested key:value pairs.
 
 [Back to top](#glossary)
 
@@ -54,37 +54,37 @@ Jump to:
 [Back to top](#glossary)
 
 ### N
-**NGFF** - Next Generation File Format.
+**NGFF** - Next Generation File Format (NGFF) is a community for solving problems related to producing open-source software for microscopy data.
 
 [Back to top](#glossary)
 
 ### O
 
-**OME** - blablah.
+**OME** - Open Microscopy Environment is a consortium of universities, research labs, industry and developers producing open-source software and format standards for microscopy data.
 
-**OMERO** - blablah. To learn more about OMERO visit [OMERO guides](https://omero-guides.readthedocs.io/en/latest) webpage.
+**OMERO** - OMERO is a data manager for storing, organizing, and sharing microscopy images. To learn more about OMERO visit [OMERO guides](https://omero-guides.readthedocs.io/en/latest) webpage.
 
-**OME-NGFF** - blablah.
+**OME-NGFF** - OME-NGFF refers to the combined efforts of the OME & NGFF communities.
 
-**OME-Zarr** - blablah. 
+**OME-Zarr** - An OME-Zarr is a standardized file format for microscopy images. More details on the [main page](#../).
 
 [Back to top](#glossary)
 
 ### P
 
-**Processing Unit** - blablah. 
+**Processing Unit** - A Processing Unit is an independent section of data that a process (like image analysis) can be run on separately. For OME-Zarr images, a processing unit could be a sub-set of the image, the entire image, or multiple images.
 
 [Back to top](#glossary)
 
 ### R
 
-**RFC** - blablah. 
+**RFC** - Request For Comments (RFC) is a process for proposing a change to the standardized specification for OME-Zarr files.
 
 [Back to top](#glossary)
 
 ### S
 
-**Shard/ing** - blablah. 
+**Shard/ing** - Like [Chunks](#c), sharding is a way of breaking up pixel data for more efficient access. Shards are groups of chunks with headers in front of them for describing the chunks inside.
 
 [Back to top](#glossary)
 
@@ -101,13 +101,13 @@ Jump to:
 
 ### W
 
-**Workflow** - blablah. 
+**Workflow** - A structured sequence of tasks designed to achieve a specific goal. In the case of OME-Zarr, a workflow is some sequence of tasks usually used for performing some type of analysis on the image data.
 
 [Back to top](#glossary)
 
 ### Z
 
-**Zarr** -- blabla.
+**Zarr** -- A file format, see the [main page](#../) for more information about what a Zarr is and the benefits of using Zarr.
 
 **Zarr Group** - blabla
 
