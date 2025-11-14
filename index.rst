@@ -36,15 +36,15 @@ There are two parts to an OME-Zarr:
 
 Why would I use OME-Zarr?
 --------------------------
-OME-Zarr files come with two major benefits:
+OME-Zarr files have two major benefits:
 
-* By being a Zarr, the image becomes chunked. What this means is the file is stored in blocks that are able to be accessed independently of one another.
-   * **Storage**: When it comes to storage, cloud systems often have limits that microscopy images can easily hit, by being chunked a Zarr can get around these limitations. Some storage systems can also du-duplicate files that are equivalent bytes meaning that a chunked file like Zarr has a higher chance of saving storage space.
-   * **Viewing**: Viewers can access just the bytes they need from the image making it possible to view images in the browser and load images very quickly.
-   * **Cost**: When it comes to cost, because Zarr files are chunked and the viewers or readers can access just the bytes they need at a given time, the egress costs of accessing a Zarr file on the cloud can be less than a more monolithic file format.
-* By being an OME-Zarr (the combination of OME and Zarr), metadata about the file is embedded into the file that is standardized such that it will be compatibility with anything that is aware of OME metadata:
-   * **Sharing**: For sharing this means the metadata can be interpretted the same by multiple organizations producing different images so long as they are OME-Zarr
-   * **Interoperability**: Tools that operate on or with OME files can take advantage of the standardized metadata the same way (ex. one organization building a feature in a viewer can enable another organization to do the same thing)
+* Chunking is inherent to "Zarr" files. This means "Zarr" files are stored in independently-accessible blocks.
+   * **Storage**: Microscopy images can be quite large and can therefore reach Cloud system storage limits for individual files; the chunked nature of a Zarr can alleviate this issue. Some storage systems may also duplicate byte-equivalent files, so a chunked file like Zarr may save storage space.
+   * **Viewing**: Viewers can target specific chunks to load based upon the current view, reducing lag, & enabling massive images to be viewed within browsers.
+   * **Cost**: When viewing or reading data, the total cost of accessing a Zarr file on the cloud may be less than a more monolithic file format due to the more efficient data access patterns. Ex. A viewer can just access the chunks of the image it needs to display rather than the entire image.
+* "OME-Zarr" is a "Zarr" with embedded standardized metadata in the Open Microscopy Environment (OME) format.
+   * **Sharing**: A standardized imaging metadata format can ease cross-organization file sharing and can therefore aid organizational collaboration and data sharing.
+   * **Interoperability**: Standardized metadata can also enable the interoperability of tools.
 
 When would I not use OME-Zarr?
 ------------------------------
