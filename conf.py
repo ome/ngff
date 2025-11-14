@@ -38,18 +38,6 @@ exclude_patterns = [
 
 html_theme = "sphinx_book_theme"
 
-html_theme_options = {
-   "use_repository_button": True
-}
-
-html_context = {
-    "repository_provider": "github",
-    "repository_url": "https://github.com/ome/ngff",
-    "github_user": "ome",
-    "github_repo": "ngff",
-    "github_version": "main"
-}
-
 html_static_path = ["_static"]
 
 html_css_files = [
