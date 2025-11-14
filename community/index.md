@@ -1,7 +1,7 @@
 # Community
 
 ## Community Calls
-Community Calls are quarterly meetings that feature updates and presentations on OME-Zarr specification work, tooling ecosystem, and use cases. **Everone is welcome** to these calls - developers, users, and enthusiasts alike. Whether you have just heard about OME-NGFF and are curious to learn more or if you have been working with it every day, consider yourself invited.
+Community Calls are quarterly meetings that feature updates and presentations on OME-Zarr specification work, tooling ecosystem, and use cases. **Everyone is welcome** to these calls - developers, users, and enthusiasts alike. Whether you have just heard about OME-NGFF and are curious to learn more or if you have been working with it every day, consider yourself invited.
 
 We host Community Calls **quarterly at 9:00 CET and 17:00 CET**. The same agenda is repeated in both time slots to allow participants around the globe to choose the one that fits their schedule best. Get in touch with [Virginie Uhlmann](mailto:virginie.uhlmann@mls.uzh.ch) if you would like to present at an OME-NGFF Community Call.
 
@@ -51,4 +51,4 @@ Download the <a href="https://calendar.google.com/calendar/ical/14c96687c3814f28
 ## Contributors
 Thank you to all the amazing contributors who make OME-NGFF possible:
 
-<iframe src="https://german-bioimaging.github.io/ome-zarr-acknowledgments/" width="800" height="1500"></iframe>
+<iframe src="https://german-bioimaging.github.io/ome-zarr-acknowledgments/" width="800" height="1400"></iframe>
