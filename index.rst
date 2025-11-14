@@ -76,7 +76,6 @@ How do I use OME-Zarr?
 .. toctree::
    :maxdepth: 1
 
-   about/index
    community/index
    contributing/index
    data/index
