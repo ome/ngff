@@ -18,7 +18,7 @@ Data Resources
 | [Open SciVis](https://registry.opendata.aws/ome-zarr-open-scivis/)       | AWS Open Data Program                                | 624          | 372 GB   |
 | [Sanger](https://www.sanger.ac.uk/project/ome-zarr/)                     | Sanger, UK                                           | 10           | 1 TB     |
 | [SpatialData](https://github.com/scverse/spatialdata-notebooks/tree/main/datasets)                       | EMBL-HD              | 10           | 25 GB    |
-| [SSBD](https://ssbd.riken.jp/ssbd-ome-ngff-samples)                      | SSBD                                                 | 12           | 196 GB   |
+| [SSBD](https://ssbd.riken.jp/ssbd-ome-ngff-samples)                      | SSBD                                                 | 5000         | 196 GB   |
 | [webKnossos](https://zarr.webknossos.org)                                | scalable minds                                       | 69           | 70 TB    |
 
 OME-Zarr 0.5 data has been collected during [the OME 2024 NGFF challenge](https://ome.github.io/ome2024-ngff-challenge/).
