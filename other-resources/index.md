@@ -26,3 +26,5 @@ This section provides additional resources related to NGFF and OME-Zarr intended
 * [Jupyter notebook on Load Zarr Image from a public S3 store and analyze it in parallel](https://github.com/ome/omero-guide-python/blob/master/notebooks/idr0044_zarr_segmentation_parallel.ipynb). Done under License BSD 2-Clause by University of Dundee. 
 
 * [Load Zarr Image with labels from a public S3 repository, analyze using Cellpose and compare results](https://github.com/ome/omero-guide-python/blob/master/notebooks/idr0062_prediction_zarr_public_s3.ipynb). Done under License BSD 2-Clause by University of Dundee. 
+
+* [Working with OME-Zarr NGFF](https://github.com/InsightSoftwareConsortium/GetYourBrainTogether/tree/main/HCK02_2023_Allen_Institute_Hybrid/Tutorials/WorkingWithOMEZarrNGFF). For this tutorial, all source code is licensed under the Apache License 2.0 and documentation, images, and other non-code assets are licensed under Creative Commons Attribution 4.0 International (CC BY 4.0). 
