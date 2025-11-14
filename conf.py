@@ -33,9 +33,11 @@ exclude_patterns = [
 ]
 
 redirects = {
-     "tools/index": "../resources/tools/index.html"  # relative
+     "tools/index": "../resources/tools/index.html",
+     "publications/index": "../resources/publications/index.html",
+     "data/index": "../resources/data/index.html",
+     "about/index": "../index.html"
 }
-
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
