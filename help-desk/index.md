@@ -151,10 +151,10 @@ OME-Zarr is (still) an evolving specification. Large breaking changes (i.e. chan
 
 **9. What's the difference between OME, OMERO, OME-Zarr, and just Zarr?**
 
-    - OME: community developing many open-source microscopy software projects
-    - OMERO: one of such projects. a data management platform that uses the OME data model to unify data from many file formats
-    - OME-Zarr: the file format that the community has settled on to address issues of scalability and interoperability
-    - Zarr: the "base" file format upon which OME-Zarr builds. A general solution for storing large multidimensional arrays with the same advantages of OME-Zarr, but with fewer mechanisms to describe and annotate microscopy data.
+- OME: community developing many open-source microscopy software projects
+- OMERO: one of such projects. a data management platform that uses the OME data model to unify data from many file formats
+- OME-Zarr: the file format that the community has settled on to address issues of scalability and interoperability
+- Zarr: the "base" file format upon which OME-Zarr builds. A general solution for storing large multidimensional arrays with the same advantages of OME-Zarr, but with fewer mechanisms to describe and annotate microscopy data.
 
 **10. Is OME-Zarr AI-ready?**
 
