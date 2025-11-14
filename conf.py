@@ -33,7 +33,7 @@ exclude_patterns = [
 ]
 
 redirects = {
-     "tools/index": "./resources/tools/index.html"  # relative
+     "tools/index": "../resources/tools/index.html"  # relative
 }
 
 
