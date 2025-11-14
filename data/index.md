@@ -4,7 +4,7 @@ Data Resources
 | Catalog                                                                  | Hosting                                              | Zarr Files   | Size     |
 | ------------------------------------------------------------------------ | -----------------------------------------------------| ------------ | -------- |
 | [BIA Samples](https://bit.ly/bia-ome-ngff-samples)                       | EBI                                                  | 90           | 200 GB   |
-| [BioFile Finder](https://bff.allencell.org/datasets)                     | Allen Institute & more                               | 78091        | ? TB     |
+| [BioFile Finder](https://bff.allencell.org/datasets)                     | AWS Open Data Program & others                       | 78091        | ? TB     |
 | [CryoET Data Portal](https://cryoetdataportal.czscience.com)             | AWS Open Data Program                                | 37585        | 70 TB    |
 | [Cell Painting Gallery](https://github.com/broadinstitute/cellpainting-gallery) | AWS Open Data Program                         | 136          | 20 TB    |
 | [CZB-Zebrahub](https://zebrahub.ds.czbiohub.org/imaging)                 | czbiohub                                             | 5            | 1.2 TB   |
