@@ -3,25 +3,23 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Next-generation file formats (NGFF)
-===================================
+Next-Generation File Formats (NGFF) + OME-Zarr
+===============================================
 
-NGFF is an initiative by the bioimaging community to develop imaging format specifications to
-address issues of scalability and interoperability.
+**Contents**
 
-Contents
---------
+* NGFF vs OME-Zarr, what is the difference?
+* What is an OME-Zarr?
+* Why would I use OME-Zarr?
+* When would I not use OME-Zarr?
+* How do I use OME-Zarr?
+* Who is using OME-Zarr?
 
-* This page (OME-Zarr)
-   * What is an OME-Zarr?
-   * Why would I use OME-Zarr?
-   * When would I not use OME-Zarr?
-   * How do I use OME-Zarr?
-   * Who is using OME-Zarr?
+NGFF vs OME-Zarr, what is the difference?
+------------------------------------------
+OME-Zarr is the file format that the NGFF community has settled on to address issues of scalability and interoperability described below.
 
-OME-Zarr
-========
-OME-Zarr is the file format NGFF has settled on to address issues of scalability and interoperability mentioned [above](#what-is-ngff).
+NGFF is the community-driven process for designing the next generation of bioimaging formats. NGFF brings together the community to define shared specifications, metadata standards, and best practices. OME-Zarr implements those decisions, providing a practical, open, and scalable way to store and share modern microscopy data. As the NGFF specifications evolve, OME-Zarr evolves with them — ensuring the format reflects the needs and experience of the wider community.
 
 What is an OME-Zarr?
 ------------------------
