@@ -12,6 +12,7 @@ Jump to:
 ---
 
 ### A
+
 **Array** - blabla
 
 [Back to top](#glossary)
@@ -23,6 +24,7 @@ Jump to:
 ### C
 
 **Chunk** - blabla
+
 **Codecs** - blabla
 
 [Back to top](#glossary)
@@ -34,6 +36,7 @@ Jump to:
 ### H 
 
 **HCS** - blabla
+
 **HDF5** - blabla
 
 [Back to top](#glossary)
@@ -58,8 +61,11 @@ Jump to:
 ### O
 
 **OME** - blablah.
+
 **OMERO** - blablah. To learn more about OMERO visit [OMERO guides](https://omero-guides.readthedocs.io/en/latest) webpage.
+
 **OME-NGFF** - blablah.
+
 **OME-Zarr** - blablah. 
 
 [Back to top](#glossary)
@@ -102,6 +108,7 @@ Jump to:
 ### Z
 
 **Zarr** -- blabla.
+
 **Zarr Group** - blabla
 
 [Back to top](#glossary)
