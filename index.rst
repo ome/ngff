@@ -40,7 +40,7 @@ OME-Zarr files have two major benefits:
 
 When would I not use OME-Zarr?
 ------------------------------
-* If your file isn't very big and you're working with local data then OME-Zarr is less convenient than a single-file format and you won't feel any benefits.
+* If your file isn’t very big and you’re working with local data, the current specification of OME-Zarr can be less convenient than a single-file format and the benefits are limited. Planned expansions to the OME-Zarr specification will make it more convenient to work with it in these scenarios (e.g. single-file Zarrs) and add features that might make it beneficial to use OME-Zarr even in these scenarios (e.g. transformations).
 
 Who is using OME-Zarr?
 -----------------------
