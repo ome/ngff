@@ -35,7 +35,7 @@ Jump to:
 
 ### H 
 
-**HCS** - blabla
+**HCS** - Dedicated layout of OME-ZARR files representing the used wellplate for for High Content Screening (HCS). The layout allows to efficiently address and analyze specific data from specific wells.
 
 **HDF5** - Hierarchical Data Format version 5 (HDF5) and is a data model, file format, and library for organizing, storing, and managing large and complex data.
 
