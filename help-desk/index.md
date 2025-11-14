@@ -23,7 +23,7 @@ Jump to:
 
 ### C
 
-**Chunk** - A chunk in OME-Zarr an is an independent section of pixel data that has been separated so that it can be accessed separately from other pixel data.
+**Chunk** - A chunk in OME-Zarr is an independent section of pixel data that has been separated so that it can be accessed separately from other pixel data.
 
 **Codecs** - blabla
 
@@ -35,15 +35,15 @@ Jump to:
 
 ### H 
 
-**HCS** - Dedicated layout of OME-ZARR files representing the used wellplate for for High Content Screening (HCS). The layout allows to efficiently address and analyze specific data from specific wells.
+**HCS** - Dedicated layout of OME-Zarr files representing the used wells and plates for High Content Screening (HCS). The layout allows a user to efficiently address and analyze specific data from specific wells.
 
-**HDF5** - Hierarchical Data Format version 5 (HDF5) and is a data model, file format, and library for organizing, storing, and managing large and complex data.
+**HDF5** - Hierarchical Data Format version 5 (HDF5). It is a data model, file format, and library for organizing, storing, and managing large and complex data.
 
 [Back to top](#glossary)
 
 ### J
 
-**JSON file** - A simple standardized human-readable data format for sharing data using nested key:value pairs.
+**JSON file** - A simple standardized human-readable data format for sharing data using nested key-value pairs.
 
 [Back to top](#glossary)
 
@@ -62,9 +62,9 @@ Jump to:
 
 **OME** - Open Microscopy Environment is a consortium of universities, research labs, industry and developers producing open-source software and format standards for microscopy data.
 
-**OMERO** - OMERO is a data manager for storing, organizing, and sharing microscopy images. To learn more about OMERO visit [OMERO guides](https://omero-guides.readthedocs.io/en/latest) webpage.
+**OMERO** - OMERO is a data management platform for storing, organizing, and sharing microscopy images. To learn more about OMERO, visit the [OMERO guides](https://omero-guides.readthedocs.io/en/latest) webpage.
 
-**OME-NGFF** - OME-NGFF refers to the combined efforts of the OME & NGFF communities.
+**OME-NGFF** - OME-NGFF refers to the resulting efforts of the OME & NGFF communities.
 
 **OME-Zarr** - An OME-Zarr is a standardized file format for microscopy images. More details on the [main page](#../).
 
@@ -117,30 +117,30 @@ If you think any term is missing or needs to be updated, please open a PR to the
 
 ## FAQs
 
-### Why OME-Zarr as a format?
+#### Why OME-Zarr as a format?
 - performance
 - suited to current research data
 - cloud-friendliness
 - community-developed
 - AI-ready
 
-### What problems does it solve?
+#### What problems does it solve?
 - download/"cloud"
 - repositories and archives
 - standard access protocol
 - metadata consistency
 
-### What is the future of OME-Tiff?
+#### What is the future of OME-Tiff?
 - no deprecation plans
 - community/developer support is limited
 - Adobe owns TIFF license
 - Performance is limited
 - Meta/data structures are limited
 
-### Is a converter not enough?
+#### Is a converter not enough?
 - transition timeline for data producers: translation -> export -> import -> "full" adoption
 
-### What are the benefits for adopting such a format compared to my own?
+#### What are the benefits for adopting such a format compared to my own?
 - user experience
 - stability
 - interoperability
@@ -149,43 +149,43 @@ If you think any term is missing or needs to be updated, please open a PR to the
 - bio-formats independence
 - reduced development cost
 
-### What are the downsides of moving to OME-Zarr from my own format?
+#### What are the downsides of moving to OME-Zarr from my own format?
 - slower process
 - less ownership of the format
 - depth and breadth of implementations
 
-### Does this format work for non-microscopy data too?
+#### Does this format work for non-microscopy data too?
 - OME-Zarr = Zarr + OME structures
 - Some of these might be useful for you, some might not
 - You might need your own structures too
 - If those can be useful for other people: consider engaging with the RFC process. If not: consider "pure" Zarr
 
-### Is OME-Zarr a stable format?
+#### Is OME-Zarr a stable format?
 OME-Zarr is (still) an evolving specification. Large breaking changes (i.e. changes in the binary storage format) are not currently planned for the future, but the metadata standards can (and will) evolve in ways that might be backwards-incompatible until an 1.0 release. A conversion path between versions until 1.0 is possible.
 
-### What's the difference between OME, OMERO, OME-Zarr, and just Zarr?
+#### What's the difference between OME, OMERO, OME-Zarr, and just Zarr?
 
 - OME: community developing many open-source microscopy software projects
 - OMERO: one of such projects. a data management platform that uses the OME data model to unify data from many file formats
 - OME-Zarr: the file format that the community has settled on to address issues of scalability and interoperability
 - Zarr: the "base" file format upon which OME-Zarr builds. A general solution for storing large multidimensional arrays with the same advantages of OME-Zarr, but with fewer mechanisms to describe and annotate microscopy data.
 
-### Is OME-Zarr AI-ready?
+#### Is OME-Zarr AI-ready?
 Yes! The chunked nature of OME-Zarr and its focus on being cloud-native are particularly well-suited for tasks such as ML algorithms where individual inputs are of a small size, but large parallelism is necessary. OME-Zarr allows for excellent performance on both parallel reads and writes, while simplifying data management compared to individually managing thousands of small files.
 
-### I want to convert all my data to OME-Zarr right now. Can I safely delete my proprietary files and be sure I am not losing information?
+#### I want to convert all my data to OME-Zarr right now. Can I safely delete my proprietary files and be sure I am not losing information?
 Not yet. Pixel data is safe, but the metadata completeness is still a current issue. Vendors need to export their metadata fully, and we as a community need to push for this.
 
-### Are OME-Zarr files larger than proprietary ones?
+#### Are OME-Zarr files larger than proprietary ones?
 That is often the case. OME-Zarr include multiresolution data (i.e. pyramids), which adds data. This is optional, but performance without pyramids suffer. There is a trade-off between file size and user experience in this case.
 
-### Does OME-Zarr support sparse arrays and layers?
+#### Does OME-Zarr support sparse arrays and layers?
 Not yet fully. Some workarounds are possible (1D arrays, mesh formats), but this is an active area of development.
 
 
 
-## Where to seek for help
-If you have questions or need help with OME-Zarr, you can reach out through the following chann1|els:
+## Where to look for help
+If you have questions or need help with OME-Zarr, you can reach out through the following channels:
 | Where | Description | When to use  |
 |-------|-------------| --------------|
 | [Image.sc Forum](https://forum.image.sc) | A community forum for image analysis and bioimaging. | To know when to use the tags [ngff](https://forum.image.sc/tag/ngff), [ome-ngff](https://forum.image.sc/tag/ome-ngff),  and [ome-zarr](https://forum.image.sc/tag/ome-zarr) in the forum please read [Landing Page](https://ngff.openmicroscopy.org/index.html), Glossary and FAQs in this page. |
