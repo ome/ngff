@@ -74,8 +74,7 @@ Check out the pages below, including the FAQ page.
 
    community/index
    contributing/index
-   data/index
-   publications/index
    specifications/index
    rfc/index
-   tools/index
+   resources/index
+   help-desk/index
