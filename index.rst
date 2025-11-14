@@ -6,15 +6,7 @@
 Next-Generation File Formats (NGFF) + OME-Zarr
 ===============================================
 
-**Contents**
-
-* NGFF vs OME-Zarr, what is the difference?
-* What is an OME-Zarr?
-* Why would I use OME-Zarr?
-* When would I not use OME-Zarr?
-* How do I use OME-Zarr?
-* Who is using OME-Zarr?
-* ...have other questions? `Check out the FAQ </help-desk/index.html>`_
+Welcome to the NGFF documentation site! This page is dedicated to describing what the NGFF community is interested in including learning materials and references to tools.
 
 NGFF vs OME-Zarr, what is the difference?
 ------------------------------------------
@@ -72,6 +64,10 @@ How do I use OME-Zarr?
    * Check out the `tools section </tools/index.html>`_!
 * Want to see or download a Zarr?
    * Check out the `data section </data/index.html>`_!
+
+Have other questions?
+======================
+Check out the pages below, `including the FAQ page </help-desk/index.html>`_.
 
 .. toctree::
    :maxdepth: 1
