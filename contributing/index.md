@@ -24,6 +24,4 @@ relevant RFC. A template is also available for formatting your comment:
 
 ## Changes to this website
 
-Any minor fixes/improvements to these pages should be opened as an issue in the
-[`ome/ngff repository`](https://github.com/ome/ngff), and be fixed/implemented
-with a pull request in the [`ome/ngff` repository](https://github.com/ome/ngff).
+The repository for this website is [ome/ngff](https://github.com/ome/ngff). Contributions to these pages are welcome as issues or PRs. Please read the [contributing guide](https://github.com/ome/ngff/blob/main/CONTRIBUTING.md).
