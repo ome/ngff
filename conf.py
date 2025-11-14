@@ -13,7 +13,7 @@ author = "NGFF Community"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["myst_parser"]
+extensions = ["myst_parser","sphinx_reredirects"]
 source_suffix = [".rst", ".md"]
 myst_heading_anchors = 5
 myst_enable_extensions = ["deflist", "strikethrough"]
@@ -31,6 +31,10 @@ exclude_patterns = [
     "LICENSE.md",
     "CONTRIBUTING.md",
 ]
+
+redirects = {
+     "about/index": "index"  # relative
+}
 
 
 # -- Options for HTML output -------------------------------------------------
