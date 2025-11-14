@@ -39,20 +39,11 @@ exclude_patterns = [
 html_theme = "sphinx_book_theme"
 
 html_theme_options = {
-    "github_url": "https://github.com/ome/ngff",
-    "footer_end": ["github_link.html"],
-    "icon_links": [
-        {
-            # Label for this link
-            "name": "GitHub",
-            # URL where the link will redirect
-            "url": "https://github.com/ome/ngff",  # required
-            # Icon class (if "type": "fontawesome"), or path to local image (if "type": "local")
-            "icon": "fa-brands fa-square-github",
-            # The type of image to be used (see below for details)
-            "type": "fontawesome",
-        }
-   ]
+   "use_edit_page_button": True
+}
+
+html_context = {
+    "github_url": "https://github.com/ome/ngff"
 }
 
 html_static_path = ["_static"]
