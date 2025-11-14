@@ -13,11 +13,7 @@ Jump to:
 
 ### A
 
-<<<<<<< Updated upstream
-**Array** - 
-=======
 **Array** - A collection (or list) or multiple items. For example, OME-Zarr files store image data as multi-dimensional arrays (meaning lists of lists of numbers).
->>>>>>> Stashed changes
 
 [Back to top](#glossary)
 
