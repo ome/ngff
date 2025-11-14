@@ -67,7 +67,7 @@ How do I use OME-Zarr?
 
 Have other questions?
 ======================
-Check out the pages below, `including the FAQ page </help-desk/index.html>`_.
+Check out the pages below, including the FAQ page.
 
 .. toctree::
    :maxdepth: 1
