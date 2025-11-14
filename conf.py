@@ -39,7 +39,7 @@ exclude_patterns = [
 html_theme = "sphinx_book_theme"
 
 html_theme_options = {
-    github_url = "https://github.com/ome/ngff"
+    "github_url": "https://github.com/ome/ngff"
 }
 
 html_static_path = ["_static"]
