@@ -25,3 +25,4 @@ Sample OME-Zarr datasets provided by the community can be found under :doc:`data
    specifications/index
    rfc/index
    tools/index
+   help-desk/index
