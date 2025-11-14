@@ -11,51 +11,51 @@ Jump to:
 
 ---
 
-### A {#a}
+### A
 **Array** - blabla
 
 [Back to top](#glossary)
 
-### B {#b}
+### B
 
 [Back to top](#glossary)
 
-### C {#c}
+### C
 
 **Chunk** - blabla
 **Codecs** - blabla
 
 [Back to top](#glossary)
 
-### G {#g}
+### G
 
 [Back to top](#glossary)
 
-### H {#h}
+### H 
 
 **HCS** - blabla
 **HDF5** - blabla
 
 [Back to top](#glossary)
 
-### J {#j}
+### J
 
 **JSON file** - blabla
 
 [Back to top](#glossary)
 
-### M {#m}
+### M
 
 **Multiscale** - blablah.
 
 [Back to top](#glossary)
 
-### N {#n}
+### N
 **NGFF** - Next Generation File Format.
 
 [Back to top](#glossary)
 
-### O {#o}
+### O
 
 **OME** - blablah.
 **OMERO** - blablah. To learn more about OMERO visit [OMERO guides](https://omero-guides.readthedocs.io/en/latest) webpage.
@@ -64,48 +64,49 @@ Jump to:
 
 [Back to top](#glossary)
 
-### P {#p}
+### P
 
 **Processing Unit** - blablah. 
 
 [Back to top](#glossary)
 
-### R {#r}
+### R
 
 **RFC** - blablah. 
 
 [Back to top](#glossary)
 
-### S {#s}
+### S
 
 **Shard/ing** - blablah. 
 
 [Back to top](#glossary)
 
-### T {#t}
+### T
 
 **Transformation** - blablah. 
 
 [Back to top](#glossary)
 
-### U {#u}
+### U
 
 
 [Back to top](#glossary)
 
-### W {#w}
+### W
 
 **Workflow** - blablah. 
 
 [Back to top](#glossary)
 
-### Z {#z}
+### Z
 
 **Zarr** -- blabla.
 **Zarr Group** - blabla
 
 [Back to top](#glossary)
 
+If you think any term is missing or needs to be updated, please open a PR to the [ngff-website repository](https://github.com/ome/ngff).
 
 ## FAQs
 
