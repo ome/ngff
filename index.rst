@@ -14,7 +14,7 @@ Next-Generation File Formats (NGFF) + OME-Zarr
 * When would I not use OME-Zarr?
 * How do I use OME-Zarr?
 * Who is using OME-Zarr?
-* ...have other questions? `Check out the FAQ </helpdesk/index>`_
+* ...have other questions? `Check out the FAQ </help-desk/index.html>`_
 
 NGFF vs OME-Zarr, what is the difference?
 ------------------------------------------
@@ -67,11 +67,11 @@ How do I use OME-Zarr?
 ----------------------
 
 * Already have a Zarr?
-   * Check out the `tools section </tools/index>`_!
+   * Check out the `tools section </tools/index.html>`_!
 * Want to create a Zarr?
-   * Check out the `tools section </tools/index>`_!
+   * Check out the `tools section </tools/index.html>`_!
 * Want to see or download a Zarr?
-   * Check out the `data section </data/index>`_!
+   * Check out the `data section </data/index.html>`_!
 
 .. toctree::
    :maxdepth: 1
