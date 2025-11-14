@@ -117,69 +117,68 @@ If you think any term is missing or needs to be updated, please open a PR to the
 
 ## FAQs
 
-#### Why OME-Zarr as a format?
-- performance
-- suited to current research data
-- cloud-friendliness
-- community-developed
-- AI-ready
+1. Why OME-Zarr as a format?
+    - performance
+    - suited to current research data
+    - cloud-friendliness
+    - community-developed
+    - AI-ready
 
-#### What problems does it solve?
-- download/"cloud"
-- repositories and archives
-- standard access protocol
-- metadata consistency
+2. What problems does it solve?
+    - download/"cloud"
+    - repositories and archives
+    - standard access protocol
+    - metadata consistency
 
-#### What is the future of OME-Tiff?
-- no deprecation plans
-- community/developer support is limited
-- Adobe owns TIFF license
-- Performance is limited
-- Meta/data structures are limited
+3. What is the future of OME-Tiff?
+    - no deprecation plans
+    - community/developer support is limited
+    - Adobe owns TIFF license
+    - Performance is limited
+    - Meta/data structures are limited
 
-#### Is a converter not enough?
-- transition timeline for data producers: translation -> export -> import -> "full" adoption
+4. Is a converter not enough?
+    - transition timeline for data producers: translation -> export -> import -> "full" adoption
 
-#### What are the benefits for adopting such a format compared to my own?
-- user experience
-- stability
-- interoperability
-- AI-readiness
-- community support
-- bio-formats independence
-- reduced development cost
+5. What are the benefits for adopting such a format compared to my own?
+    - user experience
+    - stability
+    - interoperability
+    - AI-readiness
+    - community support
+    - bio-formats independence
+    - reduced development cost
 
-#### What are the downsides of moving to OME-Zarr from my own format?
-- slower process
-- less ownership of the format
-- depth and breadth of implementations
+6. What are the downsides of moving to OME-Zarr from my own format?
+    - slower process
+    - less ownership of the format
+    - depth and breadth of implementations
 
-#### Does this format work for non-microscopy data too?
-- OME-Zarr = Zarr + OME structures
-- Some of these might be useful for you, some might not
-- You might need your own structures too
-- If those can be useful for other people: consider engaging with the RFC process. If not: consider "pure" Zarr
+7. Does this format work for non-microscopy data too?
+    - OME-Zarr = Zarr + OME structures
+    - Some of these might be useful for you, some might not
+    - You might need your own structures too
+    - If those can be useful for other people: consider engaging with the RFC process. If not: consider "pure" Zarr
 
-#### Is OME-Zarr a stable format?
+8. Is OME-Zarr a stable format?
 OME-Zarr is (still) an evolving specification. Large breaking changes (i.e. changes in the binary storage format) are not currently planned for the future, but the metadata standards can (and will) evolve in ways that might be backwards-incompatible until an 1.0 release. A conversion path between versions until 1.0 is possible.
 
-#### What's the difference between OME, OMERO, OME-Zarr, and just Zarr?
+9. What's the difference between OME, OMERO, OME-Zarr, and just Zarr?
+    - OME: community developing many open-source microscopy software projects
+    - OMERO: one of such projects. a data management platform that uses the OME data model to unify data from many file formats
+    - OME-Zarr: the file format that the community has settled on to address issues of scalability and interoperability
+    - Zarr: the "base" file format upon which OME-Zarr builds. A general solution for storing large multidimensional arrays with the same advantages of OME-Zarr, but with fewer mechanisms to describe and annotate microscopy data.
 
-- OME: community developing many open-source microscopy software projects
-- OMERO: one of such projects. a data management platform that uses the OME data model to unify data from many file formats
-- OME-Zarr: the file format that the community has settled on to address issues of scalability and interoperability
-- Zarr: the "base" file format upon which OME-Zarr builds. A general solution for storing large multidimensional arrays with the same advantages of OME-Zarr, but with fewer mechanisms to describe and annotate microscopy data.
-
-#### Is OME-Zarr AI-ready?
+10. Is OME-Zarr AI-ready?
 Yes! The chunked nature of OME-Zarr and its focus on being cloud-native are particularly well-suited for tasks such as ML algorithms where individual inputs are of a small size, but large parallelism is necessary. OME-Zarr allows for excellent performance on both parallel reads and writes, while simplifying data management compared to individually managing thousands of small files.
 
-#### I want to convert all my data to OME-Zarr right now. Can I safely delete my proprietary files and be sure I am not losing information?
+11. I want to convert all my data to OME-Zarr right now. Can I safely delete my proprietary files and be sure I am not losing information?
 Not yet. Pixel data is safe, but the metadata completeness is still a current issue. Vendors need to export their metadata fully, and we as a community need to push for this.
 
-#### Are OME-Zarr files larger than proprietary ones?
+12. Are OME-Zarr files larger than proprietary ones?
 That is often the case. OME-Zarr include multiresolution data (i.e. pyramids), which adds data. This is optional, but performance without pyramids suffer. There is a trade-off between file size and user experience in this case.
 
-#### Does OME-Zarr support sparse arrays and layers?
+13. Does OME-Zarr support sparse arrays and layers?
 Not yet fully. Some workarounds are possible (1D arrays, mesh formats), but this is an active area of development.
 
 
