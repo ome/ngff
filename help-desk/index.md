@@ -118,47 +118,25 @@ If you think any term is missing or needs to be updated, please open a PR to the
 ## FAQs
 
 1. Why OME-Zarr as a format?
-    - performance
-    - suited to current research data
-    - cloud-friendliness
-    - community-developed
-    - AI-ready
+OME-Zarr brings many benefits over traditional file formats, such as proprietary ones or OME-TIFF: a few examples are excellent performance, suitability to current research data needs, cloud-friendliness, a dedicated community of developers, and AI-readiness.
 
 2. What problems does it solve?
-    - download/"cloud"
-    - repositories and archives
-    - standard access protocol
-    - metadata consistency
+The two largest problems that led to the initial development of OME-Zarr are data streaming and metadata interoperability. Imaging data has been suffering with increasingly large files, and downloading all of a dataset to view a small part of it was a common issue aggravated by data sizes. Meanwhile, the microscopy community has long had to deal with inconsistent metadata between file formats. OME-Zarr also brings a standardized access protocol to imaging data, and offers a format that is ready to be adopted by repositories and archives.
 
 3. What is the future of OME-Tiff?
-    - no deprecation plans
-    - community/developer support is limited
-    - Adobe owns TIFF license
-    - Performance is limited
-    - Meta/data structures are limited
+OME-TIFF is not going anywhere anytime soon - a lot of legacy data exists in that format and there are no deprecation plans. However, community and developer support is increasingly limited, performance can be an issue, and the intrinsic data and metadata structures in those files are fairly limited. Further, Adobe owns the TIFF license.
 
 4. Is a converter not enough?
-    - transition timeline for data producers: translation -> export -> import -> "full" adoption
+Conversion tools are a first step in a long-term transition to OME-Zarr. Ideally, data producers and vendors would initially enable translation of their file formats to OME-Zarr, then transitioning to providing export and import options, before fully adopting the new format.
 
 5. What are the benefits for adopting such a format compared to my own?
-    - user experience
-    - stability
-    - interoperability
-    - AI-readiness
-    - community support
-    - bio-formats independence
-    - reduced development cost
+A standardized file format provides many advantages compared to a bespoke, "home-grown" one. A wider developer base means increased stability and interoperability, benefitting the final user experience. Community support decreases the burden on any one individual and reduce development costs. Finally, OME-Zarr is uniquely suited for the modern research environment and AI-ready.
 
 6. What are the downsides of moving to OME-Zarr from my own format?
-    - slower process
-    - less ownership of the format
-    - depth and breadth of implementations
+As with any initiative involving community consensus, feature adoption and scope definitions can be comparatively slower, and allow for less individual ownership of the format itself. A rich ecosystem of tools and implementations also mean these can be both deep and broad, sometimes increasing the difficulty for finding the "right ones" for a given problem.
 
 7. Does this format work for non-microscopy data too?
-    - OME-Zarr = Zarr + OME structures
-    - Some of these might be useful for you, some might not
-    - You might need your own structures too
-    - If those can be useful for other people: consider engaging with the RFC process. If not: consider "pure" Zarr
+OME-Zarrs are, by definition, Zarr files with added structures defined by the OME community. These structures have been defined and developed to attend to the needs of the microscopy community, but are by no means limited to those. If you work on other kinds of large multidimensional arrays and you find the OME-Zarr metadata structures useful for your work, great! You might also need different kinds of structures; if you believe these would also be useful for a broader community, engaging with the RFC process is always welcome; otherwise, you might want to consider "pure" Zarr.
 
 8. Is OME-Zarr a stable format?
 OME-Zarr is (still) an evolving specification. Large breaking changes (i.e. changes in the binary storage format) are not currently planned for the future, but the metadata standards can (and will) evolve in ways that might be backwards-incompatible until an 1.0 release. A conversion path between versions until 1.0 is possible.
