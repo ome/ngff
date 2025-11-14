@@ -13,7 +13,7 @@ Jump to:
 
 ### A
 
-**Array** - blabla
+**Array** - 
 
 [Back to top](#glossary)
 
@@ -128,7 +128,9 @@ If you think any term is missing or needs to be updated, please open a PR to the
 If you have questions or need help with OME-Zarr, you can reach out through the following chann1|els:
 | Where | Description | When to use  |
 |-------|-------------| --------------|
-| [Image.sc Forum](https://forum.image.sc) | A community forum for image analysis and bioimaging. | Use the [ngff](https://forum.image.sc/tag/ngff) tag when X, the [ome-ngff](https://forum.image.sc/tag/ome-ngff) tag when Y, and the [ome-zarr](https://forum.image.sc/tag/ome-zarr) tag when Z. |
+| [Image.sc Forum](https://forum.image.sc) | A community forum for image analysis and bioimaging. | To know when to use the tags [ngff](https://forum.image.sc/tag/ngff), [ome-ngff](https://forum.image.sc/tag/ome-ngff),  and [ome-zarr](https://forum.image.sc/tag/ome-zarr) in the forum please read :doc:`about/index`, Glossary and FAQs in this page. |
 | [ome/ngff GitHub Issues](https://github.com/ome/ngff/issues) | The official repository for OME-NGFF specifications and related discussions. | For reporting bugs, suggesting features, or discussing technical aspects of the OME-NGFF specifications. |
-| Office Hours | Regularly scheduled virtual meetings where you can ask questions and get help from the NGFF community | Office hours rotate between APAC/AU/EU- and AMER/AU/EU-friendly times. Join [here](https://openmicroscopy-org.zoom.us/j/82526689042?pwd=ZIde7mcvZugQGmJ8Bm9piFo5Tzwdy1.1) when feeling super lost. |
-| OME-Zarr libraries GitHub Issues/Image.sc Forum | Various repositories for OME-Zarr libraries. | For issues specific to a particular OME-Zarr library, use the respective GitHub repository's issue tracker or use the [ome-zarr-py](https://forum.image.sc/tag/ome-zarr-py) tag in Image.sc Forum.|
+| Office Hours | Regularly scheduled virtual meetings where you can ask questions and get help from the NGFF community | Office hours rotate between APAC/AU/EU- and AMER/AU/EU-friendly times. Join them when you want to chat about OME-Zarr. Read more in the :doc:`community/index` page. |
+| OME-Zarr libraries GitHub Issues| Various repositories for OME-Zarr libraries. | For issues specific to a particular OME-Zarr library, use the respective GitHub repository's issue. |
+| In person events | Conferences, workshops, and meetups where you can connect with the NGFF community. | To network, learn, and discuss OME-Zarr in person. Check the :doc:`community/index` page for upcoming events. |
+
