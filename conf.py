@@ -43,6 +43,8 @@ html_theme_options = {
 }
 
 html_context = {
+    "repository_provider": "github",
+    "repository_url": "https://github.com/ome/ngff",
     "github_user": "ome",
     "github_repo": "ngff",
     "github_version": "main"
