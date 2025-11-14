@@ -134,7 +134,7 @@ When creating OME-Zarr zip files, the following are RECOMMENDED:
 2. ZIP-level compression SHOULD be disabled in favor of Zarr-level compression codecs.
 3. The sharding codec SHOULD be used to reduce the number of entries within the ZIP archive.
 4. The root-level `zarr.json` file SHOULD be the first ZIP file entry and the first entry in the central directory header; other `zarr.json` files SHOULD follow immediately afterwards, in breadth-first order.
-5. The ZIP archive comment SHOULD contain null-terminated UTF-8-encoded JSON with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, equivalent to `{"ome": { "version": "XX.YY" }}`.
+5. The ZIP archive comment SHOULD contain an UTF-8-encoded JSON string with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, equivalent to `{"ome": { "version": "XX.YY" }}`.
 6. The name of OME-Zarr zip files SHOULD end with `.ozx`.
 
 ## Requirements
@@ -250,8 +250,8 @@ The following ideas were abandoned:
   This would unnecessarily limit the space for future innovation/specialization in the OME-Zarr specification.
 - **Use a file extension other than `.ozx`**.
   The following candidates were considered:
-  - `.zarrx` or `.zar` - not OME-specific
-  - Multi-part file extensions (e.g. `.ome.zarr.zip`, `.ome.zarrx`, `.ome.zar`) - suboptimal user experience
+  - `.zarrx` or `.zar` - not OME-specific <!-- codespell:ignore -->
+  - Multi-part file extensions (e.g. `.ome.zarr.zip`, `.ome.zarrx`, `.ome.zar`) - suboptimal user experience <!-- codespell:ignore -->
   - Any other permutation of `oz[pzx]` that is not yet in active use by other software
 
 ## Prior art and references
