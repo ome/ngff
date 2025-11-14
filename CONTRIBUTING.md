@@ -17,7 +17,6 @@ This repository uses Sphinx to publish a ReadTheDocs site at https://ngff.openmi
 
 [MyST](https://myst-parser.readthedocs.io/en/latest/) syntax can be used in addition to basic Markdown and HTML.
 
-
 ## Previews
 Each PR receives a unique preview URL of the format `https://ngff--<PR#>.org.readthedocs.build/` where `<PR#>` is the PR number. This link is also posted to each PR by the Github actions bot in an "Automated Review URLs" comment as the "Readthedocs" link.
 
