@@ -1,6 +1,6 @@
 *.DS_Store
 **/__pycache__/*
-*/index.html
+#*/index.html
 _build
 _bikeshed
 .tox
