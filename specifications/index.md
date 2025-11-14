@@ -1,9 +1,9 @@
 Specifications
 ==============
 
-The current released version of the OME-Zarr specification is <a href="../0.5/index.html">0.5</a>.
+OME-Zarr files have standardized metadata (that is the OME portion of "OME-Zarr") - each new version of OME-Zarr files has its own specification. Those specifications are listed below.
 
-Version history:
+The current released version of the OME-Zarr specification is <a href="../latest/index.html">0.5</a>.
 
 <ul>
   <li> <a href="../latest/index.html">latest</a> Alias for the latest version below</li>
