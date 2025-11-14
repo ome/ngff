@@ -14,6 +14,7 @@ Next-Generation File Formats (NGFF) + OME-Zarr
 * When would I not use OME-Zarr?
 * How do I use OME-Zarr?
 * Who is using OME-Zarr?
+* ...have other questions? `Check out the FAQ </helpdesk/index>`_
 
 NGFF vs OME-Zarr, what is the difference?
 ------------------------------------------
