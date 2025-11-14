@@ -2,7 +2,7 @@
 This section aims to provide all the resources needed to give talks about OME-Zarr for a varied range of audiences. 
 
 ## Slides
-* [Slides go here](https://ome-zarr-book.readthedocs.io). These are the slides
+* [Ambassador Toolkit slides](https://zenodo.org/records/17609551). A collection of 100+ slides on OME-Zarr under CC-BY license that can be used to assemble presentations.
 
 
 ## Talking points
