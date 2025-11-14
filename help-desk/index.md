@@ -25,7 +25,7 @@ Jump to:
 
 **Chunk** - A chunk in OME-Zarr an is an independent section of pixel data that has been separated so that it can be accessed separately from other pixel data.
 
-**Codecs** - blabla
+**Codecs** - Codecs are the algorithms that compress and decompress chunks. They shrink the data to save space and speed up loading, and then restore it when you read it. Different codecs offer different trade-offs between size, speed, and image quality, but NGFF lets you choose the one that works best for your data.
 
 [Back to top](#glossary)
 
@@ -49,7 +49,7 @@ Jump to:
 
 ### M
 
-**Multiscale** - blablah.
+**Multiscale** - Multiscale means storing the same image at multiple resolutions (full size, half size, quarter size, etc.). This makes it easy for tools to zoom and navigate very large images quickly—just like how map apps load lower-resolution versions first, then sharpen the view as you zoom in.
 
 [Back to top](#glossary)
 
@@ -90,7 +90,7 @@ Jump to:
 
 ### T
 
-**Transformation** - blablah. 
+**Transformation** - Transformations describe how to place one array in the same coordinate space as another—for example, how a label mask lines up with its image, or how a lower-resolution level relates to the full-resolution one. They provide the mathematical rules (like shifts, scaling, or rotations) that let software correctly align and overlay different pieces of data.
 
 [Back to top](#glossary)
 
@@ -109,7 +109,7 @@ Jump to:
 
 **Zarr** -- A file format, see the [main page](#../) for more information about what a Zarr is and the benefits of using Zarr.
 
-**Zarr Group** - blabla
+**Zarr Group** - A Zarr group is like a folder inside a dataset. It can hold arrays, metadata, or other groups, helping organize complex data into a clear hierarchy. Think of it as a way to keep all related images and information neatly together.
 
 [Back to top](#glossary)
 
