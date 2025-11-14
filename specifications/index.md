@@ -1,7 +1,7 @@
 Specifications
 ==============
 
-OME-Zarr files have standardized metadata (that is the OME portion of "OME-Zarr") - each new version of OME-Zarr files has its own specification. Those specifications are listed below
+OME-Zarr files have standardized metadata (that is the OME portion of "OME-Zarr") - each new version of OME-Zarr files has its own specification. Those specifications are listed below.
 
 The current released version of the OME-Zarr specification is <a href="../latest/index.html">0.5</a>.
 
