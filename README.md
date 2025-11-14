@@ -27,4 +27,15 @@ Requests for comments (RFCs) are used to discuss and capture high-level decision
 
 RFCs are contained under the `rfc` directory at the moment but may be moved out into a separate repo in the future.
 
+# Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 
