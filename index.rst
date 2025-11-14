@@ -47,7 +47,7 @@ OME-Zarr files come with two major benefits:
 
 When would I not use OME-Zarr?
 ------------------------------
-uhhh idk? someone else got thoughts??
+* If your file isn't very big and you're working with local data then OME-Zarr is less convenient than a single-file format and you won't feel any benefits.
 
 Who is using OME-Zarr?
 -----------------------
@@ -55,9 +55,9 @@ Who is using OME-Zarr?
 - biohub
 - `Broad Institute <https://broadinstitute.github.io/cellpainting-gallery/overview.html>`_
 - European Molecular Biology Laboratory (EMBL)
+- `Image Data Resource (IDR) <https://idr.openmicroscopy.org/>`_
 - `Howard Hughes Medical Institute, Janelia (HHMI) <https://openorganelle.janelia.org/>`_
 - `Jackson Laboratory (JAX) <https://www.jax.org/research-and-faculty/data-science/tools-and-databases>`_
-- ... so many more people ... UZH, 
 
 How do I use OME-Zarr?
 ----------------------
