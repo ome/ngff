@@ -43,10 +43,9 @@ html_theme_options = {
 }
 
 html_context = {
-    "repository_url": "https://github.com/ome/ngff"
-    # "github_user": "ome",
-    # "github_repo": "ngff",
-    # "github_version"
+    "github_user": "ome",
+    "github_repo": "ngff",
+    "github_version": "main"
 }
 
 html_static_path = ["_static"]
