@@ -52,6 +52,9 @@ When would I not use OME-Zarr?
 
 Who is using OME-Zarr?
 -----------------------
+
+These are *some* of the organizations (and their dataset pages) that are using OME-Zarr for their data.
+
 - `Allen Institute <https://bff.allencell.org/datasets>`_
 - biohub
 - `Broad Institute <https://broadinstitute.github.io/cellpainting-gallery/overview.html>`_
