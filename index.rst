@@ -6,13 +6,13 @@
 Next-Generation File Formats (NGFF) + OME-Zarr
 ===============================================
 
-Welcome to the NGFF documentation site! This page is dedicated to describing what the NGFF community is interested in including learning materials and references to tools.
+Welcome to the Next-Generation File Formats (NGFF) main page! This site is dedicated to providing resources for the NGFF community and those that are interested in getting started with OME-Zarr.
 
 NGFF vs OME-Zarr, what is the difference?
 ------------------------------------------
-OME-Zarr is the file format that the NGFF community has settled on to address issues of scalability and interoperability described below.
+**OME-Zarr** is the file format that the NGFF community has settled on to address issues of scalability and interoperability described below.
 
-NGFF is the community-driven process for designing the next generation of bioimaging formats. NGFF brings together the community to define shared specifications, metadata standards, and best practices. OME-Zarr implements those decisions, providing a practical, open, and scalable way to store and share modern microscopy data. As the NGFF specifications evolve, OME-Zarr evolves with them — ensuring the format reflects the needs and experience of the wider community.
+**NGFF** is the community-driven process for designing the next generation of bioimaging formats. NGFF brings together the community to define shared specifications, metadata standards, and best practices. OME-Zarr implements those decisions, providing a practical, open, and scalable way to store and share modern microscopy data. As the NGFF specifications evolve, OME-Zarr evolves with them — ensuring the format reflects the needs and experience of the wider community.
 
 What is an OME-Zarr?
 ------------------------
@@ -50,10 +50,10 @@ These are *some* of the organizations (and their dataset pages) that are using O
 - `Allen Institute <https://bff.allencell.org/datasets>`_
 - biohub
 - `Broad Institute <https://broadinstitute.github.io/cellpainting-gallery/overview.html>`_
-- European Molecular Biology Laboratory (EMBL)
-- `Image Data Resource (IDR) <https://idr.openmicroscopy.org/>`_
+- `EMBL - Image Data Resource (IDR) <https://idr.openmicroscopy.org/>`_
 - `Howard Hughes Medical Institute, Janelia (HHMI) <https://openorganelle.janelia.org/>`_
-- `Jackson Laboratory (JAX) <https://www.jax.org/research-and-faculty/data-science/tools-and-databases>`_
+- `Jackson Laboratory (JAX) <https://images.jax.org/>`_
+- ... `and more </data/index.html>`_
 
 How do I use OME-Zarr?
 ----------------------
