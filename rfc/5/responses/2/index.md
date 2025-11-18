@@ -12,6 +12,7 @@ The following community members took part in the discussion:
 | Luca Marconato | @LucaMarconato | EMBL |
 | David Stansby | @dstansby | University College London |
 | Flurin Sturzenegger | | UZH |
+| Johannes Soltwedel | @jo-mueller | German BioImaging e.V. |
 
 The following points were raised and discussed by the present community members:
 
