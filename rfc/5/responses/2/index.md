@@ -5,12 +5,13 @@
 Several points were raised after the submission of the [updated proposal](rfcs:rfc5:version2) of RFC5.
 The following community members took part in the discussion:
 
-| **Role** | Name | GitHub Handle | Institution |
-|----------|------|---------------|-------------|
-| **Author** | John Bogovic | @bogovicj | HHMI Janelia |
-| **Author** | Davis Bennett | @d-v-b | | 2024-07-30 |
-| **Author** | Luca Marconato | @LucaMarconato | EMBL |
-| **Endorser** | David Stansby | @dstansby | University College London |
+| Name | GitHub Handle | Institution |
+|------|---------------|-------------|
+| John Bogovic | @bogovicj | HHMI Janelia |
+| Davis Bennett | @d-v-b |  | 2024-07-30 |
+| Luca Marconato | @LucaMarconato | EMBL |
+| David Stansby | @dstansby | University College London |
+| Flurin Sturzenegger | | UZH |
 
 The following points were raised and discussed by the present community members:
 
