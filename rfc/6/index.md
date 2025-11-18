@@ -29,7 +29,7 @@ This RFC is currently open for reviews (R1).
     - scalable minds
     - 2024-12-03
     - 
-*   - Author
+*   - Endorser
     - David Stansby
     - @dstansby
     - University College London
