@@ -95,3 +95,37 @@ The updated metadata layout is as follows:
   ]
 }
 ```
+
+### User stories
+
+Attendees suggested to add user stories to the proposal.
+This would help to illustrate the usecases for the proposed transformations.
+
+### Disambiguate `input` and `output` fields in parent-level transformations
+
+The current proposal allows `input` and `output` fields in parent-level zarr groups to contain
+either a reference to a named coordinate system instance in the same json file,
+or a path to a multiscale dataset.
+This requires providing a ruleset to disambiguate the two cases.
+The current proposal suggests a fixed ordering of precedence (`coordinateSystem` over path) in the parent-level group
+as well as in the child-level transformations (default `coordinateSystem` last).
+This was perceived as potentially error-prone and difficult to implement.
+
+It was proposed to distinguish the two cases by intrducing separate fields for the two cases:
+
+```json
+{
+    "type": "transformation_type",
+    "input": {
+        "path": "path/to/dataset",
+        "coordinateSystem": "coordinate_system_name"
+    },
+    "output": {
+        "coordinateSystem": "coordinate_system_name"
+        "path": null
+    }
+}
+```
+
+**Outcome:** It was agreed to disambiguate the `input` and `output` fields in parent-level transformations.
+The proposal has been updated accordingly.
