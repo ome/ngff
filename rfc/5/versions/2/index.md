@@ -1,4 +1,5 @@
 # RFC-5: Coordinate Systems and Transformations (2025-10-31 version)
+(rfcs:rfc5:version2)=
 
 ```{toctree}
 :hidden:
