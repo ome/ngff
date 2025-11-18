@@ -69,6 +69,8 @@ Related the relationship of discrete arrays to physical coordinates
 and the interpretation and motivation for axis types.
 
 
+## User stories
+
 ## Proposal
 
 Below is a complete copy of the proposed changes including suggestions
