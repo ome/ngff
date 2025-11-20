@@ -13,6 +13,9 @@ The following community members took part in the discussion:
 | David Stansby | @dstansby | University College London |
 | Flurin Sturzenegger | | UZH |
 | Johannes Soltwedel | @jo-mueller | German BioImaging e.V. |
+| Will Moore | @will-moore | University of Dundee |
+| Chris Barnes | @clbarnes | German BioImaging e.V. |
+| Niklas Khoss | | FMI |
 
 The following points were raised and discussed by the present community members:
 
