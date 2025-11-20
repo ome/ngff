@@ -1,5 +1,5 @@
-# RFC-5: Review 2
-(rfcs:rfc5:review2)=
+# RFC-5: Review 2b
+(rfcs:rfc5:review2b)=
 
 ## Review authors
 This review was written by: William Moore<sup>1</sup> and Jean-Marie Burel<sup>1</sup>
