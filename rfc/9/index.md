@@ -143,14 +143,9 @@ The zip comment is intended to provide metadata pertinent to the zip file struct
 
 The `ome` attribute in the zip archive comment MAY contain a `zipFile` attribute, which in turn MAY contain a `centralDirectory` attribute. The `centralDirectory` attribute provides metadata about the central directory's structure and content.
 
-The `centralDirectory` attribute MAY contain the following keys:
+The `centralDirectory` attribute MAY contain the following key:
 
-- `jsonBreadthFirst`: If `true`, this indicates that the `zarr.json` files are ordered breadth-first in the central directory and precede other content, as recommended above. This allows the hierarchical structure of the contents to be discovered without parsing the entire central directory, which could contain many entries of Zarr chunks. If this key is omitted, it is assumed to be `false`.
-- `sorted`: If `true`, this indicates that the entries in the central directory are sorted lexicographically by name. The root `zarr.json` MUST always be the first entry. If `jsonBreadthFirst` is `true`, this sorting applies to the non-`zarr.json` file entries. If `jsonBreadthFirst` is `false`, then all files are sorted, including the `zarr.json` files, with the exception of the root `zarr.json`. This assists with searching for keys in the directory via particular searching algorithms, such as binary search. If this key is omitted, it is assumed to be `false`.
-- `duplicateResolution` (string): Specifies which entry to use when duplicate filenames are present.
-    - `"first"`: Use the first occurrence of the duplicate filename.
-    - `"last"`: Use the last occurrence of the duplicate filename.
-    If this key is omitted, the default behavior is to use the `"last"` entry.
+- `jsonFirst`: If `true`, this indicates that the `zarr.json` files are ordered breadth-first in the central directory and precede other content, as recommended above. This allows the hierarchical structure of the contents to be discovered without parsing the entire central directory, which could contain many entries of Zarr chunks. Implementations MAY assume that no further `zarr.json` files exist beyond the first non-`zarr.json` file if `jsonFirst` is `true`. If `jsonFirst` is omitted, the value defaults to `false`.
 
 For example,
 ```json
@@ -159,9 +154,7 @@ For example,
     "version": "XX.YY",
     "zipFile": {
       "centralDirectory": {
-        "jsonBreadthFirst": true,
-        "sorted": true,
-        "duplicateResolution": "last"
+        "jsonFirst": true,
       }
     }
   }
