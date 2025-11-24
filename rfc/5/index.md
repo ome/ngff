@@ -80,6 +80,7 @@ This PR will then comprise complete json schemas when the RFC enters the SPEC ph
 
 
 ### "coordinateSystems" metadata
+(coordinatesystems-metadata)=
 
 A `coordinateSystem` is a JSON object with a "name" field and a "axes" field.
 Every coordinate system:
@@ -315,102 +316,13 @@ Coordinate transformations can be stored in multiple places to reflect different
 - Additional transformations for single multiscale images MUST be stored under a field `coordinateTransformations`
   in the multiscales dictionaries.
   This `coordinateTransformations` field MUST contain a list of valid [transformations](#transformation-types).
-- Transformations between two or more images MUST be stored in the attributes of a parent zarr group.
-  For transformations that store data or parameters in a zarr array,
-  those zarr arrays SHOULD be stored in a zarr group called "coordinateTransformations".
-
-<pre>
-store.zarr                      # Root folder of the zarr store
-│
-├── zarr.json                   # coordinate transformations describing the relationship between two image coordinate systems
-│                               # are stored in the attributes of their parent group.
-│                               # transformations between coordinate systems in the 'volume' and 'crop' multiscale images are stored here.
-│
-├── coordinateTransformations   # transformations that use array storage for their parameters should go in a zarr group named "coordinateTransformations".
-│   └── displacements           # for example, a zarr array containing a displacement field
-│       └── zarr.json
-│
-├── volume
-│   ├── zarr.json              # group level attributes (multiscales)
-│   └── 0                      # a group containing the 0th scale
-│       └── image              # a zarr array
-│           └── zarr.json      # physical coordinate system and transformations here
-└── crop
-    ├── zarr.json              # group level attributes (multiscales)
-    └── 0                      # a group containing the 0th scale
-        └── image              # a zarr array
-            └── zarr.json      # physical coordinate system and transformations here
-</pre>
-
-````{admonition} Example
-(example:coordinate_transformation)=
-Two instruments simultaneously image the same sample from two different angles,
-and the 3D data from both instruments are calibrated to "micrometer" units.
-An analysis of sample A requires measurements from images taken from both instruments at certain points in space.
-Suppose a region of interest (ROI) is determined from the image obtained from instrument 2,
-but quantification from that region is needed for instrument 1.
-Since measurements were collected at different angles,
-a measurement by instrument 1 at the point with image array coordinates (x,y,z)
-may not correspond to the measurement at the same array coordinates in instrument 2
-(i.e., it may not be the same physical location in the sample).
-To analyze both images together, they must be transformed to a common coordinate system.
-
-The set of coordinate transformations encodes relationships between coordinate systems,
-specifically, how to convert points from one coordinate system to another.
-Implementations can apply the coordinate transform to images or points
-in coordinate system "sampleA_instrument2" to bring them into the "sampleA_instrument1" coordinate system.
-In this case, image data within the ROI defined in image2 should be transformed to the "sampleA_image1" coordinate system,
-then used for quantification with the instrument 1 image.
-
-The `coordinateTransformations` in the parent-level metadata would contain the following data.
-The transformation parameters are stored in a separate zarr-group
-under `coordinateTransformations/sampleA_instrument2-to-instrument1` as shown above.
-
-```json
-"coordinateTransformations": [
-    {
-        "type": "affine",
-        "path": "coordinateTransformations/sampleA_instrument2-to-instrument1",
-        "input": "sampleA_instrument2",
-        "output": "sampleA_instrument1"
-    }
-]
-```
-
-And the image at the path `sampleA_instrument1` would have the following as the first coordinate system:
-
-```json
-"coordinateSystems": [
-    {
-        "name": "sampleA-instrument1",
-        "axes": [
-            {"name": "z", "type": "space", "unit": "micrometer"},
-            {"name": "y", "type": "space", "unit": "micrometer"},
-            {"name": "x", "type": "space", "unit": "micrometer"}
-        ]
-    },
-]
-```
-
-The image at path `sampleA_instrument2` would have this as the first listed coordinate system:
-
-```json
-[
-    {
-        "name": "sampleA-instrument2",
-        "axes": [
-            {"name": "z", "type": "space", "unit": "micrometer"},
-            {"name": "y", "type": "space", "unit": "micrometer"},
-            {"name": "x", "type": "space", "unit": "micrometer"}
-        ]
-    }
-],
-```
-````
+- Transformations between two or more images MUST be stored
+  in the attributes of a ["Scene" field](scene-metadata) in a parent zarr group.
 
 #### Additional details
 
-Most coordinate transformations MUST specify their input and output coordinate systems
+
+**Omitting `input`/`output`**: Most coordinate transformations MUST specify their input and output coordinate systems
 using `input` and `output` with a string value
 that MUST correspond to the name of a coordinate system or the path to a multiscales group.
 Exceptions are if the coordinate transformation is wrapped in another transformation,
@@ -419,15 +331,12 @@ as `transformation` of an `inverseOf` transformation.
 In these two cases input and output could, in some cases, be omitted (see below for details).
 If unused, the `input` and `output` fields MAY be null.
 
-If used in a parent-level zarr-group, the `input` and `output` fields
-can be the name of a `coordinateSystem` in the same parent-level group or the path to a multiscale image group.
-If either `input` or `output` is a path to a multiscale image group,
-the authoritative coordinate system for the respective image is the first `coordinateSystem` defined therein.
-If the names of `input` or `output` correspond to both an existing path to a multiscale image group
-and the name of a `coordinateSystem` defined in the same metadata document,
-the `coordinateSystem` MUST take precedent.
-
-For usage in multiscales, see [the multiscales section](#multiscales-metadata) for details.
+**Graph completenes**: The coordinate systems defined in the [multiscales metadata](multiscales-metadata)
+and the ["Scene" metadata](scene-metadata) combined with the coordinate transformations
+form a transformations graph.
+In this graph, coordinat systems represent nodes and coordinate transformations represent edges.
+The graph MUST be complete in the sense that any two coordinate systems in the metadata
+MUST be connected by a sequence of coordinate transformations.
 
 Coordinate transformations are functions of *points* in the input space to *points* in the output space.
 We call this the "forward" direction.
@@ -474,6 +383,7 @@ When stored as a 2D zarr array, the first dimension indexes rows and the second 
 When stored as a 2D json array, the inner array contains rows (e.g. `[[1,2,3], [4,5,6]]` has 2 rows and 3 columns).
 
 #### Transformation types
+(transformation-types)=
 
 Input and output dimensionality may be determined by the coordinate system referred to by the `input` and `output` fields, respectively. 
 If the value of `input` is a path to an array, its shape gives the input dimension,
@@ -745,7 +655,120 @@ Practically, non-invertible transformations have finite extents,
 so bijection transforms should only be expected to be correct / consistent for points that fall within those extents.
 It may not be correct for any point of appropriate dimensionality.
 
+### "Scene" metadata
+
+For images that share a spatial relationship,
+the "Plate" metadata layout can be used to describe the relationship between images.
+The "Scene" dictionary is located under the custom attributes of a parent-level zarr-group
+that contains the related images as child groups.
+
+The "Scene" dictionary MUST contain the field `coordinateTransformations`,
+whose value MUST be a list of valid [transformations](transformation-types).
+It MAY contain the field `coordinateSystems`,
+whose value MUST be a list of valid [coordinate systems](#coordinatesystems-metadata).
+
+If used in a parent-level zarr-group, the `input` and `output` fields
+can be the name of a `coordinateSystem` in the same parent-level group or the path to a multiscale image group.
+If either `input` or `output` is a path to a multiscale image group,
+the authoritative coordinate system for the respective image is the first `coordinateSystem` defined therein.
+If the names of `input` or `output` correspond to both an existing path to a multiscale image group
+and the name of a `coordinateSystem` defined in the same metadata document,
+the `coordinateSystem` MUST take precedent.
+
+For transformations that store data or parameters in a zarr array,
+those zarr arrays SHOULD be stored in a zarr group called "coordinateTransformations".
+
+<pre>
+store.zarr                      # Root folder of the zarr store
+│
+├── zarr.json                   # coordinate transformations describing the relationship between two image coordinate systems
+│                               # are stored in the attributes of their parent group.
+│                               # transformations between coordinate systems in the 'volume' and 'crop' multiscale images are stored here.
+│
+├── coordinateTransformations   # transformations that use array storage for their parameters should go in a zarr group named "coordinateTransformations".
+│   └── displacements           # for example, a zarr array containing a displacement field
+│       └── zarr.json
+│
+├── volume
+│   ├── zarr.json              # group level attributes (multiscales)
+│   └── 0                      # a group containing the 0th scale
+│       └── image              # a zarr array
+│           └── zarr.json      # physical coordinate system and transformations here
+└── crop
+    ├── zarr.json              # group level attributes (multiscales)
+    └── 0                      # a group containing the 0th scale
+        └── image              # a zarr array
+            └── zarr.json      # physical coordinate system and transformations here
+</pre>
+
+````{admonition} Example
+(example:coordinate_transformation)=
+Two instruments simultaneously image the same sample from two different angles,
+and the 3D data from both instruments are calibrated to "micrometer" units.
+An analysis of sample A requires measurements from images taken from both instruments at certain points in space.
+Suppose a region of interest (ROI) is determined from the image obtained from instrument 2,
+but quantification from that region is needed for instrument 1.
+Since measurements were collected at different angles,
+a measurement by instrument 1 at the point with image array coordinates (x,y,z)
+may not correspond to the measurement at the same array coordinates in instrument 2
+(i.e., it may not be the same physical location in the sample).
+To analyze both images together, they must be transformed to a common coordinate system.
+
+The set of coordinate transformations encodes relationships between coordinate systems,
+specifically, how to convert points from one coordinate system to another.
+Implementations can apply the coordinate transform to images or points
+in coordinate system "sampleA_instrument2" to bring them into the "sampleA_instrument1" coordinate system.
+In this case, image data within the ROI defined in image2 should be transformed to the "sampleA_image1" coordinate system,
+then used for quantification with the instrument 1 image.
+
+The `coordinateTransformations` in the parent-level metadata would contain the following data.
+The transformation parameters are stored in a separate zarr-group
+under `coordinateTransformations/sampleA_instrument2-to-instrument1` as shown above.
+
+```json
+"coordinateTransformations": [
+    {
+        "type": "affine",
+        "path": "coordinateTransformations/sampleA_instrument2-to-instrument1",
+        "input": "sampleA_instrument2",
+        "output": "sampleA_instrument1"
+    }
+]
+```
+
+And the image at the path `sampleA_instrument1` would have the following as the first coordinate system:
+
+```json
+"coordinateSystems": [
+    {
+        "name": "sampleA-instrument1",
+        "axes": [
+            {"name": "z", "type": "space", "unit": "micrometer"},
+            {"name": "y", "type": "space", "unit": "micrometer"},
+            {"name": "x", "type": "space", "unit": "micrometer"}
+        ]
+    },
+]
+```
+
+The image at path `sampleA_instrument2` would have this as the first listed coordinate system:
+
+```json
+[
+    {
+        "name": "sampleA-instrument2",
+        "axes": [
+            {"name": "z", "type": "space", "unit": "micrometer"},
+            {"name": "y", "type": "space", "unit": "micrometer"},
+            {"name": "x", "type": "space", "unit": "micrometer"}
+        ]
+    }
+],
+```
+````
+
 ### "multiscales" metadata
+(multiscales-metadata)=
 
 Metadata about an image can be found under the `multiscales` key in the group-level OME-Zarr Metadata.
 Here, "image" refers to 2 to 5 dimensional data representing image
