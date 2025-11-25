@@ -17,12 +17,12 @@ This RFC is currently in RFC state `R4` (authors prepare responses).
 
 | **Role** | Name | GitHub Handle | Institution | Date | Status |
 |----------|------|---------------|-------------|------|--------|
-| **Author** | John Bogovic | @bogovicj | HHMI Janelia | 2024-07-30 | Implemented |
+| **Author** | John Bogovic | @bogovicj | HHMI Janelia | 2024-07-30 | (Corresponding Author) Implemented |
 | **Author** | Davis Bennett | @d-v-b | | 2024-07-30 | Implemented validation |
 | **Author** | Luca Marconato | @LucaMarconato | EMBL | 2024-07-30 | Implemented |
 | **Author** | Matt McCormick | @thewtex | ITK | 2024-07-30 | Implemented |
 | **Author** | Stephan Saalfeld | @axtimwalde | HHMI Janelia | 2024-07-30 | Implemented (with JB) |
-| **Author** | Johannes Soltwedel | @jo-mueller | German Bioimaging e.V. | 2025-10-07 | Implemented |
+| **Author** | Johannes Soltwedel | @jo-mueller | German Bioimaging e.V. | 2025-10-07 | (Corresponding Author) Implemented |
 | **Endorser** | Will Moore | @will-moore | University of Dundee | 2025-10-23 | Implemented |
 | **Endorser** | David Stansby | @dstansby | University College London | 2025-10-23 | Implemented |
 | **Endorser** | Norman Rzepka | @normanrz | Scalable Minds | 2024-08-22 | |
