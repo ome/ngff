@@ -244,9 +244,9 @@ They:
 - MUST contain the field "type" (string).
 - MUST contain any other fields required by the given "type" (see table below).
 - MUST contain the field "output" (string),
-  unless part of a `sequence` or `inverseOf` (see details).
+  unless part of a `sequence` (see details).
 - MUST contain the field "input" (string),
-  unless part of a `sequence` or `inverseOf` (see details).
+  unless part of a `sequence` (see details).
 - MAY contain the field "name" (string).
   Its value MUST be unique across all "name" fields for coordinate transformations.
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
@@ -264,7 +264,6 @@ The following transformations are supported:
 | [`sequence`](#sequence) | `"transformations":List[Transformation]` | sequence of transformations. Applying the sequence applies the composition of all transforms in the list, in order. |
 | [`displacements`](#coordinates-and-displacements) | `"path":str`<br>`"interpolation":str` | Displacement field transformation located at `path`. |
 | [`coordinates`](#coordinates-and-displacements) | `"path":str`<br>`"interpolation":str` | Coordinate field transformation located at `path`. |
-| [`inverseOf`](#inverseof) | `"transformation":Transformation` | The inverse of a transformation. Useful if a transform is not closed-form invertible. See forward and inverse of [bijections](#bijection) for details and examples. |
 | [`bijection`](#bijection) | `"forward":Transformation`<br>`"inverse":Transformation` | An invertible transformation providing an explicit forward transformation and its inverse. |
 | [`byDimension`](#bydimension) | `"transformations":List[Transformation]`, <br> `"input_axes": List[str]`, <br> `"output_axes": List[str]` | A high dimensional transformation using lower dimensional transformations on subsets of dimensions. |
 
@@ -326,8 +325,7 @@ Coordinate transformations can be stored in multiple places to reflect different
 using `input` and `output` with a string value
 that MUST correspond to the name of a coordinate system or the path to a multiscales group.
 Exceptions are if the coordinate transformation is wrapped in another transformation,
-e.g. as part of a  `transformations` list of a `sequence` or
-as `transformation` of an `inverseOf` transformation.
+e.g. as part of a  `transformations` list of a `sequence`.
 In these two cases input and output could, in some cases, be omitted (see below for details).
 If unused, the `input` and `output` fields MAY be null.
 
@@ -350,19 +348,13 @@ from the output to the input coordinate system.
 Inverse transformations will not be explicitly specified
 when they can be computed in closed form from the forward transformation.
 Inverse transformations used for image rendering may be specified using
-the `inverseOf` transformation type, for example:
+by swapping the `input` and `output` fields of the forward transformation.
 
-```json
-{
-    "type": "inverseOf",
-    "transformation" : {
-        "type": "displacements",
-        "path": "/path/to/displacements",
-    },
-    "input": "input_image",
-    "output": "output_image",
-}
-```
+```{note}
+Software libraries that perform image registration
+often return the transformation from fixed image coordinates to moving image coordinates,
+because this "inverse" transformation is most often required
+when rendering the transformed moving image.
 
 Implementations SHOULD be able to compute and apply
 the inverse of some coordinate transformations when they are computable
@@ -371,6 +363,7 @@ If an operation is requested that requires
 the inverse of a transformation that can not be inverted in closed-form,
 implementations MAY estimate an inverse,
 or MAY output a warning that the requested operation is unsupported.
+```
 
 #### Matrix transformations
 
@@ -399,7 +392,7 @@ is set to the position of the ith axis of the input coordinate system.
 `identity` transformations are invertible.
 
 The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
+(e.g., [`sequence`](#sequence), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 
 ##### <a name="mapAxis">mapAxis</a>
@@ -415,7 +408,7 @@ The value at position `i` in the array indicates which input axis becomes the `i
 `mapAxis` transforms are invertible.
 
 The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
+(e.g., [`sequence`](#sequence), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 ##### <a name="translation">translation</a>
 
@@ -426,7 +419,7 @@ and MUST equal the the length of the "translation" array (N).
 `translation` transformations are invertible.
 
 The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
+(e.g., [`sequence`](#sequence), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 <strong>path</strong>
 : The path to a zarr-array containing the translation parameters.
@@ -446,7 +439,7 @@ Values in the `scale` array SHOULD be non-zero;
 in that case, `scale` transformations are invertible.
 
 The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
+(e.g., [`sequence`](#sequence), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 <strong>path</strong>
 : The path to a zarr-array containing the scale parameters.
@@ -466,7 +459,7 @@ when `N` equals `M`.
 The matrix MUST be stored as a 2D array either as json or as a zarr array.
 
 The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
+(e.g., [`sequence`](#sequence), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 <strong>path</strong>
 :  The path to a zarr-array containing the affine parameters.
@@ -488,7 +481,7 @@ The matrix MUST be stored as a 2D array either as json or in a zarr array.
 `rotation` transformations are invertible.
 
 The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
+(e.g., [`sequence`](#sequence), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 <strong>path</strong>
 : The path to an array containing the affine parameters.
@@ -499,28 +492,6 @@ The array at this path MUST be 2D whose shape MUST be `N x N`.
 The matrix MUST be stored as a 2D nested array (an array of arrays of numbers) where the outer array MUST be length `N`
 and the inner arrays MUST be length `N`.
 
-
-##### <a name="inverseOf">inverseOf</a>
-
-An `inverseOf` transformation contains another transformation (often non-linear),
-and indicates that transforming points from output to input coordinate systems
-is possible using the contained transformation.
-Transforming points from the input to the output coordinate systems
-requires the inverse of the contained transformation (if it exists).
-
-The `input` and `output` fields MAY be omitted for `inverseOf` transformations
-if those fields may be omitted for the transformation it wraps.
-
-```{note}
-Software libraries that perform image registration
-often return the transformation from fixed image coordinates to moving image coordinates,
-because this "inverse" transformation is most often required
-when rendering the transformed moving image.
-Results such as this may be enclosed in an `inverseOf` transformation.
-This enables the "outer" coordinate transformation to specify the moving image coordinates
-as `input` and fixed image coordinates as `output`,
-a choice that many users and developers find intuitive.
-```
 
 ##### <a name="sequence">sequence</a>
 
@@ -556,7 +527,7 @@ The input and output coordinate systems for these transformations ("input / outp
 constrain the array size and the coordinate system metadata for the array ("field coordinate system").
 
 The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
+(e.g., [`sequence`](#sequence), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 * If the input coordinate system has `N` axes,
   the array at location path MUST have `N+1` dimensions
