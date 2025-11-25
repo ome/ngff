@@ -86,16 +86,21 @@ The updated metadata layout is as follows:
   "output": "high_dimensional_coordinatesystem_B", 
   "transformations": [
     {
-      "type": "scale",
       "input_axes": [0, 1],
       "output_axes": [0, 1],
-      "scale": [0.5, 0.5]
+      "transformation": {
+        "type": "scale",
+        "scale": [0.5, 0.5]
+      }
+      
     },
     {
-      "type": "translation", 
       "input_axes": [2],
       "output_axes": [2],
-      "translation": [10.0]
+      "transformation": {
+        "type": "translation",
+        "translation": [10.0]
+      }
     }
   ]
 }

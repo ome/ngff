@@ -594,13 +594,15 @@ The `input` and `output` fields MUST always be included for this transformations
 
 <dl>
   <dt><strong>transformations</strong></dt>
-  <dd>  Each child transformation MUST contain <code>input_axes</code> and <code>output_axes</code> fields
-        whose values are arrays of strings.
-        Every axis name in a child transformation's <code>input_axes</code>
-        MUST correspond to a name of some axis in this parent object's <code>input</code> coordinate system.
-        Every axis name in the parent byDimension's <code>output</code> coordinate system
+  <dd>  MUST be an array of wrapped transformations.
+        Each item MUST contain <code>input_axes</code>, <code>output_axes</code> and <code>transformation</code> fields.
+        The values of <code>input_axes</code> and <code>output_axes</code> are arrays of integers.
+        The integer values in these arrays correspond to the axis indices in the `byDimension`'s
+        `input` and `output` coordinate systems, respectively.
+        The value of <code>transformation</code> is a valid transformation object.
+        Every axis index in the parent byDimension's <code>output</code> coordinate system
         MUST appear in exactly one child transformation's <code>output_axes</code> array.
-        Each child transformation's <code>input_axes</code> and <code>output_axes</code> arrays
+        The <code>input_axes</code> and <code>output_axes</code> arrays of each item
         MUST have the same length as that transformation's parameter arrays.
         </dd>
 </dl>
