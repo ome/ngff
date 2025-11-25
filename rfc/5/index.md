@@ -310,13 +310,21 @@ Conforming readers:
 
 Coordinate transformations can be stored in multiple places to reflect different usecases.
      
-- Transformations in individual multiscale datasets represent a special case of transformations
-  and are explained [below](#multiscales-metadata).
-- Additional transformations for single multiscale images MUST be stored under a field `coordinateTransformations`
-  in the multiscales dictionaries.
-  This `coordinateTransformations` field MUST contain a list of valid [transformations](#transformation-types).
-- Transformations between two or more images MUST be stored
-  in the attributes of a ["Scene" field](scene-metadata) in a parent zarr group.
+- **Inside `multiscales > datasets`**: `coordinateTransformations` herein MUST be restricted
+  to a single `scale`, `identity` or `sequence` of translation and scale transformations.
+  Fore information, see [multiscales section below](#multiscales-metadata).
+- **Inside `multiscales > coordinateTransformations`: Additional transformations for single multiscale images MAY be stored here.
+  The `coordinateTransformations` field MUST contain a list of valid [transformations](#transformation-types).
+  The input to these transformations MUST be the intrinsic coordinate system.
+  The output can be another coordinate system defined under multiscales > coordinateSystems.
+  
+- **Inside `Scene > coordinateTransformations`**: Transformations between two or more images
+  MUST be stored in the attributes of a `Scene` in a parent zarr group.
+  The `input` and `output` fields of these transformations can be coordinate systems
+  in the same zarr.json or in multiscales metadata of child groups.
+  For more information, see [`Scene` section below](#scene-metadata).
+
+This separation of transformations (inside `multiscales > datasets`, under `multiscales > coordinateTransformations` and under `Scene > coordinateTransformations`) provides flexibility for different usecases while still maintaining a level of rigidity for implementations.
 
 #### Additional details
 

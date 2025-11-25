@@ -1,6 +1,57 @@
 # RFC-5: Response 2 (2025-11-18 version)
 
+## Review 2
+
+Will Moore and Jean-Marie Burel provided an [updated review](rfcs:rfc5:review2b) on their [initial review](rfcs:rfc5:review2).
+
+> We are aware of a small number of outstanding issues with the RFC spec such as the formatting of relative paths but this does not prevent the adoption of the RFC.
+
+Thank you for the conditional approval. 
+The remaining issues will be addressed have been discussed extensively during the 2025 NGFF Hackathon
+and are summarized in detail [below](hackathon-outcomes).
+
+> The section (*regarding locations of transforms metadata*, edit) in the response to our previous review provides a nice overview of coordinateTransformations. The spec document would benefit from such an overview since the information there is currently spread in many places throughout the spec.
+
+We have expanded the current overview of coordinate transformations in the specification document.
+It now resembles the summary provided in our previous response.
+
+> We feel that the importance of ordering of coordinateSystems correctly could be missed. [...] Again, this is emphasized and made clearer in the coordinateTransformations overview section of the response to our review than it is in the spec.
+
+This topic was debated during the hackathon.
+It was agreed that an explicit expression of input path and coordinate system in separate fields
+would improve clarity and avoid ambiguity introduced by precedence rules.
+Hence, we now require the `input` and `output` fields in `Scene` metadata (formerly referred to as parent-level "transformations" group).
+The following example illustrates a transformation from a coordinate System defined in the multiscales metadata (input) to a coordinate system defined in the same json file (output):
+
+```json
+{
+  "coordinateSystems": [
+    {
+      "name": "output_coordinate_system_name",
+      "axes": "[...]"
+    }
+  ],
+  "coordinateTransformations": [
+    {
+      "type": "transformation_type",
+      "input": {
+          "path": "path/to/dataset",
+          "name": "input_coordinate_system_name"
+      },
+      "output": {
+          "name": "output_coordinate_system_name",
+          "path": null
+      }
+    }
+  ]
+}
+
+```
+
+This will allow implementers and users to unambiguously identify the input and output coordinate systems of a transformation.
+
 ## 2025 Ngff Hackathon discussion outcomes
+(hackathon-outcomes)=
 
 Several points were raised after the submission of the [updated proposal](rfcs:rfc5:version2) of RFC5.
 The following community members took part in the discussion:
@@ -27,7 +78,7 @@ This would ensure that any image in a parent-level transformations group could b
 **Outcome:** It was agreed that this is a desirable property.
 The corresponding constraint has been added to the proposal.
 
-### Rename parent-level "transformations" group
+### Rename parent-level "transformations" group to "Scene"
 
 It was suggested to rename the parent-level "transformations" group.
 This would avoid confusion with the child-level "transformations" groups
