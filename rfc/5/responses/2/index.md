@@ -239,6 +239,8 @@ but decided to defer the implementation of such an addition to a future version 
 
 ## Other minor changes
 
+### Uniqueness of transformation names
+
 Currently, the proposal requires the `name` parameter of coordinate transformations to be globally unique:
 
 > MAY contain the field "name" (string). Its value MUST be unique across all "name" fields for coordinate transformations.
