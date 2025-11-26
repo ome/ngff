@@ -246,9 +246,8 @@ They:
 - MUST contain the field "input" (string),
   unless part of a `sequence` (see details).
 - MAY contain the field "name" (string).
-  Its value MUST be unique across all "name" fields for coordinate transformations.
+  Its value MUST be unique across all "name" fields for all coordinate transformations in the same list.
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
-
 The following transformations are supported:
 
 | Type | Fields | Description |

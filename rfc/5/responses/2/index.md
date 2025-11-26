@@ -236,3 +236,13 @@ which would allow to insert new axes into the coordinate system at a fixed posit
 
 **Outcome**: The members of the discussion agreed that this would be useful,
 but decided to defer the implementation of such an addition to a future version of the spec.
+
+## Other minor changes
+
+Currently, the proposal requires the `name` parameter of coordinate transformations to be globally unique:
+
+> MAY contain the field "name" (string). Its value MUST be unique across all "name" fields for coordinate transformations.
+
+This requirement was perceived as unclear with respect to the scope of uniqueness.
+It was rephrased that the `name` parameter must be unique across all coordinate transformations in the same list.
+Thus, the usage of generic transform names (e.g., `scale1_to_physical`) is not overly restricted.
