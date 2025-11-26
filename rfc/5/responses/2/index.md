@@ -187,7 +187,7 @@ The current proposal suggests a fixed ordering of precedence (`coordinateSystem`
 as well as in the child-level transformations (default `coordinateSystem` last in list of coordinate systems).
 This was perceived as potentially error-prone and difficult to implement.
 
-It was proposed to distinguish the two cases by intrducing separate fields for the two cases:
+It was proposed to distinguish the two cases by introducing separate fields for the two cases:
 
 ```json
 {
@@ -231,7 +231,7 @@ this was perceived counter-productive with respect to the recommendation of usin
 Fore instance, a complex affine transformation would be required to express
 a simple translation of a 2D image into a 3D coordinate system.
 
-To adress this, it was proposed to introduce a new transformation type `newAxis`,
+To address this, it was proposed to introduce a new transformation type `newAxis`,
 which would allow to insert new axes into the coordinate system at a fixed position.
 
 **Outcome**: The members of the discussion agreed that this would be useful,
