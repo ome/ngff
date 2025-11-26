@@ -248,3 +248,9 @@ Currently, the proposal requires the `name` parameter of coordinate transformati
 This requirement was perceived as unclear with respect to the scope of uniqueness.
 It was rephrased that the `name` parameter must be unique across all coordinate transformations in the same list.
 Thus, the usage of generic transform names (e.g., `scale1_to_physical`) is not overly restricted.
+
+### Required `input`/`output` fields in transformations
+
+Community members pointed out that the list of requirements under which circumstances the `input` and `output` fields can be omitted
+was somewhat convoluted and difficult to follow. The text was restructured to improve clarity.
+We also explicitly point out that `null` values are allowed for omitted `input`/`output` fields.

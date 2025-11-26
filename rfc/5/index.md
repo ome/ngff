@@ -326,13 +326,12 @@ This separation of transformations (inside `multiscales > datasets`, under `mult
 #### Additional details
 
 
-**Omitting `input`/`output`**: Most coordinate transformations MUST specify their input and output coordinate systems
-using `input` and `output` with a string value
-that MUST correspond to the name of a coordinate system or the path to a multiscales group.
+**Omitting `input`/`output`**: Coordinate transformations MUST specify their input and output coordinate systems
+using the `input` and `output` fields.
+These fields MUST correspond to the name of a coordinate system or the path to a multiscales group.
 Exceptions are if the coordinate transformation is wrapped in another transformation,
-e.g. as part of a  `transformations` list of a `sequence`.
-In these two cases input and output could, in some cases, be omitted (see below for details).
-If unused, the `input` and `output` fields MAY be null.
+e.g. as part of a `sequence`, `byDimension` or `bijection`.
+In these cases input and output MAY be omitted or null (see below for details).
 
 **Graph completenes**: The coordinate systems defined in the [multiscales metadata](multiscales-metadata)
 and the ["Scene" metadata](scene-metadata) combined with the coordinate transformations
