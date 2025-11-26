@@ -144,8 +144,6 @@ where each dictionary describes a dimension (axis) and:
   The value MUST be a string,
   and can provide a longer name or description of an axis and its properties.
 
-The length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
-
 Arrays are inherently discrete (see Array coordinate systems, below)
 but are often used to store discrete samples of a continuous variable.
 The continuous values "in between" discrete samples can be retrieved using an *interpolation* method.

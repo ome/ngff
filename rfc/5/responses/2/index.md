@@ -206,6 +206,23 @@ It was proposed to distinguish the two cases by intrducing separate fields for t
 **Outcome:** It was agreed to disambiguate the `input` and `output` fields in "Scene" metadata.
 The proposal has been updated accordingly.
 
+### Relax constrain on coordinate system dimensionality
+
+Some attendees pointed out that the current proposal requires the following in the "axes" metadata:
+
+> The length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
+
+However, coordinate systems may not always have a one-to-one correspondence with the dimensions of image data.
+Consider cases like stitching data, where images are transformed into a common world coordinate system,
+which is not inherent to any individual image.
+
+Since the multiscales metadata already specifies the following:
+
+> The length of "axes" must be between 2 and 5
+> and MUST be equal to the dimensionality of the Zarr arrays storing the image data (see "datasets:path").
+
+We have removed the above statement from the "axes" metadata section.
+
 ### Projecting lower dimensional data into higher-dimensional coordinate systems
 
 Members of the discussion raised the question of how to project lower-dimensional data into higher-dimensional coordinate systems.
