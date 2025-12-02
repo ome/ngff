@@ -166,7 +166,7 @@ The `multiscales` metadata contains this:
 {
     "multiscales": [
         {
-            "version": "0.6dev2",
+            "version": "0.6.dev2",
             "name": "example",
             "coordinateSystems": [
                 {
