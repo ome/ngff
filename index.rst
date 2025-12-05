@@ -41,6 +41,7 @@ OME-Zarr files have two major benefits:
 When would I not use OME-Zarr?
 ------------------------------
 * If your file isn’t very big and you’re working with local data, the current specification of OME-Zarr can be less convenient than a single-file format and the benefits are limited. Planned expansions to the OME-Zarr specification will make it more convenient to work with it in these scenarios (e.g. single-file Zarrs) and add features that might make it beneficial to use OME-Zarr even in these scenarios (e.g. transformations).
+* If your original file is lossy compressed, you will see a large increase in file size as the images are decompressed into OME-Zarr. There is not yet support for transferring lossy compressed image tiles to OME-Zarr. This currently impacts most whole slide image (WSI) formats such as SVS, CZI, and NDPI, which are lossy JPEG compressed by default and see about a 10x size increase into OME-Zarr.
 
 Who is using OME-Zarr?
 -----------------------
