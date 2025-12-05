@@ -5,7 +5,14 @@ Please find below our point-by-point replies to reviews and a summary of discuss
 The provided [example datasets on Zenodo](https://zenodo.org/records/17313420/latest) have been updated accordingly
 to reflect the latest version of the proposal.
 
-## Review 2
+## Review 1b 
+
+Upon submission of the [updated proposal](rfcs:rfc5:version2) of RFC5,
+the authors of [review 1](rfcs:rfc5:review1) confirmed that their comments have been addressed and approved the proposal.
+
+We thank the reviewers for their effort in improving this proposal and the positive feedback.
+
+## Review 2b
 
 Will Moore and Jean-Marie Burel provided an [updated review](rfcs:rfc5:review2b) on their [initial review](rfcs:rfc5:review2).
 
