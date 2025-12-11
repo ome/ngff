@@ -16,9 +16,12 @@ We have implemented a validator and a simple implementation using Zarr-python [v
 
 ## Minor comments and questions
 
-- Explicitly state that only Zarr v3 is supported
-- Can one use ZIP64 on files that don't require it? It appears that ZIP64 records only exist in zip files that pass the 64bit length boundary.
-- https://github.com/python/cpython/issues/47073 - conceptually, data and metadata needs to be written together (add to implementation section)
+- Can one use ZIP64 on files that don't require it? It appears that ZIP64
+  records only exist in zip files that pass the 64bit length boundary. If the
+  force_zip64 flag resolves this, then this would require this set as default
+  in ZipStore I assume?
+- https://github.com/python/cpython/issues/47073 - conceptually, data and
+  metadata needs to be written together (add to implementation section)
 
 ## Recommendation
 
