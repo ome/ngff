@@ -10,7 +10,7 @@ Turn the `multiscales` array into a single `multiscale` object.
 
 ## Status
 
-This RFC has been withdrawn (R9) since it is superceded by RFC-8.
+This RFC has been withdrawn (R9) since it is superseded by RFC-8.
 
 ```{list-table} Record
 :widths: 8, 20, 20, 20, 15, 10
