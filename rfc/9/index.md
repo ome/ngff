@@ -1,5 +1,14 @@
 # RFC-9: Zipped OME-Zarr
 
+```{toctree}
+:hidden:
+:maxdepth: 1
+reviews/index
+comments/index
+responses/index
+versions/index
+```
+
 Add a specification for storing an OME-Zarr hierarchy within a ZIP archive.
 
 ## Status
