@@ -28,7 +28,7 @@ The status codes indicating ends of an RFC process are outlined in **bold**.
 | RFC   | R7     | If no, EDITORS approve?                                                                             | NA              |
 | RFC   | R8     | If changes necessary, AUTHORS prepare changes to RFC and/or RESPONSE. If they are major, back to R1 | NA              |
 | RFC   | **R9** | RFC was withdrawn. It will be readable on the website                                               | NA              |
-| SPEC  | S0     | If REVIEWERS overriden, EDITORS add RESPONSE                                                        | NA              |
+| SPEC  | S0     | If REVIEWERS overridden, EDITORS add RESPONSE                                                       | NA              |
 | SPEC  | S1     | RFC accepted! AUTHORS or EDITORS update the SPEC                                                    | NA              |
 | SPEC  | S2     | Clarifications needed?                                                                              | If yes, 4 weeks |
 | SPEC  | S3     | Update implementations                                                                              | NA              |
