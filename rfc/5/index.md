@@ -105,7 +105,7 @@ Tiling images is a common approach to capture large fields of view in 2D and 3D 
 whereas microscopes scan the object of interest in a rasterized manner.
 
 - Tiled acquisition: Without the possibility to express spatial relationships between individual tile images,
-  microscope aquisition software need to save image data in an image format of their choice,
+  microscope acquisition software need to save image data in an image format of their choice,
   which would later have to be stitched in a dedicated software for downstream conversion to ome-zarr.
   With the ability to express transformations as a part of the ome-zarr metadata,
   a parent-store can be created at the beginning of a tiled image acquisition.
@@ -115,7 +115,7 @@ whereas microscopes scan the object of interest in a rasterized manner.
   transformations simply express each tile's location in a common world coordinate system.
   Downstream stitching software can then use these transformations to create a seamless mosaic on-demand.
   Similarly, timelapse images or highly multiplexed data can be considered as a series of nd-tiled acquisition and thus allows on-the-fly ome-zarr writing in such applications.
-- Multi-view acquisition: Some applications (large volumetric 3D microscopy) requires the acqusition of multiple images of the same object from different angles to account for optical limitations of the microscope or the sample.
+- Multi-view acquisition: Some applications (large volumetric 3D microscopy) requires the acquisition of multiple images of the same object from different angles to account for optical limitations of the microscope or the sample.
   Rotations, translations and affine transformations allow to express these spatial relationships and enable low-cost fused view of large volumetric data using the existing ome-zarr viewer ecosystem.
   
 ### Acquisition artefacts
