@@ -10,6 +10,9 @@ RFC status codes
 This resource is a (non-normative) table describing the different codes used in that specification that outline the states of the RFCs. It is _not_ a full description of the RFC process. 
 The status codes indicating ends of an RFC process are outlined in **bold**.
 
+Wait times provide a sense on how fast the process is expected to move to the next phase. The actual time may vary in practice, given factors such as the time of the year and current capacity. 
+
+
 
 | Phase | Code   | Description                                                                                         | Wait time       |
 | ----- | ------ | --------------------------------------------------------------------------------------------------- | --------------- |
