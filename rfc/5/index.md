@@ -71,6 +71,73 @@ and the interpretation and motivation for axis types.
 
 ## User stories
 
+Transformations enable a variety of usecases in the context of image acquisition, viewing and processing.
+Community members have collected a set of user stories that motivate this RFC.
+Generally, these stories fall into four major categories: Registration and alignment, stitching and tiling, acquisition artefacts and, lastly, annotation and analysis.
+
+### Registration and alignment
+
+Registration and alignment of images is a common task in bio-medical imaging.
+In general, images can be aligned if they share a spatial relationship.
+This relationship can be expressed as a coordinate transformation between the coordinate systems of two or images
+or a common world coordinate system.
+Common usecases for transformations in this context include (among others):
+- Adjacent histological tissue sections aligned with each other through affine transformations (e.g., rotation, translation, scaling, shear).
+- Alignment of 3D imaging data with atlas coordinate systems through non-rigid deformation.
+  Complex, non-linear transformations between volumes can be expressed as displacement fields.
+  Example usecases are given by multi-modal medical imaging (i.e., MRI and CT).
+- Assembly of a 3-dimensional volume from multiple 2-dimensional images, i.e. serial tissue sections of animal brain tissue.
+- Correlative imaging: Images of the sample can be obtained with different microscopy modalities (e.g., light and electron microscopy, CLEM)
+  Transformations allow to express the spatial relationship between the different modalities. In particular, transformations and coordinate systems can be viewed as a directed graph
+  where nodes are coordinate systems and edges are transformations.
+  This, in turn, allows to express relationships between multiple images through a series of intermediate transformations.
+
+The above-listed usecases strongly benefit from the ability to express coordinate transformations as part of a top-level ome-zarr metadata object (similar to plate and wells)
+that encapsulates the spatial relationships between multiple images.
+Embedding transformation metadata as proposed in this document allows users and data producers to capture these typically complex metadata in a standardized fashion and seamlessly display them in viewers.
+This prevents costly computations of transformed images and re-saving data in order to view multiple aligned images in the same coordinate system.
+
+### Stitching and tiling
+
+A second general category of transformation usecases is presented by stitching and tiling of images.
+This allows the adoption of ome-zarr as both part of the image acquisition itself but also for later post-processing.
+Tiling images is a common approach to capture large fields of view in 2D and 3D at high resolution,
+whereas microscopes scan the object of interest in a rasterized manner.
+
+- Tiled acquisition: Without the possibility to express spatial relationships between individual tile images,
+  microscope aquisition software need to save image data in an image format of their choice,
+  which would later have to be stitched in a dedicated software for downstream conversion to ome-zarr.
+  With the ability to express transformations as a part of the ome-zarr metadata,
+  a parent-store can be created at the beginning of a tiled image acquisition.
+  The acquired tile can then be stored as individual ome-zarr images on-the-fly inside this store.
+  Finally, the microscope only needs to keep track of the necessary metadata to express the spatial relationship between all saved tiles.
+  In this context, it does not matter whether tiles overlap or not,
+  transformations simply express each tile's location in a common world coordinate system.
+  Downstream stitching software can then use these transformations to create a seamless mosaic on-demand.
+  Similarly, timelapse images or highly multiplexed data can be considered as a series of nd-tiled acquisition and thus allows on-the-fly ome-zarr writing in such applications.
+- Multi-view acquisition: Some applications (large volumetric 3D microscopy) requires the acqusition of multiple images of the same object from different angles to account for optical limitations of the microscope or the sample.
+  Rotations, translations and affine transformations allow to express these spatial relationships and enable low-cost fused view of large volumetric data using the existing ome-zarr viewer ecosystem.
+  
+### Acquisition artefacts
+
+In some cases, the acquired imaging data requires the provision of a particular transformation in order to be viewed correctly.
+
+- Lens distortion correction: Non-linear distortions can be corrected with a corresponding non-linear transformation.
+- Oblique plane microscopy deskewing: This class of high-speed lightsheet microscopes acquires volumetric data, where the individual image planes are acquired under a skewed angle.
+  Consequently, a deskewing step (e.g., transformation with an affine shear matrix) is necessary to view the data in its correct spatial arrangement.
+- Drift correction: During timelapse images, live samples may move in space.
+  This can be corrected with a drift correction, 
+  which is represented by a per-timepoint linear transformation. Similarly, registration and alignment of timelapse images requires per-timepoint transformations.
+
+### Annotation and analysis
+
+In the context of machine learning in large, possibly volumetric datasets,
+it is often unfeasible to annotate large volumes,
+either because the effort of annotation si too high or because some regions of the sample may be too ambiguous for ground-truth annotation.
+To leverage this, annotators often choose sub-volumes of the data to annotate.
+In the context of transformations, annotators could save cropped volumes of their choice along with the data and express the crops spatial relationship with the parent volume through coordinate transformations.
+Similarly, processing workflows could be applied to parts of the data and the spatial relationship between the processed, cropped data and the parent volume could be expressed through transformations.
+
 ## Proposal
 
 Below is a complete copy of the proposed changes including suggestions
