@@ -711,8 +711,8 @@ whose value MUST be a list of valid [transformations](transformation-types).
 It MAY contain the field `coordinateSystems`,
 whose value MUST be a list of valid [coordinate systems](#coordinatesystems-metadata).
 
-If used in a parent-level zarr-group, the `input` and `output` fields MUST contain a json object,
-which MUST contain either a `path` or a `name` field or both.
+If used inside "scene" metadata, the `input` and `output` fields of `coordinateTransformations` MUST contain a json object,
+which MUST contain either the `path` or the `name` field, or both.
 The value of the `path` field is the path to a multiscale image group in the same container.
 The value of the `name` field is the name of a `coordinateSystem` in the same multiscale image group
 or in the `coordinateSystems` list of the "scene" dictionary.
@@ -763,19 +763,27 @@ in coordinate system "sampleA_instrument2" to bring them into the "sampleA_instr
 In this case, image data within the ROI defined in image2 should be transformed to the "sampleA_image1" coordinate system,
 then used for quantification with the instrument 1 image.
 
-The `coordinateTransformations` in the parent-level metadata would contain the following data.
+The `coordinateTransformations` in the "scene" metadata would contain the following data.
 The transformation parameters are stored in a separate zarr-group
 under `coordinateTransformations/sampleA_instrument2-to-instrument1` as shown above.
 
 ```json
-"coordinateTransformations": [
+"scene": {
+  "coordinateTransformations": [
     {
-        "type": "affine",
-        "path": "coordinateTransformations/sampleA_instrument2-to-instrument1",
-        "input": "sampleA_instrument2",
-        "output": "sampleA_instrument1"
+      "type": "affine",
+      "path": "coordinateTransformations/sampleA_instrument2-to-instrument1",
+      "input": {
+        "path": "sampleA_instrument2",
+        "name": "physical_instrument2"
+      },
+      "output": {
+        "path": "sampleA_instrument1",
+        "name": "physical_instrument1"
+      }
     }
-]
+  ]
+}
 ```
 
 And the image at the path `sampleA_instrument1` would have the following as the first coordinate system:
@@ -783,7 +791,7 @@ And the image at the path `sampleA_instrument1` would have the following as the 
 ```json
 "coordinateSystems": [
   {
-    "name": "sampleA-instrument1",
+    "name": "physical_instrument1",
     "axes": [
       {"name": "z", "type": "space", "unit": "micrometer"},
       {"name": "y", "type": "space", "unit": "micrometer"},
@@ -798,7 +806,7 @@ The image at path `sampleA_instrument2` would have this as the first listed coor
 ```json
 "coordinateSystems": [
   {
-    "name": "sampleA-instrument2",
+    "name": "physical_instrument2",
     "axes": [
       {"name": "z", "type": "space", "unit": "micrometer"},
       {"name": "y", "type": "space", "unit": "micrometer"},
