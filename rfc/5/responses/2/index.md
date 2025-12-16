@@ -30,10 +30,10 @@ It now resembles the summary provided in our previous response.
 > We feel that the importance of ordering of coordinateSystems correctly could be missed. [...] Again, this is emphasized and made clearer in the coordinateTransformations overview section of the response to our review than it is in the spec.
 
 This topic was debated during the hackathon.
-It was agreed that an explicit expression of input path and coordinate system in separate fields
+It was agreed that an explicit expression of path and coordinate system in separate fields
 would improve clarity and avoid ambiguity introduced by precedence rules.
 Hence, we now require the `input` and `output` fields in `Scene` metadata (formerly referred to as parent-level "transformations" group).
-The following example illustrates a transformation from a coordinate System defined in the multiscales metadata (input) to a coordinate system defined in the same json file (output):
+The following example illustrates a transformation from a coordinate system defined in the multiscales metadata (input) to a coordinate system defined in the same json file (output):
 
 ```json
 {
@@ -77,11 +77,11 @@ The following community members took part in the discussion:
 | Davis Bennett | @d-v-b |  | 2024-07-30 |
 | Luca Marconato | @LucaMarconato | EMBL |
 | David Stansby | @dstansby | University College London |
-| Flurin Sturzenegger | | UZH |
+| Flurin Sturzenegger | @fstur | UZH |
 | Johannes Soltwedel | @jo-mueller | German BioImaging e.V. |
 | Will Moore | @will-moore | University of Dundee |
 | Chris Barnes | @clbarnes | German BioImaging e.V. |
-| Niklas Khoss | | FMI |
+| Niklas Khoss | @EuAtarax | FMI |
 
 The following points were raised and discussed by the present community members:
 
@@ -210,10 +210,10 @@ It was proposed to distinguish the two cases by introducing separate fields for 
 }
 ```
 
-**Outcome:** It was agreed to disambiguate the `input` and `output` fields in "Scene" metadata.
+**Outcome:** It was agreed to disambiguate the `input` and `output` fields in "scene" metadata.
 The proposal has been updated accordingly.
 
-### Relax constrain on coordinate system dimensionality
+### Relax constraint on coordinate system dimensionality
 
 Some attendees pointed out that the current proposal requires the following in the "axes" metadata:
 
@@ -235,7 +235,7 @@ We have removed the above statement from the "axes" metadata section.
 Members of the discussion raised the question of how to project lower-dimensional data into higher-dimensional coordinate systems.
 While this is currently possible through the usage of a suitable `affine` transformation,
 this was perceived counter-productive with respect to the recommendation of using least expressive transformations over more complex ones.
-Fore instance, a complex affine transformation would be required to express
+For instance, a complex affine transformation would be required to express
 a simple translation of a 2D image into a 3D coordinate system.
 
 To address this, it was proposed to introduce a new transformation type `newAxis`,
