@@ -617,20 +617,17 @@ of the `i`th output axis. See the example below.
 but implementations MAY approximate their inverses.
 Metadata for these coordinate transforms have the following fields: 
 
-<dl>
-  <dt>**path**</dt>
-  <dd>  The location of the coordinate array in this (or another) container.</dd>
-  <dt>**interpolation**</dt>
-  <dd>  The `interpolation` attributes MAY be provided.
-        Its value indicates the interpolation to use
-        if transforming points not on the array's discrete grid.
-        Values could be:
-        <ul>
-            <li>`linear` (default)</li>
-            <li>`nearest`</li>
-            <li>`cubic`</li>
-        </ul></dd>
-</dl>
+**path**
+  The location of the coordinate array in this (or another) container.
+
+**interpolation**
+  The `interpolation` attributes MAY be provided.
+  Its value indicates the interpolation to use
+  if transforming points not on the array's discrete grid.
+  Values could be:
+  - `linear` (default)
+  - `nearest`
+  - `cubic`
 
 
 For both `coordinates` and `displacements`,
@@ -663,20 +660,17 @@ For `displacements`:
 using lower dimensional transformations on subsets of dimensions.
 The `input` and `output` fields MUST always be included for this transformations type.
 
-<dl>
-  <dt>**transformations**</dt>
-  <dd>  MUST be an array of wrapped transformations.
-        Each item MUST contain `input_axes`, `output_axes` and `transformation` fields.
-        The values of `input_axes` and `output_axes` are arrays of integers.
-        The integer values in these arrays correspond to the axis indices in the `byDimension`'s
-        `input` and `output` coordinate systems, respectively.
-        The value of `transformation` is a valid transformation object.
-        Every axis index in the parent byDimension's `output` coordinate system
-        MUST appear in exactly one child transformation's `output_axes` array.
-        The `input_axes` and `output_axes` arrays of each item
-        MUST have the same length as that transformation's parameter arrays.
-        </dd>
-</dl>
+**transformations**
+: MUST be an array of wrapped transformations.
+  Each item MUST contain `input_axes`, `output_axes` and `transformation` fields.
+  The values of `input_axes` and `output_axes` are arrays of integers.
+  The integer values in these arrays correspond to the axis indices in the `byDimension`'s
+  `input` and `output` coordinate systems, respectively.
+  The value of `transformation` is a valid transformation object.
+  Every axis index in the parent byDimension's `output` coordinate system
+  MUST appear in exactly one child transformation's `output_axes` array.
+  The `input_axes` and `output_axes` arrays of each item
+  MUST have the same length as that transformation's parameter arrays.
 
 ##### <a name="bijection">bijection</a>
 
