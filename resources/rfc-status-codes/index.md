@@ -14,25 +14,25 @@ Wait times provide a sense on how fast the process is expected to move to the ne
 
 
 
-| Phase | Code   | Description                                                                                         | Wait time       |
-| ----- | ------ | --------------------------------------------------------------------------------------------------- | --------------- |
-| draft | D1     | AUTHORS propose idea (e.g. on an issue or community call)                                           | NA              |
-| draft | D2     | AUTHORS gather support (e.g. other AUTHORS) and ENDORSEMENTS                                        | NA              |
-| draft | D3     | AUTHORS open/update DRAFT PR                                                                        | 4 weeks         |
-| draft | D4     | Questions raised during PR review?                                                                  | NA              |
-| draft | D5     | EDITORS approve?                                                                                    | NA              |
-| draft | **D6** | If not, PR closed                                                                                   | NA              |
-| RFC   | R1     | EDITORs assign RFC number, merge PR, and contact REVIEWERS                                          | 4 weeks         |
-| RFC   | R2     | REVIEWERS submit REVIEWS with recommendations as new PRs.                                           | NA              |
-| RFC   | R3     | EDITORS merge COMMENTS and send to AUTHOR for RESPONSE                                              | NA              |
-| RFC   | R4     | AUTHORS prepare RESPONSE and changes to RFC                                                         | NA              |
-| RFC   | R5     | EDITORS merge RESPONSE and changes to RFC, contacts  REVIEWERS                                      | 2 weeks         |
-| RFC   | R6     | REVIEWERS approve?                                                                                  | NA              |
-| RFC   | R7     | If no, EDITORS approve?                                                                             | NA              |
-| RFC   | R8     | If changes necessary, AUTHORS prepare changes to RFC and/or RESPONSE. If they are major, back to R1 | NA              |
-| RFC   | **R9** | RFC was withdrawn. It will be readable on the website                                               | NA              |
-| SPEC  | S0     | If REVIEWERS overridden, EDITORS add RESPONSE                                                       | NA              |
-| SPEC  | S1     | RFC accepted! AUTHORS or EDITORS update the SPEC                                                    | NA              |
-| SPEC  | S2     | Clarifications needed?                                                                              | If yes, 4 weeks |
-| SPEC  | S3     | Update implementations                                                                              | NA              |
-| SPEC  | **S4** | SPEC adopted                                                                                        | NA              |
+| Phase | Code   | Description                                                                                         | Wait time       | Action by         |
+| ----- | ------ | --------------------------------------------------------------------------------------------------- | --------------- | ----------------- |
+| draft | D1     | AUTHORS propose idea (e.g. on an issue or community call)                                           | NA              | AUTHOR            |
+| draft | D2     | AUTHORS gather support (e.g. other AUTHORS) and ENDORSEMENTS                                        | NA              | AUTHOR            |
+| draft | D3     | AUTHORS open/update DRAFT PR                                                                        | 4 weeks         | AUTHOR            |
+| draft | D4     | Questions raised during PR review?                                                                  | NA              | AUTHOR            |
+| draft | D5     | EDITORS approve?                                                                                    | NA              | EDITOR            |
+| draft | **D6** | If not, PR closed                                                                                   | NA              | EDITOR            |
+| RFC   | R1     | EDITORs assign RFC number, merge PR, and contact REVIEWERS                                          | 4 weeks         | REVIEWER + EDITOR |
+| RFC   | R2     | REVIEWERS submit REVIEWS with recommendations as new PRs.                                           | NA              | REVIEWER + EDITOR |
+| RFC   | R3     | EDITORS merge REVIEWS and send to AUTHOR for RESPONSE                                               | NA              | AUTHOR + EDITOR   |
+| RFC   | R4     | AUTHORS prepare RESPONSE and changes to RFC                                                         | NA              | AUTHOR            |
+| RFC   | R5     | EDITORS merge RESPONSE and changes to RFC, contacts  REVIEWERS                                      | 2 weeks         | REVIEWER + EDITOR |
+| RFC   | R6     | REVIEWERS approve?                                                                                  | NA              | REVIEWER          |
+| RFC   | R7     | If no, EDITORS approve?                                                                             | NA              | EDITOR            |
+| RFC   | R8     | If changes necessary, AUTHORS prepare changes to RFC and/or RESPONSE. If they are major, back to R1 | NA              | AUTHOR            |
+| RFC   | **R9** | If rejected, RFC is considered withdrawn. It will be readable on the website                        | NA              | EDITOR            |
+| SPEC  | S0     | If REVIEWERS overridden, EDITORS add RESPONSE                                                       | NA              | EDITOR            |
+| SPEC  | S1     | RFC accepted! AUTHORS or EDITORS update the SPEC                                                    | NA              | AUTHOR + EDITOR   |
+| SPEC  | S2     | Clarifications needed?                                                                              | If yes, 4 weeks | EDITOR            |
+| SPEC  | S3     | Update implementations                                                                              | NA              | EDITOR            |
+| SPEC  | **S4** | SPEC adopted                                                                                        | NA              | EDITOR            |
