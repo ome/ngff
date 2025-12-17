@@ -392,7 +392,6 @@ This separation of transformations (inside `multiscales > datasets`, under `mult
 
 #### Additional details
 
-
 **Omitting `input`/`output`**: Coordinate transformations MUST specify their input and output coordinate systems
 using the `input` and `output` fields.
 These fields MUST correspond to the name of a coordinate system or the path to a multiscales group.
@@ -401,7 +400,7 @@ e.g. as part of a `sequence`, `byDimension` or `bijection`.
 In these cases input and output MAY be omitted or null (see below for details).
 
 **Graph completenes**: The coordinate systems defined in the [multiscales metadata](multiscales-metadata)
-and the ["scene" metadata](scene-metadata) combined with the coordinate transformations
+and the [`scene` metadata](scene-metadata) combined with the coordinate transformations
 form a transformations graph.
 In this graph, coordinate systems represent nodes and coordinate transformations represent edges.
 The graph MUST be complete in the sense that any two coordinate systems in the metadata
@@ -703,13 +702,17 @@ that contains the related images as child groups.
 The "scene" dictionary MUST contain the field `coordinateTransformations`,
 whose value MUST be a list of valid [transformations](transformation-types).
 It MAY contain the field `coordinateSystems`,
-whose value MUST be a list of valid [coordinate systems](#coordinatesystems-metadata).
+whose values MUST be a list of valid [coordinate systems](#coordinatesystems-metadata).
 
 If used inside "scene" metadata, the `input` and `output` fields of `coordinateTransformations` MUST contain a json object,
 which MUST contain either the `path` or the `name` field, or both.
-The value of the `path` field is the path to a multiscale image group in the same container.
-The value of the `name` field is the name of a `coordinateSystem` in the same multiscale image group
-or in the `coordinateSystems` list of the "scene" dictionary.
+The value of the `path` field is the path to a multiscale image subgroup.
+The value of the `name` field is the name of a `coordinateSystem` either in the multiscale image subgroup specified by the path,
+or within the `scene` dictionary itself.
+If `name` refers to a coordinate system in the `scene` dictionary,
+the `path` value MAY be omitted or null.
+If `name` refers to a coordinate system in the multiscale image subgroup specified by `path`,
+both `path` and `name` MUST be provided.
 
 For transformations that store data or parameters in a zarr array,
 those zarr arrays SHOULD be stored in a zarr group called "coordinateTransformations".
