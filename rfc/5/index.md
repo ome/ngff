@@ -61,6 +61,10 @@ for neuro and bio-imaging and broader scientific imaging practices to enable:
   or reverse transformations as needed for different analysis purposes.
   This flexibility is critical for tasks such as longitudinal studies, multi-modal imaging,
   and comparative analysis across different subjects or experimental conditions.
+5. Clarity and Unification:
+  This proposal aims to be clear and explicit that will reduce the amount of manual record
+  keeping, by making metadata for many related image analysis task machine readable.
+
 
 Toward these goals, this RFC expands the set of transformations in the OME-Zarr spec
 covering many of the use cases requested in [this github issue](https://github.com/ome/ngff/issues/84).
@@ -130,6 +134,14 @@ In some cases, the acquired imaging data requires the provision of a particular 
   which is represented by a per-timepoint linear transformation. Similarly, registration and alignment of timelapse images requires per-timepoint transformations.
 
 ### Annotation and analysis
+
+Image analysis tasks involving coordinates and transformations are often not explicit about 
+what coordinate system they correspond to. Some examples
+
+* Is a coordinate that represents an annotation on an image in pixel or physical units? 
+* Is a transformations inputs / outputs in pixel or physical units?;
+* Is a transformation obtained by image registration the "forward" or "inverse" transformation?
+
 
 In the context of machine learning in large, possibly volumetric datasets,
 it is often unfeasible to annotate large volumes,
