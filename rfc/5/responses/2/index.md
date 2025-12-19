@@ -275,7 +275,7 @@ In the previous version of RFC5, we required the `sequence` to be a top-level tr
 
 While we stand by the rationale of this requirement,
 it was pointed out that this restriction is not strictly necessary.
-In some cases, implementors may choose to use a sequence to encapsulate a series of transformations
+In some cases, implementers may choose to use a sequence to encapsulate a series of transformations
 as a related subset of transformations.
 For instance, a rotation around a particular coordinate as rotation center can be expressed
 as a sequence of a translation, a rotation, and the inverse translation.
