@@ -326,8 +326,8 @@ The following transformations are supported:
 | [`affine`](#affine) | one of:<br>`"affine":List[List[number]]`,<br>`"path":str` | 2D affine transformation matrix stored either with JSON (`affine`) or as a zarr array at a location in this container (`path`). |
 | [`rotation`](#rotation) | one of:<br>`"rotation":List[List[number]]`,<br>`"path":str` | 2D rotation transformation matrix stored as an array stored either with json (`rotation`) or as a zarr array at a location in this container (`path`).|
 | [`sequence`](#sequence) | `"transformations":List[Transformation]` | sequence of transformations. Applying the sequence applies the composition of all transforms in the list, in order. |
-| [`displacements`](#coordinates-and-displacements) | `"path":str`<br>`"interpolation":str` | Displacement field transformation located at `path`. |
-| [`coordinates`](#coordinates-and-displacements) | `"path":str`<br>`"interpolation":str` | Coordinate field transformation located at `path`. |
+| [`displacements`](#coordinates-and-displacements) | `"path":str` | Displacement field transformation located at `path`. |
+| [`coordinates`](#coordinates-and-displacements) | `"path":str` | Coordinate field transformation located at `path`. |
 | [`bijection`](#bijection) | `"forward":Transformation`<br>`"inverse":Transformation` | An invertible transformation providing an explicit forward transformation and its inverse. |
 | [`byDimension`](#bydimension) | `"transformations":List[Transformation]`, <br> `"input_axes": List[str]`, <br> `"output_axes": List[str]` | A high dimensional transformation using lower dimensional transformations on subsets of dimensions. |
 
@@ -597,15 +597,6 @@ Metadata for these coordinate transforms have the following fields:
 
 **path**
   The location of the coordinate array in this (or another) container.
-
-**interpolation**
-  The `interpolation` attributes MAY be provided.
-  Its value indicates the interpolation to use
-  if transforming points not on the array's discrete grid.
-  Values could be:
-  - `linear` (default)
-  - `nearest`
-  - `cubic`
 
 
 For both `coordinates` and `displacements`,
