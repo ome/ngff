@@ -556,9 +556,6 @@ Next, apply the second transformation to the result.
 Repeat until every transformation has been applied.
 The output of the last transformation is the result of the sequence.
 
-A sequence transformation MUST NOT be part of another sequence transformation.
-The `input` and `output` fields MUST be included for sequence transformations.
-
 **transformations**
 : A non-empty array of transformations.
 

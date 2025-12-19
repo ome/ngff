@@ -266,3 +266,16 @@ MUST always be included, except if the transformation is part of a wrapper trans
 In other words, only root-level transformations MUST provide `input` and `output` fields.
 
 We also explicitly point out that `null` values are allowed for omitted `input`/`output` fields.
+
+### Removal of top-levelness of sequence transformations
+
+In the previous version of RFC5, we required the `sequence` to be a top-level transformation:
+
+> A sequence transformation MUST NOT be part of another sequence transformation.
+
+While we stand by the rationale of this requirement,
+it was pointed out that this restriction is not strictly necessary.
+In some cases, implementors may choose to use a sequence to encapsulate a series of transformations
+as a related subset of transformations.
+For instance, a rotation around a particular coordinate as rotation center can be expressed
+as a sequence of a translation, a rotation, and the inverse translation.
