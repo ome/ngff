@@ -422,30 +422,64 @@ Coordinate transformations are functions of *points* in the input space to *poin
 We call this the "forward" direction.
 Points are ordered lists of coordinates,
 where a coordinate is the location/value of that point along its corresponding axis.
-The indexes of axis dimensions correspond to indexes into transformation parameter arrays.
+The indexes of axis dimensions correspond to indexes into transformation parameter arrays (see examples).
 
-When rendering transformed images and interpolating,
-implementations may need the "inverse" transformation - 
-from the output to the input coordinate system.
-Inverse transformations will not be explicitly specified
-when they can be computed in closed form from the forward transformation.
+**Image rendering**: When rendering transformed images and interpolating,
+implementations may need the "inverse" transformation - from the fixed 
+image's to the source image's coordinate system. This transformation may 
+not explicitly exist, but might be the require computing the inverse 
+(in closed form) of an explicitly specified forward transformation.
+
 Inverse transformations used for image rendering may be specified
-by swapping the `input` and `output` fields of the forward transformation.
+by specifying the inverse transform directly - with the `input` referring
+to the the fixed image's coordinate system and the `output` referring to
+the the source image's coordinate system.  If an operation is requested
+that requires the inverse of a transformation that can not be inverted in
+closed-form, implementations MAY estimate an inverse, or MAY output a warning
+that the requested operation is unsupported.
 
-```{note}
-Software libraries that perform image registration
-often return the transformation from fixed image coordinates to moving image coordinates,
-because this "inverse" transformation is most often required
-when rendering the transformed moving image.
+````{admonition} Example
 
-Implementations SHOULD be able to compute and apply
-the inverse of some coordinate transformations when they are computable
-in closed-form (as the [Transformation types](#transformation-types) section below indicates).
-If an operation is requested that requires
-the inverse of a transformation that can not be inverted in closed-form,
-implementations MAY estimate an inverse,
-or MAY output a warning that the requested operation is unsupported.
+Implementations SHOULD be able to compute and apply the inverse of some coordinate 
+transformations when they are computable in closed-form (as the 
+[Transformation types](#transformation-types) section below indicates).
+Implementations should be able to render the source image into the fixed
+image by computing the inverse of this transformation.
+
+```json
+{
+  "type": "<a type that can be inverted in closed-form>",
+  "input": "source image",
+  "output": "fixed image"
+}
 ```
+
+Software libraries that perform image registration often return the transformation 
+from fixed image coordinates to moving image coordinates, because this "inverse" 
+transformation is most often required when rendering the transformed moving image.
+Implementations should be able to render the source image into the fixed image by 
+applying this transformation directly.
+
+```json
+{
+  "type": "<a type that can NOT be inverted in closed-form>",
+  "input": "fixed image",
+  "output": "source image"
+}
+```
+
+Implementations are not expected to be able to to render the source image 
+into the fixed image given this transformation. They may attempt
+to do so by estimating the transformations inverse if they choose to.
+
+```json
+{
+  "type": "<a type that can NOT be inverted in closed-form>",
+  "input": "source image",
+  "output": "fixed image"
+}
+```
+````
 
 #### Matrix transformations
 
