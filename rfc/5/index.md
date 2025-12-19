@@ -88,7 +88,7 @@ Common use cases for transformations in this context include (among others):
   Example use cases are given by multi-modal medical imaging (i.e., MRI and CT).
 - Assembly of a 3-dimensional volume from multiple 2-dimensional images, i.e. serial tissue sections of animal brain tissue.
 - Correlative imaging: Images of the sample can be obtained with different microscopy modalities (e.g., light and electron microscopy, CLEM)
-  Transformations allow to express the spatial relationship between the different modalities. In particular, transformations and coordinate systems can be viewed as a directed graph
+  Transformations the spatial relationship between the different modalities to be expressed. In particular, transformations and coordinate systems can be viewed as a directed graph
   where nodes are coordinate systems and edges are transformations.
   This, in turn, allows to express relationships between multiple images through a series of intermediate transformations.
 
@@ -106,17 +106,17 @@ whereas microscopes scan the object of interest in a rasterized manner.
 
 - Tiled acquisition: Without the possibility to express spatial relationships between individual tile images,
   microscope acquisition software need to save image data in an image format of their choice,
-  which would later have to be stitched in a dedicated software for downstream conversion to ome-zarr.
+  which would later have to be stitched in a dedicated software for downstream conversion to OME-zarr.
   With the ability to express transformations as a part of the ome-zarr metadata,
   a parent-store can be created at the beginning of a tiled image acquisition.
-  The acquired tile can then be stored as individual ome-zarr images on-the-fly inside this store.
+  The acquired tile can then be stored as individual OME-zarr images on-the-fly inside this store.
   Finally, the microscope only needs to keep track of the necessary metadata to express the spatial relationship between all saved tiles.
   In this context, it does not matter whether tiles overlap or not,
   transformations simply express each tile's location in a common world coordinate system.
   Downstream stitching software can then use these transformations to create a seamless mosaic on-demand.
-  Similarly, timelapse images or highly multiplexed data can be considered as a series of nd-tiled acquisition and thus allows on-the-fly ome-zarr writing in such applications.
+  Similarly, timelapse images or highly multiplexed data can be considered as a series of nd-tiled acquisition and thus allows on-the-fly OME-zarr writing in such applications.
 - Multi-view acquisition: Some applications (large volumetric 3D microscopy) require the acquisition of multiple images of the same object from different angles to account for optical limitations of the microscope or the sample.
-  Rotations, translations and affine transformations allow to express these spatial relationships and enable low-cost fused view of large volumetric data using the existing ome-zarr viewer ecosystem.
+  Rotations, translations and affine transformations enable expression of these spatial relationships and low-cost fused view of large volumetric data using the existing OME-zarr viewer ecosystem.
   
 ### Acquisition artefacts
 
