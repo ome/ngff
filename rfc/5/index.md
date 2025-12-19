@@ -309,9 +309,9 @@ They:
 - MUST contain the field "type" (string).
 - MUST contain any other fields required by the given "type" (see table below).
 - MUST contain the field "output" (string),
-  unless part of a `sequence` (see details).
+  unless part of a wrapper transform (, i.e., [`sequence`](#sequence-md), [`bijection`](#bijection-md), [`byDimension`](#bydimension-md), see details).
 - MUST contain the field "input" (string),
-  unless part of a `sequence` (see details).
+  unless part of a wrapper transform (, i.e., [`sequence`](#sequence-md), [`bijection`](#bijection-md), [`byDimension`](#bydimension-md), see details).
 - MAY contain the field "name" (string).
   Its value MUST be unique across all "name" fields for all coordinate transformations in the same list.
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
