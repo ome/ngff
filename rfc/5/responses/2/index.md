@@ -260,4 +260,9 @@ Thus, the usage of generic transform names (e.g., `scale1_to_physical`) is not o
 
 Community members pointed out that the list of requirements under which circumstances the `input` and `output` fields can be omitted
 was somewhat convoluted and difficult to follow. The text was restructured to improve clarity.
+
+Under `Additional details > **Omitting input/output**`, we specify that `input` and `output` fields
+MUST always be included, except if the transformation is part of a wrapper transformation (i.e., `sequence`, `byDimension`, `bijection`).
+In other words, only root-level transformations MUST provide `input` and `output` fields.
+
 We also explicitly point out that `null` values are allowed for omitted `input`/`output` fields.

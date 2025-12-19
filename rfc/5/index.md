@@ -384,8 +384,8 @@ Coordinate transformations can be stored in multiple places to reflect different
   
 - **Inside `scene > coordinateTransformations`**: Transformations between two or more images
   MUST be stored in the attributes of a `scene` dictionary in a parent zarr group.
-  The `input` and `output` fields of these transformations can be coordinate systems
-  in the same zarr.json or in multiscales metadata of child groups.
+  In this case, the `input` and `output` values are dictionaries
+  that refer to coordinate systems in the same zarr.json or in the metadata of multiscale image subgroups."
   For more information, see [`scene` section below](#scene-metadata).
 
 This separation of transformations (inside `multiscales > datasets`, under `multiscales > coordinateTransformations` and under `scene > coordinateTransformations`) provides flexibility for different use cases while still maintaining a level of rigidity for implementations.
@@ -397,7 +397,7 @@ using the `input` and `output` fields.
 These fields MUST correspond to the name of a coordinate system or the path to a multiscales group.
 Exceptions are if the coordinate transformation is wrapped in another transformation,
 e.g. as part of a `sequence`, `byDimension` or `bijection`.
-In these cases input and output MAY be omitted or null (see below for details).
+In these cases, the `input` and `output` fields can be omitted or null.
 
 **Graph completenes**: The coordinate systems defined in the [multiscales metadata](multiscales-metadata)
 and the [`scene` metadata](scene-metadata) combined with the coordinate transformations
@@ -461,9 +461,6 @@ The position of the i-th axis of the output coordinate system
 is set to the position of the ith axis of the input coordinate system.
 `identity` transformations are invertible.
 
-The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`byDimension`](#bydimension) or [`bijection`](#bijection)).
-
 
 ##### <a name="mapAxis">mapAxis</a>
 
@@ -477,9 +474,6 @@ Each index MUST appear exactly once in the array.
 The value at position `i` in the array indicates which input axis becomes the `i`-th output axis.
 `mapAxis` transforms are invertible.
 
-The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`byDimension`](#bydimension) or [`bijection`](#bijection)).
-
 ##### <a name="translation">translation</a>
 
 `translation` transformations are special cases of affine transformations.
@@ -487,9 +481,6 @@ When possible, a translation transformation should be preferred to its equivalen
 Input and output dimensionality MUST be identical
 and MUST equal the the length of the "translation" array (N).
 `translation` transformations are invertible.
-
-The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`byDimension`](#bydimension) or [`bijection`](#bijection)).
 
 **path**
 : The path to a zarr-array containing the translation parameters.
@@ -508,9 +499,6 @@ and MUST equal the the length of the "scale" array (N).
 Values in the `scale` array SHOULD be non-zero;
 in that case, `scale` transformations are invertible.
 
-The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`byDimension`](#bydimension) or [`bijection`](#bijection)).
-
 **path**
 : The path to a zarr-array containing the scale parameters.
 The array at this path MUST be 1D, and its length MUST be `N`.
@@ -527,9 +515,6 @@ coordinates](https://en.wikipedia.org/wiki/Homogeneous_coordinates) (see example
 This transformation type may be (but is not necessarily) invertible
 when `N` equals `M`.
 The matrix MUST be stored as a 2D array either as json or as a zarr array.
-
-The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`byDimension`](#bydimension) or [`bijection`](#bijection)).
 
 **path**
 :  The path to a zarr-array containing the affine parameters.
@@ -549,9 +534,6 @@ Rotations are stored as `NxN` matrices, see below,
 and MUST have determinant equal to one, with orthonormal rows and columns.
 The matrix MUST be stored as a 2D array either as json or in a zarr array.
 `rotation` transformations are invertible.
-
-The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`byDimension`](#bydimension) or [`bijection`](#bijection)).
 
 **path**
 : The path to an array containing the affine parameters.
@@ -595,9 +577,6 @@ or a displacement of the input point (`displacements`).
 These transformation types refer to an array at location specified by the `"path"` parameter.
 The input and output coordinate systems for these transformations ("input / output coordinate systems")
 constrain the array size and the coordinate system metadata for the array ("field coordinate system").
-
-The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
-(e.g., [`sequence`](#sequence), [`byDimension`](#bydimension) or [`bijection`](#bijection)).
 
 * If the input coordinate system has `N` axes,
   the array at location path MUST have `N+1` dimensions
@@ -650,20 +629,19 @@ For `displacements`:
 
 * `coordinateSystem` metadata MUST have exactly one axis with `"type" : "displacement"`
 * the shape of the array along the "displacement" axis must be exactly `N`
-* `input` and `output` MUST have an equal number of dimensions.
+* input and output coordinate systems MUST have an equal number of dimensions.
 
 
 ##### <a name=trafo-byDimension>byDimension</a>
 
 `byDimension` transformations build a high dimensional transformation
 using lower dimensional transformations on subsets of dimensions.
-The `input` and `output` fields MUST always be included for this transformations type.
 
 **transformations**
 : MUST be an array of wrapped transformations.
   Each item MUST contain `input_axes`, `output_axes` and `transformation` fields.
   The values of `input_axes` and `output_axes` are arrays of integers.
-  The integer values in these arrays correspond to the axis indices in the `byDimension`'s
+  The integer values in these arrays correspond to the axis indices in the `byDimension`'s or its parent's
   `input` and `output` coordinate systems, respectively.
   The value of `transformation` is a valid transformation object.
   Every axis index in the parent byDimension's `output` coordinate system
@@ -684,9 +662,6 @@ MUST match bijection's input and output space dimensions.
 in which case the `forward` transformation's `input` and `output` are understood to match the bijection's,
 and the `inverse` transformation's `input` (`output`) matches the bijection's `output` (`input`),
 see the example below.
-
-The `input` and `output` fields MAY be omitted for `bijection` transformations
-if the fields may be omitted for both its `forward` and `inverse` transformations
 
 Practically, non-invertible transformations have finite extents,
 so bijection transforms should only be expected to be correct / consistent for points that fall within those extents.
