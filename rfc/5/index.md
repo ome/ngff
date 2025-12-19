@@ -397,7 +397,7 @@ using the `input` and `output` fields.
 These fields MUST correspond to the name of a coordinate system or the path to a multiscales group.
 Exceptions are if the coordinate transformation is wrapped in another transformation,
 e.g. as part of a `sequence`, `byDimension` or `bijection`.
-In these cases, the `input` and `output` fields can be omitted or null.
+In these cases, the `input` and `output` fields MAY be omitted or null.
 
 **Graph completenes**: The coordinate systems defined in the [multiscales metadata](multiscales-metadata)
 and the [`scene` metadata](scene-metadata) combined with the coordinate transformations
