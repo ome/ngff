@@ -443,13 +443,13 @@ that the requested operation is unsupported.
 Implementations SHOULD be able to compute and apply the inverse of some coordinate 
 transformations when they are computable in closed-form (as the 
 [Transformation types](#transformation-types) section below indicates).
-Implementations should be able to render the source image into the fixed
+Implementations should be able to render the moving image into the fixed
 image by computing the inverse of this transformation.
 
 ```json
 {
   "type": "<a type that can be inverted in closed-form>",
-  "input": "source image",
+  "input": "moving image",
   "output": "fixed image"
 }
 ```
@@ -457,25 +457,25 @@ image by computing the inverse of this transformation.
 Software libraries that perform image registration often return the transformation 
 from fixed image coordinates to moving image coordinates, because this "inverse" 
 transformation is most often required when rendering the transformed moving image.
-Implementations should be able to render the source image into the fixed image by 
+Implementations should be able to render the moving image into the fixed image by 
 applying this transformation directly.
 
 ```json
 {
   "type": "<a type that can NOT be inverted in closed-form>",
   "input": "fixed image",
-  "output": "source image"
+  "output": "moving image"
 }
 ```
 
-Implementations are not expected to be able to to render the source image 
+Implementations are not expected to be able to to render the moving image 
 into the fixed image given this transformation. They may attempt
 to do so by estimating the transformations' inverse if they choose to.
 
 ```json
 {
   "type": "<a type that can NOT be inverted in closed-form>",
-  "input": "source image",
+  "input": "moving image",
   "output": "fixed image"
 }
 ```
