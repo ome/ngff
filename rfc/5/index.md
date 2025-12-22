@@ -61,6 +61,10 @@ for neuro and bio-imaging and broader scientific imaging practices to enable:
   or reverse transformations as needed for different analysis purposes.
   This flexibility is critical for tasks such as longitudinal studies, multi-modal imaging,
   and comparative analysis across different subjects or experimental conditions.
+5. Clarity and Unification:
+  This proposal aims to be clear and explicit that will reduce the amount of manual record
+  keeping, by making metadata for many related image analysis task machine readable.
+
 
 Toward these goals, this RFC expands the set of transformations in the OME-Zarr spec
 covering many of the use cases requested in [this github issue](https://github.com/ome/ngff/issues/84).
@@ -88,7 +92,7 @@ Common use cases for transformations in this context include (among others):
   Example use cases are given by multi-modal medical imaging (i.e., MRI and CT).
 - Assembly of a 3-dimensional volume from multiple 2-dimensional images, i.e. serial tissue sections of animal brain tissue.
 - Correlative imaging: Images of the sample can be obtained with different microscopy modalities (e.g., light and electron microscopy, CLEM)
-  Transformations allow to express the spatial relationship between the different modalities. In particular, transformations and coordinate systems can be viewed as a directed graph
+  Transformations allow the spatial relationship between the different modalities to be expressed. In particular, transformations and coordinate systems can be viewed as a directed graph
   where nodes are coordinate systems and edges are transformations.
   This, in turn, allows to express relationships between multiple images through a series of intermediate transformations.
 
@@ -106,17 +110,17 @@ whereas microscopes scan the object of interest in a rasterized manner.
 
 - Tiled acquisition: Without the possibility to express spatial relationships between individual tile images,
   microscope acquisition software need to save image data in an image format of their choice,
-  which would later have to be stitched in a dedicated software for downstream conversion to ome-zarr.
+  which would later have to be stitched in a dedicated software for downstream conversion to OME-zarr.
   With the ability to express transformations as a part of the ome-zarr metadata,
   a parent-store can be created at the beginning of a tiled image acquisition.
-  The acquired tile can then be stored as individual ome-zarr images on-the-fly inside this store.
+  The acquired tile can then be stored as individual OME-zarr images on-the-fly inside this store.
   Finally, the microscope only needs to keep track of the necessary metadata to express the spatial relationship between all saved tiles.
   In this context, it does not matter whether tiles overlap or not,
   transformations simply express each tile's location in a common world coordinate system.
   Downstream stitching software can then use these transformations to create a seamless mosaic on-demand.
-  Similarly, timelapse images or highly multiplexed data can be considered as a series of nd-tiled acquisition and thus allows on-the-fly ome-zarr writing in such applications.
+  Similarly, timelapse images or highly multiplexed data can be considered as a series of nd-tiled acquisition and thus allows on-the-fly OME-zarr writing in such applications.
 - Multi-view acquisition: Some applications (large volumetric 3D microscopy) require the acquisition of multiple images of the same object from different angles to account for optical limitations of the microscope or the sample.
-  Rotations, translations and affine transformations allow to express these spatial relationships and enable low-cost fused view of large volumetric data using the existing ome-zarr viewer ecosystem.
+  Rotations, translations and affine transformations enable expression of these spatial relationships and low-cost fused view of large volumetric data using the existing OME-zarr viewer ecosystem.
   
 ### Acquisition artefacts
 
@@ -130,6 +134,14 @@ In some cases, the acquired imaging data requires the provision of a particular 
   which is represented by a per-timepoint linear transformation. Similarly, registration and alignment of timelapse images requires per-timepoint transformations.
 
 ### Annotation and analysis
+
+Image analysis tasks involving coordinates and transformations are often not explicit about 
+what coordinate system they correspond to. Some examples
+
+* Is a coordinate that represents an annotation on an image in pixel or physical units? 
+* Is a transformations inputs / outputs in pixel or physical units?;
+* Is a transformation obtained by image registration the "forward" or "inverse" transformation?
+
 
 In the context of machine learning in large, possibly volumetric datasets,
 it is often unfeasible to annotate large volumes,
@@ -410,30 +422,64 @@ Coordinate transformations are functions of *points* in the input space to *poin
 We call this the "forward" direction.
 Points are ordered lists of coordinates,
 where a coordinate is the location/value of that point along its corresponding axis.
-The indexes of axis dimensions correspond to indexes into transformation parameter arrays.
+The indexes of axis dimensions correspond to indexes into transformation parameter arrays (see examples).
 
-When rendering transformed images and interpolating,
-implementations may need the "inverse" transformation - 
-from the output to the input coordinate system.
-Inverse transformations will not be explicitly specified
-when they can be computed in closed form from the forward transformation.
+**Image rendering**: When rendering transformed images and interpolating,
+implementations may need the "inverse" transformation - from the fixed 
+image's to the source image's coordinate system. This transformation may 
+not explicitly exist, but might be the require computing the inverse 
+(in closed form) of an explicitly specified forward transformation.
+
 Inverse transformations used for image rendering may be specified
-by swapping the `input` and `output` fields of the forward transformation.
+by specifying the inverse transform directly - with the `input` referring
+to the the fixed image's coordinate system and the `output` referring to
+the the source image's coordinate system.  If an operation is requested
+that requires the inverse of a transformation that can not be inverted in
+closed-form, implementations MAY estimate an inverse, or MAY output a warning
+that the requested operation is unsupported.
 
-```{note}
-Software libraries that perform image registration
-often return the transformation from fixed image coordinates to moving image coordinates,
-because this "inverse" transformation is most often required
-when rendering the transformed moving image.
+````{admonition} Example
 
-Implementations SHOULD be able to compute and apply
-the inverse of some coordinate transformations when they are computable
-in closed-form (as the [Transformation types](#transformation-types) section below indicates).
-If an operation is requested that requires
-the inverse of a transformation that can not be inverted in closed-form,
-implementations MAY estimate an inverse,
-or MAY output a warning that the requested operation is unsupported.
+Implementations SHOULD be able to compute and apply the inverse of some coordinate 
+transformations when they are computable in closed-form (as the 
+[Transformation types](#transformation-types) section below indicates).
+Implementations should be able to render the source image into the fixed
+image by computing the inverse of this transformation.
+
+```json
+{
+  "type": "<a type that can be inverted in closed-form>",
+  "input": "source image",
+  "output": "fixed image"
+}
 ```
+
+Software libraries that perform image registration often return the transformation 
+from fixed image coordinates to moving image coordinates, because this "inverse" 
+transformation is most often required when rendering the transformed moving image.
+Implementations should be able to render the source image into the fixed image by 
+applying this transformation directly.
+
+```json
+{
+  "type": "<a type that can NOT be inverted in closed-form>",
+  "input": "fixed image",
+  "output": "source image"
+}
+```
+
+Implementations are not expected to be able to to render the source image 
+into the fixed image given this transformation. They may attempt
+to do so by estimating the transformations' inverse if they choose to.
+
+```json
+{
+  "type": "<a type that can NOT be inverted in closed-form>",
+  "input": "source image",
+  "output": "fixed image"
+}
+```
+````
 
 #### Matrix transformations
 
