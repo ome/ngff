@@ -411,12 +411,12 @@ Exceptions are if the coordinate transformation is wrapped in another transforma
 e.g. as part of a `sequence`, `byDimension` or `bijection`.
 In these cases, the `input` and `output` fields MAY be omitted or null.
 
-**Graph completenes**: The coordinate systems defined in the [multiscales metadata](multiscales-metadata)
-and the [`scene` metadata](scene-metadata) combined with the coordinate transformations
-form a transformations graph.
+**Graph connectedness**: The coordinate systems defined in the [multiscales metadata](multiscales-metadata)
+and the [`scene` metadata](scene-metadata) combined with the coordinate transformations form a transformations graph.
 In this graph, coordinate systems represent nodes and coordinate transformations represent edges.
-The graph MUST be complete in the sense that any two coordinate systems in the metadata
-MUST be connected by a sequence of coordinate transformations.
+The graph MUST be fully connected in the sense that any two coordinate systems in the metadata
+MUST be connected by a sequence of edges represented by coordinate transformations.
+Coordinate systems that are connected by a non-invertible transformation count as connected in this sense, even though graph traversal may not be computable in every direction.
 
 Coordinate transformations are functions of *points* in the input space to *points* in the output space.
 We call this the "forward" direction.
