@@ -90,9 +90,11 @@ The following points were raised and discussed by the present community members:
 The coordinate systems and transformations defined in the metadata can be interpreted as a graph,
 where the coordinate systems defined in the metadata represent the nodes,
 and the transformations represent edges.
-It was suggested that the transformation graph should be complete and contain no separate components.
+It was suggested that the transformation graph should be fully connected and contain no separate components.
 This would ensure that any image that is declared to belong to a given coordinate system
 can be transformed to any other coordinate system defined in the metadata.
+While it may not always be possible to calculate the transformation in both directions (i.e., if a network edge corresponds to a non-closed-form-invertible transformation),
+but such a graph would still count as connected.
 
 **Outcome:** It was agreed that this is a desirable property.
 The corresponding constraint has been added to the proposal.
