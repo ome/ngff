@@ -92,7 +92,7 @@ Common use cases for transformations in this context include (among others):
   Example use cases are given by multi-modal medical imaging (i.e., MRI and CT).
 - Assembly of a 3-dimensional volume from multiple 2-dimensional images, i.e. serial tissue sections of animal brain tissue.
 - Correlative imaging: Images of the sample can be obtained with different microscopy modalities (e.g., light and electron microscopy, CLEM)
-  Transformations the spatial relationship between the different modalities to be expressed. In particular, transformations and coordinate systems can be viewed as a directed graph
+  Transformations allow the spatial relationship between the different modalities to be expressed. In particular, transformations and coordinate systems can be viewed as a directed graph
   where nodes are coordinate systems and edges are transformations.
   This, in turn, allows to express relationships between multiple images through a series of intermediate transformations.
 
