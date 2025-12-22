@@ -749,8 +749,7 @@ store.zarr                      # Root folder of the zarr store
             └── zarr.json      # physical coordinate system and transformations here
 </pre>
 
-````{admonition} Example
-(example:coordinate_transformation)=
+````{admonition} Example 1: Multiview fusion
 Two instruments simultaneously image the same sample from two different angles,
 and the 3D data from both instruments are calibrated to "micrometer" units.
 An analysis of sample A requires measurements from images taken from both instruments at certain points in space.
@@ -822,6 +821,51 @@ The image at path `sampleA_instrument2` would have this as the first listed coor
 ],
 ```
 ````
+
+````{admonition} Example 2: Multi-hop transformations
+Consider three instruments with strongly differing optical resolutions acquriring images of the same sample.
+The fields of view (FOV) of all instruments may differ by orders of magnitude.
+In this case, the FOV of instrument 1 (low-resolution) may entirely contain the FOVs of the other modalities. However, the alignment of instrument 3 with instrument 1 may be hard due to the lack of common landmark features.
+In such a case, it may be easier to align instrument 2 (medium-resolution) with instrument 1, and then instrument 3 with instrument 2.
+
+In this case, the "scene" metadata would contain the following coordinate transformations:
+
+```jsonc
+"scene": {
+  "coordinateTransformations": [
+    {
+      "type": "affine",
+      "input": {
+        "path": "instrument1",
+        "name": "physical"
+      },
+      "output": {
+        "path": "instrument2",
+        "name": "physical"
+      },
+      "affine": [ [ ... ], [ ... ], [ ... ]]  // 4x3 matrix stored in json
+    },
+    {
+      "type": "affine",
+      "input": {
+        "path": "instrument3",
+        "name": "physical"
+      },
+      "output": {
+        "path": "instrument2",
+        "name": "physical"
+      },
+      "affine": [ [ ... ], [ ... ], [ ... ] ]  // 4x3 matrix stored in json
+    }
+  ]
+}
+```
+Both transformations (from instrument1 to instrument2, and from instrument3 to instrument2) refer to the "physical" coordinate systems of the respective images,
+which are defined in the `multiscales` attributes of the respective image groups.
+A transformation from instrument3 to instrument1 can be obtained
+by composing the two transformations above.
+````
+
 
 ### "multiscales" metadata
 (multiscales-metadata)=
