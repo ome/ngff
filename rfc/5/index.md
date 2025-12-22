@@ -470,7 +470,7 @@ applying this transformation directly.
 
 Implementations are not expected to be able to to render the source image 
 into the fixed image given this transformation. They may attempt
-to do so by estimating the transformations inverse if they choose to.
+to do so by estimating the transformations' inverse if they choose to.
 
 ```json
 {
