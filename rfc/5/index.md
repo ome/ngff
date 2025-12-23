@@ -413,7 +413,7 @@ e.g. as part of a `sequence`, `byDimension` or `bijection`.
 In these cases, the `input` and `output` fields MAY be omitted or null.
 
 **Graph connectedness**: The coordinate systems defined in the [multiscales metadata](multiscales-metadata)
-and the [`scene` metadata](scene-metadata) combined with the coordinate transformations form a transformations graph.
+and the [`scene` metadata](rfcs:rfc5:version3:scene) combined with the coordinate transformations form a transformations graph.
 In this graph, coordinate systems represent nodes and coordinate transformations represent edges.
 The graph MUST be fully connected in the sense that any two coordinate systems in the metadata
 MUST be connected by a sequence of edges represented by coordinate transformations.
