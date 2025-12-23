@@ -111,7 +111,11 @@ Suggested names included "Scene", "SpatialCollection", "Collection" and "Transfo
 
 **Outcome:** It was agreed that renaming the parent-level group is a good idea.
 The name "Scene" was chosen as it best reflects the purpose of the group.
-We have updated the proposal accordingly.
+We have further specified that a scene MUST be implemented one group level above the images
+and that it MUST implement the [scene specification](rfcs:rfc5:version3:scene).
+This specification will be placed under a subsection called "Scene" in the [Storage format](file:///C:/Users/johan/Documents/GitHub/ngff/_build/html/0.5/index.html#storage-format) section of the specification text.
+This carifies the relationship between images in a scene dataset and provides a clearer wording for the hierarchy of zarr groups in this context.
+Consequently, "scene" metadata can exclusively be defined in the attributes of a scene zarr group (i.e., nested scenes are not allowed).
 
 ### Remove `inverseOf` transformation
 
@@ -188,7 +192,7 @@ This would help to illustrate the usecases for the proposed transformations.
 
 ### Disambiguate `input` and `output` fields in "Scene" metadata
 
-The current proposal allows `input` and `output` fields in parent-level zarr groups to contain
+The current proposal allows `input` and `output` fields in scene-level zarr groups to contain
 either a reference to a named coordinate system instance in the same json file,
 or a path to a multiscale dataset.
 This requires providing a ruleset to disambiguate the two cases.

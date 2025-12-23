@@ -1,4 +1,5 @@
 # RFC-5: Coordinate Systems and Transformations
+(rfcs:rfc5:version3)=
 
 ```{toctree}
 :hidden:
@@ -112,7 +113,7 @@ whereas microscopes scan the object of interest in a rasterized manner.
   microscope acquisition software need to save image data in an image format of their choice,
   which would later have to be stitched in a dedicated software for downstream conversion to OME-zarr.
   With the ability to express transformations as a part of the ome-zarr metadata,
-  a parent-store can be created at the beginning of a tiled image acquisition.
+  a store for the [scene](rfcs:rfc5:version3:storage-format-scene) can be created at the beginning of a tiled image acquisition.
   The acquired tile can then be stored as individual OME-zarr images on-the-fly inside this store.
   Finally, the microscope only needs to keep track of the necessary metadata to express the spatial relationship between all saved tiles.
   In this context, it does not matter whether tiles overlap or not,
@@ -147,7 +148,7 @@ In the context of machine learning in large, possibly volumetric datasets,
 it is often unfeasible to annotate large volumes,
 either because the effort of annotation is too high or because some regions of the sample may be too ambiguous for ground-truth annotation.
 To leverage this, annotators often choose sub-volumes of the data to annotate.
-In the context of transformations, annotators could save cropped volumes of their choice along with the data and express the crops spatial relationship with the parent volume through coordinate transformations.
+In the context of transformations, annotators could save cropped volumes of their choice along with the data and express the crops' spatial relationship with the parent volume through coordinate transformations.
 Similarly, processing workflows could be applied to parts of the data and the spatial relationship between the processed, cropped data and the parent volume could be expressed through transformations.
 
 ## Proposal
@@ -309,6 +310,7 @@ See chapter 4 and figure 4.1 of the ITK Software Guide.
 
 
 ### "coordinateTransformations" metadata
+(rfcs:rfc5:version3:coordinate_transformations)=
 
 "coordinateTransformations" describe the mapping between two coordinate systems (defined by "coordinateSystems").
 For example, to map an array's discrete coordinate system to its corresponding physical coordinates.
@@ -395,10 +397,9 @@ Coordinate transformations can be stored in multiple places to reflect different
   The output can be another coordinate system defined under `multiscales > coordinateSystems`.
   
 - **Inside `scene > coordinateTransformations`**: Transformations between two or more images
-  MUST be stored in the attributes of a `scene` dictionary in a parent zarr group.
+  MUST be stored in the attributes of a [`scene` dictionary](rfcs:rfc5:version3:scene) in a [scene zarr group](rfcs:rfc5:version3:storage-format-scene).
   In this case, the `input` and `output` values are dictionaries
   that refer to coordinate systems in the same zarr.json or in the metadata of multiscale image subgroups."
-  For more information, see [`scene` section below](#scene-metadata).
 
 This separation of transformations (inside `multiscales > datasets`, under `multiscales > coordinateTransformations` and under `scene > coordinateTransformations`) provides flexibility for different use cases while still maintaining a level of rigidity for implementations.
 
@@ -701,12 +702,44 @@ Practically, non-invertible transformations have finite extents,
 so bijection transforms should only be expected to be correct / consistent for points that fall within those extents.
 It may not be correct for any point of appropriate dimensionality.
 
-### "scene" metadata
+### Storage format: Scene
+(rfcs:rfc5:version3:storage-format-scene)=
+
+The following specification describes the hierarchy of zarr groups for a scene dataset.
+The group above the images defines a scene, which is a collection of images that share a spatial relationship with each other (see [coordinate transformations metadata](rfcs:rfc5:version3:coordinate_transformations)).
+It MUST implement the [scene specification](rfcs:rfc5:version3:scene).
+
+For transformations that store data or parameters in a zarr array,
+those zarr arrays SHOULD be stored in a zarr group on the same level as images called "coordinateTransformations".
+
+<pre>
+store.zarr                      # One scene dataset
+│
+├── zarr.json                   # coordinate transformations describing the relationship between two image coordinate systems
+│                               # are stored in the "scene" dictionary here.
+│                               # I.e., transformations between coordinate systems in the 'volume' and 'crop' multiscale images are stored here.
+│
+├── coordinateTransformations   # transformations that use array storage for their parameters should go in a zarr group named "coordinateTransformations".
+│   └── displacements           # for example, a zarr array containing a displacement field
+│       └── zarr.json
+│
+├── volume
+│   ├── zarr.json               # group level attributes (multiscales)
+│   └── 0                       # a group containing the 0th scale
+│       └── image               # a zarr array
+│           └── zarr.json       # physical coordinate system and transformations here
+└── crop
+    ├── zarr.json               # group level attributes (multiscales)
+    └── 0                       # a group containing the 0th scale
+        └── image               # a zarr array
+            └── zarr.json       # physical coordinate system and transformations here
+</pre>
+
+#### "scene" metadata
+(rfcs:rfc5:version3:scene)=
 
 For images that share a spatial relationship,
 the "scene" metadata layout can be used to describe the relationship between images.
-The "scene" dictionary is located under the custom attributes of a parent-level zarr-group
-that contains the related images as child groups.
 
 The "scene" dictionary MUST contain the field `coordinateTransformations`,
 whose value MUST be a list of valid [transformations](transformation-types).
@@ -722,32 +755,6 @@ If `name` refers to a coordinate system in the `scene` dictionary,
 the `path` value MAY be omitted or null.
 If `name` refers to a coordinate system in the multiscale image subgroup specified by `path`,
 both `path` and `name` MUST be provided.
-
-For transformations that store data or parameters in a zarr array,
-those zarr arrays SHOULD be stored in a zarr group called "coordinateTransformations".
-
-<pre>
-store.zarr                      # Root folder of the zarr store
-│
-├── zarr.json                   # coordinate transformations describing the relationship between two image coordinate systems
-│                               # are stored in the "scene" dictionary in the attributes of their parent group.
-│                               # transformations between coordinate systems in the 'volume' and 'crop' multiscale images are stored here.
-│
-├── coordinateTransformations   # transformations that use array storage for their parameters should go in a zarr group named "coordinateTransformations".
-│   └── displacements           # for example, a zarr array containing a displacement field
-│       └── zarr.json
-│
-├── volume
-│   ├── zarr.json              # group level attributes (multiscales)
-│   └── 0                      # a group containing the 0th scale
-│       └── image              # a zarr array
-│           └── zarr.json      # physical coordinate system and transformations here
-└── crop
-    ├── zarr.json              # group level attributes (multiscales)
-    └── 0                      # a group containing the 0th scale
-        └── image              # a zarr array
-            └── zarr.json      # physical coordinate system and transformations here
-</pre>
 
 ````{admonition} Example 1: Multiview fusion
 Two instruments simultaneously image the same sample from two different angles,
