@@ -205,7 +205,7 @@ See the [example below](example:coordinate_transformation).
 "axes" describes the dimensions of a coordinate systems
 and adds an interpretation to the samples along that dimension.
 
-It is a list of dictionaries,
+It is an arrayof dictionaries,
 where each dictionary describes a dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension.
   The values MUST be unique across all "name" fields in the same coordinate system.
@@ -335,8 +335,8 @@ The following transformations are supported:
 |------|--------|-------------|
 | [`identity`](#identity) | | The identity transformation is the do-nothing transformation and is typically not explicitly defined. |
 | [`mapAxis`](#mapaxis) | `"mapAxis":List[number]` | an axis permutation as a transpose array of integer indices that refer to the ordering of the axes in the respective coordinate system. |
-| [`translation`](#translation) | one of:<br>`"translation":List[number]`,<br>`"path":str` | Translation vector, stored either as a list of numbers (`"translation"`) or as a Zarr array at a location in this container (`path`). |
-| [`scale`](#scale) | one of:<br>`"scale":List[number]`,<br>`"path":str` | Scale vector, stored either as a list of numbers (`scale`) or as a Zarr array at a location in this container (`path`). |
+| [`translation`](#translation) | one of:<br>`"translation":List[number]`,<br>`"path":str` | Translation vector, stored either as an array of numbers (`"translation"`) or as a Zarr array at a location in this container (`path`). |
+| [`scale`](#scale) | one of:<br>`"scale":List[number]`,<br>`"path":str` | Scale vector, stored either as an array of numbers (`scale`) or as a Zarr array at a location in this container (`path`). |
 | [`affine`](#affine) | one of:<br>`"affine":List[List[number]]`,<br>`"path":str` | 2D affine transformation matrix stored either with JSON (`affine`) or as a Zarr array at a location in this container (`path`). |
 | [`rotation`](#rotation) | one of:<br>`"rotation":List[List[number]]`,<br>`"path":str` | 2D rotation transformation matrix stored as an array stored either with json (`rotation`) or as a Zarr array at a location in this container (`path`).|
 | [`sequence`](#sequence) | `"transformations":List[Transformation]` | sequence of transformations. Applying the sequence applies the composition of all transforms in the list, in order. |
@@ -392,7 +392,7 @@ Coordinate transformations can be stored in multiple places to reflect different
   to a single `scale`, `identity` or `sequence` of a scale followed by a translation transformation.
   For more information, see [multiscales section below](#multiscales-metadata).
 - **Inside `multiscales > coordinateTransformations`**: Additional transformations for single multiscale images MAY be stored here.
-  The `coordinateTransformations` field MUST contain a list of valid [transformations](#transformation-types).
+  The `coordinateTransformations` field MUST contain an array of valid [transformations](#transformation-types).
   The input to these transformations MUST be the intrinsic coordinate system.
   The output can be another coordinate system defined under `multiscales > coordinateSystems`.
   
@@ -534,8 +534,8 @@ and MUST equal the the length of the "translation" array (N).
 The array at this path MUST be 1D, and its length MUST be `N`.
 
 **translation**
-: The translation parameters stored as a JSON list of numbers.
-The list MUST have length `N`.
+: The translation parameters stored as a JSON array of numbers.
+The array MUST have length `N`.
 
 ##### <a name="scale">scale</a>
 
@@ -551,8 +551,8 @@ in that case, `scale` transformations are invertible.
 The array at this path MUST be 1D, and its length MUST be `N`.
 
 **scale**
-: The scale parameters are stored as a JSON list of numbers.
-The list MUST have length `N`.
+: The scale parameters are stored as a JSON array of numbers.
+The array MUST have length `N`.
 
 ##### <a name="affine">affine</a>
 
@@ -598,7 +598,7 @@ A `sequence` transformation consists of an ordered array of coordinate transform
 and is invertible if every coordinate transform in the array is invertible
 (though could be invertible in other cases as well).
 To apply a sequence transformation to a point in the input coordinate system,
-apply the first transformation in the list of transformations.
+apply the first transformation in the array of transformations.
 Next, apply the second transformation to the result.
 Repeat until every transformation has been applied.
 The output of the last transformation is the result of the sequence.
@@ -742,9 +742,9 @@ For images that share a spatial relationship,
 the "scene" metadata layout can be used to describe the relationship between images.
 
 The "scene" dictionary MUST contain the field `coordinateTransformations`,
-whose value MUST be a list of valid [transformations](transformation-types).
+whose value MUST be an array of valid [transformations](transformation-types).
 It MAY contain the field `coordinateSystems`,
-whose values MUST be a list of valid [coordinate systems](#coordinatesystems-metadata).
+whose values MUST be an array of valid [coordinate systems](#coordinatesystems-metadata).
 
 If used inside "scene" metadata, the `input` and `output` fields of `coordinateTransformations` MUST contain a json object,
 which MUST contain either the `path` or the `name` field, or both.
@@ -882,7 +882,7 @@ Here, "image" refers to 2 to 5 dimensional data representing image
 or volumetric data with optional time or channel axes.
 It is stored in a multiple resolution representation.
 
-`multiscales` contains a list of dictionaries where each entry describes a multiscale image.
+`multiscales` contains an array of dictionaries where each entry describes a multiscale image.
 
 Each `multiscales` dictionary MUST contain the field "coordinateSystems",
 whose value is an array containing coordinate system metadata
@@ -905,7 +905,7 @@ and images are stacked along the other (anisotropic) axis ("z"),
 the spatial axes SHOULD be ordered as "zyx".
 
 Each `multiscales` dictionary MUST contain the field `datasets`,
-which is a list of dictionaries describing the arrays storing the individual resolution levels.
+which is an array of dictionaries describing the arrays storing the individual resolution levels.
 Each dictionary in `datasets` MUST contain the field `path`,
 whose value is a string containing the path to the Zarr array for this resolution relative to the current Zarr group.
 The `path`s MUST be ordered from largest (i.e. highest resolution) to smallest.
@@ -914,7 +914,7 @@ and MUST NOT have more than 5 dimensions.
 The number of dimensions and order MUST correspond to number and order of `axes`.
 
 Each dictionary in `datasets` MUST contain the field `coordinateTransformations`,
-whose value is a list of dictionaries that define a transformation
+whose value is an array of dictionaries that define a transformation
 that maps Zarr array coordinates for this resolution level to the "intrinsic" coordinate system
 (the last entry of the `coordinateSystems` array).
 The transformation is defined according to [transformations metadata](#transformation-types).

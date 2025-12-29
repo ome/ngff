@@ -197,7 +197,7 @@ either a reference to a named coordinate system instance in the same json file,
 or a path to a multiscale dataset.
 This requires providing a ruleset to disambiguate the two cases.
 The current proposal suggests a fixed ordering of precedence (`coordinateSystem` over path) in the Scene metadata (formerly known as parent-level transformations) group
-as well as in the child-level transformations (default `coordinateSystem` last in list of coordinate systems).
+as well as in the child-level transformations (default `coordinateSystem` last in array of coordinate systems).
 This was perceived as potentially error-prone and difficult to implement.
 
 It was proposed to distinguish the two cases by introducing separate fields for the two cases:
@@ -259,7 +259,7 @@ Currently, the proposal requires the `name` parameter of coordinate transformati
 > MAY contain the field "name" (string). Its value MUST be unique across all "name" fields for coordinate transformations.
 
 This requirement was perceived as unclear with respect to the scope of uniqueness.
-It was rephrased that the `name` parameter must be unique across all coordinate transformations in the same list.
+It was rephrased that the `name` parameter must be unique across all coordinate transformations in the same array.
 Thus, the usage of generic transform names (e.g., `scale1_to_physical`) is not overly restricted.
 
 ### Required `input`/`output` fields in transformations
