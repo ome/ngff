@@ -111,17 +111,17 @@ whereas microscopes scan the object of interest in a rasterized manner.
 
 - Tiled acquisition: Without the possibility to express spatial relationships between individual tile images,
   microscope acquisition software need to save image data in an image format of their choice,
-  which would later have to be stitched in a dedicated software for downstream conversion to OME-zarr.
+  which would later have to be stitched in a dedicated software for downstream conversion to OME-Zarr.
   With the ability to express transformations as a part of the ome-zarr metadata,
   a store for the [scene](rfcs:rfc5:version3:storage-format-scene) can be created at the beginning of a tiled image acquisition.
-  The acquired tile can then be stored as individual OME-zarr images on-the-fly inside this store.
+  The acquired tile can then be stored as individual OME-Zarr images on-the-fly inside this store.
   Finally, the microscope only needs to keep track of the necessary metadata to express the spatial relationship between all saved tiles.
   In this context, it does not matter whether tiles overlap or not,
   transformations simply express each tile's location in a common world coordinate system.
   Downstream stitching software can then use these transformations to create a seamless mosaic on-demand.
-  Similarly, timelapse images or highly multiplexed data can be considered as a series of nd-tiled acquisition and thus allows on-the-fly OME-zarr writing in such applications.
+  Similarly, timelapse images or highly multiplexed data can be considered as a series of nd-tiled acquisition and thus allows on-the-fly OME-Zarr writing in such applications.
 - Multi-view acquisition: Some applications (large volumetric 3D microscopy) require the acquisition of multiple images of the same object from different angles to account for optical limitations of the microscope or the sample.
-  Rotations, translations and affine transformations enable expression of these spatial relationships and low-cost fused view of large volumetric data using the existing OME-zarr viewer ecosystem.
+  Rotations, translations and affine transformations enable expression of these spatial relationships and low-cost fused view of large volumetric data using the existing OME-Zarr viewer ecosystem.
   
 ### Acquisition artefacts
 
@@ -270,10 +270,10 @@ As with all coordinate systems, the dimension names must be unique and non-null.
 
 ```
 
-For example, if 0/zarr.json contains:
+For example, if 0/Zarr.json contains:
 ```jsonc
 {
-    "zarr_format": 3,
+    "Zarr_format": 3,
     "node_type": "array",
     "shape": [4, 3, 5],
     //...
@@ -284,9 +284,9 @@ Then `dim_0` has length 4, `dim_1` has length 3, and `dim_2` has length 5.
 
 ````
 
-The axes and their order align with the shape of the corresponding zarr array,
+The axes and their order align with the shape of the corresponding Zarr array,
 and whose data depends on the byte order used to store chunks.
-As described in the [Zarr array metadata](https://zarr.readthedocs.io/en/stable/spec/v3.html#arrays),
+As described in the [Zarr array metadata](https://Zarr.readthedocs.io/en/stable/spec/v3.html#arrays),
 the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded. 
 
 The name and axes names MAY be customized by including a `arrayCoordinateSystem` field
@@ -335,10 +335,10 @@ The following transformations are supported:
 |------|--------|-------------|
 | [`identity`](#identity) | | The identity transformation is the do-nothing transformation and is typically not explicitly defined. |
 | [`mapAxis`](#mapaxis) | `"mapAxis":List[number]` | an axis permutation as a transpose array of integer indices that refer to the ordering of the axes in the respective coordinate system. |
-| [`translation`](#translation) | one of:<br>`"translation":List[number]`,<br>`"path":str` | Translation vector, stored either as a list of numbers (`"translation"`) or as a zarr array at a location in this container (`path`). |
-| [`scale`](#scale) | one of:<br>`"scale":List[number]`,<br>`"path":str` | Scale vector, stored either as a list of numbers (`scale`) or as a zarr array at a location in this container (`path`). |
-| [`affine`](#affine) | one of:<br>`"affine":List[List[number]]`,<br>`"path":str` | 2D affine transformation matrix stored either with JSON (`affine`) or as a zarr array at a location in this container (`path`). |
-| [`rotation`](#rotation) | one of:<br>`"rotation":List[List[number]]`,<br>`"path":str` | 2D rotation transformation matrix stored as an array stored either with json (`rotation`) or as a zarr array at a location in this container (`path`).|
+| [`translation`](#translation) | one of:<br>`"translation":List[number]`,<br>`"path":str` | Translation vector, stored either as a list of numbers (`"translation"`) or as a Zarr array at a location in this container (`path`). |
+| [`scale`](#scale) | one of:<br>`"scale":List[number]`,<br>`"path":str` | Scale vector, stored either as a list of numbers (`scale`) or as a Zarr array at a location in this container (`path`). |
+| [`affine`](#affine) | one of:<br>`"affine":List[List[number]]`,<br>`"path":str` | 2D affine transformation matrix stored either with JSON (`affine`) or as a Zarr array at a location in this container (`path`). |
+| [`rotation`](#rotation) | one of:<br>`"rotation":List[List[number]]`,<br>`"path":str` | 2D rotation transformation matrix stored as an array stored either with json (`rotation`) or as a Zarr array at a location in this container (`path`).|
 | [`sequence`](#sequence) | `"transformations":List[Transformation]` | sequence of transformations. Applying the sequence applies the composition of all transforms in the list, in order. |
 | [`displacements`](#coordinates-and-displacements) | `"path":str` | Displacement field transformation located at `path`. |
 | [`coordinates`](#coordinates-and-displacements) | `"path":str` | Coordinate field transformation located at `path`. |
@@ -397,9 +397,9 @@ Coordinate transformations can be stored in multiple places to reflect different
   The output can be another coordinate system defined under `multiscales > coordinateSystems`.
   
 - **Inside `scene > coordinateTransformations`**: Transformations between two or more images
-  MUST be stored in the attributes of a [`scene` dictionary](rfcs:rfc5:version3:scene) in a [scene zarr group](rfcs:rfc5:version3:storage-format-scene).
+  MUST be stored in the attributes of a [`scene` dictionary](rfcs:rfc5:version3:scene) in a [scene Zarr group](rfcs:rfc5:version3:storage-format-scene).
   In this case, the `input` and `output` values are dictionaries
-  that refer to coordinate systems in the same zarr.json or in the metadata of multiscale image subgroups."
+  that refer to coordinate systems in the same Zarr.json or in the metadata of multiscale image subgroups."
 
 This separation of transformations (inside `multiscales > datasets`, under `multiscales > coordinateTransformations` and under `scene > coordinateTransformations`) provides flexibility for different use cases while still maintaining a level of rigidity for implementations.
 
@@ -487,8 +487,8 @@ to do so by estimating the transformations' inverse if they choose to.
 Two transformation types ([affine](#affine) and [rotation](#rotation)) are parametrized by matrices.
 Matrices are applied to column vectors that represent points in the input coordinate system.
 The first and last axes in a coordinate system correspond to the top and bottom entries in the column vector, respectively.
-Matrices are stored as two-dimensional arrays, either as json or in a zarr array.
-When stored as a 2D zarr array, the first dimension indexes rows and the second dimension indexes columns
+Matrices are stored as two-dimensional arrays, either as json or in a Zarr array.
+When stored as a 2D Zarr array, the first dimension indexes rows and the second dimension indexes columns
 (e.g., an array of `"shape":[3,4]` has 3 rows and 4 columns).
 When stored as a 2D json array, the inner array contains rows (e.g. `[[1,2,3], [4,5,6]]` has 2 rows and 3 columns).
 
@@ -530,7 +530,7 @@ and MUST equal the the length of the "translation" array (N).
 `translation` transformations are invertible.
 
 **path**
-: The path to a zarr-array containing the translation parameters.
+: The path to a Zarr-array containing the translation parameters.
 The array at this path MUST be 1D, and its length MUST be `N`.
 
 **translation**
@@ -547,7 +547,7 @@ Values in the `scale` array SHOULD be non-zero;
 in that case, `scale` transformations are invertible.
 
 **path**
-: The path to a zarr-array containing the scale parameters.
+: The path to a Zarr-array containing the scale parameters.
 The array at this path MUST be 1D, and its length MUST be `N`.
 
 **scale**
@@ -561,10 +561,10 @@ They are represented as the upper `(M)x(N+1)` sub-matrix of a `(M+1)x(N+1)` matr
 coordinates](https://en.wikipedia.org/wiki/Homogeneous_coordinates) (see examples).
 This transformation type may be (but is not necessarily) invertible
 when `N` equals `M`.
-The matrix MUST be stored as a 2D array either as json or as a zarr array.
+The matrix MUST be stored as a 2D array either as json or as a Zarr array.
 
 **path**
-:  The path to a zarr-array containing the affine parameters.
+:  The path to a Zarr-array containing the affine parameters.
 The array at this path MUST be 2D whose shape MUST be `(M)x(N+1)`.
 
 **affine**
@@ -579,7 +579,7 @@ When possible, a rotation transformation SHOULD be used instead of an equivalent
 Input and output dimensionality (N) MUST be identical.
 Rotations are stored as `NxN` matrices, see below,
 and MUST have determinant equal to one, with orthonormal rows and columns.
-The matrix MUST be stored as a 2D array either as json or in a zarr array.
+The matrix MUST be stored as a 2D array either as json or in a Zarr array.
 `rotation` transformations are invertible.
 
 **path**
@@ -705,34 +705,34 @@ It may not be correct for any point of appropriate dimensionality.
 ### Storage format: Scene
 (rfcs:rfc5:version3:storage-format-scene)=
 
-The following specification describes the hierarchy of zarr groups for a scene dataset.
+The following specification describes the hierarchy of Zarr groups for a scene dataset.
 The group above the images defines a scene, which is a collection of images that share a spatial relationship with each other (see [coordinate transformations metadata](rfcs:rfc5:version3:coordinate_transformations)).
 It MUST implement the [scene specification](rfcs:rfc5:version3:scene).
 
-For transformations that store data or parameters in a zarr array,
-those zarr arrays SHOULD be stored in a zarr group on the same level as images called "coordinateTransformations".
+For transformations that store data or parameters in a Zarr array,
+those Zarr arrays SHOULD be stored in a Zarr group on the same level as images called "coordinateTransformations".
 
 <pre>
-store.zarr                      # One scene dataset
+store.Zarr                      # One scene dataset
 │
-├── zarr.json                   # coordinate transformations describing the relationship between two image coordinate systems
+├── Zarr.json                   # coordinate transformations describing the relationship between two image coordinate systems
 │                               # are stored in the "scene" dictionary here.
 │                               # I.e., transformations between coordinate systems in the 'volume' and 'crop' multiscale images are stored here.
 │
-├── coordinateTransformations   # transformations that use array storage for their parameters should go in a zarr group named "coordinateTransformations".
-│   └── displacements           # for example, a zarr array containing a displacement field
-│       └── zarr.json
+├── coordinateTransformations   # transformations that use array storage for their parameters should go in a Zarr group named "coordinateTransformations".
+│   └── displacements           # for example, a Zarr array containing a displacement field
+│       └── Zarr.json
 │
 ├── volume
-│   ├── zarr.json               # group level attributes (multiscales)
+│   ├── Zarr.json               # group level attributes (multiscales)
 │   └── 0                       # a group containing the 0th scale
-│       └── image               # a zarr array
-│           └── zarr.json       # physical coordinate system and transformations here
+│       └── image               # a Zarr array
+│           └── Zarr.json       # physical coordinate system and transformations here
 └── crop
-    ├── zarr.json               # group level attributes (multiscales)
+    ├── Zarr.json               # group level attributes (multiscales)
     └── 0                       # a group containing the 0th scale
-        └── image               # a zarr array
-            └── zarr.json       # physical coordinate system and transformations here
+        └── image               # a Zarr array
+            └── Zarr.json       # physical coordinate system and transformations here
 </pre>
 
 #### "scene" metadata
@@ -776,7 +776,7 @@ In this case, image data within the ROI defined in image2 should be transformed 
 then used for quantification with the instrument 1 image.
 
 The `coordinateTransformations` in the "scene" metadata would contain the following data.
-The transformation parameters are stored in a separate zarr-group
+The transformation parameters are stored in a separate Zarr-group
 under `coordinateTransformations/sampleA_instrument2-to-instrument1` as shown above.
 
 ```json
@@ -957,7 +957,7 @@ A complete example of json-file for a 5D (TCZYX) multiscales with 3 resolution l
 
 ```json
 {
-  "zarr_format": 3,
+  "Zarr_format": 3,
   "node_type": "group",
   "attributes": {
     "ome": {
