@@ -957,7 +957,7 @@ A complete example of json-file for a 5D (TCZYX) multiscales with 3 resolution l
 
 ```json
 {
-  "Zarr_format": 3,
+  "zarr_format": 3,
   "node_type": "group",
   "attributes": {
     "ome": {
