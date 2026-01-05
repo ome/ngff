@@ -63,8 +63,8 @@ for neuro and bio-imaging and broader scientific imaging practices to enable:
   This flexibility is critical for tasks such as longitudinal studies, multi-modal imaging,
   and comparative analysis across different subjects or experimental conditions.
 5. Clarity and Unification:
-  This proposal aims to be clear and explicit that will reduce the amount of manual record
-  keeping, by making metadata for many related image analysis task machine readable.
+  This proposal aims to be clear and explicit to reduce the amount of manual record
+  keeping needed by programs and make metadata for many related image analysis task machine readable.
 
 
 Toward these goals, this RFC expands the set of transformations in the OME-Zarr spec

@@ -60,7 +60,7 @@ The following example illustrates a transformation from a coordinate system defi
 
 ```
 
-This will allow implementers and users to unambiguously identify the input and output coordinate systems of a transformation.
+This will allow implementers and users to unambiguously identify the input and output coordinate systems of a transformation, and removes any need or meaning to the order in which transforms or systems appear in the metadata.
 
 ## 2025 Ngff Hackathon discussion outcomes
 (hackathon-outcomes)=
