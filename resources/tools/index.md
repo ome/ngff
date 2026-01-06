@@ -78,8 +78,7 @@ Want to read or write a Zarr? Use one of these tools.
 | iohub| [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/czbiohub-sf/iohub) | Pythonic and parallelizable I/O for N-dimensional imaging data with OME metadata | 
 | ngio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://biovisioncenter.github.io/ngio/stable/) | Python package for bject-based API for opening, exploring, and manipulating OME-Zarr images and high-content screening (HCS) plates | 
 | ngff-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/thewtex/ngff-zarr) | A lean and kind Open Microscopy Environment (OME) Next Generation File Format (NGFF) Zarr implementation. | 
-| ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. | 
-| yaozarrs | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/tlambert03/yaozarrs) | Minimal, model-first python library with optional extras for array-backend-agnostic I/O (zarr-python, tensorstore, etc...) |
+| ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. |
 
 ### Zarr validation
 
@@ -89,7 +88,7 @@ Want to validate a Zarr? Use one of these.
 | -------- | ------- | ------- |
 | ome-ngff-validator | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://ome.github.io/ome-ngff-validator/" alt="OME NGFF Validator logo" width="30" height="30">](https://ome.github.io/ome-ngff-validator/) | Web page for validating OME-Zarr files. |
 | ome-zarr-models | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome-zarr-models/ome-zarr-models-py) | Python package and command line interface that can validate OME-Zarr files |
-| yaozarrs | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/tlambert03/yaozarrs) | Bottom-up python library with models and CLI for creating & validating OME-Zarr groups and documents |
+| yaozarrs | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/tlambert03/yaozarrs) | Bottom-up python library with models and CLI for creating & validating OME-Zarr groups and documents with optional extras for array-backend-agnostic I/O |
 
 ## Other tools and libraries
 
