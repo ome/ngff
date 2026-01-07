@@ -270,10 +270,10 @@ As with all coordinate systems, the dimension names must be unique and non-null.
 
 ```
 
-For example, if 0/Zarr.json contains:
+For example, if 0/zarr.json contains:
 ```jsonc
 {
-    "Zarr_format": 3,
+    "zarr_format": 3,
     "node_type": "array",
     "shape": [4, 3, 5],
     //...
@@ -713,26 +713,26 @@ For transformations that store data or parameters in a Zarr array,
 those Zarr arrays SHOULD be stored in a Zarr group on the same level as images called "coordinateTransformations".
 
 <pre>
-store.Zarr                      # One scene dataset
+store.zarr                      # One scene dataset
 │
-├── Zarr.json                   # coordinate transformations describing the relationship between two image coordinate systems
+├── zarr.json                   # coordinate transformations describing the relationship between two image coordinate systems
 │                               # are stored in the "scene" dictionary here.
 │                               # I.e., transformations between coordinate systems in the 'volume' and 'crop' multiscale images are stored here.
 │
 ├── coordinateTransformations   # transformations that use array storage for their parameters should go in a Zarr group named "coordinateTransformations".
 │   └── displacements           # for example, a Zarr array containing a displacement field
-│       └── Zarr.json
+│       └── zarr.json
 │
 ├── volume
-│   ├── Zarr.json               # group level attributes (multiscales)
+│   ├── zarr.json               # group level attributes (multiscales)
 │   └── 0                       # a group containing the 0th scale
 │       └── image               # a Zarr array
-│           └── Zarr.json       # physical coordinate system and transformations here
+│           └── zarr.json       # physical coordinate system and transformations here
 └── crop
-    ├── Zarr.json               # group level attributes (multiscales)
+    ├── zarr.json               # group level attributes (multiscales)
     └── 0                       # a group containing the 0th scale
         └── image               # a Zarr array
-            └── Zarr.json       # physical coordinate system and transformations here
+            └── zarr.json       # physical coordinate system and transformations here
 </pre>
 
 #### "scene" metadata
