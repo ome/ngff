@@ -61,6 +61,8 @@ The following example illustrates a transformation from a coordinate system defi
 ```
 
 This will allow implementers and users to unambiguously identify the input and output coordinate systems of a transformation, and removes any need or meaning to the order in which transforms or systems appear in the metadata.
+Similarly, we have removed similar constraints in the multiscales metadata and now clarify that the outputs of all transformations under  `multiscales > datasets > coordinateTransformations`
+MUST refer to the same coordinate system (i.e., the intrinsic coordinate system of the dataset).
 
 ## 2025 Ngff Hackathon discussion outcomes
 (hackathon-outcomes)=
@@ -218,6 +220,9 @@ It was proposed to distinguish the two cases by introducing separate fields for 
 
 **Outcome:** It was agreed to disambiguate the `input` and `output` fields in "scene" metadata.
 The proposal has been updated accordingly.
+Similarly, the multiscales metadata have been updated to remove any constraints regarding the ordering of coordinate systems
+and now require that all transformations refer to the same output coordinate system,
+irrespective to its position in the array of coordinate systems.
 
 ### Relax constraint on coordinate system dimensionality
 

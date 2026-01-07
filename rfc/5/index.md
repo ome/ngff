@@ -798,7 +798,7 @@ under `coordinateTransformations/sampleA_instrument2-to-instrument1` as shown ab
 }
 ```
 
-And the image at the path `sampleA_instrument1` would have the following as the first coordinate system:
+And the image at the path `sampleA_instrument1` would have the following as coordinate system:
 
 ```json
 "coordinateSystems": [
@@ -813,7 +813,7 @@ And the image at the path `sampleA_instrument1` would have the following as the 
 ]
 ```
 
-The image at path `sampleA_instrument2` would have this as the first listed coordinate system:
+The image at path `sampleA_instrument2` would have this as coordinate system:
 
 ```json
 "coordinateSystems": [
@@ -887,10 +887,6 @@ It is stored in a multiple resolution representation.
 Each `multiscales` dictionary MUST contain the field "coordinateSystems",
 whose value is an array containing coordinate system metadata
 (see [coordinate systems](#coordinatesystems-metadata)).
-The last entry of this array is the "intrinsic" coordinate system
-and MUST contain axis information pertaining to physical coordinates.
-It should be used for viewing and processing unless a use case dictates otherwise.
-It will generally be a representation of the image in its native physical coordinate system.
 
 The following MUST hold for all coordinate systems inside multiscales metadata.
 The length of "axes" must be between 2 and 5
@@ -915,16 +911,17 @@ The number of dimensions and order MUST correspond to number and order of `axes`
 
 Each dictionary in `datasets` MUST contain the field `coordinateTransformations`,
 whose value is an array of dictionaries that define a transformation
-that maps Zarr array coordinates for this resolution level to the "intrinsic" coordinate system
-(the last entry of the `coordinateSystems` array).
+that maps Zarr array coordinates for this resolution level to the "intrinsic" coordinate system.
 The transformation is defined according to [transformations metadata](#transformation-types).
 The transformation MUST take as input points in the array coordinate system
 corresponding to the Zarr array at location `path`.
 The value of "input" MUST equal the value of `path`, 
 implementations should always treat the value of `input` as if it were equal to the value of `path`.
-The value of the transformation’s `output` MUST be the name of the "intrinsic" [coordinate system](#coordinatesystems-metadata).
+The value of the transformation’s `output` coordinate system MUST be the same for every dataset in a single multiscales.
+This coordinate system (the "intrinsic" coordinate system) will generally be a representation of the image in its native physical coordinate system.
+It should be used for viewing and processing unless a use case dictates otherwise.
 
-This transformation MUST be one of the following:
+The transformation MUST be one of the following:
 
 * A single scale or identity transformation
 * A sequence transformation containing one scale and one translation transformation.
