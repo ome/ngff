@@ -393,7 +393,7 @@ Coordinate transformations can be stored in multiple places to reflect different
   For more information, see [multiscales section below](#multiscales-metadata).
 - **Inside `multiscales > coordinateTransformations`**: Additional transformations for single multiscale images MAY be stored here.
   The `coordinateTransformations` field MUST contain an array of valid [transformations](#transformation-types).
-  The input to these transformations MUST be the intrinsic coordinate system.
+  The input to every one of these transformations MUST be the intrinsic coordinate system.
   The output can be another coordinate system defined under `multiscales > coordinateSystems`.
   
 - **Inside `scene > coordinateTransformations`**: Transformations between two or more images
