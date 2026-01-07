@@ -1,7 +1,7 @@
 [submodule "0.6.dev2"]
 	path = specifications/0.6.dev2
-	url = https://github.com/jo-mueller/ngff-spec
-	branch = main
+	url = https://github.com/ome/ngff-spec
+	branch = 5650481b4d259ca4b43253f7c87491290d92626f
 [submodule "0.5"]
 	path = specifications/0.5
 	url = https://github.com/jo-mueller/ngff-spec
