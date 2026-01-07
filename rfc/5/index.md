@@ -399,7 +399,7 @@ Coordinate transformations can be stored in multiple places to reflect different
 - **Inside `scene > coordinateTransformations`**: Transformations between two or more images
   MUST be stored in the attributes of a [`scene` dictionary](rfcs:rfc5:version3:scene) in a [scene Zarr group](rfcs:rfc5:version3:storage-format-scene).
   In this case, the `input` and `output` values are dictionaries
-  that refer to coordinate systems in the same Zarr.json or in the metadata of multiscale image subgroups."
+  that refer to coordinate systems in the same zarr.json or in the metadata of multiscale image subgroups."
 
 This separation of transformations (inside `multiscales > datasets`, under `multiscales > coordinateTransformations` and under `scene > coordinateTransformations`) provides flexibility for different use cases while still maintaining a level of rigidity for implementations.
 
