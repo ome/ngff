@@ -22,9 +22,20 @@ please leave a comment in a new page under the "comments/" directory for the
 relevant RFC. A template is also available for formatting your comment:
 [template](../rfc/1/templates/review_template).
 
+### How to change the specification
+
+To make a change such as the end-product of an RFC or a minor correction to the currently developed specification version,
+please do so via a pull request (PR) against the `main` branch of the [ome/ngff-spec](https://github.com/ome/ngff-spec) repository.
+This repository contains the specification documents in Markdown format,
+json examples and the schema files for validation.
+
 ## Changes to this website
 
-The repository for this website is [ome/ngff](https://github.com/ome/ngff). Contributions to these pages are welcome as issues or PRs.
+The repository for this website is [ome/ngff](https://github.com/ome/ngff).
+Contributions to these pages are welcome as issues or PRs.
+
+To do so, create a fork of the ``ome/ngff`` repository, make your changes,
+and submit a pull request (PR) against the `main` branch.
 
 ### Syntax
 This repository uses Sphinx to publish a ReadTheDocs site at https://ngff.openmicroscopy.org in the [Sphinx Book Theme](https://sphinx-book-theme.readthedocs.io/en/stable/).
@@ -44,14 +55,3 @@ Please check that your changes render correctly at this URL. New commits will au
 
 Detailed guidance for contributing developers is available at
 [https://docs.openmicroscopy.org/contributing/](https://docs.openmicroscopy.org/contributing/)
-
-### The Quick Version
-
-* Fork the repository on GitHub
-* Create a branch for your work based on the latest `dev_x` e.g. dev_5_0
-  branch or `develop`
-* Make your commits and open a PR
-
-
-
-
