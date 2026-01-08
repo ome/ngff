@@ -6,7 +6,7 @@ We welcome contributions from anyone! Create Issues and PRs on this repo for con
 
 Content can be created using Markdown, HTML, and [MyST](https://myst-parser.readthedocs.io/en/latest/) syntax.
 
-See also [CONTRIBUTING.md](./CONTRIBUTING.md)
+See also [CONTRIBUTING.md](./contributing/index.md)
 
 # Specifications
 
