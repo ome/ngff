@@ -43,7 +43,7 @@ Please check that your changes render correctly at this URL. New commits will au
 (contributing:ome)=
 
 Detailed guidance for contributing developers is available at
-https://docs.openmicroscopy.org/contributing/
+[https://docs.openmicroscopy.org/contributing/](https://docs.openmicroscopy.org/contributing/)
 
 ### The Quick Version
 
