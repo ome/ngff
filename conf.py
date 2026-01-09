@@ -13,10 +13,18 @@ author = "NGFF Community"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["myst_parser","sphinx_reredirects"]
+extensions = [
+    "myst_parser",
+    "sphinx_reredirects",
+    "sphinx_design"
+    ]
 source_suffix = [".rst", ".md"]
 myst_heading_anchors = 5
-myst_enable_extensions = ["deflist", "strikethrough"]
+myst_enable_extensions = [
+    "deflist",
+    "strikethrough",
+    "colon_fence"
+    ]
 
 templates_path = ["_templates"]
 exclude_patterns = [
