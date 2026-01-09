@@ -34,7 +34,7 @@ This RFC is currently in RFC state `R4` (authors prepare responses).
 
 This RFC provides first-class support for spatial and coordinate transformations in OME-Zarr.
 
-Working version title: **0.6dev2**
+Working version title: **0.6.dev3**
 
 ## Background
 
