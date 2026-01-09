@@ -205,7 +205,7 @@ See the [example below](example:coordinate_transformation).
 "axes" describes the dimensions of a coordinate systems
 and adds an interpretation to the samples along that dimension.
 
-It is an arrayof dictionaries,
+It is an array of dictionaries,
 where each dictionary describes a dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension.
   The values MUST be unique across all "name" fields in the same coordinate system.
