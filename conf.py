@@ -62,155 +62,48 @@ html_extra_path = [
     "_html_extra",
 ]
 
-# ####################################
-# Post-process all versions
-# ####################################
-
-
-
-from pathlib import Path
-
-from json_schema_for_humans.generate import (
-    generate_from_filename,
-    GenerationConfiguration,
-)
-
-
-def get_version_index_html(*, version: str, schmea_fnames: list[Path]) -> str:
-    schemas_list = "\n".join(
-        [f"<li><a href={p.name}>{p.stem}</a> </li>" for p in schmea_fnames]
-    )
-    return f"""
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overpass:300,400,600,800">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="schema_doc.css">
-    <script src="https://use.fontawesome.com/facf9fa52c.js"></script>
-    <script src="schema_doc.min.js"></script>
-    <meta charset="utf-8"/>
-
-
-    <title>OME-zarr version {version}</title>
-</head>
-<body onload="anchorOnLoad();" id="root">
-
-    <div class="breadcrumbs"></div> <h1>Version {version}</h1><br/>
-    <ul>
-    {schemas_list}
-    </ul>
-</body>
-</html>
-"""
-
-
-def get_index_html(*, versions: list[str]) -> str:
-    versions_list = "\n".join(
-        [f"<li><a href={v}/index.html>{v}</a> </li>" for v in versions]
-    )
-    return f"""
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overpass:300,400,600,800">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="schema_doc.css">
-    <script src="https://use.fontawesome.com/facf9fa52c.js"></script>
-    <script src="schema_doc.min.js"></script>
-    <meta charset="utf-8"/>
-
-
-    <title>OME-zarr JSON schema specifications</title>
-</head>
-<body onload="anchorOnLoad();" id="root">
-
-    <div class="breadcrumbs"></div> <h1>OME-zarr JSON schema specifications</h1><br/>
-    <p> Nicely rendered JSON schemas generated directly from the <a href=https://ngff.openmicroscopy.org/specifications/index.html>OME-zarr specifications</a>.</p>
-    <p> Generated using <a href=https://coveooss.github.io/json-schema-for-humans>json-schema-for-humans</a>.</p>
-    <ul>
-    {versions_list}
-    </ul>
-</body>
-</html>
-"""
-
-
-def gen_version(version):
-    version_path = Path(version)
-    schema_path = version_path / "schemas"
-    for schema_file in sorted(schema_path.glob("*.schema")):
-        print(schema_file)
-        generate_from_filename(
-            schema_file,
-            result_file_name=schema_path / schema_file.with_suffix(".html").name,
-            config=GenerationConfiguration(template_name="js", with_footer=False),
-        )
-
-    schema_fnames = [
-        p
-        for p in sorted(schema_path.glob("*.html"))
-        if p.name != "index.html"
-    ]
-    with open(schema_path / "index.html", "w") as f:
-        f.write(
-            get_version_index_html(version=version, schmea_fnames=schema_fnames)
-        )
-
-
-def post_process():
+def build_served_html():
     import glob
-    import os
-    import shutil
     import subprocess
     import sys
+    import os
+    import shutil
 
-    # build ngff-spec docs
-    ngff_spec_versions = [
-        {"submodule": "specifications/0.5", "target": "0.5"},
-        {"submodule": "specifications/0.6.dev2", "target": "0.6.dev2"},
-    ]
+    versions = [d for d in os.listdir("specifications") if os.path.isdir(os.path.join("specifications", d))]
 
-    serve_directory = "_html_extra"
-    shutil.rmtree(serve_directory, ignore_errors=True)
-    os.makedirs(serve_directory, exist_ok=True)
+    for version in versions:
 
-    for spec_version in ngff_spec_versions:
-        submodule_dir = spec_version["submodule"]
-        target_dir = spec_version["target"]
+        # copy schemas to _html_extra
+        os.makedirs(f'_html_extra/{version}/schemas', exist_ok=True)
+        schemas = glob.glob(f'specifications/{version}/**/*.schema', recursive=True)
+        for schema in schemas:
+            shutil.copy2(schema, f'_html_extra/{version}/schemas/')
+        print(f'✅ Copied schemas for version {version}')
+    
+        # find 'pre_build.py' in 'specifications' subdirectories
+        script = glob.glob(f'specifications/{version}/**/pre_build.py', recursive=True)[0]
 
-        if os.path.exists(submodule_dir):
-            print(f"Building ngff-spec docs for version {target_dir}...")
+        subprocess.check_call([sys.executable, script])
+        print('✅ Built rendered examples/schemas for version', version)
 
-            os.chdir(submodule_dir)
+        # build jupyter-book docs in specification submodules
+        myst_file = glob.glob(f'specifications/{version}/**/myst.yml', recursive=True)[0]
+        if os.path.exists(myst_file):
+            cdir = os.getcwd()
+            os.chdir(os.path.dirname(myst_file))
+            subprocess.check_call(['jupyter-book', 'build', '--ci', '--html'])
+            os.chdir(cdir)
+        print('✅ Built jupyter-book documentation for version', version)
 
-            # prebuild ngff-spec examples and schemas
-            subprocess.check_call([sys.executable, "ngff_spec/pre_build.py"])
-            os.chdir("ngff_spec")
+        # copy built html files to _html_extra
+        bikeshed_output = f'specifications/{version}/index.html'
+        if os.path.exists(bikeshed_output):
+            shutil.copy2(bikeshed_output, f'_html_extra/{version}/index.html')
+            print(f'✅ Found legacy bikeshed, serving as extra html for {version}')
+        else:
+            build_dir = glob.glob(f'specifications/{version}/**/_build/html', recursive=True)[0]
+            shutil.copytree(build_dir, f'_html_extra/{version}', dirs_exist_ok=True)
+            print(f'✅ Copying jupyter-book documentation as extra html for {version}')
 
-            # Set BASE_URL from environment (for GitHub Pages) or fallback
-            os.environ["§BASE_URL"] = f"/{target_dir}/"
-            subprocess.check_call(["jupyter", "book", "build", "--ci", "--html"])
-            os.chdir("../../..")
-
-            # copy built ngff-spec to _html_extra for serving
-            source = Path(submodule_dir) / "ngff_spec" / "_build" / "html"
-            target = Path(serve_directory) / target_dir
-            shutil.copytree(source, target)
-
-            # copy examples and schemas to bikeshed output
-            schema_files = glob.glob(os.path.join(
-                submodule_dir, "ngff_spec/schemas", '*.schema'), recursive=True)
-            target = Path(serve_directory) / target_dir / "schemas"
-            os.makedirs(target, exist_ok=True)
-
-            for schema_file in schema_files:
-                shutil.copy2(schema_file, target)
-
-
-post_process()
-del post_process
+build_served_html()
+    
