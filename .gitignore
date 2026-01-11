@@ -2,7 +2,7 @@
 **/__pycache__/*
 */index.html
 _build
-_bikeshed
+_html_extra
 .tox
 .vscode
 .*plist
