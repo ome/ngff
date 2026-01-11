@@ -10,3 +10,12 @@
 	path = specifications/0.5
 	url = https://github.com/jo-mueller/ngff-spec
 	branch = 0.5
+[submodule "0.4"]
+	path = specifications/0.4
+	url = https://github.com/jo-mueller/ngff-spec
+	branch = 0.4
+
+[submodule "specifications/0.4"]
+	path = specifications/0.4
+	url = https://github.com/jo-mueller/ngff-spec
+	branch = 0.4
