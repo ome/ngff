@@ -86,6 +86,16 @@ def build_served_html():
         subprocess.check_call([sys.executable, script])
         print('✅ Built rendered examples/schemas for version', version)
 
+        # build jupyter-book docs in specification submodules
+        myst_file = glob.glob(f'specifications/{version}/**/myst.yml', recursive=True)[0]
+        if os.path.exists(myst_file):
+            cdir = os.getcwd()
+            os.chdir(os.path.dirname(myst_file))
+            subprocess.check_call(['jupyter-book', 'build', '--ci', '--html'])
+            os.chdir(cdir)
+        print('✅ Built jupyter-book documentation for version', version)
+
+
         # copy built html files to _html_extra
         bikeshed_output = f'specifications/{version}/index.html'
         if os.path.exists(bikeshed_output):

@@ -13,6 +13,7 @@ Dev/index.md
 0.6.dev2/ngff_spec/specification.md
 0.5/index.md
 0.4/index.md
+0.3/index.md
 
 
 ```
