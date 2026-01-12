@@ -4,3 +4,4 @@ sphinx-book-theme
 json-schema-for-humans
 testresources
 sphinx-reredirects
+sphinxcontrib-bibtex
