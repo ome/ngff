@@ -14,6 +14,7 @@ Dev/index.md
 0.5/index.md
 0.4/index.md
 0.3/index.md
-
+0.2/index.md
+0.1/index.md
 
 ```
