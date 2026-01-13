@@ -1,9 +1,11 @@
 RFC,Description,Date,Status,OME-Zarr Version
 [0](0/index.md),Original consensus model for decision making,2021,N/A,N/A
 [1](1/index.md),RFC Process,2024,Adopted,N/A
-[2](2/index.md),Zarr V3 Support,2024,Accepted,0.5
+[2](2/index.md),Zarr V3 Support,2024,Adopted,0.5
 [3](3/index.md),Remove axis restrictions,2024,Under review,
 [4](4/index.md),Axis Anatomical Orientation,2024,Under review,
 [5](5/index.md),Coordinate systems and transformations,2024,Under review,
-[6](6/index.md),Flattening the multiscales array,2025,Under review,
+[6](6/index.md),Flattening the multiscales array,2025,Superseded,
+[7](7/index.md),Channel provenance,TBD,TBD,
+[8](8/index.md),Collections,2026,[PR](https://github.com/ome/ngff/pull/343),
 [9](9/index.md),Zipped OME-Zarr,2025,Under review,

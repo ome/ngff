@@ -27,7 +27,7 @@ Want to view a Zarr? Use one of these.
 | AGAVE | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.allencell.org" alt="AGAVE logo" width="30" height="30">](https://www.allencell.org/pathtrace-rendering.html) | Desktop application for viewing multichannel volume data powered by your GPU | 
 | FIJI (MoBIE / BigDataViewer) | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://fiji.sc/" alt="FIJI logo" width="30" height="30">](https://mobie.github.io/) | [FIJI](https://fiji.sc/) plug-in for exploring and sharing big multi-modal image and associated tabular data |
 | FIJI (n5-ij) | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://fiji.sc/" alt="FIJI logo" width="30" height="30">](https://github.com/saalfeldlab/n5-ij) | [FIJI](https://fiji.sc/) plug-in for loading and saving image data to OME-Zarr and other formats supported by the N5 API |
-| ITKWidgets | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/InsightSoftwareConsortium/itkwidgets) | Python tool for interactively viewing images (ex. in Jupyter) | 
+| ITKWidgets | [<img src="https://raw.githubusercontent.com/InsightSoftwareConsortium/itkwidgets/main/docs/_static/itkwidgets_logo.png" alt="ITKWidgets logo" width="30" height="30">](https://github.com/InsightSoftwareConsortium/itkwidgets) | Python tool for interactively viewing images (ex. in Jupyter) |
 | Microscopy Nodes |[![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/aafkegros/MicroscopyNodes) | [Blender](https://www.blender.org/) add-on for visualizing high-dimensional microscopy data | 
 | napari | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://napari.org/" alt="napari logo" width="30" height="30">](https://github.com/ome/napari-ome-zarr) | [napari](https://napari.org/) plug-in for viewing Zarr | 
 | Neuroglancer | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://google.com" alt="Neuroglancer logo" width="30" height="30">](https://github.com/google/neuroglancer) | A browser-based volume viewer | 
@@ -88,6 +88,7 @@ Want to validate a Zarr? Use one of these.
 | -------- | ------- | ------- |
 | ome-ngff-validator | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://ome.github.io/ome-ngff-validator/" alt="OME NGFF Validator logo" width="30" height="30">](https://ome.github.io/ome-ngff-validator/) | Web page for validating OME-Zarr files. |
 | ome-zarr-models | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome-zarr-models/ome-zarr-models-py) | Python package and command line interface that can validate OME-Zarr files |
+| yaozarrs | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/tlambert03/yaozarrs) | Bottom-up python library with models and CLI for creating & validating OME-Zarr groups and documents with optional extras for array-backend-agnostic I/O |
 
 ## Other tools and libraries
 
