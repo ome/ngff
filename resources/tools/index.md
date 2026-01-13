@@ -88,6 +88,7 @@ Want to validate a Zarr? Use one of these.
 | -------- | ------- | ------- |
 | ome-ngff-validator | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://ome.github.io/ome-ngff-validator/" alt="OME NGFF Validator logo" width="30" height="30">](https://ome.github.io/ome-ngff-validator/) | Web page for validating OME-Zarr files. |
 | ome-zarr-models | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome-zarr-models/ome-zarr-models-py) | Python package and command line interface that can validate OME-Zarr files |
+| yaozarrs | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/tlambert03/yaozarrs) | Bottom-up python library with models and CLI for creating & validating OME-Zarr groups and documents with optional extras for array-backend-agnostic I/O |
 
 ## Other tools and libraries
 

@@ -5,3 +5,4 @@ json-schema-for-humans
 testresources
 sphinx-reredirects
 sphinxcontrib-bibtex
+sphinx-design
