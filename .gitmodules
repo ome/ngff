@@ -8,21 +8,21 @@
 	branch = 0.6.dev2
 [submodule "0.5"]
 	path = specifications/0.5
-	url = https://github.com/jo-mueller/ngff-spec
+	url = https://github.com/ome/ngff-spec
 	branch = 0.5
 [submodule "0.4"]
 	path = specifications/0.4
-	url = https://github.com/jo-mueller/ngff-spec
+	url = https://github.com/ome/ngff-spec
 	branch = 0.4
 [submodule "0.3"]
 	path = specifications/0.3
-	url = https://github.com/jo-mueller/ngff-spec
+	url = https://github.com/ome/ngff-spec
 	branch = 0.3
 [submodule "specifications/0.2"]
 	path = specifications/0.2
-	url = https://github.com/jo-mueller/ngff-spec
+	url = https://github.com/ome/ngff-spec
 	branch = 0.2
 [submodule "specifications/0.1"]
 	path = specifications/0.1
-	url = https://github.com/jo-mueller/ngff-spec
+	url = https://github.com/ome/ngff-spec
 	branch = 0.1
