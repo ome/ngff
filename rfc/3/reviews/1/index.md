@@ -10,7 +10,7 @@ None.
 
 ## Summary
 
-Ths RFC is an important step towards opening up OME-Zarr to different types of bioimaging.
+This RFC is an important step towards opening up OME-Zarr to different types of bioimaging.
 The current axes specification is already flexible enough that implementations cannot blindly make assumptions about what a particular dimension index means,
 while being restrictive enough to be a bit annoying to write validation for.
 
