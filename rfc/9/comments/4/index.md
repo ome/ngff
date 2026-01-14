@@ -1,5 +1,5 @@
-# RFC-9: Review 1
-(rfcs:rfc9:review1)=
+# RFC-9: Comment 4
+(rfcs:rfc9:comment4)=
 
 ## Review authors
 This review was written by: Lenard Spiecker<sup>1</sup> and Matthias Grunwald<sup>1</sup>
