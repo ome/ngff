@@ -129,7 +129,9 @@ datasets to OME-Zarr. For example, Zeiss .czi datasets [may contain][czi format
 dimensions] dimensions such as H, I, and V to store different phases,
 illumination directions, or views respectively. To say nothing of synthetic data
 that may contain "artificial" dimensions such as principal components or axes of
-other dimensionality reduction-techniques from many images.
+other dimensionality reduction-techniques from many images. They may also hamper
+the adoption of OME-Zarr as an acquisition-time format due to performance concerns
+when data must be manipulated to accomodate a strict dimension order.
 
 ## Motivation
 
