@@ -417,7 +417,7 @@ and the [`scene` metadata](rfcs:rfc5:version3:scene) combined with the coordinat
 In this graph, coordinate systems represent nodes and coordinate transformations represent edges.
 The graph MUST be fully connected in the sense that any two coordinate systems in the metadata
 MUST be connected by a sequence of edges represented by coordinate transformations.
-Coordinate systems that are connected by a non-invertible transformation count as connected in this sense, even though graph traversal may not be computable in every direction.
+Coordinate systems that are connected by a non-invertible transformation count as connected in this sense, even though graph traversal may not be closed-form computable in every direction.
 
 Coordinate transformations are functions of *points* in the input space to *points* in the output space.
 We call this the "forward" direction.
