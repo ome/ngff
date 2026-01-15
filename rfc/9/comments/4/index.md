@@ -1,8 +1,10 @@
 # RFC-9: Comment 4
+
 (rfcs:rfc9:comment4)=
 
-## Review authors
-This review was written by: Lenard Spiecker<sup>1</sup> and Matthias Grunwald<sup>1</sup>
+## Comment authors
+
+This comment was written by: Lenard Spiecker<sup>1</sup> and Matthias Grunwald<sup>1</sup>
 
 <sup>1</sup> Miltenyi Biotec B.V. & CO. KG
 
