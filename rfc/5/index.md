@@ -521,6 +521,9 @@ Each index MUST appear exactly once in the array.
 The value at position `i` in the array indicates which input axis becomes the `i`-th output axis.
 `mapAxis` transforms are invertible.
 
+**mapAxis**
+: The axis permutation stored as a JSON array of integers.
+
 ##### <a name="translation">translation</a>
 
 `translation` transformations are special cases of affine transformations.
@@ -702,6 +705,12 @@ Practically, non-invertible transformations have finite extents,
 so bijection transforms should only be expected to be correct / consistent for points that fall within those extents.
 It may not be correct for any point of appropriate dimensionality.
 
+**forward**
+: The forward transformation.
+
+**inverse**
+: The inverse transformation.
+
 ### Storage format: Scene
 (rfcs:rfc5:version3:storage-format-scene)=
 
@@ -739,9 +748,9 @@ store.zarr                      # One scene dataset
 (rfcs:rfc5:version3:scene)=
 
 For images that share a spatial relationship,
-the "scene" metadata layout can be used to describe the relationship between images.
+the `scene` metadata layout can be used to describe the relationship between images.
 
-The "scene" dictionary MUST contain the field `coordinateTransformations`,
+The `scene` dictionary MUST contain the field `coordinateTransformations`,
 whose value MUST be an array of valid [transformations](transformation-types).
 It MAY contain the field `coordinateSystems`,
 whose values MUST be an array of valid [coordinate systems](#coordinatesystems-metadata).
@@ -837,7 +846,7 @@ In such a case, it may be easier to align instrument 2 (medium-resolution) with 
 
 In this case, the "scene" metadata would contain the following coordinate transformations:
 
-```jsonc
+```json
 "scene": {
   "coordinateTransformations": [
     {
