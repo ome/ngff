@@ -559,7 +559,7 @@ when `N` equals `M`.
 The matrix MUST be stored as a 2D array either as json or as a Zarr array.
 
 **path**
-:  The path to a Zarr-array containing the affine parameters.
+: The path to a Zarr-array containing the affine parameters.
 The array at this path MUST be 2D whose shape MUST be `(M)x(N+1)`.
 
 **affine**
@@ -635,7 +635,7 @@ but implementations MAY approximate their inverses.
 Metadata for these coordinate transforms have the following fields: 
 
 **path**
-  The location of the coordinate array in this (or another) container.
+:  The location of the coordinate array in this (or another) container.
 
 
 For both `coordinates` and `displacements`,
