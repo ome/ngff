@@ -1066,22 +1066,6 @@ This RFC has been discussed in:
 * Issues [84](https://github.com/ome/ngff/issues/84), [94](https://github.com/ome/ngff/issues/94), [101](https://github.com/ome/ngff/issues/101), and [146](https://github.com/ome/ngff/issues/146)
 * Several OME-Zarr community calls ([one example](https://forum.image.sc/t/ome-ngff-community-call-transforms-and-tables/71792))
 
-## Implementation
-
-Many RFCs have an "implementation" section which details how the implementation
-will work. This section should explain the rough specification changes. The
-goal is to give an idea to reviewers about the subsystems that require change
-and the surface area of those changes. 
-
-This knowledge can result in recommendations for alternate approaches that
-perhaps are idiomatic to the project or result in less packages touched. Or, it
-may result in the realization that the proposed solution in this RFC is too
-complex given the problem.
-
-For the RFC author, typing out the implementation in a high-level often serves
-as "[rubber duck debugging][rubber duck debugging]" and you can catch a lot of
-issues or unknown unknowns prior to writing any real code.
-
 ## Drawbacks, risks, alternatives, and unknowns
 
 Adopting this proposal will add an implementation burden because it adds more transformation types.
