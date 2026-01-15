@@ -129,7 +129,9 @@ datasets to OME-Zarr. For example, Zeiss .czi datasets [may contain][czi format
 dimensions] dimensions such as H, I, and V to store different phases,
 illumination directions, or views respectively. To say nothing of synthetic data
 that may contain "artificial" dimensions such as principal components or axes of
-other dimensionality reduction-techniques from many images.
+other dimensionality reduction-techniques from many images. They may also hamper
+the adoption of OME-Zarr as an acquisition-time format due to performance concerns
+when data must be manipulated to accommodate a strict dimension order.
 
 ## Motivation
 
@@ -164,9 +166,9 @@ in OME-Zarr:
 
 ## Proposal
 
-This document proposes removing any restrictions on the number of dimensions
-stored in OME-Zarr arrays. Additionally, it removes restrictions on the names
-and types of included dimensions.
+This document proposes removing any restrictions on the number or order of
+dimensions stored in OME-Zarr arrays. Additionally, it removes restrictions on
+the names and types of included dimensions.
 
 To maximise compatibility with existing software, this proposal recommends that
 images with 2-3 spatial dimensions SHOULD name them from the subset of "zyx"
@@ -266,6 +268,10 @@ would combine poorly with C-order arrays to view XY planes. However, it is
 arguable that Zarr chunking is in fact more important here — XYTCZ *could* be
 a perfectly cromulent axis ordering for XY planes if the Zarr chunk size was
 (1024, 1024, 1, 1, 1).
+
+Moreover, imposing a fixed axis ordering can incur performance penalties at
+*write* time (where performance is often critical) if the data is not already
+in the expected order.
 
 Therefore, this proposal argues that any performance implications are better
 addressed through good documentation and good defaults. Indeed, more flexible
