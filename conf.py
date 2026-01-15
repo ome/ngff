@@ -53,7 +53,7 @@ redirects = {
 html_theme = "pydata_sphinx_theme"
 
 html_theme_options = {
-    "header_links_before_dropdown": 4,
+#    "header_links_before_dropdown": 4,
     "icon_links": [
         {
             "name": "GitHub",
