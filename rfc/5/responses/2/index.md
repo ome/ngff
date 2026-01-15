@@ -255,6 +255,15 @@ which would allow to insert new axes into the coordinate system at a fixed posit
 **Outcome**: The members of the discussion agreed that this would be useful,
 but decided to defer the implementation of such an addition to a future version of the spec.
 
+### Use zarr arrays for parameter storage
+
+In the previous version of the proposal, some transformations (scale, translation, rotation, affine, coordinates and displacement)
+allowed storing the parameter in zarr arrays instead of inline JSON arrays.
+This aspect was discussed in terms of readability of the JSON metadata and implementation complexity.
+
+The attending community members agreed to drop the usage of zarr array parameter storage for scale and translation transformations,
+since these are simple transformations with few parameters that have already been stored in inline JSON arrays in previous NGFF versions.
+
 ## Other minor changes
 
 ### Uniqueness of transformation names

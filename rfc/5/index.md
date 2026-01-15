@@ -532,10 +532,6 @@ Input and output dimensionality MUST be identical
 and MUST equal the the length of the "translation" array (N).
 `translation` transformations are invertible.
 
-**path**
-: The path to a Zarr-array containing the translation parameters.
-The array at this path MUST be 1D, and its length MUST be `N`.
-
 **translation**
 : The translation parameters stored as a JSON array of numbers.
 The array MUST have length `N`.
@@ -548,10 +544,6 @@ Input and output dimensionality MUST be identical
 and MUST equal the the length of the "scale" array (N).
 Values in the `scale` array SHOULD be non-zero;
 in that case, `scale` transformations are invertible.
-
-**path**
-: The path to a Zarr-array containing the scale parameters.
-The array at this path MUST be 1D, and its length MUST be `N`.
 
 **scale**
 : The scale parameters are stored as a JSON array of numbers.
