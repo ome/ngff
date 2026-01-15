@@ -1121,6 +1121,7 @@ Additional transformation types should be added in the future. Top candidates in
 * b-spline
 * velocity fields
 * by-coordinate 
+* new-dimension
 
 ## Performance
 
