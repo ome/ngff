@@ -231,15 +231,15 @@ Objects that implement `Node` have the following fields:
 | `"attributes"` | object | no | [See attributes section](#attributes) |
 
 The `type` field of a `Node` defines the additional fields, if any, it has. 
-This RFC proposed two Node types: `Collection`, `Multiscale` and `Singlescale`.
+This RFC defines three `Node` types: `Collection`, `Multiscale`, and `Singlescale`.
 Future RFCs might add more Node types, including custom Node types.
 
-A Node object may be used as the root object of the `ome` key, in which case a `version` key, as defined in previous spec versions, is also required.
-Non-root Node objects SHOULD not have `version` field and MUST NOT have a different `version` value than the root Node.
+A `Node` object may be used as the root object of the `ome` key, in which case a `version` field, as defined in previous spec versions, is also required.
+Non-root `Node` objects SHOULD NOT have a `version` field and MUST NOT have a different `version` value than the root `Node`.
 
 #### `Collection` Node
 
-References a Node that is a collection of Nodes. 
+References a `Node` that is a collection of `Node`s. 
 Collections MAY be nested.
 
 | Field | Type | Required? | Notes |
@@ -255,7 +255,7 @@ Either `"nodes"` or `"path"` MUST be present, but not both.
 
 #### `Multiscale` Node
 
-References a Node that represents an OME-Zarr multiscale image.
+References a `Node` that represents an OME-Zarr multiscale image.
 This new interface replaces the multiscale metadata defined in the previous versions of the OME-Zarr specification.
 
 | Field | Type | Required? | Notes |
@@ -272,7 +272,7 @@ Either `"nodes"` or `"path"` MUST be present, but not both.
 
 #### `Singlescale` Node
 
-References a Node that represents one resolution representation of an OME-Zarr multiscale image.
+References a `Node` that represents one resolution representation of an OME-Zarr multiscale image.
 This new interface replaces the multiscale metadata defined in the previous versions of the OME-Zarr specification.
 
 | Field | Type | Required? | Notes |
@@ -283,9 +283,9 @@ This new interface replaces the multiscale metadata defined in the previous vers
 | `"path"` | object | yes | Value must be a `Path` object. |
 | `"attributes"` | string | yes | Value must be a dictionary. [See attributes section](#attributes). |
 
-Singlescale nodes MUST have a `"coordinateTransformations"` key in their attributes which conforms to the [coordinate transformations](#coordinate-transformations) specification and only contains "scale" and "translate" transformations.
+`Singlescale` nodes MUST have a `coordinateTransformations` key in their `attributes` which conforms to the [coordinate transformations](#coordinate-transformations) specification and only contains `scale` and `translate` transformations.
 
-#### Paths
+#### `Path`
 
 This new interface replaces the paths defined in the previous versions of the OME-Zarr specification.
 
@@ -294,7 +294,7 @@ This new interface replaces the paths defined in the previous versions of the OM
 | `"type"` | string | yes | Value must be valid path type. |
 | `"path"` | string | yes | Value must be a string containing a path. See below. |
 
-The path `"type"` defines how the path is interpreted. Currently, the `"zarr"` and `"json"` types are supported. 
+The `type` field defines how the path is interpreted. Currently, the `zarr` and `json` types are supported. 
 The `"zarr"` type is used for paths that reference nodes in a Zarr array or group. Implementations need to append `zarr.json` to the path to access the metadata of the referenced node.
 The `"json"` type is used for paths that reference nodes in a JSON file.
 
@@ -321,7 +321,7 @@ In any case, implementations may impose access restrictions on any type of paths
 
 #### References
 
-Objects that are being referenced MUST have an `"id"` key.
+Objects that are being referenced MUST have an `id` field.
 
 The reference can be a string with an ID for referencing objects within the same JSON document.
 For more complex references, the reference can be an object with the following fields:
@@ -331,13 +331,13 @@ For more complex references, the reference can be an object with the following f
 | `"id"` | string | yes | Value must be a string that matches `[a-zA-Z0-9-_.]+`. |
 | `"path"` | object | no | Value must be a `Path` object. |
 
-For external references, the `"path"` key MUST be present.
+For external references, the `path` field MUST be present.
 
 
 #### Attributes
 
-Nodes have `attributes` keys that can be populated with arbitrary JSON metadata. 
-A primary use case for the attributes is the specialization of collections and nodes through additional metadata.
+Each `Node` has an `attributes` field that can be populated with JSON metadata. 
+A primary use case for the `attributes` field is the specialization of collections and nodes through additional metadata.
 
 There are unprefixed and prefixed top-level keys in the `attributes` dictionary.
 Unprefixed keys are reserved. 
@@ -350,17 +350,17 @@ The `ome:` prefix is reserved.
 
 We envision that popular implementations will claim prefixes to customize their metadata, e.g. `mobie:`, `neuroglancer:`, `fractal:`, `webknossos:`.
 
-Custom-prefixed keys can also be used to add additional sub-keys or behavior to existing attributes.
+Custom-prefixed keys can also be used to add additional sub-keys or behavior to existing keys.
 This can be thought of as a way of achieving inheritance.
-For example, the `well` keys could be specialized by a `fractal:well` key that adds additional sub-keys with altering behavior.
+For example, the `well` key could be specialized by a `fractal:well` key that adds additional sub-keys or altering behavior.
 It is out-of-scope of this RFC to fully define the inheritance behavior.
-That is left for specializing attributes to define on a case-by-case basis and may be standardized in a future RFC.
+That is left to be defined on a case-by-case basis for individual key specifications and may be standardized in a future RFC.
 
 While attributes are effective for creating specialized collections and nodes, implementations are not required to parse them.
 Implementations are encouraged to provide graceful fallback strategies for specialized collections and nodes that are not understood by the implementation. 
 Strategies could include falling back to basic collection semantics, providing selector screens, or rendering nodes with default settings.
 
-Unprefixed attributes that are defined as part of this RFC are:
+Unprefixed keys that are defined as part of this RFC are:
 - `coordinateSystems`
 - `coordinateTransformations`
 - `labels`, as well as `label-value` and `color` in label attributes
@@ -598,7 +598,7 @@ The `colors` field is an array of objects with the following fields:
 
 If present, the `color` field MUST have an array with four integers between 0 and 255, inclusive. These integers represent the uint8 values of red, green, blue and alpha.
 
-Additional attributes MAY be added to the `attributes` field, following the attribute naming rules.
+Additional keys MAY be added, following the key naming rules.
 
 
 #### Example
@@ -804,7 +804,7 @@ The `coordinateTransformations` field is an array of objects with the following 
 | `"input"` | string | yes | Value must be a reference to the input coordinate system. |
 | `"output"` | string | yes | Value must be a reference to the input coordinate system. |
 
-Additional attributes MAY be added as required by the transform type.
+Additional fields MAY be added as required by the transform type.
 
 Please note that the semantics of the `input` and `output` fields are changed from by-name to by-reference (ID or reference object) compared to RFC-5
 
