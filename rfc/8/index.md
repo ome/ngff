@@ -25,6 +25,15 @@ This proposal is early. Status: D1
 | Reviewer  | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
 | Reviewer  | N/A           | N/A         | xxxx-xx-xx | Requested by editor                   |-->
 
+### TODO
+- Path objects
+- Rework the multiscale node; including inlining multiscales
+- Attribute merging
+- Topology, can a collection reference itself
+- Names unique per collection instead of file and define references ("../" or UUID)
+- Extension points (extract from attributes section)
+
+
 ## Overview
 
 This proposal adds a new "collection" concept to OME-Zarr.
@@ -108,8 +117,8 @@ Examples of such applications are (among others) the following:
   are often used either in conjunction or at different timepoints to observe the same object or anatomical structure. 
 
 Such applications require the storage of collections of images and their mutual relationships,
-the metadata for which has already been defined by RFC5 (Coordinate Transformations in OME-NGFF).
-In the context of RFC5, images are part of a collection if they share a common coordinate space
+the metadata for which has already been defined by RFC-5 (Coordinate Transformations in OME-NGFF).
+In the context of RFC-5, images are part of a collection if they share a common coordinate space
 that is defined by coordinate systems and coordinate transformations.
 Since the relationships between images are already defined
 in a graph-like schema as proposed in this RFC,
@@ -192,61 +201,142 @@ solution, but for details further sections will be used.
 
 This proposal adds collections to the OME-Zarr specification.
 "Collections" are groupings of "nodes".
-Nodes either reference OME-Zarr images (multiscales) or collections.
-Nested collections can also be inlined in the metadata.
+Nodes either reference OME-Zarr images (multiscales, singlescales) or collections.
+Nested collections and multiscales can be inlined in the metadata.
 Nodes reference images or collections that are stored locally relative to the collection or remotely (using URLs).
 Arbitrary user or implementation metadata may be added to collections or nodes, which is an opportunity to add metadata that is only valid for a node in the context of a collection (e.g. rendering settings).
 Images may be added as nodes to multiple collections.
 
+### Goals
+
+- Define a mechanism for grouping images into (hierarchical) collections
+- Define a mechanism for referencing components of a collection (nodes, coordinate systems etc) internally and externally
+- Add extensibility to collections for user/implementation-specific metadata and new node types
+- Make a new home for HCS, bioformats2raw.layout and labels metadata
+- Incorporate coordinate systems and transformations
+
 
 ### Metadata
 
+#### `Node`
+
 This RFC defines a basic interface for a OME-Zarr metadata object, which we name `Node`.
-Objects that implement `Node` must have the following fields:
+Objects that implement `Node` have the following fields:
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
 | `"type"` | string | yes | Identifies the type of the node |
-| `"name"` | string | yes | Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within one collections JSON file. |
+| `"id"` | string | no | Value must be a string that matches `[a-zA-Z0-9-_.]+`. IDs must be unique within the JSON document. |
+| `"name"` | string | yes | Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within the enclosing collection. |
 | `"attributes"` | object | no | [See attributes section](#attributes) |
 
 The `type` field of a `Node` defines the additional fields, if any, it has. 
-This RFC proposed two Node types: `Collection` and `Multiscale`.
+This RFC proposed two Node types: `Collection`, `Multiscale` and `Singlescale`.
 Future RFCs might add more Node types, including custom Node types.
+
+A Node object may be used as the root object of the `ome` key, in which case a `version` key, as defined in previous spec versions, is also required.
+Non-root Node objects SHOULD not have `version` field and MUST NOT have a different `version` value than the root Node.
 
 #### `Collection` Node
 
 References a Node that is a collection of Nodes. 
-Collections can be nested.
+Collections MAY be nested.
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
 | `"type"` | string | yes | Value must be `"collection"`. |
+| `"id"` | string | no | Value must be a string that matches `[a-zA-Z0-9-_.]+`. IDs must be unique within the JSON document. |
+| `"name"` | string | yes | Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within the enclosing collection. |
 | `"nodes"` | array | no | Value must be an array of `Node` objects. |
-| `"path"` | string | no | Value must be a string containing a path. [See paths section](#paths) |
-| `"name"` | string | yes | Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within one collections JSON file. |
+| `"path"` | object | no | Value must be a `Path` object. |
 | `"attributes"` | object | no | Value must be a dictionary. [See attributes section](#attributes). |
 
-Either `"nodes"` or `"path"` must be present, but not both.
-
-A `Collection` object may be used as the root object of the `ome` key, in which case a `version` key, as defined in previous spec versions, is also required.
-Non-root `Collection` objects SHOULD not have `version` field and MUST NOT have a different `version` value than the root `Collection`.
+Either `"nodes"` or `"path"` MUST be present, but not both.
 
 #### `Multiscale` Node
 
 References a Node that represents an OME-Zarr multiscale image.
+This new interface replaces the multiscale metadata defined in the previous versions of the OME-Zarr specification.
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
 | `"type"` | string | yes | Value must be `"multiscale"`. |
+| `"id"` | string | no | Value must be a string that matches `[a-zA-Z0-9-_.]+`. IDs must be unique within the JSON document. |
 | `"name"` | string | yes | Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within one collections JSON file. |
-| `"path"` | string | yes | Value must be a string containing a path. [See paths section](#paths) |
+| `"nodes"` | array | no | Value must be an array of `Singlescale` objects. |
+| `"path"` | object | no | Value must be a `Path` object. |
 | `"attributes"` | string | no | Value must be a dictionary. [See attributes section](#attributes). |
+
+Either `"nodes"` or `"path"` MUST be present, but not both.
+
+
+#### `Singlescale` Node
+
+References a Node that represents one resolution representation of an OME-Zarr multiscale image.
+This new interface replaces the multiscale metadata defined in the previous versions of the OME-Zarr specification.
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"type"` | string | yes | Value must be `"multiscale"`. |
+| `"id"` | string | no | Value must be a string that matches `[a-zA-Z0-9-_.]+`. IDs must be unique within the JSON document. |
+| `"name"` | string | yes | Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within one collections JSON file. |
+| `"path"` | object | yes | Value must be a `Path` object. |
+| `"attributes"` | string | yes | Value must be a dictionary. [See attributes section](#attributes). |
+
+Singlescale nodes MUST have a `"coordinateTransformations"` key in their attributes which conforms to the [coordinate transformations](#coordinate-transformations) specification and only contains "scale" and "translate" transformations.
+
+#### Paths
+
+This new interface replaces the paths defined in the previous versions of the OME-Zarr specification.
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"type"` | string | yes | Value must be valid path type. |
+| `"path"` | string | yes | Value must be a string containing a path. See below. |
+
+The path `"type"` defines how the path is interpreted. Currently, the `"zarr"` and `"json"` types are supported. 
+The `"zarr"` type is used for paths that reference nodes in a Zarr array or group. Implementations need to append `zarr.json` to the path to access the metadata of the referenced node.
+The `"json"` type is used for paths that reference nodes in a JSON file.
+
+This `path` strings can be one of the following types:
+
+- **Relative paths.**
+  To reference nodes that are on the same file system namespace as the json file describing the collection, relative paths may be used.
+  Relative paths are interpreted relative to the json file describing the collection.
+  Relative paths follow the relative path notation defined in [IETF RFC1808](https://datatracker.ietf.org/doc/html/rfc1808).
+  Briefly, `.` and `..` are used to navigate the hierarchy and the hierarchy is separated by `/`.
+  Relative paths may be used for data stored on traditional file systems as well as other storage protocols, such as HTTP or S3.
+- **Absolute file paths.**
+  On traditional file systems, absolute paths may be used.
+  Please note that absolute file paths are generally not portable across operating systems or file systems.
+  - On Windows systems, paths commonly begin with a drive letter followed by `:\`. The folder hierarchy is separated by `\`. UNC paths are also permissible.
+  - On POSIX-like systems, paths commonly start with a `/` and the folder hierarchy is separated by `/`.
+- **HTTP(S) URLs.** 
+  To reference nodes that are stored remotely, URLs with the `http` or `https` scheme may be used.
+  URLs follow the notation defined in [IETF RFC1738](https://datatracker.ietf.org/doc/html/rfc1738).
+
+Future RFCs may propose additional paths, such as S3 URLs or chained paths (e.g. for referencing files within a zip file).
+In any case, implementations may impose access restrictions on any type of paths.
+
+
+#### References
+
+Objects that are being referenced MUST have an `"id"` key.
+
+The reference can be a string with an ID for referencing objects within the same JSON document.
+For more complex references, the reference can be an object with the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"id"` | string | yes | Value must be a string that matches `[a-zA-Z0-9-_.]+`. |
+| `"path"` | object | no | Value must be a `Path` object. |
+
+For external references, the `"path"` key MUST be present.
 
 
 #### Attributes
 
-Collections and CollectionNodes have `attributes` keys that can be populated with arbitrary JSON metadata. 
+Nodes have `attributes` keys that can be populated with arbitrary JSON metadata. 
 A primary use case for the attributes is the specialization of collections and nodes through additional metadata.
 
 There are unprefixed and prefixed top-level keys in the `attributes` dictionary.
@@ -270,33 +360,30 @@ While attributes are effective for creating specialized collections and nodes, i
 Implementations are encouraged to provide graceful fallback strategies for specialized collections and nodes that are not understood by the implementation. 
 Strategies could include falling back to basic collection semantics, providing selector screens, or rendering nodes with default settings.
 
+Unprefixed attributes that are defined as part of this RFC are:
+- `coordinateSystems`
+- `coordinateTransformations`
+- `labels`, as well as `label-value` and `color` in label attributes
+- `plate` and `well`
 
-#### Paths
+### Extensibility
 
-This proposal uses paths are referencing nodes of collections.
-This paths can be one of the following types:
+Adding collections to OME-Zarr provides an opportunity to define extension points.
 
-- **Relative paths.**
-  To reference nodes that are on the same file system namespace as the json file describing the collection, relative paths may be used.
-  Relative paths are interpreted relative to the json file describing the collection.
-  Relative paths follow the relative path notation defined in [IETF RFC1808](https://datatracker.ietf.org/doc/html/rfc1808).
-  Briefly, `.` and `..` are used to navigate the hierarchy and the hierarchy is separated by `/`.
-  Relative paths may be used for data stored on traditional file systems as well as other storage protocols, such as HTTP or S3.
-- **Absolute file paths.**
-  On traditional file systems, absolute paths may be used.
-  Please note that absolute file paths are generally not portable across operating systems or file systems.
-  - On Windows systems, paths commonly begin with a drive letter followed by `:\`. The folder hierarchy is separated by `\`. UNC paths are also permissible.
-  - On POSIX-like systems, paths commonly start with a `/` and the folder hierarchy is separated by `/`.
-- **HTTP(S) URLs.** 
-  To reference nodes that are stored remotely, URLs with the `http` or `https` scheme may be used.
-  URLs follow the notation defined in [IETF RFC1738](https://datatracker.ietf.org/doc/html/rfc1738).
+TODO: Explain naming scheme, similar to attributes (prefixed vs unprefixed)
 
-Future RFCs may propose additional paths, such as S3 URLs or chained paths (e.g. for referencing files within a zip file).
-In any case, implementations may impose access restrictions on any type of paths.
+TODO: List and explain Extension points
 
+- Node types
+- Attributes
+- Path types
+- Coordinate transforms
+- Coordinate system axes
 
 
 ### Examples
+
+See more examples at https://github.com/normanrz/ngff-rfc8-collection-examples/.
 
 #### Simple example
 ```jsonc
@@ -307,19 +394,24 @@ In any case, implementations may impose access restrictions on any type of paths
         "name": "jrc_hela-1",
         "nodes": [{
             "name": "raw",
-            "type": "multiscale", // image or collection
-            "path": "./raw", // a relative or absolute path
+            "type": "multiscale",
+            "path": {
+              "type": "zarr",
+              "path": "./raw", // a relative or absolute path
+            },
             "attributes": {    
                 "example-viewer:settings": {
                     "isDisabled": true
                 },
-                "other-viewer:voxelType": "intensities"
                 ... // arbitrary user-defined metadata
             },
         }, {
             "name": "..",
             "type": "collection",
-            "path": "./nested_collection.json"
+            "path": {
+              "type": "json",
+              "path": "./nested_collection.json"
+            }
         }, ... ],
         "attributes": {
             ...
@@ -328,7 +420,50 @@ In any case, implementations may impose access restrictions on any type of paths
 }
 ```
 
-##### Grid view JSON example
+
+#### Inlined multiscale
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "collection",
+        "name": "example",
+        "attributes": {
+            "coordinateSystems": [
+                {
+                  "id": "world",
+                  "name": "world",
+                  "axes": [...]
+                }
+            ]
+        },
+        "nodes": [{
+            "name": "raw",
+            "type": "multiscale",
+            "nodes": [{
+                "id": "raw_0",
+                "type": "singlescale",
+                "path": {
+                  "type": "zarr",
+                  "path": "./raw/0"
+                },
+                "attributes": {
+                  "coordinateTransformations": [
+                    {
+                      "type": "scale",
+                      "scale": [1, 1, 1],
+                      "input": "raw_0",
+                      "output": "world"
+                    }
+                  ]
+                }
+            }, ...]
+        }, ... ]
+    }
+}
+```
+
+#### Grid view JSON example
 
 A gallery view could also be represented within the proposed collection JSON as shown in the below example.
 
@@ -339,6 +474,7 @@ Also note some MoBIE specific attributes:
 - `"mobie:grid": "true"` specifies that the data should be laid out in a grid.
 - `"mobie:voxelType": "intensities"` (or `"labels"`) specifies the voxel data type; in the future, we would propose that this information is encoded within the OME-Zarr images themselves, such that this attribute could be omitted.
 
+TODO: Replace `mobie:voxelType` with `labels`
 
 ```jsonc
 {
@@ -356,14 +492,20 @@ Also note some MoBIE specific attributes:
                 "nodes": [
                     {
                         "type": "multiscale",
-                        "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_hela-3/jrc_hela-3.zarr/em/fibsem-uint16",
+                        "path": {
+                          "type": "zarr",
+                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_hela-3/jrc_hela-3.zarr/em/fibsem-uint16",
+                        },
                         "attributes": {
                             "mobie:voxelType": "intensities"
                         }
                     },
                     {
                         "type": "multiscale",
-                        "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_hela-3/jrc_hela-3.zarr/labels/mito_seg",
+                        "path": {
+                          "type": "zarr",
+                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_hela-3/jrc_hela-3.zarr/labels/mito_seg",
+                        },
                         "attributes": {
                             "mobie:voxelType": "labels"
                         }
@@ -376,14 +518,20 @@ Also note some MoBIE specific attributes:
                 "nodes": [
                     {
                         "type": "multiscale",
-                        "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_macrophage-2/jrc_macrophage-2.zarr/em/fibsem-uint16",
+                        "path": {
+                          "type": "zarr",
+                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_macrophage-2/jrc_macrophage-2.zarr/em/fibsem-uint16"
+                        },
                         "attributes": {
                             "mobie:voxelType": "intensities"
                         }
                     },
                     {
                         "type": "multiscale",
-                        "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_macrophage-2/jrc_macrophage-2.zarr/labels/mito_seg",
+                        "path": {
+                          "type": "zarr",
+                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_macrophage-2/jrc_macrophage-2.zarr/labels/mito_seg"
+                        },
                         "attributes": {
                             "mobie:voxelType": "labels"
                         }
@@ -396,14 +544,20 @@ Also note some MoBIE specific attributes:
                 "nodes": [
                     {
                         "type": "multiscale",
-                        "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_jurkat-1/jrc_jurkat-1.zarr/em/fibsem-uint16",
+                        "path": {
+                          "type": "zarr",
+                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_jurkat-1/jrc_jurkat-1.zarr/em/fibsem-uint16"
+                        },
                         "attributes": {
                             "mobie:voxelType": "intensities"
                         }
                     },
                     {
                         "type": "multiscale",
-                        "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_jurkat-1/jrc_jurkat-1.zarr/labels/mito_seg",
+                        "path": {
+                          "type": "zarr",
+                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_jurkat-1/jrc_jurkat-1.zarr/labels/mito_seg"
+                        },
                         "attributes": {
                             "mobie:voxelType": "labels"
                         }
@@ -417,14 +571,77 @@ Also note some MoBIE specific attributes:
 
 ### Label maps and other derived images
 
+Previous versions of the OME-Zarr specification defined a mechanism for associating label images with a singe multiscale image.
+This was achieved by using a `labels` Zarr group that had to be a direct child of the multiscale Zarr group with some specific metadata. 
+This proposal replaces this mechanism.
+
+To denote a multiscale image as a label map, the `labels` attribute SHOULD be present.
+If present, the value of the `labels` attribute MUST be an object with the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"labelAttributes"` | array of objects | no | Attributes for individual labels. |
+| `"source"` | array of strings | no | An array with references to the source multiscales. |
+
+Because no fields are required, an empty object MAY be used.
+
+The previous `colors` and `properties` fields are now combined into a single `labelAttributes` field. The `rgba` field in the `colors` objects has been renamed to `color`.
+
+#### Label attributes
+
+The `colors` field is an array of objects with the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"label-value"` | number | yes | Value must be the label value. |
+| `"color"` | array of number | no | Value must be a color in array format. | 
+
+If present, the `color` field MUST have an array with four integers between 0 and 255, inclusive. These integers represent the uint8 values of red, green, blue and alpha.
+
+Additional attributes MAY be added to the `attributes` field, following the attribute naming rules.
+
+
 #### Example
 
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "collection",
+        "name": "label-example",
+        "attributes": { ... }
+        "nodes": [{
+            "id": "raw",
+            "name": "raw",
+            "type": "multiscale",
+            "nodes": [ ... ]
+        }, {
+            "name": "nuclei",
+            "type": "multiscale",
+            "nodes": [ ... ],
+            "attributes": {
+                "labels": {
+                    "source": [ "raw" ],
+                    "labelAttributes": [{
+                        "label-value": 1, // TODO: kebab-case is inconsistent
+                        "color": [ 255, 0, 0, 255 ]
+                    }, {
+                        "label-value": 2,
+                        "color": [ 0, 255, 0, 255 ]
+                    }]
+                }
+            }
+        }]
+    }
+}
+```
 
 ### HCS metadata
 
 High content screening data is commonly composed of multiple multiscale images ("well") that are arranged in a grid on a "plate".
 Additional metadata for organizing the wells on a plate is introduced here.
 
+TODO:
 Open questions Joel:
 How do we relate derived data to existing data best in the HCS context without becoming a nesting nightmare?
 
@@ -455,20 +672,26 @@ How do we represent images in wells that can optionally be related to labels and
                     "column": 1,
                     "row": "A",
                     "acquisition": 0
-                 }
+                }
             }
             "nodes": [
                 {
                     "type": "multiscale",
                     "name": "well-001-001",
-                    "path": "./A/01/001.img.zarr",
+                    "path": {
+                      "type": "zarr",
+                      "path": "./A/01/001.img.zarr"
+                    }
                 },
                 {
                     "type": "multiscale",
                     "name": "A01_0_nuclei",
-                    "path": "/full/path/A/01/nuclei.img.zarr",
+                    "path": {
+                      "type": "zarr",
+                      "path": "/full/path/A/01/nuclei.img.zarr"
+                    },
                     "attributes": {
-                        "label": {}
+                        "labels": {}
                     }
                 },
                 ...
@@ -481,14 +704,15 @@ How do we represent images in wells that can optionally be related to labels and
 
 ### bioformats2raw.layout metadata
 
-#### Example
+The bioformats2raw.layout metadata is replaced by this proposal.
+A series of images can now be represented as a collection of multiscale images.
 
-### Attaching coordinate transforms
+### Coordinate transforms
 
 Coordinate systems and transformations can be stored in three distinct locations:
 For single images, they can be stored in the `ome` key of the `attributes` container in a `zarr.json` file of the multiscales zarr group.
 Since these metadata are entirely self-contained, they are inherently compatible with the proposed collection metadata format.
-For collections of two or more images in a common coordinate system, RFC5 defines a parent-level metadata format.
+For collections of two or more images in a common coordinate system, RFC-5 defines a parent-level metadata format.
 In this layout, `coordinateTransformation` define relationships between different images or `coordinateSystems`:
 
 ```jsonc
@@ -497,16 +721,14 @@ In this layout, `coordinateTransformation` define relationships between differen
     {
       "type": "translation",
       "translation": [0, 0, 100],
-      "input": "image_1",  // can be path or coordinateSystem name
-      "output": "world"  // can be path or coordinateSystem name
+      "input": "image_1", // references collection node ID
+      "output": "world" // references coordinate system ID
     }
   ]
 }
 ```
 
-To avoid redundancy and ensure a strict mapping from coordinate transformations inputs/outputs to collection nodes,
-the input/output values of coordinate transformations could be allowed to reference collection node names.
-In this case, a collection node name could serve as a place holder for an image path.
+In a change from the previous specification, coordinate systems are referenced using the Reference interface, i.e. via IDs, and not via names.
 
 ```jsonc
 {
@@ -517,6 +739,7 @@ In this case, a collection node name could serve as a place holder for an image 
     "attributes": {
       "coordinateSystems": [
         {
+          "id": "world",
           "name": "world",
           "axes": [...]
         }
@@ -525,32 +748,66 @@ In this case, a collection node name could serve as a place holder for an image 
         {
           "type": "translation",
           "translation": [0, 0, 100],
-          "input": "tile_0",  // references collection node name
-          "output": "world"  // references coordinate system name
+          "input": "tile_0",  // references collection node ID
+          "output": "world"  // references coordinate system ID
         },
         {
           "type": "translation",
           "translation": [100, 0, 0],
-          "input": "tile_1",  // references collection node name
-          "output": "world"  // references coordinate system name
+          "input": "tile_1",  // references collection node ID
+          "output": "world"  // references coordinate system ID
         }
       ]
     },
     "nodes": [
       {
         "type": "multiscale",
+        "id": "tile_0",
         "name": "tile_0",
-        "path": "./tile_0.zarr",
+        "path": {
+          "type": "zarr",
+          "path": "./tile_0.zarr"
+        }
       }, 
       {
         "type": "multiscale",
+        "id": "tile_1",
         "name": "tile_1",
-        "path": "./tile_1.zarr",
+        "path": {
+          "type": "zarr",
+          "path": "./tile_1.zarr"
+        }
       },
     ]
   }
 }
 ```
+
+#### Coordinate systems
+
+The `coordinateSystems` attribute is an array of objects with the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"id"` | string | no | Value must be a string that matches `[a-zA-Z0-9-_.]+`. IDs must be unique within the JSON document. |
+| `"name"` | string | yes | Value must be a non-empty string. As defined in RFC-5. |
+| `"axes"` | array of strings | yes | Value must be an array of axes, as defined in RFC-5. |
+
+
+#### Coordinate transforms
+
+The `coordinateTransformations` field is an array of objects with the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"type"` | string | yes | Value must be a valid coordinate transform type, as defined in RFC-5. |
+| `"input"` | string | yes | Value must be a reference to the input coordinate system. |
+| `"output"` | string | yes | Value must be a reference to the input coordinate system. |
+
+Additional attributes MAY be added as required by the transform type.
+
+Please note that the semantics of the `input` and `output` fields are changed from by-name to by-reference (ID or reference object) compared to RFC-5
+
 
 ### Where is this collection metadata stored?
 
@@ -570,7 +827,10 @@ This is particularly useful for defining the nodes that are stored within a Zarr
             "nodes": [{
                 "type": "multiscale",
                 "name": "image1",
-                "path": "./image1.img.zarr"
+                "path": {
+                  "type": "zarr",
+                  "path": "./image1.img.zarr"  // reference to a Zarr group
+                }
             }, ...]
         }
     }
@@ -590,7 +850,10 @@ Standalone files are useful for persisting groupings of images that may or may n
         "name": "standalone-example",
         "nodes": [{
             "type": "multiscale",
-            "path": "https://example.com/image1.img.zarr"
+            "path": {
+              "type": "zarr",
+              "path": "https://example.com/image1.img.zarr"
+            }
         }, ...]
     }
 }
