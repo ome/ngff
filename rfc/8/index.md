@@ -226,8 +226,8 @@ Objects that implement `Node` have the following fields:
 | Field | Type | Required? | Notes |
 | - | - | - | - |
 | `"type"` | string | yes | Identifies the type of the node |
-| `"id"` | string | no | Value must be a string that matches `[a-zA-Z0-9-_.]+`. IDs must be unique within the JSON document. |
-| `"name"` | string | yes | Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within the enclosing collection. |
+| `"id"` | string | no | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
+| `"name"` | string | yes | Value MUST be a non-empty string. It SHOULD be a string that matches `[a-zA-Z0-9-_.]+`. Names MUST be unique within the enclosing collection. |
 | `"attributes"` | object | no | [See attributes section](#attributes) |
 
 The `type` field of a `Node` defines the additional fields, if any, it has. 
@@ -244,12 +244,12 @@ Collections MAY be nested.
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
-| `"type"` | string | yes | Value must be `"collection"`. |
-| `"id"` | string | no | Value must be a string that matches `[a-zA-Z0-9-_.]+`. IDs must be unique within the JSON document. |
-| `"name"` | string | yes | Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within the enclosing collection. |
-| `"nodes"` | array | no | Value must be an array of `Node` objects. |
-| `"path"` | object | no | Value must be a `Path` object. |
-| `"attributes"` | object | no | Value must be a dictionary. [See attributes section](#attributes). |
+| `"type"` | string | yes | Value MUST be `"collection"`. |
+| `"id"` | string | no | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
+| `"name"` | string | yes | Value MUST be a non-empty string. It SHOULD be a string that matches `[a-zA-Z0-9-_.]+`. Names MUST be unique within the enclosing collection. |
+| `"nodes"` | array | no | Value MUST be an array of `Node` objects. |
+| `"path"` | object | no | Value MUST be a `Path` object. |
+| `"attributes"` | object | no | Value MUST be a dictionary. [See attributes section](#attributes). |
 
 Either `"nodes"` or `"path"` MUST be present, but not both.
 
@@ -260,12 +260,12 @@ This new interface replaces the multiscale metadata defined in the previous vers
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
-| `"type"` | string | yes | Value must be `"multiscale"`. |
-| `"id"` | string | no | Value must be a string that matches `[a-zA-Z0-9-_.]+`. IDs must be unique within the JSON document. |
-| `"name"` | string | yes | Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within one collections JSON file. |
-| `"nodes"` | array | no | Value must be an array of `Singlescale` objects. |
-| `"path"` | object | no | Value must be a `Path` object. |
-| `"attributes"` | string | no | Value must be a dictionary. [See attributes section](#attributes). |
+| `"type"` | string | yes | Value MUST be `"multiscale"`. |
+| `"id"` | string | no | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
+| `"name"` | string | yes | Value MUST be a non-empty string. It SHOULD be a string that matches `[a-zA-Z0-9-_.]+`. Names MUST be unique within one collections JSON file. |
+| `"nodes"` | array | no | Value MUST be an array of `Singlescale` objects. |
+| `"path"` | object | no | Value MUST be a `Path` object. |
+| `"attributes"` | string | no | Value MUST be a dictionary. [See attributes section](#attributes). |
 
 Either `"nodes"` or `"path"` MUST be present, but not both.
 
@@ -277,11 +277,11 @@ This new interface replaces the multiscale metadata defined in the previous vers
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
-| `"type"` | string | yes | Value must be `"multiscale"`. |
-| `"id"` | string | no | Value must be a string that matches `[a-zA-Z0-9-_.]+`. IDs must be unique within the JSON document. |
-| `"name"` | string | yes | Value must be a non-empty string. It should be a string that matches `[a-zA-Z0-9-_.]+`. Must be unique within one collections JSON file. |
-| `"path"` | object | yes | Value must be a `Path` object. |
-| `"attributes"` | string | yes | Value must be a dictionary. [See attributes section](#attributes). |
+| `"type"` | string | yes | Value MUST be `"multiscale"`. |
+| `"id"` | string | no | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
+| `"name"` | string | yes | Value MUST be a non-empty string. It SHOULD be a string that matches `[a-zA-Z0-9-_.]+`. Names MUST be unique within one collections JSON file. |
+| `"path"` | object | yes | Value MUST be a `Path` object. |
+| `"attributes"` | string | yes | Value MUST be a dictionary. [See attributes section](#attributes). |
 
 `Singlescale` nodes MUST have a `coordinateTransformations` key in their `attributes` which conforms to the [coordinate transformations](#coordinate-transformations) specification and only contains `scale` and `translate` transformations.
 
@@ -291,8 +291,8 @@ This new interface replaces the paths defined in the previous versions of the OM
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
-| `"type"` | string | yes | Value must be valid path type. |
-| `"path"` | string | yes | Value must be a string containing a path. See below. |
+| `"type"` | string | yes | Value MUST be valid path type. |
+| `"path"` | string | yes | Value MUST be a string containing a path. See below. |
 
 The `type` field defines how the path is interpreted. Currently, the `zarr` and `json` types are supported. 
 The `"zarr"` type is used for paths that reference nodes in a Zarr array or group. Implementations need to append `zarr.json` to the path to access the metadata of the referenced node.
@@ -328,8 +328,8 @@ For more complex references, the reference can be an object with the following f
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
-| `"id"` | string | yes | Value must be a string that matches `[a-zA-Z0-9-_.]+`. |
-| `"path"` | object | no | Value must be a `Path` object. |
+| `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. |
+| `"path"` | object | no | Value MUST be a `Path` object. |
 
 For external references, the `path` field MUST be present.
 
@@ -593,8 +593,8 @@ The `colors` field is an array of objects with the following fields:
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
-| `"label-value"` | number | yes | Value must be the label value. |
-| `"color"` | array of number | no | Value must be a color in array format. | 
+| `"label-value"` | number | yes | Value MUST be the label value. |
+| `"color"` | array of number | no | Value MUST be a color in array format. | 
 
 If present, the `color` field MUST have an array with four integers between 0 and 255, inclusive. These integers represent the uint8 values of red, green, blue and alpha.
 
@@ -789,9 +789,9 @@ The `coordinateSystems` attribute is an array of objects with the following fiel
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
-| `"id"` | string | no | Value must be a string that matches `[a-zA-Z0-9-_.]+`. IDs must be unique within the JSON document. |
-| `"name"` | string | yes | Value must be a non-empty string. As defined in RFC-5. |
-| `"axes"` | array of strings | yes | Value must be an array of axes, as defined in RFC-5. |
+| `"id"` | string | no | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
+| `"name"` | string | yes | Value MUST be a non-empty string. As defined in RFC-5. |
+| `"axes"` | array of strings | yes | Value MUST be an array of axes, as defined in RFC-5. |
 
 
 #### Coordinate transforms
@@ -800,9 +800,9 @@ The `coordinateTransformations` field is an array of objects with the following 
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
-| `"type"` | string | yes | Value must be a valid coordinate transform type, as defined in RFC-5. |
-| `"input"` | string | yes | Value must be a reference to the input coordinate system. |
-| `"output"` | string | yes | Value must be a reference to the input coordinate system. |
+| `"type"` | string | yes | Value MUST be a valid coordinate transform type, as defined in RFC-5. |
+| `"input"` | string | yes | Value MUST be a reference to the input coordinate system. |
+| `"output"` | string | yes | Value MUST be a reference to the input coordinate system. |
 
 Additional fields MAY be added as required by the transform type.
 
