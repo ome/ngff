@@ -280,10 +280,14 @@ This new interface replaces the multiscale metadata defined in the previous vers
 | `"type"` | string | yes | Value MUST be `"multiscale"`. |
 | `"id"` | string | no | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
 | `"name"` | string | yes | Value MUST be a non-empty string. It SHOULD be a string that matches `[a-zA-Z0-9-_.]+`. Names MUST be unique within one collections JSON file. |
-| `"path"` | object | yes | Value MUST be a `Path` object. |
+| `"path"` | object | no | Value MUST be a `Path` object. |
 | `"attributes"` | string | yes | Value MUST be a dictionary. [See attributes section](#attributes). |
 
 `Singlescale` nodes MUST have a `coordinateTransformations` key in their `attributes` which conforms to the [coordinate transformations](#coordinate-transformations) specification and only contains `scale` and `translate` transformations.
+
+If the `Singlescale` node is the root node and contained within the `zarr.json` of a Zarr array, the `path` field SHOULD NOT be present. 
+In this case, the `Singlescale` describes the Zarr array.
+Otherwise, the `path` field MUST be present.
 
 #### `Path`
 
@@ -336,31 +340,18 @@ For external references, the `path` field MUST be present.
 
 #### Attributes
 
-Each `Node` has an `attributes` field that can be populated with JSON metadata. 
+Each `Node` has an `attributes` field that can be populated with JSON metadata.
 A primary use case for the `attributes` field is the specialization of collections and nodes through additional metadata.
 
-There are unprefixed and prefixed top-level keys in the `attributes` dictionary.
-Unprefixed keys are reserved. 
-Changes to or additions of unprefixed keys are expected to be made through the RFC process.
-Custom keys SHOULD be namespaced by a prefix (separated by `:`).
-Prefixes SHOULD be registered in a central registry by individuals or organizations (e.g. dev teams), which will be a Github repository under the `ome` organization.
-Registration of a prefix claim maintainership for that prefix.
-The registry also provides a discoverable location for specification of the keys.
-The `ome:` prefix is reserved.
+Attribute keys follow the naming scheme described in [Extensibility](#extensibility): unprefixed keys are reserved for the core specification, while prefixed keys (e.g., `mobie:`, `neuroglancer:`, `fractal:`, `webknossos:`) allow custom metadata.
 
-We envision that popular implementations will claim prefixes to customize their metadata, e.g. `mobie:`, `neuroglancer:`, `fractal:`, `webknossos:`.
-
-Custom-prefixed keys can also be used to add additional sub-keys or behavior to existing keys.
+Custom-prefixed keys can also be used to add additional sub-keys or behavior to existing unprefixed keys.
 This can be thought of as a way of achieving inheritance.
-For example, the `well` key could be specialized by a `fractal:well` key that adds additional sub-keys or altering behavior.
+For example, the `well` key could be specialized by a `fractal:well` key that adds additional sub-keys or alters behavior.
 It is out-of-scope of this RFC to fully define the inheritance behavior.
 That is left to be defined on a case-by-case basis for individual key specifications and may be standardized in a future RFC.
 
-While attributes are effective for creating specialized collections and nodes, implementations are not required to parse them.
-Implementations are encouraged to provide graceful fallback strategies for specialized collections and nodes that are not understood by the implementation. 
-Strategies could include falling back to basic collection semantics, providing selector screens, or rendering nodes with default settings.
-
-Unprefixed keys that are defined as part of this RFC are:
+Unprefixed attribute keys that are defined as part of this RFC are:
 - `coordinateSystems`
 - `coordinateTransformations`
 - `labels`, as well as `label-value` and `color` in label attributes
@@ -369,16 +360,51 @@ Unprefixed keys that are defined as part of this RFC are:
 ### Extensibility
 
 Adding collections to OME-Zarr provides an opportunity to define extension points.
+Extension points allow the specification to be extended in a controlled manner, enabling custom functionality while maintaining interoperability.
 
-TODO: Explain naming scheme, similar to attributes (prefixed vs unprefixed)
+#### Naming scheme
 
-TODO: List and explain Extension points
+Extension identifiers follow a prefixed vs unprefixed convention:
 
-- Node types
-- Attributes
-- Path types
-- Coordinate transforms
-- Coordinate system axes
+- **Unprefixed identifiers** are reserved for the core specification and can only be added or modified through the RFC process.
+- **Prefixed identifiers** (separated by `:`) can be freely introduced by custom extensions without requiring an RFC. The prefix identifies the user or organization that introduces and maintains the extension. Prefixes SHOULD be registered in a central registry (a Github repository under the `ome` organization). Registration of a prefix claims maintainership for that prefix and provides a discoverable location for the specification of custom extensions.
+- The `ome:` prefix is reserved for official extensions that have not yet been incorporated into the core specification.
+
+This naming scheme applies uniformly to all extension points listed below.
+
+Implementations SHOULD ignore extension identifiers they do not recognize, allowing graceful degradation when encountering unknown extensions.
+
+#### Extension points
+
+The following extension points are defined:
+
+##### Node types
+
+The `type` field of a `Node` defines its structure and semantics. This RFC defines three unprefixed node types: `collection`, `multiscale`, and `singlescale`. Custom extensions can add prefixed node types (e.g., `mobie:table`, `fractal:roi`).
+
+Implementations that do not recognize a node type SHOULD treat it as an opaque node and MAY skip it or display it with a generic representation.
+
+##### Attribute keys
+
+Attribute keys within the `attributes` dictionary of nodes are an extension point. Custom extensions can add prefixed keys (e.g., `neuroglancer:shader`, `webknossos:settings`). See [Attributes](#attributes) for more details.
+
+##### Path types
+
+The `type` field of a `Path` object defines how the path is interpreted. This RFC defines two unprefixed path types: `zarr` and `json`. Custom extensions can add prefixed path types for other storage protocols or access patterns (e.g., `myorg:s3`, `myorg:zip`).
+
+Implementations that do not recognize a path type SHOULD treat the referenced node as opaque and MAY skip it or display it with a generic representation.
+
+##### Coordinate transformation types
+
+The `type` field of a coordinate transformation defines its mathematical operation. RFC-5 defines several unprefixed transformation types including `identity`, `scale`, `translation`, and others. Custom extensions can add prefixed transformation types (e.g., `myorg:nonlinear`).
+
+Implementations that do not recognize a transformation type SHOULD report an error or skip the transformation, as applying an unknown transformation could lead to incorrect spatial interpretation.
+
+##### Coordinate system axis types
+
+The `type` field of an axis in a coordinate system defines its semantics. RFC-5 defines unprefixed axis types including `space`, `time`, and `channel`. Custom extensions can add prefixed axis types (e.g., `myorg:wavelength`).
+
+Implementations that do not recognize an axis type MAY treat it as an opaque dimension.
 
 
 ### Examples
