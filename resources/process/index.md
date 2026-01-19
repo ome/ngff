@@ -24,6 +24,8 @@ A flowchart of the process is available at the end of this section.
 
 The overall RFC process is broken down into three phases: the _draft phase_ before a proposal becomes an RFC, the _RFC phase_ during which reviews occur, and the _accepted phase_ after the RFC has been accepted.
 
+The RFC progresses through multiple status, receiving different [status codes](rfc-status-codes/) during its life cycle.
+
 #### Draft
 
 During the _draft_ phase, authors discuss and develop an idea to maximize its potential as an RFC. This phase is meant to circulate ideas and gather initial feedback, and authors may want to update the RFC based on discussions. Authors who are unsure if they will be able to shepherd an RFC throughout the entire process are still encouraged to open proposals that could be adopted by others during the RFC process.
