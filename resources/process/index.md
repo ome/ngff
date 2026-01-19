@@ -1,6 +1,13 @@
 The RFC process
 ===============
 
+```{toctree}
+:maxdepth: 1
+:glob:
+:hidden:
+*/index
+```
+
 This document outlines the request for comment (RFC) process, which is used for suggesting discussing and adopting major changes to the OME-Zarr specification. RFC submissions are encouraged from anyone, and are recorded whether they are adopted or not.
 
 Not all decisions need to follow the RFC process - this is intended primarily for significant and/or breaking changes to the specification or the community process itself. Other changes, bug fixes, etc. are welcome as PRs without a full RFC. If your are unsure whether or not a change requires an RFC, either open an issue or directly contact the OME-Zarr editor to check.
