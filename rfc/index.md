@@ -1,5 +1,5 @@
-Data Resources
-==============
+RFCs
+====
 
 ```{toctree}
 :maxdepth: 1
