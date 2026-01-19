@@ -1,6 +1,6 @@
 bikeshed<4.2
 myst-parser
-sphinx-book-theme
+pydata-sphinx-theme
 json-schema-for-humans
 testresources
 sphinx-reredirects
