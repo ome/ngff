@@ -99,21 +99,26 @@ def build_served_html():
         myst_file = glob.glob(f'specifications/{version}/**/myst.yml', recursive=True)[0]
         if os.path.exists(myst_file):
             cdir = os.getcwd()
-            os.chdir(os.path.dirname(myst_file))
-            subprocess.check_call(['jupyter-book', 'build', '--ci', '--html'])
-            os.chdir(cdir)
+            try:
+                os.chdir(os.path.dirname(myst_file))
+                subprocess.check_call(['jupyter-book', 'build', '--ci', '--html'])
+            finally:
+                os.chdir(cdir)
         print('✅ Built jupyter-book documentation for version', version)
 
 
         # copy built html files to _html_extra
         bikeshed_output = f'specifications/{version}/index.html'
-        if os.path.exists(bikeshed_output):
-            shutil.copy2(bikeshed_output, f'_html_extra/{version}/index.html')
-            print(f'✅ Found legacy bikeshed, serving as extra html for {version}')
-        else:
-            build_dir = glob.glob(f'specifications/{version}/**/_build/html', recursive=True)[0]
-            shutil.copytree(build_dir, f'_html_extra/{version}', dirs_exist_ok=True)
-            print(f'✅ Copying jupyter-book documentation as extra html for {version}')
+        try:
+            if os.path.exists(bikeshed_output):
+                shutil.copy2(bikeshed_output, f'_html_extra/{version}/index.html')
+                print(f'✅ Found legacy bikeshed, serving as extra html for {version}')
+            else:
+                build_dir = glob.glob(f'specifications/{version}/**/_build/html', recursive=True)[0]
+                shutil.copytree(build_dir, f'_html_extra/{version}', dirs_exist_ok=True)
+                print(f'✅ Copying jupyter-book documentation as extra html for {version}')
+        except Exception as e:
+            print(f'⚠️  Could not copy served html for version {version}: {e}')
 
 build_served_html()
     
