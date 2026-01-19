@@ -6,3 +6,4 @@ _html_extra
 .tox
 .vscode
 .*plist
+0.6.dev2/*
