@@ -97,7 +97,10 @@ During the _SPEC phase_ necessary changes to the specification and implementatio
 
 Once two implementations are complete and released, the RFC is considered adopted 🎉
 
+#### Flowchart
+
 ```mermaid
+
 flowchart TD
 
 open --> discuss_draft

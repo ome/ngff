@@ -27,6 +27,7 @@ myst_enable_extensions = [
     "colon_fence"
     ]
 myst_fence_as_directive = ["mermaid"]
+mermaid_height = "auto"
 
 templates_path = ["_templates"]
 exclude_patterns = [
