@@ -1,4 +1,5 @@
-# RFCs
+Data Resources
+==============
 
 ```{toctree}
 :maxdepth: 1
@@ -13,7 +14,7 @@ the [specifications](../specifications/index),
 RFCs are referenced to provide readers background reading
 and additional details.
 
-The RFC process itself is defined on [the process page](process.md).
+The RFC process itself is defined on [the process page](../resources/process/process.md).
 If there are any questions, please contact the editors under
 <mailto:ngff-editors@openmicroscopy.org>
 
