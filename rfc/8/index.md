@@ -25,15 +25,6 @@ This proposal is early. Status: D1
 | Reviewer  | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
 | Reviewer  | N/A           | N/A         | xxxx-xx-xx | Requested by editor                   |-->
 
-### TODO
-- Path objects
-- Rework the multiscale node; including inlining multiscales
-- Attribute merging
-- Topology, can a collection reference itself
-- Names unique per collection instead of file and define references ("../" or UUID)
-- Extension points (extract from attributes section)
-
-
 ## Overview
 
 This proposal adds a new "collection" concept to OME-Zarr.
