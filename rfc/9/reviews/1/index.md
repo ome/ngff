@@ -1,6 +1,6 @@
-# RFC-9: Comment 4
+# RFC-9: Review 1
 
-(rfcs:rfc9:comment4)=
+(rfcs:rfc9:review1)=
 
 ## Comment authors
 
