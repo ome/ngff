@@ -13,7 +13,7 @@ Add a specification for storing an OME-Zarr hierarchy within a ZIP archive.
 
 ## Status
 
-This RFC is currently in state `D5` (ready to enter RFC phase).
+This RFC is currently in state `R2` (waiting on reviewers).
 
 | Name              | GitHub Handle | Institution                             | Date       | Status                                                          |
 | ----------------- | ------------- | --------------------------------------- | ---------- | --------------------------------------------------------------- |
