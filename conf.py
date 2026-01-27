@@ -15,6 +15,7 @@ author = "NGFF Community"
 
 extensions = [
     "myst_parser",
+    "sphinxcontrib.mermaid",
     "sphinx_reredirects",
     "sphinx_design"
     ]
@@ -25,6 +26,8 @@ myst_enable_extensions = [
     "strikethrough",
     "colon_fence"
     ]
+myst_fence_as_directive = ["mermaid"]
+mermaid_height = "auto"
 
 templates_path = ["_templates"]
 exclude_patterns = [
