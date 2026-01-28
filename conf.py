@@ -112,28 +112,30 @@ def build_served_html():
 
         # build jupyter-book docs in specification submodules
         myst_file = glob.glob(f'specifications/{version}/**/myst.yml', recursive=True)[0]
-        if os.path.exists(myst_file):
-            cdir = os.getcwd()
-            try:
-                os.chdir(os.path.join(cdir, os.path.dirname(myst_file)))
-                subprocess.check_call(
-                    [sys.executable,
-                     '-m', 'jupyter_book', 'build', '--ci', '--html'])
-            finally:
-                os.chdir(cdir)
-        print('✅ Built jupyter-book documentation for version', version)
-
+        bikeshed_output = f'specifications/{version}/index.html'
 
         # copy built html files to _html_extra
-        bikeshed_output = f'specifications/{version}/index.html'
         try:
             if os.path.exists(bikeshed_output):
                 shutil.copy2(bikeshed_output, f'_html_extra/{version}/index.html')
                 print(f'✅ Found legacy bikeshed, serving as extra html for {version}')
             else:
-                build_dir = glob.glob(f'specifications/{version}/**/_build/html', recursive=True)[0]
-                shutil.copytree(build_dir, f'_html_extra/{version}', dirs_exist_ok=True)
-                print(f'✅ Copying jupyter-book documentation as extra html for {version}')
+                myst_dir = os.path.dirname(myst_file)
+                cmd = [sys.executable, '-m', 'jupyter_book', 'build', '--ci', '--html']
+                proc = subprocess.run(cmd, cwd=myst_dir, capture_output=True, text=True)
+                print(f"Running: {' '.join(cmd)} in {myst_dir}")
+                if proc.stdout:
+                    print(proc.stdout)
+                if proc.stderr:
+                    print(proc.stderr)
+                proc.check_returncode()
+                print('✅ Built jupyter-book documentation for version', version)
+
+                build_dirs = glob.glob(f'specifications/{version}/**/_build/html', recursive=True)
+                if not build_dirs:
+                    raise FileNotFoundError(f'No build directory found for version {version}')
+                shutil.copytree(build_dirs[0], f'_html_extra/{version}', dirs_exist_ok=True)
+                print(f'✅ Copied jupyter-book documentation as extra html for {version}')
         except Exception as e:
             print(f'⚠️  Could not copy served html for version {version}: {e}')
 
