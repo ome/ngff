@@ -115,8 +115,10 @@ def build_served_html():
         if os.path.exists(myst_file):
             cdir = os.getcwd()
             try:
-                os.chdir(os.path.dirname(myst_file))
-                subprocess.check_call(['jupyter-book', 'build', '--ci', '--html'])
+                os.chdir(os.path.join(cdir, os.path.dirname(myst_file)))
+                subprocess.check_call(
+                    [sys.executable,
+                     '-m', 'jupyter_book', 'build', '--ci', '--html'])
             finally:
                 os.chdir(cdir)
         print('✅ Built jupyter-book documentation for version', version)
