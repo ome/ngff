@@ -90,7 +90,9 @@ def build_served_html():
     import sys
     import os
     import shutil
+    from pathlib import Path
 
+    os.chdir(Path(__file__).parent)
     versions = [d for d in os.listdir("specifications") if os.path.isdir(os.path.join("specifications", d))]
 
     for version in versions:
