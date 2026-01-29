@@ -14,7 +14,7 @@ the [specifications](../specifications/index),
 RFCs are referenced to provide readers background reading
 and additional details.
 
-The RFC process itself is defined on [the process page](../resources/process/process.md).
+The RFC process itself is defined on [the process page](../resources/process).
 If there are any questions, please contact the editors under
 <mailto:ngff-editors@openmicroscopy.org>
 
