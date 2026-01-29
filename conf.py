@@ -45,10 +45,22 @@ exclude_patterns = [
 ]
 
 redirects = {
-     "tools/index": "../resources/tools/index.html",
-     "publications/index": "../resources/publications/index.html",
-     "data/index": "../resources/data/index.html",
-     "about/index": "../index.html"
+    "tools/index": "../resources/tools/index.html",
+    "publications/index": "../resources/publications/index.html",
+    "data/index": "../resources/data/index.html",
+    "about/index": "../index.html",
+    "0.1/index": "../specifications/0.1/index.html",
+    "0.1/": "../specifications/0.1/index.html",
+    "0.2/index": "../specifications/0.2/index.html",
+    "0.2/": "../specifications/0.2/index.html",
+    "0.3/index": "../specifications/0.3/index.html",
+    "0.3/": "../specifications/0.3/index.html",
+    "0.4/index": "../specifications/0.4/index.html",
+    "0.4/": "../specifications/0.4/index.html",
+    "0.5/index": "../specifications/0.5/index.html",
+    "0.5/": "../specifications/0.5/index.html",
+    "Dev/index": "../specifications/Dev/index.html",
+    "Dev/": "../specifications/Dev/index.html"
 }
 
 # -- Options for HTML output -------------------------------------------------
@@ -119,23 +131,6 @@ def build_served_html():
             if os.path.exists(bikeshed_output):
                 shutil.copy2(bikeshed_output, f'_html_extra/{version}/index.html')
                 print(f'✅ Found legacy bikeshed, serving as extra html for {version}')
-            else:
-                myst_dir = os.path.dirname(myst_file)
-                cmd = [sys.executable, '-m', 'jupyter_book', 'build', '--ci', '--html']
-                proc = subprocess.run(cmd, cwd=myst_dir, capture_output=True, text=True)
-                print(f"Running: {' '.join(cmd)} in {myst_dir}")
-                if proc.stdout:
-                    print(proc.stdout)
-                if proc.stderr:
-                    print(proc.stderr)
-                proc.check_returncode()
-                print('✅ Built jupyter-book documentation for version', version)
-
-                build_dirs = glob.glob(f'specifications/{version}/**/_build/html', recursive=True)
-                if not build_dirs:
-                    raise FileNotFoundError(f'No build directory found for version {version}')
-                shutil.copytree(build_dirs[0], f'_html_extra/{version}', dirs_exist_ok=True)
-                print(f'✅ Copied jupyter-book documentation as extra html for {version}')
         except Exception as e:
             print(f'⚠️  Could not copy served html for version {version}: {e}')
 
