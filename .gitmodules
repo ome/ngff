@@ -1,7 +1,7 @@
 [submodule "Dev"]
 	path = specifications/Dev
 	url = https://github.com/ome/ngff-spec
-	branch = main
+	branch = generated-files-in-subdirs
 ; [submodule "0.6.dev2"]
 ; 	path = specifications/0.6.dev2
 ; 	url = https://github.com/ome/ngff-spec
