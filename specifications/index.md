@@ -9,7 +9,8 @@ The current released version of the OME-Zarr specification is [0.5](0.5/ngff_spe
 :maxdepth: 1
 :caption: available specifications
 
-Dev/index.md
+dev/index.md
+latest/index.md
 0.5/index.md
 0.4/index.md
 0.3/index.md
