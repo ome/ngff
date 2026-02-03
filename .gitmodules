@@ -1,5 +1,5 @@
-[submodule "Dev"]
-	path = specifications/Dev
+[submodule "dev"]
+	path = specifications/dev
 	url = https://github.com/jo-mueller/ngff-spec
 	branch = generated-files-in-subdirs
 ; [submodule "0.6.dev2"]
@@ -32,7 +32,3 @@
 	url = https://github.com/jo-mueller/ngff-spec
 	branch = 0.1
 
-[submodule "specifications/latest"]
-	path = specifications/latest
-	url = https://github.com/jo-mueller/ngff-spec
-	branch = 0.5
