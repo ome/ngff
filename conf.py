@@ -59,6 +59,8 @@ redirects = {
     "0.4/": "../specifications/0.4/index.html",
     "0.5/index": "../specifications/0.5/index.html",
     "0.5/": "../specifications/0.5/index.html",
+    "latest/index": "../specifications/0.5/index.html",
+    "latest/": "../specifications/0.5/index.html",
     "Dev/index": "../specifications/Dev/index.html",
     "Dev/": "../specifications/Dev/index.html"
 }
