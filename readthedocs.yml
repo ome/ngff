@@ -17,4 +17,4 @@ python:
   install:
     - requirements: requirements.txt
     - method: pip
-      path: specifications/Dev
+      path: specifications/dev
