@@ -49,20 +49,15 @@ redirects = {
     "publications/index": "../resources/publications/index.html",
     "data/index": "../resources/data/index.html",
     "about/index": "../index.html",
-    "0.1/index": "../specifications/0.1/index.html",
     "0.1/": "../specifications/0.1/index.html",
-    "0.2/index": "../specifications/0.2/index.html",
     "0.2/": "../specifications/0.2/index.html",
-    "0.3/index": "../specifications/0.3/index.html",
     "0.3/": "../specifications/0.3/index.html",
-    "0.4/index": "../specifications/0.4/index.html",
     "0.4/": "../specifications/0.4/index.html",
-    "0.5/index": "../specifications/0.5/index.html",
     "0.5/": "../specifications/0.5/index.html",
     "latest/index": "../specifications/0.5/index.html",
     "latest/": "../specifications/0.5/index.html",
-    "Dev/index": "../specifications/Dev/index.html",
-    "Dev/": "../specifications/Dev/index.html"
+    "dev/index": "../specifications/dev/index.html",
+    "dev/": "../specifications/dev/index.html"
 }
 
 # -- Options for HTML output -------------------------------------------------
