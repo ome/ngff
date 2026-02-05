@@ -120,7 +120,7 @@ config: {
 "fontSize": "24px",
 
 },
-"darkMode": true,
+"darkMode": false,
 "htmlLabels": false,
 "mermaid_fullscreen":true,
 "mermaid_d3_zoom": true,
@@ -208,7 +208,7 @@ end
 %% Caution: linkStyles indexes may change
 
 classDef title fill: #ffffff, stroke: #000000,stroke-width:0px
-linkStyle 1 stroke:transparent;
+linkStyle 0 stroke:transparent;
 linkStyle 9 stroke:transparent;
 linkStyle 23 stroke:transparent;
 
