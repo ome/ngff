@@ -1,4 +1,4 @@
-# RFC-3: Comment 1
+# RFC-3: Comment 2
 
 ## Comment authors
 
