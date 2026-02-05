@@ -1,5 +1,5 @@
-# RFC-5: Coordinate Systems and Transformations
-(rfcs:rfc5:version3)=
+# RFC-5: Coordinate Systems and Transformations (2025-10-31 version)
+(rfcs:rfc5:version2)=
 
 ```{toctree}
 :hidden:
@@ -18,12 +18,12 @@ This RFC is currently in RFC state `R4` (authors prepare responses).
 
 | **Role** | Name | GitHub Handle | Institution | Date | Status |
 |----------|------|---------------|-------------|------|--------|
-| **Author** | John Bogovic | @bogovicj | HHMI Janelia | 2024-07-30 | (Corresponding Author) Implemented |
+| **Author** | John Bogovic | @bogovicj | HHMI Janelia | 2024-07-30 | Implemented |
 | **Author** | Davis Bennett | @d-v-b | | 2024-07-30 | Implemented validation |
 | **Author** | Luca Marconato | @LucaMarconato | EMBL | 2024-07-30 | Implemented |
 | **Author** | Matt McCormick | @thewtex | ITK | 2024-07-30 | Implemented |
 | **Author** | Stephan Saalfeld | @axtimwalde | HHMI Janelia | 2024-07-30 | Implemented (with JB) |
-| **Author** | Johannes Soltwedel | @jo-mueller | German Bioimaging e.V. | 2025-10-07 | (Corresponding Author) Implemented |
+| **Author** | Johannes Soltwedel | @jo-mueller | German Bioimaging e.V. | 2025-10-07 | Implemented |
 | **Endorser** | Will Moore | @will-moore | University of Dundee | 2025-10-23 | Implemented |
 | **Endorser** | David Stansby | @dstansby | University College London | 2025-10-23 | Implemented |
 | **Endorser** | Norman Rzepka | @normanrz | Scalable Minds | 2024-08-22 | |
@@ -34,7 +34,7 @@ This RFC is currently in RFC state `R4` (authors prepare responses).
 
 This RFC provides first-class support for spatial and coordinate transformations in OME-Zarr.
 
-Working version title: **0.6.dev3**
+Working version title: **0.6dev2**
 
 ## Background
 
@@ -62,10 +62,6 @@ for neuro and bio-imaging and broader scientific imaging practices to enable:
   or reverse transformations as needed for different analysis purposes.
   This flexibility is critical for tasks such as longitudinal studies, multi-modal imaging,
   and comparative analysis across different subjects or experimental conditions.
-5. Clarity and Unification:
-  This proposal aims to be clear and explicit to reduce the amount of manual record
-  keeping needed by programs and make metadata for many related image analysis task machine readable.
-
 
 Toward these goals, this RFC expands the set of transformations in the OME-Zarr spec
 covering many of the use cases requested in [this github issue](https://github.com/ome/ngff/issues/84).
@@ -73,83 +69,6 @@ It also adds "coordinate systems" - named sets of "axes."
 Related the relationship of discrete arrays to physical coordinates
 and the interpretation and motivation for axis types.
 
-
-## User stories
-
-Transformations enable a variety of use cases in the context of image acquisition, viewing and processing.
-Community members have collected a set of user stories that motivate this RFC.
-Generally, these stories fall into four major categories: Registration and alignment, stitching and tiling, acquisition artefacts and, lastly, annotation and analysis.
-
-### Registration and alignment
-
-Registration and alignment of images is a common task in bio-medical imaging.
-In general, images can be aligned if they share a spatial relationship.
-This relationship can be expressed as a coordinate transformation between the coordinate systems of two or more images
-or a common world coordinate system.
-Common use cases for transformations in this context include (among others):
-- Adjacent histological tissue sections aligned with each other through affine transformations (e.g., rotation, translation, scaling, shear).
-- Alignment of 3D imaging data with atlas coordinate systems through non-rigid deformation.
-  Complex, non-linear transformations between volumes can be expressed as displacement fields.
-  Example use cases are given by multi-modal medical imaging (i.e., MRI and CT).
-- Assembly of a 3-dimensional volume from multiple 2-dimensional images, i.e. serial tissue sections of animal brain tissue.
-- Correlative imaging: Images of the sample can be obtained with different microscopy modalities (e.g., light and electron microscopy, CLEM)
-  Transformations allow the spatial relationship between the different modalities to be expressed. In particular, transformations and coordinate systems can be viewed as a directed graph
-  where nodes are coordinate systems and edges are transformations.
-  This, in turn, allows to express relationships between multiple images through a series of intermediate transformations.
-
-The above-listed use cases strongly benefit from the ability to express coordinate transformations as part of a top-level ome-zarr metadata object (similar to plate and wells)
-that encapsulates the spatial relationships between multiple images.
-Embedding transformation metadata as proposed in this document allows users and data producers to capture these typically complex metadata in a standardized fashion and seamlessly display them in viewers.
-This prevents costly computations of transformed images and re-saving data in order to view multiple aligned images in the same coordinate system.
-
-### Stitching and tiling
-
-A second general category of transformation use cases is presented by stitching and tiling of images.
-This allows the adoption of ome-zarr as both part of the image acquisition itself but also for later post-processing.
-Tiling images is a common approach to capture large fields of view in 2D and 3D at high resolution,
-whereas microscopes scan the object of interest in a rasterized manner.
-
-- Tiled acquisition: Without the possibility to express spatial relationships between individual tile images,
-  microscope acquisition software need to save image data in an image format of their choice,
-  which would later have to be stitched in a dedicated software for downstream conversion to OME-Zarr.
-  With the ability to express transformations as a part of the ome-zarr metadata,
-  a store for the [scene](rfcs:rfc5:version3:storage-format-scene) can be created at the beginning of a tiled image acquisition.
-  The acquired tile can then be stored as individual OME-Zarr images on-the-fly inside this store.
-  Finally, the microscope only needs to keep track of the necessary metadata to express the spatial relationship between all saved tiles.
-  In this context, it does not matter whether tiles overlap or not,
-  transformations simply express each tile's location in a common world coordinate system.
-  Downstream stitching software can then use these transformations to create a seamless mosaic on-demand.
-  Similarly, timelapse images or highly multiplexed data can be considered as a series of nd-tiled acquisition and thus allows on-the-fly OME-Zarr writing in such applications.
-- Multi-view acquisition: Some applications (large volumetric 3D microscopy) require the acquisition of multiple images of the same object from different angles to account for optical limitations of the microscope or the sample.
-  Rotations, translations and affine transformations enable expression of these spatial relationships and low-cost fused view of large volumetric data using the existing OME-Zarr viewer ecosystem.
-  
-### Acquisition artefacts
-
-In some cases, the acquired imaging data requires the provision of a particular transformation in order to be viewed correctly.
-
-- Lens distortion correction: Non-linear distortions can be corrected with a corresponding non-linear transformation.
-- Oblique plane microscopy deskewing: This class of high-speed lightsheet microscopes acquires volumetric data, where the individual image planes are acquired under a skewed angle.
-  Consequently, a deskewing step (e.g., transformation with an affine shear matrix) is necessary to view the data in its correct spatial arrangement.
-- Drift correction: During timelapse images, live samples may move in space.
-  This can be corrected with a drift correction, 
-  which is represented by a per-timepoint linear transformation. Similarly, registration and alignment of timelapse images requires per-timepoint transformations.
-
-### Annotation and analysis
-
-Image analysis tasks involving coordinates and transformations are often not explicit about 
-what coordinate system they correspond to. Some examples
-
-* Is a coordinate that represents an annotation on an image in pixel or physical units? 
-* Is a transformations inputs / outputs in pixel or physical units?;
-* Is a transformation obtained by image registration the "forward" or "inverse" transformation?
-
-
-In the context of machine learning in large, possibly volumetric datasets,
-it is often unfeasible to annotate large volumes,
-either because the effort of annotation is too high or because some regions of the sample may be too ambiguous for ground-truth annotation.
-To leverage this, annotators often choose sub-volumes of the data to annotate.
-In the context of transformations, annotators could save cropped volumes of their choice along with the data and express the crops' spatial relationship with the parent volume through coordinate transformations.
-Similarly, processing workflows could be applied to parts of the data and the spatial relationship between the processed, cropped data and the parent volume could be expressed through transformations.
 
 ## Proposal
 
@@ -160,7 +79,6 @@ This PR will then comprise complete json schemas when the RFC enters the SPEC ph
 
 
 ### "coordinateSystems" metadata
-(coordinatesystems-metadata)=
 
 A `coordinateSystem` is a JSON object with a "name" field and a "axes" field.
 Every coordinate system:
@@ -205,7 +123,7 @@ See the [example below](example:coordinate_transformation).
 "axes" describes the dimensions of a coordinate systems
 and adds an interpretation to the samples along that dimension.
 
-It is an array of dictionaries,
+It is a list of dictionaries,
 where each dictionary describes a dimension (axis) and:
 - MUST contain the field "name" that gives the name for this dimension.
   The values MUST be unique across all "name" fields in the same coordinate system.
@@ -223,6 +141,8 @@ where each dictionary describes a dimension (axis) and:
 - MAY contain the field "longName".
   The value MUST be a string,
   and can provide a longer name or description of an axis and its properties.
+
+The length of "axes" MUST be equal to the number of dimensions of the arrays that contain the image data.
 
 Arrays are inherently discrete (see Array coordinate systems, below)
 but are often used to store discrete samples of a continuous variable.
@@ -284,9 +204,9 @@ Then `dim_0` has length 4, `dim_1` has length 3, and `dim_2` has length 5.
 
 ````
 
-The axes and their order align with the shape of the corresponding Zarr array,
+The axes and their order align with the shape of the corresponding zarr array,
 and whose data depends on the byte order used to store chunks.
-As described in the [Zarr array metadata](https://Zarr.readthedocs.io/en/stable/spec/v3.html#arrays),
+As described in the [Zarr array metadata](https://zarr.readthedocs.io/en/stable/spec/v3.html#arrays),
 the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded. 
 
 The name and axes names MAY be customized by including a `arrayCoordinateSystem` field
@@ -310,7 +230,6 @@ See chapter 4 and figure 4.1 of the ITK Software Guide.
 
 
 ### "coordinateTransformations" metadata
-(rfcs:rfc5:version3:coordinate_transformations)=
 
 "coordinateTransformations" describe the mapping between two coordinate systems (defined by "coordinateSystems").
 For example, to map an array's discrete coordinate system to its corresponding physical coordinates.
@@ -323,25 +242,27 @@ They:
 - MUST contain the field "type" (string).
 - MUST contain any other fields required by the given "type" (see table below).
 - MUST contain the field "output" (string),
-  unless part of a wrapper transform (, i.e., [`sequence`](#sequence), [`bijection`](#bijection), [`byDimension`](#bydimension), see details).
+  unless part of a `sequence` or `inverseOf` (see details).
 - MUST contain the field "input" (string),
-  unless part of a wrapper transform (, i.e., [`sequence`](#sequence), [`bijection`](#bijection), [`byDimension`](#bydimension), see details).
+  unless part of a `sequence` or `inverseOf` (see details).
 - MAY contain the field "name" (string).
-  Its value MUST be unique across all "name" fields for all coordinate transformations in the same list.
+  Its value MUST be unique across all "name" fields for coordinate transformations.
 - Parameter values MUST be compatible with input and output space dimensionality (see details).
+
 The following transformations are supported:
 
 | Type | Fields | Description |
 |------|--------|-------------|
 | [`identity`](#identity) | | The identity transformation is the do-nothing transformation and is typically not explicitly defined. |
 | [`mapAxis`](#mapaxis) | `"mapAxis":List[number]` | an axis permutation as a transpose array of integer indices that refer to the ordering of the axes in the respective coordinate system. |
-| [`translation`](#translation) | one of:<br>`"translation":List[number]`,<br>`"path":str` | Translation vector, stored either as an array of numbers (`"translation"`) or as a Zarr array at a location in this container (`path`). |
-| [`scale`](#scale) | one of:<br>`"scale":List[number]`,<br>`"path":str` | Scale vector, stored either as an array of numbers (`scale`) or as a Zarr array at a location in this container (`path`). |
-| [`affine`](#affine) | one of:<br>`"affine":List[List[number]]`,<br>`"path":str` | 2D affine transformation matrix stored either with JSON (`affine`) or as a Zarr array at a location in this container (`path`). |
-| [`rotation`](#rotation) | one of:<br>`"rotation":List[List[number]]`,<br>`"path":str` | 2D rotation transformation matrix stored as an array stored either with json (`rotation`) or as a Zarr array at a location in this container (`path`).|
+| [`translation`](#translation) | one of:<br>`"translation":List[number]`,<br>`"path":str` | Translation vector, stored either as a list of numbers (`"translation"`) or as a zarr array at a location in this container (`path`). |
+| [`scale`](#scale) | one of:<br>`"scale":List[number]`,<br>`"path":str` | Scale vector, stored either as a list of numbers (`scale`) or as a zarr array at a location in this container (`path`). |
+| [`affine`](#affine) | one of:<br>`"affine":List[List[number]]`,<br>`"path":str` | 2D affine transformation matrix stored either with JSON (`affine`) or as a zarr array at a location in this container (`path`). |
+| [`rotation`](#rotation) | one of:<br>`"rotation":List[List[number]]`,<br>`"path":str` | 2D rotation transformation matrix stored as an array stored either with json (`rotation`) or as a zarr array at a location in this container (`path`).|
 | [`sequence`](#sequence) | `"transformations":List[Transformation]` | sequence of transformations. Applying the sequence applies the composition of all transforms in the list, in order. |
-| [`displacements`](#coordinates-and-displacements) | `"path":str` | Displacement field transformation located at `path`. |
-| [`coordinates`](#coordinates-and-displacements) | `"path":str` | Coordinate field transformation located at `path`. |
+| [`displacements`](#coordinates-and-displacements) | `"path":str`<br>`"interpolation":str` | Displacement field transformation located at `path`. |
+| [`coordinates`](#coordinates-and-displacements) | `"path":str`<br>`"interpolation":str` | Coordinate field transformation located at `path`. |
+| [`inverseOf`](#inverseof) | `"transformation":Transformation` | The inverse of a transformation. Useful if a transform is not closed-form invertible. See forward and inverse of [bijections](#bijection) for details and examples. |
 | [`bijection`](#bijection) | `"forward":Transformation`<br>`"inverse":Transformation` | An invertible transformation providing an explicit forward transformation and its inverse. |
 | [`byDimension`](#bydimension) | `"transformations":List[Transformation]`, <br> `"input_axes": List[str]`, <br> `"output_axes": List[str]` | A high dimensional transformation using lower dimensional transformations on subsets of dimensions. |
 
@@ -386,114 +307,172 @@ Conforming readers:
 - SHOULD be able to apply transformations to points;
 - SHOULD be able to apply transformations to images;
 
-Coordinate transformations can be stored in multiple places to reflect different use cases.
+Coordinate transformations can be stored in multiple places to reflect different usecases.
      
-- **Inside `multiscales > datasets`**: `coordinateTransformations` herein MUST be restricted
-  to a single `scale`, `identity` or `sequence` of a scale followed by a translation transformation.
-  For more information, see [multiscales section below](#multiscales-metadata).
-- **Inside `multiscales > coordinateTransformations`**: Additional transformations for single multiscale images MAY be stored here.
-  The `coordinateTransformations` field MUST contain an array of valid [transformations](#transformation-types).
-  The input to every one of these transformations MUST be the intrinsic coordinate system.
-  The output can be another coordinate system defined under `multiscales > coordinateSystems`.
-  
-- **Inside `scene > coordinateTransformations`**: Transformations between two or more images
-  MUST be stored in the attributes of a [`scene` dictionary](rfcs:rfc5:version3:scene) in a [scene Zarr group](rfcs:rfc5:version3:storage-format-scene).
-  In this case, the `input` and `output` values are dictionaries
-  that refer to coordinate systems in the same zarr.json or in the metadata of multiscale image subgroups.
+- Transformations in individual multiscale datasets represent a special case of transformations
+  and are explained [below](#multiscales-metadata).
+- Additional transformations for single multiscale images MUST be stored under a field `coordinateTransformations`
+  in the multiscales dictionaries.
+  This `coordinateTransformations` field MUST contain a list of valid [transformations](#transformation-types).
+- Transformations between two or more images MUST be stored in the attributes of a parent zarr group.
+  For transformations that store data or parameters in a zarr array,
+  those zarr arrays SHOULD be stored in a zarr group called "coordinateTransformations".
 
-This separation of transformations (inside `multiscales > datasets`, under `multiscales > coordinateTransformations` and under `scene > coordinateTransformations`) provides flexibility for different use cases while still maintaining a level of rigidity for implementations.
+<pre>
+store.zarr                      # Root folder of the zarr store
+│
+├── zarr.json                   # coordinate transformations describing the relationship between two image coordinate systems
+│                               # are stored in the attributes of their parent group.
+│                               # transformations between coordinate systems in the 'volume' and 'crop' multiscale images are stored here.
+│
+├── coordinateTransformations   # transformations that use array storage for their parameters should go in a zarr group named "coordinateTransformations".
+│   └── displacements           # for example, a zarr array containing a displacement field
+│       └── zarr.json
+│
+├── volume
+│   ├── zarr.json              # group level attributes (multiscales)
+│   └── 0                      # a group containing the 0th scale
+│       └── image              # a zarr array
+│           └── zarr.json      # physical coordinate system and transformations here
+└── crop
+    ├── zarr.json              # group level attributes (multiscales)
+    └── 0                      # a group containing the 0th scale
+        └── image              # a zarr array
+            └── zarr.json      # physical coordinate system and transformations here
+</pre>
+
+````{admonition} Example
+(example:coordinate_transformation)=
+Two instruments simultaneously image the same sample from two different angles,
+and the 3D data from both instruments are calibrated to "micrometer" units.
+An analysis of sample A requires measurements from images taken from both instruments at certain points in space.
+Suppose a region of interest (ROI) is determined from the image obtained from instrument 2,
+but quantification from that region is needed for instrument 1.
+Since measurements were collected at different angles,
+a measurement by instrument 1 at the point with image array coordinates (x,y,z)
+may not correspond to the measurement at the same array coordinates in instrument 2
+(i.e., it may not be the same physical location in the sample).
+To analyze both images together, they must be transformed to a common coordinate system.
+
+The set of coordinate transformations encodes relationships between coordinate systems,
+specifically, how to convert points from one coordinate system to another.
+Implementations can apply the coordinate transform to images or points
+in coordinate system "sampleA_instrument2" to bring them into the "sampleA_instrument1" coordinate system.
+In this case, image data within the ROI defined in image2 should be transformed to the "sampleA_image1" coordinate system,
+then used for quantification with the instrument 1 image.
+
+The `coordinateTransformations` in the parent-level metadata would contain the following data.
+The transformation parameters are stored in a separate zarr-group
+under `coordinateTransformations/sampleA_instrument2-to-instrument1` as shown above.
+
+```json
+"coordinateTransformations": [
+    {
+        "type": "affine",
+        "path": "coordinateTransformations/sampleA_instrument2-to-instrument1",
+        "input": "sampleA_instrument2",
+        "output": "sampleA_instrument1"
+    }
+]
+```
+
+And the image at the path `sampleA_instrument1` would have the following as the first coordinate system:
+
+```json
+"coordinateSystems": [
+    {
+        "name": "sampleA-instrument1",
+        "axes": [
+            {"name": "z", "type": "space", "unit": "micrometer"},
+            {"name": "y", "type": "space", "unit": "micrometer"},
+            {"name": "x", "type": "space", "unit": "micrometer"}
+        ]
+    },
+]
+```
+
+The image at path `sampleA_instrument2` would have this as the first listed coordinate system:
+
+```json
+[
+    {
+        "name": "sampleA-instrument2",
+        "axes": [
+            {"name": "z", "type": "space", "unit": "micrometer"},
+            {"name": "y", "type": "space", "unit": "micrometer"},
+            {"name": "x", "type": "space", "unit": "micrometer"}
+        ]
+    }
+],
+```
+````
 
 #### Additional details
 
-**Omitting `input`/`output`**: Coordinate transformations MUST specify their input and output coordinate systems
-using the `input` and `output` fields.
-These fields MUST correspond to the name of a coordinate system or the path to a multiscales group.
+Most coordinate transformations MUST specify their input and output coordinate systems
+using `input` and `output` with a string value
+that MUST correspond to the name of a coordinate system or the path to a multiscales group.
 Exceptions are if the coordinate transformation is wrapped in another transformation,
-e.g. as part of a `sequence`, `byDimension` or `bijection`.
-In these cases, the `input` and `output` fields MAY be omitted or null.
+e.g. as part of a  `transformations` list of a `sequence` or
+as `transformation` of an `inverseOf` transformation.
+In these two cases input and output could, in some cases, be omitted (see below for details).
+If unused, the `input` and `output` fields MAY be null.
 
-**Graph connectedness**: The coordinate systems defined in the [multiscales metadata](multiscales-metadata)
-and the [`scene` metadata](rfcs:rfc5:version3:scene) combined with the coordinate transformations form a transformations graph.
-In this graph, coordinate systems represent nodes and coordinate transformations represent edges.
-The graph MUST be fully connected in the sense that any two coordinate systems in the metadata
-MUST be connected by a sequence of edges represented by coordinate transformations.
-Coordinate systems that are connected by a non-invertible transformation count as connected in this sense, even though graph traversal may not be closed-form computable in every direction.
+If used in a parent-level zarr-group, the `input` and `output` fields
+can be the name of a `coordinateSystem` in the same parent-level group or the path to a multiscale image group.
+If either `input` or `output` is a path to a multiscale image group,
+the authoritative coordinate system for the respective image is the first `coordinateSystem` defined therein.
+If the names of `input` or `output` correspond to both an existing path to a multiscale image group
+and the name of a `coordinateSystem` defined in the same metadata document,
+the `coordinateSystem` MUST take precedent.
+
+For usage in multiscales, see [the multiscales section](#multiscales-metadata) for details.
 
 Coordinate transformations are functions of *points* in the input space to *points* in the output space.
 We call this the "forward" direction.
 Points are ordered lists of coordinates,
 where a coordinate is the location/value of that point along its corresponding axis.
-The indexes of axis dimensions correspond to indexes into transformation parameter arrays (see examples).
+The indexes of axis dimensions correspond to indexes into transformation parameter arrays.
 
-**Image rendering**: When rendering transformed images and interpolating,
-implementations may need the "inverse" transformation - from the fixed 
-image's to the source image's coordinate system. This transformation may 
-not explicitly exist, but might be the require computing the inverse 
-(in closed form) of an explicitly specified forward transformation.
-
-Inverse transformations used for image rendering may be specified
-by specifying the inverse transform directly - with the `input` referring
-to the the fixed image's coordinate system and the `output` referring to
-the the source image's coordinate system.  If an operation is requested
-that requires the inverse of a transformation that can not be inverted in
-closed-form, implementations MAY estimate an inverse, or MAY output a warning
-that the requested operation is unsupported.
-
-````{admonition} Example
-
-Implementations SHOULD be able to compute and apply the inverse of some coordinate 
-transformations when they are computable in closed-form (as the 
-[Transformation types](#transformation-types) section below indicates).
-Implementations should be able to render the moving image into the fixed
-image by computing the inverse of this transformation.
+When rendering transformed images and interpolating,
+implementations may need the "inverse" transformation - 
+from the output to the input coordinate system.
+Inverse transformations will not be explicitly specified
+when they can be computed in closed form from the forward transformation.
+Inverse transformations used for image rendering may be specified using
+the `inverseOf` transformation type, for example:
 
 ```json
 {
-  "type": "<a type that can be inverted in closed-form>",
-  "input": "moving image",
-  "output": "fixed image"
+    "type": "inverseOf",
+    "transformation" : {
+        "type": "displacements",
+        "path": "/path/to/displacements",
+    },
+    "input": "input_image",
+    "output": "output_image",
 }
 ```
 
-Software libraries that perform image registration often return the transformation 
-from fixed image coordinates to moving image coordinates, because this "inverse" 
-transformation is most often required when rendering the transformed moving image.
-Implementations should be able to render the moving image into the fixed image by 
-applying this transformation directly.
-
-```json
-{
-  "type": "<a type that can NOT be inverted in closed-form>",
-  "input": "fixed image",
-  "output": "moving image"
-}
-```
-
-Implementations are not expected to be able to to render the moving image 
-into the fixed image given this transformation. They may attempt
-to do so by estimating the transformations' inverse if they choose to.
-
-```json
-{
-  "type": "<a type that can NOT be inverted in closed-form>",
-  "input": "moving image",
-  "output": "fixed image"
-}
-```
-````
+Implementations SHOULD be able to compute and apply
+the inverse of some coordinate transformations when they are computable
+in closed-form (as the [Transformation types](#transformation-types) section below indicates).
+If an operation is requested that requires
+the inverse of a transformation that can not be inverted in closed-form,
+implementations MAY estimate an inverse,
+or MAY output a warning that the requested operation is unsupported.
 
 #### Matrix transformations
 
 Two transformation types ([affine](#affine) and [rotation](#rotation)) are parametrized by matrices.
 Matrices are applied to column vectors that represent points in the input coordinate system.
 The first and last axes in a coordinate system correspond to the top and bottom entries in the column vector, respectively.
-Matrices are stored as two-dimensional arrays, either as json or in a Zarr array.
-When stored as a 2D Zarr array, the first dimension indexes rows and the second dimension indexes columns
+Matrices are stored as two-dimensional arrays, either as json or in a zarr array.
+When stored as a 2D zarr array, the first dimension indexes rows and the second dimension indexes columns
 (e.g., an array of `"shape":[3,4]` has 3 rows and 4 columns).
 When stored as a 2D json array, the inner array contains rows (e.g. `[[1,2,3], [4,5,6]]` has 2 rows and 3 columns).
 
 #### Transformation types
-(transformation-types)=
 
 Input and output dimensionality may be determined by the coordinate system referred to by the `input` and `output` fields, respectively. 
 If the value of `input` is a path to an array, its shape gives the input dimension,
@@ -508,6 +487,9 @@ The position of the i-th axis of the output coordinate system
 is set to the position of the ith axis of the input coordinate system.
 `identity` transformations are invertible.
 
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
+
 
 ##### <a name="mapAxis">mapAxis</a>
 
@@ -521,8 +503,8 @@ Each index MUST appear exactly once in the array.
 The value at position `i` in the array indicates which input axis becomes the `i`-th output axis.
 `mapAxis` transforms are invertible.
 
-**mapAxis**
-: The axis permutation stored as a JSON array of integers.
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
 
 ##### <a name="translation">translation</a>
 
@@ -532,9 +514,16 @@ Input and output dimensionality MUST be identical
 and MUST equal the the length of the "translation" array (N).
 `translation` transformations are invertible.
 
-**translation**
-: The translation parameters stored as a JSON array of numbers.
-The array MUST have length `N`.
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
+
+<strong>path</strong>
+: The path to a zarr-array containing the translation parameters.
+The array at this path MUST be 1D, and its length MUST be `N`.
+
+<strong>translation</strong>
+: The translation parameters stored as a JSON list of numbers.
+The list MUST have length `N`.
 
 ##### <a name="scale">scale</a>
 
@@ -545,9 +534,16 @@ and MUST equal the the length of the "scale" array (N).
 Values in the `scale` array SHOULD be non-zero;
 in that case, `scale` transformations are invertible.
 
-**scale**
-: The scale parameters are stored as a JSON array of numbers.
-The array MUST have length `N`.
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
+
+<strong>path</strong>
+: The path to a zarr-array containing the scale parameters.
+The array at this path MUST be 1D, and its length MUST be `N`.
+
+<strong>scale</strong>
+: The scale parameters are stored as a JSON list of numbers.
+The list MUST have length `N`.
 
 ##### <a name="affine">affine</a>
 
@@ -556,13 +552,16 @@ They are represented as the upper `(M)x(N+1)` sub-matrix of a `(M+1)x(N+1)` matr
 coordinates](https://en.wikipedia.org/wiki/Homogeneous_coordinates) (see examples).
 This transformation type may be (but is not necessarily) invertible
 when `N` equals `M`.
-The matrix MUST be stored as a 2D array either as json or as a Zarr array.
+The matrix MUST be stored as a 2D array either as json or as a zarr array.
 
-**path**
-: The path to a Zarr-array containing the affine parameters.
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
+
+<strong>path</strong>
+:  The path to a zarr-array containing the affine parameters.
 The array at this path MUST be 2D whose shape MUST be `(M)x(N+1)`.
 
-**affine**
+<strong>affine</strong>
 : The affine parameters stored in JSON.
 The matrix MUST be stored as 2D nested array (an array of arrays of numbers)
 where the outer array MUST be length `M` and the inner arrays MUST be length `N+1`.
@@ -574,18 +573,43 @@ When possible, a rotation transformation SHOULD be used instead of an equivalent
 Input and output dimensionality (N) MUST be identical.
 Rotations are stored as `NxN` matrices, see below,
 and MUST have determinant equal to one, with orthonormal rows and columns.
-The matrix MUST be stored as a 2D array either as json or in a Zarr array.
+The matrix MUST be stored as a 2D array either as json or in a zarr array.
 `rotation` transformations are invertible.
 
-**path**
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
+
+<strong>path</strong>
 : The path to an array containing the affine parameters.
 The array at this path MUST be 2D whose shape MUST be `N x N`.
 
-**rotation**
+<strong>rotation</strong>
 : The parameters stored in JSON.
 The matrix MUST be stored as a 2D nested array (an array of arrays of numbers) where the outer array MUST be length `N`
 and the inner arrays MUST be length `N`.
 
+
+##### <a name="inverseOf">inverseOf</a>
+
+An `inverseOf` transformation contains another transformation (often non-linear),
+and indicates that transforming points from output to input coordinate systems
+is possible using the contained transformation.
+Transforming points from the input to the output coordinate systems
+requires the inverse of the contained transformation (if it exists).
+
+The `input` and `output` fields MAY be omitted for `inverseOf` transformations
+if those fields may be omitted for the transformation it wraps.
+
+```{note}
+Software libraries that perform image registration
+often return the transformation from fixed image coordinates to moving image coordinates,
+because this "inverse" transformation is most often required
+when rendering the transformed moving image.
+Results such as this may be enclosed in an `inverseOf` transformation.
+This enables the "outer" coordinate transformation to specify the moving image coordinates
+as `input` and fixed image coordinates as `output`,
+a choice that many users and developers find intuitive.
+```
 
 ##### <a name="sequence">sequence</a>
 
@@ -593,12 +617,15 @@ A `sequence` transformation consists of an ordered array of coordinate transform
 and is invertible if every coordinate transform in the array is invertible
 (though could be invertible in other cases as well).
 To apply a sequence transformation to a point in the input coordinate system,
-apply the first transformation in the array of transformations.
+apply the first transformation in the list of transformations.
 Next, apply the second transformation to the result.
 Repeat until every transformation has been applied.
 The output of the last transformation is the result of the sequence.
 
-**transformations**
+A sequence transformation MUST NOT be part of another sequence transformation.
+The `input` and `output` fields MUST be included for sequence transformations.
+
+<strong>transformations</strong>
 : A non-empty array of transformations.
 
 
@@ -617,6 +644,9 @@ These transformation types refer to an array at location specified by the `"path
 The input and output coordinate systems for these transformations ("input / output coordinate systems")
 constrain the array size and the coordinate system metadata for the array ("field coordinate system").
 
+The `input` and `output` fields MAY be omitted if wrapped in another transformation that provides `input`/`output`
+(e.g., [`sequence`](#sequence), [`inverseOf`](#inverseof), ['byDimension](#bydimension) or [`bijection`](#bijection)).
+
 * If the input coordinate system has `N` axes,
   the array at location path MUST have `N+1` dimensions
 * The field coordinate system MUST contain an axis identical to every axis
@@ -634,8 +664,20 @@ of the `i`th output axis. See the example below.
 but implementations MAY approximate their inverses.
 Metadata for these coordinate transforms have the following fields: 
 
-**path**
-:  The location of the coordinate array in this (or another) container.
+<dl>
+  <dt><strong>path</strong></dt>
+  <dd>  The location of the coordinate array in this (or another) container.</dd>
+  <dt><strong>interpolation</strong></dt>
+  <dd>  The <code>interpolation</code> attributes MAY be provided.
+        Its value indicates the interpolation to use
+        if transforming points not on the array's discrete grid.
+        Values could be:
+        <ul>
+            <li><code>linear</code> (default)</li>
+            <li><code>nearest</code></li>
+            <li><code>cubic</code></li>
+        </ul></dd>
+</dl>
 
 
 For both `coordinates` and `displacements`,
@@ -659,25 +701,27 @@ For `displacements`:
 
 * `coordinateSystem` metadata MUST have exactly one axis with `"type" : "displacement"`
 * the shape of the array along the "displacement" axis must be exactly `N`
-* input and output coordinate systems MUST have an equal number of dimensions.
+* `input` and `output` MUST have an equal number of dimensions.
 
 
 ##### <a name=trafo-byDimension>byDimension</a>
 
 `byDimension` transformations build a high dimensional transformation
 using lower dimensional transformations on subsets of dimensions.
+The `input` and `output` fields MUST always be included for this transformations type.
 
-**transformations**
-: MUST be an array of wrapped transformations.
-  Each item MUST contain `input_axes`, `output_axes` and `transformation` fields.
-  The values of `input_axes` and `output_axes` are arrays of integers.
-  The integer values in these arrays correspond to the axis indices in the `byDimension`'s or its parent's
-  `input` and `output` coordinate systems, respectively.
-  The value of `transformation` is a valid transformation object.
-  Every axis index in the parent byDimension's `output` coordinate system
-  MUST appear in exactly one child transformation's `output_axes` array.
-  The `input_axes` and `output_axes` arrays of each item
-  MUST have the same length as that transformation's parameter arrays.
+<dl>
+  <dt><strong>transformations</strong></dt>
+  <dd>  Each child transformation MUST contain <code>input_axes</code> and <code>output_axes</code> fields
+        whose values are arrays of strings.
+        Every axis name in a child transformation's <code>input_axes</code>
+        MUST correspond to a name of some axis in this parent object's <code>input</code> coordinate system.
+        Every axis name in the parent byDimension's <code>output</code> coordinate system
+        MUST appear in exactly one child transformation's <code>output_axes</code> array.
+        Each child transformation's <code>input_axes</code> and <code>output_axes</code> arrays
+        MUST have the same length as that transformation's parameter arrays.
+        </dd>
+</dl>
 
 ##### <a name="bijection">bijection</a>
 
@@ -693,201 +737,29 @@ in which case the `forward` transformation's `input` and `output` are understood
 and the `inverse` transformation's `input` (`output`) matches the bijection's `output` (`input`),
 see the example below.
 
+The `input` and `output` fields MAY be omitted for `bijection` transformations
+if the fields may be omitted for both its `forward` and `inverse` transformations
+
 Practically, non-invertible transformations have finite extents,
 so bijection transforms should only be expected to be correct / consistent for points that fall within those extents.
 It may not be correct for any point of appropriate dimensionality.
 
-**forward**
-: The forward transformation.
-
-**inverse**
-: The inverse transformation.
-
-### Storage format: Scene
-(rfcs:rfc5:version3:storage-format-scene)=
-
-The following specification describes the hierarchy of Zarr groups for a scene dataset.
-The group above the images defines a scene, which is a collection of images that share a spatial relationship with each other (see [coordinate transformations metadata](rfcs:rfc5:version3:coordinate_transformations)).
-It MUST implement the [scene specification](rfcs:rfc5:version3:scene).
-
-For transformations that store data or parameters in a Zarr array,
-those Zarr arrays SHOULD be stored in a Zarr group on the same level as images called "coordinateTransformations".
-
-<pre>
-store.zarr                      # One scene dataset
-│
-├── zarr.json                   # coordinate transformations describing the relationship between two image coordinate systems
-│                               # are stored in the "scene" dictionary here.
-│                               # I.e., transformations between coordinate systems in the 'volume' and 'crop' multiscale images are stored here.
-│
-├── coordinateTransformations   # transformations that use array storage for their parameters should go in a Zarr group named "coordinateTransformations".
-│   └── displacements           # for example, a Zarr array containing a displacement field
-│       └── zarr.json
-│
-├── volume
-│   ├── zarr.json               # group level attributes (multiscales)
-│   └── 0                       # a group containing the 0th scale
-│       └── image               # a Zarr array
-│           └── zarr.json       # physical coordinate system and transformations here
-└── crop
-    ├── zarr.json               # group level attributes (multiscales)
-    └── 0                       # a group containing the 0th scale
-        └── image               # a Zarr array
-            └── zarr.json       # physical coordinate system and transformations here
-</pre>
-
-#### "scene" metadata
-(rfcs:rfc5:version3:scene)=
-
-For images that share a spatial relationship,
-the `scene` metadata layout can be used to describe the relationship between images.
-
-The `scene` dictionary MUST contain the field `coordinateTransformations`,
-whose value MUST be an array of valid [transformations](transformation-types).
-It MAY contain the field `coordinateSystems`,
-whose values MUST be an array of valid [coordinate systems](#coordinatesystems-metadata).
-
-If used inside "scene" metadata, the `input` and `output` fields of `coordinateTransformations` MUST contain a json object,
-which MUST contain either the `path` or the `name` field, or both.
-The value of the `path` field is the path to a multiscale image subgroup.
-The value of the `name` field is the name of a `coordinateSystem` either in the multiscale image subgroup specified by the path,
-or within the `scene` dictionary itself.
-If `name` refers to a coordinate system in the `scene` dictionary,
-the `path` value MAY be omitted or null.
-If `name` refers to a coordinate system in the multiscale image subgroup specified by `path`,
-both `path` and `name` MUST be provided.
-
-````{admonition} Example 1: Multiview fusion
-Two instruments simultaneously image the same sample from two different angles,
-and the 3D data from both instruments are calibrated to "micrometer" units.
-An analysis of sample A requires measurements from images taken from both instruments at certain points in space.
-Suppose a region of interest (ROI) is determined from the image obtained from instrument 2,
-but quantification from that region is needed for instrument 1.
-Since measurements were collected at different angles,
-a measurement by instrument 1 at the point with image array coordinates (x,y,z)
-may not correspond to the measurement at the same array coordinates in instrument 2
-(i.e., it may not be the same physical location in the sample).
-To analyze both images together, they must be transformed to a common coordinate system.
-
-The set of coordinate transformations encodes relationships between coordinate systems,
-specifically, how to convert points from one coordinate system to another.
-Implementations can apply the coordinate transform to images or points
-in coordinate system "sampleA_instrument2" to bring them into the "sampleA_instrument1" coordinate system.
-In this case, image data within the ROI defined in image2 should be transformed to the "sampleA_image1" coordinate system,
-then used for quantification with the instrument 1 image.
-
-The `coordinateTransformations` in the "scene" metadata would contain the following data.
-The transformation parameters are stored in a separate Zarr-group
-under `coordinateTransformations/sampleA_instrument2-to-instrument1` as shown above.
-
-```json
-"scene": {
-  "coordinateTransformations": [
-    {
-      "type": "affine",
-      "path": "coordinateTransformations/sampleA_instrument2-to-instrument1",
-      "input": {
-        "path": "sampleA_instrument2",
-        "name": "physical_instrument2"
-      },
-      "output": {
-        "path": "sampleA_instrument1",
-        "name": "physical_instrument1"
-      }
-    }
-  ]
-}
-```
-
-And the image at the path `sampleA_instrument1` would have the following as coordinate system:
-
-```json
-"coordinateSystems": [
-  {
-    "name": "physical_instrument1",
-    "axes": [
-      {"name": "z", "type": "space", "unit": "micrometer"},
-      {"name": "y", "type": "space", "unit": "micrometer"},
-      {"name": "x", "type": "space", "unit": "micrometer"}
-    ]
-  },
-]
-```
-
-The image at path `sampleA_instrument2` would have this as coordinate system:
-
-```json
-"coordinateSystems": [
-  {
-    "name": "physical_instrument2",
-    "axes": [
-      {"name": "z", "type": "space", "unit": "micrometer"},
-      {"name": "y", "type": "space", "unit": "micrometer"},
-      {"name": "x", "type": "space", "unit": "micrometer"}
-    ]
-  }
-],
-```
-````
-
-````{admonition} Example 2: Multi-hop transformations
-Consider three instruments with strongly differing optical resolutions acquriring images of the same sample.
-The fields of view (FOV) of all instruments may differ by orders of magnitude.
-In this case, the FOV of instrument 1 (low-resolution) may entirely contain the FOVs of the other modalities. However, the alignment of instrument 3 with instrument 1 may be hard due to the lack of common landmark features.
-In such a case, it may be easier to align instrument 2 (medium-resolution) with instrument 1, and then instrument 3 with instrument 2.
-
-In this case, the "scene" metadata would contain the following coordinate transformations:
-
-```json
-"scene": {
-  "coordinateTransformations": [
-    {
-      "type": "affine",
-      "input": {
-        "path": "instrument1",
-        "name": "physical"
-      },
-      "output": {
-        "path": "instrument2",
-        "name": "physical"
-      },
-      "affine": [ [ ... ], [ ... ], [ ... ]]  // 4x3 matrix stored in json
-    },
-    {
-      "type": "affine",
-      "input": {
-        "path": "instrument3",
-        "name": "physical"
-      },
-      "output": {
-        "path": "instrument2",
-        "name": "physical"
-      },
-      "affine": [ [ ... ], [ ... ], [ ... ] ]  // 4x3 matrix stored in json
-    }
-  ]
-}
-```
-Both transformations (from instrument1 to instrument2, and from instrument3 to instrument2) refer to the "physical" coordinate systems of the respective images,
-which are defined in the `multiscales` attributes of the respective image groups.
-A transformation from instrument3 to instrument1 can be obtained
-by composing the two transformations above.
-````
-
-
 ### "multiscales" metadata
-(multiscales-metadata)=
 
 Metadata about an image can be found under the `multiscales` key in the group-level OME-Zarr Metadata.
 Here, "image" refers to 2 to 5 dimensional data representing image
 or volumetric data with optional time or channel axes.
 It is stored in a multiple resolution representation.
 
-`multiscales` contains an array of dictionaries where each entry describes a multiscale image.
+`multiscales` contains a list of dictionaries where each entry describes a multiscale image.
 
 Each `multiscales` dictionary MUST contain the field "coordinateSystems",
 whose value is an array containing coordinate system metadata
 (see [coordinate systems](#coordinatesystems-metadata)).
+The last entry of this array is the "intrinsic" coordinate system
+and MUST contain axis information pertaining to physical coordinates.
+It should be used for viewing and processing unless a use case dictates otherwise.
+It will generally be a representation of the image in its native physical coordinate system.
 
 The following MUST hold for all coordinate systems inside multiscales metadata.
 The length of "axes" must be between 2 and 5
@@ -902,7 +774,7 @@ and images are stacked along the other (anisotropic) axis ("z"),
 the spatial axes SHOULD be ordered as "zyx".
 
 Each `multiscales` dictionary MUST contain the field `datasets`,
-which is an array of dictionaries describing the arrays storing the individual resolution levels.
+which is a list of dictionaries describing the arrays storing the individual resolution levels.
 Each dictionary in `datasets` MUST contain the field `path`,
 whose value is a string containing the path to the Zarr array for this resolution relative to the current Zarr group.
 The `path`s MUST be ordered from largest (i.e. highest resolution) to smallest.
@@ -911,18 +783,17 @@ and MUST NOT have more than 5 dimensions.
 The number of dimensions and order MUST correspond to number and order of `axes`.
 
 Each dictionary in `datasets` MUST contain the field `coordinateTransformations`,
-whose value is an array of dictionaries that define a transformation
-that maps Zarr array coordinates for this resolution level to the "intrinsic" coordinate system.
+whose value is a list of dictionaries that define a transformation
+that maps Zarr array coordinates for this resolution level to the "intrinsic" coordinate system
+(the last entry of the `coordinateSystems` array).
 The transformation is defined according to [transformations metadata](#transformation-types).
 The transformation MUST take as input points in the array coordinate system
 corresponding to the Zarr array at location `path`.
 The value of "input" MUST equal the value of `path`, 
 implementations should always treat the value of `input` as if it were equal to the value of `path`.
-The value of the transformation’s `output` coordinate system MUST be the same for every dataset in a single multiscales.
-This coordinate system (the "intrinsic" coordinate system) will generally be a representation of the image in its native physical coordinate system.
-It should be used for viewing and processing unless a use case dictates otherwise.
+The value of the transformation’s `output` MUST be the name of the "intrinsic" [coordinate system](#coordinatesystems-metadata).
 
-The transformation MUST be one of the following:
+This transformation MUST be one of the following:
 
 * A single scale or identity transformation
 * A sequence transformation containing one scale and one translation transformation.
@@ -1066,6 +937,22 @@ This RFC has been discussed in:
 * Issues [84](https://github.com/ome/ngff/issues/84), [94](https://github.com/ome/ngff/issues/94), [101](https://github.com/ome/ngff/issues/101), and [146](https://github.com/ome/ngff/issues/146)
 * Several OME-Zarr community calls ([one example](https://forum.image.sc/t/ome-ngff-community-call-transforms-and-tables/71792))
 
+## Implementation
+
+Many RFCs have an "implementation" section which details how the implementation
+will work. This section should explain the rough specification changes. The
+goal is to give an idea to reviewers about the subsystems that require change
+and the surface area of those changes. 
+
+This knowledge can result in recommendations for alternate approaches that
+perhaps are idiomatic to the project or result in less packages touched. Or, it
+may result in the realization that the proposed solution in this RFC is too
+complex given the problem.
+
+For the RFC author, typing out the implementation in a high-level often serves
+as "[rubber duck debugging][rubber duck debugging]" and you can catch a lot of
+issues or unknown unknowns prior to writing any real code.
+
 ## Drawbacks, risks, alternatives, and unknowns
 
 Adopting this proposal will add an implementation burden because it adds more transformation types.
@@ -1121,7 +1008,6 @@ Additional transformation types should be added in the future. Top candidates in
 * b-spline
 * velocity fields
 * by-coordinate 
-* new-dimension
 
 ## Performance
 

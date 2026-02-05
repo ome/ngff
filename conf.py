@@ -50,7 +50,20 @@ redirects = {
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "sphinx_book_theme"
+html_theme = "pydata_sphinx_theme"
+
+html_theme_options = {
+    "header_links_before_dropdown": 6,
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/ome/ngff",
+            "icon": "fab fa-github",
+            "type": "fontawesome",
+        },
+    ],
+    "use_download_button": True,
+}
 
 html_static_path = ["_static"]
 
