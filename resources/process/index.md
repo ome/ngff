@@ -106,13 +106,16 @@ Once two implementations are complete and released, the RFC is considered adopte
 
 
 ```mermaid
+
 ---
 align: center
 zoom: true
 config: {
 "theme": 'base',
 "darkMode": true,
-"htmlLabels": false
+"htmlLabels": false,
+"mermaid_fullscreen":true,
+"mermaid_d3_zoom": true
 }
 ---
 flowchart
@@ -148,13 +151,16 @@ style DRAFT fill:#ffffff,stroke:#999999,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
 ```mermaid
+
 ---
 align: center
 zoom: true
 config: {
 "theme": 'base',
 "darkMode": true,
- "htmlLabels": false
+ "htmlLabels": false,
+"mermaid_fullscreen":true,
+"mermaid_d3_zoom": true
 }
 ---
 flowchart
@@ -205,7 +211,9 @@ zoom: true
 config: {
 "theme": 'base',
 "darkMode": true,
-"htmlLabels": false
+"htmlLabels": false,
+"mermaid_fullscreen":true,
+"mermaid_d3_zoom": true
 }
 ---
 flowchart
