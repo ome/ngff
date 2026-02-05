@@ -1,5 +1,7 @@
 # RFC-3: Comment 2
 
+(rfcs:rfc3:comment2)=
+
 ## Comment authors
 
 Chris Barnes <chris.barnes@gerbi-gmb.de>
