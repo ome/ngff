@@ -105,84 +105,86 @@ Once two implementations are complete and released, the RFC is considered adopte
 #### Flowchart
 
 ```mermaid
-
 flowchart TD
 
-open --> discuss_draft
+%% =========================
+%% Draft Phase
+%% =========================
+subgraph DRAFT [■ Draft Phase ■]
+  plan --> open --> discuss_draft -->|~4 weeks| draft_approve
 
-discuss_draft -->|After minimum 4 weeks discussion| draft_approve
+  draft_approve -->|No, edit| revise_draft --> discuss_draft
+  draft_approve -->|No, withdraw| close
 
-draft_approve -->|No, edit| revise_draft
+  plan["Gather initial support for an idea"]
+  open["Open an RFC as a draft pull request (PR)"]
+  discuss_draft["Community discussion on draft PR (and possibly update RFC as a result)"]
+  draft_approve{"Editors approve"}
+  revise_draft["Revise draft"]
+  close["RFC not adopted or merged"]
+end
 
-revise_draft --> discuss_draft
+%% =========================
+%% RFC Phase
+%% =========================
+subgraph RFC [■ RFC Phase ■]
+  draft_approve -->|Yes| editor_assign
+  editor_assign -->|~4 weeks| review --> respond --> re_review -->|~2 weeks| review_decision
 
-draft_approve -->|Yes| editor_assign
+  review_decision -->|No| editor_decision
 
-draft_approve -->|No, withdraw| close
+  editor_decision -->|No, withdraw| close_after_review
+  editor_decision -->|No, minor changes| minor_changes --> editor_decision
+  editor_decision -->|No, major changes| major_changes --> re_review
 
-editor_assign -->|Maximum 4 weeks| review
+  editor_assign["Editors assign RFC number, merge PR, and find reviewers"]
+  review["Reviewers submit reviews"]
+  respond["Authors respond to reviews"]
+  re_review["Reviewers consider response"]
+  review_decision{"Reviewers all accept RFC?"}
+  editor_decision{"Editor accepts RFC?"}
+  minor_changes["Authors update RFC"]
+  major_changes["Authors update RFC"]
+  close_after_review["RFC closed, but saved as a record of discussion"]
+end
 
-review --> respond
+%% =========================
+%% SPEC Phase
+%% =========================
+subgraph SPEC [■ SPEC Phase ■]
+  review_decision -->|Yes| rfc_approve
+  editor_decision -->|Yes| rfc_approve
 
-respond --> re_review
+  rfc_approve --> first_implement --> rfc_accept --> clarifications
+  clarifications -->|Yes| first_implement
+  clarifications -->|No| general_adopt --> adopt
 
-re_review -->|Max 2 weeks| review_decision
+  rfc_approve["RFC approved"]
+  first_implement["At least two implementations begin"]
+  rfc_accept["OME-Zarr SPEC gets updated"]
+  clarifications{"Clarifications needed?"}
+  general_adopt["At least two full implementations"]
+  adopt["RFC adopted"]
+end
 
-review_decision -->|No| editor_decision
+%% =========================
+%% Styling
+%% =========================
+classDef approval fill:#fff3b0,stroke:#cc9a06,stroke-width:2px
+class rfc_approve,editor_assign approval
 
-review_decision -->|Yes| accept
+style adopt fill:#d4f8d4,stroke:#2f8f2f,stroke-width:2px
 
-editor_decision -->|Yes| accept
+classDef decision fill:#eef5ff,stroke:#3b6ea5,stroke-width:1px
+class draft_approve,review_decision,editor_decision,clarifications decision
 
-editor_decision -->|No, withdraw| close_after_review
+classDef endstate fill:#ffecec,stroke:#b33a3a,stroke-width:1px
+class close,close_after_review endstate
 
-editor_decision -->|No, minor changes| minor_changes
+style DRAFT fill:#ffffff,stroke:#999999,stroke-width:2px,stroke-dasharray: 5 5
+style RFC   fill:#ffffff,stroke:#d4a017,stroke-width:2px,stroke-dasharray: 5 5
+style SPEC  fill:#ffffff,stroke:#2f8f2f,stroke-width:2px,stroke-dasharray: 5 5
 
-minor_changes --> editor_decision
-
-editor_decision -->|No, major changes| major_changes
-
-major_changes --> re_review
-
-accept --> implement
-
-implement --> adopt
-
-
-
-open["Open an RFC as a draft pull request (PR)"]
-
-discuss_draft["Open discussion on draft PR (and possibly update RFC as a result)"]
-
-draft_approve{"Editors approve"}
-
-revise_draft["Revise draft"]
-
-close["RFC not adopted or merged"]
-
-editor_assign["Editors assign RFC number, merge PR, and find reviewers"]
-
-review["Reviewers submit reviews"]
-
-respond["Authors respond to reviews"]
-
-re_review["Reviewers consider response"]
-
-major_changes["Authors update RFC"]
-
-minor_changes["Authors update RFC"]
-
-review_decision{"Reviewers all accept RFC?"}
-
-editor_decision{"Editor accepts RFC?"}
-
-close_after_review["RFC closed, but saved as a record of discussion"]
-
-accept["RFC accepted"]
-
-implement["Wait for at least two full implementations"]
-
-adopt["RFC adopted"]
 ```
 
 ### RFC Prioritization
