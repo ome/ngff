@@ -1,4 +1,6 @@
-# RFC-4: Review 2
+# RFC-4: Comment 2
+
+(rfcs:rfc4:comment2)=
 
 ## Review authors
 
