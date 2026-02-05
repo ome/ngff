@@ -104,17 +104,28 @@ Once two implementations are complete and released, the RFC is considered adopte
 
 #### Flowchart
 
+
 ```mermaid
-flowchart TD
+---
+align: center
+zoom: true
+config: {
+"theme": 'base',
+"darkMode": true,
+"htmlLabels": false
+}
+---
+flowchart
 
 subgraph DRAFT [■ Draft Phase ■]
-
-  plan --> open --> discuss_draft -->|~4 weeks| draft_approve
+  direction TB
+  plan --> open
+  open--> discuss_draft -->|~4 weeks| draft_approve
   draft_approve -->|No, edit| revise_draft --> discuss_draft
   draft_approve -->|No, withdraw| close
   draft_approve -->|Yes| editor_assign
 
-  plan["Gather initial support for an idea"]
+  plan["Gather initial support for an idea<br/>"]
   open["Open an RFC as a draft pull request (PR)"]
   discuss_draft["Community discussion on draft PR (and possibly update RFC as a result)"]
   draft_approve{"Editors approve"}
@@ -137,10 +148,19 @@ style DRAFT fill:#ffffff,stroke:#999999,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
 ```mermaid
-flowchart TD
+---
+align: center
+zoom: true
+config: {
+"theme": 'base',
+"darkMode": true,
+ "htmlLabels": false
+}
+---
+flowchart
 
 subgraph RFC [■ RFC Phase ■]
-
+  direction TB
   editor_assign["Editors assign RFC number, merge PR, and find reviewers"]
   review["Reviewers submit reviews"]
   respond["Authors respond to reviews"]
@@ -154,13 +174,14 @@ subgraph RFC [■ RFC Phase ■]
 
   editor_assign -->|~4 weeks| review --> respond --> re_review -->|~2 weeks| review_decision
 
-  review_decision -->|No| editor_decision
-  review_decision -->|Yes| rfc_approve
 
-  editor_decision -->|No, withdraw| close_after_review
-  editor_decision -->|No, minor changes| minor_changes --> editor_decision
-  editor_decision -->|No, major changes| major_changes --> re_review
-  editor_decision -->|Yes| rfc_approve
+  review_decision -->|Yes| rfc_approve
+  review_decision -->|No| editor_decision
+
+  editor_decision --->|No, withdraw| close_after_review
+  editor_decision -->|No, minor changes| minor_changes ---> editor_decision
+  editor_decision -->|No, major changes| major_changes -----> re_review
+  editor_decision --->|Yes| rfc_approve
 
 end
 
@@ -177,10 +198,20 @@ style RFC fill:#ffffff,stroke:#d4a017,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
 ```mermaid
-flowchart TD
+
+---
+align: center
+zoom: true
+config: {
+"theme": 'base',
+"darkMode": true,
+"htmlLabels": false
+}
+---
+flowchart
 
 subgraph SPEC [■ SPEC Phase ■]
-
+  direction TB
   rfc_approve --> first_implement --> rfc_accept --> clarifications
   clarifications -->|Yes| first_implement
   clarifications -->|No| general_adopt --> adopt
@@ -200,7 +231,8 @@ end
 
 style rfc_approve fill:#fff3b0,stroke:#cc9a06,stroke-width:2px
 style adopt fill:#d4f8d4,stroke:#2f8f2f,stroke-width:2px
-style SPEC fill:#ffffff,stroke:#2f8f2f,stroke-width:2px,stroke-dasharray: 5 5
+style SPEC fill:#ffffff,stroke:#2f8f2f,stroke-width:2px, stroke-width:1px, stroke-dasharray: 5 5
+style clarifications fill:#eef5ff,stroke:#3b6ea5
 ```
 
 ### RFC Prioritization
