@@ -107,14 +107,12 @@ Once two implementations are complete and released, the RFC is considered adopte
 ```mermaid
 flowchart TD
 
-%% =========================
-%% Draft Phase
-%% =========================
 subgraph DRAFT [■ Draft Phase ■]
-  plan --> open --> discuss_draft -->|~4 weeks| draft_approve
 
+  plan --> open --> discuss_draft -->|~4 weeks| draft_approve
   draft_approve -->|No, edit| revise_draft --> discuss_draft
   draft_approve -->|No, withdraw| close
+  draft_approve -->|Yes| editor_assign
 
   plan["Gather initial support for an idea"]
   open["Open an RFC as a draft pull request (PR)"]
@@ -122,20 +120,26 @@ subgraph DRAFT [■ Draft Phase ■]
   draft_approve{"Editors approve"}
   revise_draft["Revise draft"]
   close["RFC not adopted or merged"]
+  editor_assign["Proceed to RFC phase"]
+
 end
 
-%% =========================
-%% RFC Phase
-%% =========================
+%% Styling
+
+classDef approval fill:#fff3b0,stroke:#cc9a06,stroke-width:2px
+class editor_assign approval
+classDef decision fill:#eef5ff,stroke:#3b6ea5,stroke-width:1px
+class draft_approve decision
+classDef endstate fill:#ffecec,stroke:#b33a3a,stroke-width:1px
+class close endstate
+
+style DRAFT fill:#ffffff,stroke:#999999,stroke-width:2px,stroke-dasharray: 5 5
+```
+
+```mermaid
+flowchart TD
+
 subgraph RFC [■ RFC Phase ■]
-  draft_approve -->|Yes| editor_assign
-  editor_assign -->|~4 weeks| review --> respond --> re_review -->|~2 weeks| review_decision
-
-  review_decision -->|No| editor_decision
-
-  editor_decision -->|No, withdraw| close_after_review
-  editor_decision -->|No, minor changes| minor_changes --> editor_decision
-  editor_decision -->|No, major changes| major_changes --> re_review
 
   editor_assign["Editors assign RFC number, merge PR, and find reviewers"]
   review["Reviewers submit reviews"]
@@ -143,17 +147,39 @@ subgraph RFC [■ RFC Phase ■]
   re_review["Reviewers consider response"]
   review_decision{"Reviewers all accept RFC?"}
   editor_decision{"Editor accepts RFC?"}
-  minor_changes["Authors update RFC"]
-  major_changes["Authors update RFC"]
+  minor_changes["Authors update RFC (minor)"]
+  major_changes["Authors update RFC (major)"]
   close_after_review["RFC closed, but saved as a record of discussion"]
+  rfc_approve["Proceed to SPEC"]
+
+  editor_assign -->|~4 weeks| review --> respond --> re_review -->|~2 weeks| review_decision
+
+  review_decision -->|No| editor_decision
+  review_decision -->|Yes| rfc_approve
+
+  editor_decision -->|No, withdraw| close_after_review
+  editor_decision -->|No, minor changes| minor_changes --> editor_decision
+  editor_decision -->|No, major changes| major_changes --> re_review
+  editor_decision -->|Yes| rfc_approve
+
 end
 
-%% =========================
-%% SPEC Phase
-%% =========================
+%% Styling
+
+classDef approval fill:#fff3b0,stroke:#cc9a06,stroke-width:2px
+class rfc_approve,editor_assign approval
+classDef decision fill:#eef5ff,stroke:#3b6ea5,stroke-width:1px
+class review_decision,editor_decision decision
+classDef endstate fill:#ffecec,stroke:#b33a3a,stroke-width:1px
+class close_after_review endstate
+
+style RFC fill:#ffffff,stroke:#d4a017,stroke-width:2px,stroke-dasharray: 5 5
+```
+
+```mermaid
+flowchart TD
+
 subgraph SPEC [■ SPEC Phase ■]
-  review_decision -->|Yes| rfc_approve
-  editor_decision -->|Yes| rfc_approve
 
   rfc_approve --> first_implement --> rfc_accept --> clarifications
   clarifications -->|Yes| first_implement
@@ -165,26 +191,16 @@ subgraph SPEC [■ SPEC Phase ■]
   clarifications{"Clarifications needed?"}
   general_adopt["At least two full implementations"]
   adopt["RFC adopted"]
+
+
+
 end
 
-%% =========================
 %% Styling
-%% =========================
-classDef approval fill:#fff3b0,stroke:#cc9a06,stroke-width:2px
-class rfc_approve,editor_assign approval
 
+style rfc_approve fill:#fff3b0,stroke:#cc9a06,stroke-width:2px
 style adopt fill:#d4f8d4,stroke:#2f8f2f,stroke-width:2px
-
-classDef decision fill:#eef5ff,stroke:#3b6ea5,stroke-width:1px
-class draft_approve,review_decision,editor_decision,clarifications decision
-
-classDef endstate fill:#ffecec,stroke:#b33a3a,stroke-width:1px
-class close,close_after_review endstate
-
-style DRAFT fill:#ffffff,stroke:#999999,stroke-width:2px,stroke-dasharray: 5 5
-style RFC   fill:#ffffff,stroke:#d4a017,stroke-width:2px,stroke-dasharray: 5 5
-style SPEC  fill:#ffffff,stroke:#2f8f2f,stroke-width:2px,stroke-dasharray: 5 5
-
+style SPEC fill:#ffffff,stroke:#2f8f2f,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
 ### RFC Prioritization
