@@ -1,6 +1,6 @@
-# RFC-3: Review 1
+# RFC-3: Comment 1
 
-## Review authors
+## Comment authors
 
 Chris Barnes <chris.barnes@gerbi-gmb.de>
 
@@ -32,6 +32,9 @@ Lastly, with the introduction of the mapAxis transformation in RFC-5,
 viewers may not even be retrieving array subsets which match the conceptual layout in zarr.
 
 Users should have the freedom to design their array layouts to suit their own data and use cases, which this RFC allows.
+
+Discussions have been raised about stabilising new axis types (beyond time/space/channel).
+This does not need to be in scope for this RFC as the spec is already flexible enough to allow for arbitrary types.
 
 ## Recommendation
 
