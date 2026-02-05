@@ -112,62 +112,62 @@ align: center
 zoom: true
 config: {
 "theme": 'base',
+"flowchart": {
+    "curve": "monotoneY"
+},
+"themeVariables": {
+"background": "#f4f4f4",
+"fontSize": "24px",
+
+},
 "darkMode": true,
 "htmlLabels": false,
 "mermaid_fullscreen":true,
-"mermaid_d3_zoom": true
+"mermaid_d3_zoom": true,
+
 }
 ---
-flowchart
+flowchart TB
 
-subgraph DRAFT [■ Draft Phase ■]
-  direction TB
+
+
+subgraph DRAFT [ ]
+  draft_title["**DRAFT Phase**"]:::title --> plan
   plan --> open
-  open--> discuss_draft -->|~4 weeks| draft_approve
+  open--> discuss_draft -->|~4 weeks| draft_approve:::decision
   draft_approve -->|No, edit| revise_draft --> discuss_draft
-  draft_approve -->|No, withdraw| close
-  draft_approve -->|Yes| editor_assign
+  draft_approve -->|No, withdraw| close:::close
 
-  plan["Gather initial support for an idea<br/>"]
+  %% Descriptions %%
+
+  plan["Gather initial support for an idea"]
   open["Open an RFC as a draft pull request (PR)"]
   discuss_draft["Community discussion on draft PR (and possibly update RFC as a result)"]
-  draft_approve{"Editors approve"}
+  draft_approve{"Editors approve?"}
   revise_draft["Revise draft"]
   close["RFC not adopted or merged"]
-  editor_assign["Proceed to RFC phase"]
 
 end
 
-%% Styling
 
-classDef approval fill:#fff3b0,stroke:#cc9a06,stroke-width:2px
-class editor_assign approval
-classDef decision fill:#eef5ff,stroke:#3b6ea5,stroke-width:1px
-class draft_approve decision
-classDef endstate fill:#ffecec,stroke:#b33a3a,stroke-width:1px
-class close endstate
+draft_approve ---->|Yes| editor_assign:::proceed
+  editor_assign["Editors assign RFC number and merge PR"]
+editor_assign --> RFC
 
-style DRAFT fill:#ffffff,stroke:#999999,stroke-width:2px,stroke-dasharray: 5 5
-```
 
-```mermaid
+subgraph RFC [ ]
 
----
-align: center
-zoom: true
-config: {
-"theme": 'base',
-"darkMode": true,
- "htmlLabels": false,
-"mermaid_fullscreen":true,
-"mermaid_d3_zoom": true
-}
----
-flowchart
+  rfc_title["**RFC Phase**"]:::title --> find_reviewers
+  find_reviewers --> |~4 weeks| review
+  review --> respond
+  respond --> re_review -->|~2 weeks| review_decision:::decision
+  review_decision -->|No| editor_decision:::decision
+  editor_decision --->|No, withdraw| close_after_review:::close
+  editor_decision -->|No, minor changes| minor_changes ---> editor_decision
+  editor_decision -->|No, major changes| major_changes ----> re_review
 
-subgraph RFC [■ RFC Phase ■]
-  direction TB
-  editor_assign["Editors assign RFC number, merge PR, and find reviewers"]
+  %% Descriptions %%
+  find_reviewers["Editors contact reviewers"]
   review["Reviewers submit reviews"]
   respond["Authors respond to reviews"]
   re_review["Reviewers consider response"]
@@ -176,71 +176,57 @@ subgraph RFC [■ RFC Phase ■]
   minor_changes["Authors update RFC (minor)"]
   major_changes["Authors update RFC (major)"]
   close_after_review["RFC closed, but saved as a record of discussion"]
-  rfc_approve["Proceed to SPEC"]
-
-  editor_assign -->|~4 weeks| review --> respond --> re_review -->|~2 weeks| review_decision
-
-
-  review_decision -->|Yes| rfc_approve
-  review_decision -->|No| editor_decision
-
-  editor_decision --->|No, withdraw| close_after_review
-  editor_decision -->|No, minor changes| minor_changes ---> editor_decision
-  editor_decision -->|No, major changes| major_changes -----> re_review
-  editor_decision --->|Yes| rfc_approve
 
 end
 
-%% Styling
+review_decision --->|Yes| rfc_approve:::proceed
+editor_decision ---->|Yes| rfc_approve
 
-classDef approval fill:#fff3b0,stroke:#cc9a06,stroke-width:2px
-class rfc_approve,editor_assign approval
-classDef decision fill:#eef5ff,stroke:#3b6ea5,stroke-width:1px
-class review_decision,editor_decision decision
-classDef endstate fill:#ffecec,stroke:#b33a3a,stroke-width:1px
-class close_after_review endstate
+rfc_approve["RFC approved"]
+rfc_approve --> SPEC
 
-style RFC fill:#ffffff,stroke:#d4a017,stroke-width:2px,stroke-dasharray: 5 5
-```
 
-```mermaid
-
----
-align: center
-zoom: true
-config: {
-"theme": 'base',
-"darkMode": true,
-"htmlLabels": false,
-"mermaid_fullscreen":true,
-"mermaid_d3_zoom": true
-}
----
-flowchart
-
-subgraph SPEC [■ SPEC Phase ■]
+subgraph SPEC [ ]
   direction TB
-  rfc_approve --> first_implement --> rfc_accept --> clarifications
-  clarifications -->|Yes| first_implement
-  clarifications -->|No| general_adopt --> adopt
 
-  rfc_approve["RFC approved"]
+  spec_title["**SPEC Phase**"]:::title --> first_implement
+  first_implement --> rfc_accept --> clarifications:::decision
+  clarifications -->|Yes| first_implement
+  clarifications -->|No| general_adopt --> adopt:::adopt
+
+%% Descriptions %%
+
   first_implement["At least two implementations begin"]
   rfc_accept["OME-Zarr SPEC gets updated"]
   clarifications{"Clarifications needed?"}
   general_adopt["At least two full implementations"]
   adopt["RFC adopted"]
 
-
-
 end
+
+%% Workaround for subgraph titles
+%% Caution: linkStyles indexes may change
+
+classDef title fill: #ffffff, stroke: #000000,stroke-width:0px
+linkStyle 1 stroke:transparent;
+linkStyle 9 stroke:transparent;
+linkStyle 23 stroke:transparent;
 
 %% Styling
 
-style rfc_approve fill:#fff3b0,stroke:#cc9a06,stroke-width:2px
-style adopt fill:#d4f8d4,stroke:#2f8f2f,stroke-width:2px
-style SPEC fill:#ffffff,stroke:#2f8f2f,stroke-width:2px, stroke-width:1px, stroke-dasharray: 5 5
-style clarifications fill:#eef5ff,stroke:#3b6ea5
+classDef proceed fill: #fff3b0, stroke: #cc9a06,stroke-width: 2px
+
+classDef decision fill: #eef5ff, stroke: #3b6ea5,stroke-width:1px
+
+classDef close fill: #ffecec, stroke: #b33a3a,stroke-width:1px
+
+classDef adopt fill: #d4f8d4,stroke: #2f8f2f,stroke-width:2px
+
+style DRAFT fill: #ffffff,stroke: #999999,stroke-width:4px,stroke-dasharray: 5 5
+
+style RFC fill: #ffffff,stroke: #d4a017,stroke-width:4px,stroke-dasharray: 5 5
+
+style SPEC fill: #ffffff,stroke: #2f8f2f,stroke-width:4px,stroke-dasharray: 5 5
 ```
 
 ### RFC Prioritization
