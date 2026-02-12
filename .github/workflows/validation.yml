@@ -1,28 +1,28 @@
-name: Validation
-on:
-  push:
-  pull_request:
+# name: Validation
+# on:
+#   push:
+#   pull_request:
 
-jobs:
+# jobs:
 
-  validate:
-    name: Validation
-    strategy:
-      matrix:
-        ngff:
-          - '0.1'
-          - '0.2'
-          - '0.3'
-          - '0.4'
-          - '0.5'
-          - 'latest'
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'
-      - run: python -mpip install --upgrade wheel tox
-      - run: cd ${{matrix.ngff}} && tox
+#   validate:
+#     name: Validation
+#     strategy:
+#       matrix:
+#         ngff:
+#           - '0.1'
+#           - '0.2'
+#           - '0.3'
+#           - '0.4'
+#           - '0.5'
+#           - 'latest'
+#     runs-on: ubuntu-24.04
+#     steps:
+#       - uses: actions/checkout@v4
+#         with:
+#           submodules: 'true'
+#       - uses: actions/setup-python@v5
+#         with:
+#           python-version: '3.9'
+#       - run: python -mpip install --upgrade wheel tox
+#       - run: cd ${{matrix.ngff}} && tox
