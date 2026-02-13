@@ -6,3 +6,4 @@ testresources
 sphinx-reredirects
 sphinx-reredirects
 sphinx-design
+sphinxcontrib-mermaid
