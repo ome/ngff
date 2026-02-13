@@ -140,18 +140,18 @@ subgraph DRAFT [ ]
 
   %% Descriptions %%
 
-  plan["Gather initial support for an idea"]
-  open["Open an RFC as a draft pull request (PR)"]
-  discuss_draft["Community discussion on draft PR (and possibly update RFC as a result)"]
-  draft_approve{"Editors approve?"}
+  plan["Gather initial support for an idea [D1-2]"]
+  open["Open an RFC as a draft pull request (PR) [D3]"]
+  discuss_draft["Community discussion on draft PR (and possibly update RFC as a result) [D4]"]
+  draft_approve{"Editors approve? [D5]"}
   revise_draft["Revise draft"]
-  close["RFC not adopted or merged"]
+  close["RFC not adopted or merged [D6]"]
 
 end
 
 
 draft_approve ---->|Yes| editor_assign:::proceed
-  editor_assign["Editors assign RFC number and merge PR"]
+  editor_assign["Editors assign RFC number and merge PR [R1]"]
 editor_assign --> RFC
 
 
@@ -167,22 +167,22 @@ subgraph RFC [ ]
   editor_decision -->|No, major changes| major_changes ----> re_review
 
   %% Descriptions %%
-  find_reviewers["Editors contact reviewers"]
-  review["Reviewers submit reviews"]
-  respond["Authors respond to reviews"]
-  re_review["Reviewers consider response"]
-  review_decision{"Reviewers all accept RFC?"}
-  editor_decision{"Editor accepts RFC?"}
-  minor_changes["Authors update RFC (minor)"]
-  major_changes["Authors update RFC (major)"]
-  close_after_review["RFC closed, but saved as a record of discussion"]
+  find_reviewers["Editors contact reviewers [R1]"]
+  review["Reviewers submit reviews [R2-3]"]
+  respond["Authors respond to reviews [R4]"]
+  re_review["Reviewers consider response [R5]"]
+  review_decision{"Reviewers all approve RFC? [R6]"}
+  editor_decision{"Editors approve RFC? [R7]"}
+  minor_changes["Authors update RFC (minor) [R8]"]
+  major_changes["Authors update RFC (major) [R8]"]
+  close_after_review["RFC closed, but saved as a record of discussion [R9]"]
 
 end
 
 review_decision --->|Yes| rfc_approve:::proceed
 editor_decision ---->|Yes| rfc_approve
 
-rfc_approve["RFC approved"]
+rfc_approve["RFC approved [S1]"]
 rfc_approve --> SPEC
 
 
@@ -191,16 +191,16 @@ subgraph SPEC [ ]
 
   spec_title["**SPEC Phase**"]:::title --> first_implement
   first_implement --> rfc_accept --> clarifications:::decision
-  clarifications -->|Yes| first_implement
+  clarifications -->|Yes, ~4 weeks| first_implement
   clarifications -->|No| general_adopt --> adopt:::adopt
 
 %% Descriptions %%
 
   first_implement["At least two implementations begin"]
-  rfc_accept["OME-Zarr SPEC gets updated"]
-  clarifications{"Clarifications needed?"}
-  general_adopt["At least two full implementations"]
-  adopt["RFC adopted"]
+  rfc_accept["OME-Zarr SPEC gets updated [S1]"]
+  clarifications{"Clarifications needed? [S2]"}
+  general_adopt["At least two full implementations [S3]"]
+  adopt["RFC adopted [S4]"]
 
 end
 
