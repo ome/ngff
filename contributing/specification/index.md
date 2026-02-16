@@ -159,6 +159,8 @@ After installing these via the dependencies,
 navigate into the repository on your machine and build the book using the following command:
 
 ```bash
-python pre_build.py  #  auto-generates some of the markdown files (examples, schemas)
-jupyter book start  # start a local server to view the book
+python pre_build.py
+jupyter book start
 ```
+
+This autogenerates some of the markdown files (examples, schemas) and starts a local server to view the book.
