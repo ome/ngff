@@ -1,0 +1,110 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Next-generation file format (NGFF)
+message: >-
+  If you use this specification, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Josh
+    family-names: Moore
+    email: josh@openmicroscopy.org
+    affiliation: German BioImaging e.V.
+    orcid: 'https://orcid.org/0000-0003-4028-811X'
+  - given-names: Sébastien
+    family-names: Besson
+    email: sbesson@glencoesoftware.com
+    affiliation: 'Glencoe Software, Inc.'
+    orcid: 'https://orcid.org/0000-0001-8783-1429'
+  - given-names: Constantin
+    family-names: Pape
+    email: constantin.pape@informatik.uni-heidelberg.de
+    affiliation: 'Georg-August Universität Göttingen, Germany'
+    orcid: 'https://orcid.org/0000-0001-6562-7187'
+identifiers:
+  - type: doi
+    value: 10.1038/s41592-021-01326-w
+    description: Original Nature Methods article (2021)
+  - type: doi
+    value: 10.1101/2023.02.17.528834v2
+    description: OME-Zarr preprint (2023)
+repository-code: 'https://github.com/ome/ngff'
+url: 'https://ngff.openmicroscopy.org'
+abstract: >-
+  A growing community is constructing a next-generation file
+  format (NGFF) for bioimaging to overcome problems of
+  scalability and heterogeneity. Organized by the Open
+  Microscopy Environment (OME), individuals and institutes
+  across diverse modalities facing these problems have
+  designed a format specification process (OME-NGFF) to
+  address these needs. Those community members have built
+  the format itself – OME-Zarr – along with tools and data
+  resources available today to increase FAIR access and
+  remove barriers in the scientific process. The current
+  momentum offers an opportunity to unify a key component of
+  the bioimaging domain — the file format that underlies so
+  many personal, institutional, and global data management
+  and analysis tasks.
+keywords:
+  - FAIR
+  - community
+  - bioimaging
+  - data
+  - cloud
+  - format
+license: CC-BY-4.0
+commit: c6d7d84f77959846ecdc9b65eecfa87bb6dc1f86
+version: 0.1.0
+date-released: '2020-11-20'
+preferred-citation:
+  type: article
+  authors:
+  - given-names: "Josh"
+    family-names: "Moore"
+    orcid: "https://orcid.org/0000-0003-4028-811X"
+  - given-names: "Chris"
+    family-names: "Allan"
+  - given-names: "Sébastien"
+    family-names: "Besson"
+    orcid: "https://orcid.org/0000-0001-8783-1429"
+  - given-names: "Jean-Marie"
+    family-names: "Burel"
+    orcid: "https://orcid.org/0000-0002-1789-1861"
+  - given-names: "Erin"
+    family-names: "Diel"
+    orcid: "https://orcid.org/0000-0003-2526-3512"
+  - given-names: "David"
+    family-names: "Gault"
+  - given-names: "Kevin"
+    family-names: "Kozlowski"
+  - given-names: "Dominik"
+    family-names: "Lindner"
+    orcid: "https://orcid.org/0000-0001-8038-1250"
+  - given-names: "Melissa"
+    family-names: "Linkert"
+  - given-names: "Trevor"
+    family-names: "Manz"
+    orcid: "https://orcid.org/0000-0001-7694-5164"
+  - given-names: "Will"
+    family-names: "Moore"
+    orcid: "https://orcid.org/0000-0002-7264-8338"
+  - given-names: "Constantin"
+    family-names: "Pape"
+    orcid: "https://orcid.org/0000-0001-6562-7187"
+  - given-names: "Christian"
+    family-names: "Tischer"
+    orcid: "https://orcid.org/0000-0003-4105-1990"
+  - given-names: "Jason R."
+    family-names: "Swedlow"
+    orcid: "https://orcid.org/0000-0002-2198-1958"
+  doi: "10.1038/s41592-021-01326-w"
+  journal: "Nature Methods"
+  month: 11
+  start: 1496
+  end: 1498
+  title: "OME-NGFF: a next-generation file format for expanding bioimaging data-access strategies"
+  issue: 12
+  volume: 18
+  year: 2021
