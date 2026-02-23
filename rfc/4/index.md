@@ -77,6 +77,16 @@ This metadata MUST only be used in cases where there is a single subject in the 
 
 The `orientation` field is structured as an object and MUST have a `type` field that specifies the orientation domain (e.g., "anatomical") and MUST have a `value` field that specifies the specific orientation within that domain. Valid `type` strings are defined in this document -- currently only `"anatomical"`.
 
+### Coordinate Direction Convention
+
+The directional orientation values (e.g., "anterior-to-posterior", "left-to-right") specify the direction from lowest to highest coordinates along the axis. For example, an axis with `"orientation": {"type": "anatomical", "value": "anterior-to-posterior"}` indicates that:
+
+- Coordinate values increase from the anterior (front) toward the posterior (back)
+- The most anterior position has the lowest coordinate value
+- The most posterior position has the highest coordinate value
+
+This convention aligns with the axis coordinate system defined by the spatial metadata specified elsewhere in the NGFF specification. The `orientation` field provides semantic meaning to the coordinate direction already established by these spatial transforms.
+
 ### Example
 
 For anatomical data, an example axis configuration would look like:
@@ -484,3 +494,4 @@ End-user applications SHOULD display the encoded information with, for example, 
 | 2025-07-17 | Updated field name from `anatomicalOrientation` to `orientation` with structured `type`/`value` approach to support extensibility to other orientation domains. | [https://github.com/ome/ngff/pull/318](https://github.com/ome/ngff/pull/318) |
 | 2025-07-23 | Clarify that the type fields are MUST's and the only currently defined value is "anatomical". | [https://github.com/ome/ngff/pull/329](https://github.com/ome/ngff/pull/329) |
 | 2025-07-23 | Use a Pydantic Literal for anatomical type | [https://github.com/ome/ngff/pull/330](https://github.com/ome/ngff/pull/330) |
+| 2026-01-20 | Clarify coordinate direction convention | [https://github.com/ome/ngff/pull/428](https://github.com/ome/ngff/pull/428) |

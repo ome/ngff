@@ -1,6 +1,6 @@
 [codespell]
 # Ref: https://github.com/codespell-project/codespell#using-a-config-file
-skip = .git,.codespellrc
+skip = .git,.codespellrc,references.bib
 check-hidden = true
 # ignore-regex = 
 ignore-words-list = commend,Fuchsia
