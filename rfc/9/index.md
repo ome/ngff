@@ -17,15 +17,15 @@ This RFC is currently in state `R2` (waiting on reviewers).
 
 | Name              | GitHub Handle | Institution                             | Date       | Status                                                          |
 | ----------------- | ------------- | --------------------------------------- | ---------- | --------------------------------------------------------------- |
-| Jonas Windhager   | @jwindhager   | SciLifeLab / Uppsala University, Sweden | 2025-07-02 | Corresponding Author [PR](https://github.com/ome/ngff/pull/316) |
-| Norman Rzepka     | @normanrz     | scalable minds GmbH, Germany            | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316)            |
-| Mark Kittisopikul | @mkitti       | HHMI Janelia, United States             | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316)            |
-| Josh Moore        | @joshmoore    | German BioImaging e.V.                  | 2025-11-05 | Editor                                                          |
-| Matt McCormick    | thewtex       | Fideus Labs LLC                         | 2025-11-15 | [Comment](./comments/1/index)                                   |
-| Joost de Folter   | folterj       | BioImaging-NL                           | 2025-12-03 | [Comment](./comments/2/index)                                   |
-| Chris Barnes      | clbarnes      | German BioImaging                       | 2025-12-12 | [Comment](./comments/3/index)                                   |
-| Anna Kreshuk, Dominik Kutra, Benedikt Best | k-dominik, btbest | ilastik           | 2026-01-09 | [Comment](./comments/5/index)                                   |
-| Lenard Spiecker, Matthias Grunwald | l-spiecker, | Miltenyi Biotec B.V. & Co. KG        | 2026-02-05 | [Comment](./comments/4/index)                                   |
+| Jonas Windhager   | [jwindhager](https://github.com/jwindhager)   | SciLifeLab / Uppsala University, Sweden | 2025-07-02 | Corresponding Author [PR](https://github.com/ome/ngff/pull/316) |
+| Norman Rzepka     | [normanrz](https://github.com/normanrz)     | scalable minds GmbH, Germany            | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316)            |
+| Mark Kittisopikul | [mkitti](https://github.com/mkitti)       | HHMI Janelia, United States             | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316)            |
+| Josh Moore        | [joshmoore](https://github.com/joshmoore)    | German BioImaging e.V.                  | 2025-11-05 | Editor                                                          |
+| Matt McCormick    | [thewtex](https://github.com/thewtex)       | Fideus Labs LLC                         | 2025-11-15 | [Comment](./comments/1/index)                                   |
+| Joost de Folter   | [folterj](https://github.com/folterj)       | BioImaging-NL                           | 2025-12-03 | [Comment](./comments/2/index)                                   |
+| Chris Barnes      | [clbarnes](https://github.com/clbarnes)      | German BioImaging                       | 2025-12-12 | [Comment](./comments/3/index)                                   |
+| Anna Kreshuk, Dominik Kutra, Benedikt Best | [k-dominik](https://github.com/k-dominik), [btbest](https://github.com/btbest) | ilastik           | 2026-01-09 | [Comment](./comments/5/index)                                   |
+| Lenard Spiecker, Matthias Grunwald | [l-spiecker](https://github.com/l-spiecker), | Miltenyi Biotec B.V. & Co. KG        | 2026-02-05 | [Comment](./comments/4/index)                                   |
 
 ## Overview
 
