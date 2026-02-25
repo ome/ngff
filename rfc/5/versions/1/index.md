@@ -54,7 +54,7 @@ This RFC is currently in RFC state `R1` (send for review).
     - 2024-08-22
     -
 *   - Reviewer
-    - Dan Toloudis, David Feng, Forrest Collman, Nathalie GAudreault, Gideon Dunster
+    - Dan Toloudis, David Feng, Forrest Collman, Nathalie Gaudreault, Gideon Dunster
     - toloudis, dyf, fcollman
     - Allen Institutes
     - 2024-11-28
@@ -90,7 +90,7 @@ to enable:
    reverse transformations as needed for different analysis purposes. This flexibility is critical for tasks such as
    longitudinal studies, multi-modal imaging, and comparative analysis across different subjects or experimental conditions.
 
-Toward these goals, this RFC expands the set of transformations in the OME-Zarr spec covering many of the use cases 
+Toward these goals, this RFC expands the set of transformations in the OME-Zarr spec covering many of the use cases
 requested in [this github issue](https://github.com/ome/ngff/issues/84). It also adds "coordinate systems" - named
 sets of "axes." Related the relationship of discrete arrays to physical coordinates and the interpretation and motivation for
 axis types.
@@ -157,12 +157,12 @@ The dimensionality of each array coordinate system equals the dimensionality of 
 name `"dim_i"` is the ith element of the `"axes"` list. The axes and their order align with the `shape`
 attribute in the zarr array attributes (in `.zarray`), and whose data depends on the byte order used to store
 chunks. As described in the [zarr array metadata](https://zarr.readthedocs.io/en/stable/spec/v2.html#arrays),
-the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded. 
+the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded.
 
 
 The name and axes names MAY be customized by including a `arrayCoordinateSystem` field in
 the user-defined attributes of the array whose value is a coordinate system object. The length of
-`axes` MUST be equal to the dimensionality. The value of `"type"` for each object in the 
+`axes` MUST be equal to the dimensionality. The value of `"type"` for each object in the
 axes array MUST equal `"array"`.
 
 
@@ -183,7 +183,7 @@ half-open interval `[-0.5, 0.5) x [-0.5, 0.5)` (i.e., -0.5 is included, +0.5 is 
 "coordinateTransformations" describe the mapping between two coordinate systems (defined by "axes").
 For example, to map an array's discrete coordinate system to its corresponding physical coordinates.
 Coordinate transforms are in the "forward" direction. They represent functions from *points* in the
-input space to *points* in the output space. 
+input space to *points* in the output space.
 
 
 - MUST contain the field "type".
@@ -195,7 +195,7 @@ input space to *points* in the output space.
 
 <table>
   <tr><th><code>identity</code>
-    <td> 
+    <td>
     <td>The identity transformation is the default transformation and is typically not explicitly defined.
   <tr><th><code>mapAxis</code>
     <td><code>"mapAxis":Dict[String:String]</code>
@@ -354,7 +354,7 @@ system. `identity` transformations are invertible.
 #### <a name="mapAxis">mapAxis</a>
 
 `mapAxis` transformations describe axis permutations as a mapping of axis names. Transformations MUST include a `mapAxis` field
-whose value is an object, all of whose values are strings. If the object contains `"x":"i"`, then the transform sets the value 
+whose value is an object, all of whose values are strings. If the object contains `"x":"i"`, then the transform sets the value
 of the output coordinate for axis "x" to the value of the coordinate of input axis "i" (think `x = i`). For every axis in its output coordinate
 system, the `mapAxis` MUST have a corresponding field. For every value of the object there MUST be an axis of the input
 coordinate system with that name. Note that the order of the keys could be reversed.
@@ -362,7 +362,7 @@ coordinate system with that name. Note that the order of the keys could be rever
 
 #### <a name="translation">translation</a>
 
-`translation` transformations are special cases of affine transformations. When possible, a 
+`translation` transformations are special cases of affine transformations. When possible, a
 translation transformation should be preferred to its equivalent affine. Input and output dimensionality MUST be
 identical and MUST equal the the length of the "translation" array (N). `translation` transformations are
 invertible.
@@ -443,11 +443,11 @@ result of the sequence.
 The transformations included in the `transformations` array may omit their `input` and `output` fields under the conditions
 outlined below:
 
-- The `input` and `output` fields MAY be omitted for the following transformation types: 
+- The `input` and `output` fields MAY be omitted for the following transformation types:
     - `identity`, `scale`, `translation`, `rotation`, `affine`, `displacements`, `coordinates`
 - The `input` and `output` fields MAY be omitted for `inverseOf` transformations if those fields may be omitted for the
     transformation it wraps
-- The `input` and `output` fields MAY be omitted for `bijection` transformations if the fields may be omitted for 
+- The `input` and `output` fields MAY be omitted for `bijection` transformations if the fields may be omitted for
     both its `forward` and `inverse` transformations
 - The `input` and `output` fields MAY be omitted for `sequence` transformations if the fields may be omitted for
     all transformations in the sequence after flattening the nested sequence lists.
@@ -481,7 +481,7 @@ The `i`th value of the array along the `coordinate` or `displacement` axis refer
 of the `i`th output axis. See the example below.
 
 `coordinates` and `displacements` transformations are not invertible in general, but implementations MAY approximate their
-inverses. Metadata for these coordinate transforms have the following field: 
+inverses. Metadata for these coordinate transforms have the following field:
 
 <dl>
   <dt><strong>path</strong></dt>
@@ -524,7 +524,7 @@ on subsets of dimensions.
 
 <dl>
   <dt><strong>transformations</strong></dt>
-  <dd>  A list of transformations, each of which applies to a (non-strict) subset of input and output dimensions (axes). 
+  <dd>  A list of transformations, each of which applies to a (non-strict) subset of input and output dimensions (axes).
         The values of <code>input</code> and <code>output</code> fields MUST be an array of strings.
         Every axis name in <code>input</code> MUST correspond to a name of some axis in this parent object's <code>input</code> coordinate system.
         Every axis name in the parent byDimension's <code>output</code> MUST appear in exactly one of its child transformations' <code>output</code>.
@@ -626,7 +626,7 @@ This RFC has been discussed in:
 Many RFCs have an "implementation" section which details how the implementation
 will work. This section should explain the rough specification changes. The
 goal is to give an idea to reviewers about the subsystems that require change
-and the surface area of those changes. 
+and the surface area of those changes.
 
 This knowledge can result in recommendations for alternate approaches that
 perhaps are idiomatic to the project or result in less packages touched. Or, it
@@ -674,7 +674,7 @@ used by the libraries generally applies for 2D and 3D spatial transformations, b
 transformations of arbitrary dimension and axis type, where there is not a strong convention we are aware of.
 
 An early consideration was to use axis names to indicate correspondence across different coordinate systems (i.e. if two
-coordinate systems both have the "x" axis, then it is "the same" axis. We abandoned this for several reasons.  It was 
+coordinate systems both have the "x" axis, then it is "the same" axis. We abandoned this for several reasons.  It was
 restrictive - it is useful to have many coordinate systems with an "x" axis without requiring that they be "identical." Under our
 early idea, every set of spatial axes would need unique names ("x1", "x2", ...), and this seemed burdensome. As well, this
 approach would have also made transformations less explicit and likely would have required more complicated implementations.
@@ -688,7 +688,7 @@ Additional transformation types should be added in the future. Top candidates in
 * thin-plate spline
 * b-spline
 * velocity fields
-* by-coordinate 
+* by-coordinate
 
 ## Performance
 
