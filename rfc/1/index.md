@@ -83,7 +83,7 @@ This RFC has been adopted (S4).
     - 2024-09-09
     - [Endorse](https://github.com/ome/ngff/pull/258)
 *   - Endorser
-    - Juan-Nuñez Iglesias
+    - Juan Nunez-Iglesias
     - jni
     - Monash University
     - 2024-09-09

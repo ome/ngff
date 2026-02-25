@@ -45,7 +45,7 @@ This RFC is currently in SPEC state (S1).
     - 2024-02-16
     - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1947942934)
 *   - Endorser
-    - John Bogivic
+    - John Bogovic
     - [bogovicj](https://github.com/bogovicj)
     - HHMI Janelia Research Campus
     - 2024-02-16
