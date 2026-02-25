@@ -23,6 +23,12 @@ This RFC has been withdrawn (R9) since it is superseded by RFC-8.
     - Institution
     - Date
     - Status
+*   - Commenter
+    - Chris Barnes, Davis Bennett
+    - clbarnes, d-v-b
+    -
+    - 2025-11-05
+    - [Comment](./comments/1/index)
 *   - Author
     - Norman Rzepka
     - @normanrz

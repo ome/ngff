@@ -27,6 +27,18 @@ This RFC is currently in RFC state `R1` (send for review).
     - Institution
     - Date
     - Status
+*   - Commenter
+    - Benedikt Best
+    - btbest
+    -
+    - 2026-02-02
+    - [Comment](./comments/1/index)
+*   - Commenter
+    - Chris Barnes
+    - clbarnes
+    - German BioImaging
+    - 2026-02-05
+    - [Comment](./comments/2/index)
 *   - Author
     - Juan Nunez-Iglesias
     - [jni](https://github.com/jni)

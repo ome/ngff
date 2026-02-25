@@ -29,6 +29,9 @@ This RFC is currently in RFC state `R4` (authors prepare responses).
 | **Endorser** | Norman Rzepka | @normanrz | Scalable Minds | 2024-08-22 | |
 | **Reviewer** | Dan Toloudis, David Feng, Forrest Collman, Nathalie Gaudreault, Gideon Dunster | toloudis, dyf, fcollman | Allen Institutes | 2024-11-28 | [Review](rfcs:rfc5:review1) |
 | **Reviewer** | Will Moore, Jean-Marie Burel, Jason Swedlow | will-moore, jburel, jrswedlow | University of Dundee | 2025-01-22 | [Review](rfcs:rfc5:review2)|
+| **Commenter** | Ilan Gold | ilan-gold | | 2025-02-20 | [Comment](./comments/1/index) |
+| **Commenter** | Jeremy Maitin-Shephard | jbms | | 2025-02-20 | [Comment](./comments/2/index) |
+| **Commenter** | David Stansby | dstansby | | 2025-10-10 | [Comment](./comments/3/index) |
 
 ## Overview
 
