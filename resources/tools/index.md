@@ -62,7 +62,8 @@ Check out the [readers and writers below](#zarr-readers--writers) to interact wi
 | multiscale-spatial-image | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/spatial-image/multiscale-spatial-image) | Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-Zarr. | Reading & Writing | 
 | Nextflow (nf-omezarr) | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://www.nextflow.io/g" alt="Nextflow logo" width="30" height="30">](https://github.com/JaneliaSciComp/nf-omezarr) | A Nextflow pipeline for converting directories of images to OME-Zarr using bioformats2raw |
 | stack-to-chunk | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://stack-to-chunk.readthedocs.io) | A Python library to convert stacks of 2D images to OME-Zarr with minimal memory use and maximum concurrency. |  
-| stack_to_multiscale_ngff | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/CBI-PITT/stack_to_multiscale_ngff) | A tool for converting multi-terabyte stacks of images into a multiscale OME-Zarr. |  
+| stack_to_multiscale_ngff | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/CBI-PITT/stack_to_multiscale_ngff) | A tool for converting multi-terabyte stacks of images into a multiscale OME-Zarr. |
+| nd2 | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/tlambert03/nd2) | A Python library for reading nd2 files with native export to OME-Zarr, supporting multi-well plates and complete metadata preservation. |
 
 ### Zarr readers & writers
 
@@ -79,6 +80,7 @@ Want to read or write a Zarr? Use one of these tools.
 | ngio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://biovisioncenter.github.io/ngio/stable/) | Python package for bject-based API for opening, exploring, and manipulating OME-Zarr images and high-content screening (HCS) plates | 
 | ngff-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/thewtex/ngff-zarr) | A lean and kind Open Microscopy Environment (OME) Next Generation File Format (NGFF) Zarr implementation. | 
 | ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. |
+| ome-writers | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/pymmcore-plus/ome-writers) | A Python library for streaming acquisition data to OME-Zarr or OME-TIFF, supporting multiple array backends. |
 | Zarr.NET | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BiologyTools/Zarr.NET) | A native .NET library for reading and writing Zarr microscopy data. |
 
 ### Zarr validation
