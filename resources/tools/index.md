@@ -107,3 +107,4 @@ Tools that do not explicitly fit into any of the above categories (ex. Zarr comp
 | ome-zarr.js | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BioNGFF/ome-zarr.js) | A JavaScript library for simple rendering of thumbnnails and images. |
 | SpatialData | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/scverse/spatialdata) | An open and universal framework for processing spatial omics data. |
 | Zarrcade | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/JaneliaSciComp/zarrcade) | Create searchable web-based OME-Zarr image galleries. |
+| mesoSPIM-control | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/mesoSPIM/mesoSPIM-control) | Python/PyQt acquisition software for mesoSPIM light-sheet microscopes with OME-Zarr multi-scale output support. |
