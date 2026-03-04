@@ -82,6 +82,7 @@ Want to read or write a Zarr? Use one of these tools.
 | ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. |
 | ome-writers | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/pymmcore-plus/ome-writers) | A Python library for streaming acquisition data to OME-Zarr or OME-TIFF, supporting multiple array backends. |
 | Zarr.NET | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BiologyTools/Zarr.NET) | A native .NET library for reading and writing Zarr microscopy data. |
+| bia-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BioImage-Archive/bia-zarr) | A Python library for reading, writing, and manipulating OME-Zarr datasets, including thumbnail generation and OME-Zarr type detection. |
 
 ### Zarr validation
 
