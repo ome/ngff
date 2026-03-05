@@ -25,52 +25,58 @@ This RFC has been withdrawn (R9) since it is superseded by RFC-8.
     - Status
 *   - Author
     - Norman Rzepka
-    - @normanrz
+    - [normanrz](https://github.com/normanrz)
     - scalable minds
     - 2024-12-03
     - 
 *   - Endorser
     - David Stansby
-    - @dstansby
+    - [dstansby](https://github.com/dstansby)
     - University College London
     - 2024-12-03
     - 
 *   - Endorser
     - Davis Bennett
-    - @d-v-b
+    - [d-v-b](https://github.com/d-v-b)
     - 
     - 2024-12-12
     -
 *   - Endorser
     - Will Moore
-    - @will-moore
+    - [will-moore](https://github.com/will-moore)
     - OME, University of Dundee
     - 2024-12-12
     -
 *   - Endorser
     - Lachlan Deakin
-    - @LDeakin
+    - [LDeakin](https://github.com/LDeakin)
     - Australian National University
     - 2024-12-17
     -
 *   - Endorser
     - Joel Lüthi
-    - @jluethi
+    - [jluethi](https://github.com/jluethi)
     - BioVisionCenter, University of Zurich
     - 2024-12-18
     -
 *   - Endorser
     - Eric Perlman
-    - @perlman
+    - [perlman](https://github.com/perlman)
     - 
     - 2024-12-18
     -
 *   - Endorser
     - Johannes Soltwedel
-    - @jo-mueller
+    - [jo-mueller](https://github.com/jo-mueller)
     - German BioImaging e.V.
     - 2025-10-22
     -
+*   - Commenter
+    - Chris Barnes, Davis Bennett
+    - [clbarnes](https://github.com/clbarnes), [d-v-b](https://github.com/d-v-b)
+    -
+    - 2025-11-05
+    - [Comment](./comments/1/index)
 ```
 
 ## Overview

@@ -81,6 +81,18 @@ This RFC is currently in RFC state `R1` (send for review).
     - Carl Zeiss Microscopy GmbH
     - 2024-06-05
     - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+*   - Commenter
+    - Benedikt Best
+    - [btbest](https://github.com/btbest)
+    -
+    - 2026-02-02
+    - [Comment](./comments/1/index)
+*   - Commenter
+    - Chris Barnes
+    - [clbarnes](https://github.com/clbarnes)
+    - German BioImaging
+    - 2026-02-05
+    - [Comment](./comments/2/index)
 ```
 
 ## Overview

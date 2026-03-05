@@ -27,7 +27,7 @@ This RFC is currently in RFC state `R4` (authors prepare responses).
 | **Endorser** | Will Moore | @will-moore | University of Dundee | 2025-10-23 | Implemented |
 | **Endorser** | David Stansby | @dstansby | University College London | 2025-10-23 | Implemented |
 | **Endorser** | Norman Rzepka | @normanrz | Scalable Minds | 2024-08-22 | |
-| **Reviewer** | Dan Toloudis, David Feng, Forrest Collman, Nathalie GAudreault, Gideon Dunster | toloudis, dyf, fcollman | Allen Institutes | 2024-11-28 | [Review](rfcs:rfc5:review1) |
+| **Reviewer** | Dan Toloudis, David Feng, Forrest Collman, Nathalie Gaudreault, Gideon Dunster | toloudis, dyf, fcollman | Allen Institutes | 2024-11-28 | [Review](rfcs:rfc5:review1) |
 | **Reviewer** | Will Moore, Jean-Marie Burel, Jason Swedlow | will-moore, jburel, jrswedlow | University of Dundee | 2025-01-22 | [Review](rfcs:rfc5:review2)|
 
 ## Overview
@@ -46,7 +46,7 @@ for neuro and bio-imaging and broader scientific imaging practices to enable:
   transformations are applied consistently across different platforms and applications.
   This FAIR capability is a cornerstone of scientific research,
   and having standardized formats and tools facilitates verification of results by independent researchers.
-2. Integration with Analysis Workflows: 
+2. Integration with Analysis Workflows:
   Having spatial transformations as a first-class citizen within file formats
   allows for seamless integration with various image analysis workflows.
   Registration transformations can be used in subsequent image analysis steps
@@ -110,7 +110,7 @@ Coordinate Systems metadata example
 The axes of a coordinate system (see below) give information
 about the types, units, and other properties of the coordinate system's dimensions.
 Axis names may contain semantically meaningful information, but can be arbitrary.
-As a result, two coordinate systems that have identical axes in the same order 
+As a result, two coordinate systems that have identical axes in the same order
 may not be "the same" in the sense that measurements at the same point
 refer to different physical entities and therefore should not be analyzed jointly.
 Tasks that require images, annotations, regions of interest, etc.,
@@ -207,7 +207,7 @@ Then `dim_0` has length 4, `dim_1` has length 3, and `dim_2` has length 5.
 The axes and their order align with the shape of the corresponding zarr array,
 and whose data depends on the byte order used to store chunks.
 As described in the [Zarr array metadata](https://zarr.readthedocs.io/en/stable/spec/v3.html#arrays),
-the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded. 
+the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded.
 
 The name and axes names MAY be customized by including a `arrayCoordinateSystem` field
 in the user-defined attributes of the array whose value is a coordinate system object.
@@ -267,7 +267,7 @@ The following transformations are supported:
 | [`byDimension`](#bydimension) | `"transformations":List[Transformation]`, <br> `"input_axes": List[str]`, <br> `"output_axes": List[str]` | A high dimensional transformation using lower dimensional transformations on subsets of dimensions. |
 
 Implementations SHOULD prefer to store transformations as a sequence of less expressive transformations where possible
-(e.g., sequence[translation, rotation], instead of affine transformation with translation/rotation). 
+(e.g., sequence[translation, rotation], instead of affine transformation with translation/rotation).
 
 ````{admonition} Example
 (example:coordinate_transformation_scale)=
@@ -278,7 +278,7 @@ Implementations SHOULD prefer to store transformations as a sequence of less exp
     { "name": "in", "axes": [{"name": "j"}, {"name": "i"}] },
     { "name": "out", "axes": [{"name": "y"}, {"name": "x"}] }
   ],
-  "coordinateTransformations": [ 
+  "coordinateTransformations": [
     {
       "type": "scale",
       "scale": [2, 3.12],
@@ -308,7 +308,7 @@ Conforming readers:
 - SHOULD be able to apply transformations to images;
 
 Coordinate transformations can be stored in multiple places to reflect different usecases.
-     
+
 - Transformations in individual multiscale datasets represent a special case of transformations
   and are explained [below](#multiscales-metadata).
 - Additional transformations for single multiscale images MUST be stored under a field `coordinateTransformations`
@@ -435,7 +435,7 @@ where a coordinate is the location/value of that point along its corresponding a
 The indexes of axis dimensions correspond to indexes into transformation parameter arrays.
 
 When rendering transformed images and interpolating,
-implementations may need the "inverse" transformation - 
+implementations may need the "inverse" transformation -
 from the output to the input coordinate system.
 Inverse transformations will not be explicitly specified
 when they can be computed in closed form from the forward transformation.
@@ -474,7 +474,7 @@ When stored as a 2D json array, the inner array contains rows (e.g. `[[1,2,3], [
 
 #### Transformation types
 
-Input and output dimensionality may be determined by the coordinate system referred to by the `input` and `output` fields, respectively. 
+Input and output dimensionality may be determined by the coordinate system referred to by the `input` and `output` fields, respectively.
 If the value of `input` is a path to an array, its shape gives the input dimension,
 otherwise it is given by the length of `axes` for the coordinate system with the name of the `input`.
 If the value of `output` is an array, its shape gives the output dimension,
@@ -662,7 +662,7 @@ of the `i`th output axis. See the example below.
 
 `coordinates` and `displacements` transformations are not invertible in general,
 but implementations MAY approximate their inverses.
-Metadata for these coordinate transforms have the following fields: 
+Metadata for these coordinate transforms have the following fields:
 
 <dl>
   <dt><strong>path</strong></dt>
@@ -789,7 +789,7 @@ that maps Zarr array coordinates for this resolution level to the "intrinsic" co
 The transformation is defined according to [transformations metadata](#transformation-types).
 The transformation MUST take as input points in the array coordinate system
 corresponding to the Zarr array at location `path`.
-The value of "input" MUST equal the value of `path`, 
+The value of "input" MUST equal the value of `path`,
 implementations should always treat the value of `input` as if it were equal to the value of `path`.
 The value of the transformation’s `output` MUST be the name of the "intrinsic" [coordinate system](#coordinatesystems-metadata).
 
@@ -942,7 +942,7 @@ This RFC has been discussed in:
 Many RFCs have an "implementation" section which details how the implementation
 will work. This section should explain the rough specification changes. The
 goal is to give an idea to reviewers about the subsystems that require change
-and the surface area of those changes. 
+and the surface area of those changes.
 
 This knowledge can result in recommendations for alternate approaches that
 perhaps are idiomatic to the project or result in less packages touched. Or, it
@@ -993,7 +993,7 @@ used by the libraries generally applies for 2D and 3D spatial transformations, b
 transformations of arbitrary dimension and axis type, where there is not a strong convention we are aware of.
 
 An early consideration was to use axis names to indicate correspondence across different coordinate systems (i.e. if two
-coordinate systems both have the "x" axis, then it is "the same" axis. We abandoned this for several reasons.  It was 
+coordinate systems both have the "x" axis, then it is "the same" axis. We abandoned this for several reasons.  It was
 restrictive - it is useful to have many coordinate systems with an "x" axis without requiring that they be "identical." Under our
 early idea, every set of spatial axes would need unique names ("x1", "x2", ...), and this seemed burdensome. As well, this
 approach would have also made transformations less explicit and likely would have required more complicated implementations.
@@ -1007,7 +1007,7 @@ Additional transformation types should be added in the future. Top candidates in
 * thin-plate spline
 * b-spline
 * velocity fields
-* by-coordinate 
+* by-coordinate
 
 ## Performance
 

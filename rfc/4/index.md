@@ -44,6 +44,18 @@ This RFC is currently in RFC state `R1` (send for review).
     - EMBL
     - 2025-07-16
     -
+*   - Commenter
+    - David Stansby
+    - [dstansby](https://github.com/dstansby)
+    -
+    - 2025-04-02
+    - [Comment](./comments/1/index)
+*   - Commenter
+    - Chris Barnes
+    - [clbarnes](https://github.com/clbarnes)
+    - German BioImaging
+    - 2026-02-05
+    - [Comment](./comments/2/index)
 ```
 
 ## Overview
