@@ -64,6 +64,7 @@ Check out the [readers and writers below](#zarr-readers--writers) to interact wi
 | stack-to-chunk | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://stack-to-chunk.readthedocs.io) | A Python library to convert stacks of 2D images to OME-Zarr with minimal memory use and maximum concurrency. |
 | stack_to_multiscale_ngff | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/CBI-PITT/stack_to_multiscale_ngff) | A tool for converting multi-terabyte stacks of images into a multiscale OME-Zarr. |
 | nd2 | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/tlambert03/nd2) | A Python library for reading nd2 files with native export to OME-Zarr, supporting multi-well plates and complete metadata preservation. |
+| PyMIF | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/grinic/pymif) | A modular Python package to read, visualize, and convert multiscale microscopy image data from various microscope platforms to OME-Zarr. |
 
 ### Zarr readers & writers
 
