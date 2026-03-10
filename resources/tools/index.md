@@ -31,6 +31,7 @@ Want to view a Zarr? Use one of these.
 | Microscopy Nodes |[![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/aafkegros/MicroscopyNodes) | [Blender](https://www.blender.org/) add-on for visualizing high-dimensional microscopy data |
 | napari | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://napari.org/" alt="napari logo" width="30" height="30">](https://github.com/ome/napari-ome-zarr) | [napari](https://napari.org/) plug-in for viewing Zarr |
 | Neuroglancer | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://google.com" alt="Neuroglancer logo" width="30" height="30">](https://github.com/google/neuroglancer) | A browser-based volume viewer |
+| syGlass | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://www.syglass.io/" alt="syGlass logo" width="30" height="30">](https://www.syglass.io/) | A VR desktop application for visualizing and segmenting 3D image data, with OME-Zarr streaming support. |
 | Viv (Avivator, Vizarr, Vitessce, ...) | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://vitessce.io/" alt="Viv logo" width="30" height="30">](https://github.com/hms-dbmi/viv) | A toolkit for interactive visualization of high-resolution, multiplexed bioimaging datasets. The viv toolkit is used by the [Avivator](https://avivator.gehlenborglab.org), [Vizarr](https://github.com/hms-dbmi/vizarr) and [Vitessce](http://vitessce.io) image viewers, among others |
 | Vol-E | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.allencell.org%2Fpathtrace-rendering.html" alt="Vol-E logo" width="30" height="30">](https://vole.allencell.org/) | A browser-based volume viewer |
 | WEBKNOSSOS | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://home.webknossos.org/" alt="WEBKNOSSOS logo" width="30" height="30">](https://home.webknossos.org/) | An open-source tool for annotating and exploring large 3D image datasets |
@@ -60,11 +61,11 @@ Check out the [readers and writers below](#zarr-readers--writers) to interact wi
 | EuBI-Bridge | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Euro-BioImaging/EuBI-Bridge) | A tool for distributed conversion of microscopic image collections into the OME-Zarr format. |
 | ITKIOOMEZarrNGFF | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/InsightSoftwareConsortium/ITKIOOMEZarrNGFF) | An ITK external module for IO of images stored in OME-Zarr file format. | Reading & Writing |
 | multiscale-spatial-image | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/spatial-image/multiscale-spatial-image) | Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-Zarr. | Reading & Writing |
+| nd2 | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/tlambert03/nd2) | A Python library for reading nd2 files with native export to OME-Zarr, supporting multi-well plates and complete metadata preservation. |
 | Nextflow (nf-omezarr) | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://www.nextflow.io/g" alt="Nextflow logo" width="30" height="30">](https://github.com/JaneliaSciComp/nf-omezarr) | A Nextflow pipeline for converting directories of images to OME-Zarr using bioformats2raw |
+| PyMIF | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/grinic/pymif) | A modular Python package to read, visualize, and convert multiscale microscopy image data from various microscope platforms to OME-Zarr. |
 | stack-to-chunk | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://stack-to-chunk.readthedocs.io) | A Python library to convert stacks of 2D images to OME-Zarr with minimal memory use and maximum concurrency. |
 | stack_to_multiscale_ngff | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/CBI-PITT/stack_to_multiscale_ngff) | A tool for converting multi-terabyte stacks of images into a multiscale OME-Zarr. |
-| nd2 | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/tlambert03/nd2) | A Python library for reading nd2 files with native export to OME-Zarr, supporting multi-well plates and complete metadata preservation. |
-| PyMIF | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/grinic/pymif) | A modular Python package to read, visualize, and convert multiscale microscopy image data from various microscope platforms to OME-Zarr. |
 
 ### Zarr readers & writers
 
@@ -75,15 +76,15 @@ Want to read or write a Zarr? Use one of these tools.
 | Name    | Link | Description |
 | -------- | ------- | ------- |
 | bfio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/bfio) | A Python interface to Bioformats using jpype for direct access to the library. |
+| bia-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BioImage-Archive/bia-zarr) | A Python library for reading, writing, and manipulating OME-Zarr datasets, including thumbnail generation and OME-Zarr type detection. |
 | Bio-Formats | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/bioformats) | A standalone Java library for reading and writing life sciences image file formats. Requires [OMEZarrReader](https://github.com/ome/ZarrReader) |
 | BioIO | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.allencell.org" alt="BioIO logo" width="30" height="30">](https://github.com/bioio-devs/bioio) | Image/Metadata Reading Writing for Microscopy Images in pure Python. Requires [bioio-ome-zarr](https://github.com/bioio-devs/bioio-ome-zarr) (formerly [AICSImageIO](https://github.com/AllenCellModeling/aicsimageio))  |
 | iohub| [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/czbiohub-sf/iohub) | Pythonic and parallelizable I/O for N-dimensional imaging data with OME metadata |
-| ngio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://biovisioncenter.github.io/ngio/stable/) | Python package for bject-based API for opening, exploring, and manipulating OME-Zarr images and high-content screening (HCS) plates |
 | ngff-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/thewtex/ngff-zarr) | A lean and kind Open Microscopy Environment (OME) Next Generation File Format (NGFF) Zarr implementation. |
-| ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. |
+| ngio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://biovisioncenter.github.io/ngio/stable/) | Python package for bject-based API for opening, exploring, and manipulating OME-Zarr images and high-content screening (HCS) plates |
 | ome-writers | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/pymmcore-plus/ome-writers) | A Python library for streaming acquisition data to OME-Zarr or OME-TIFF, supporting multiple array backends. |
+| ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. |
 | Zarr.NET | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BiologyTools/Zarr.NET) | A native .NET library for reading and writing Zarr microscopy data. |
-| bia-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BioImage-Archive/bia-zarr) | A Python library for reading, writing, and manipulating OME-Zarr datasets, including thumbnail generation and OME-Zarr type detection. |
 
 ### Zarr validation
 
@@ -105,8 +106,8 @@ Tools that do not explicitly fit into any of the above categories (ex. Zarr comp
 | Fractal | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://fractal-analytics-platform.github.io/) | A framework to process OME-Zarr data at scale with modular processing tasks and to prepare it for interactive visualization. |
 | Ilastik | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ilastik/ilastik) | An interactive learning and segmentation toolkit |
 | Mastodon | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://mastodon.readthedocs.io/) | A large-scale tracking and track-editing framework for large, multi-view images. |
+| mesoSPIM-control | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/mesoSPIM/mesoSPIM-control) | Python/PyQt acquisition software for mesoSPIM light-sheet microscopes with OME-Zarr multi-scale output support. |
 | Nyxus | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/nyxus) | A scalable library for calculating features from intensity-label image data. |
 | ome-zarr.js | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BioNGFF/ome-zarr.js) | A JavaScript library for simple rendering of thumbnnails and images. |
 | SpatialData | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/scverse/spatialdata) | An open and universal framework for processing spatial omics data. |
 | Zarrcade | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/JaneliaSciComp/zarrcade) | Create searchable web-based OME-Zarr image galleries. |
-| mesoSPIM-control | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/mesoSPIM/mesoSPIM-control) | Python/PyQt acquisition software for mesoSPIM light-sheet microscopes with OME-Zarr multi-scale output support. |
