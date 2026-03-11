@@ -705,7 +705,7 @@ We suggest two possible layouts for HCS data, which are not mutually exclusive a
 
 In this layout, all multiscale nodes are direct children of the well collection.
 Each node carries an `acquisition` attribute.
-Derived images such as label maps are siblings of their source image, can be still linked via the `source` reference in their `labels` attribute. This layout is more compact but can become cluttered when there are multiple acquisitions and derived nodes.
+Derived images such as label maps are siblings of their source image, can be still linked via the `source` reference in their `labels` attribute, (or similarly via third-party attributes such as `ngio:source`). This layout is more compact but can become cluttered when there are multiple acquisitions and derived nodes.
 
 ```json
 {
@@ -763,7 +763,8 @@ Derived images such as label maps are siblings of their source image, can be sti
                             "path": "./A/01/001_ill_corrected.img"
                         },
                         "attributes": {
-                            "acquisition": 0
+                            "acquisition": 0,
+                            "ngio:source": ["A01_0"]
                         }
                     },
                     {
