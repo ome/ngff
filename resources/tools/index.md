@@ -4,14 +4,16 @@ A list of tools and libraries with OME-Zarr support. These are developed by vari
 
 ## Contents
 
-- [Tools with a graphical interface (ex. a website)](#tools-with-a-graphical-interface)
+- [Tools](#tools)
+  - [Contents](#contents)
+  - [Tools with a graphical interface](#tools-with-a-graphical-interface)
     - [Zarr viewers](#zarr-viewers)
-    - [Zarr converters](#zarr-converters-with-a-ui)
-- [Tools for the programmatically inclined](#tools-for-the-programmatically-inclined)
+    - [Zarr converters (with a UI)](#zarr-converters-with-a-ui)
+  - [Tools for the programmatically inclined](#tools-for-the-programmatically-inclined)
     - [Zarr converters](#zarr-converters)
-    - [Zarr readers and writers](#zarr-readers--writers)
-    - [Validating Zarr](#zarr-validation)
-- [Other zarr tools and libraries](#other-tools-and-libraries)
+    - [Zarr readers \& writers](#zarr-readers--writers)
+    - [Zarr validation](#zarr-validation)
+  - [Other tools and libraries](#other-tools-and-libraries)
 
 
 ## Tools with a graphical interface
@@ -82,7 +84,7 @@ Want to read or write a Zarr? Use one of these tools.
 | iohub| [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/czbiohub-sf/iohub) | Pythonic and parallelizable I/O for N-dimensional imaging data with OME metadata |
 | ngff-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/thewtex/ngff-zarr) | A lean and kind Open Microscopy Environment (OME) Next Generation File Format (NGFF) Zarr implementation. |
 | ngio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://biovisioncenter.github.io/ngio/stable/) | Python package for bject-based API for opening, exploring, and manipulating OME-Zarr images and high-content screening (HCS) plates |
-| omero-zarr-pixel-buffer | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/omero-zarr-pixel-buffer) | An OMERO server extension for reading OME-Zarr data from local or S3 storage. |
+| omero-zarr-pixel-buffer | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/omero-zarr-pixel-buffer) | An OMERO server extension for reading OME-Zarr data from local or S3 storage. |
 | ome-writers | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/pymmcore-plus/ome-writers) | A Python library for streaming acquisition data to OME-Zarr or OME-TIFF, supporting multiple array backends. |
 | ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. |
 | Zarr.NET | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BiologyTools/Zarr.NET) | A native .NET library for reading and writing Zarr microscopy data. |
