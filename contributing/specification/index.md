@@ -21,7 +21,7 @@ To make a change such as the end-product of an RFC or a minor correction to the 
 please do so via a pull request (PR) against the `main` branch of the [ome/ngff-spec](https://github.com/ome/ngff-spec) repository.
 Such a PR can contain a change of any of the following components of the ngff-spec repo:
 
-- The spec text itself (`ngff-spec/inex.md`)
+- The spec text itself (`ngff-spec/index.md`)
 - The schemas (`ngff-spec/schemas/`)
 - Example json metadata (`ngff-spec/examples/`)
 
