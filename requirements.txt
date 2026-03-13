@@ -4,5 +4,6 @@ pydata-sphinx-theme
 json-schema-for-humans
 testresources
 sphinx-reredirects
-sphinxcontrib-bibtex
 sphinx-design
+sphinxcontrib-mermaid
+sphinxcontrib-bibtex
