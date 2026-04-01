@@ -10,6 +10,10 @@ submodules:
   include: all
   recursive: true
 
+formats:
+  - epub
+  - pdf
+
 sphinx:
   configuration: conf.py
 
