@@ -66,7 +66,7 @@ These are *some* of the organizations (and their dataset pages) that are using O
 
 ## Have other questions?
 
-Check out the pages below, including the FAQ page.
+Check out the pages below, including the [FAQ](help-desk/index.md#faqs) page.
 
 ```{toctree}
 :maxdepth: 1
