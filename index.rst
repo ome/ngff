@@ -8,6 +8,12 @@ Next-Generation File Formats (NGFF) + OME-Zarr
 
 Welcome to the Next-Generation File Formats (NGFF) main page! This site is dedicated to providing resources for the NGFF community and those that are interested in getting started with OME-Zarr.
 
+In summary, OME-Zarr allows you to store, share and stream large images like these 500 GB:
+
+<iframe style="width: 100%; height: 500px" name="vizarr" src="https://hms-dbmi.github.io/vizarr/v0.1/?source=https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.1/4495402.zarr"> </iframe>
+
+You can find more samples of such data from the Image Data Resource at <a href="https://idr.github.io/ome-ngff-samples/">https://idr.github.io/ome-ngff-samples/</a>.
+
 NGFF vs OME-Zarr, what is the difference?
 ------------------------------------------
 **OME-Zarr** is the file format that the NGFF community has settled on to address issues of scalability and interoperability described below.
