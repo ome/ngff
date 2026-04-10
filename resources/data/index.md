@@ -12,7 +12,7 @@ Data Resources
 | [JAX](https://images.jax.org/webclient/userdata/?experimenter=-1)        | The Jackson Laboratory                               | 17000        | 192 TB   |
 | [Glencoe](https://glencoesoftware.com/ngff)                              | Glencoe Software, Inc.                               | 8            | 165 GB   |
 | [IDR Samples](https://idr.github.io/ome-ngff-samples/)                   | EBI                                                  | 88           | 3 TB     |
-| [IDR Studies](https://uk1s3.embassy.ebi.ac.uk/bia-integrator-data/pages/idr_ngff_data.html) | EBI                               | 1644         | 47 TB    |
+| [IDR Studies](https://livingobjects.ebi.ac.uk/bia-integrator-data/pages/idr_ngff_data.html) | EBI                               | 1644         | 47 TB    |
 | [MoBIE](https://mobie.github.io/specs/ngff.html)                         | EMBL-HD                                              | 21           | 2 TB     |
 | [Neural Dynamics](https://registry.opendata.aws/allen-nd-open-data/)     | AWS Open Data Program                                | 90           | 200 TB   |
 | [Open SciVis](https://registry.opendata.aws/ome-zarr-open-scivis/)       | AWS Open Data Program                                | 624          | 372 GB   |
