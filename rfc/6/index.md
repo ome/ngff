@@ -87,7 +87,7 @@ This RFC proposes to change the `multiscales` array into a single `multiscale` o
 
 The current spec of OME-Zarr (version 0.5) defines that the metadata for a multiscale is stored in a `multiscales` array.
 
-However, there seem to be only very few OME-Zarr images with mutltiple multiscales in the wild. There is one example from IDR: [4995115.zarr](https://ome.github.io/ome-ngff-validator/?source=https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0050A/4995115.zarr)
+However, there seem to be only very few OME-Zarr images with mutltiple multiscales in the wild. There is one example from IDR: [4995115.zarr](https://ome.github.io/ome-ngff-validator/?source=https://livingobjects.ebi.ac.uk/idr/zarr/v0.4/idr0050A/4995115.zarr)
 
 Additionally, most visualization and processing tools today simply process the first multiscale object in the `multiscales` array, ignoring any subsequent entries. Here is a selection of tools that only load the first multiscale object:
 
