@@ -119,10 +119,10 @@ In a way, coordinate transformations and systems simply become a subset of the m
 
 
 #### 5. High Content Screening (HCS) plates
-(hcs-plates-collection)=
-OME-Zarr high content screening plates are a current example of a very narrowly defined type of collection. They allow to group OME-Zarr images in multiple hierarchy levels: A plate contains wells, which are organized as row folders with column subfolders in each. Each well folder can contain a number of images. There is defined metadata about which wells are in a plate and about which images are in a well at the different hierarchy levels, typically with some additional optional metadata like the acquisitions that exist in a plate and which image belongs to which acquisition.
+
+OME-Zarr high content screening plates are a current example of a narrowly defined type of collection. They allow to group OME-Zarr images in multiple hierarchy levels: A plate contains wells, which are organized as row folders with column subfolders in each. Each well folder can contain a number of images. There is defined metadata about which wells are in a plate and about which images are in a well at the different hierarchy levels, typically with some additional optional metadata like the acquisitions that exist in a plate and which image belongs to which acquisition.
 This hierarchy is very useful for typical experiments where researchers imaged a multi-well plate. Multiple viewers like MoBIE, napari & ViZarr support displaying the different wells arranged in the plate format given the OME-Zarr HCS metadata, thus avoiding the need for tool-specific metadata and showing the benefits of such collection concepts.
-The current HCS spec also has its limitations: It has a strict definition of potential metadata fields at the plate and well level. There are multiple areas where it would be interesting to extend this spec. There are [ongoing discussions](https://github.com/ome/ngff/pull/137) about whether individual microscope fields of view (ie. well) should be stored as individual OME-Zarr images or as a single OME-Zarr image. In that context, it is unclear how one would provide metadata about the individual images in a well and what a viewer should do with them. For example, depending on whether an OME-Zarr image in a well is an individual field of view of a given acquisition, a second acquisition of the same region in a plate or an image derived from a given processing operation, the optimal viewer default on whether to show or not show multiple images at once will vary. A flexible metadata field like `attributes` would allow us to better define such image metadata. A more flexible HCS collection system could also allow to provide advanced metadata on well positions [when wells have different sizes](https://github.com/ome/ome-zarr-py/issues/240) or address other edge-cases in the current HCS configuration.
+The current HCS spec also has its limitations: It has a strict definition of potential metadata fields at the plate and well level. There are multiple areas where it would be interesting to extend this spec. There are [ongoing discussions](https://github.com/ome/ngff/pull/137) about whether individual microscope fields of view (ie. well) should be stored as individual OME-Zarr images or as a single OME-Zarr image and how one would represent [different processing intermediates in a plate](https://forum.image.sc/t/how-to-build-hcs-zarrs-with-multiple-image-types-per-fov/119329). In these contexts, the current HCS spec lacks flexibility to get additional metadata about how images in a well are related and what a viewer should do with them. For example, depending on whether an OME-Zarr image in a well is an individual field of view of a given acquisition, a second acquisition of the same region in a plate or an image derived from a given processing operation, the optimal viewer default on whether to show or not show multiple images at once will vary. A flexible metadata field like `attributes` would allow us to better define such image metadata. A more flexible HCS collection system could also allow to provide advanced metadata on well positions [when wells have different sizes](https://github.com/ome/ome-zarr-py/issues/240) or address other edge-cases in the current HCS configuration.
 
 
 #### 6. Image Archive
@@ -346,7 +346,7 @@ Unprefixed attribute keys that are defined as part of this RFC are:
 - `coordinateSystems`
 - `coordinateTransformations`
 - `labels`, as well as `label-value` and `color` in label attributes
-- `plate` and `well`
+- `plate`, `well`, `acquisition` for HCS metadata
 
 ### Extensibility
 
@@ -655,19 +655,49 @@ Additional keys MAY be added, following the key naming rules.
 
 ### HCS metadata
 
-High content screening data is commonly composed of multiple multiscale images ("well") that are arranged in a grid on a "plate".
-Additional metadata for organizing the wells on a plate is introduced here.
+High-content screening data is typically organized as a grid of wells on a plate, where each well contains one or more multiscale images from one or more acquisition rounds.
+This section introduces additional metadata for organizing wells on a plate.
 
-TODO:
-Open questions Joel:
-How do we relate derived data to existing data best in the HCS context without becoming a nesting nightmare?
+#### `plate` attribute
 
-We have a well with X images. All of the images can have labels and tables. And maybe one would use the collection spec to allow for labels that apply to multiple images in the same well or tables that apply to multiple images.
+A `collection` node representing a plate MUST have a `plate` attribute with the following fields:
 
-How do we represent images in wells that can optionally be related to labels and optionally be related to tables? Does the well always contain a nested collection (we called that “the OME-Zarr container”, e.g. the object that knows about the image data, label data and related table data like ROI tables in our work so far)? Or is it sometimes nested, sometimes not?
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"acquisitions"` | array of objects | no | List of acquisitions performed on the plate. |
+| `"columns"` | array of objects | yes | List of columns in the plate. Each object MUST have a `"name"` string field. |
+| `"rows"` | array of objects | yes | List of rows in the plate. Each object MUST have a `"name"` string field. |
 
-#### Example
-```jsonc
+Each object in `acquisitions` MAY have the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"id"` | number | yes | A unique integer identifier for the acquisition. |
+| `"name"` | string | no | A human-readable name for the acquisition. |
+
+#### `well` attribute
+
+A `collection` node representing a well MUST have a `well` attribute with the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"column"` | number | yes | The column name of the well in the plate. |
+| `"row"` | string | yes | The row name of the well in the plate. |
+
+#### `acquisition` attribute
+
+The `acquisition` attribute is a number whose value MUST match the `id` of one of the acquisitions listed in the `plate` attribute.
+It MAY be set on individual `multiscale` nodes within a well or on a `collection` sub-node grouping all images from a single acquisition.
+
+We suggest two possible layouts for HCS data, which are not mutually exclusive and can be used in combination: a "wide" layout where all images are direct children of the well collection and a "tall" layout where images are grouped in sub-collections by acquisition. 
+
+#### Wide example (acquisitions flat in the well)
+
+In this layout, all multiscale nodes are direct children of the well collection.
+Each node carries an `acquisition` attribute.
+Derived images such as label maps are siblings of their source image, can be still linked via the `source` reference in their `labels` attribute, (or similarly via third-party attributes such as `ngio:source`). This layout is more compact but can become cluttered when there are multiple acquisitions and derived nodes.
+
+```json
 {
     "ome": {
         "version": "0.x",
@@ -675,49 +705,194 @@ How do we represent images in wells that can optionally be related to labels and
         "name": "hcs-plate-001",
         "attributes": {
             "plate": {
-                "acquisitions": [...],
-                "columns": [...],
-                "rows": [...],
+                "acquisitions": [
+                    {
+                        "id": 0,
+                        "name": "Acquisition Round 1"
+                    }
+                ],
+                "columns": [
+                    {
+                        "name": "1"
+                    }
+                ],
+                "rows": [
+                    {
+                        "name": "A"
+                    }
+                ]
             }
-        }
+        },
         "nodes": [
             {
-            "type": "collection",
-            "name": "well A01",
-            "attributes": {
-                "well": {
-                    "column": 1,
-                    "row": "A",
-                    "acquisition": 0
-                }
-            }
-            "nodes": [
-                {
-                    "type": "multiscale",
-                    "name": "well-001-001",
-                    "path": {
-                      "type": "zarr",
-                      "path": "./A/01/001.img.zarr"
+                "type": "collection",
+                "name": "well A01",
+                "attributes": {
+                    "well": {
+                        "column": "1",
+                        "row": "A"
                     }
                 },
-                {
-                    "type": "multiscale",
-                    "name": "A01_0_nuclei",
-                    "path": {
-                      "type": "zarr",
-                      "path": "/full/path/A/01/nuclei.img.zarr"
+                "nodes": [
+                    {
+                        "type": "multiscale",
+                        "name": "A01_0",
+                        "path": {
+                            "type": "zarr",
+                            "path": "./A/01/001.img"
+                        },
+                        "attributes": {
+                            "acquisition": 0
+                        }
                     },
-                    "attributes": {
-                        "labels": {}
+                    {
+                        "type": "multiscale",
+                        "name": "A01_0_ill_corrected",
+                        "path": {
+                            "type": "zarr",
+                            "path": "./A/01/001_ill_corrected.img"
+                        },
+                        "attributes": {
+                            "acquisition": 0,
+                            "ngio:source": ["A01_0"]
+                        }
+                    },
+                    {
+                        "type": "multiscale",
+                        "name": "A01_0_nuclei",
+                        "path": {
+                            "type": "zarr",
+                            "path": "./A/01/001_nuclei.img"
+                        },
+                        "attributes": {
+                            "acquisition": 0,
+                            "labels": {
+                                "source": ["A01_0"]
+                            }
+                        }
                     }
-                },
-                ...
                 ]
-            }, 
-        ...]
+            }
+        ]
     }
 }
 ```
+
+#### Tall example (acquisitions as sub-collections)
+
+In this layout, each acquisition is wrapped in a sub-collection inside the well.
+The `acquisition` attribute is set on the sub-collection rather than on individual nodes.
+This serves as an example that wells can consist of collections, not just multiscales. 
+
+```json
+{
+    "ome": {
+        "version": "0.x",
+        "type": "collection",
+        "name": "hcs-plate-001",
+        "attributes": {
+            "plate": {
+                "acquisitions": [
+                    {
+                        "id": 0,
+                        "name": "Acquisition Round 1"
+                    },
+                    {
+                        "id": 1,
+                        "name": "Acquisition Round 2"
+                    }
+                ],
+                "columns": [
+                    {
+                        "name": "1"
+                    }
+                ],
+                "rows": [
+                    {
+                        "name": "A"
+                    }
+                ]
+            }
+        },
+        "nodes": [
+            {
+                "type": "collection",
+                "name": "well A01",
+                "attributes": {
+                    "well": {
+                        "column": "1",
+                        "row": "A"
+                    }
+                },
+                "nodes": [
+                    {
+                        "type": "collection",
+                        "name": "A01_acq0",
+                        "attributes": {
+                            "acquisition": 0
+                        },
+                        "nodes": [
+                            {
+                                "type": "multiscale",
+                                "name": "A01_0",
+                                "path": {
+                                    "type": "zarr",
+                                    "path": "./A/01/001.img"
+                                }
+                            },
+                            {
+                                "type": "multiscale",
+                                "name": "A01_0_nuclei",
+                                "path": {
+                                    "type": "zarr",
+                                    "path": "./A/01/001_nuclei.img"
+                                },
+                                "attributes": {
+                                    "labels": {
+                                        "source": ["A01_0"]
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "collection",
+                        "name": "A01_acq1",
+                        "attributes": {
+                            "acquisition": 1
+                        },
+                        "nodes": [
+                            {
+                                "type": "multiscale",
+                                "name": "A01_1",
+                                "path": {
+                                    "type": "zarr",
+                                    "path": "./A/01/002.img"
+                                }
+                            },
+                            {
+                                "type": "multiscale",
+                                "name": "A01_1_nuclei",
+                                "path": {
+                                    "type": "zarr",
+                                    "path": "./A/01/002_nuclei.img"
+                                },
+                                "attributes": {
+                                    "labels": {
+                                        "source": ["A01_1"]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+
+While inlined plate collections are shown above for simplicity, an on-disk plate collection could still refer to separate on-disk collections within each well that are well collections.
 
 ### bioformats2raw.layout metadata
 
