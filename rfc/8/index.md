@@ -51,8 +51,8 @@ reading this paragraph(s).
 * **Viewing**. Many viewers need to visualize multiple images at the same time. There is no generic way of defining this group of images.
 * **Discoverability**. Zarr doesn't have a way of discovering groups within a group, which requires file system scans to discover images within a group.
 * **Unifying concepts**. OME-Zarr has a few collection types already, e.g. high-content screening, bioformats2raw.layout. This is an opportunity to unify them.
-* **Extensibility**. OME-Zarr does not have representations for adding other objects, e.g. tables, meshes, to a hierarchy. Through new metadata, collections offers a path to add new object types.
-* **Metadata**. Collections allow to attach metadata to images or other objects without altering the original object (think: overriding). While this proposal does not specify the semantics of such metadata, it provides means for storing them.
+* **Extensibility**. OME-Zarr does not have representations for adding other objects, e.g. tables, meshes, to a hierarchy. Through new metadata, collections offer a path to add new object types.
+* **Metadata**. Collections allow attaching metadata to images or other objects without altering the original object (think: overriding). While this proposal does not specify the semantics of such metadata, it provides means for storing them.
 
 ### User stories
 
@@ -124,7 +124,7 @@ In a way, coordinate transformations and systems simply become a subset of the m
 #### 5. High Content Screening (HCS) plates
 
 OME-Zarr high content screening plates are a current example of a narrowly defined type of collection.
-They allow to group OME-Zarr images in multiple hierarchy levels: A plate contains wells, which are organized as row folders with column subfolders in each.
+They allow grouping OME-Zarr images in multiple hierarchy levels: A plate contains wells, which are organized as row folders with column subfolders in each.
 Each well folder can contain a number of images.
 There is defined metadata about which wells are in a plate and about which images are in a well at the different hierarchy levels, typically with some additional optional metadata like the acquisitions that exist in a plate and which image belongs to which acquisition.
 
@@ -190,7 +190,7 @@ For example, [this table](https://docs.google.com/spreadsheets/d/1t5xB0p0zd2-a6y
 
 This proposal adds collections to the OME-Zarr specification.
 "Collections" are groupings of "nodes".
-Nodes either reference OME-Zarr images (multiscales, singlescales) or collections.
+Nodes represent OME-Zarr images (multiscales, singlescales) or collections, either inline or via a path reference.
 Nested collections and multiscales can be inlined in the metadata.
 Nodes reference images or collections that are stored locally relative to the collection or remotely (using URLs).
 Arbitrary user or implementation metadata may be added to collections or nodes, which is an opportunity to add metadata that is only valid for a node in the context of a collection (e.g. rendering settings).
@@ -214,10 +214,10 @@ Objects that implement `Node` have the following fields:
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
-| `"type"` | string | yes | Identifies the type of the node |
+| `"type"` | string | yes | Value MUST be a string identifying the node type. |
 | `"id"` | string | no | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
 | `"name"` | string | yes | Value MUST be a non-empty string intended for human-readable display. Names MUST be unique within the enclosing collection. |
-| `"attributes"` | object | no | [See attributes section](#attributes) |
+| `"attributes"` | object | no | Value MUST be a dictionary. [See attributes section](#attributes) |
 
 The `type` field of a `Node` defines the additional fields, if any, it has. 
 This RFC defines three `Node` types: `Collection`, `Multiscale`, and `Singlescale`.
@@ -272,7 +272,7 @@ This new interface replaces the dataset metadata defined in the previous version
 | `"path"` | object | no | Value MUST be a `Path` object. |
 | `"attributes"` | object | yes | Value MUST be a dictionary. Required because it MUST contain `coordinateTransformations`. [See attributes section](#attributes). |
 
-`Singlescale` nodes MUST have a `coordinateTransformations` key in their `attributes` which conforms to the [coordinate transformations](#coordinate-transformations) specification and only contains `scale` and `translate` transformations.
+`Singlescale` nodes MUST have a `coordinateTransformations` key in their `attributes` which conforms to the [coordinate transformations](#coordinate-transformations) specification and only contains `scale` and `translation` transformations.
 
 If the `Singlescale` node is the root node and contained within the `zarr.json` of a Zarr array, the `path` field SHOULD NOT be present. 
 In this case, the `Singlescale` describes the Zarr array.
@@ -293,7 +293,7 @@ Currently, the `zarr` and `json` types are supported.
 - The `"zarr"` type is used for paths that reference nodes in a Zarr array or group. Implementations MUST append `zarr.json` to the path to access the metadata of the referenced node.
 - The `"json"` type is used for paths that reference nodes in a JSON file.
 
-This `path` strings can be one of the following types:
+The `path` string can be one of the following types:
 
 - **Relative paths.**
   To reference nodes that are on the same file system namespace as the json file describing the collection, relative paths may be used.
@@ -317,15 +317,15 @@ This `path` strings can be one of the following types:
   - `https://example.com/image.ome.zarr`
   - `http://example.com/image.ome.zarr`
 
-Future RFCs may propose additional paths, such as S3 URLs or chained paths (e.g. for referencing files within a zip file).
-In any case, implementations may impose access restrictions on any type of paths.
+Future RFCs may propose additional path types, such as S3 URLs or chained paths (e.g. for referencing files within a zip file).
+See the [Security](#security) section for guidance on access restrictions.
 
 
 #### References
 
-Objects that are being referenced MUST have an `id` field.
+Referenced objects MUST have an `id` field.
 
-The reference can be a string with an ID for referencing objects within the same JSON document.
+A reference may be a plain string containing the `id` value of the target object within the same JSON document.
 For more complex references, the reference can be an object with the following fields:
 
 | Field | Type | Required? | Notes |
@@ -593,7 +593,7 @@ Previous versions of the OME-Zarr specification defined a mechanism for associat
 This was achieved by using a `labels` Zarr group that had to be a direct child of the multiscale Zarr group with some specific metadata. 
 This proposal replaces this mechanism.
 
-To denote a multiscale image as a label map, the `labels` attribute SHOULD be present.
+To denote a multiscale image as a label map, the `labels` attribute MUST be present.
 If present, the value of the `labels` attribute MUST be an object with the following fields:
 
 | Field | Type | Required? | Notes |
@@ -603,7 +603,8 @@ If present, the value of the `labels` attribute MUST be an object with the follo
 
 Because no fields are required, an empty object MAY be used.
 
-The previous `colors` and `properties` fields are now combined into a single `labelAttributes` field. The `rgba` field in the `colors` objects has been renamed to `color`.
+In this proposal, the previous `colors` and `properties` fields are combined into a single `labelAttributes` field.
+The `rgba` field in the `colors` objects has been renamed to `color`.
 
 #### Label attributes
 
@@ -616,7 +617,7 @@ The `labelAttributes` field is an array of objects with the following fields:
 
 If present, the `color` field MUST have an array with four integers between 0 and 255, inclusive. These integers represent the uint8 values of red, green, blue and alpha.
 
-Additional keys MAY be added, following the key naming rules.
+Additional keys MAY be added, [following the key naming rules](#extensibility).
 
 The previous `label-value` key is now renamed to `labelValue` for consistency.
 
@@ -700,7 +701,7 @@ We suggest two possible layouts for HCS data, which are not mutually exclusive a
 
 In this layout, all multiscale nodes are direct children of the well collection.
 Each node carries an `acquisition` attribute.
-Derived images such as label maps are siblings of their source image, can still be linked via the `source` reference in their `labels` attribute, (or similarly via third-party attributes such as `ngio:source`). This layout is more compact but can become cluttered when there are multiple acquisitions and derived nodes.
+Derived images such as label maps are siblings of their source image and can still be linked via the `source` reference in their `labels` attribute, (or similarly via third-party attributes such as `ngio:source`). This layout is more compact but can become cluttered when there are multiple acquisitions and derived nodes.
 
 ```jsonc
 {
@@ -901,7 +902,7 @@ This serves as an example that wells can consist of collections, not just multis
 }
 ```
 
-While inlined plate collections are shown above for simplicity, an on-disk plate collection could still refer to separate on-disk collections within each well that are well collections.
+While inlined plate collections are shown above for simplicity, an on-disk plate collection could still refer to separate on-disk collections within each well that carry a `well` attribute.
 
 ### bioformats2raw.layout metadata
 
@@ -910,11 +911,11 @@ A series of images can now be represented as a collection of multiscale images.
 
 ### Coordinate transformations
 
-Coordinate systems and transformations can be stored in three distinct locations:
-For single images, they can be stored in the `ome` key of the `attributes` container in a `zarr.json` file of the multiscales zarr group.
-Since these metadata are entirely self-contained, they are inherently compatible with the proposed collection metadata format.
-For collections of two or more images in a common coordinate system, RFC-5 defines a parent-level metadata format.
-In this layout, `coordinateTransformations` define relationships between different images or `coordinateSystems`:
+Coordinate systems and transformations can be stored in two distinct locations:
+
+- For single multiscale or singlescale images, they can be stored in the `ome` key of the `attributes` container in a `zarr.json` file of the multiscales zarr group.
+- For collections of two or more images in a common coordinate system, RFC-5 defines a parent-level metadata format.
+  In this layout, `coordinateTransformations` define relationships between different images or `coordinateSystems`:
 
 ```jsonc
 {
@@ -936,7 +937,7 @@ In a change from the previous specification, coordinate systems are referenced u
   "ome": {
     "version": "0.x",
     "type": "collection",
-    "name": "hcs-plate-001",
+    "name": "tiles",
     "attributes": {
       "coordinateSystems": [
         {
@@ -991,7 +992,7 @@ The `coordinateSystems` attribute is an array of objects with the following fiel
 | Field | Type | Required? | Notes |
 | - | - | - | - |
 | `"id"` | string | no | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
-| `"name"` | string | yes | Value MUST be a non-empty string. As defined in RFC-5. |
+| `"name"` | string | yes | Value MUST be a non-empty string, as defined in RFC-5. |
 | `"axes"` | array of strings | yes | Value MUST be an array of axes, as defined in RFC-5. |
 
 
@@ -1163,7 +1164,7 @@ For reading, implementations SHOULD parse the metadata as available to the imple
 In an effort to unify the existing and new collection types of OME-Zarr, the Multiscale metadata has been changed to mirror the Collection metadata.
 Still, it is a specialized node type because of its prevalence and semantic requirements with regards to its Singlescale children nodes.
 The Singlescale metadata has been elevated to a first-class node type.
-This also allows to specify images that only contain a single resolution level.
+This also allows specifying images that only contain a single resolution level.
 
 These changes are breaking changes to the core of the OME-Zarr specification.
 
@@ -1191,7 +1192,7 @@ These changes are breaking changes to the core of the OME-Zarr specification.
 Instead of defining a custom collection format for OME-Zarr, existing collection formats, such as RO Crate, could be utilized.
 
 Research Object Crate ("RO Crate") is a standard format that utilizes JSON-LD to define collections of research artifacts as well as their relationships and other metadata.
-Utilizing RO Crate for OME-Zarr collections would allow to build upon an existing standard that has been validated in the field.
+Utilizing RO Crate for OME-Zarr collections would allow building upon an existing standard that has been validated in the field.
 Additionally, it would allow to easily integrate with other research artifacts, such as publications, talks, protocols, etc.
 
 RO Crate imposes very strict requirements around its metadata.
@@ -1598,7 +1599,7 @@ not on its own motivate an RFC.
 
 ## Future possibilities
 
-Collections is a possibility for extending OME-Zarr in a backwards-compatible manner.
+The collections mechanism is a possibility for extending OME-Zarr in a backwards-compatible manner.
 
 Future additions include:
 
