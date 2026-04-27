@@ -60,6 +60,7 @@ reading this paragraph(s).
 Several viewers are capable of visualizing multiple images, that can map to a common coordinate space, at once. Examples are Webknossos, Neuroglancer, MoBIE and OMERO.figure. All of these tools have developed their own JSON-based metadata to combine multiple images in a collection, see "[Prior art and references](#prior-art-and-references)". In addition to mere path references of the images, this metadata also contains information about coordinate transforms and rendering settings.
 
 As there is no standard-compliant way in OME-Zarr to describe multiple images in one entity, users need to copy multiple links to interoperably visualize multiple images.
+TODO: scenes from RFc-5
 
 #### 2. m:n segmentations
 While OME-Zarr has support for attaching labels to images, the support is not sufficient for many use cases.
@@ -120,13 +121,27 @@ In a way, coordinate transformations and systems simply become a subset of the m
 
 #### 5. High Content Screening (HCS) plates
 
-OME-Zarr high content screening plates are a current example of a narrowly defined type of collection. They allow to group OME-Zarr images in multiple hierarchy levels: A plate contains wells, which are organized as row folders with column subfolders in each. Each well folder can contain a number of images. There is defined metadata about which wells are in a plate and about which images are in a well at the different hierarchy levels, typically with some additional optional metadata like the acquisitions that exist in a plate and which image belongs to which acquisition.
-This hierarchy is very useful for typical experiments where researchers imaged a multi-well plate. Multiple viewers like MoBIE, napari & ViZarr support displaying the different wells arranged in the plate format given the OME-Zarr HCS metadata, thus avoiding the need for tool-specific metadata and showing the benefits of such collection concepts.
-The current HCS spec also has its limitations: It has a strict definition of potential metadata fields at the plate and well level. There are multiple areas where it would be interesting to extend this spec. There are [ongoing discussions](https://github.com/ome/ngff/pull/137) about whether individual microscope fields of view (ie. well) should be stored as individual OME-Zarr images or as a single OME-Zarr image and how one would represent [different processing intermediates in a plate](https://forum.image.sc/t/how-to-build-hcs-zarrs-with-multiple-image-types-per-fov/119329). In these contexts, the current HCS spec lacks flexibility to get additional metadata about how images in a well are related and what a viewer should do with them. For example, depending on whether an OME-Zarr image in a well is an individual field of view of a given acquisition, a second acquisition of the same region in a plate or an image derived from a given processing operation, the optimal viewer default on whether to show or not show multiple images at once will vary. A flexible metadata field like `attributes` would allow us to better define such image metadata. A more flexible HCS collection system could also allow to provide advanced metadata on well positions [when wells have different sizes](https://github.com/ome/ome-zarr-py/issues/240) or address other edge-cases in the current HCS configuration.
+OME-Zarr high content screening plates are a current example of a narrowly defined type of collection.
+They allow to group OME-Zarr images in multiple hierarchy levels: A plate contains wells, which are organized as row folders with column subfolders in each.
+Each well folder can contain a number of images.
+There is defined metadata about which wells are in a plate and about which images are in a well at the different hierarchy levels, typically with some additional optional metadata like the acquisitions that exist in a plate and which image belongs to which acquisition.
+
+This hierarchy is very useful for typical experiments where researchers imaged a multi-well plate.
+Multiple viewers like MoBIE, napari & ViZarr support displaying the different wells arranged in the plate format given the OME-Zarr HCS metadata, thus avoiding the need for tool-specific metadata and showing the benefits of such collection concepts.
+
+The current HCS spec also has its limitations: It has a strict definition of potential metadata fields at the plate and well level.
+There are multiple areas where it would be interesting to extend this spec.
+There are [ongoing discussions](https://github.com/ome/ngff/pull/137) about whether individual microscope fields of view (ie. well) should be stored as individual OME-Zarr images or as a single OME-Zarr image and how one would represent [different processing intermediates in a plate](https://forum.image.sc/t/how-to-build-hcs-zarrs-with-multiple-image-types-per-fov/119329).
+In these contexts, the current HCS spec lacks flexibility to get additional metadata about how images in a well are related and what a viewer should do with them.
+For example, depending on whether an OME-Zarr image in a well is an individual field of view of a given acquisition, a second acquisition of the same region in a plate or an image derived from a given processing operation, the optimal viewer default on whether to show or not show multiple images at once will vary.
+A flexible metadata field like `attributes` would allow us to better define such image metadata.
+A more flexible HCS collection system could also allow to provide advanced metadata on well positions [when wells have different sizes](https://github.com/ome/ome-zarr-py/issues/240) or address other edge-cases in the current HCS configuration.
 
 
 #### 6. Image Archive
-Data archives that support deposition and access to OME-Zarr formatted images have two primary use cases for collections of images. For the first, users submitting data to deposition databases need ways to aggregate collections of images in their data upload structure, and do so in a way that supports describing how those images relate (e.g. parts of the same acquisition series, plate/well data as mentioned above). This can then be parsed during data submission, and used to create appropriate database records.
+Data archives that support deposition and access to OME-Zarr formatted images have two primary use cases for collections of images.
+For the first, users submitting data to deposition databases need ways to aggregate collections of images in their data upload structure, and do so in a way that supports describing how those images relate (e.g. parts of the same acquisition series, plate/well data as mentioned above).
+This can then be parsed during data submission, and used to create appropriate database records.
 
 Secondly, when providing outgoing access to data, archives want to provide groupings of images that allow compatibility with data exploration and visualisation tools. Given the increasingly rich ecosystem of these tools (mentioned across these use cases, and including grid views, segmentations, multiple images and plate/well data) standardisation is necessary to avoid the need to produce view/exploration schema for each tool.
 
@@ -147,9 +162,13 @@ For example, a lab might create automatic segmentations of a large image that ha
 While the segmentation would now be published on its own, it could still be published with a link to the original images so that viewers are able to show the segmentation as an overlay on the original data.
 
 #### 9. Adding other datatypes to images
-When processing images in the OME-Zarr format, a diversity of derived data like segmentation, probability maps, meshes, tables and other formats can be generated. This proposal does not intend to provide a specification to all these datatypes, but to define the metadata of how related data in Zarr or other formats can be linked to OME-Zarr images.
+When processing images in the OME-Zarr format, a diversity of derived data like segmentation, probability maps, meshes, tables and other formats can be generated.
+This proposal does not intend to provide a specification to all these datatypes, but to define the metadata of how related data in Zarr or other formats can be linked to OME-Zarr images.
 
-Because there is already a specification for labels in the spec, the label definition is broadened by this spec. For other datatypes like tables, [past proposals](https://github.com/ome/ngff/pull/64) have focused on how tables can be serialised to OME-Zarr. As these proposals did not proceed to become part of the OME-Zarr spec, different implementers have built their own sub-specs for tables (see e.g. the [ngio table definition](https://fractal-analytics-platform.github.io/ngio/v0.3.2/table_specs/overview/) coming from the Fractal project or the [label table](https://mobie.github.io/specs/mobie_spec.html#table-data) in MoBIE). While future proposals and extensions may define datatypes like tables more strictly, this proposal offers a general way to make such additional data types discoverable.
+Because there is already a specification for labels in the spec, the label definition is broadened by this spec.
+For other datatypes like tables, [past proposals](https://github.com/ome/ngff/pull/64) have focused on how tables can be serialised to OME-Zarr.
+As these proposals did not proceed to become part of the OME-Zarr spec, different implementers have built their own sub-specs for tables (see e.g. the [ngio table definition](https://fractal-analytics-platform.github.io/ngio/v0.3.2/table_specs/overview/) coming from the Fractal project or the [label table](https://mobie.github.io/specs/mobie_spec.html#table-data) in MoBIE).
+While future proposals and extensions may define datatypes like tables more strictly, this proposal offers a general way to make such additional data types discoverable.
 
 #### 10. Gallery / grid views
 
@@ -165,30 +184,7 @@ For example, [this table](https://docs.google.com/spreadsheets/d/1t5xB0p0zd2-a6y
 
 ![MoBIE grid view](./assets/mobie_grid_view.jpg)
 
-
-
-<!--
-The next section is the "Background" section. This section should be at least
-two paragraphs and can take up to a whole page in some cases. The \*\*guiding goal
-of the background section\*\* is: as a newcomer to this project (new employee, team
-transfer), can I read the background section and follow any links to get the
-full context of why this change is necessary? 
-
-If you can't show a random engineer the background section and have them
-acquire nearly full context on the necessity for the RFC, then the background
-section is not full enough. To help achieve this, link to prior RFCs,
-discussions, and more here as necessary to provide context so you don't have to
-simply repeat yourself.
-
--->
-
 ## Proposal
-
-<!--
-The next required section is "Proposal". Given the background above, this
-section proposes a solution. This should be an overview of the "how" for the
-solution, but for details further sections will be used.
--->
 
 This proposal adds collections to the OME-Zarr specification.
 "Collections" are groupings of "nodes".
@@ -203,7 +199,7 @@ Images may be added as nodes to multiple collections.
 - Define a mechanism for grouping images into (hierarchical) collections
 - Define a mechanism for referencing components of a collection (nodes, coordinate systems etc) internally and externally
 - Add extensibility to collections for user/implementation-specific metadata and new node types
-- Make a new home for HCS, bioformats2raw.layout and labels metadata
+- Make a new home for HCS, bioformats2raw.layout, labels and scene metadata
 - Incorporate coordinate systems and transformations
 
 
@@ -264,11 +260,11 @@ Either `"nodes"` or `"path"` MUST be present, but not both.
 #### `Singlescale` Node
 
 References a `Node` that represents one resolution representation of an OME-Zarr multiscale image.
-This new interface replaces the multiscale metadata defined in the previous versions of the OME-Zarr specification.
+This new interface replaces the dataset metadata defined in the previous versions of the OME-Zarr specification.
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
-| `"type"` | string | yes | Value MUST be `"multiscale"`. |
+| `"type"` | string | yes | Value MUST be `"singlescale"`. |
 | `"id"` | string | no | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
 | `"name"` | string | yes | Value MUST be a non-empty string. It SHOULD be a string that matches `[a-zA-Z0-9-_.]+`. Names MUST be unique within one collections JSON file. |
 | `"path"` | object | no | Value MUST be a `Path` object. |
@@ -280,7 +276,7 @@ If the `Singlescale` node is the root node and contained within the `zarr.json` 
 In this case, the `Singlescale` describes the Zarr array.
 Otherwise, the `path` field MUST be present.
 
-#### `Path`
+#### `Path` Interface
 
 This new interface replaces the paths defined in the previous versions of the OME-Zarr specification.
 
@@ -289,9 +285,11 @@ This new interface replaces the paths defined in the previous versions of the OM
 | `"type"` | string | yes | Value MUST be valid path type. |
 | `"path"` | string | yes | Value MUST be a string containing a path. See below. |
 
-The `type` field defines how the path is interpreted. Currently, the `zarr` and `json` types are supported. 
-The `"zarr"` type is used for paths that reference nodes in a Zarr array or group. Implementations need to append `zarr.json` to the path to access the metadata of the referenced node.
-The `"json"` type is used for paths that reference nodes in a JSON file.
+The `type` field defines how the path is interpreted.
+Currently, the `zarr` and `json` types are supported. 
+
+- The `"zarr"` type is used for paths that reference nodes in a Zarr array or group. Implementations need to append `zarr.json` to the path to access the metadata of the referenced node.
+- The `"json"` type is used for paths that reference nodes in a JSON file.
 
 This `path` strings can be one of the following types:
 
@@ -301,14 +299,21 @@ This `path` strings can be one of the following types:
   Relative paths follow the relative path notation defined in [IETF RFC1808](https://datatracker.ietf.org/doc/html/rfc1808).
   Briefly, `.` and `..` are used to navigate the hierarchy and the hierarchy is separated by `/`.
   Relative paths may be used for data stored on traditional file systems as well as other storage protocols, such as HTTP or S3.
+  Examples:
+  - `./image.ome.zarr`
+  - `../image.ome.zarr`
 - **Absolute file paths.**
-  On traditional file systems, absolute paths may be used.
+  On traditional file systems, absolute paths may be use with the `file` scheme as specified by [IETF RFC8089](https://datatracker.ietf.org/doc/html/rfc8089).
   Please note that absolute file paths are generally not portable across operating systems or file systems.
-  - On Windows systems, paths commonly begin with a drive letter followed by `:\`. The folder hierarchy is separated by `\`. UNC paths are also permissible.
-  - On POSIX-like systems, paths commonly start with a `/` and the folder hierarchy is separated by `/`.
+  Examples:
+  - `file:///home/user/data/image.ome.zarr`
+  - `file://C:/Users/user/data/image.ome.zarr`
 - **HTTP(S) URLs.** 
   To reference nodes that are stored remotely, URLs with the `http` or `https` scheme may be used.
   URLs follow the notation defined in [IETF RFC1738](https://datatracker.ietf.org/doc/html/rfc1738).
+  Examples:
+  - `https://example.com/image.ome.zarr`
+  - `http://example.com/image.ome.zarr`
 
 Future RFCs may propose additional paths, such as S3 URLs or chained paths (e.g. for referencing files within a zip file).
 In any case, implementations may impose access restrictions on any type of paths.
@@ -402,7 +407,7 @@ Implementations that do not recognize an axis type MAY treat it as an opaque dim
 
 See more examples at https://github.com/normanrz/ngff-rfc8-collection-examples/.
 
-#### Simple example
+#### A collection with a multiscale and a nested collection
 ```jsonc
 {
     "ome": {
@@ -438,7 +443,7 @@ See more examples at https://github.com/normanrz/ngff-rfc8-collection-examples/.
 ```
 
 
-#### Inlined multiscale
+#### A collection with an inlined multiscale
 ```jsonc
 {
     "ome": {
@@ -480,7 +485,7 @@ See more examples at https://github.com/normanrz/ngff-rfc8-collection-examples/.
 }
 ```
 
-#### Grid view JSON example
+#### A grid view gallery
 
 A gallery view could also be represented within the proposed collection JSON as shown in the below example.
 
@@ -489,9 +494,6 @@ Note that the grid view is modelled here as a collection of collections, where t
 Also note some MoBIE specific attributes:
 
 - `"mobie:grid": "true"` specifies that the data should be laid out in a grid.
-- `"mobie:voxelType": "intensities"` (or `"labels"`) specifies the voxel data type; in the future, we would propose that this information is encoded within the OME-Zarr images themselves, such that this attribute could be omitted.
-
-TODO: Replace `mobie:voxelType` with `labels`
 
 ```jsonc
 {
@@ -512,9 +514,6 @@ TODO: Replace `mobie:voxelType` with `labels`
                         "path": {
                           "type": "zarr",
                           "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_hela-3/jrc_hela-3.zarr/em/fibsem-uint16",
-                        },
-                        "attributes": {
-                            "mobie:voxelType": "intensities"
                         }
                     },
                     {
@@ -524,7 +523,7 @@ TODO: Replace `mobie:voxelType` with `labels`
                           "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_hela-3/jrc_hela-3.zarr/labels/mito_seg",
                         },
                         "attributes": {
-                            "mobie:voxelType": "labels"
+                            "labels": {}
                         }
                     }
                 ]
@@ -538,9 +537,6 @@ TODO: Replace `mobie:voxelType` with `labels`
                         "path": {
                           "type": "zarr",
                           "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_macrophage-2/jrc_macrophage-2.zarr/em/fibsem-uint16"
-                        },
-                        "attributes": {
-                            "mobie:voxelType": "intensities"
                         }
                     },
                     {
@@ -550,7 +546,7 @@ TODO: Replace `mobie:voxelType` with `labels`
                           "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_macrophage-2/jrc_macrophage-2.zarr/labels/mito_seg"
                         },
                         "attributes": {
-                            "mobie:voxelType": "labels"
+                            "labels": {}
                         }
                     }
                 ]
@@ -564,9 +560,6 @@ TODO: Replace `mobie:voxelType` with `labels`
                         "path": {
                           "type": "zarr",
                           "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_jurkat-1/jrc_jurkat-1.zarr/em/fibsem-uint16"
-                        },
-                        "attributes": {
-                            "mobie:voxelType": "intensities"
                         }
                     },
                     {
@@ -576,7 +569,7 @@ TODO: Replace `mobie:voxelType` with `labels`
                           "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_jurkat-1/jrc_jurkat-1.zarr/labels/mito_seg"
                         },
                         "attributes": {
-                            "mobie:voxelType": "labels"
+                            "labels": {}
                         }
                     }
                 ]
@@ -653,10 +646,12 @@ Additional keys MAY be added, following the key naming rules.
 }
 ```
 
-### HCS metadata
+### High-content screening (HCS) metadata
 
 High-content screening data is typically organized as a grid of wells on a plate, where each well contains one or more multiscale images from one or more acquisition rounds.
 This section introduces additional metadata for organizing wells on a plate.
+
+This proposal changes the references from numeric IDs and names to string-based ID references consistent with the [references](#references) in this proposal.
 
 #### `plate` attribute
 
@@ -664,15 +659,15 @@ A `collection` node representing a plate MUST have a `plate` attribute with the 
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
-| `"acquisitions"` | array of objects | no | List of acquisitions performed on the plate. |
-| `"columns"` | array of objects | yes | List of columns in the plate. Each object MUST have a `"name"` string field. |
-| `"rows"` | array of objects | yes | List of rows in the plate. Each object MUST have a `"name"` string field. |
+| `"acquisitions"` | array of objects | no | List of acquisitions performed on the plate. Each object MUST conform to the [`acquisition` object](#acquisition-object) schema. |
+| `"columns"` | array of objects | yes | List of columns in the plate. Each object MUST have an `"id"` string field and MAY have a `"name"` string field. |
+| `"rows"` | array of objects | yes | List of rows in the plate. Each object MUST have an `"id"` string field and MAY have a `"name"` string field. |
 
-Each object in `acquisitions` MAY have the following fields:
+#### `acquisition` object
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
-| `"id"` | number | yes | A unique integer identifier for the acquisition. |
+| `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the `acquisitions` array. |
 | `"name"` | string | no | A human-readable name for the acquisition. |
 
 #### `well` attribute
@@ -681,12 +676,12 @@ A `collection` node representing a well MUST have a `well` attribute with the fo
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
-| `"column"` | number | yes | The column name of the well in the plate. |
-| `"row"` | string | yes | The row name of the well in the plate. |
+| `"column"` | string | yes | Value MUST be the `id` of one of the columns listed in the `plate` attribute. |
+| `"row"` | string | yes | Value MUST be the `id` of one of the rows listed in the `plate` attribute. |
 
 #### `acquisition` attribute
 
-The `acquisition` attribute is a number whose value MUST match the `id` of one of the acquisitions listed in the `plate` attribute.
+The `acquisition` attribute is a string whose value MUST match the `id` of one of the acquisitions listed in the `plate` attribute.
 It MAY be set on individual `multiscale` nodes within a well or on a `collection` sub-node grouping all images from a single acquisition.
 
 We suggest two possible layouts for HCS data, which are not mutually exclusive and can be used in combination: a "wide" layout where all images are direct children of the well collection and a "tall" layout where images are grouped in sub-collections by acquisition. 
@@ -707,17 +702,19 @@ Derived images such as label maps are siblings of their source image, can be sti
             "plate": {
                 "acquisitions": [
                     {
-                        "id": 0,
+                        "id": "acq_0",
                         "name": "Acquisition Round 1"
                     }
                 ],
                 "columns": [
                     {
+                        "id": "1",
                         "name": "1"
                     }
                 ],
                 "rows": [
                     {
+                        "id": "A",
                         "name": "A"
                     }
                 ]
@@ -742,7 +739,7 @@ Derived images such as label maps are siblings of their source image, can be sti
                             "path": "./A/01/001.img"
                         },
                         "attributes": {
-                            "acquisition": 0
+                            "acquisition": "acq_0"
                         }
                     },
                     {
@@ -753,7 +750,7 @@ Derived images such as label maps are siblings of their source image, can be sti
                             "path": "./A/01/001_ill_corrected.img"
                         },
                         "attributes": {
-                            "acquisition": 0,
+                            "acquisition": "acq_0",
                             "ngio:source": ["A01_0"]
                         }
                     },
@@ -765,7 +762,7 @@ Derived images such as label maps are siblings of their source image, can be sti
                             "path": "./A/01/001_nuclei.img"
                         },
                         "attributes": {
-                            "acquisition": 0,
+                            "acquisition": "acq_0",
                             "labels": {
                                 "source": ["A01_0"]
                             }
@@ -794,21 +791,23 @@ This serves as an example that wells can consist of collections, not just multis
             "plate": {
                 "acquisitions": [
                     {
-                        "id": 0,
+                        "id": "acq_0",
                         "name": "Acquisition Round 1"
                     },
                     {
-                        "id": 1,
+                        "id": "acq_1",
                         "name": "Acquisition Round 2"
                     }
                 ],
                 "columns": [
                     {
+                        "id": "1",
                         "name": "1"
                     }
                 ],
                 "rows": [
                     {
+                        "id": "A",
                         "name": "A"
                     }
                 ]
@@ -829,7 +828,7 @@ This serves as an example that wells can consist of collections, not just multis
                         "type": "collection",
                         "name": "A01_acq0",
                         "attributes": {
-                            "acquisition": 0
+                            "acquisition": "acq_0"
                         },
                         "nodes": [
                             {
@@ -859,7 +858,7 @@ This serves as an example that wells can consist of collections, not just multis
                         "type": "collection",
                         "name": "A01_acq1",
                         "attributes": {
-                            "acquisition": 1
+                            "acquisition": "acq_1"
                         },
                         "nodes": [
                             {
@@ -896,7 +895,7 @@ While inlined plate collections are shown above for simplicity, an on-disk plate
 
 ### bioformats2raw.layout metadata
 
-The bioformats2raw.layout metadata is replaced by this proposal.
+The `bioformats2raw.layout` metadata is replaced by this proposal.
 A series of images can now be represented as a collection of multiscale images.
 
 ### Coordinate transforms
@@ -1000,6 +999,10 @@ Additional fields MAY be added as required by the transform type.
 
 Please note that the semantics of the `input` and `output` fields are changed from by-name to by-reference (ID or reference object) compared to RFC-5
 
+#### Scene
+
+The `scene` metadata is replaced by this proposal.
+A scene of images can now be represented as a collection of multiscale images with attached coordinate transforms.
 
 ### Where is this collection metadata stored?
 
@@ -1094,10 +1097,12 @@ Who has a stake in whether this RFC is accepted?
     * https://docs.google.com/presentation/d/1ANsNdCchmwWR1grhg5-hSrWH5nyPz2QSFYToF56PVc4/edit#slide=id.g2c639a0285f_0_40
 * OME meeting 2024 in Dundee
 * I2K 2024 in Milan
-* OME-NGFF hackathon Zurich
+* OME-NGFF hackathon Zurich 2024
     * https://hackmd.io/OeY6A-ysQQu_NZuG7a-cXQ
 * Volume EM GRC Barcelona 2025
 * OME-NGFF community meeting June 2025
+* OME-NGFF hackathon Zurich 2025
+* OME meeting 2026 in Düsseldorft
 
 ## Implementation
 
@@ -1129,6 +1134,25 @@ issues or unknown unknowns prior to writing any real code.
 This RFC adds backwards and forwards incompatible changes, which presents additional complexity to implementations and users.
 
 Defining a custom format instead of reusing existing validated formats introduces risk or design errors.
+
+### Redundant metadata
+
+This RFC introduces the possibility for redundant metadata.
+For example, a collection can contain inlined metadata for multiscale images and the multiscale images can also be specified in standalone metadata.
+This redundanct metadata can go out of sync.
+It is the responsibility of implementations to ensure consistency where required.
+
+For reading, implementations SHOULD parse the metadata as available to the implementation from the user-supplied entry point in the OME-Zarr hierarchy. 
+
+
+### New Multiscale/Singlescale metadata
+
+In an effort to unify the existing and new collection types of OME-Zarr, the Multiscale metadata has been changed to mirror the Collection metadata.
+Still, it is a specialized node type because of its prevalence and semantic requirements with regards to its Singlescale children nodes.
+The Singlescale metadata has been elevated to a first-class node type.
+This also allows to specify images that only contain a single resolution level.
+
+These changes are breaking changes to the core of the OME-Zarr specification.
 
 <!--
 * What are the costs of implementing this proposal?
@@ -1169,9 +1193,41 @@ This practically necessitates the use of libraries to inspect the metadata, whic
 This RFC proposes adopting a simpler collection specification for OME-Zarr.
 RO Crate can still be used alongside collections or images to define metadata and integrate with other research objects.
 
-### Extensions
+### JSONLD
 
-TODO: We now use (registered) attributes, because it is more flexible. In particular, it makes clear that attributes are not required for implementations to understand, albeit potentially resulting in poorer UX.
+The RFC explored the possibility of using JSON-LD as the basis for the collection metadata format.
+JSON-LD is a W3C standard for linked data that extends JSON with a `@context` mechanism for defining vocabularies, making JSON documents interoperable with semantic web tools.
+
+#### Benefits
+
+JSON-LD is a widely used and well-supported standard with broad tooling support.
+It provides a standardized type system via `@type`, which maps types to IRIs for global uniqueness and is backed by standard validation tooling.
+It has built-in support for defining and referencing objects via `@id`, with JSON-LD processors understanding which properties are references versus literals.
+Extensibility is handled through contexts: custom vocabularies can be published at URLs and reused across documents, which would eliminate the need for a custom prefix registry.
+Namespace management via prefixes (e.g., `mobie:grid`) clearly distinguishes custom terms from core terms and prevents naming collisions between organizations extending the format.
+
+The planned approach would have replaced the `type` and `id` fields with `@type` and `@id`, and added a `@context` field inside the `ome` object referencing a versioned context URL (e.g., `https://ngff.openmicroscopy.org/0.x/context.jsonld`).
+Custom extensions would define their namespace in the context array, removing the need for a central prefix registry.
+Internal references (e.g., for `input`, `output`, `source`) would use proper JSON-LD semantics via context definitions, allowing string values to be interpreted as references to `@id` values.
+
+#### Downsides
+
+The core problem with JSON-LD for this RFC is that it is based on IRIs, which makes path-based references difficult.
+Standard JSON-LD linking does not support relative paths (e.g., `./image.zarr`) or file system paths.
+It also does not support the typed path mechanism—distinguishing between `zarr` and `json` path types—that is a central part of this RFC.
+This would force a hybrid approach where the `Path` object uses JSON-LD syntax (`@type`) but does not conform to JSON-LD semantics.
+
+Such a hybrid approach introduces its own complexity.
+Users familiar with JSON-LD would expect standard linking to work, but our custom `Path` mechanism is not standard JSON-LD.
+Generic JSON-LD processors would not understand the custom path mechanism and would not be able to fully process the metadata.
+The benefit of reusing existing JSON-LD tooling would thus be largely negated.
+
+To keep complexity manageable, we would need to heavily restrict which parts of JSON-LD are allowed.
+This creates a lose-lose situation: JSON-LD experts may be confused by the deviations from standard JSON-LD, while users unfamiliar with JSON-LD would still need to learn both JSON-LD concepts and the OME-NGFF-specific extensions.
+The learning curve would be higher than with a purpose-built format, without corresponding benefits in return.
+
+For these reasons, the RFC adopts a simpler custom format with a prefix-based naming scheme instead of JSON-LD.
+
 
 <!--
 As RFCs evolve, it is common that there are ideas that are abandoned. Rather
@@ -1544,6 +1600,7 @@ Within the collections proposal, there are also opportunities for standardizing 
 Future work:
 
 - Defining formal mechanism for extensions
+- Implementing the [URL pipeline specification](https://github.com/jbms/url-pipeline) proposed by Jeremy Maitin-Shephard
 
 <!--
 Think about what the natural extension and evolution of your proposal would be
