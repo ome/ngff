@@ -466,6 +466,7 @@ See more examples at https://github.com/normanrz/ngff-rfc8-collection-examples/.
             "type": "multiscale",
             "nodes": [{
                 "id": "raw_0",
+                "name": "raw_0",
                 "type": "singlescale",
                 "path": {
                   "type": "zarr",
@@ -630,7 +631,7 @@ The previous `label-value` key is now renamed to `labelValue` for consistency.
         "version": "0.x",
         "type": "collection",
         "name": "label-example",
-        "attributes": { ... }
+        "attributes": { ... },
         "nodes": [{
             "id": "raw",
             "name": "raw",
@@ -743,6 +744,7 @@ Derived images such as label maps are siblings of their source image and can sti
                 },
                 "nodes": [
                     {
+                        "id": "A01_0",
                         "type": "multiscale",
                         "name": "A01_0",
                         "path": {
@@ -843,6 +845,7 @@ This serves as an example that wells can consist of collections, not just multis
                         },
                         "nodes": [
                             {
+                                "id": "A01_0",
                                 "type": "multiscale",
                                 "name": "A01_0",
                                 "path": {
@@ -873,6 +876,7 @@ This serves as an example that wells can consist of collections, not just multis
                         },
                         "nodes": [
                             {
+                                "id": "A01_1",
                                 "type": "multiscale",
                                 "name": "A01_1",
                                 "path": {
