@@ -45,7 +45,7 @@ This RFC is currently in SPEC state (S1).
     - 2024-02-16
     - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1947942934)
 *   - Endorser
-    - John Bogivic
+    - John Bogovic
     - [bogovicj](https://github.com/bogovicj)
     - HHMI Janelia Research Campus
     - 2024-02-16
@@ -106,37 +106,37 @@ This RFC is currently in SPEC state (S1).
     - [Endorse](https://github.com/ome/ngff/pull/227#issuecomment-1998594492)
 *   - Reviewer
     - Melissa Linkert, Sébastien Besson, Chris Allan, Jason Swedlow
-    - glencoesoftware
+    - [glencoesoftware](https://github.com/glencoesoftware)
     - Glencoe Software
     - 2024-05-23
     - [Review](./reviews/1/index)
 *   - Reviewer
     - Yaroslav O. Halchenko
-    - yarikoptic
+    - [yarikoptic](https://github.com/yarikoptic)
     - Dartmouth College, DANDI Project
     - 2024-06-10
     - [Review](./reviews/2/index)
 *   - Reviewer
     - Jeremy Maitin-Shepard
-    - jbms
+    - [jbms](https://github.com/jbms)
     - Google
     - 2024-04-30
     - [Review](./reviews/3/index)
 *   - Reviewer
     - Melissa Linkert, Sébastien Besson, Chris Allan, Jason Swedlow
-    - glencoesoftware
+    - [glencoesoftware](https://github.com/glencoesoftware)
     - Glencoe Software
     - 2024-08-05
     - [Accept](./reviews/1b/index)
 *   - Reviewer
     - Jeremy Maitin-Shepard
-    - jbms
+    - [jbms](https://github.com/jbms)
     - Google
     - 2024-09-11
     - [Accept](./reviews/3b/index)
 *   - Reviewer
     - Yaroslav O. Halchenko
-    - yarikoptic
+    - [yarikoptic](https://github.com/yarikoptic)
     - Dartmouth College, DANDI Project
     - 2024-09-11
     - [Accept](./reviews/2b/index)

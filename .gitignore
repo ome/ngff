@@ -2,7 +2,8 @@
 **/__pycache__/*
 */index.html
 _build
-_bikeshed
+_html_extra
 .tox
 .vscode
 .*plist
+0.6.dev2/*

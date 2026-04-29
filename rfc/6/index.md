@@ -10,7 +10,7 @@ Turn the `multiscales` array into a single `multiscale` object.
 
 ## Status
 
-This RFC is currently open for reviews (R1).
+This RFC has been withdrawn (R9) since it is superseded by RFC-8.
 
 ```{list-table} Record
 :widths: 8, 20, 20, 20, 15, 10
@@ -25,52 +25,58 @@ This RFC is currently open for reviews (R1).
     - Status
 *   - Author
     - Norman Rzepka
-    - @normanrz
+    - [normanrz](https://github.com/normanrz)
     - scalable minds
     - 2024-12-03
     - 
-*   - Author
+*   - Endorser
     - David Stansby
-    - @dstansby
+    - [dstansby](https://github.com/dstansby)
     - University College London
     - 2024-12-03
     - 
 *   - Endorser
     - Davis Bennett
-    - @d-v-b
+    - [d-v-b](https://github.com/d-v-b)
     - 
     - 2024-12-12
     -
 *   - Endorser
     - Will Moore
-    - @will-moore
+    - [will-moore](https://github.com/will-moore)
     - OME, University of Dundee
     - 2024-12-12
     -
 *   - Endorser
     - Lachlan Deakin
-    - @LDeakin
+    - [LDeakin](https://github.com/LDeakin)
     - Australian National University
     - 2024-12-17
     -
 *   - Endorser
     - Joel Lüthi
-    - @jluethi
+    - [jluethi](https://github.com/jluethi)
     - BioVisionCenter, University of Zurich
     - 2024-12-18
     -
 *   - Endorser
     - Eric Perlman
-    - @perlman
+    - [perlman](https://github.com/perlman)
     - 
     - 2024-12-18
     -
 *   - Endorser
     - Johannes Soltwedel
-    - @jo-mueller
+    - [jo-mueller](https://github.com/jo-mueller)
     - German BioImaging e.V.
     - 2025-10-22
     -
+*   - Commenter
+    - Chris Barnes, Davis Bennett
+    - [clbarnes](https://github.com/clbarnes), [d-v-b](https://github.com/d-v-b)
+    -
+    - 2025-11-05
+    - [Comment](./comments/1/index)
 ```
 
 ## Overview
@@ -81,7 +87,7 @@ This RFC proposes to change the `multiscales` array into a single `multiscale` o
 
 The current spec of OME-Zarr (version 0.5) defines that the metadata for a multiscale is stored in a `multiscales` array.
 
-However, there seem to be only very few OME-Zarr images with mutltiple multiscales in the wild. There is one example from IDR: [4995115.zarr](https://ome.github.io/ome-ngff-validator/?source=https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0050A/4995115.zarr)
+However, there seem to be only very few OME-Zarr images with mutltiple multiscales in the wild. There is one example from IDR: [4995115.zarr](https://ome.github.io/ome-ngff-validator/?source=https://livingobjects.ebi.ac.uk/idr/zarr/v0.4/idr0050A/4995115.zarr)
 
 Additionally, most visualization and processing tools today simply process the first multiscale object in the `multiscales` array, ignoring any subsequent entries. Here is a selection of tools that only load the first multiscale object:
 

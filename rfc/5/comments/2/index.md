@@ -2,7 +2,7 @@
 
 ## Comment author
 
-Jeremy Maitin-Shephard
+Jeremy Maitin-Shepard
 
 ## Minor comments and questions
 

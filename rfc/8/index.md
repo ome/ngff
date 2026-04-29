@@ -1,5 +1,11 @@
 # RFC-8: Collections
 
+```{toctree}
+:hidden:
+:maxdepth: 1
+comments/index
+```
+
 Adding groupings of images and other objects to OME-Zarr.
 
 ## Status

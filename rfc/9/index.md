@@ -1,17 +1,34 @@
 # RFC-9: Zipped OME-Zarr
 
+```{toctree}
+:hidden:
+:maxdepth: 1
+reviews/index
+comments/index
+responses/index
+versions/index
+```
+
 Add a specification for storing an OME-Zarr hierarchy within a ZIP archive.
 
 ## Status
 
-This RFC is currently in state `D5` (ready to enter RFC phase).
+This RFC is currently in state `R2` (waiting on reviewers).
 
-| Name              | GitHub Handle | Institution                             | Date       | Status                                                          |
-| ----------------- | ------------- | --------------------------------------- | ---------- | --------------------------------------------------------------- |
-| Jonas Windhager   | @jwindhager   | SciLifeLab / Uppsala University, Sweden | 2025-07-02 | Corresponding Author [PR](https://github.com/ome/ngff/pull/316) |
-| Norman Rzepka     | @normanrz     | scalable minds GmbH, Germany            | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316)            |
-| Mark Kittisopikul | @mkitti       | HHMI Janelia, United States             | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316)            |
-| Josh Moore        | @joshmoore    | German BioImaging e.V.                  | 2025-11-05 | Editor                                                          |
+| Role      | Name                                 | GitHub Handle                                                                 | Institution                              | Date       | Status                                                           |
+| --------- | ------------------------------------ | ----------------------------------------------------------------------------- | ---------------------------------------- | ---------- | ---------------------------------------------------------------- |
+| Author    | Jonas Windhager                      | [jwindhager](https://github.com/jwindhager)                                   | SciLifeLab / Uppsala University, Sweden  | 2025-07-02 | Corresponding Author [PR](https://github.com/ome/ngff/pull/316) |
+| Author    | Norman Rzepka                        | [normanrz](https://github.com/normanrz)                                       | scalable minds GmbH, Germany             | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316)            |
+| Author    | Mark Kittisopikul                    | [mkitti](https://github.com/mkitti)                                           | HHMI Janelia, United States              | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316)            |
+| Editor    | Josh Moore                           | [joshmoore](https://github.com/joshmoore)                                     | German BioImaging e.V.                   | 2025-11-05 | Editor                                                           |
+| Reviewer  | Pete Bankhead                        | [petebankhead](https://github.com/petebankhead)                               | University of Edinburgh, United Kingdom  | 2026-01-26 | [Review](./reviews/1/index)                                     |
+| Reviewer  | Kola Babalola, Matthew Hartley       | [kbab](https://github.com/kbab), [matthewh-ebi](https://github.com/matthewh-ebi) | BioImage Archive, EMBL-EBI               | 2026-01-29 | [Review](./reviews/2/index)                                     |
+| Reviewer  | Curtis Rueden                        | [ctrueden](https://github.com/ctrueden)                                       | University of Wisconsin-Madison, United States | 2026-01-30 | [Review](./reviews/3/index)                                     |
+| Commenter | Matt McCormick                       | [thewtex](https://github.com/thewtex)                                         | Fideus Labs LLC                          | 2025-11-15 | [Comment](./comments/1/index)                                   |
+| Commenter | Joost de Folter                      | [folterj](https://github.com/folterj)                                         | BioImaging-NL                            | 2025-12-03 | [Comment](./comments/2/index)                                   |
+| Commenter | Chris Barnes                         | [clbarnes](https://github.com/clbarnes)                                       | German BioImaging                        | 2025-12-12 | [Comment](./comments/3/index)                                   |
+| Commenter | Anna Kreshuk, Dominik Kutra, Benedikt Best | [k-dominik](https://github.com/k-dominik), [btbest](https://github.com/btbest) | ilastik                                  | 2026-01-09 | [Comment](./comments/5/index)                                   |
+| Commenter | Lenard Spiecker, Matthias Grunwald   | [l-spiecker](https://github.com/l-spiecker)                                   | Miltenyi Biotec B.V. & Co. KG            | 2026-02-05 | [Comment](./comments/4/index)                                   |
 
 ## Overview
 
@@ -134,8 +151,32 @@ When creating OME-Zarr zip files, the following are RECOMMENDED:
 2. ZIP-level compression SHOULD be disabled in favor of Zarr-level compression codecs.
 3. The sharding codec SHOULD be used to reduce the number of entries within the ZIP archive.
 4. The root-level `zarr.json` file SHOULD be the first ZIP file entry and the first entry in the central directory header; other `zarr.json` files SHOULD follow immediately afterwards, in breadth-first order.
-5. The ZIP archive comment SHOULD contain null-terminated UTF-8-encoded JSON with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, equivalent to `{"ome": { "version": "XX.YY" }}`.
-6. The name of OME-Zarr zip files SHOULD end with `.ozx`.
+5. The name of OME-Zarr zip files SHOULD end with `.ozx`.
+6. The ZIP archive comment SHOULD contain an UTF-8-encoded JSON string with an `ome` attribute that holds a `version` key with the OME-Zarr version as string value, such that `{"ome": { "version": "XX.YY" }}` is the minimum recommended content. Additional optional content is described in the next section.
+
+#### OME-Zarr Zip Comment Structure
+
+The zip comment is intended to provide metadata pertinent to the zip file structure, such as information about the ordering of entries within the central directory. It is not intended for storing metadata about the OME-Zarr's content. Such content-related metadata should be stored within the OME-Zarr hierarchy.
+
+The `ome` attribute in the zip archive comment MAY contain a `zipFile` attribute, which in turn MAY contain a `centralDirectory` attribute. The `centralDirectory` attribute provides metadata about the central directory's structure and content.
+
+The `centralDirectory` attribute MAY contain the following key:
+
+- `jsonFirst`: If `true`, this indicates that the `zarr.json` files are ordered breadth-first in the central directory and precede other content, as recommended above. This allows the hierarchical structure of the contents to be discovered without parsing the entire central directory, which could contain many entries of Zarr chunks. Implementations MAY assume that no further `zarr.json` files exist beyond the first non-`zarr.json` file if `jsonFirst` is `true`. If `jsonFirst` is omitted, the value defaults to `false`.
+
+For example,
+```json
+{
+  "ome": {
+    "version": "XX.YY",
+    "zipFile": {
+      "centralDirectory": {
+        "jsonFirst": true,
+      }
+    }
+  }
+}
+```
 
 ## Requirements
 
@@ -171,8 +212,11 @@ Socialization: see Prior art and references; the draft was further discussed amo
 
 ## Implementation
 
-A first implementation has been [prototyped](https://github.com/ome/ngff/pull/316#issuecomment-3302456557) by one of the coauthors.
-A [neuroglancer view](https://neuroglancer-demo.appspot.com/#!%7B%22dimensions%22:%7B%22x%22:%5B3.6039815346402084e-7%2C%22m%22%5D%2C%22y%22:%5B3.6039815346402084e-7%2C%22m%22%5D%2C%22z%22:%5B5.002025531914894e-7%2C%22m%22%5D%7D%2C%22position%22:%5B135%2C137%2C118%5D%2C%22crossSectionScale%22:1%2C%22projectionScale%22:512%2C%22layers%22:%5B%7B%22type%22:%22image%22%2C%22source%22:%22https://static.webknossos.org/misc/6001240.ozx%7Czip:%7Czarr3:%22%2C%22localDimensions%22:%7B%22c%27%22:%5B1%2C%22%22%5D%7D%2C%22localPosition%22:%5B0%5D%2C%22tab%22:%22source%22%2C%22opacity%22:1%2C%22blend%22:%22additive%22%2C%22shader%22:%22#uicontrol%20invlerp%20contrast%5Cn#uicontrol%20vec3%20color%20color%5Cnvoid%20main%28%29%20%7B%5Cn%20%20float%20contrast_value%20=%20contrast%28%29%3B%5Cn%20%20if%20%28VOLUME_RENDERING%29%20%7B%5Cn%20%20%20%20emitRGBA%28vec4%28color%20%2A%20contrast_value%2C%20contrast_value%29%29%3B%5Cn%20%20%7D%5Cn%20%20else%20%7B%5Cn%20%20%20%20emitRGB%28color%20%2A%20contrast_value%29%3B%5Cn%20%20%7D%5Cn%7D%5Cn%22%2C%22shaderControls%22:%7B%22contrast%22:%7B%22range%22:%5B7%2C927%5D%2C%22window%22:%5B0%2C1159%5D%7D%2C%22color%22:%22#ff0000%22%7D%2C%22volumeRenderingDepthSamples%22:256%2C%22name%22:%226001240.ozx%20c-0.5%22%7D%2C%7B%22type%22:%22image%22%2C%22source%22:%22https://static.webknossos.org/misc/6001240.ozx%7Czip:%7Czarr3:%22%2C%22localDimensions%22:%7B%22c%27%22:%5B1%2C%22%22%5D%7D%2C%22localPosition%22:%5B1%5D%2C%22tab%22:%22source%22%2C%22opacity%22:1%2C%22blend%22:%22additive%22%2C%22shader%22:%22#uicontrol%20invlerp%20contrast%5Cn#uicontrol%20vec3%20color%20color%5Cnvoid%20main%28%29%20%7B%5Cn%20%20float%20contrast_value%20=%20contrast%28%29%3B%5Cn%20%20if%20%28VOLUME_RENDERING%29%20%7B%5Cn%20%20%20%20emitRGBA%28vec4%28color%20%2A%20contrast_value%2C%20contrast_value%29%29%3B%5Cn%20%20%7D%5Cn%20%20else%20%7B%5Cn%20%20%20%20emitRGB%28color%20%2A%20contrast_value%29%3B%5Cn%20%20%7D%5Cn%7D%5Cn%22%2C%22shaderControls%22:%7B%22contrast%22:%7B%22range%22:%5B25%2C824%5D%2C%22window%22:%5B0%2C1025%5D%7D%2C%22color%22:%22#00ff00%22%7D%2C%22volumeRenderingDepthSamples%22:256%2C%22name%22:%226001240.ozx%20c0.5%22%7D%5D%2C%22selectedLayer%22:%7B%22visible%22:true%2C%22layer%22:%226001240.ozx%20c-0.5%22%7D%2C%22layout%22:%224panel-alt%22%2C%22helpPanel%22:%7B%22row%22:2%7D%2C%22settingsPanel%22:%7B%22row%22:3%7D%2C%22toolPalettes%22:%7B%22Shader%20controls%22:%7B%22side%22:%22left%22%2C%22row%22:1%2C%22query%22:%22type:shaderControl%22%7D%7D%7D) of the [generated data](https://static.webknossos.org/misc/6001240.ozx) has kindly been [made available](https://github.com/ome/ngff/pull/316#issuecomment-3302595684) by Davis Bennett.
+- A first implementation has been [prototyped](https://github.com/ome/ngff/pull/316#issuecomment-3302456557) by one of the coauthors.
+- A [neuroglancer view](https://neuroglancer-demo.appspot.com/#!%7B%22dimensions%22:%7B%22x%22:%5B3.6039815346402084e-7%2C%22m%22%5D%2C%22y%22:%5B3.6039815346402084e-7%2C%22m%22%5D%2C%22z%22:%5B5.002025531914894e-7%2C%22m%22%5D%7D%2C%22position%22:%5B135%2C137%2C118%5D%2C%22crossSectionScale%22:1%2C%22projectionScale%22:512%2C%22layers%22:%5B%7B%22type%22:%22image%22%2C%22source%22:%22https://static.webknossos.org/misc/6001240.ozx%7Czip:%7Czarr3:%22%2C%22localDimensions%22:%7B%22c%27%22:%5B1%2C%22%22%5D%7D%2C%22localPosition%22:%5B0%5D%2C%22tab%22:%22source%22%2C%22opacity%22:1%2C%22blend%22:%22additive%22%2C%22shader%22:%22#uicontrol%20invlerp%20contrast%5Cn#uicontrol%20vec3%20color%20color%5Cnvoid%20main%28%29%20%7B%5Cn%20%20float%20contrast_value%20=%20contrast%28%29%3B%5Cn%20%20if%20%28VOLUME_RENDERING%29%20%7B%5Cn%20%20%20%20emitRGBA%28vec4%28color%20%2A%20contrast_value%2C%20contrast_value%29%29%3B%5Cn%20%20%7D%5Cn%20%20else%20%7B%5Cn%20%20%20%20emitRGB%28color%20%2A%20contrast_value%29%3B%5Cn%20%20%7D%5Cn%7D%5Cn%22%2C%22shaderControls%22:%7B%22contrast%22:%7B%22range%22:%5B7%2C927%5D%2C%22window%22:%5B0%2C1159%5D%7D%2C%22color%22:%22#ff0000%22%7D%2C%22volumeRenderingDepthSamples%22:256%2C%22name%22:%226001240.ozx%20c-0.5%22%7D%2C%7B%22type%22:%22image%22%2C%22source%22:%22https://static.webknossos.org/misc/6001240.ozx%7Czip:%7Czarr3:%22%2C%22localDimensions%22:%7B%22c%27%22:%5B1%2C%22%22%5D%7D%2C%22localPosition%22:%5B1%5D%2C%22tab%22:%22source%22%2C%22opacity%22:1%2C%22blend%22:%22additive%22%2C%22shader%22:%22#uicontrol%20invlerp%20contrast%5Cn#uicontrol%20vec3%20color%20color%5Cnvoid%20main%28%29%20%7B%5Cn%20%20float%20contrast_value%20=%20contrast%28%29%3B%5Cn%20%20if%20%28VOLUME_RENDERING%29%20%7B%5Cn%20%20%20%20emitRGBA%28vec4%28color%20%2A%20contrast_value%2C%20contrast_value%29%29%3B%5Cn%20%20%7D%5Cn%20%20else%20%7B%5Cn%20%20%20%20emitRGB%28color%20%2A%20contrast_value%29%3B%5Cn%20%20%7D%5Cn%7D%5Cn%22%2C%22shaderControls%22:%7B%22contrast%22:%7B%22range%22:%5B25%2C824%5D%2C%22window%22:%5B0%2C1025%5D%7D%2C%22color%22:%22#00ff00%22%7D%2C%22volumeRenderingDepthSamples%22:256%2C%22name%22:%226001240.ozx%20c0.5%22%7D%5D%2C%22selectedLayer%22:%7B%22visible%22:true%2C%22layer%22:%226001240.ozx%20c-0.5%22%7D%2C%22layout%22:%224panel-alt%22%2C%22helpPanel%22:%7B%22row%22:2%7D%2C%22settingsPanel%22:%7B%22row%22:3%7D%2C%22toolPalettes%22:%7B%22Shader%20controls%22:%7B%22side%22:%22left%22%2C%22row%22:1%2C%22query%22:%22type:shaderControl%22%7D%7D%7D) of the [generated data](https://static.webknossos.org/misc/6001240.ozx) has kindly been [made available](https://github.com/ome/ngff/pull/316#issuecomment-3302595684) by Davis Bennett.
+- [ozx-tck](https://github.com/clbarnes/ozx-tck) is a toolkit to validate existing .ozx files and generate valid, warning, and error test cases.
+
+
 
 ## Drawbacks, risks, alternatives, and unknowns
 
@@ -250,8 +294,8 @@ The following ideas were abandoned:
   This would unnecessarily limit the space for future innovation/specialization in the OME-Zarr specification.
 - **Use a file extension other than `.ozx`**.
   The following candidates were considered:
-  - `.zarrx` or `.zar` - not OME-specific
-  - Multi-part file extensions (e.g. `.ome.zarr.zip`, `.ome.zarrx`, `.ome.zar`) - suboptimal user experience
+  - `.zarrx` or `.zar` - not OME-specific <!-- codespell:ignore -->
+  - Multi-part file extensions (e.g. `.ome.zarr.zip`, `.ome.zarrx`, `.ome.zar`) - suboptimal user experience <!-- codespell:ignore -->
   - Any other permutation of `oz[pzx]` that is not yet in active use by other software
 
 ## Prior art and references
