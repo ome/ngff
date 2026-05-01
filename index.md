@@ -4,7 +4,10 @@ Welcome to the Next-Generation File Formats (NGFF) main page! This site is dedic
 
 In summary, OME-Zarr allows you to store, share and stream large images like these 500 GB:
 
-<iframe style="width: 100%; height: 500px" name="vizarr" src="https://hms-dbmi.github.io/vizarr/?source=https://livingobjects.ebi.ac.uk/idr/zarr/v0.1/4495402.zarr"></iframe>
+<div style="position: relative; width: 100%; aspect-ratio: 16/9; max-height: 500px; overflow: hidden;">
+  <iframe style="position: absolute; inset: 0; width: 100%; height: 100%; border: none;"
+          name="vizarr" src="https://hms-dbmi.github.io/vizarr/?source=https://livingobjects.ebi.ac.uk/idr/zarr/v0.1/4495402.zarr"></iframe>
+</div>
 
 You can find more samples of such data from the Image Data Resource at <https://idr.github.io/ome-ngff-samples/>.
 
