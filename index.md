@@ -2,7 +2,7 @@
 
 Welcome to the Next-Generation File Formats (NGFF) main page! This site is dedicated to providing resources for the NGFF community and those that are interested in getting started with OME-Zarr.
 
-In summary, OME-Zarr allows you to efficiently store, share and stream large bioimages.
+In summary, OME-Zarr allows you to store, share and stream large images. You can browse samples of such data from the Image Data Resource at <https://idr.github.io/ome-ngff-samples/>.
 
 ## NGFF vs OME-Zarr, what is the difference?
 
