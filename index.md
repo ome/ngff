@@ -51,6 +51,8 @@ These are *some* of the organizations (and their dataset pages) that are using O
 - [Jackson Laboratory (JAX)](https://images.jax.org/)
 - ... [and more](/data/index.html)
 
+Additionally, the [BIDS specification supports OME-Zarr](https://bids-specification.readthedocs.io/en/stable/common-principles.html#imaging-files) as a storage format for imaging data.
+
 ## How do I use OME-Zarr?
 
 * Already have a Zarr?
