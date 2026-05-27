@@ -12,7 +12,7 @@ In summary, OME-Zarr allows you to store, share and stream large images. You can
 
 ## What is an OME-Zarr?
 
-An OME-Zarr is a file format optimized for storying, viewing, & sharing large images.
+An OME-Zarr is a file format optimized for storing, viewing, & sharing large images.
 There are two parts to an OME-Zarr:
 
 * **The "Zarr" part describes how the pixel data for the images are laid out**
