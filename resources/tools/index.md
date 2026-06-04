@@ -4,14 +4,16 @@ A list of tools and libraries with OME-Zarr support. These are developed by vari
 
 ## Contents
 
-- [Tools with a graphical interface (ex. a website)](#tools-with-a-graphical-interface)
+- [Tools](#tools)
+  - [Contents](#contents)
+  - [Tools with a graphical interface](#tools-with-a-graphical-interface)
     - [Zarr viewers](#zarr-viewers)
-    - [Zarr converters](#zarr-converters-with-a-ui)
-- [Tools for the programmatically inclined](#tools-for-the-programmatically-inclined)
+    - [Zarr converters (with a UI)](#zarr-converters-with-a-ui)
+  - [Tools for the programmatically inclined](#tools-for-the-programmatically-inclined)
     - [Zarr converters](#zarr-converters)
-    - [Zarr readers and writers](#zarr-readers--writers)
-    - [Validating Zarr](#zarr-validation)
-- [Other zarr tools and libraries](#other-tools-and-libraries)
+    - [Zarr readers \& writers](#zarr-readers--writers)
+    - [Zarr validation](#zarr-validation)
+  - [Other tools and libraries](#other-tools-and-libraries)
 
 
 ## Tools with a graphical interface
@@ -32,6 +34,7 @@ Want to view a Zarr? Use one of these.
 | Microscopy Nodes |[![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/aafkegros/MicroscopyNodes) | [Blender](https://www.blender.org/) add-on for visualizing high-dimensional microscopy data |
 | napari | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://napari.org/" alt="napari logo" width="30" height="30">](https://github.com/ome/napari-ome-zarr) | [napari](https://napari.org/) plug-in for viewing Zarr |
 | Neuroglancer | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://google.com" alt="Neuroglancer logo" width="30" height="30">](https://github.com/google/neuroglancer) | A browser-based volume viewer |
+| QuPath  | [<img src="https://avatars.githubusercontent.com/u/21292410?s=200&v=4" alt="QuPath logo" width='30' height='30'>](https://github.com/qupath/qupath) | Open source software for digital pathology image analysis |
 | syGlass | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://www.syglass.io/" alt="syGlass logo" width="30" height="30">](https://www.syglass.io/) | A VR desktop application for visualizing and segmenting 3D image data, with OME-Zarr streaming support. |
 | Viv (Avivator, Vizarr, Vitessce, ...) | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://vitessce.io/" alt="Viv logo" width="30" height="30">](https://github.com/hms-dbmi/viv) | A toolkit for interactive visualization of high-resolution, multiplexed bioimaging datasets. The viv toolkit is used by the [Avivator](https://avivator.gehlenborglab.org), [Vizarr](https://github.com/hms-dbmi/vizarr) and [Vitessce](http://vitessce.io) image viewers, among others |
 | Vol-E | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.allencell.org%2Fpathtrace-rendering.html" alt="Vol-E logo" width="30" height="30">](https://vole.allencell.org/) | A browser-based volume viewer |
