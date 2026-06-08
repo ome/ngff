@@ -121,6 +121,7 @@ Tools that do not explicitly fit into any of the above categories (ex. Zarr comp
 | OMEZarrTileSource | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/TissUUmaps/OMEZarrTileSource) | An OpenSeadragon tile source for the OME-Zarr bioimage file format. |
 | ome-zarr.js | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BioNGFF/ome-zarr.js) | A JavaScript library for simple rendering of thumbnnails and images. |
 | SpatialData | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/scverse/spatialdata) | An open and universal framework for processing spatial omics data. |
+| Squid | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Cephla-Lab/Squid)| An open-source confocal microscope with software to acquire and write OME-Zarr data. |
 | Zallery  | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://openssbd.github.io/zallery/) | A React-based gallery for browsing OME-Zarr datasets, developed by the SSBD (RIKEN). |
 | Zarrcade | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/JaneliaSciComp/zarrcade) | Searchable web-based OME-Zarr image galleries developed by Janelia. |
 | Zowser | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/lubianat/zowser) | A gallery template for sharing sets of images built upon the [ome2024-ngff-challenge](https://ome.github.io/ome2024-ngff-challenge/). |
