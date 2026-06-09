@@ -111,7 +111,8 @@ Tools that do not explicitly fit into any of the above categories (ex. Zarr comp
 
 | Name    | Link | Description |
 | -------- | ------- | ------- |
-| Fileglancer | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/JaneliaSciComp/fileglancer) | A webapp for browsing, sharing, and viewing OME-Zarr images. || Fractal | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://fractal-analytics-platform.github.io/) | A framework to process OME-Zarr data at scale with modular processing tasks and to prepare it for interactive visualization. |
+| Fileglancer | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/JaneliaSciComp/fileglancer) | A webapp for browsing, sharing, and viewing OME-Zarr images. |
+| Fractal | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://fractal-analytics-platform.github.io/) | A framework to process OME-Zarr data at scale with modular processing tasks and to prepare it for interactive visualization. |
 | Ilastik | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ilastik/ilastik) | An interactive learning and segmentation toolkit |
 | Mastodon | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://mastodon.readthedocs.io/) | A large-scale tracking and track-editing framework for large, multi-view images. |
 | mesoSPIM-control | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/mesoSPIM/mesoSPIM-control) | Python/PyQt acquisition software for mesoSPIM light-sheet microscopes with OME-Zarr multi-scale output support. |
