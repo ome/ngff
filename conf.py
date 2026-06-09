@@ -78,6 +78,8 @@ html_theme_options = {
     "use_download_button": True,
 }
 
+html_favicon = "images/favicon-16x16.png"
+
 html_static_path = ["_static"]
 
 html_css_files = [
