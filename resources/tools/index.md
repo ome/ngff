@@ -4,6 +4,8 @@ A list of tools and libraries with OME-Zarr support. These are developed by vari
 
 For tools supporting the core Zarr specification, agnostic to NGFF, see the [Zarr documentation](https://zarr.dev/implementations/).
 
+While some tools would fit multiple categories, we assigned each tool to a single candidate best matching category.
+
 ## Contents
 
 - [Tools](#tools)
@@ -15,7 +17,7 @@ For tools supporting the core Zarr specification, agnostic to NGFF, see the [Zar
     - [Zarr converters](#zarr-converters)
     - [Zarr readers \& writers](#zarr-readers--writers)
     - [Zarr validation](#zarr-validation)
-  - [Other tools and libraries](#other-tools-and-libraries)
+  - [Rendering libraries](#rendering-libraries)
 
 
 ## Tools with a graphical interface
@@ -90,7 +92,6 @@ Want to read or write a Zarr? Use one of these tools.
 | iohub| [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/czbiohub-sf/iohub) | Pythonic and parallelizable I/O for N-dimensional imaging data with OME metadata |
 | ngff-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/fideus-labs/ngff-zarr) | A lean and kind Open Microscopy Environment (OME) Next Generation File Format (NGFF) Zarr implementation. |
 | ngio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://biovisioncenter.github.io/ngio/stable/) | Python package for bject-based API for opening, exploring, and manipulating OME-Zarr images and high-content screening (HCS) plates |
-| omero-zarr-pixel-buffer | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/glencoesoftware/omero-zarr-pixel-buffer) | An OMERO server extension for reading OME-Zarr data from local or S3 storage. |
 | ome-writers | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/pymmcore-plus/ome-writers) | A Python library for streaming acquisition data to OME-Zarr or OME-TIFF, supporting multiple array backends. |
 | ome-zarr-py | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/ome-zarr-py)| A Python library for reading and writing multi-resolution images stored as Zarr filesets, according to the OME-Zarr spec. |
 | Zarr.NET | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BiologyTools/Zarr.NET) | A native .NET library for reading and writing Zarr microscopy data. |
@@ -105,24 +106,12 @@ Want to validate a Zarr? Use one of these.
 | ome-zarr-models | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome-zarr-models/ome-zarr-models-py) | Python package and command line interface that can validate OME-Zarr files |
 | yaozarrs | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/imaging-formats/yaozarrs) | Bottom-up python library with models and CLI for creating & validating OME-Zarr groups and documents with optional extras for array-backend-agnostic I/O |
 
-## Other tools and libraries
+## Rendering libraries
 
-Tools that do not explicitly fit into any of the above categories (ex. Zarr computation workflow orchestrators)
+Libraries that support the rendering and navigation of OME-Zarr data, but that are not themselves applications with a graphical user interface.
 
 | Name    | Link | Description |
 | -------- | ------- | ------- |
-| Fileglancer | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/JaneliaSciComp/fileglancer) | A webapp for browsing, sharing, and viewing OME-Zarr images. |
-| Fractal | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://fractal-analytics-platform.github.io/) | A framework to process OME-Zarr data at scale with modular processing tasks and to prepare it for interactive visualization. |
-| Ilastik | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ilastik/ilastik) | An interactive learning and segmentation toolkit |
-| Mastodon | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://mastodon.readthedocs.io/) | A large-scale tracking and track-editing framework for large, multi-view images. |
-| mesoSPIM-control | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/mesoSPIM/mesoSPIM-control) | Python/PyQt acquisition software for mesoSPIM light-sheet microscopes with OME-Zarr multi-scale output support. |
-| multiview-stitcher | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://multiview-stitcher.github.io/multiview-stitcher/main/" alt="multiview-stitcher logo" width="30" height="30">]((https://github.com/multiview-stitcher/multiview-stitcher)) | Python package for aligning, fusing, and stitching large 2D/3D image datasets, with first-class support for OME-Zarr workflows. |
-| Nyxus | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/nyxus) | A scalable library for calculating features from intensity-label image data. |
-| NL-BIOMERO| [<img src="https://github.githubassets.com/favicons/favicon.svg" alt="NL-BIOMERO logo" width="30" height="30">](https://github.com/NL-BioImaging/NL-BIOMERO) | An OMERO integration for in-place OME-Zarr import and remote execution of containerized bioimage workflows on HPC systems directly from OMERO.web.|
+
 | OMEZarrTileSource | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/TissUUmaps/OMEZarrTileSource) | An OpenSeadragon tile source for the OME-Zarr bioimage file format. |
-| ome-zarr.js | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BioNGFF/ome-zarr.js) | A JavaScript library for simple rendering of thumbnnails and images. |
-| SpatialData | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/scverse/spatialdata) | An open and universal framework for processing spatial omics data. |
-| Squid | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/Cephla-Lab/Squid)| An open-source confocal microscope with software to acquire and write OME-Zarr data. |
-| Zallery  | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://openssbd.github.io/zallery/) | A React-based gallery for browsing OME-Zarr datasets, developed by the SSBD (RIKEN). |
-| Zarrcade | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/JaneliaSciComp/zarrcade) | Searchable web-based OME-Zarr image galleries developed by Janelia. |
-| Zowser | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/lubianat/zowser) | A gallery template for sharing sets of images built upon the [ome2024-ngff-challenge](https://ome.github.io/ome2024-ngff-challenge/). |
+| ome-zarr.js | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BioNGFF/ome-zarr.js) | A JavaScript library for simple rendering of thumbnails and images. |

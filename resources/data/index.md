@@ -16,7 +16,7 @@ Resources curating OME-Zarr sample data, for demonstration and testing purposes.
 | [BIA Samples](https://uk1s3.embassy.ebi.ac.uk/bia-integrator-data/pages/omengff.html) | Sample OME-Zarr datasets from the BioImage Archive for testing                                                                  |
 | [Sanger Institute Samples ](https://www.sanger.ac.uk/project/ome-zarr/)               | Datasets from the Sanger Institute that have been converted to OME-Zarr to test and encourage the file format                   |
 | [SSBD samples](https://ssbd.riken.jp/ssbd-ome-ngff-samples)                           | Sample OME-Zarr datasets from the Systems Science of Biological Dynamics database (SSBD) for testing and demonstration purposes |
-| [OME 2024 NGFF challenge](https://ome.github.io/ome2024-ngff-challenge/)              | Close to 500 TB of data in the OME-Zarr 0.5 format                                                                              |
+| [OME 2024 NGFF challenge](https://ome.github.io/)              | Close to 500 TB of data in the OME-Zarr 0.5 format                                                                              |
 
 ## Data portals
 
