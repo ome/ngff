@@ -17,15 +17,13 @@ It fits microscope acquisition software, analysis pipelines, standards and exten
 ## Gallery-like displays
 
 Tooling for sharing collections of OME-Zarr datasets in different ways.
-
 | Name | Link | Description |
 | -------- | ------- | ------- |
-| BioFileFinder | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/AllenInstitute/biofile-finder) | A platform from the Allen Institute for Cell Science to browse lists of files, with first-class OME-Zarr support. |
-| Fileglancer | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/JaneliaSciComp/fileglancer) | A webapp for browsing, sharing, and viewing OME-Zarr images. |
-| Zallery  | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://openssbd.github.io/zallery/) | A React-based gallery for browsing OME-Zarr datasets, developed by the SSBD (RIKEN). |
-| Zarrcade | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/JaneliaSciComp/zarrcade) | Searchable web-based OME-Zarr image galleries developed by Janelia. |
-| Zowser | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/lubianat/zowser) | A gallery template for sharing sets of images built upon the [ome2024-ngff-challenge](https://ome.github.io/ome2024-ngff-challenge/). |
-
+| BioFileFinder | <a href="https://bff.allencell.org/"><img src="https://bff.allencell.org/7904723aae61604cf0a2.png" alt="website" height="30"></a> | A platform from the Allen Institute for Cell Science to browse lists of files, with first-class OME-Zarr support. |
+| Fileglancer | <a href="https://fileglancer-docs.janelia.org/"><img src="https://fileglancer-docs.janelia.org/_astro/logo.z1E1HohA.svg" alt="website" height="30"></a> | A webapp for browsing, sharing, and viewing OME-Zarr images. |
+| Zallery | <a href="https://github.com/openssbd/zallery"><img src="https://github.githubassets.com/favicons/favicon.svg" alt="GitHub" height="30"></a> | A React-based gallery for browsing OME-Zarr datasets, developed by the SSBD (RIKEN). |
+| Zarrcade | <a href="https://github.com/JaneliaSciComp/zarrcade"><img src="https://github.githubassets.com/favicons/favicon.svg" alt="GitHub" height="30"></a> | Searchable web-based OME-Zarr image galleries developed by Janelia. |
+| Zowser | <a href="https://github.com/lubianat/zowser"><img src="https://github.githubassets.com/favicons/favicon.svg" alt="GitHub" height="30"></a> | A gallery template for sharing sets of images built upon the [ome2024-ngff-challenge](https://ome.github.io/ome2024-ngff-challenge/). |
 
 ## Microscope acquisition software
 
@@ -54,8 +52,8 @@ Platforms with dedicated support for sharing OME-Zarr datasets, open to public d
 
 | Name | Link | Description |
 | -------- | ------- | ------- |
-| BioImage Archive | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://www.ebi.ac.uk/bioimage-archive/) | A public repository for bioimaging data, with support for submissions of OME-Zarr datasets. |
-| HuggingFace Hub | [![image](https://www.google.com/s2/favicons?sz=256&domain_url=huggingface.co)](https://huggingface.co/datasets) | A platform for sharing machine-learning datasets, with [ongoing updates](https://github.com/huggingface/datasets/pull/8135) for first-class support for OME-Zarr datasets. |
+| BioImage Archive | [<img src="https://beta.bioimagearchive.org/bioimage-archive/_astro/BIA_new_logo.CiA2OZZw.png" alt="BioImage Archive logo" width="30" height="30">](https://www.ebi.ac.uk/bioimage-archive/) | A public repository for bioimaging data, with support for submissions of OME-Zarr datasets. |
+| HuggingFace Hub | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://huggingface.co/" alt="HuggingFace Hub logo" width="30" height="30">](https://huggingface.co/datasets) | A platform for sharing machine-learning datasets, with [ongoing updates](https://github.com/huggingface/datasets/pull/8135) for first-class support for OME-Zarr datasets. |
 
 Of course, many other platforms support sharing OME-Zarr datasets, but don't necessarily parse the OME metadata or provide any kind of custom support.One may share OME-Zarr datasets and get a DOI (but no S3-like access) in platforms like [Zenodo](https://zenodo.org), [Figshare](https://figshare.com), [Dryad](https://datadryad.org), etc.
 
