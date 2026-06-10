@@ -112,6 +112,5 @@ Libraries that support the rendering and navigation of OME-Zarr data, but that a
 
 | Name    | Link | Description |
 | -------- | ------- | ------- |
-
 | OMEZarrTileSource | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/TissUUmaps/OMEZarrTileSource) | An OpenSeadragon tile source for the OME-Zarr bioimage file format. |
 | ome-zarr.js | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BioNGFF/ome-zarr.js) | A JavaScript library for simple rendering of thumbnails and images. |
