@@ -38,7 +38,7 @@ These are datasets available in OME-Zarr format, hosted in various locations. Th
 | ---- | ---------------------- |
 | [Open SciVis](https://registry.opendata.aws/ome-zarr-open-scivis/) [source](https://github.com/InsightSoftwareConsortium/OMEZarrOpenSciVisDatasets) | A collection of of volumetric datasets in OME-Zarr format, including several CT scans. |
 | [Herculaneum Scrolls](https://registry.opendata.aws/vesuvius-challenge-herculaneum-scrolls/) [source](https://github.com/ScrollPrize/open-data)| Scrolls carbonized by Mount Vesuvius eruptions imaged via X-ray micro-CT, made available in OME-Zarr format.|
-
+| [VoDaSuRe](https://augusthoeg.github.io/VoDaSuRe/)| A large-scale dataset covering volumetric super-resolution data with micro-CT ([arXiv](https://arxiv.org/abs/2603.23153); [dataset](https://huggingface.co/datasets/AugustHoeg/VoDaSuRe))|
 
 ## Atlases
 
