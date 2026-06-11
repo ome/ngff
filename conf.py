@@ -17,15 +17,12 @@ extensions = [
     "myst_parser",
     "sphinx_reredirects",
     "sphinx_design",
-    "sphinxcontrib.bibtex"]
+    "sphinxcontrib.bibtex",
+]
 bibtex_bibfiles = ["references.bib"]
 source_suffix = [".rst", ".md"]
 myst_heading_anchors = 5
-myst_enable_extensions = [
-    "deflist",
-    "strikethrough",
-    "colon_fence"
-    ]
+myst_enable_extensions = ["deflist", "strikethrough", "colon_fence"]
 
 templates_path = ["_templates"]
 exclude_patterns = [
@@ -57,7 +54,7 @@ redirects = {
     "latest/index": "../specifications/0.5/index.html",
     "latest/": "../specifications/0.5/index.html",
     "dev/index": "../specifications/dev/index.html",
-    "dev/": "../specifications/dev/index.html"
+    "dev/": "../specifications/dev/index.html",
 }
 
 # -- Options for HTML output -------------------------------------------------
@@ -93,6 +90,7 @@ html_extra_path = [
     "_html_extra",
 ]
 
+
 def build_served_html():
     import glob
     import subprocess
@@ -102,34 +100,58 @@ def build_served_html():
     from pathlib import Path
 
     os.chdir(Path(__file__).parent)
-    versions = [d for d in os.listdir("specifications") if os.path.isdir(os.path.join("specifications", d))]
+    versions = [
+        d
+        for d in os.listdir("specifications")
+        if os.path.isdir(os.path.join("specifications", d))
+    ]
 
     for version in versions:
 
         # copy schemas to _html_extra
-        os.makedirs(f'_html_extra/{version}/schemas', exist_ok=True)
-        schemas = glob.glob(f'specifications/{version}/**/*.schema', recursive=True)
+        os.makedirs(f"_html_extra/{version}/schemas", exist_ok=True)
+        schemas = glob.glob(f"specifications/{version}/**/*.schema", recursive=True)
         for schema in schemas:
-            shutil.copy2(schema, f'_html_extra/{version}/schemas/')
-        print(f'✅ Copied schemas for version {version}')
-    
+            shutil.copy2(schema, f"_html_extra/{version}/schemas/")
+        print(f"✅ Copied schemas for version {version}")
+
         # find 'pre_build.py' in 'specifications' subdirectories
-        script = glob.glob(f'specifications/{version}/**/pre_build.py', recursive=True)[0]
+        script = glob.glob(f"specifications/{version}/**/pre_build.py", recursive=True)[
+            0
+        ]
+
+        # Inject shared OME boilerplate next to index.bs so the legacy Bikeshed
+        # build renders OME branding instead of falling back to the W3C default.
+        # Kept here in the superproject so we never have to edit, commit, and
+        # bump every ngff-spec version submodule (the includes were lost exactly
+        # that way during the ngff -> ngff-spec migration).
+        spec_dir = os.path.dirname(script)
+        for inc in ("header.include", "copyright.include"):
+            src = os.path.join("boilerplate", inc)
+            if os.path.exists(src):
+                shutil.copy2(src, os.path.join(spec_dir, inc))
+                print(f"✅ Injected {inc} for version {version}")
+            else:
+                print(
+                    f"⚠️  Missing boilerplate/{inc}; {version} will use Bikeshed defaults"
+                )
 
         subprocess.check_call([sys.executable, script])
-        print('✅ Built rendered examples/schemas for version', version)
+        print("✅ Built rendered examples/schemas for version", version)
 
         # build jupyter-book docs in specification submodules
-        myst_file = glob.glob(f'specifications/{version}/**/myst.yml', recursive=True)[0]
-        bikeshed_output = f'specifications/{version}/index.html'
+        myst_file = glob.glob(f"specifications/{version}/**/myst.yml", recursive=True)[
+            0
+        ]
+        bikeshed_output = f"specifications/{version}/index.html"
 
         # copy built html files to _html_extra
         try:
             if os.path.exists(bikeshed_output):
-                shutil.copy2(bikeshed_output, f'_html_extra/{version}/index.html')
-                print(f'✅ Found legacy bikeshed, serving as extra html for {version}')
+                shutil.copy2(bikeshed_output, f"_html_extra/{version}/index.html")
+                print(f"✅ Found legacy bikeshed, serving as extra html for {version}")
         except Exception as e:
-            print(f'⚠️  Could not copy served html for version {version}: {e}')
+            print(f"⚠️  Could not copy served html for version {version}: {e}")
+
 
 build_served_html()
-    
