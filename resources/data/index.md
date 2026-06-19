@@ -38,7 +38,7 @@ These are datasets available in OME-Zarr format, hosted in various locations. Th
 | -------- | ------- | ------- |
 | Open SciVis | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://registry.opendata.aws/ome-zarr-open-scivis/" alt="Open SciVis logo" width="30" height="30">](https://registry.opendata.aws/ome-zarr-open-scivis/) | A collection of of volumetric datasets in OME-Zarr format, including several CT scans. ([source](https://github.com/InsightSoftwareConsortium/OMEZarrOpenSciVisDatasets)) |
 | Herculaneum Scrolls | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://registry.opendata.aws/vesuvius-challenge-herculaneum-scrolls/" alt="Herculaneum Scrolls logo" width="30" height="30">](https://registry.opendata.aws/vesuvius-challenge-herculaneum-scrolls/) | Scrolls carbonized by Mount Vesuvius eruptions imaged via X-ray micro-CT, made available in OME-Zarr format. ([source](https://github.com/ScrollPrize/open-data)) |
-| VoDaSuRe | ![image](https://github.githubassets.com/favicons/favicon.svg)](https://augusthoeg.github.io/VoDaSuRe/) | A large-scale dataset covering volumetric super-resolution data with micro-CT ([arXiv](https://arxiv.org/abs/2603.23153); [dataset](https://huggingface.co/datasets/AugustHoeg/VoDaSuRe)) |
+| VoDaSuRe | ![image](https://github.githubassets.com/favicons/favicon.svg)(https://augusthoeg.github.io/VoDaSuRe/) | A large-scale dataset covering volumetric super-resolution data with micro-CT ([arXiv](https://arxiv.org/abs/2603.23153); [dataset](https://huggingface.co/datasets/AugustHoeg/VoDaSuRe)) |
 
 ## Atlases
 
