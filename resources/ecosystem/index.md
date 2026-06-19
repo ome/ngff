@@ -39,6 +39,7 @@ Tools that integrate OME-Zarr into workflows that support OME-Zarr as either as 
 | Name | Link | Description |
 | -------- | ------- | ------- |
 | Fractal | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://fractal-analytics-platform.github.io/) | A framework to process OME-Zarr data at scale with modular processing tasks and to prepare it for interactive visualization. |
+| hoct | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/royerlab/hoct) | Higher-Order Cell Tracking is a predictive deep learning model for tracking cells from segments and images. |
 | Ilastik | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ilastik/ilastik) | An interactive learning and segmentation toolkit |
 | Nyxus | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/nyxus) | A scalable library for calculating features from intensity-label image data. |
 | Mastodon | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://mastodon.readthedocs.io/) | A large-scale tracking and track-editing framework for large, multi-view images. |
