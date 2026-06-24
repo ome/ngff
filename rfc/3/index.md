@@ -114,9 +114,9 @@ bioimaging data and metadata to make it findable, accessible, interoperable,
 and reusable. The [paper describing NGFF and OME-Zarr][nat methods paper] notes
 that "the diversity of [biological imaging's] applications have prevented the
 establishment of a community-agreed standardized data format", but, [for
-historical reasons][ome-model], [version 0.4 of the OME-Zarr
-specification][ngff 0.4] [imposes][ngff 0.4 multiscales metadata] strict
-restrictions on the
+historical reasons][ome-model], [versions 0.4][ngff 0.4], [0.5][ngff 0.5], and
+[0.6 (draft)][ngff 0.6] of the OME-Zarr specification
+[impose][ngff 0.5 multiscales metadata] strict restrictions on the
 applications:
 
 > The length of "axes" must be between 2 and 5 and MUST be equal to the
@@ -126,7 +126,7 @@ applications:
 > entry of "type:channel" or a null / custom type. The order of the entries MUST
 > correspond to the order of dimensions of the zarr arrays. In addition, the
 > entries MUST be ordered by "type" where the "time" axis must come first (if
-> present), followed by the  "channel" or custom axis (if present) and the axes
+> present), followed by the "channel" or custom axis (if present) and the axes
 > of type "space". If there are three spatial axes where two correspond to the
 > image plane ("yx") and images are stacked along the other (anisotropic) axis
 > ("z"), the spatial axes SHOULD be ordered as "zyx".
@@ -303,8 +303,10 @@ This RFC is placed in the public domain.
 
 [nat methods paper]: https://www.nature.com/articles/s41592-021-01326-w
 [ome-model]: https://github.com/ome/ngff/pull/239/files#r1609781780
-[ngff 0.4]: https://ngff.openmicroscopy.org/0.4/index.html
-[ngff 0.4 multiscales metadata]: https://ngff.openmicroscopy.org/0.4/index.html#multiscale-md
+[ngff 0.4]: https://ngff.openmicroscopy.org/specifications/0.4/index.html
+[ngff_0 5]: https://ngff.openmicroscopy.org/specifications/0.5/index.html
+[ngff_0 6]: https://web.archive.org/web/20260520043202/https://ngff.openmicroscopy.org/specifications/dev/index.html
+[ngff 0.5 multiscales metadata]: https://ngff.openmicroscopy.org/specifications/0.5/index.html#multiscales-metadata
 [ngff 0.4 axes metadata]: https://ngff.openmicroscopy.org/0.4/index.html#axes-md
 [czi format dimensions]: https://web.archive.org/web/20240521085825/https://zeiss.github.io/libczi/imagedocumentconcept.html#autotoc_md7
 [spec update]: https://github.com/ome/ngff/pull/235
