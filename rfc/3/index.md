@@ -226,6 +226,52 @@ appropriate action depends on the tool, but some suggestions include:
 - arbitrarily choose which axes to treat as spatial.
 - choose how to treat each axis based on heuristics such as size and position.
 
+Here are the concrete changes that this RFC makes to the specification
+document, taking as base the current development version:
+
+1. The following lines are removed from "multiscales metadata":
+
+> - The length of `axes` must be between 2 and 5 and MUST be equal to the
+>   dimensionality of the Zarr arrays storing the image data (see
+>   `datasets:path`).
+>
+> - `axes` MUST contain 2 or 3 entries of `type:space`
+>
+> - `axes` MAY contain one additional entry of `type:time`
+>
+> - `axes` MAY contain one additional entry of `type:channel` or a null /
+>   custom type.
+>
+> - `axes` entries MUST be ordered by `type` where the `time` axis must come
+>   first (if present), followed by the `channel` or custom axis (if present)
+>   and the axes of type `space`.
+>
+> - If there are three spatial axes where two correspond to the image plane
+>   (`yx`) and images are stacked along the other (anisotropic) axis (`z`), the
+>   spatial axes SHOULD be ordered as `zyx`.
+
+2. The following lines are *added* to "multiscales metadata":
+
+> 0. The length of the axis names MUST match the number of axes of the array.
+> 1. *If* a dataset contains exactly 2 spatial dimensions, those dimensions
+>    SHOULD be named `y` and `x`, except where rule 4 applies.
+> 2. *If* a dataset contains exactly 3 spatial dimensions, those dimensions
+>    SHOULD be named 'z', 'y', and 'x', except where rule 4 applies.
+> 3. *If* a dataset contains exactly 1 time dimension, it should be named `t`.
+> 4. When image data axes map straightforwardly to axes with common names in
+>    the relevant field of practice, those axes SHOULD be named according to
+>    such conventions. For example, spatial frequency axes resulting from a
+>    Fourier transformation of `z', 'y', and 'x' SHOULD be named 'w', 'v', and
+>    `u`, respectively. Similarly, a temporal frequency axis resulting from
+>    a Fourier transformation of the `t` axis SHOULD be named `w` or `ω`.
+> 5. Axis names SHOULD NOT be repeated within a dataset, even in a different
+>    case. That is, the same dataset SHOULD NOT have both an `X` and an `x`
+>    axis.
+> 6. The order of the axes MUST match their ordering within the data if
+>    applicable. For example, if the axes are ordered as `DZYX`, where `D` is a
+>    field of displacement vectors, then the vectors must be ordered as `ZYX`
+>    within the array.
+
 ## Prior art and references
 
 All of the above removals are part of the draft proposed [transformations
