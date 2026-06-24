@@ -149,30 +149,37 @@ RFC-5, maintains these limitations:
 > - `axes` MAY contain one additional entry of `type:channel` or a null /
 >   custom type.
 >
-> - axes entries MUST be ordered by type where the time axis must come first
->   (if present), followed by the channel or custom axis (if present) and the
->   axes of type space.
+> - `axes` entries MUST be ordered by `type` where the `time` axis must come
+>   first (if present), followed by the `channel` or custom axis (if present)
+>   and the axes of type `space`.
 >
 > - If there are three spatial axes where two correspond to the image plane
->   (yx) and images are stacked along the other (anisotropic) axis (z), the
->   spatial axes SHOULD be ordered as zyx.
+>   (`yx`) and images are stacked along the other (anisotropic) axis (`z`), the
+>   spatial axes SHOULD be ordered as `zyx`.
 
 
 These restrictions prevent users from converting existing
 datasets to OME-Zarr. For example, Zeiss .czi datasets [may contain][czi format
 dimensions] dimensions such as H, I, and V to store different phases,
-illumination directions, or views respectively. To say nothing of synthetic data
-that may contain "artificial" dimensions such as principal components or axes of
-other dimensionality reduction-techniques from many images. They may also hamper
-the adoption of OME-Zarr as an acquisition-time format due to performance concerns
-when data must be manipulated to accommodate a strict dimension order.
+illumination directions, or views respectively. They also hamper
+the adoption of OME-Zarr as an acquisition-time format due to performance
+concerns: many acquisitions happen in TZCYX order (all channels are acquired
+together for each z-slice), which violates the "axes must be ordered by type"
+requirement. In such cases, scientists must first acquire their data and *then*
+transpose it — an expensive proposition for large datasets.
 
 ## Motivation
 
-In addition to the .czi datasets mentioned in the preceding paragraph, this
-section describes six dataset types that are currently impossible to represent
-in OME-Zarr:
+In addition to the .czi datasets mentioned in the preceding paragraph, and
+alternate axis orderings driven by acquisition concerns, this section describes
+real datasets that are currently impossible to represent in OME-Zarr:
 
+- in [Fluorescence Lifetime Imaging Microscopy (FLIM)][flim], there is an
+  additional time dimension containing the fluorophore decay over a much
+  shorter time scale (nanoseconds) than the typical spacing between time
+  points. This constitutes an additional time axis called `u` or `µ` and
+  can result in a 6-dimensional dataset with axes `CTUZYX`. (See, for example,
+  [this paper][flim-paper].)
 - in [electron backscatter diffraction (EBSD)][ebsd], a microscopy technique
   common in materials science, a beam of electrons is scanned over a surface,
   and for each (2D) position in the scan, a full 2D diffraction pattern is
@@ -180,7 +187,7 @@ in OME-Zarr:
 - from the diffraction patterns, it is possible to obtain an *orientation map*,
   containing a 3D angle at each 2D position of the material.
 - the same principles apply to [diffusion tensor imaging][dti], where a
-  three-dimensional diffusion tensor is measured at each voxel.
+  three-dimensional diffusion tensor is measured at each voxel position.
 - it is common to compute Fourier transforms of 3D images. The datasets have
   three dimensions but they are measured in *frequency*, not space.
 - when computing segmentations, one may use finer or coarser priors, resulting
@@ -337,6 +344,8 @@ This RFC is placed in the public domain.
 [trafo spec]: https://github.com/ome/ngff/pull/138
 [space dims comment]: https://github.com/ome/ngff/pull/138#issuecomment-1852891720
 [ebsd]: https://en.wikipedia.org/wiki/Electron_backscatter_diffraction
+[flim]: https://en.wikipedia.org/wiki/Fluorescence-lifetime_imaging_microscopy
+[flim-paper]: https://onlinelibrary.wiley.com/doi/10.1111/jmi.70036
 [dti]: https://en.wikipedia.org/wiki/Diffusion-weighted_magnetic_resonance_imaging
 [CryoET]: https://en.wikipedia.org/wiki/Cryogenic_electron_tomography
 
