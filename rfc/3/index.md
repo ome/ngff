@@ -166,7 +166,11 @@ the adoption of OME-Zarr as an acquisition-time format due to performance
 concerns: many acquisitions happen in TZCYX order (all channels are acquired
 together for each z-slice), which violates the "axes must be ordered by type"
 requirement. In such cases, scientists must first acquire their data and *then*
-transpose it — an expensive proposition for large datasets.
+transpose it — an expensive proposition for large datasets. (Note: Admittedly,
+Zarr transpose codecs, as well as the mapAxis transformation from RFC-5,
+already offer solutions to this problem. However, the *simplest* solution of
+flexible array ordering with default codecs and only scale and translation
+transforms is only open after this RFC.)
 
 ## Motivation
 
