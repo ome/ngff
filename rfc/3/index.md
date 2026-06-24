@@ -114,10 +114,9 @@ bioimaging data and metadata to make it findable, accessible, interoperable,
 and reusable. The [paper describing NGFF and OME-Zarr][nat methods paper] notes
 that "the diversity of [biological imaging's] applications have prevented the
 establishment of a community-agreed standardized data format", but, [for
-historical reasons][ome-model], [versions 0.4][ngff 0.4], [0.5][ngff 0.5], and
-[0.6 (draft)][ngff 0.6] of the OME-Zarr specification
-[impose][ngff 0.5 multiscales metadata] strict restrictions on the
-applications:
+historical reasons][ome-model], [versions 0.4][ngff 0.4] and [0.5][ngff 0.5]
+of the OME-Zarr specification [impose][ngff 0.5 multiscales metadata] strict
+restrictions on the applications:
 
 > The length of "axes" must be between 2 and 5 and MUST be equal to the
 > dimensionality of the zarr arrays storing the image data (see
@@ -135,6 +134,29 @@ And:
 
 > Each "datasets" dictionary MUST have the same number of dimensions and MUST
 > NOT have more than 5 dimensions.
+
+The currently-in-development [v0.6 specification][ngff 0.6], which incorporates
+RFC-5, maintains these limitations:
+
+> - The length of `axes` must be between 2 and 5 and MUST be equal to the
+>   dimensionality of the Zarr arrays storing the image data (see
+>   `datasets:path`).
+>
+> - `axes` MUST contain 2 or 3 entries of `type:space`
+>
+> - `axes` MAY contain one additional entry of `type:time`
+>
+> - `axes` MAY contain one additional entry of `type:channel` or a null /
+>   custom type.
+>
+> - axes entries MUST be ordered by type where the time axis must come first
+>   (if present), followed by the channel or custom axis (if present) and the
+>   axes of type space.
+>
+> - If there are three spatial axes where two correspond to the image plane
+>   (yx) and images are stacked along the other (anisotropic) axis (z), the
+>   spatial axes SHOULD be ordered as zyx.
+
 
 These restrictions prevent users from converting existing
 datasets to OME-Zarr. For example, Zeiss .czi datasets [may contain][czi format
