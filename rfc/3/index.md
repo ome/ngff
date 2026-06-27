@@ -173,7 +173,11 @@ real datasets that are currently impossible to represent in OME-Zarr:
 - in [electron backscatter diffraction (EBSD)][ebsd], a microscopy technique
   common in materials science, a beam of electrons is scanned over a surface,
   and for each (2D) position in the scan, a full 2D diffraction pattern is
-  recorded, resulting in a 4-dimensional data array.
+  recorded, resulting in a 4-dimensional data array, with axes `x`, `y`, and
+  `dx`, `dy` for the diffraction pattern, also of `type:space`, typically
+  measured in `mm`. Scientists may want to compare the inferred crystal map
+  (`x`, `y`) with the original patterns, thus overlaying a 2D array onto a 4D
+  array.
 - from the diffraction patterns, it is possible to obtain an *orientation map*,
   containing a 3D angle at each 2D position of the material.
 - the same principles apply to [diffusion tensor imaging][dti], where a
