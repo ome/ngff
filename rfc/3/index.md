@@ -164,46 +164,116 @@ RFC-5, already offer solutions to this problem. However, the *simplest*
 solution of flexible array ordering with default codecs and only scale and
 translation transforms is only open after this RFC.)
 
-## Motivation
+## Motivation / User stories
 
-In addition to the .czi datasets mentioned in the preceding paragraph, and
-alternate axis orderings driven by acquisition concerns, this section describes
-real datasets that are currently impossible to represent in OME-Zarr:
+Dimensions other than TCZYX have many existing uses in microscopy, which are
+currently cumbersome or even impossible to do in OME-Zarr. We detail some
+below:
 
-- in [Fluorescence Lifetime Imaging Microscopy (FLIM)][flim], there is an
-  additional time dimension containing the fluorophore decay over a much
-  shorter time scale (nanoseconds) than the typical spacing between time
-  points. This constitutes an additional time axis called `u` or `µ` and
-  can result in a 6-dimensional dataset with axes `CTUZYX`. (See, for example,
-  [this paper][flim-paper].)
-- in [electron backscatter diffraction (EBSD)][ebsd], a microscopy technique
-  common in materials science, a beam of electrons is scanned over a surface,
-  and for each (2D) position in the scan, a full 2D diffraction pattern is
-  recorded, resulting in a 4-dimensional data array, with axes `x`, `y`, and
-  `dx`, `dy` for the diffraction pattern, also of `type:space`, typically
-  measured in `mm`. Scientists may want to compare the inferred crystal map
-  (`x`, `y`) with the original patterns, thus overlaying a 2D array onto a 4D
-  array.
-- from the diffraction patterns, it is possible to obtain an *orientation map*,
-  containing a 3D angle at each 2D position of the material.
-- the same principles apply to [diffusion tensor imaging][dti], where a
-  three-dimensional diffusion tensor is measured at each voxel position.
-- it is common to compute Fourier transforms of 3D images. The datasets have
-  three dimensions but they are measured in *frequency*, not space.
-- when computing segmentations, one may use finer or coarser priors, resulting
-  in overlapping, equally valid segmentations, for example, of organelles at
-  one level, cells at another, and tissues at yet another. One common way to
-  store such a segmentation is to add a dimension for "coarseness".
-- computed spaces may have arbitrary dimensions related to the computation. For
-  example, in subtomogram averaging of [cryo electron tomography][CryoET],
-  single particles from a tomogram are picked and aligned, producing many
-  instances of the same 3-dimensional particle. One may wish to store all the
-  instances in a single 4-dimensional array (one dimension being the *instance
-  number*). Or, one may use dimension-reduction techniques such as PCA, then
-  browse average particles along each PCA axis. This creates a virtual 5D space
-  containing the three spatial dimensions, then a "component number" axis for
-  the PCA components and a "position" axis for the position along that
-  component.
+### Conversion of existing microscopy data formats to OME-Zarr
+
+As noted in [background](#background), existing microscopy image data formats
+already have dimensions other than OME's TCZYX. Zeiss's .czi file format [can
+include][czi format dimensions] H, I, and V, representing different phases,
+illumination directions, or views. Leica's .lif format uses [many other
+dimensions][lif dimensions], including λ (lambda) for different emission
+wavelengths, A for different rotations, Λ (capital lambda) for different
+emission wavelengths, and M for a "mosaic" dimension.
+
+In order for OME-Zarr to gain broad adoption, it should be able to represent
+datasets from common microscope vendors. Although workaround exist (such as
+using the current "Custom" dimension and interleaving other dimensions into it,
+or splitting the image into several TCZYX images), they are cumbersome and make
+the resulting data difficult to manage.
+
+### Fluorescence Lifetime Imaging Microscopy (FLIM)
+
+In [Fluorescence Lifetime Imaging Microscopy (FLIM)][flim], there is an
+additional time dimension containing the fluorophore decay over a much shorter
+time scale (nanoseconds) than the typical spacing between time points. The
+fluorophore decay lifetime can be used to get more information about the
+sample, for example by separating fluorophores not only according to their
+emission spectra but also their lifetime. The decay measurement constitutes an
+additional time axis called `u` or `µ` and can result in a 6-dimensional
+dataset with axes `CTUZYX`. (See [comment 3](./comments/3/index), and [this
+paper][flim-paper].)
+
+FLIM data currently cannot be represented in OME-Zarr, causing users to use
+proprietary formats, bare Zarr arrays missing critical metadata (e.g.
+[S-BIAD1967][S-BIAD1967] on BioImage Archive), or datasets
+split along an arbitrary axis in order to be represented e.g. as OME-TIFF (see
+[above dataset in OMERO][flim-omero]), making exploration and analysis
+needlessly difficult.
+
+### Electron backscatter diffraction (EBSD)
+
+In [electron backscatter diffraction (EBSD)][ebsd], a microscopy technique
+common in materials science, a beam of electrons is scanned over a surface,
+and for each (2D) position in the scan, a full 2D diffraction pattern is
+recorded, resulting in a 4-dimensional data array, with axes `x`, `y`, and
+`dx`, `dy` for the diffraction pattern, also of `type:space`, typically
+measured in `mm`. From EBSD spectra, scientists may detect the orientation of a
+crystal at any (x, y) position, and thus infer the crystal boundaries.
+Comparing the inferred crystal boundaries with the original patterns is an
+important part of data quality checks. Currently, this kind of microscopy data
+cannot be stored in OME-Zarr.
+
+Within the same workflow, the crystal orientation is usually encoded as three
+*Euler angles* or four *quaternion* components stored at each pixel position.
+Although it's possible to use the "custom" axis for this purpose, a dedicated
+axis with a clear naming convention is more ergonomic for scientists.
+
+### Diffusion Tensor Imaging (DTI)
+
+3-dimensional [DTI][dti] measures the ease with which water diffuses in
+different directions in a tissue. At each pixel, you then have a symmetric
+2-dimensional diffusion tensor with components `Dzz`, `Dzy = Dyz`, `Dzx = Dxz`,
+`Dyy`, `Dyx = Dxy`, and `Dxx`. These could be represented either as a
+specialised single axis, or, with a custom Zarr codec for symmetric matrices,
+as the mathematical, 2-axis symmetric matrix per pixel.
+
+### Fourier analysis
+
+Transforming images into Fourier space (spatial frequency) is common in many
+image analysis pipelines, for example for filtering, artifact removal,
+denoising, and deconvolution. For computational efficiency, scientists may want
+to save these intermediate image products for later reprocessing.
+
+### Overlapping labels
+
+OME-Zarr can represent not only raw images, but also *label images*, or
+segmentations. Traditionally, segmentations assigned a single integer value to
+each pixel in the source image. However, newer segmentation methods produce
+*coarse-to-fine* segmentations, with semantic meaning. For images spanning many
+scales, as produced by modern microscopes, we may want to segment tissues,
+cells within those tissues, and organelles within those cells. These three
+levels of segmentations can be stacked along a new "coarseness" axis.
+
+Similarly, new segmentation methods can produce *overlapping binary masks*. Due
+to the overlap, they *cannot* be stored as traditional integer masks (one value
+per pixel), but are typically instead stored as *n* boolean masks. For this
+mask, an extra "instance" axis is needed in addition to the [TCZ]YX axes of a
+source image.
+
+### Other computational outputs
+
+Downstream computational products are necessary for the analysis of microscopy
+data, and these should ideally be stored in formats compatible with the tooling
+used to work with the raw data. The format aims to be flexible enough to
+accommodate these products, such as segmentations (the `label-image` section),
+or the outputs of registrations (see [rfc-5](../5/index)).
+
+Some outputs may naturally contain arbitrary dimensions, for example, a grid
+search of the parameter space for a denoising algorithm may contain an
+additional axis per parameter.
+
+Similarly, when creating a deep learning dataset, we may wish to store original
+image instances along one axis and augmented instances along another.
+
+In general, the space of downstream products is quite literally endless, and it
+would serve the community to be able to store those products in OME-Zarr, with
+proper metadata, relating back to the original data, rather than having to use
+custom containers and manage metadata separately.
 
 ## Proposal
 
