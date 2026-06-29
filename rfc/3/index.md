@@ -462,6 +462,7 @@ This RFC is placed in the public domain.
 [ngff 0.5 multiscales metadata]: https://ngff.openmicroscopy.org/specifications/0.5/index.html#multiscales-metadata
 [ngff 0.4 axes metadata]: https://ngff.openmicroscopy.org/0.4/index.html#axes-md
 [czi format dimensions]: https://web.archive.org/web/20240521085825/https://zeiss.github.io/libczi/imagedocumentconcept.html#autotoc_md7
+[lif dimensions]: https://github.com/cgohlke/liffile/blob/f79868ebad77d9848bcae09f99db8f0737b0f94b/liffile/liffile.py#L916-L931
 [spec update]: https://github.com/ome/ngff/pull/235
 [this pr]: https://github.com/ome/ngff/pull/239
 [recap comment]: https://github.com/ome/ngff/pull/239#issuecomment-2327451719
@@ -472,6 +473,11 @@ This RFC is placed in the public domain.
 [flim-paper]: https://onlinelibrary.wiley.com/doi/10.1111/jmi.70036
 [dti]: https://en.wikipedia.org/wiki/Diffusion-weighted_magnetic_resonance_imaging
 [CryoET]: https://en.wikipedia.org/wiki/Cryogenic_electron_tomography
+[S-BIAD1967]: https://www.ebi.ac.uk/biostudies/bioimages/studies/S-BIAD1967
+[flim-omero]: https://omero.med.tu-dresden.de/webclient/?show=project-1401
+[gh-239]: https://github.com/ome/ngff/pull/239
+[imagesc-rfc-3-thread]: https://forum.image.sc/t/ome-ngff-update-postponing-transforms-previously-v0-5/95617/2
+[zulip-rfc-3-thread]: https://imagesc.zulipchat.com/#narrow/channel/328251-NGFF/topic/RFC-3.3A.20remove.20dimension.20restrictions/near/568178521
 
 [^1]: https://github.com/ome/ngff/pull/239#issuecomment-2122809286
 [^2]: https://github.com/ome/ngff/pull/239#issuecomment-2149119404
