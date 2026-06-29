@@ -93,6 +93,12 @@ This RFC is currently in RFC state `R1` (send for review).
     - German BioImaging
     - 2026-02-05
     - [Comment](./comments/2/index)
+*   - Commenter
+    - Cornelia Wetzker
+    - [cwetzker](https://github.com/cwetzker)
+    - Technische Universität Dresden
+    - 2026-03-19
+    - [Comment](./comments/3/index)
 ```
 
 ## Overview
