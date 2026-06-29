@@ -266,6 +266,23 @@ document, taking as base the current development version:
 >    field of displacement vectors, then the vectors must be ordered as `ZYX`
 >    within the array.
 
+3. The following lines are amended as noted:
+
+> Note that the number of dimensions is variable ~~between 2 and 5~~ and that
+> axis names are arbitrary, see multiscales metadata for details.
+
+> ~~Here, "image" refers to 2 to 5 dimensional data representing image or
+> volumetric data with optional time or channel axes. It is stored in a
+> multiple resolution representation.~~
+> Here, "image" refers to data stored in a Zarr Array representing image,
+> volumetric, time lapse, or similar data. It MAY be stored in multiple
+> resolutions.
+
+> Every Zarr array referred to by a path MUST have the same number of
+> dimensions and datatype.~~, and MUST NOT have more than 5 dimensions.~~
+
+No further changes to the specification document are proposed by this RFC.
+
 ## Prior art and references
 
 All of the above removals are part of the draft proposed [transformations
