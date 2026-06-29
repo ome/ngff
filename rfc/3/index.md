@@ -359,28 +359,19 @@ document, taking as base the current development version:
 
 No further changes to the specification document are proposed by this RFC.
 
-## Prior art and references
-
-All of the above removals are part of the draft proposed [transformations
-specification][trafo spec], with one exception: the draft currently specifies
-that a dataset may only have up to three spatial axes. However, this limitation
-is [not set in stone][space dims comment] and could be removed, partly to
-improve backwards compatibility.
-
 ## Stakeholders
 
-Who has a stake in whether this RFC is accepted?
+Extensive prior discussion of this RFC has happened on [PR 239][gh-239], on
+[image.sc][imagesc-rfc-3-thread], and on [Zulip][zulip-rfc-3-thread]. There is
+emphatic support from the image acquisition community, which has been stifled
+from supporting OME-Zarr by the restrictions removed in this RFC. Additionally,
+users of less-common imaging modalities, such as FLIM, also strongly support
+the RFC.
 
-* Facilitator: Josh Moore (OME)
-* Proposed reviewers:
-  - John Bogovic (HHMI Janelia Research Campus): lead author of draft
-  [transformations specification proposal][trafo spec]
-  - Will Moore (OME): maintainer of ome-zarr-py library
-  - Norman Rzepka (Scalable Minds): maintainer of zarrita
-* Consulted:
-  - Every commenter [on this thread](https://github.com/ome/ngff/pull/239).
-* Socialization:
-  - image.sc: <https://forum.image.sc/t/ome-ngff-update-postponing-transforms-previously-v0-5/95617/2>
+Developers of visualization libraries and software are concerned that this PR
+may result in a "wild west" of OME-Zarr datasets that have little in common,
+making it difficult for tools to decide *which* axes to display. More details
+about these concerns are developed below in the "Drawbacks" section.
 
 ## Backwards Compatibility
 
