@@ -30,23 +30,11 @@ Imaging data portals with curated OME-Zarr data, including public repositories. 
 | webknossos Zarr Gallery | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://zarr.webknossos.org" alt="webknossos Zarr Gallery logo" width="30" height="30">](https://zarr.webknossos.org) | A collection of mostly Electron Microscopy OME-Zarr datasets from webKnossos, a platform for large-scale 3D image data visualization and analysis. |
 | IDR Studies | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://livingobjects.ebi.ac.uk/bioimaging-integrator-data/pages/idr_ngff_data.html" alt="IDR Studies logo" width="30" height="30">](https://livingobjects.ebi.ac.uk/bioimaging-integrator-data/pages/idr_ngff_data.html) | A collection of OME-Zarr datasets from the Image Data Resource (IDR), a public repository for bioimaging data |
 
-## Datasets
-
-These are datasets available in OME-Zarr format, hosted in various locations. They represent some of the different scientific stories enabled by OME-Zarr.
-
-| Name    | Link | Description |
-| -------- | ------- | ------- |
-| Open SciVis | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://registry.opendata.aws/ome-zarr-open-scivis/" alt="Open SciVis logo" width="30" height="30">](https://registry.opendata.aws/ome-zarr-open-scivis/) | A collection of of volumetric datasets in OME-Zarr format, including several CT scans. ([source](https://github.com/InsightSoftwareConsortium/OMEZarrOpenSciVisDatasets)) |
-| Herculaneum Scrolls | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://registry.opendata.aws/vesuvius-challenge-herculaneum-scrolls/" alt="Herculaneum Scrolls logo" width="30" height="30">](https://registry.opendata.aws/vesuvius-challenge-herculaneum-scrolls/) | Scrolls carbonized by Mount Vesuvius eruptions imaged via X-ray micro-CT, made available in OME-Zarr format. ([source](https://github.com/ScrollPrize/open-data)) |
-| VoDaSuRe | ![image](https://github.githubassets.com/favicons/favicon.svg)(https://augusthoeg.github.io/VoDaSuRe/) | A large-scale dataset covering volumetric super-resolution data with micro-CT ([arXiv](https://arxiv.org/abs/2603.23153); [dataset](https://huggingface.co/datasets/AugustHoeg/VoDaSuRe)) |
-
 ## Atlases
 
 These are "atlas"-like datasets, which provide a comprehensive view of a particular biological system. The metadata-rich, streaming-friendly nature of OME-Zarr makes it ideal for sharing and visualizing large, complex datasets that are often associated with atlases.
 
 The [WebAtlas pipeline](https://cellatlas.io/webatlas) ([Li et al, 2024](https://www.nature.com/articles/s41592-024-02371-x)) demonstrates how OME-Zarr can be used in the context of deploying such atlases in the context of spatial transcriptomics. The examples, however, cover also other types of data, including volumetric electron microscopy, expansion microscopy and light sheet imaging.
-
-##
 
 | Name    | Link | Description | Publication | Sample |
 | -------- | ------- | ------- | ------- | ------- |
@@ -57,7 +45,30 @@ The [WebAtlas pipeline](https://cellatlas.io/webatlas) ([Li et al, 2024](https:/
 | Platynereis cell atlas | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://platynereis.com/resources/image/" alt="Platynereis cell atlas logo" width="30" height="30">](https://platynereis.com/resources/image/) | An expression atlas registered to a whole-body electron microscopy volume of the nereid *Platynereis dumerilii* | [Vergara et al., 2021](https://doi.org/10.1016/j.cell.2021.07.017) | [neuroglancer](https://tiago.bio.br/links?go=platy-atlas) |
 | OpenOrganelle | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://openorganelle.janelia.org/" alt="OpenOrganelle logo" width="30" height="30">](https://openorganelle.janelia.org/) | An open-access volume electron microscopy atlas of whole cells and tissues | [Xu et al., 2021](https://www.nature.com/articles/s41586-021-03992-4) | [neuroglancer](https://tiago.bio.br/links?go=open-organelle) |
 
----
+
+## Challenges
+
+Some programming/machine learning challenges curate OME-Zarr datasets for testing and benchmarking purposes.
+Besides the data, they often bring together a community and may be useful to find other resources, such as code, tutorials, and workflows.
+
+| Name    | Link | Description |
+| -------- | ------- | ------- |
+|CryoET Object Identification Challenge | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://www.kaggle.com/competitions/czii-cryo-et-object-identification/overview" alt="CryoET Object Identification Challenge logo" width="30" height="30">](https://www.kaggle.com/competitions/czii-cryo-et-object-identification/overview) | A challenge to identify objects in cryo-electron tomography (cryoET) data, with datasets available in OME-Zarr format. |
+|Biohub - Cell Tracking During Development| [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/" alt="Biohub - Cell Tracking During Development logo" width="30" height="30">](https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/) | A challenge to track cells during Zebrafish development, with datasets available in OME-Zarr format. |
+| Herculaneum Scrolls | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://scrollprize.org/" alt="Herculaneum Scrolls logo" width="30" height="30">](https://scrollprize.org/) | Scrolls carbonized by Mount Vesuvius eruptions imaged via X-ray micro-CT, made available in OME-Zarr format. ([data](https://registry.opendata.aws/vesuvius-challenge-herculaneum-scrolls/), [source](https://github.com/ScrollPrize/open-data)) |
+| Broad Autoimmune Disease Machine Learning Challenge | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://hub.crunchdao.com/competitions/broad-1/resources/datasets" alt="Broad Autoimmune Disease Machine Learning Challenge logo" width="30" height="30">](https://hub.crunchdao.com/competitions/broad-1/) | A challenge to predict gene expression in spatial transcriptomics data from matched pathology images. Uses the SpatialData specification, which includes OME-Zarr datasets. ([data](https://hub.crunchdao.com/competitions/broad-1/resources/datasets)) |
+
+
+## Datasets
+
+These are datasets available in OME-Zarr format, hosted in various locations. They represent some of the different scientific stories enabled by OME-Zarr.
+
+| Name    | Link | Description |
+| -------- | ------- | ------- |
+| Open SciVis | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://registry.opendata.aws/ome-zarr-open-scivis/" alt="Open SciVis logo" width="30" height="30">](https://registry.opendata.aws/ome-zarr-open-scivis/) | A collection of of volumetric datasets in OME-Zarr format, including several CT scans. ([source](https://github.com/InsightSoftwareConsortium/OMEZarrOpenSciVisDatasets)) |
+| VoDaSuRe | [<img src="https://github.githubassets.com/favicons/favicon.svg" alt="GitHub logo" width="30" height="30">](https://augusthoeg.github.io/VoDaSuRe/) | A large-scale dataset covering volumetric super-resolution data with micro-CT ([arXiv](https://arxiv.org/abs/2603.23153); [dataset](https://huggingface.co/datasets/AugustHoeg/VoDaSuRe)) |
+
+
 
 # Other resources
 
