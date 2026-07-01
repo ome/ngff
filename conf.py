@@ -6,6 +6,8 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import os
+
 project = "NGFF"
 copyright = "2020-2025, NGFF Community"
 author = "NGFF Community"
@@ -13,17 +15,24 @@ author = "NGFF Community"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
+
+# Needed for custom rfc_authors extension to be found in _ext
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath("_ext"))
+
 extensions = [
     "myst_parser",
     "sphinx_reredirects",
     "sphinx_design",
     "sphinxcontrib.bibtex",
+    "rfc_authors",
 ]
 bibtex_bibfiles = ["references.bib"]
 source_suffix = [".rst", ".md"]
 myst_heading_anchors = 5
-myst_enable_extensions = ["deflist", "strikethrough", "colon_fence"]
-
+myst_enable_extensions = ["deflist", "strikethrough", "colon_fence", "substitution"]
 templates_path = ["_templates"]
 exclude_patterns = [
     "_build",
@@ -79,6 +88,7 @@ html_static_path = ["_static"]
 
 html_css_files = [
     "https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css",
+    "rfc_authors.css",
 ]
 
 html_js_files = [
