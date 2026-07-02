@@ -20,7 +20,7 @@ There are two parts to an OME-Zarr:
    * spatial relationships
    * high content screening data
    * well data
-   * [and more](/specifications/index.html)!
+   * [and more](./specifications/index)!
 
 ## Why would I use OME-Zarr?
 
@@ -49,16 +49,16 @@ These are *some* of the organizations (and their dataset pages) that are using O
 - [EMBL - Image Data Resource (IDR)](https://idr.openmicroscopy.org/)
 - [Howard Hughes Medical Institute, Janelia (HHMI)](https://openorganelle.janelia.org/)
 - [Jackson Laboratory (JAX)](https://images.jax.org/)
-- ... [and more](/data/index.html)
+- ... [and more](./data/index)
 
 ## How do I use OME-Zarr?
 
 * Already have a Zarr?
-   * Check out the [tools section](/tools/index.html)!
+   * Check out the [tools section](./tools/index)!
 * Want to create a Zarr?
-   * Check out the [tools section](/tools/index.html)!
+   * Check out the [tools section](./tools/index)!
 * Want to see or download a Zarr?
-   * Check out the [data section](/data/index.html)!
+   * Check out the [data section](./data/index)!
 
 ## Have other questions?
 
