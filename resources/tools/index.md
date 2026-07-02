@@ -120,3 +120,5 @@ Libraries that support the rendering and navigation of OME-Zarr data, but that a
 | OMEZarrTileSource | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/TissUUmaps/OMEZarrTileSource) | An OpenSeadragon tile source for the OME-Zarr bioimage file format. |
 | ome-zarr.js | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BioNGFF/ome-zarr.js) | A JavaScript library for simple rendering of thumbnails and images. |
 | idetik | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/chanzuckerberg/idetik) | A library for building web-based image viewers. |
+| Viv | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://vitessce.io/" alt="Viv logo" width="30" height="30">](https://github.com/hms-dbmi/viv) | A JavaScript library that provides DeckGL-compatible layers for rendering OME-Zarr images on the web. |
+| Pluot | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/keller-mark/pluot) | Rust and WebGPU-based rendering of OME-Zarr images with bindings to JavaScript/React, Python, and R. |
