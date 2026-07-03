@@ -35,8 +35,8 @@ finalization phase of the 1.0 release.
 # Background
 
 The path to NGFF 1.0 involves a series of interdependent technical choices—some
-of which require decisive, binary resolutions (e.g., those raised in RFC-3 and
-RFC-6). To avoid prolonged uncertainty and to maintain momentum toward a stable
+of which require decisive, binary resolutions (e.g., those raised in [RFC-3][] and
+[RFC-6][]. To avoid prolonged uncertainty and to maintain momentum toward a stable
 release, NGFF requires an explicitly defined group with the mandate to reach
 timely decisions.
 
@@ -52,7 +52,7 @@ by this RFC.
 
 Individuals proposed for the Editorial Board have demonstrated sustained,
 practical engagement with the NGFF ecosystem. This RFC formalizes the
-expectation that Editorial Board members have “direct operational involvement”
+expectation that Editorial Board members have direct operational involvement
 in the work—i.e., ongoing contributions, implementation effort, or stewardship
 of tooling or specifications—ensuring that decisions are made by those with a
 concrete understanding of their consequences.
@@ -111,9 +111,9 @@ The OMG does not:
 * Vote on routine RFC decisions.  
 * Override Editorial Board decisions except in formally escalated cases.
 
-## Managing Editor (ME)
+## Managing Editor
 
-The Managing Editor is responsible for operational coordination of the
+The Managing Editor (ME) is responsible for operational coordination of the
 editorial process. The ME ensures forward progress, procedural clarity, and
 documented decisions. In the case of a split vote, the ME will cast the
 deciding vote.
@@ -142,15 +142,15 @@ Editor and ratified by the OMG.
 
 The EB as a whole:
 
-* Manages its own membership with formal approval by the OMG.  
+* Manages its own membership with formal approval by the OMG, excluding members serving in the EB.
 * MAY maintain EB policies as a separate working document. These changes do not
-  need to be sent through RFC review. Potential policies include:  
-  * Meeting cadence (to be agreed upon by the initial board)  
-  * Whether additional observers or advisors should be invited  
-  * Vote delegation  
-  * Having team members listed as co-authors on RFC reviews etc.  
-  * One editor as a clear lead on each RFC  
-  * Include commit right concepts that would be in other charters.
+  need to be sent through RFC review. Potential policies include:
+  * Meeting cadence
+  * Whether additional observers or advisors should be invited
+  * Vote delegation
+  * Having team members listed as co-authors on RFC reviews etc.
+  * One editor as a clear lead on each RFC
+  * Include commit right concepts that would be in other charters
 
 EB Members are expected to:
 
@@ -184,7 +184,7 @@ A formal vote may be called when:
 * Timeline constraints require resolution.
 
 The Managing Editor determines when voting is appropriate. Quorum is defined as
-two-thirds of active Editorial Board members,  rounded up to the nearest whole
+two-thirds of active Editorial Board members, rounded up to the nearest whole
 member. Decisions require a simple majority of participating members who have a
 quorum and abstentions do not count toward the majority calculation.
 
@@ -250,7 +250,7 @@ Alternatives
 
 Risks:
 
-* While learning how to function as an editorial board we postpone 1.0 (i.e. better to keep BDFL)  
+* While learning how to function as an editorial board we postpone 1.0 (i.e. better to keep a sole-decision maker)  
 * Agreement was always an issue, but should make the spec stronger.  
 * Time commitments; mitigation: rotation, or further funding
 
@@ -301,3 +301,8 @@ References
 2\. OME Governance Charter. Available at:  [https://www.openmicroscopy.org/governance/charter/](https://www.openmicroscopy.org/governance/charter/)
 
 3\. NGFF Editorial Board Roster. Available at: TBD
+
+
+[RFC-3]: https://ngff.openmicroscopy.org/rfc/3
+[RFC-4]: https://ngff.openmicroscopy.org/rfc/4
+[RFC-6]: https://ngff.openmicroscopy.org/rfc/6
