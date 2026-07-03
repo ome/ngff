@@ -49,6 +49,7 @@ Hackathons have been hosted yearly by the BioVision Center in Zurich:
 Download the <a href="https://calendar.google.com/calendar/ical/14c96687c3814f289f92de53b49bdfa7e5161d458ed1ab02d6a6c8a994522e10%40group.calendar.google.com/public/basic.ics">.ics</a> file and add it to your calendar so won't miss any of our meetings!
 
 ## Contributors
+(community:contributors)=
 Thank you to all the amazing contributors who make OME-NGFF possible:
 
 <iframe src="https://german-bioimaging.github.io/ome-zarr-acknowledgments/" width="800" height="1400"></iframe>
