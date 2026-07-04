@@ -446,8 +446,13 @@ time.
 
 ## Testing
 
-If the RFC is accepted, sample datasets matching the new spec will be
-produced for implementations to test against.
+Datasets conforming to the new specification can be found at:
+
+https://github.com/clbarnes/ome-zarr-rfc3-data
+
+including two real (subsampled) datasets, as well as a script for synthetic
+data generation. Implementations may check their compliance with these
+datasets.
 
 ## License
 
