@@ -492,3 +492,4 @@ This RFC is placed in the public domain.
 | Date       | Description                  | Link                                                                         |
 | ---------- | ---------------------------- | ---------------------------------------------------------------------------- |
 | 2024-10-08 | RFC assigned and published   | [https://github.com/ome/ngff/pull/239](https://github.com/ome/ngff/pull/239) |
+| 2026-07-04 | Updated to address comments, elaborate on use cases, include specific changes to spec doc, and add test data   | [https://github.com/ome/ngff/pull/560](https://github.com/ome/ngff/pull/560) |
