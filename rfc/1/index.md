@@ -1,5 +1,4 @@
-RFC-1: RFC Process
-==================
+# RFC-1: RFC Process
 
 Definition of the NGFF “Request for Comment” (RFC) process
 
@@ -14,6 +13,10 @@ versions/index
 ```
 
 ## Status
+
+```{rfc-status}
+
+```
 
 This RFC has been adopted (S4).
 
@@ -33,7 +36,7 @@ This RFC has been adopted (S4).
     - [joshmoore](https://github.com/joshmoore)
     - [German BioImaging, e.V.](https://ror.org/05tpnw772)
     - 2023-12-23
-    - Author ([PR](https://github.com/ome/ngff/pull/222)) 
+    - Author ([PR](https://github.com/ome/ngff/pull/222))
 *   - Reviewer
     - Davis Bennett, John Bogovic, Michael Innerberger, Mark Kittisopikul, Virginia Scarlett, Yurii Zubov
     - [d-v-b](https://github.com/d-v-b), [bogovicj](https://github.com/bogovicj), [minnerbe](https://github.com/minnerbe), [mkitti](https://github.com/mkitti), [virginiascarlett](https://github.com/virginiascarlett), [yuriyzubov](https://github.com/yuriyzubov)
@@ -154,16 +157,16 @@ which originated in the Internet Engineering Task Force (IETF), for use in the
 NGFF community as has been done in a number of other communities ([Rust](https://github.com/rust-lang/rfcs/blob/master/0000-template.md),
 [Hashicorp](https://works.hashicorp.com/articles/rfc-template), [Tensorflow](https://github.com/tensorflow/community/blob/master/rfcs/yyyymmdd-rfc-template.md), etc.) More information can be found under:
 
-- [https://en.wikipedia.org/wiki/Internet\_Standard#Standardization\_process](https://en.wikipedia.org/wiki/Internet_Standard#Standardization_process)
-- [https://en.wikipedia.org/wiki/Request\_for\_Comments](https://en.wikipedia.org/wiki/Request_for_Comments)
+- [https://en.wikipedia.org/wiki/Internet_Standard#Standardization_process](https://en.wikipedia.org/wiki/Internet_Standard#Standardization_process)
+- [https://en.wikipedia.org/wiki/Request_for_Comments](https://en.wikipedia.org/wiki/Request_for_Comments)
 
 ## Proposal
 
-Requests for Comment (RFCs) are intended to structure high-level discussions on changes within the NGFF community and record outcomes including key opinions, actions, and decisions. The overall goal of the process is timely and transparent decision-making for a stable and trusted community specification. It should be clear after reading the RFC which stakeholder (**Author**, **Reviewer**, **Editor**, etc.) is responsible for each step of the process, what options are available to the decision makers,  and how much time the community can expect that decision to take.
+Requests for Comment (RFCs) are intended to structure high-level discussions on changes within the NGFF community and record outcomes including key opinions, actions, and decisions. The overall goal of the process is timely and transparent decision-making for a stable and trusted community specification. It should be clear after reading the RFC which stakeholder (**Author**, **Reviewer**, **Editor**, etc.) is responsible for each step of the process, what options are available to the decision makers, and how much time the community can expect that decision to take.
 
 ![Simplified drawing of the RFC process](./drawing.png)
 
-**Figure 1.  Simplified drawing of the RFC process** An RFC draft (1) is
+**Figure 1. Simplified drawing of the RFC process** An RFC draft (1) is
 proposed by **Authors** who would like to see some change in the NGFF
 community. There is a period of gathering _[endorsements](#def-endorsement)_
 (2) which will be listed in the RFC itself. This gives future readers and
@@ -178,7 +181,7 @@ with the RFC changes (5). After a minimum number of implementations have been
 achieved, the RFC is considered _adopted_ (6).
 
 The RFC process functions by encouraging submissions from the
-community that are recorded for posterity *even if not adopted*. 
+community that are recorded for posterity _even if not adopted_.
 Descriptive and complete comments from both **Authors** and **Reviewers** are critical
 to have a clear understanding of what decisions have been made.
 Goals of this process include maintaining a public record of
@@ -214,14 +217,14 @@ draft has reached a stage where it is ready for review, **Editors**
 will merge it as a record of the fact that the suggestion has been made, and
 it will then become available on https://ngff.openmicroscopy.org.
 
-**Endorsers** are non-**Author** supporters of an RFC, listed in a table within the RFC. 
-**Reviewers** who have given an "Accept" recommendation  and **Implementers** are also considered **Endorsers**.
+**Endorsers** are non-**Author** supporters of an RFC, listed in a table within the RFC.
+**Reviewers** who have given an "Accept" recommendation and **Implementers** are also considered **Endorsers**.
 
 **Editors** are responsible for facilitating all parts of the RFC process.
 They identify whether a PR should or should not follow the RFC process,
 and choose when a draft is ready to become an RFC. They also choose
 appropriate **Reviewers** for an RFC and manage the communication between
-**Authors** and **Reviewers**. 
+**Authors** and **Reviewers**.
 
 **Implementers** are responsible for an implementation of the NGFF specification in one or more programming languages. It is critical that specification RFCs have been evaluated by **Implementers** which is often best done in the implementation rather than a review. Therefore, statements that an RFC is “planned”, “begun”, or “complete” for an implementation will be given similar weight to an endorsement or positive review.
 
@@ -252,8 +255,8 @@ Identifiers such as "D1", "R2", "S3", refer to individual steps.
 Notes regarding specific requirements are called out throughout the text
 with the following symbols:
 
-> * 🕑 The clock symbol specifies definitive wait times within the process.
-> * 📂 The folder symbol specifies requirements on additions to the repository,
+> - 🕑 The clock symbol specifies definitive wait times within the process.
+> - 📂 The folder symbol specifies requirements on additions to the repository,
 >   for example an implementation or failing test.
 
 ### Phases
@@ -324,36 +327,37 @@ should only be used when necessary.)
 
 (rfc-recommendations)= Possible recommendations from **Reviewers** in ascending order of support are:
 
-* “Reject” suggests that a **Reviewer** considers there to be no merit to an
+- “Reject” suggests that a **Reviewer** considers there to be no merit to an
   RFC. This should be a last recourse. Instead, suggestions in a “Major
   changes” recommendation might include attempting an Extension rather than an
   RFC so that not all implementations need concern themselves with the matter.
-* “Major changes” suggests that a **Reviewer** sees the potential value of an
+- “Major changes” suggests that a **Reviewer** sees the potential value of an
   RFC but will require significant changes before being convinced. Suggestions
   SHOULD be provided on how to concretely improve the proposal in order to make
   it acceptable and change the **Reviewer**’s recommendation.
-* “Minor changes” suggests that if the described changes are made, that
+- “Minor changes” suggests that if the described changes are made, that
   **Editors** can move forward with an RFC without a further review.
-* “Accept” is a positive vote and no text review is strictly necessary, though
+- “Accept” is a positive vote and no text review is strictly necessary, though
   may be provided to add context to the written record. A **Reviewer** who accepts
   an RFC is joining the list of endorsements.
 
 Three additional versions of the "Accept" recommendation are available for
 **Reviewers** who additionally maintain an implementation of the NGFF
 specification to express further support:
-* “Plan to implement” with an estimated timeline
-* “Implementation begun” with an estimated timeline
-* “Implementation complete” with a link to the available code
+
+- “Plan to implement” with an estimated timeline
+- “Implementation begun” with an estimated timeline
+- “Implementation complete” with a link to the available code
 
 Where a review is required, **Reviewers** are free to structure the text in the
 most useful way. A [template markdown file](templates/review_template)
 is available but not mandatory. Useful sections include:
 
-* Summary
-* Conflicts of interest (if they exist)
-* Significant comments and questions
-* Minor comments and questions
-* Recommendation
+- Summary
+- Conflicts of interest (if they exist)
+- Significant comments and questions
+- Minor comments and questions
+- Recommendation
 
 The tone of a review should be cordial and professional. The goal is to communicate
 to the **Authors** what it would take to make the RFC acceptable.
@@ -367,11 +371,11 @@ contact **Reviewers** to see if their recommendations have changed.
 
 > 🕑 Authors responses to Reviewers should be returned to the Editors in less than two weeks.
 
-(anchor-rebuttal-r6)= This brings a critical, and possibly iterative, decision point (R6).  If all **Reviewers** `approve` and there are no further changes needed, the RFC can progress to S1 as soon as there are two in-progress implementations. If the **Reviewers** do _not_ approve, then the **Editors** will make one of three decisions (R7):
+(anchor-rebuttal-r6)= This brings a critical, and possibly iterative, decision point (R6). If all **Reviewers** `approve` and there are no further changes needed, the RFC can progress to S1 as soon as there are two in-progress implementations. If the **Reviewers** do _not_ approve, then the **Editors** will make one of three decisions (R7):
 
-* The **Editors** MAY provide **Authors** a list of necessary changes. These will be based on the **Reviewers** suggestions but possibly modified, e.g., to remove contradictions.
-* The **Editors** MAY decide that the RFC is to be closed (R9). This is the decision that SHOULD be chosen if there is a unanimous `Reject` recommendation. The **Authors** MAY then decide to re-draft a new RFC (D2).
-* Finally,  the **Editors** MAY decide that no further changes are necessary (S0).
+- The **Editors** MAY provide **Authors** a list of necessary changes. These will be based on the **Reviewers** suggestions but possibly modified, e.g., to remove contradictions.
+- The **Editors** MAY decide that the RFC is to be closed (R9). This is the decision that SHOULD be chosen if there is a unanimous `Reject` recommendation. The **Authors** MAY then decide to re-draft a new RFC (D2).
+- Finally, the **Editors** MAY decide that no further changes are necessary (S0).
 
 If the **Editors** decide to override the recommendations of the **Reviewers** (R7) the **Editors** MUST include a response (S0). This may occur, for example, if consent between the reviewers cannot be reached. In the case of a unanimous `Reject`, the **Editors** SHOULD attempt to find at least one additional, approving **Reviewer** .
 
@@ -419,7 +423,7 @@ listed, the specification will be considered "adopted". The adopted
 specification will be slotted into a release version by the **Editors** and the
 **Authors** are encouraged to be involved in that release.
 
->  📂 Two released implementations required for being adopted.
+> 📂 Two released implementations required for being adopted.
 
 ## Policies
 
@@ -429,8 +433,9 @@ This section defines several concrete aspects of the RFC process not directly re
 
 Unless otherwise specified in the text, the following considerations are taken
 into account when making decisions regarding RFCs:
- - **prefer working examples**: whether an implementation of an RFC or a failing test which exposes an issue in a proposal, working examples will tend to carry more weight in decision making.
- - **technical expertise**: all other considerations being equal, feedback from stakeholders with more technical expertise in a matter under consideration will tend to carry more weight in decision making.
+
+- **prefer working examples**: whether an implementation of an RFC or a failing test which exposes an issue in a proposal, working examples will tend to carry more weight in decision making.
+- **technical expertise**: all other considerations being equal, feedback from stakeholders with more technical expertise in a matter under consideration will tend to carry more weight in decision making.
 - **newcomer advantage**: care will be taken not to let existing implementations overly dictate the future strategic direction of NGFF in order to avoid premature calcification.
 
 ### RFC Prioritization
@@ -446,7 +451,7 @@ the community. Which cross-sections are chosen MAY depend on a given RFC but
 might include geographic distributions, the variety of imaging modalities,
 and/or programming languages of the expected implementations. An attempt MUST
 also be made to select both supporting and dissenting voices from the community.
-*Editors* and *Reviewers* should proactively disclose any potential conflicts
+_Editors_ and _Reviewers_ should proactively disclose any potential conflicts
 of interest to ensure a transparent review process.
 
 ### Deadline enforcement
@@ -454,10 +459,11 @@ of interest to ensure a transparent review process.
 In the absence of concrete mechanisms for deadline enforcement (penalties, etc), all members of the NGFF community and especially the **Editors** SHOULD strive to prevent the specification process from becoming blocked.
 
 The **Editors**, however will endeavor to:
-* keep a record of all communications to identify bottlenecks and improve the RFC process;
-* frequently contact **Authors** and **Reviewers** regarding approaching deadlines;
-* find new **Reviewers** when it becomes clear that the current slate is overextended;
-* and proactively mark RFCs as inactive if it becomes clear that progress has stalled.
+
+- keep a record of all communications to identify bottlenecks and improve the RFC process;
+- frequently contact **Authors** and **Reviewers** regarding approaching deadlines;
+- find new **Reviewers** when it becomes clear that the current slate is overextended;
+- and proactively mark RFCs as inactive if it becomes clear that progress has stalled.
 
 **Authors** and **Reviewers** are encouraged to be open and honest, both with themselves and the other members of the process, on available time. A short message stating that an edit or a review will not occur on deadline or even at all is preferable to silence.
 
@@ -467,7 +473,7 @@ The process description describes “sufficient endorsement” in two locations,
 
 Under RFC-0, three implementation languages — Javascript, Python, and Java — were considered “reference”, or “required”, for a specification to be complete. This proved a difficult barrier since the implementation teams were not directly funded for work on NGFF.
 
-RFC-1 has chosen to start with a simpler requirement: **two** separate implementations MUST be _begun_ to enter the SPEC phase and **two** separate implementations (they need not be the same ones) MUST be _released_ to be considered adopted. In both cases, at least **one** of those implementations MUST come from an **Implementer** who is not among the  **Authors**.  Additionally, data written by both implementations MUST be readable (and therefore validatable) by at least **one** of the implementations.
+RFC-1 has chosen to start with a simpler requirement: **two** separate implementations MUST be _begun_ to enter the SPEC phase and **two** separate implementations (they need not be the same ones) MUST be _released_ to be considered adopted. In both cases, at least **one** of those implementations MUST come from an **Implementer** who is not among the **Authors**. Additionally, data written by both implementations MUST be readable (and therefore validatable) by at least **one** of the implementations.
 
 It is also strongly encouraged that for each specification change, the [ome-ngff-validator](https://github.com/ome/ome-ngff-validator) additionally be updated. The validator will not fully test the readability of a dataset since it has limited IO capabilities, but it is the most complete tool for validating the metadata associated with a dataset.
 
@@ -480,6 +486,7 @@ This policy does not yet specify whether parts of an RFC may be considered _opti
 The IETF RFC process disallows edits to published RFCs. (In the extreme case, a single word change has resulted in a new RFC number.) Though this ensures a unique interpretation of any RFC number, it would also lead to significant duplication of content and _churn_ in the NGFF community.
 
 Though this decision may be reviewed in the future, RFCs MAY be edited, but **Editors** SHOULD limit modifications to _adopted_ RFCs only for:
+
 - clarification: additional text and examples which simplify the implementation of specifications are welcome;
 - deprecation: where sections are no longer accurate and especially when they have been replaced by a new RFC, the existing text can be marked and a link to the updated information provided;
 - and extension: references to new RFCs can be added throughout an existing RFC to provide simpler reading for **Implementers**.
@@ -487,10 +494,11 @@ Though this decision may be reviewed in the future, RFCs MAY be edited, but **Ed
 In writing RFCs, **Authors** SHOULD attempt to clearly identify sections which may be deprecated or extended in the future.
 
 Before an RFC is _adopted_ there are a number of versions of an RFC which are produced during the editing and revision process. This RFC does not try to specify how those versions are managed. The **Editors** are encouraged to layout a best practice as described under “Workflow” that simplifies the review process. Possible solutions include:
-* using commit numbers version
-* making hard-copies of versions under review
-* creating a separate repository per RFC
-* opening a long-lived “review PR” with a dedicated URL
+
+- using commit numbers version
+- making hard-copies of versions under review
+- creating a separate repository per RFC
+- opening a long-lived “review PR” with a dedicated URL
 
 ### Specification Versions
 
@@ -515,7 +523,7 @@ an expedited process. A similar model is in use within the IETF community. If th
 
 ### Handling Disagreements
 
-The OME community is open to everybody and built upon mutual respect. Nevertheless, disagreements do occur. 
+The OME community is open to everybody and built upon mutual respect. Nevertheless, disagreements do occur.
 
 All activities within the NGFF community are conducted under the OME [Code of Conduct](https://github.com/ome/.github/blob/master/CODE_OF_CONDUCT.md#when-something-happens). If you feel that your objections are not being considered, please follow the steps outlined under “When Something Happens”.
 
@@ -551,7 +559,7 @@ on GitHub does not provide the editorial functions that one would want, such as
 deferring and collecting comments, nor do the conversations provide a
 consistent whole when revisited after the work on a specification.
 Additionally, **Authors** have complained of the burden of managing responses.
-So there's a need for *something*, but does this proposal go too far in the
+So there's a need for _something_, but does this proposal go too far in the
 other direction?
 
 It is certainly true that the formality of the responses asked of the
@@ -601,7 +609,7 @@ using adaptions of the RFC process which will not be re-listed here. However,
 there are also other enhancement processes which are closely related to the
 NGFF RFC. Most closely, is the Zarr Enhancement Proposals (ZEP) process within
 the Zarr community. Based originally on a combination of the PEP, NEP, and STAC
-processes, the ZEP process uses a council of the implementations (ZIC) 
+processes, the ZEP process uses a council of the implementations (ZIC)
 
 ## Future possibilities
 
@@ -627,12 +635,12 @@ Definitions for terms used throughout this RFC have been collected below.
 (def-accepted)=
 **Accepted**
 : Specifies that an RFC has passed review and all implementers should begin
-  implementation if they have not done so already.
+implementation if they have not done so already.
 
 (def-adopted)=
 **Adopted**
 : An RFC that has been sufficiently implemented to be considered
-  as active within the community.
+as active within the community.
 
 (def-author)=
 **Author**
@@ -641,8 +649,8 @@ Definitions for terms used throughout this RFC have been collected below.
 (def-comment)=
 **Comment**
 : Documents that are included with the RFC discussing the pros and
-  cons of the proposal in a structured way. Comments from reviewers are
-  additionally referred to as "reviews".
+cons of the proposal in a structured way. Comments from reviewers are
+additionally referred to as "reviews".
 
 (def-draft)=
 **Draft**
@@ -659,8 +667,8 @@ Definitions for terms used throughout this RFC have been collected below.
 (def-rfc)=
 **RFC** ("Request for Comment")
 : A formal proposal following a standardized
-  template that is made to the NGFF repository. The proposal need not be
-  accepted to be published online.
+template that is made to the NGFF repository. The proposal need not be
+accepted to be published online.
 
 (def-pr)=
 **PR**

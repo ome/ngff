@@ -1,4 +1,17 @@
+---
+authors:
+    - name: Matthew Hartley
+      affiliation: BioImage Archive, EMBL-EBI
+      github: matthewh-ebi
+recommendation: accept
+---
+
 # RFC-1: Review 3
+
+```{document-authors}
+
+```
+
 
 This review submitted by Matthew Hartley, on behalf on EMBL-EBI's imaging data resources (BioImage Archive, EMPIAR and EMDB).
 

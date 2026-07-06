@@ -1,3 +1,13 @@
+---
+authors:
+  - name: Joel Lüthi
+  - name: Virginie Uhlmann
+    affiliation: BiovisionCenter
+  - name: Kevin Yamauchi
+    affiliation: ETH
+recommendation: major_changes
+date: 2024-03-05
+---
 # RFC-1: Review 1
 
 ## Review authors

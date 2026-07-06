@@ -7,6 +7,7 @@ authors:
     affiliation: BioImage Archive, EMBL-EBI
     github: matthewh-ebi
 date: 2026-01-29
+recommendation: minor_changes
 ---
 
 # RFC-9: Review 2

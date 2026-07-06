@@ -1,9 +1,17 @@
+---
+authors:
+  - name: Wouter-Michiel Vierdag
+    affiliation: EMBL
+    github: melonora
+  - name: Luca Marconato
+    affiliation: EMBL
+    github: LucaMarconato
+---
 # RFC-1: Comment 1
 
-| Name                   | GitHub Handle | Institution          |
-|------------------------|---------------|----------------------|
-| Wouter-Michiel Vierdag | melonora      | EMBL                 |
-| Luca Marconato         | LucaMarconato | EMBL                 |
+```{document-authors}
+
+```
 
 ## Comments on implementations
 
