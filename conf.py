@@ -16,7 +16,7 @@ author = "NGFF Community"
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 
-# Needed for custom rfc_authors extension to be found in _ext
+# Needed for custom document_authors extension to be found in _ext
 import os
 import sys
 
@@ -27,7 +27,7 @@ extensions = [
     "sphinx_reredirects",
     "sphinx_design",
     "sphinxcontrib.bibtex",
-    "rfc_authors",
+    "document_authors",
 ]
 bibtex_bibfiles = ["references.bib"]
 source_suffix = [".rst", ".md"]
@@ -88,7 +88,7 @@ html_static_path = ["_static"]
 
 html_css_files = [
     "https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css",
-    "rfc_authors.css",
+    "document_authors.css",
 ]
 
 html_js_files = [

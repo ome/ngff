@@ -20,7 +20,7 @@ date: 2026-02-05
 
 ## Comment authors
 
-```{rfc-authors}
+```{document-authors}
 
 ```
 
