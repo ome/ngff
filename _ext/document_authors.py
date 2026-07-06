@@ -18,7 +18,7 @@ def _icon_link(uri, src, alt):
     return ref
 
 
-class RFCAuthors(Directive):
+class DocumentAuthors(Directive):
     def run(self):
         env = self.state.document.settings.env
         src = env.doc2path(env.docname)
@@ -81,5 +81,5 @@ class RFCAuthors(Directive):
 
 
 def setup(app):
-    app.add_directive("rfc-authors", RFCAuthors)
+    app.add_directive("document-authors", DocumentAuthors)
     return {"parallel_read_safe": True, "parallel_write_safe": True}

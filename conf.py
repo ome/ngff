@@ -28,6 +28,7 @@ extensions = [
     "sphinx_design",
     "sphinxcontrib.bibtex",
     "document_authors",
+    "rfc_status",
 ]
 bibtex_bibfiles = ["references.bib"]
 source_suffix = [".rst", ".md"]

@@ -13,9 +13,9 @@ date: 2026-01-09
 
 ## Comment authors
 
-This comment was written by: Lenard Spiecker<sup>1</sup> and Matthias Grunwald<sup>1</sup>
+```{document-authors}
 
-<sup>1</sup> Miltenyi Biotec B.V. & Co. KG
+```
 
 ## Conflicts of interest
 

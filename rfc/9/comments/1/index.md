@@ -1,10 +1,20 @@
+---
+authors:
+  - name: Matt McCormick
+    affiliation: Fideus Labs LLC
+    github: thewtex
+date: 2025-11-15
+---
+
 # RFC-9: Comment 1
 
 (rfcs:rfc9:comment1)=
 
 ## Comment authors
 
-This comment was written by: Matt McCormick, Fideus Labs LLC.
+```{document-authors}
+
+```
 
 ## Conflicts of interest (optional)
 
@@ -23,6 +33,7 @@ We have implemented the specification, including reading, writing, and all the r
 We recommend including a concrete example of the expected file order for clarification. This would help implementers understand exactly how to order `zarr.json` files in breadth-first order.
 
 For instance, given a hierarchy like:
+
 ```
 /
 ├── zarr.json (root)
@@ -37,6 +48,7 @@ For instance, given a hierarchy like:
 ```
 
 The recommended ZIP entry order would be:
+
 1. `zarr.json` (root)
 2. `image/zarr.json`
 3. `labels/zarr.json`
