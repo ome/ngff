@@ -1,26 +1,26 @@
 ---
 authors:
-    - name: Jonas Windhager
-        github: jwindhager
-        affiliation: SciLifeLab / Uppsala University, Sweden
-        role: Corresponding Author
-        date: 2025-07-02
-    - name: Norman Rzepka
-        github: normanrz
-        affiliation: scalable minds GmbH, Germany
-        role: Co-author
-        date: 2025-08-27
-    - name: Mark Kittisopikul
-        github: mkitti
-        affiliation: HHMI Janelia, United States
-        role: Co-author
-        date: 2025-08-27
+  - name: Jonas Windhager
+    github: jwindhager
+    affiliation: SciLifeLab / Uppsala University, Sweden
+    role: Corresponding Author
+    date: "2025-07-02"
+  - name: Norman Rzepka
+    github: normanrz
+    affiliation: scalable minds GmbH, Germany
+    role: Co-author
+    date: "2025-08-27"
+  - name: Mark Kittisopikul
+    github: mkitti
+    affiliation: HHMI Janelia, United States
+    role: Co-author
+    date: "2025-08-27"
 editors:
-    - name: Josh Moore
-        github: joshmoore
-        affiliation: German BioImaging e.V.
-        role: Editor
-        date: 2025-11-05
+  - name: Josh Moore
+    github: joshmoore
+    affiliation: German BioImaging e.V.
+    role: Editor
+    date: "2025-11-05"
 reference_pr: https://github.com/ome/ngff/pull/316
 date: 2025-07-02
 ---
@@ -42,20 +42,9 @@ Add a specification for storing an OME-Zarr hierarchy within a ZIP archive.
 
 This RFC is currently in state `R2` (waiting on reviewers).
 
-| Role      | Name                                       | GitHub Handle                                                                    | Institution                                    | Date       | Status                                               |
-| --------- | ------------------------------------------ | -------------------------------------------------------------------------------- | ---------------------------------------------- | ---------- | ---------------------------------------------------- |
-| Author    | Jonas Windhager                            | [jwindhager](https://github.com/jwindhager)                                      | SciLifeLab / Uppsala University, Sweden        | 2025-07-02 | Corresponding Author [PR]()                          |
-| Author    | Norman Rzepka                              | [normanrz](https://github.com/normanrz)                                          | scalable minds GmbH, Germany                   | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316) |
-| Author    | Mark Kittisopikul                          | [mkitti](https://github.com/mkitti)                                              | HHMI Janelia, United States                    | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316) |
-| Editor    | Josh Moore                                 | [joshmoore](https://github.com/joshmoore)                                        | German BioImaging e.V.                         | 2025-11-05 | Editor                                               |
-| Reviewer  | Pete Bankhead                              | [petebankhead](https://github.com/petebankhead)                                  | University of Edinburgh, United Kingdom        | 2026-01-26 | [Review](./reviews/1/index)                          |
-| Reviewer  | Kola Babalola, Matthew Hartley             | [kbab](https://github.com/kbab), [matthewh-ebi](https://github.com/matthewh-ebi) | BioImage Archive, EMBL-EBI                     | 2026-01-29 | [Review](./reviews/2/index)                          |
-| Reviewer  | Curtis Rueden                              | [ctrueden](https://github.com/ctrueden)                                          | University of Wisconsin-Madison, United States | 2026-01-30 | [Review](./reviews/3/index)                          |
-| Commenter | Matt McCormick                             | [thewtex](https://github.com/thewtex)                                            | Fideus Labs LLC                                | 2025-11-15 | [Comment](./comments/1/index)                        |
-| Commenter | Joost de Folter                            | [folterj](https://github.com/folterj)                                            | BioImaging-NL                                  | 2025-12-03 | [Comment](./comments/2/index)                        |
-| Commenter | Chris Barnes                               | [clbarnes](https://github.com/clbarnes)                                          | German BioImaging                              | 2025-12-12 | [Comment](./comments/3/index)                        |
-| Commenter | Anna Kreshuk, Dominik Kutra, Benedikt Best | [k-dominik](https://github.com/k-dominik), [btbest](https://github.com/btbest)   | ilastik                                        | 2026-01-09 | [Comment](./comments/5/index)                        |
-| Commenter | Lenard Spiecker, Matthias Grunwald         | [l-spiecker](https://github.com/l-spiecker)                                      | Miltenyi Biotec B.V. & Co. KG                  | 2026-02-05 | [Comment](./comments/4/index)                        |
+```{rfc-status}
+
+```
 
 ## Overview
 
