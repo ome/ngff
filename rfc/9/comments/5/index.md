@@ -1,15 +1,15 @@
 ---
 authors:
   - name: Anna Kreshuk
-    orcid: https://orcid.org/0000-0003-1334-6388
+    orcid: 0000-0003-1334-6388
     affiliation: ilastik
   - name: Dominik Kutra
     github: k-dominik
-    orcid: https://orcid.org/0000-0003-4202-3908
+    orcid: 0000-0003-4202-3908
     affiliation: ilastik
   - name: Benedikt Best
     github: btbest
-    orcid: https://orcid.org/0000-0001-6965-1117
+    orcid: 0000-0001-6965-1117
     affiliation: ilastik
 date: 2026-02-05
 ---
