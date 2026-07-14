@@ -450,9 +450,26 @@ Datasets conforming to the new specification can be found at:
 
 https://github.com/clbarnes/ome-zarr-rfc3-data
 
-including two real (subsampled) datasets, as well as a script for synthetic
-data generation. Implementations may check their compliance with these
-datasets.
+This includes three synthetic datasets and (in progress, pull request #1) two
+real (subsampled) datasets.
+
+HTTP access to the datasets is currently available at:
+
+```
+# synthetic data
+https://huggingface.co/buckets/clbarnes/ome-zarr-rfc3-data/resolve/astronaut_xcy.ome.zarr
+https://huggingface.co/buckets/clbarnes/ome-zarr-rfc3-data/resolve/ecg_1d.ome.zarr
+https://huggingface.co/buckets/clbarnes/ome-zarr-rfc3-data/resolve/ramp_6d.ome.zarr
+# subsampled real data
+https://test-bucket.image.coop/rfc3/flim-tmr31-3-reduced64.ome.zarr
+https://test-bucket.image.coop/rfc3/CP-Ti-abnormal-grains.zarr
+```
+
+Implementations may check their compliance with this RFC using these datasets.
+As a reminder, this RFC explicitly takes the position that partial
+implementations are OK, and software is considered compliant if it provides
+an informative error message (e.g. "The given dataset contains an unknown axis
+'U', which is not supported by this viewer.").
 
 ## License
 
