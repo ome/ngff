@@ -93,6 +93,12 @@ This RFC is currently in RFC state `R1` (send for review).
     - German BioImaging
     - 2026-02-05
     - [Comment](./comments/2/index)
+*   - Commenter
+    - Cornelia Wetzker
+    - [cwetzker](https://github.com/cwetzker)
+    - Technische Universität Dresden
+    - 2026-03-19
+    - [Comment](./comments/3/index)
 ```
 
 ## Overview
@@ -114,67 +120,160 @@ bioimaging data and metadata to make it findable, accessible, interoperable,
 and reusable. The [paper describing NGFF and OME-Zarr][nat methods paper] notes
 that "the diversity of [biological imaging's] applications have prevented the
 establishment of a community-agreed standardized data format", but, [for
-historical reasons][ome-model], [version 0.4 of the OME-Zarr
-specification][ngff 0.4] [imposes][ngff 0.4 multiscales metadata] strict
-restrictions on the
+historical reasons][ome-model], [versions 0.4][ngff 0.4], [0.5][ngff 0.5], and
+the currently-in-development [0.6 specification][ngff 0.6], which incorporates
+RFC-5, all [impose][ngff 0.5 multiscales metadata] strict restrictions on the
 applications:
 
-> The length of "axes" must be between 2 and 5 and MUST be equal to the
-> dimensionality of the zarr arrays storing the image data (see
-> "datasets:path"). The "axes" MUST contain 2 or 3 entries of "type:space" and
-> MAY contain one additional entry of "type:time" and MAY contain one additional
-> entry of "type:channel" or a null / custom type. The order of the entries MUST
-> correspond to the order of dimensions of the zarr arrays. In addition, the
-> entries MUST be ordered by "type" where the "time" axis must come first (if
-> present), followed by the  "channel" or custom axis (if present) and the axes
-> of type "space". If there are three spatial axes where two correspond to the
-> image plane ("yx") and images are stacked along the other (anisotropic) axis
-> ("z"), the spatial axes SHOULD be ordered as "zyx".
+> Here, "image" refers to 2 to 5 dimensional data representing image or
+> volumetric data with optional time and channel axes.
 
-And:
+and,
 
-> Each "datasets" dictionary MUST have the same number of dimensions and MUST
-> NOT have more than 5 dimensions.
+> - The length of `axes` must be between 2 and 5 and MUST be equal to the
+>   dimensionality of the Zarr arrays storing the image data (see
+>   `datasets:path`).
+> - `axes` MUST contain 2 or 3 entries of `type:space`
+> - `axes` MAY contain one additional entry of `type:time`
+> - `axes` MAY contain one additional entry of `type:channel` or a null /
+>   custom type.
+> - `axes` entries MUST be ordered by `type` where the `time` axis must come
+>   first (if present), followed by the `channel` or custom axis (if present)
+>   and the axes of type `space`.
+> - If there are three spatial axes where two correspond to the image plane
+>   (`yx`) and images are stacked along the other (anisotropic) axis (`z`), the
+>   spatial axes SHOULD be ordered as `zyx`.
 
-These restrictions prevent users from converting existing
-datasets to OME-Zarr. For example, Zeiss .czi datasets [may contain][czi format
-dimensions] dimensions such as H, I, and V to store different phases,
-illumination directions, or views respectively. To say nothing of synthetic data
-that may contain "artificial" dimensions such as principal components or axes of
-other dimensionality reduction-techniques from many images. They may also hamper
-the adoption of OME-Zarr as an acquisition-time format due to performance concerns
-when data must be manipulated to accommodate a strict dimension order.
 
-## Motivation
+and,
 
-In addition to the .czi datasets mentioned in the preceding paragraph, this
-section describes six dataset types that are currently impossible to represent
-in OME-Zarr:
+> - Every Zarr array referred to by a `path` MUST have the same number of
+>   dimensions and datatype and MUST NOT have more than 5 dimensions.
 
-- in [electron backscatter diffraction (EBSD)][ebsd], a microscopy technique
-  common in materials science, a beam of electrons is scanned over a surface,
-  and for each (2D) position in the scan, a full 2D diffraction pattern is
-  recorded, resulting in a 4-dimensional data array.
-- from the diffraction patterns, it is possible to obtain an *orientation map*,
-  containing a 3D angle at each 2D position of the material.
-- the same principles apply to [diffusion tensor imaging][dti], where a
-  three-dimensional diffusion tensor is measured at each voxel.
-- it is common to compute Fourier transforms of 3D images. The datasets have
-  three dimensions but they are measured in *frequency*, not space.
-- when computing segmentations, one may use finer or coarser priors, resulting
-  in overlapping, equally valid segmentations, for example, of organelles at
-  one level, cells at another, and tissues at yet another. One common way to
-  store such a segmentation is to add a dimension for "coarseness".
-- computed spaces may have arbitrary dimensions related to the computation. For
-  example, in subtomogram averaging of [cryo electron tomography][CryoET],
-  single particles from a tomogram are picked and aligned, producing many
-  instances of the same 3-dimensional particle. One may wish to store all the
-  instances in a single 4-dimensional array (one dimension being the *instance
-  number*). Or, one may use dimension-reduction techniques such as PCA, then
-  browse average particles along each PCA axis. This creates a virtual 5D space
-  containing the three spatial dimensions, then a "component number" axis for
-  the PCA components and a "position" axis for the position along that
-  component.
+These restrictions prevent users and prospective users from converting existing
+datasets to OME-Zarr. For example, Zeiss .czi datasets
+[may contain][czi format dimensions] dimensions such as H, I, and V to store
+different phases, illumination directions, or views respectively. They also
+hamper the adoption of OME-Zarr as an acquisition-time format due to
+performance concerns: many acquisitions happen in TZCYX order (all channels are
+acquired together for each z-slice), which violates the "axes must be ordered
+by type" requirement. In such cases, scientists must first acquire their data
+and *then* transpose it — an expensive proposition for large datasets. (Note:
+Admittedly, Zarr transpose codecs, as well as the mapAxis transformation from
+RFC-5, already offer solutions to this problem. However, the *simplest*
+solution of flexible array ordering with default codecs and only scale and
+translation transforms is only open after this RFC.)
+
+## Motivation / User stories
+
+Dimensions other than TCZYX have many existing uses in microscopy, which are
+currently cumbersome or even impossible to do in OME-Zarr. We detail some
+below:
+
+### Conversion of existing microscopy data formats to OME-Zarr
+
+As noted in [background](#background), existing microscopy image data formats
+already have dimensions other than OME's TCZYX. Zeiss's .czi file format [can
+include][czi format dimensions] H, I, and V, representing different phases,
+illumination directions, or views. Leica's .lif format uses [many other
+dimensions][lif dimensions], including λ (lambda) for different emission
+wavelengths, A for different rotations, Λ (capital lambda) for different
+emission wavelengths, and M for a "mosaic" dimension.
+
+In order for OME-Zarr to gain broad adoption, it should be able to represent
+datasets from common microscope vendors. Although workaround exist (such as
+using the current "Custom" dimension and interleaving other dimensions into it,
+or splitting the image into several TCZYX images), they are cumbersome and make
+the resulting data difficult to manage.
+
+### Fluorescence Lifetime Imaging Microscopy (FLIM)
+
+In [Fluorescence Lifetime Imaging Microscopy (FLIM)][flim], there is an
+additional time dimension containing the fluorophore decay over a much shorter
+time scale (nanoseconds) than the typical spacing between time points. The
+fluorophore decay lifetime can be used to get more information about the
+sample, for example by separating fluorophores not only according to their
+emission spectra but also their lifetime. The decay measurement constitutes an
+additional time axis called `u` or `µ` and can result in a 6-dimensional
+dataset with axes `CTUZYX`. (See [comment 3](./comments/3/index), and [this
+paper][flim-paper].)
+
+FLIM data currently cannot be represented in OME-Zarr, causing users to use
+proprietary formats, bare Zarr arrays missing critical metadata (e.g.
+[S-BIAD1967][S-BIAD1967] on BioImage Archive), or datasets
+split along an arbitrary axis in order to be represented e.g. as OME-TIFF (see
+[above dataset in OMERO][flim-omero]), making exploration and analysis
+needlessly difficult.
+
+### Electron backscatter diffraction (EBSD)
+
+In [electron backscatter diffraction (EBSD)][ebsd], a microscopy technique
+common in materials science, a beam of electrons is scanned over a surface,
+and for each (2D) position in the scan, a full 2D diffraction pattern is
+recorded, resulting in a 4-dimensional data array, with axes `x`, `y`, and
+`dx`, `dy` for the diffraction pattern, also of `type:space`, typically
+measured in `mm`. From EBSD spectra, scientists may detect the orientation of a
+crystal at any (x, y) position, and thus infer the crystal boundaries.
+Comparing the inferred crystal boundaries with the original patterns is an
+important part of data quality checks. Currently, this kind of microscopy data
+cannot be stored in OME-Zarr.
+
+Within the same workflow, the crystal orientation is usually encoded as three
+*Euler angles* or four *quaternion* components stored at each pixel position.
+Although it's possible to use the "custom" axis for this purpose, a dedicated
+axis with a clear naming convention is more ergonomic for scientists.
+
+### Diffusion Tensor Imaging (DTI)
+
+3-dimensional [DTI][dti] measures the ease with which water diffuses in
+different directions in a tissue. At each pixel, you then have a symmetric
+2-dimensional diffusion tensor with components `Dzz`, `Dzy = Dyz`, `Dzx = Dxz`,
+`Dyy`, `Dyx = Dxy`, and `Dxx`. These could be represented either as a
+specialised single axis, or, with a custom Zarr codec for symmetric matrices,
+as the mathematical, 2-axis symmetric matrix per pixel.
+
+### Fourier analysis
+
+Transforming images into Fourier space (spatial frequency) is common in many
+image analysis pipelines, for example for filtering, artifact removal,
+denoising, and deconvolution. For computational efficiency, scientists may want
+to save these intermediate image products for later reprocessing.
+
+### Overlapping labels
+
+OME-Zarr can represent not only raw images, but also *label images*, or
+segmentations. Traditionally, segmentations assigned a single integer value to
+each pixel in the source image. However, newer segmentation methods produce
+*coarse-to-fine* segmentations, with semantic meaning. For images spanning many
+scales, as produced by modern microscopes, we may want to segment tissues,
+cells within those tissues, and organelles within those cells. These three
+levels of segmentations can be stacked along a new "coarseness" axis.
+
+Similarly, new segmentation methods can produce *overlapping binary masks*. Due
+to the overlap, they *cannot* be stored as traditional integer masks (one value
+per pixel), but are typically instead stored as *n* boolean masks. For this
+mask, an extra "instance" axis is needed in addition to the [TCZ]YX axes of a
+source image.
+
+### Other computational outputs
+
+Downstream computational products are necessary for the analysis of microscopy
+data, and these should ideally be stored in formats compatible with the tooling
+used to work with the raw data. The format aims to be flexible enough to
+accommodate these products, such as segmentations (the `label-image` section),
+or the outputs of registrations (see [rfc-5](../5/index)).
+
+Some outputs may naturally contain arbitrary dimensions, for example, a grid
+search of the parameter space for a denoising algorithm may contain an
+additional axis per parameter.
+
+Similarly, when creating a deep learning dataset, we may wish to store original
+image instances along one axis and augmented instances along another.
+
+In general, the space of downstream products is quite literally endless, and it
+would serve the community to be able to store those products in OME-Zarr, with
+proper metadata, relating back to the original data, rather than having to use
+custom containers and manage metadata separately.
 
 ## Proposal
 
@@ -197,28 +296,82 @@ appropriate action depends on the tool, but some suggestions include:
 - arbitrarily choose which axes to treat as spatial.
 - choose how to treat each axis based on heuristics such as size and position.
 
-## Prior art and references
+Here are the concrete changes that this RFC makes to the specification
+document, taking as base the current development version:
 
-All of the above removals are part of the draft proposed [transformations
-specification][trafo spec], with one exception: the draft currently specifies
-that a dataset may only have up to three spatial axes. However, this limitation
-is [not set in stone][space dims comment] and could be removed, partly to
-improve backwards compatibility.
+1. The following lines are removed from "multiscales metadata":
+
+> - The length of `axes` must be between 2 and 5 and MUST be equal to the
+>   dimensionality of the Zarr arrays storing the image data (see
+>   `datasets:path`).
+>
+> - `axes` MUST contain 2 or 3 entries of `type:space`
+>
+> - `axes` MAY contain one additional entry of `type:time`
+>
+> - `axes` MAY contain one additional entry of `type:channel` or a null /
+>   custom type.
+>
+> - `axes` entries MUST be ordered by `type` where the `time` axis must come
+>   first (if present), followed by the `channel` or custom axis (if present)
+>   and the axes of type `space`.
+>
+> - If there are three spatial axes where two correspond to the image plane
+>   (`yx`) and images are stacked along the other (anisotropic) axis (`z`), the
+>   spatial axes SHOULD be ordered as `zyx`.
+
+2. The following lines are *added* to "multiscales metadata":
+
+> 0. The length of the axis names MUST match the number of axes of the array.
+> 1. *If* a dataset contains exactly 2 spatial dimensions, those dimensions
+>    SHOULD be named `y` and `x`, except where rule 4 applies.
+> 2. *If* a dataset contains exactly 3 spatial dimensions, those dimensions
+>    SHOULD be named 'z', 'y', and 'x', except where rule 4 applies.
+> 3. *If* a dataset contains exactly 1 time dimension, it should be named `t`.
+> 4. When image data axes map straightforwardly to axes with common names in
+>    the relevant field of practice, those axes SHOULD be named according to
+>    such conventions. For example, spatial frequency axes resulting from a
+>    Fourier transformation of `z', 'y', and 'x' SHOULD be named 'w', 'v', and
+>    `u`, respectively. Similarly, a temporal frequency axis resulting from
+>    a Fourier transformation of the `t` axis SHOULD be named `w` or `ω`.
+> 5. Axis names MUST NOT be repeated within a dataset, and SHOULD NOT be
+>    different only by upper/lower-case. For example, the same dataset SHOULD
+>    NOT have both an `X` and an `x` axis.
+> 6. The order of the axes MUST match their ordering within the data if
+>    applicable. For example, if the axes are ordered as `DZYX`, where `D` is a
+>    field of displacement vectors, then the vectors must be ordered as `ZYX`
+>    within the array.
+
+3. The following lines are amended as noted:
+
+> Note that the number of dimensions is variable ~~between 2 and 5~~ and that
+> axis names are arbitrary, see multiscales metadata for details.
+
+> ~~Here, "image" refers to 2 to 5 dimensional data representing image or
+> volumetric data with optional time or channel axes. It is stored in a
+> multiple resolution representation.~~
+> Here, "image" refers to data stored in a Zarr Array representing image,
+> volumetric, time lapse, or similar data. It MAY be stored in multiple
+> resolutions.
+
+> Every Zarr array referred to by a path MUST have the same number of
+> dimensions and datatype.~~, and MUST NOT have more than 5 dimensions.~~
+
+No further changes to the specification document are proposed by this RFC.
 
 ## Stakeholders
 
-Who has a stake in whether this RFC is accepted?
+Extensive prior discussion of this RFC has happened on [PR 239][gh-239], on
+[image.sc][imagesc-rfc-3-thread], and on [Zulip][zulip-rfc-3-thread]. There is
+emphatic support from the image acquisition community, which has been stifled
+from supporting OME-Zarr by the restrictions removed in this RFC. Additionally,
+users of less-common imaging modalities, such as FLIM, also strongly support
+the RFC.
 
-* Facilitator: Josh Moore (OME)
-* Proposed reviewers:
-  - John Bogovic (HHMI Janelia Research Campus): lead author of draft
-  [transformations specification proposal][trafo spec]
-  - Will Moore (OME): maintainer of ome-zarr-py library
-  - Norman Rzepka (Scalable Minds): maintainer of zarrita
-* Consulted:
-  - Every commenter [on this thread](https://github.com/ome/ngff/pull/239).
-* Socialization:
-  - image.sc: <https://forum.image.sc/t/ome-ngff-update-postponing-transforms-previously-v0-5/95617/2>
+Developers of visualization libraries and software are concerned that this PR
+may result in a "wild west" of OME-Zarr datasets that have little in common,
+making it difficult for tools to decide *which* axes to display. More details
+about these concerns are developed below in the "Drawbacks" section.
 
 ## Backwards Compatibility
 
@@ -293,8 +446,30 @@ time.
 
 ## Testing
 
-If the RFC is accepted, sample datasets matching the new spec will be
-produced for implementations to test against.
+Datasets conforming to the new specification can be found at:
+
+https://github.com/clbarnes/ome-zarr-rfc3-data
+
+This includes three synthetic datasets and (in progress, pull request #1) two
+real (subsampled) datasets.
+
+HTTP access to the datasets is currently available at:
+
+```
+# synthetic data
+https://huggingface.co/buckets/clbarnes/ome-zarr-rfc3-data/resolve/astronaut_xcy.ome.zarr
+https://huggingface.co/buckets/clbarnes/ome-zarr-rfc3-data/resolve/ecg_1d.ome.zarr
+https://huggingface.co/buckets/clbarnes/ome-zarr-rfc3-data/resolve/ramp_6d.ome.zarr
+# subsampled real data
+https://test-bucket.image.coop/rfc3/flim-tmr31-3-reduced64.ome.zarr
+https://test-bucket.image.coop/rfc3/CP-Ti-abnormal-grains.zarr
+```
+
+Implementations may check their compliance with this RFC using these datasets.
+As a reminder, this RFC explicitly takes the position that partial
+implementations are OK, and software is considered compliant if it provides
+an informative error message (e.g. "The given dataset contains an unknown axis
+'U', which is not supported by this viewer.").
 
 ## License
 
@@ -303,18 +478,28 @@ This RFC is placed in the public domain.
 
 [nat methods paper]: https://www.nature.com/articles/s41592-021-01326-w
 [ome-model]: https://github.com/ome/ngff/pull/239/files#r1609781780
-[ngff 0.4]: https://ngff.openmicroscopy.org/0.4/index.html
-[ngff 0.4 multiscales metadata]: https://ngff.openmicroscopy.org/0.4/index.html#multiscale-md
+[ngff 0.4]: https://ngff.openmicroscopy.org/specifications/0.4/index.html
+[ngff_0 5]: https://ngff.openmicroscopy.org/specifications/0.5/index.html
+[ngff_0 6]: https://web.archive.org/web/20260520043202/https://ngff.openmicroscopy.org/specifications/dev/index.html
+[ngff 0.5 multiscales metadata]: https://ngff.openmicroscopy.org/specifications/0.5/index.html#multiscales-metadata
 [ngff 0.4 axes metadata]: https://ngff.openmicroscopy.org/0.4/index.html#axes-md
 [czi format dimensions]: https://web.archive.org/web/20240521085825/https://zeiss.github.io/libczi/imagedocumentconcept.html#autotoc_md7
+[lif dimensions]: https://github.com/cgohlke/liffile/blob/f79868ebad77d9848bcae09f99db8f0737b0f94b/liffile/liffile.py#L916-L931
 [spec update]: https://github.com/ome/ngff/pull/235
 [this pr]: https://github.com/ome/ngff/pull/239
 [recap comment]: https://github.com/ome/ngff/pull/239#issuecomment-2327451719
 [trafo spec]: https://github.com/ome/ngff/pull/138
 [space dims comment]: https://github.com/ome/ngff/pull/138#issuecomment-1852891720
 [ebsd]: https://en.wikipedia.org/wiki/Electron_backscatter_diffraction
+[flim]: https://en.wikipedia.org/wiki/Fluorescence-lifetime_imaging_microscopy
+[flim-paper]: https://onlinelibrary.wiley.com/doi/10.1111/jmi.70036
 [dti]: https://en.wikipedia.org/wiki/Diffusion-weighted_magnetic_resonance_imaging
 [CryoET]: https://en.wikipedia.org/wiki/Cryogenic_electron_tomography
+[S-BIAD1967]: https://www.ebi.ac.uk/biostudies/bioimages/studies/S-BIAD1967
+[flim-omero]: https://omero.med.tu-dresden.de/webclient/?show=project-1401
+[gh-239]: https://github.com/ome/ngff/pull/239
+[imagesc-rfc-3-thread]: https://forum.image.sc/t/ome-ngff-update-postponing-transforms-previously-v0-5/95617/2
+[zulip-rfc-3-thread]: https://imagesc.zulipchat.com/#narrow/channel/328251-NGFF/topic/RFC-3.3A.20remove.20dimension.20restrictions/near/568178521
 
 [^1]: https://github.com/ome/ngff/pull/239#issuecomment-2122809286
 [^2]: https://github.com/ome/ngff/pull/239#issuecomment-2149119404
@@ -324,3 +509,4 @@ This RFC is placed in the public domain.
 | Date       | Description                  | Link                                                                         |
 | ---------- | ---------------------------- | ---------------------------------------------------------------------------- |
 | 2024-10-08 | RFC assigned and published   | [https://github.com/ome/ngff/pull/239](https://github.com/ome/ngff/pull/239) |
+| 2026-07-04 | Updated to address comments, elaborate on use cases, include specific changes to spec doc, and add test data   | [https://github.com/ome/ngff/pull/560](https://github.com/ome/ngff/pull/560) |
