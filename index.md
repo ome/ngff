@@ -16,49 +16,62 @@ An OME-Zarr is a file format optimized for storing, viewing, & sharing large ima
 There are two parts to an OME-Zarr:
 
 * **The "Zarr" part describes how the pixel data for the images are laid out**
-* The "OME", which stands for [Open Microscopy Environment](https://www.openmicroscopy.org/), part describes metadata about the pixel data. This includes metadata such as:
-   * spatial relationships
-   * high content screening data
-   * well data
-   * [and more](./specifications/index)!
+* **The "OME" part, which stands for [Open Microscopy Environment](https://www.openmicroscopy.org/), describes metadata about the pixel data. This includes metadata such as:
+  * spatial relationships
+  * high content screening data
+  * well data
+  * [and more](./specifications/index)!
 
 ## Why would I use OME-Zarr?
 
+In general, OME-Zarr is growing as a default [FAIR](https://en.wikipedia.org/wiki/FAIR_data) choice for storing and sharing microscopy images.
+
 OME-Zarr files have two major benefits:
 
-* Chunking is inherent to "Zarr" files. This means "Zarr" files are stored in independently-accessible blocks.
-   * **Storage**: Microscopy images can be quite large and can therefore reach Cloud system storage limits for individual files; the chunked nature of a Zarr can alleviate this issue. Some storage systems may also duplicate byte-equivalent files, so a chunked file like Zarr may save storage space.
-   * **Viewing**: Viewers can target specific chunks to load based upon the current view, reducing lag, & enabling massive images to be viewed within browsers.
-   * **Cost**: When viewing or reading data, the total cost of accessing a Zarr file on the cloud may be less than a more monolithic file format due to the more efficient data access patterns. Ex. A viewer can just access the chunks of the image it needs to display rather than the entire image.
-* "OME-Zarr" is a "Zarr" with embedded standardized metadata in the Open Microscopy Environment (OME) format.
-   * **Sharing**: A standardized imaging metadata format can ease cross-organization file sharing and can therefore aid organizational collaboration and data sharing.
-   * **Interoperability**: Standardized metadata can also enable the interoperability of tools.
+* **Standardization:** "OME-Zarr" is a "Zarr" with embedded standardized metadata in the Open Microscopy Environment (OME) format.
+  * **_Sharing_**: It eases cross-organization file sharing, aiding organizational collaboration and data sharing. Repositories like the [Image Data Resource](https://idr.openmicroscopy.org/) and [BioImage Archive](https://www.ebi.ac.uk/bioimage-archive/) are currently migrating to having OME-Zarr as a standard format for _all_ their data.
+  * **_Interoperability_**: Standardized metadata enables the ability to "mix and match" tools from different organizations, benefiting from the strengths of multiple tools as needed.
+
+* **Parallel access**: Chunking is inherent to "Zarr" files. This means "Zarr" files are stored in independently-accessible blocks.
+  * **_Storage_**: Microscopy images can be quite large and can therefore reach Cloud system storage limits for individual files; the chunked nature of a Zarr can alleviate this issue. Some storage systems may also duplicate byte-equivalent files, so a chunked file like Zarr may save storage space.
+  * **_Viewing_**: Viewers can target specific chunks to load based upon the current view, reducing lag, & enabling massive images to be viewed within browsers.
+  * **_Cost_**: When viewing or reading data, the total cost of accessing a Zarr file on the cloud may be less than a more monolithic file format due to the more efficient data access patterns. Ex. A viewer can just access the chunks of the image it needs to display rather than the entire image.
+
+Of note, both benefits contribute to **_AI-readiness_**: the standardized metadata & access patterns provide a common layer for machine-learning workflows, reducing the friction for developers to build and test models.
+
+The [tools](./tools/index), [data](./data/index), and [ecosystem](./ecosystem/index) may provide a better sense of the range of scientific use cases that may benefit from OME-Zarr. The [publications](./publications/index) page provides a list of publications that have used OME-Zarr in their work.
 
 ## When would I not use OME-Zarr?
 
-* If your file isn't very big and you're working with local data, the current specification of OME-Zarr can be less convenient than a single-file format and the benefits are limited. Planned expansions to the OME-Zarr specification will make it more convenient to work with it in these scenarios (e.g. single-file Zarrs) and add features that might make it beneficial to use OME-Zarr even in these scenarios (e.g. transformations).
-* If your original file is lossy compressed, you will see a large increase in file size as the images are decompressed into OME-Zarr. There is not yet support for transferring lossy compressed image tiles to OME-Zarr. This currently impacts most whole slide image (WSI) formats such as SVS, CZI, and NDPI, which are lossy JPEG compressed by default and see about a 10x size increase into OME-Zarr.
+While the format matures, it may be frustrating to use OME-Zarr in some cases, for example:
+
+* If you are working with small images, not planning to share them and your current tools already work well, then using OME-Zarr may not be necessary. Planned expansions to the specification (such as single-file Zarrs) will make it more convenient in these scenarios.
+
+* If you need specific conditions for which OME-Zarr support is not mature, you may need to use a different file format.
+  * Particularly, if your original file is lossy compressed, you will see a large increase in file size (about an order of magnitude) as the images are decompressed into OME-Zarr, since transferring lossy compressed tiles is not yet supported. This currently impacts most whole slide image (WSI) formats such as SVS, CZI, and NDPI, which are lossy JPEG compressed by default.
 
 ## Who is using OME-Zarr?
 
-These are *some* of the organizations (and their dataset pages) that are using OME-Zarr for their data.
+These are _some_ of the organizations (and their dataset pages) that are using OME-Zarr for their data.
 
-- [Allen Institute](https://bff.allencell.org/datasets)
-- biohub
-- [Broad Institute](https://broadinstitute.github.io/cellpainting-gallery/overview.html)
-- [EMBL - Image Data Resource (IDR)](https://idr.openmicroscopy.org/)
-- [Howard Hughes Medical Institute, Janelia (HHMI)](https://openorganelle.janelia.org/)
-- [Jackson Laboratory (JAX)](https://images.jax.org/)
-- ... [and more](./data/index)
+* [Allen Institute](https://bff.allencell.org/datasets)
+* biohub
+* [Broad Institute](https://broadinstitute.github.io/cellpainting-gallery/overview.html)
+* [EMBL - Image Data Resource (IDR)](https://idr.openmicroscopy.org/)
+* [Howard Hughes Medical Institute, Janelia (HHMI)](https://openorganelle.janelia.org/)
+* [Jackson Laboratory (JAX)](https://images.jax.org/)
+* ... [and more](./data/index)
 
 ## How do I use OME-Zarr?
 
 * Already have a Zarr?
-   * Check out the [tools section](./tools/index)!
+  * Check out the [tools section](./tools/index)!
 * Want to create a Zarr?
-   * Check out the [tools section](./tools/index)!
+  * Check out the [tools section](./tools/index)!
 * Want to see or download a Zarr?
-   * Check out the [data section](./data/index)!
+  * Check out the [data section](./data/index)!
+* Want to cite OME-Zarr/NGFF in your work?
+  * Check out the [publications section](./publications/index)!
 
 ## Have other questions?
 
