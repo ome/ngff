@@ -13,8 +13,8 @@ This feed is generated live from Europe PMC and will show the most recent public
 ```{raw} html
 <style>
   #pubfeed { max-width: 720px; }
-  #pubfeed-status { color: #888; font-size: 0.9em; }
-  #pubfeed ol { list-style: none; margin: 0; padding: 0; }
+  #pubfeed-status { color: #888; font-size: 0.85em; margin-bottom: 0.5em; }
+  #pubfeed ol { list-style: none; margin: 0; padding: 0; min-height: 18em; }
   #pubfeed li {
     padding: 0.75em 0;
     border-bottom: 1px solid rgba(128,128,128,0.2);
@@ -27,49 +27,60 @@ This feed is generated live from Europe PMC and will show the most recent public
     color: #666; font-size: 0.85em; margin-top: 0.15em;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  #pubfeed-more {
-    margin-top: 1em; padding: 0.5em 1.1em;
-    font-size: 0.9em; cursor: pointer;
-    background: transparent;
-    border: 1px solid rgba(128,128,128,0.4); border-radius: 6px;
-    color: inherit;
+  #pubfeed-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1em; margin-top: 1em;
   }
-  #pubfeed-more:hover { border-color: rgba(128,128,128,0.8); }
-  #pubfeed-more[hidden] { display: none; }
+  #pubfeed-nav button {
+    padding: 0.4em 1em; font-size: 0.9em; cursor: pointer;
+    background: transparent; color: inherit;
+    border: 1px solid rgba(128,128,128,0.4); border-radius: 6px;
+  }
+  #pubfeed-nav button:hover:not(:disabled) { border-color: rgba(128,128,128,0.8); }
+  #pubfeed-nav button:disabled { opacity: 0.35; cursor: default; }
+  #pubfeed-page { color: #888; font-size: 0.85em; }
 </style>
 
 <div id="pubfeed">
   <p id="pubfeed-status">Loading recent publications…</p>
   <ol id="pubfeed-list"></ol>
-  <button id="pubfeed-more" hidden>Load more</button>
+  <div id="pubfeed-nav" hidden>
+    <button id="pubfeed-prev">← Prev</button>
+    <span id="pubfeed-page"></span>
+    <button id="pubfeed-next">Next →</button>
+  </div>
 </div>
 
 <script>
 (async function () {
   const QUERY = '"NGFF" OR "OME-Zarr"';
-  const PAGE = 5;
+  const PAGE = 4;
   const BASE = "https://www.ebi.ac.uk/europepmc/webservices/rest/search";
 
   const status = document.getElementById("pubfeed-status");
   const list = document.getElementById("pubfeed-list");
-  const moreBtn = document.getElementById("pubfeed-more");
+  const nav = document.getElementById("pubfeed-nav");
+  const prevBtn = document.getElementById("pubfeed-prev");
+  const nextBtn = document.getElementById("pubfeed-next");
+  const pageLabel = document.getElementById("pubfeed-page");
 
-  let cursor = "*";
+  const pages = [];          // cached results per page index
+  const cursors = ["*"];     // cursor to fetch page i
   let total = null;
-  let shown = 0;
+  let current = 0;
   let loading = false;
 
-  function urlFor(cursorMark) {
+  function urlFor(cursor) {
     return BASE +
       "?query=" + encodeURIComponent(QUERY) +
       "&format=json&resultType=lite" +
       "&pageSize=" + PAGE +
       "&sort=" + encodeURIComponent("P_PDATE_D desc") +
-      "&cursorMark=" + encodeURIComponent(cursorMark);
+      "&cursorMark=" + encodeURIComponent(cursor);
   }
 
-  function renderItems(results) {
-    const html = results.map(function (p) {
+  function render(results) {
+    list.innerHTML = results.map(function (p) {
       const link = p.doi
         ? "https://doi.org/" + p.doi
         : "https://europepmc.org/article/" + p.source + "/" + p.id;
@@ -85,39 +96,47 @@ This feed is generated live from Europe PMC and will show the most recent public
         '<div class="pub-meta">' + date + journal + '</div>' +
       '</li>';
     }).join("");
-    list.insertAdjacentHTML("beforeend", html);
   }
 
-  async function loadPage() {
+  function totalPages() {
+    return total ? Math.ceil(total / PAGE) : 1;
+  }
+
+  function updateNav() {
+    nav.hidden = false;
+    pageLabel.textContent = "Page " + (current + 1) + " of " + totalPages();
+    prevBtn.disabled = loading || current === 0;
+    nextBtn.disabled = loading || current >= totalPages() - 1;
+  }
+
+  async function show(i) {
     if (loading) return;
-    loading = true;
-    moreBtn.disabled = true;
+    if (pages[i]) { current = i; render(pages[i]); updateNav(); return; }
+
+    loading = true; updateNav();
     try {
-      const r = await fetch(urlFor(cursor));
+      const r = await fetch(urlFor(cursors[i]));
       const j = await r.json();
       const results = j.resultList?.result || [];
       if (total === null) total = j.hitCount ?? results.length;
-      renderItems(results);
-      shown += results.length;
-
-      // Advance cursor; stop if it didn't move or we've shown everything.
-      const next = j.nextCursorMark;
-      const done = !next || next === cursor || shown >= total;
-      cursor = next || cursor;
-
-      status.textContent = shown + " of " + total + " publications";
-      moreBtn.hidden = done;
+      pages[i] = results;
+      if (j.nextCursorMark) cursors[i + 1] = j.nextCursorMark;
+      current = i;
+      status.textContent = total + " publications";
+      render(results);
     } catch (e) {
       status.textContent = "Could not load publications.";
       console.warn(e);
     } finally {
       loading = false;
-      moreBtn.disabled = false;
+      updateNav();
     }
   }
 
-  moreBtn.addEventListener("click", loadPage);
-  loadPage();
+  prevBtn.addEventListener("click", function () { if (current > 0) show(current - 1); });
+  nextBtn.addEventListener("click", function () { show(current + 1); });
+
+  show(0);
 })();
 </script>
 ```
