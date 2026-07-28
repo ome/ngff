@@ -14,16 +14,9 @@ See also [CONTRIBUTING.md](./contributing/index.md)
 
 Specifications have been moved to [ome/ngff-spec](https://github.com/ome/ngff-spec).
 
-### Editing specifications
-
-Specifications are written in markdown, or technically
-[bikeshed](https://github.com/tabatkins/bikeshed) -- a markdown document, with
-special extensions understood by the bikeshed tool. The bikeshed tool is run
-during the Sphinx build step (see conf.py).
-
 # RFCs
 
-Requests for comments (RFCs) are used to discuss and capture high-level decisions within the NGFF community. 
+Requests for comments (RFCs) are used to discuss and capture high-level decisions within the NGFF community.
 
 RFCs are contained under the `rfc` directory at the moment but may be moved out into a separate repo in the future.
 
@@ -37,5 +30,3 @@ RFCs are contained under the `rfc` directory at the moment but may be moved out 
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-
