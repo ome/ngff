@@ -16,7 +16,7 @@ Resources curating OME-Zarr sample data, for demonstration and testing purposes.
 | BIA Samples | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://livingobjects.ebi.ac.uk/bioimaging-integrator-data/pages/idr_ngff_data.html" alt="BIA Samples logo" width="30" height="30">](https://uk1s3.embassy.ebi.ac.uk/bia-integrator-data/pages/omengff.html) | Sample OME-Zarr datasets from the BioImage Archive for testing |
 | Sanger Institute Samples | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://www.sanger.ac.uk/project/ome-zarr/" alt="Sanger Institute Samples logo" width="30" height="30">](https://www.sanger.ac.uk/project/ome-zarr/) | Datasets from the Sanger Institute that have been converted to OME-Zarr to test and encourage the file format |
 | SSBD samples | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://ssbd.riken.jp/ssbd-ome-ngff-samples" alt="SSBD samples logo" width="30" height="30">](https://ssbd.riken.jp/ssbd-ome-ngff-samples) | Sample OME-Zarr datasets from the Systems Science of Biological Dynamics database (SSBD) for testing and demonstration purposes |
-| OME 2024 NGFF challenge | [<img src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" alt="OME 2024 NGFF challenge logo" width="30" height="30">](https://ome.github.io/) | Close to 500 TB of data in the OME-Zarr 0.5 format |
+| OME 2024 NGFF challenge | [<img src="https://www.openmicroscopy.org/img/logos/ome-logomark.svg" alt="OME 2024 NGFF challenge logo" width="30" height="30">](https://ome.github.io/) | Close to 500 TB of data in the OME-Zarr 0.5 format |
 
 ## Data portals
 
