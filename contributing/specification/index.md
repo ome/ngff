@@ -6,7 +6,7 @@ request for comment (RFC) documents.
 
 In the future we will flesh out this page with a guide to RFCs, but in the
 meantime the RFC process is outlined in the
-[Implementation section of RFC 1](../rfc/1/index.md#implementation).
+[Implementation section of RFC 1](rfc1-implementation).
 
 ## Comment on a Request For Comment (RFC)
 
