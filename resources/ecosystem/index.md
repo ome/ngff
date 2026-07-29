@@ -1,8 +1,9 @@
+(resources-ecosystem)=
 # Ecosystem
 
 Workflows and data formats that adopt OME-Zarr and build upon it for extended capabilities and interoperabilitieswith additional systems.
 
-It extends the [tools](../tools/index.md) section by including projects that are not necessarily tools for viewing, writing, reading, converting, validating or processing OME-Zarr data, but that are still part of a ecosystem of projects with first-class, dedicated support for OME-Zarr.
+It extends the [tools](#resources-tools) section by including projects that are not necessarily tools for viewing, writing, reading, converting, validating or processing OME-Zarr data, but that are still part of a ecosystem of projects with first-class, dedicated support for OME-Zarr.
 
 It fits microscope acquisition software, analysis pipelines, standards and extensions, gallery-like displays, integrative workflows, and the like.
 

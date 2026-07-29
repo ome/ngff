@@ -1,3 +1,4 @@
+(resources-tools)=
 # Tools
 
 A list of tools and libraries with OME-Zarr support. These are developed by various members of the NGFF community. If you think your tool/library should be listed here, please [open a pull request](https://github.com/ome/ngff).
@@ -109,7 +110,7 @@ Want to validate a Zarr? Use one of these.
 
 | Name    | Link | Description |
 | -------- | ------- | ------- |
-| ome-ngff-validator | [<img src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" alt="OME NGFF Validator logo" width="30" height="30">](https://ome.github.io/ome-ngff-validator/) | Web page for validating OME-Zarr files. |
+| ome-ngff-validator | [<img src="https://www.openmicroscopy.org/img/logos/ome-logomark.svg" alt="OME NGFF Validator logo" width="30" height="30">](https://ome.github.io/ome-ngff-validator/) | Web page for validating OME-Zarr files. |
 | ome-zarr-models | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome-zarr-models/ome-zarr-models-py) | Python package and command line interface that can validate OME-Zarr files |
 | yaozarrs | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/imaging-formats/yaozarrs) | Bottom-up python library with models and CLI for creating & validating OME-Zarr groups and documents with optional extras for array-backend-agnostic I/O |
 

@@ -91,7 +91,7 @@ Jump to:
 
 **OME-NGFF** - OME-NGFF refers to the resulting efforts of the OME & NGFF communities.
 
-**OME-Zarr** - An OME-Zarr is a standardized file format for microscopy images. More details on the [main page](#../).
+**OME-Zarr** - An OME-Zarr is a standardized file format for microscopy images. More details on the [main page](#main-page).
 
 [Back to top](#glossary)
 
@@ -147,7 +147,7 @@ Jump to:
 
 ### Z
 
-**Zarr** -- A file format, see the [main page](#../) for more information about what a Zarr is and the benefits of using Zarr.
+**Zarr** -- A file format, see the [main page](#main-page) for more information about what a Zarr is and the benefits of using Zarr.
 
 **Zarr Group** - A Zarr group is like a folder inside a dataset. It can hold arrays, metadata, or other groups, helping organize complex data into a clear hierarchy. Think of it as a way to keep all related images and information neatly together.
 
@@ -212,6 +212,7 @@ That is often the case. OME-Zarr include multiresolution data (i.e. pyramids), w
 
 Not yet fully. Some workarounds are possible (1D arrays, mesh formats), but this is an active area of development.
 
+(where-to-seek-for-help)=
 ## Where to look for help
 
 If you have questions or need help with OME-Zarr, you can reach out through the following channels:

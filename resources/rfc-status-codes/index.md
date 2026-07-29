@@ -1,18 +1,13 @@
-RFC status codes
-============
+# RFC status codes
 
-
-[RFC 1](../../rfc/1) defined a Request for Comments process for the NGFF community, which is used to drive changes. The text listed a set of codes used to define how a change progresses from an idea to actual adoption.
-
+[RFC 1](#rfc-1) defined a Request for Comments process for the NGFF community, which is used to drive changes. The text listed a set of codes used to define how a change progresses from an idea to actual adoption.
 
 ![State diagram of the RFC process](../../rfc/1/diagram.png)
 
-This resource is a (non-normative) table describing the different codes used in that specification that outline the states of the RFCs. It is _not_ a full description of the RFC process. 
+This resource is a (non-normative) table describing the different codes used in that specification that outline the states of the RFCs. It is _not_ a full description of the RFC process.
 The status codes indicating ends of an RFC process are outlined in **bold**.
 
-Wait times provide a sense on how fast the process is expected to move to the next phase. The actual time may vary in practice, given factors such as the time of the year and current capacity. 
-
-
+Wait times provide a sense on how fast the process is expected to move to the next phase. The actual time may vary in practice, given factors such as the time of the year and current capacity.
 
 | Phase | Code   | Description                                                                                         | Wait time       | Action by         |
 | ----- | ------ | --------------------------------------------------------------------------------------------------- | --------------- | ----------------- |
@@ -26,7 +21,7 @@ Wait times provide a sense on how fast the process is expected to move to the ne
 | RFC   | R2     | REVIEWERS submit REVIEWS with recommendations as new PRs.                                           | NA              | REVIEWER + EDITOR |
 | RFC   | R3     | EDITORS merge REVIEWS and send to AUTHOR for RESPONSE                                               | NA              | AUTHOR + EDITOR   |
 | RFC   | R4     | AUTHORS prepare RESPONSE and changes to RFC                                                         | NA              | AUTHOR            |
-| RFC   | R5     | EDITORS merge RESPONSE and changes to RFC, contacts  REVIEWERS                                      | 2 weeks         | REVIEWER + EDITOR |
+| RFC   | R5     | EDITORS merge RESPONSE and changes to RFC, contacts REVIEWERS                                       | 2 weeks         | REVIEWER + EDITOR |
 | RFC   | R6     | REVIEWERS approve?                                                                                  | NA              | REVIEWER          |
 | RFC   | R7     | If no, EDITORS approve?                                                                             | NA              | EDITOR            |
 | RFC   | R8     | If changes necessary, AUTHORS prepare changes to RFC and/or RESPONSE. If they are major, back to R1 | NA              | AUTHOR            |
