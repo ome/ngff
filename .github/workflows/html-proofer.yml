@@ -1,0 +1,48 @@
+name: "Build and Lint Site"
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # dependencies
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "19"
+      - name: Install dependencies
+        working-directory: ./docs
+        run: |
+          pip install 
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle install
+
+      - name: Build the site
+        working-directory: ./docs
+        run: bundle exec jekyll build --future --strict_front_matter
+
+      - name: Validate all links, enforce alt text
+        working-directory: ./docs
+        run: |
+          bundle exec htmlproofer --ignore-files "/.*\/specifications\/(0\.[0-9]+|dev)\/.*/,/.*webpack-macros\.html/,/.*\/rfc\/4\/markdown\/.*/,/.*\/rfc\/5\/.*/,/.*\/rfc\/1\/.*/,/.*\/0\.[0-9]+(\.html|\/.*)/,/.*\/ro-crate-preview\.html/,/.*\/examples\/.*\/index\.html/" --disable-external true --enforce-https false --swap-urls '^/ro-crate/:/' ./_site
+      - name: Ensure no unexpected encoded HTML in output
+        working-directory: ./docs
+        run: |
+          ! fgrep -R 'lt;blockquote' _site
+
+      - name: Ensure no unexpected jekyll in output
+        working-directory: ./docs
+        run: |
+          ! fgrep -R 'site.pages' _site
