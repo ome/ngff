@@ -8,8 +8,6 @@ Core publications on NGFF and OME-Zarr. If you plan to cite OME-Zarr in your wor
 - [OME-Zarr: a cloud-optimized bioimaging file format with international community support](https://link.springer.com/article/10.1007/s00418-023-02209-1) 10th July 2023
 - [2024 OME-NGFF workflows hackathon Preprint](https://osf.io/preprints/biohackrxiv/5uhwz_v2) 13 March 2025
 
-For more details on OME-Zarr, see the [home page](#home-page).
-
 ## Recent publications mentioning NGFF or OME-Zarr
 
 This feed is generated live from Europe PMC and will show the most recent publications that mention NGFF or OME-Zarr in the title, abstract, or keywords.
