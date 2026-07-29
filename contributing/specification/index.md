@@ -13,7 +13,7 @@ meantime the RFC process is outlined in the
 If you want to leave a suggestion or comment on an RFC that is under review,
 please leave a comment in a new page under the "comments/" directory for the
 relevant RFC. A template is also available for formatting your comment:
-[template](../rfc/1/templates/review_template).
+[template](rfc1-review-template).
 
 ## How to change the specification
 
@@ -143,7 +143,7 @@ Other useful admonitions and directives (e.g., `hint`, `note`) can be found [her
 
 ## Building *only* the spec document
 
-The spec document under the [ngff-spec](github.com/ome/ngff-spec) repository can be built as a standalone document to make writing and rendering a smoother experience.
+The spec document under the [ngff-spec](https://github.com/ome/ngff-spec) repository can be built as a standalone document to make writing and rendering a smoother experience.
 To build the spec document, you first need to install the necessary dependencies:
 
 After cloning the ngff-spec repo, navigate into the repository on your machine and install the dependencies using pip:

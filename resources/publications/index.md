@@ -1,3 +1,4 @@
+(resources-publications)=
 # Publications
 
 Core publications on NGFF and OME-Zarr. If you plan to cite OME-Zarr in your work, please use one or more of the following references, as appropriate.

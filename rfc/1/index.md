@@ -1,6 +1,8 @@
 RFC-1: RFC Process
 ==================
 
+(rfcs:rfc1)=
+
 Definition of the NGFF “Request for Comment” (RFC) process
 
 ```{toctree}

@@ -1,3 +1,4 @@
+(resources-data)=
 # Data Resources
 
 Looking for test data? [IDR Samples](https://idr.github.io/ome-ngff-samples/) aims at covering the different corners of the specification.

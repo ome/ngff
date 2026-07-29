@@ -1,3 +1,4 @@
+(main-page)=
 # Next-Generation File Formats (NGFF) + OME-Zarr
 
 Welcome to the Next-Generation File Formats (NGFF) main page! This site is dedicated to providing resources for the NGFF community and those that are interested in getting started with OME-Zarr.
@@ -39,7 +40,7 @@ OME-Zarr files have two major benefits:
 
 Of note, both benefits contribute to **_AI-readiness_**: the standardized metadata & access patterns provide a common layer for machine-learning workflows, reducing the friction for developers to build and test models.
 
-The [tools](./tools/index), [data](./data/index), and [ecosystem](./ecosystem/index) may provide a better sense of the range of scientific use cases that may benefit from OME-Zarr. The [publications](./publications/index) page provides a list of publications that have used OME-Zarr in their work.
+The [tools](#resources-tools), [data](#resources-data), and [ecosystem](#resources-ecosystem) may provide a better sense of the range of scientific use cases that may benefit from OME-Zarr. The [publications](#resources-publications) page provides a list of publications that have used OME-Zarr in their work.
 
 ## When would I not use OME-Zarr?
 
@@ -60,18 +61,18 @@ These are _some_ of the organizations (and their dataset pages) that are using O
 - [EMBL - Image Data Resource (IDR)](https://idr.openmicroscopy.org/)
 - [Howard Hughes Medical Institute, Janelia (HHMI)](https://openorganelle.janelia.org/)
 - [Jackson Laboratory (JAX)](https://images.jax.org/)
-- ... [and more](./data/index)
+- ... [and more](#resources-data)
 
 ## How do I use OME-Zarr?
 
 - Already have a Zarr?
-  - Check out the [tools section](./tools/index)!
+  - Check out the [tools section](#resources-tools)!
 - Want to create a Zarr?
-  - Check out the [tools section](./tools/index)!
+  - Check out the [tools section](#resources-tools)!
 - Want to see or download a Zarr?
-  - Check out the [data section](./data/index)!
+  - Check out the [data section](#resources-data)!
 - Want to cite OME-Zarr/NGFF in your work?
-  - Check out the [publications section](./publications/index)!
+  - Check out the [publications section](#resources-publications)!
 
 ## Have other questions?
 

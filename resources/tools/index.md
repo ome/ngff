@@ -1,3 +1,4 @@
+(resources-tools)=
 # Tools
 
 A list of tools and libraries with OME-Zarr support. These are developed by various members of the NGFF community. If you think your tool/library should be listed here, please [open a pull request](https://github.com/ome/ngff).
@@ -44,7 +45,7 @@ Want to view a Zarr? Use one of these.
 | Odon | [<img src="https://github.githubassets.com/favicons/favicon.svg" alt="Odon logo" width="30" height="30">](https://github.com/alexcoulton/odon) | A spatial proteomics OME-Zarr viewer built in Rust.|
 | QuPath  | [<img src="https://avatars.githubusercontent.com/u/21292410?s=200&v=4" alt="QuPath logo" width='30' height='30'>](https://github.com/qupath/qupath) | Open source software for digital pathology image analysis |
 | syGlass | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://www.syglass.io/" alt="syGlass logo" width="30" height="30">](https://www.syglass.io/) | A VR desktop application for visualizing and segmenting 3D image data, with OME-Zarr streaming support. |
-| Viv (Avivator, Vizarr, Vitessce, ...) | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://vitessce.io/" alt="Viv logo" width="30" height="30">](https://github.com/hms-dbmi/viv) | A toolkit for interactive visualization of high-resolution, multiplexed bioimaging datasets. The viv toolkit is used by the [Avivator](https://avivator.gehlenborglab.org), [Vizarr](https://github.com/hms-dbmi/vizarr) and [Vitessce](http://vitessce.io) image viewers, among others |
+| Viv (Avivator, Vizarr, Vitessce, ...) | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://vitessce.io/" alt="Viv logo" width="30" height="30">](https://github.com/hms-dbmi/viv) | A toolkit for interactive visualization of high-resolution, multiplexed bioimaging datasets. The viv toolkit is used by the [Avivator](https://avivator.gehlenborglab.org), [Vizarr](https://github.com/hms-dbmi/vizarr) and [Vitessce](https://vitessce.io) image viewers, among others |
 | Vol-E | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fwww.allencell.org%2Fpathtrace-rendering.html" alt="Vol-E logo" width="30" height="30">](https://vole.allencell.org/) | A browser-based volume viewer |
 | WEBKNOSSOS | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://home.webknossos.org/" alt="WEBKNOSSOS logo" width="30" height="30">](https://home.webknossos.org/) | An open-source tool for annotating and exploring large 3D image datasets |
 
@@ -107,7 +108,7 @@ Want to validate a Zarr? Use one of these.
 
 | Name    | Link | Description |
 | -------- | ------- | ------- |
-| ome-ngff-validator | [<img src="http://www.openmicroscopy.org/img/logos/ome-logomark.svg" alt="OME NGFF Validator logo" width="30" height="30">](https://ome.github.io/ome-ngff-validator/) | Web page for validating OME-Zarr files. |
+| ome-ngff-validator | [<img src="https://www.openmicroscopy.org/img/logos/ome-logomark.svg" alt="OME NGFF Validator logo" width="30" height="30">](https://ome.github.io/ome-ngff-validator/) | Web page for validating OME-Zarr files. |
 | ome-zarr-models | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome-zarr-models/ome-zarr-models-py) | Python package and command line interface that can validate OME-Zarr files |
 | yaozarrs | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/imaging-formats/yaozarrs) | Bottom-up python library with models and CLI for creating & validating OME-Zarr groups and documents with optional extras for array-backend-agnostic I/O |
 
