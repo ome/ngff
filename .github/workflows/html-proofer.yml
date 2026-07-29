@@ -59,4 +59,8 @@ jobs:
 
       - name: Ensure no unexpected encoded HTML in output
         run: |
+<<<<<<< HEAD
           ! fgrep -R 'lt;blockquote' _build/html
+=======
+          ! fgrep -R 'lt;blockquote' _build/html
+>>>>>>> 62f9f6d (adapt html-proofer action to this context)
