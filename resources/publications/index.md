@@ -1,3 +1,5 @@
+(resources-publications)=
+
 # Publications
 
 Core publications on NGFF and OME-Zarr. If you plan to cite OME-Zarr in your work, please use one or more of the following references, as appropriate.
@@ -6,20 +8,31 @@ Core publications on NGFF and OME-Zarr. If you plan to cite OME-Zarr in your wor
 - [OME-Zarr: a cloud-optimized bioimaging file format with international community support](https://link.springer.com/article/10.1007/s00418-023-02209-1) 10th July 2023
 - [2024 OME-NGFF workflows hackathon Preprint](https://osf.io/preprints/biohackrxiv/5uhwz_v2) 13 March 2025
 
+For more details on OME-Zarr, see the [home page](#home-page).
+
 ## Recent publications mentioning NGFF or OME-Zarr
 
 This feed is generated live from Europe PMC and will show the most recent publications that mention NGFF or OME-Zarr in the title, abstract, or keywords.
 
 ```{raw} html
 <style>
-  #pubfeed { max-width: 720px; }
+  #pubfeed { max-width: 720px; margin-bottom: 2em; }
   #pubfeed-status { color: #888; font-size: 0.85em; margin-bottom: 0.5em; }
-  #pubfeed ol { list-style: none; margin: 0; padding: 0; min-height: 18em; }
+  #pubfeed-scroll {
+    max-height: 30em;
+    overflow-y: auto;
+    border: 1px solid rgba(128,128,128,0.25);
+    border-radius: 8px;
+    padding: 0 1em;
+    /* fade the top/bottom edges so it reads as scrollable */
+    -webkit-overflow-scrolling: touch;
+  }
+  #pubfeed ol { list-style: none; margin: 0; padding: 0; }
   #pubfeed li {
     padding: 0.75em 0;
     border-bottom: 1px solid rgba(128,128,128,0.2);
   }
-  #pubfeed li:first-child { padding-top: 0; }
+  #pubfeed li:last-child { border-bottom: none; }
   #pubfeed .pub-title { font-weight: 600; text-decoration: none; line-height: 1.4; }
   #pubfeed .pub-title:hover { text-decoration: underline; }
   #pubfeed .pub-meta { color: #888; font-size: 0.85em; margin-top: 0.25em; }
@@ -27,60 +40,46 @@ This feed is generated live from Europe PMC and will show the most recent public
     color: #666; font-size: 0.85em; margin-top: 0.15em;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  #pubfeed-nav {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 1em; margin-top: 1em;
-  }
-  #pubfeed-nav button {
-    padding: 0.4em 1em; font-size: 0.9em; cursor: pointer;
-    background: transparent; color: inherit;
-    border: 1px solid rgba(128,128,128,0.4); border-radius: 6px;
-  }
-  #pubfeed-nav button:hover:not(:disabled) { border-color: rgba(128,128,128,0.8); }
-  #pubfeed-nav button:disabled { opacity: 0.35; cursor: default; }
-  #pubfeed-page { color: #888; font-size: 0.85em; }
+  #pubfeed-sentinel { height: 1px; }
 </style>
 
 <div id="pubfeed">
   <p id="pubfeed-status">Loading recent publications…</p>
-  <ol id="pubfeed-list"></ol>
-  <div id="pubfeed-nav" hidden>
-    <button id="pubfeed-prev">← Prev</button>
-    <span id="pubfeed-page"></span>
-    <button id="pubfeed-next">Next →</button>
+  <div id="pubfeed-scroll" hidden>
+    <ol id="pubfeed-list"></ol>
+    <div id="pubfeed-sentinel"></div>
   </div>
 </div>
 
 <script>
 (async function () {
   const QUERY = '"NGFF" OR "OME-Zarr"';
-  const PAGE = 4;
+  const PAGE = 25;
   const BASE = "https://www.ebi.ac.uk/europepmc/webservices/rest/search";
 
   const status = document.getElementById("pubfeed-status");
+  const scrollBox = document.getElementById("pubfeed-scroll");
   const list = document.getElementById("pubfeed-list");
-  const nav = document.getElementById("pubfeed-nav");
-  const prevBtn = document.getElementById("pubfeed-prev");
-  const nextBtn = document.getElementById("pubfeed-next");
-  const pageLabel = document.getElementById("pubfeed-page");
+  const sentinel = document.getElementById("pubfeed-sentinel");
 
-  const pages = [];          // cached results per page index
-  const cursors = ["*"];     // cursor to fetch page i
+  let cursor = "*";
+  let nextCursor = null;
   let total = null;
-  let current = 0;
+  let loaded = 0;
   let loading = false;
+  let done = false;
 
-  function urlFor(cursor) {
+  function urlFor(c) {
     return BASE +
       "?query=" + encodeURIComponent(QUERY) +
       "&format=json&resultType=lite" +
       "&pageSize=" + PAGE +
       "&sort=" + encodeURIComponent("P_PDATE_D desc") +
-      "&cursorMark=" + encodeURIComponent(cursor);
+      "&cursorMark=" + encodeURIComponent(c);
   }
 
-  function render(results) {
-    list.innerHTML = results.map(function (p) {
+  function rowsFor(results) {
+    return results.map(function (p) {
       const link = p.doi
         ? "https://doi.org/" + p.doi
         : "https://europepmc.org/article/" + p.source + "/" + p.id;
@@ -98,45 +97,44 @@ This feed is generated live from Europe PMC and will show the most recent public
     }).join("");
   }
 
-  function totalPages() {
-    return total ? Math.ceil(total / PAGE) : 1;
-  }
-
-  function updateNav() {
-    nav.hidden = false;
-    pageLabel.textContent = "Page " + (current + 1) + " of " + totalPages();
-    prevBtn.disabled = loading || current === 0;
-    nextBtn.disabled = loading || current >= totalPages() - 1;
-  }
-
-  async function show(i) {
-    if (loading) return;
-    if (pages[i]) { current = i; render(pages[i]); updateNav(); return; }
-
-    loading = true; updateNav();
+  async function loadMore() {
+    if (loading || done) return;
+    loading = true;
     try {
-      const r = await fetch(urlFor(cursors[i]));
+      const r = await fetch(urlFor(cursor));
       const j = await r.json();
       const results = j.resultList?.result || [];
       if (total === null) total = j.hitCount ?? results.length;
-      pages[i] = results;
-      if (j.nextCursorMark) cursors[i + 1] = j.nextCursorMark;
-      current = i;
-      status.textContent = total + " publications";
-      render(results);
+
+      list.insertAdjacentHTML("beforeend", rowsFor(results));
+      loaded += results.length;
+
+      nextCursor = j.nextCursorMark || null;
+      // Europe PMC returns the same cursor back when exhausted.
+      if (!nextCursor || nextCursor === cursor || results.length === 0 || loaded >= total) {
+        done = true;
+      } else {
+        cursor = nextCursor;
+      }
+
+      scrollBox.hidden = false;
+      status.textContent = loaded + " of " + total + " publications";
     } catch (e) {
       status.textContent = "Could not load publications.";
       console.warn(e);
+      done = true;
     } finally {
       loading = false;
-      updateNav();
     }
   }
 
-  prevBtn.addEventListener("click", function () { if (current > 0) show(current - 1); });
-  nextBtn.addEventListener("click", function () { show(current + 1); });
+  // Infinite scroll: load the next batch when the sentinel scrolls into view.
+  const io = new IntersectionObserver(function (entries) {
+    if (entries.some(function (e) { return e.isIntersecting; })) loadMore();
+  }, { root: scrollBox, rootMargin: "200px" });
+  io.observe(sentinel);
 
-  show(0);
+  await loadMore();
 })();
 </script>
 ```
