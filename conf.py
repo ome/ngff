@@ -108,6 +108,15 @@ def build_served_html():
         if os.path.isdir(os.path.join("specifications", d))
     ]
 
+    # create a special folder for extra html for the latest schemas
+    # that refers to the development version of the specification
+    sys.path.insert(0, str(Path(__file__).parent))
+    from specifications.dev._version import __version__ as dev_version
+
+    os.makedirs(f"_html_extra/{dev_version}/schemas", exist_ok=True)
+    for schema in glob.glob(f"specifications/dev/**/*.schema", recursive=True):
+        shutil.copy2(schema, f"_html_extra/{dev_version}/schemas/")
+
     for version in versions:
 
         # copy schemas to _html_extra
