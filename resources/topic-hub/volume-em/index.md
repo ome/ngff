@@ -16,7 +16,7 @@ Volume Electron Microscopy (vEM) includes a numbers of techniques for imaging la
 
 ## Other
 
-- [WebKnossos Zarr Gallary](https://zarr.webknossos.org/)- A gallery of OME-Zarr datasets, mostly vEM, hosted by WebKnossos.
+- [WebKnossos Zarr Gallery](https://zarr.webknossos.org/)- A gallery of OME-Zarr datasets, mostly vEM, hosted by WebKnossos.
 
 - [CCP Volume EM OME-NGFF Hackathon, at EMBL-EBI, Hinxton, UK, March 2026](https://focalplane.biologists.com/2025/12/11/ccp-volume-em-ome-ngff-hackathon-2026/)
 
