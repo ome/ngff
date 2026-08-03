@@ -1,3 +1,5 @@
+(topic-wsi)=
+
 # Whole Slide Imaging
 
 Resources related to Whole Slide Imaging (WSI) and its use in the context of the NGFF.
