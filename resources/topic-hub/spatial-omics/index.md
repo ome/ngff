@@ -1,3 +1,5 @@
+(topic-spatial-omics)=
+
 # Spatial Omics
 
 The SpatialData format builds upon OME-Zarr to provide a standard for storing spatial omics data. There are a number of resources that build upon SpatialData to further refine the representation of data.
