@@ -195,7 +195,7 @@ fluorophore decay lifetime can be used to get more information about the
 sample, for example by separating fluorophores not only according to their
 emission spectra but also their lifetime. The decay measurement constitutes an
 additional time axis called `u` or `µ` and can result in a 6-dimensional
-dataset with axes `CTUZYX`. (See [comment 3](./comments/3/index), and [this
+dataset with axes `CTUZYX`. (See [comment 3](#rfcs:rfc3:comment3), and [this
 paper][flim-paper].)
 
 FLIM data currently cannot be represented in OME-Zarr, causing users to use
@@ -261,7 +261,7 @@ Downstream computational products are necessary for the analysis of microscopy
 data, and these should ideally be stored in formats compatible with the tooling
 used to work with the raw data. The format aims to be flexible enough to
 accommodate these products, such as segmentations (the `label-image` section),
-or the outputs of registrations (see [rfc-5](../5/index)).
+or the outputs of registrations (see [rfc-5](#rfcs:rfc5:version3)).
 
 Some outputs may naturally contain arbitrary dimensions, for example, a grid
 search of the parameter space for a denoising algorithm may contain an
