@@ -1,3 +1,5 @@
+(help-desk-main)=
+
 # Help Desk
 
 - [Where to seek for help](#where-to-seek-for-help)
@@ -39,7 +41,7 @@ There are two parts to an OME-Zarr:
   - spatial relationships
   - high content screening data
   - well data
-  - [and more](./specifications/index)!
+  - [and more](#specifications-main)!
 
 ### Why would I use OME-Zarr?
 
