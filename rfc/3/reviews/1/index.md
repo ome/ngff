@@ -1,5 +1,7 @@
 # RFC-3: Review 1
 
+(rfcs:rfc3:review1)=
+
 ## Review authors
 
 This review was written by the following members of the [Glencoe Software team](https://github.com/glencoesoftware):
@@ -9,11 +11,11 @@ This review was written by the following members of the [Glencoe Software team](
 
 ## Conflicts of interest
 
-Glencoe Software is involved in a partnership with the Image Cooperative and other entities to deliver an alpha version of OME-Zarr 1.0 - see https://image.coop/blog/posts/2026/04/21/announcing-biohub-contract/ and https://forum.image.sc/t/our-proposed-roadmap-to-ome-zarr-1-0/121995 for more details.
+Glencoe Software is involved in a partnership with the Image Cooperative and other entities to deliver an alpha version of OME-Zarr 1.0 - see [https://image.coop/blog/posts/2026/04/21/announcing-biohub-contract/]() and [https://forum.image.sc/t/our-proposed-roadmap-to-ome-zarr-1-0/121995]() for more details.
 
 ## Summary
 
-On behalf of the @glencoesoftware team (and in particular @sbesson and @melissalinkert), the current state of RFC-3 should be accepted.
+On behalf of the [Glencoe Software team](https://github.com/glencoesoftware) (and in particular [Sébastien Besson](https://github.com/sbesson) and [Melissa Linkert](https://github.com/melissalinkert)), the current state of RFC-3 should be accepted.
 
 We initially had some concerns about the scope and real-world usability of this RFC. Updates to the [text of RFC-3](https://github.com/ome/ngff/pull/560) and discussions within the community have alleviated these concerns.
 
