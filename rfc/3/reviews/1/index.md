@@ -11,7 +11,7 @@ This review was written by the following members of the [Glencoe Software team](
 
 ## Conflicts of interest
 
-Glencoe Software is involved in a partnership with the Image Cooperative and other entities to deliver an alpha version of OME-Zarr 1.0 - see [https://image.coop/blog/posts/2026/04/21/announcing-biohub-contract/]() and [https://forum.image.sc/t/our-proposed-roadmap-to-ome-zarr-1-0/121995]() for more details.
+Glencoe Software is involved in a partnership with the Image Cooperative and other entities to deliver an alpha version of OME-Zarr 1.0 - see [https://image.coop/blog/posts/2026/04/21/announcing-biohub-contract/](https://image.coop/blog/posts/2026/04/21/announcing-biohub-contract/) and [https://forum.image.sc/t/our-proposed-roadmap-to-ome-zarr-1-0/121995](https://forum.image.sc/t/our-proposed-roadmap-to-ome-zarr-1-0/121995) for more details.
 
 ## Summary
 
