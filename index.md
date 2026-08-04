@@ -1,4 +1,5 @@
 (main-page)=
+
 # Next-Generation File Formats (NGFF) + OME-Zarr
 
 Welcome to the Next-Generation File Formats (NGFF) main page! This site is dedicated to providing resources for the NGFF community and those that are interested in getting started with OME-Zarr.
@@ -74,7 +75,7 @@ These are _some_ of the organizations (and their dataset pages) that are using O
 - Want to cite OME-Zarr/NGFF in your work?
   - Check out the [publications section](#resources-publications)!
 
-## Have other questions?
+## Have questions?
 
 Check out the pages below, including the [FAQ](help-desk/index.md#faqs) page.
 
