@@ -1,0 +1,24 @@
+/* center the H1 that immediately precedes the hero tagline */
+h1:has(+ .ome-hero) {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.ome-hero {
+  text-align: center;
+  margin: 0 auto 3rem;
+}
+
+.ome-hero p {
+  font-size: 1.25rem;
+  color: var(--pst-color-text-muted);
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .ome-hero h1 { font-size: 2.5rem; }
+}

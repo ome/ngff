@@ -81,6 +81,7 @@ html_static_path = ["_static"]
 
 html_css_files = [
     "https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css",
+    "custom.css"
 ]
 
 html_js_files = [

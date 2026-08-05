@@ -1,70 +1,65 @@
 (main-page)=
 
-<a href="https://doi.org/10.1038/s41592-021-01326-w" target="_blank" rel="noopener">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/OME-Zarr_format_for_High_Content_Screening_%28HCS%29_%28cropped%29.webp/960px-OME-Zarr_format_for_High_Content_Screening_%28HCS%29_%28cropped%29.webp.png"
-       alt="OME-Zarr format for High Content Screening (HCS). Source: Moore et al., Nature Methods 18, 1496–1498 (2021)"
-       title="Source: Moore et al., Nature Methods 18, 1496–1498 (2021)"
-       style="width:100%">
-</a>
-</br>
-
 # OME-Zarr
 
+:::{div} ome-hero
+
 A cloud-friendly, FAIR, AI-ready, community-driven open format for bioimaging data.
-
-OME-Zarr is a combination of the [Zarr](https://zarr.dev) format for cloud-optimized storage of scientific arrays and a custom [Open Microscopy Environment (OME)](https://www.openmicroscopy.org/) metadata model, tailored for modern bioimaging needs.
-
-It is the technical choice for a Next Generation File Format (NGFF) for bioimaging data:
+:::
 
 ::::{grid} 1 2 2 3
 :gutter: 3
 
-:::{grid-item-card} Community
+:::{grid-item-card} Community 💬
 :link: community-main
 :link-type: ref
-:img-top: https://placehold.co/600x300?text=Community
+:img-top: ./images/contributors-map-light.png
 
 A global community of developers and users working together to streamline bioimaging data management and analysis.
 :::
 
-:::{grid-item-card} Specifications
+:::{grid-item-card} Specifications 📜
 :link: specifications-main
 :link-type: ref
-:img-top: https://placehold.co/600x300?text=Specifications
+:img-top: ./images/spec-screenshot.png
 
 Details for developers and implementers of OME-Zarr on the stable and development releases of the specification.
 :::
 
-:::{grid-item-card} RFC
+:::{grid-item-card} RFCs ❗
 :link: rfc-main
 :link-type: ref
-:img-top: https://placehold.co/600x300?text=RFC
+:img-top: ./rfc/1/drawing.png
 
 The documents and discussions through which the community shapes the development of OME-Zarr. Anyone can participate.
 :::
 
-:::{grid-item-card} Resources
+:::{grid-item-card} Resources 📚
 :link: resources-main
 :link-type: ref
-:img-top: https://placehold.co/600x300?text=Resources
+:img-top: ./images/resources-screenshot.png
 
 A collection of resources for users and developers, including datasets, tools, publications, and learning materials.
 :::
 
-:::{grid-item-card} Publications
+:::{grid-item-card} Publications 📢
 :link: resources-publications
 :link-type: ref
-:img-top: https://placehold.co/600x300?text=Publications
+:img-top: https://media.springernature.com/full/springer-static/image/art%3A10.1007%2Fs00418-023-02209-1/MediaObjects/418_2023_2209_Fig1_HTML.png?as=webp
 
-A collection of publications related to OME-Zarr. The original paper: _Moore, J., Allan, C., Besson, S. et al. OME-NGFF: a next-generation file format for expanding bioimaging data-access strategies. Nature Methods 18, 1496–1498 (2021)._
+Papers and preprints written by the OME-NGFF community or using OME-Zarr.
 :::
 
-:::{grid-item-card} Help Desk
-:link: help-desk/index
+:::{grid-item-card} Help Desk ☎️
+:link: help-desk-main
 :link-type: ref
-:img-top: https://placehold.co/600x300?text=Help+Desk
+:img-top: ./images/hackathons/IMG_9605.jpeg
 
-A collection of frequently asked questions (FAQs) and a glossary of terms related to OME-Zarr.
+FAQs and directions on getting support with OME-Zarr.
 :::
 
 ::::
+
+OME-Zarr is a combination of the [Zarr](https://zarr.dev) format for cloud-optimized storage of scientific arrays and a custom [Open Microscopy Environment (OME)](https://www.openmicroscopy.org/) metadata model, tailored for modern bioimaging needs.
+
+It is the technical choice for a Next Generation File Format (NGFF) for bioimaging data. For the background, see _Moore, J., Allan, C., Besson, S. et al. OME-NGFF: a next-generation file format for expanding bioimaging data-access strategies. Nature Methods 18, 1496–1498 (2021)._
