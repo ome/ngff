@@ -16,45 +16,55 @@ OME-Zarr is a combination of the [Zarr](https://zarr.dev) format for cloud-optim
 
 It is the technical choice for a Next Generation File Format (NGFF) for bioimaging data:
 
-:::{card} Community
+::::{grid} 1 2 2 3
+:gutter: 3
+
+:::{grid-item-card} Community
 :link: community-main
 :link-type: ref
+:img-top: https://placehold.co/600x300?text=Community
 
 A global community of developers and users working together to streamline bioimaging data management and analysis.
 :::
 
-:::{card} Specifications
+:::{grid-item-card} Specifications
 :link: specifications-main
 :link-type: ref
+:img-top: https://placehold.co/600x300?text=Specifications
 
-Details for developers and implementers of OME-Zarr on the stable and development  releases of the specification. 
+Details for developers and implementers of OME-Zarr on the stable and development releases of the specification.
 :::
 
-:::{card} RFC
+:::{grid-item-card} RFC
 :link: rfc-main
 :link-type: ref
+:img-top: https://placehold.co/600x300?text=RFC
 
 The documents and discussions through which the community shapes the development of OME-Zarr. Anyone can participate.
 :::
 
-:::{card} Resources
+:::{grid-item-card} Resources
 :link: resources-main
 :link-type: ref
+:img-top: https://placehold.co/600x300?text=Resources
 
 A collection of resources for users and developers, including datasets, tools, publications, and learning materials.
 :::
 
-::: {card} Publications
+:::{grid-item-card} Publications
 :link: resources-publications
 :link-type: ref
-A collection of publications related to OME-Zarr. The original paper is available at: 
+:img-top: https://placehold.co/600x300?text=Publications
 
-_Moore, J., Allan, C., Besson, S. et al. OME-NGFF: a next-generation file format for expanding bioimaging data-access strategies. Nature Methods 18, 1496–1498 (2021). [https://doi.org/10.1038/s41592-021-01326-w](https://doi.org/10.1038/s41592-021-01326-w)_
+A collection of publications related to OME-Zarr. The original paper: _Moore, J., Allan, C., Besson, S. et al. OME-NGFF: a next-generation file format for expanding bioimaging data-access strategies. Nature Methods 18, 1496–1498 (2021)._
 :::
 
-
-::: {card} Help Desk
+:::{grid-item-card} Help Desk
 :link: help-desk/index
 :link-type: ref
-A collection of frequently asked questions (FAQs) and a glossary of terms related to OME-Zarr. 
+:img-top: https://placehold.co/600x300?text=Help+Desk
+
+A collection of frequently asked questions (FAQs) and a glossary of terms related to OME-Zarr.
 :::
+
+::::
