@@ -22,3 +22,13 @@ h1:has(+ .ome-hero) {
 @media (max-width: 768px) {
   .ome-hero h1 { font-size: 2.5rem; }
 }
+
+/* bottom-anchor the text in the landing page grid cards */
+.sd-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.sd-card-text {
+  margin-top: auto;
+}
