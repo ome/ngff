@@ -63,14 +63,3 @@ FAQs and directions on getting support with OME-Zarr.
 OME-Zarr is a combination of the [Zarr](https://zarr.dev) format for cloud-optimized storage of scientific arrays and a custom [Open Microscopy Environment (OME)](https://www.openmicroscopy.org/) metadata model, tailored for modern bioimaging needs.
 
 It is the technical choice for a Next Generation File Format (NGFF) for bioimaging data. For the background, see _Moore, J., Allan, C., Besson, S. et al. OME-NGFF: a next-generation file format for expanding bioimaging data-access strategies. Nature Methods 18, 1496–1498 (2021). [doi:10.1038/s41592-021-01326-w](https://doi.org/10.1038/s41592-021-01326-w)_
-
-```{toctree}
-:maxdepth: 1
-
-community/index
-contributing/index
-specifications/index
-rfc/index
-resources/index
-help-desk/index
-```
