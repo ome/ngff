@@ -36,7 +36,7 @@ finalization phase of the 1.0 release.
 
 The path to NGFF 1.0 involves a series of interdependent technical choices—some
 of which require decisive, binary resolutions (e.g., those raised in [RFC-3][] and
-[RFC-6][]. To avoid prolonged uncertainty and to maintain momentum toward a stable
+[RFC-6][]). To avoid prolonged uncertainty and to maintain momentum toward a stable
 release, NGFF requires an explicitly defined group with the mandate to reach
 timely decisions.
 
