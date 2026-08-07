@@ -301,4 +301,3 @@ Jump to:
 [Back to top](#glossary)
 
 If you think any term is missing or needs to be updated, please open a PR to the [ngff-website repository](https://github.com/ome/ngff).
-
