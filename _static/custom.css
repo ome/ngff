@@ -19,18 +19,3 @@ h1:has(+ .ome-hero) {
 @media (max-width: 768px) {
   h1:has(+ .ome-hero) { font-size: 2.5rem; }
 }
-
-/* cards */
-.sd-row { align-items: stretch; }
-.sd-col { display: flex; }
-
-.sd-card {
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.sd-card img {
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
