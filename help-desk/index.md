@@ -1,8 +1,8 @@
 # Help Desk
 
-* [Glossary](#glossary)
-* [FAQs](#faqs)
-* [Where to seek for help](#where-to-seek-for-help)
+- [Glossary](#glossary)
+- [FAQs](#faqs)
+- [Where to seek for help](#where-to-seek-for-help)
 
 ## Glossary
 
@@ -29,11 +29,23 @@ Jump to:
 
 [Back to top](#glossary)
 
+### D
+
+[Back to top](#glossary)
+
+### E
+
+[Back to top](#glossary)
+
+### F
+
+[Back to top](#glossary)
+
 ### G
 
 [Back to top](#glossary)
 
-### H 
+### H
 
 **HCS** - Dedicated layout of OME-Zarr files representing the used wells and plates for High Content Screening (HCS). The layout allows a user to efficiently address and analyze specific data from specific wells.
 
@@ -41,9 +53,21 @@ Jump to:
 
 [Back to top](#glossary)
 
+### I
+
+[Back to top](#glossary)
+
 ### J
 
 **JSON file** - A simple standardized human-readable data format for sharing data using nested key-value pairs.
+
+[Back to top](#glossary)
+
+### K
+
+[Back to top](#glossary)
+
+### L
 
 [Back to top](#glossary)
 
@@ -54,6 +78,7 @@ Jump to:
 [Back to top](#glossary)
 
 ### N
+
 **NGFF** - Next Generation File Format (NGFF) is a community for solving problems related to producing open-source software for microscopy data.
 
 [Back to top](#glossary)
@@ -66,13 +91,17 @@ Jump to:
 
 **OME-NGFF** - OME-NGFF refers to the resulting efforts of the OME & NGFF communities.
 
-**OME-Zarr** - An OME-Zarr is a standardized file format for microscopy images. More details on the [main page](#../).
+**OME-Zarr** - An OME-Zarr is a standardized file format for microscopy images. More details on the [main page](#main-page).
 
 [Back to top](#glossary)
 
 ### P
 
 **Processing Unit** - A Processing Unit is an independent section of data that a process (like image analysis) can be run on separately. For OME-Zarr images, a processing unit could be a sub-set of the image, the entire image, or multiple images.
+
+[Back to top](#glossary)
+
+### Q
 
 [Back to top](#glossary)
 
@@ -84,7 +113,7 @@ Jump to:
 
 ### S
 
-**Shard/ing** - Like [Chunks](#c), sharding is a way of breaking up pixel data for more efficient access. Shards are groups of chunks with headers in front of them for describing the chunks inside.
+**Shard/ing** - Like [Chunks](#c), sharding is a way of breaking up pixel data for more efficient access. Shards are groups of chunks in a single object with headers describing the chunks inside.
 
 [Back to top](#glossary)
 
@@ -96,6 +125,9 @@ Jump to:
 
 ### U
 
+[Back to top](#glossary)
+
+### V
 
 [Back to top](#glossary)
 
@@ -105,9 +137,17 @@ Jump to:
 
 [Back to top](#glossary)
 
+### X
+
+[Back to top](#glossary)
+
+### Y
+
+[Back to top](#glossary)
+
 ### Z
 
-**Zarr** -- A file format, see the [main page](#../) for more information about what a Zarr is and the benefits of using Zarr.
+**Zarr** -- A file format, see the [main page](#main-page) for more information about what a Zarr is and the benefits of using Zarr.
 
 **Zarr Group** - A Zarr group is like a folder inside a dataset. It can hold arrays, metadata, or other groups, helping organize complex data into a clear hierarchy. Think of it as a way to keep all related images and information neatly together.
 
@@ -172,15 +212,14 @@ That is often the case. OME-Zarr include multiresolution data (i.e. pyramids), w
 
 Not yet fully. Some workarounds are possible (1D arrays, mesh formats), but this is an active area of development.
 
-
-
+(where-to-seek-for-help)=
 ## Where to look for help
+
 If you have questions or need help with OME-Zarr, you can reach out through the following channels:
-| Where | Description | When to use  |
+| Where | Description | When to use |
 |-------|-------------| --------------|
-| [Image.sc Forum](https://forum.image.sc) | A community forum for image analysis and bioimaging. | To know when to use the tags [ngff](https://forum.image.sc/tag/ngff), [ome-ngff](https://forum.image.sc/tag/ome-ngff),  and [ome-zarr](https://forum.image.sc/tag/ome-zarr) in the forum please read [Landing Page](https://ngff.openmicroscopy.org/index.html), Glossary and FAQs in this page. |
+| [Image.sc Forum](https://forum.image.sc) | A community forum for image analysis and bioimaging. | To know when to use the tags [ngff](https://forum.image.sc/tag/ngff), [ome-ngff](https://forum.image.sc/tag/ome-ngff), and [ome-zarr](https://forum.image.sc/tag/ome-zarr) in the forum please read [Landing Page](https://ngff.openmicroscopy.org/index.html), Glossary and FAQs in this page. |
 | [ome/ngff GitHub Issues](https://github.com/ome/ngff/issues) | The official repository for OME-NGFF specifications and related discussions. | For reporting bugs, suggesting features, or discussing technical aspects of the OME-NGFF specifications. |
 | Office Hours | Regularly scheduled virtual meetings where you can ask questions and get help from the NGFF community | Office hours rotate between APAC/AU/EU- and AMER/AU/EU-friendly times. Join them when you want to chat about OME-Zarr. Read more in the [Community](../community/index.md) page. |
 | OME-Zarr libraries GitHub Issues| Various repositories for OME-Zarr libraries. | For issues specific to a particular OME-Zarr library, use the respective GitHub repository's issue. |
 | In person events | Conferences, workshops, and meetups where you can connect with the NGFF community. | To network, learn, and discuss OME-Zarr in person. Check the [Community](../community/index.md) page for upcoming events. |
-
