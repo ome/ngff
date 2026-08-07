@@ -300,17 +300,4 @@ Jump to:
 
 [Back to top](#glossary)
 
-### Y
-
-[Back to top](#glossary)
-
-### Z
-
-**Zarr** -- A file format, see the [main page](#main-page) for more information about what a Zarr is and the benefits of using Zarr.
-
-**Zarr Group** - A Zarr group is like a folder inside a dataset. It can hold arrays, metadata, or other groups, helping organize complex data into a clear hierarchy. Think of it as a way to keep all related images and information neatly together.
-
-[Back to top](#glossary)
-
 If you think any term is missing or needs to be updated, please open a PR to the [ngff-website repository](https://github.com/ome/ngff).
-
