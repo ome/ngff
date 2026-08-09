@@ -19,6 +19,8 @@ Jump to:
 
 ### B
 
+**BIDS** - Brain Imaging Data Structure (BIDS) is a community-developed standard for organizing and describing neuroscientific data. The [BIDS specification supports OME-Zarr](https://bids-specification.readthedocs.io/en/stable/common-principles.html#imaging-files) as a storage format for imaging data.
+
 [Back to top](#glossary)
 
 ### C
@@ -183,7 +185,7 @@ As with any initiative involving community consensus, feature adoption and scope
 
 **7. Does this format work for non-microscopy data too?**
 
-OME-Zarrs are, by definition, Zarr files with added structures defined by the OME community. These structures have been defined and developed to attend to the needs of the microscopy community, but are by no means limited to those. If you work on other kinds of large multidimensional arrays and you find the OME-Zarr metadata structures useful for your work, great! You might also need different kinds of structures; if you believe these would also be useful for a broader community, engaging with the RFC process is always welcome; otherwise, you might want to consider "pure" Zarr.
+OME-Zarrs are, by definition, Zarr files with added structures defined by the OME community. These structures have been defined and developed to attend to the needs of the microscopy community, but are by no means limited to those. If you work on other kinds of large multidimensional arrays and you find the OME-Zarr metadata structures useful for your work, great! For example, the [BIDS specification supports OME-Zarr](https://bids-specification.readthedocs.io/en/stable/common-principles.html#imaging-files) as a storage format for all imaging data. You might also need different kinds of structures; if you believe these would also be useful for a broader community, engaging with the RFC process is always welcome; otherwise, you might want to consider "pure" Zarr.
 
 **8. Is OME-Zarr a stable format?**
 
