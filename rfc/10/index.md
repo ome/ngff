@@ -169,7 +169,8 @@ The EB as a whole:
   * Having team members listed as co-authors on RFC reviews etc.
   * One editor as a clear lead on each RFC
   * Include commit right concepts that would be in other charters
-* Coordinate and communicate with the wider Zarr community and the Zarr Steering Council (ZSC).
+* Coordinate and communicate with specification communities on which NGFF depends, e.g.,
+  the wider Zarr community and the Zarr Steering Council (ZSC).
 
 EB Members are expected to:
 
