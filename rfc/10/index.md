@@ -88,28 +88,46 @@ accordingly. The [OME Participation
 Agreement](https://www.openmicroscopy.org/governance/participation-agreement/)
 shall apply to all stakeholders in the NGFF governance bodies.
 
-## OME Management Group (OMG)
+### Oversight Committee
 
 The [OME Management Group (OMG)](https://www.openmicroscopy.org/governance/management-group/)
-provides strategic and procedural supervision of the NGFF Editorial Board. It
-does not participate in routine RFC deliberations unless escalation is
-required. 
+provides governance oversight for the NGFF Editorial Board (Board). The Board
+is responsible for the day-to-day editorial process and for making technical
+and editorial decisions within its mandate. The OMG does not routinely
+participate in these decisions, but retains responsibility for ensuring that
+the Board operates within the established governance framework.
 
 The OMG shall:
 
-* Appoint the Managing Editor informed by recommendations by the Editorial Board.  
-* Ratify changes to the membership of the Editorial Board through review of the EB Roster.  
-* Approve replacement or additional members if necessary.  
-* Formally acknowledge official release of NGFF versions.  
-* Serve as an escalation body in case of:  
-  * persistent EB deadlock,  
-  * procedural disputes,  
-  * or failure of the board to fulfill its mandate.
+* Appoint the Managing Editor, normally from among candidates recommended by
+  the Editorial Board.
+* Ratify changes to the membership of the Editorial Board through review of the
+  Editorial Board Roster.
+* Serve as an escalation body in case of:
+  - persistent Board deadlock;
+  - procedural disputes; or
+  - failure of the Board to fulfill its mandate.
+* Provide release oversight for official NGFF releases, ensuring that
+  established governance and editorial processes have been followed.
+
+Release oversight does not constitute routine technical or editorial approval.
+The Board is responsible for the technical content and editorial finalization
+of NGFF releases. The role of the OMG is to safeguard the integrity of the
+release process and ensure that an official NGFF release is made in accordance
+with the established governance and editorial procedures.
+
+Where the OMG identifies a substantive procedural failure, it may intervene to
+prevent or delay an official release until the relevant governance or editorial
+requirements have been satisfied. Such intervention should be exceptional and
+should not substitute the OMG's judgement for that of the Board on technical
+matters.
 
 The OMG does not:
 
-* Vote on routine RFC decisions.  
-* Override Editorial Board decisions except in formally escalated cases.
+* Vote on routine RFC decisions.
+* Direct the technical content or editorial decisions of the Board.
+* Routinely review or approve RFC decisions made by the Board.
+* Override Board decisions except in formally escalated cases.
 
 ## Managing Editor
 
