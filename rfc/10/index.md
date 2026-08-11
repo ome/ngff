@@ -125,12 +125,35 @@ requirements have been satisfied. Such intervention should be exceptional and
 should not substitute the OMG's judgement for that of the Board on technical
 matters.
 
-The OMG does not:
+The OMG shall not:
 
 * Vote on routine RFC decisions.
 * Direct the technical content or editorial decisions of the Board.
 * Routinely review or approve RFC decisions made by the Board.
 * Override Board decisions except in formally escalated cases.
+
+### Lazy consensus and OMG oversight
+
+Matters referred to the OMG for review shall normally follow a lazy-consensus
+process: the Board may proceed unless a substantive objection is raised. The
+OMG should make reasonable efforts to review such matters in a timely manner.
+
+The target review period is one full working week, with an outer limit of two
+full working weeks. If no substantive objection has been raised within the
+outer limit, the Board may proceed. Periods of individual OMG member
+unavailability do not automatically extend these limits.
+
+A substantive objection shall identify the governance, procedural, or other
+basis for intervention. The OMG's oversight shall not substitute its judgement
+for the technical authority delegated to the Board.
+
+The following require affirmative OMG action and are not subject to lazy consensus:
+
+* Appointment or removal of Editorial Board members.
+* Adoption or amendment of this RFC or other documents establishing the
+  authority or structure of the Board.
+
+Any other matter explicitly designated as requiring affirmative OMG action.
 
 ## Managing Editor
 
