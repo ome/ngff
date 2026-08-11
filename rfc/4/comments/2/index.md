@@ -1,10 +1,26 @@
-# RFC-4: Comment 2
+---
+authors:
+  - name: Chris Barnes
+    email: chris.barnes@gerbi-gmb.de
+    github: clbarnes
+    affiliation: German BioImaging
+date: 2026-02-05
+recommendation: accept
+---
+
+# RFC-4 comment 2
 
 (rfcs:rfc4:comment2)=
 
-## Review authors
+## Comment author
 
-Chris Barnes <chris.barnes@gerbi-gmb.de>
+```{document-authors}
+
+```
+
+# RFC-4: Comment 2
+
+(rfcs:rfc4:comment2)=
 
 ## Conflicts of interest
 

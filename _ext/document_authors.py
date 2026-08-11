@@ -4,6 +4,7 @@ from docutils.parsers.rst import Directive
 
 ORCID_ICON = "https://orcid.org/assets/vectors/orcid.logo.icon.svg"
 GITHUB_ICON = "https://github.githubassets.com/favicons/favicon.svg"
+EMAIL_ICON = "https://raw.githubusercontent.com/twbs/icons/main/icons/envelope-fill.svg"
 
 
 def _icon_link(uri, src, alt):
@@ -68,6 +69,12 @@ class DocumentAuthors(Directive):
                 uri = gh if str(gh).startswith("http") else f"https://github.com/{gh}"
                 para += nodes.Text(" ")
                 para += _icon_link(uri, GITHUB_ICON, "GitHub")
+
+            email = a.get("email")
+            if email:
+                uri = email if str(email).startswith("mailto:") else f"mailto:{email}"
+                para += nodes.Text(" ")
+                para += _icon_link(uri, EMAIL_ICON, "Email")
 
         result = [para]
 
