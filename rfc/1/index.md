@@ -1,5 +1,7 @@
 # RFC-1: RFC Process
 
+(rfcs:rfc1)=
+
 Definition of the NGFF “Request for Comment” (RFC) process
 
 ```{toctree}
@@ -241,6 +243,8 @@ right direction. **Reviewers** should strive to provide feedback which informs *
 
 **Commenters** are other members of the community who, though not contacted as **Reviewers**, have provided feedback that they would like added to the official record of the RFC.
 
+(rfc1-implementation)=
+
 ## Implementation
 
 The RFC process can be represented as a state diagram with the various stakeholders responsible for forward motion.
@@ -325,7 +329,8 @@ to the **Editors**, either via a public PR adding the review in markdown to the
 RFC's subdirectory or by emailing the **Editors** directly. (This latter course
 should only be used when necessary.)
 
-(rfc-recommendations)= Possible recommendations from **Reviewers** in ascending order of support are:
+(rfc-recommendations)=
+Possible recommendations from **Reviewers** in ascending order of support are:
 
 - “Reject” suggests that a **Reviewer** considers there to be no merit to an
   RFC. This should be a last recourse. Instead, suggestions in a “Major

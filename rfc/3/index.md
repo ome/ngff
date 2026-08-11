@@ -99,6 +99,12 @@ This RFC is currently in RFC state `R1` (send for review).
     - Technische Universität Dresden
     - 2026-03-19
     - [Comment](./comments/3/index)
+*   - Reviewer
+    - Melissa Linkert, Sébastien Besson
+    - [melissalinkert](https://github.com/melissalinkert), [sbesson](https://github.com/sbesson)
+    - [Glencoe Software](https://github.com/glencoesoftware)
+    - 2026-08-04
+    - [Review](#rfcs:rfc3:review1)
 ```
 
 ## Overview
