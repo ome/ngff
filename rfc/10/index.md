@@ -141,7 +141,9 @@ OMG should make reasonable efforts to review such matters in a timely manner.
 The target review period is one full working week, with an outer limit of two
 full working weeks. If no substantive objection has been raised within the
 outer limit, the Board may proceed. Periods of individual OMG member
-unavailability do not automatically extend these limits.
+unavailability do not automatically extend these limits. The review period may
+be extended by mutual agreement between the Board and the OMG where the Board
+considers additional OMG feedback valuable.
 
 A substantive objection shall identify the governance, procedural, or other
 basis for intervention. The OMG's oversight shall not substitute its judgement
