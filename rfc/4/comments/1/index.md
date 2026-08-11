@@ -1,8 +1,19 @@
-# RFC-4 comment
+---
+authors:
+  - name: David Stansby
+    github: dstansby
+date: 2025-04-02
+---
+
+# RFC-4 comment 1
+
+(rfcs:rfc4:comment1)=
 
 ## Comment author
 
-David Stansby
+```{document-authors}
+
+```
 
 ## Conflicts of interest (optional)
 

@@ -14,13 +14,27 @@ recommendation: accept
 
 # RFC-X: Review X
 
+or
+
+# RFC-X: Comment X
+
 (rfcs:rfcX:reviewX)=
+
+(rfcs:rfcX:commentX)=
 
 (rfc1-review-template)=
 
 Replace the title above of this file with “RFC-NUM: Review NUM”. Update the tag to `(rfcs:rfcNUM:reviewNUM)` and remove the `(rfc1-review-template)` tag. Add your names and affiliations to the **authors** section above (and optionally ORCID and GitHub username) as well as the date of submission and your recommendation (`accept`, `major_changes`, `minor_changes`, `reject`).
 
-## Review authors
+For a Comment, the `recommendation` field may be left blank. Please also change the mentions of "review" to "comment" where appropriate, including the MyST target anchor, and the title of the file.
+
+The document-authors directive will automatically pull the information from the YAML front matter and display it in a table.
+
+## Authors
+
+```{document-authors}
+
+```
 
 ## Conflicts of interest (optional)
 
