@@ -103,6 +103,9 @@ The OMG shall:
   the Editorial Board.
 * Ratify changes to the membership of the Editorial Board through review of the
   Editorial Board Roster.
+* Remove or replace Editorial Board members who are unable to fulfill the
+  responsibilities of membership, subject to any procedures defined in the
+  Editorial Board Policies.
 * Serve as an escalation body in case of:
   - persistent Board deadlock;
   - procedural disputes; or
@@ -153,10 +156,12 @@ the tie-breaking mechanism defined under “Decision-Making and Voting” applie
 
 The Editorial Board consists of members appointed based on sustained and
 demonstrable operational involvement in NGFF-related specification,
-implementation, or infrastructure work. Membership is ratified by the OMG. The
-size and membership of the Editorial Board SHALL be maintained in the “NGFF
-Editorial Board Roster,” a publicly accessible document updated by the Managing
-Editor and ratified by the OMG.
+implementation, or infrastructure work. The size and membership of the
+Editorial Board SHALL be maintained in the “NGFF Editorial Board Roster,” a
+publicly accessible document updated by the Managing Editor and ratified by the
+OMG. Where a member is unable or unwilling to fulfill these responsibilities
+for a prolonged period, the member may be removed from the Board in accordance
+with any Editorial Board Policies.
 
 The EB as a whole:
 
