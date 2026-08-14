@@ -105,6 +105,7 @@ def build_served_html():
     
     # Create .htaccess to redirect all schema requests to GitHub
     # ponytail: one rewrite rule handles all versions/files, avoids generating per-file stubs
+    os.makedirs("_html_extra", exist_ok=True)
     htaccess_content = """RewriteEngine On
 RewriteRule ^([^/]+)/schemas/(.*)$ https://raw.githubusercontent.com/ome/ngff-spec/$1/schemas/$2 [R=301,L]
 """
