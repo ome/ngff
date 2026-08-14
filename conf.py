@@ -103,6 +103,16 @@ def build_served_html():
 
     os.chdir(Path(__file__).parent)
     
+    # Create .htaccess to serve schemas inline (not download)
+    os.makedirs("_html_extra", exist_ok=True)
+    htaccess_content = """<FilesMatch "\\.schema$">
+    Header set Content-Disposition "inline"
+</FilesMatch>
+"""
+    with open("_html_extra/.htaccess", "w") as f:
+        f.write(htaccess_content)
+    print(f"✅ Created .htaccess to serve schemas inline")
+    
     # Fetch GitHub tags and download schemas
     try:
         result = subprocess.check_output([
