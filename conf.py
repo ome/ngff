@@ -103,15 +103,35 @@ def build_served_html():
 
     os.chdir(Path(__file__).parent)
     
-    # Create .htaccess to redirect all schema requests to GitHub
-    # ponytail: one rewrite rule handles all versions/files, avoids generating per-file stubs
-    os.makedirs("_html_extra", exist_ok=True)
-    htaccess_content = """RewriteEngine On
-RewriteRule ^([^/]+)/schemas/(.*)$ https://raw.githubusercontent.com/ome/ngff-spec/$1/schemas/$2 [R=301,L]
-"""
-    with open("_html_extra/.htaccess", "w") as f:
-        f.write(htaccess_content)
-    print(f"✅ Created .htaccess redirect for all schemas → GitHub raw")
+    # Fetch GitHub tags and download schemas
+    try:
+        result = subprocess.check_output([
+            "git", "ls-remote", "--tags", "https://github.com/ome/ngff-spec"
+        ], text=True, timeout=10)
+        tags = [line.split()[1].replace("refs/tags/", "").rstrip("^{}") for line in result.strip().split("\n") if line]
+        for tag in sorted(set(tags)):
+            schema_dir = f"_html_extra/{tag}/schemas"
+            os.makedirs(schema_dir, exist_ok=True)
+            # Download schemas from GitHub raw for this tag
+            gh_url = f"https://github.com/ome/ngff-spec/archive/refs/tags/{tag}.tar.gz"
+            try:
+                import tempfile, tarfile
+                with tempfile.NamedTemporaryFile(delete=False) as tmp:
+                    subprocess.check_call(["curl", "-sL", gh_url, "-o", tmp.name])
+                    with tarfile.open(tmp.name) as tar:
+                        for member in tar.getmembers():
+                            if "/schemas/" in member.name and member.name.endswith(".schema"):
+                                # Extract just the filename, flatten into schema_dir
+                                target = os.path.join(schema_dir, os.path.basename(member.name))
+                                tar.extract(member, path=tempfile.gettempdir())
+                                src = os.path.join(tempfile.gettempdir(), member.name)
+                                shutil.copy2(src, target)
+                    os.unlink(tmp.name)
+                print(f"✅ Downloaded schemas for {tag}")
+            except Exception as e:
+                print(f"⚠️  Could not download schemas for {tag}: {e}")
+    except Exception:
+        pass
     
     # Build specifications from local submodules
     displayed_spec_versions = [
