@@ -57,25 +57,6 @@ redirects = {
     "dev/": "../specifications/dev/index.html",
 }
 
-# Populate schema redirects from GitHub tags
-def _populate_schema_redirects():
-    import subprocess
-    result = subprocess.check_output([
-        "git", "ls-remote", "--tags", "https://github.com/ome/ngff-spec"
-    ], text=True, timeout=10)
-    # result looks like this
-    # e3d2f8ffbbcfb0e0906e901ec572f5c49b36328d        refs/tags/0.6.dev1
-    # da4606bf96d2829ad74b4dbaf6de5afb6b7a595a        refs/tags/0.6.dev2
-
-    tags = [
-        line.split()[1].replace("refs/tags/", "").rstrip("^{}")
-        for line in result.strip().split("\n") if line
-        ]
-    for tag in sorted(set(tags)):
-        redirects[f"{tag}/schemas/"] = f"https://raw.githubusercontent.com/ome/ngff-spec/{tag}/schemas/"
-
-_populate_schema_redirects()
-
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
@@ -121,6 +102,20 @@ def build_served_html():
     from pathlib import Path
 
     os.chdir(Path(__file__).parent)
+    
+    # Fetch GitHub tags and create schema redirects
+    try:
+        result = subprocess.check_output([
+            "git", "ls-remote", "--tags", "https://github.com/ome/ngff-spec"
+        ], text=True, timeout=10)
+        tags = [line.split()[1].replace("refs/tags/", "").rstrip("^{}") for line in result.strip().split("\n") if line]
+        for tag in sorted(set(tags)):
+            os.makedirs(f"_html_extra/{tag}/schemas", exist_ok=True)
+            with open(f"_html_extra/{tag}/schemas/index.html", "w") as f:
+                f.write(f'<meta http-equiv="refresh" content="0;url=https://raw.githubusercontent.com/ome/ngff-spec/{tag}/schemas/">')
+            print(f"✅ Redirect schemas/{tag} → GitHub raw")
+    except Exception:
+        pass
     
     # Build specifications from local submodules
     displayed_spec_versions = [
