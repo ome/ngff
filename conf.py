@@ -103,19 +103,14 @@ def build_served_html():
 
     os.chdir(Path(__file__).parent)
     
-    # Fetch GitHub tags and create schema redirects
-    try:
-        result = subprocess.check_output([
-            "git", "ls-remote", "--tags", "https://github.com/ome/ngff-spec"
-        ], text=True, timeout=10)
-        tags = [line.split()[1].replace("refs/tags/", "").rstrip("^{}") for line in result.strip().split("\n") if line]
-        for tag in sorted(set(tags)):
-            os.makedirs(f"_html_extra/{tag}/schemas", exist_ok=True)
-            with open(f"_html_extra/{tag}/schemas/index.html", "w") as f:
-                f.write(f'<meta http-equiv="refresh" content="0;url=https://raw.githubusercontent.com/ome/ngff-spec/{tag}/schemas/">')
-            print(f"✅ Redirect schemas/{tag} → GitHub raw")
-    except Exception:
-        pass
+    # Create .htaccess to redirect all schema requests to GitHub
+    # ponytail: one rewrite rule handles all versions/files, avoids generating per-file stubs
+    htaccess_content = """RewriteEngine On
+RewriteRule ^([^/]+)/schemas/(.*)$ https://raw.githubusercontent.com/ome/ngff-spec/$1/schemas/$2 [R=301,L]
+"""
+    with open("_html_extra/.htaccess", "w") as f:
+        f.write(htaccess_content)
+    print(f"✅ Created .htaccess redirect for all schemas → GitHub raw")
     
     # Build specifications from local submodules
     displayed_spec_versions = [
