@@ -1,5 +1,12 @@
 # Community
 
+## OME NGFF Community Calendar
+
+<iframe id="calendariframe" src="https://calendar.google.com/calendar/embed?src=14c96687c3814f289f92de53b49bdfa7e5161d458ed1ab02d6a6c8a994522e10%40group.calendar.google.com&ctz=local" style="border: 0" width="800" height="400" frameborder="0" scrolling="no"></iframe> <script>document.getElementById("calendariframe").src = document.getElementById("calendariframe").src.replace("ctz=local", "ctz=" + Intl.DateTimeFormat().resolvedOptions().timeZone)</script>
+
+Download the <a href="https://calendar.google.com/calendar/ical/14c96687c3814f289f92de53b49bdfa7e5161d458ed1ab02d6a6c8a994522e10%40group.calendar.google.com/public/basic.ics">.ics</a> file and add it to your calendar so won't miss any of our meetings!
+
+
 ## Community Calls
 Community Calls are quarterly meetings that feature updates and presentations on OME-Zarr specification work, tooling ecosystem, and use cases. **Everyone is welcome** to these calls - developers, users, and enthusiasts alike. Whether you have just heard about OME-NGFF and are curious to learn more or if you have been working with it every day, consider yourself invited.
 
@@ -24,13 +31,16 @@ Please see the [calendar](#ome-ngff-community-calendar) below for exact time to 
 
 ## Hackathons & Symposiums
 
-Hackathons have been hosted yearly by the BioVision Center in Zurich:
+Dedicated hackathons and workshops have been hosted yearly by the BioVision Center in Zurich:
 
 | Dates | Website | Outcomes |
 | ---- | ------- | -------- |
 | Nov 6-8, 2023 | [Next generation bioimage analysis workflows hackathon](https://www.biovisioncenter.uzh.ch/en/events/2023/hackathon_23.html)| [2023 image.sc post](https://forum.image.sc/t/outcomes-of-the-next-generation-bioimage-analysis-workflows-hackathon/88733)|
 | Nov 18-22, 2024 | [2024 OME-NGFF Workflows Hackathon](https://biovisioncenter.uzh.ch/en/events/2024/hackaton_november_2024.html)| [2024 Preprint](https://doi.org/10.37044/osf.io/5uhwz_v1)|
 | Nov 10-14, 2025 | [2025 OME-NGFF Workshop](https://www.biovisioncenter.uzh.ch/en/events/Upcoming-Events/2025-OME-NGFF-workshop.html)| |
+| Nov 2-6, 2026 | [2026 OME-Zarr Hackathons](https://biovisioncenter.notion.site/2026-ome-zarr-hackathon)| |
+
+
 
 ```{image} ../images/hackathons/IMG_7670.jpeg
 :width: 200px
@@ -42,11 +52,6 @@ Hackathons have been hosted yearly by the BioVision Center in Zurich:
 :width: 200px
 ```
 
-## OME NGFF Community Calendar
-
-<iframe id="calendariframe" src="https://calendar.google.com/calendar/embed?src=14c96687c3814f289f92de53b49bdfa7e5161d458ed1ab02d6a6c8a994522e10%40group.calendar.google.com&ctz=local" style="border: 0" width="800" height="400" frameborder="0" scrolling="no"></iframe> <script>document.getElementById("calendariframe").src = document.getElementById("calendariframe").src.replace("ctz=local", "ctz=" + Intl.DateTimeFormat().resolvedOptions().timeZone)</script>
-
-Download the <a href="https://calendar.google.com/calendar/ical/14c96687c3814f289f92de53b49bdfa7e5161d458ed1ab02d6a6c8a994522e10%40group.calendar.google.com/public/basic.ics">.ics</a> file and add it to your calendar so won't miss any of our meetings!
 
 ## Contributors
 (community:contributors)=
