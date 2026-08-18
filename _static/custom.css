@@ -37,5 +37,8 @@ h1:has(+ .ome-hero) {
   object-fit: cover;
 }
 
+/* The snippet below is needed as sphinx-design cards with links
+   and the RTD link-preview extension are not playing well together.
+   TODO: Remove this if moving away from RTD or disabling the link-preview extension.*/
 .tooltip[data-linkpreview-href] { display: none !important; pointer-events: none !important; }
 .tooltip[data-linkpreview-href] iframe { display: none !important; }
