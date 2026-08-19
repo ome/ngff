@@ -137,138 +137,6 @@ additional metadata. The same mechanism can also provide a path for
 incorporating existing OME-Zarr structures and future data types into a more
 consistent framework.
 
-### User stories
-
-#### 1. Visualize multiple images at once
-Several viewers are capable of visualizing multiple images, that can map to a common coordinate space, at once. Examples are Webknossos, Neuroglancer, MoBIE and OMERO.figure. All of these tools have developed their own JSON-based metadata to combine multiple images in a collection, see "[Prior art and references](#prior-art-and-references)". In addition to mere path references of the images, this metadata also contains information about coordinate transforms and rendering settings.
-
-As there is no standard-compliant way in OME-Zarr to describe multiple images in one entity, users need to copy multiple links to interoperably visualize multiple images.
-
-RFC-5 introduced the `scene` metadata, which partially solved this issue.
-However, with this proposal we aim to embed it in a more flexible collection mechanism.
-
-#### 2. m:n segmentations
-While OME-Zarr has support for attaching labels to images, the support is not sufficient for many use cases.
-There are multiple label images that can be attached to a single image. This is a 1:n relationship. However, m:n relationships would be desired because labels might be related to multiple images. Examples for that are:
-- Multiple correlated images express the same feature that is being labeled.
-- Channels are stored in multiple images instead of in the same image.
-
-Additionally, there are other types of derived images, such as prediction maps, which cannot currently be represented by OME-Zarr. In comparison to label maps, where each voxel is assigned a discrete ID, prediction maps have a channel per segmentation class (or similar) and each voxel is assigned a probability or other continuous value.
-
-#### 3. Shallow copies of images with segmentations
-Many workflow engines operate by taking input images and producing output images. In many cases, it is desired to keep the input images unchanged.
-Let's assume the example of a pixel classification task. This task would take an OME-Zarr image as input and produce a prediction map. To express the relationship between input image and output prediction, the task could create a collection that contains the prediction and links to the image (i.e. shallow copy). The output collection could then be used to visualize both at the same time. This is applicable to a wide variety of workflow tasks with the result that the outputs of each task can be visualized or further processed independent of other tasks.
-
-```
-├─ input_image.zarr
-│  ├─ zarr.json # OME-Zarr multiscale
-│  ├─ 0 
-│  └─ ... 
-└─ output_collection.zarr
-   │  # includes collection metadata and link to "../input_image.zarr"
-   ├─ zarr.json 
-   └─ prediction.zarr
-      ├─ zarr.json # OME-Zarr multiscale
-      ├─ 0 
-      └─ ...
-```
-
-Examples for such workflow systems:
-- [Voxelytics](https://voxelytics.com)
-- [Fractal](https://fractal-analytics-platform.github.io/)
-- [Nextflow](https://www.nextflow.io/)
-
-#### 4. Correlative imaging
-
-Several applications in microscopy and other imaging domains involve the acquisition of images
-of the same object from different angles or with different imaging modalities.
-Examples of such applications are (among others) the following:
-- Correlative light and electron microscopy (CLEM): In this case,
-  a sample is examined with both electron and light microscopy,
-  both of which feature their own sets of spatial dimensions.
-  A set of coordinate transformations is used to map between the different images.
-- Multiview lightsheet: For this application,
-  lightsheet microscopes acquire multiple views of the same object from different angles.
-  A set of coordinate transformations is used to map between the different views.
-- Multimodal medical imaging: Different imaging modalities (e.g., CT, MRI, PET, etc),
-  are often used either in conjunction or at different timepoints to observe the same object or anatomical structure. 
-
-Such applications require the storage of collections of images and their mutual relationships,
-the metadata for which has already been defined by RFC-5 (Coordinate Transformations in OME-NGFF).
-In the context of RFC-5, images are part of a collection if they share a common coordinate space
-that is defined by coordinate systems and coordinate transformations.
-Since the relationships between images are already defined
-in a graph-like schema as proposed in this RFC,
-the transformations metadata can be represented as a specialized collection
-with coordinate systems and transformations as attributes of the collection and nodes.
-In a way, coordinate transformations and systems simply become a subset of the more general collection concept.
-
-
-#### 5. High Content Screening (HCS) plates
-
-OME-Zarr high content screening plates are a current example of a narrowly defined type of collection.
-They allow grouping OME-Zarr images in multiple hierarchy levels: A plate contains wells, which are organized as row folders with column subfolders in each.
-Each well folder can contain a number of images.
-There is defined metadata about which wells are in a plate and about which images are in a well at the different hierarchy levels, typically with some additional optional metadata like the acquisitions that exist in a plate and which image belongs to which acquisition.
-
-This hierarchy is very useful for typical experiments where researchers imaged a multi-well plate.
-Multiple viewers like MoBIE, napari & ViZarr support displaying the different wells arranged in the plate format given the OME-Zarr HCS metadata, thus avoiding the need for tool-specific metadata and showing the benefits of such collection concepts.
-
-The current HCS spec also has its limitations: It has a strict definition of potential metadata fields at the plate and well level.
-There are multiple areas where it would be interesting to extend this spec.
-There are [ongoing discussions](https://github.com/ome/ngff/pull/137) about whether individual microscope fields of view (ie. well) should be stored as individual OME-Zarr images or as a single OME-Zarr image and how one would represent [different processing intermediates in a plate](https://forum.image.sc/t/how-to-build-hcs-zarrs-with-multiple-image-types-per-fov/119329).
-In these contexts, the current HCS spec lacks flexibility to get additional metadata about how images in a well are related and what a viewer should do with them.
-For example, depending on whether an OME-Zarr image in a well is an individual field of view of a given acquisition, a second acquisition of the same region in a plate or an image derived from a given processing operation, the optimal viewer default on whether to show or not show multiple images at once will vary.
-A flexible metadata field like `attributes` would allow us to better define such image metadata.
-A more flexible HCS collection system could also allow to provide advanced metadata on well positions [when wells have different sizes](https://github.com/ome/ome-zarr-py/issues/240) or address other edge-cases in the current HCS configuration.
-
-
-#### 6. Image Archive
-Data archives that support deposition and access to OME-Zarr formatted images have two primary use cases for collections of images.
-For the first, users submitting data to deposition databases need ways to aggregate collections of images in their data upload structure, and do so in a way that supports describing how those images relate (e.g. parts of the same acquisition series, plate/well data as mentioned above).
-This can then be parsed during data submission, and used to create appropriate database records.
-
-Secondly, when providing outgoing access to data, archives want to provide groupings of images that allow compatibility with data exploration and visualisation tools. Given the increasingly rich ecosystem of these tools (mentioned across these use cases, and including grid views, segmentations, multiple images and plate/well data) standardisation is necessary to avoid the need to produce view/exploration schema for each tool.
-
-#### 7. Rendering settings
-Viewers, such as Webknossos, Neuroglancer, MoBIE and OMERO.figure, are capable of visualizing multiple OME-Zarr images ("layers") in a view.
-To share such a view, metadata serialization is required that contains not only links to the images, but also attached metadata of the rendering state.
-The rendering state of a collection might contain locations, rotation angles, coordinate systems as well as rendering state of individual layers.
-The rendering state of layers might contain pixel transformations (e.g. min/max scaling, colors, shaders), coordinate transformation overrides, visibility settings.
-
-Some of these rendering state attributes might be compatible across implementations, but others might not.
-This proposal does not intend to provide a specification for the rendering state itself, but provide metadata containers to store such viewer-specific state.
-
-
-#### 8. Grouping together remote images
-
-When building upon images that have been published by others, it might be useful to create virtual groupings of multiple remotely stored images.
-For example, a lab might create automatic segmentations of a large image that has been published by another lab.
-While the segmentation would now be published on its own, it could still be published with a link to the original images so that viewers are able to show the segmentation as an overlay on the original data.
-
-#### 9. Adding other datatypes to images
-When processing images in the OME-Zarr format, a diversity of derived data like segmentation, probability maps, meshes, tables and other formats can be generated.
-This proposal does not intend to provide a specification to all these datatypes, but to define the metadata of how related data in Zarr or other formats can be linked to OME-Zarr images.
-
-Because there is already a specification for labels in the spec, the label definition is broadened by this spec.
-For other datatypes like tables, [past proposals](https://github.com/ome/ngff/pull/64) have focused on how tables can be serialised to OME-Zarr.
-As these proposals did not proceed to become part of the OME-Zarr spec, different implementers have built their own sub-specs for tables (see e.g. the [ngio table definition](https://fractal-analytics-platform.github.io/ngio/v0.3.2/table_specs/overview/) coming from the Fractal project or the [label table](https://mobie.github.io/specs/mobie_spec.html#table-data) in MoBIE).
-While future proposals and extensions may define datatypes like tables more strictly, this proposal offers a general way to make such additional data types discoverable.
-
-#### 10. Gallery / grid views
-
-It is useful to visualise similar images in a grid view where all images are visible as "thumbnails", which in the case of OME-Zarr can simply be the lowest resolution version of the data. Like this, users can have an overview of all the data and can then decide to "zoom in" on some datasets to explore them in higher resolution.
-
-Implementations of this concept include:
-- [Zarrcade](https://github.com/JaneliaSciComp/zarrcade)
-- [BioFile Finder](https://bff.allencell.org/)
-- [MoBIE grid views](https://mobie.github.io/tutorials/image_grids_and_tables.html)
-- [OME2024 NGFF challenge](https://ome.github.io/ome2024-ngff-challenge/)
-
-For example, [this table](https://docs.google.com/spreadsheets/d/1t5xB0p0zd2-a6ynV-JAuLJqs-mg-pFFikhfmQGZwRpI/edit?usp=sharing) defines a MoBIE grid view of three OpenOrganelle vEM images along with label images of mitochondria segmentation. It can be opened in MoBIE via the "Open Simple Collection Table" menu entry: 
-
-![MoBIE grid view](./assets/mobie_grid_view.jpg)
-
 ## Proposal
 
 ### tl;dr
@@ -1336,6 +1204,138 @@ Standalone files are useful for persisting groupings of images that may or may n
     }
 }
 ```
+
+### User stories
+
+#### 1. Visualize multiple images at once
+Several viewers are capable of visualizing multiple images, that can map to a common coordinate space, at once. Examples are Webknossos, Neuroglancer, MoBIE and OMERO.figure. All of these tools have developed their own JSON-based metadata to combine multiple images in a collection, see "[Prior art and references](#prior-art-and-references)". In addition to mere path references of the images, this metadata also contains information about coordinate transforms and rendering settings.
+
+As there is no standard-compliant way in OME-Zarr to describe multiple images in one entity, users need to copy multiple links to interoperably visualize multiple images.
+
+RFC-5 introduced the `scene` metadata, which partially solved this issue.
+However, with this proposal we aim to embed it in a more flexible collection mechanism.
+
+#### 2. m:n segmentations
+While OME-Zarr has support for attaching labels to images, the support is not sufficient for many use cases.
+There are multiple label images that can be attached to a single image. This is a 1:n relationship. However, m:n relationships would be desired because labels might be related to multiple images. Examples for that are:
+- Multiple correlated images express the same feature that is being labeled.
+- Channels are stored in multiple images instead of in the same image.
+
+Additionally, there are other types of derived images, such as prediction maps, which cannot currently be represented by OME-Zarr. In comparison to label maps, where each voxel is assigned a discrete ID, prediction maps have a channel per segmentation class (or similar) and each voxel is assigned a probability or other continuous value.
+
+#### 3. Shallow copies of images with segmentations
+Many workflow engines operate by taking input images and producing output images. In many cases, it is desired to keep the input images unchanged.
+Let's assume the example of a pixel classification task. This task would take an OME-Zarr image as input and produce a prediction map. To express the relationship between input image and output prediction, the task could create a collection that contains the prediction and links to the image (i.e. shallow copy). The output collection could then be used to visualize both at the same time. This is applicable to a wide variety of workflow tasks with the result that the outputs of each task can be visualized or further processed independent of other tasks.
+
+```
+├─ input_image.zarr
+│  ├─ zarr.json # OME-Zarr multiscale
+│  ├─ 0 
+│  └─ ... 
+└─ output_collection.zarr
+   │  # includes collection metadata and link to "../input_image.zarr"
+   ├─ zarr.json 
+   └─ prediction.zarr
+      ├─ zarr.json # OME-Zarr multiscale
+      ├─ 0 
+      └─ ...
+```
+
+Examples for such workflow systems:
+- [Voxelytics](https://voxelytics.com)
+- [Fractal](https://fractal-analytics-platform.github.io/)
+- [Nextflow](https://www.nextflow.io/)
+
+#### 4. Correlative imaging
+
+Several applications in microscopy and other imaging domains involve the acquisition of images
+of the same object from different angles or with different imaging modalities.
+Examples of such applications are (among others) the following:
+- Correlative light and electron microscopy (CLEM): In this case,
+  a sample is examined with both electron and light microscopy,
+  both of which feature their own sets of spatial dimensions.
+  A set of coordinate transformations is used to map between the different images.
+- Multiview lightsheet: For this application,
+  lightsheet microscopes acquire multiple views of the same object from different angles.
+  A set of coordinate transformations is used to map between the different views.
+- Multimodal medical imaging: Different imaging modalities (e.g., CT, MRI, PET, etc),
+  are often used either in conjunction or at different timepoints to observe the same object or anatomical structure. 
+
+Such applications require the storage of collections of images and their mutual relationships,
+the metadata for which has already been defined by RFC-5 (Coordinate Transformations in OME-NGFF).
+In the context of RFC-5, images are part of a collection if they share a common coordinate space
+that is defined by coordinate systems and coordinate transformations.
+Since the relationships between images are already defined
+in a graph-like schema as proposed in this RFC,
+the transformations metadata can be represented as a specialized collection
+with coordinate systems and transformations as attributes of the collection and nodes.
+In a way, coordinate transformations and systems simply become a subset of the more general collection concept.
+
+
+#### 5. High Content Screening (HCS) plates
+
+OME-Zarr high content screening plates are a current example of a narrowly defined type of collection.
+They allow grouping OME-Zarr images in multiple hierarchy levels: A plate contains wells, which are organized as row folders with column subfolders in each.
+Each well folder can contain a number of images.
+There is defined metadata about which wells are in a plate and about which images are in a well at the different hierarchy levels, typically with some additional optional metadata like the acquisitions that exist in a plate and which image belongs to which acquisition.
+
+This hierarchy is very useful for typical experiments where researchers imaged a multi-well plate.
+Multiple viewers like MoBIE, napari & ViZarr support displaying the different wells arranged in the plate format given the OME-Zarr HCS metadata, thus avoiding the need for tool-specific metadata and showing the benefits of such collection concepts.
+
+The current HCS spec also has its limitations: It has a strict definition of potential metadata fields at the plate and well level.
+There are multiple areas where it would be interesting to extend this spec.
+There are [ongoing discussions](https://github.com/ome/ngff/pull/137) about whether individual microscope fields of view (ie. well) should be stored as individual OME-Zarr images or as a single OME-Zarr image and how one would represent [different processing intermediates in a plate](https://forum.image.sc/t/how-to-build-hcs-zarrs-with-multiple-image-types-per-fov/119329).
+In these contexts, the current HCS spec lacks flexibility to get additional metadata about how images in a well are related and what a viewer should do with them.
+For example, depending on whether an OME-Zarr image in a well is an individual field of view of a given acquisition, a second acquisition of the same region in a plate or an image derived from a given processing operation, the optimal viewer default on whether to show or not show multiple images at once will vary.
+A flexible metadata field like `attributes` would allow us to better define such image metadata.
+A more flexible HCS collection system could also allow to provide advanced metadata on well positions [when wells have different sizes](https://github.com/ome/ome-zarr-py/issues/240) or address other edge-cases in the current HCS configuration.
+
+
+#### 6. Image Archive
+Data archives that support deposition and access to OME-Zarr formatted images have two primary use cases for collections of images.
+For the first, users submitting data to deposition databases need ways to aggregate collections of images in their data upload structure, and do so in a way that supports describing how those images relate (e.g. parts of the same acquisition series, plate/well data as mentioned above).
+This can then be parsed during data submission, and used to create appropriate database records.
+
+Secondly, when providing outgoing access to data, archives want to provide groupings of images that allow compatibility with data exploration and visualisation tools. Given the increasingly rich ecosystem of these tools (mentioned across these use cases, and including grid views, segmentations, multiple images and plate/well data) standardisation is necessary to avoid the need to produce view/exploration schema for each tool.
+
+#### 7. Rendering settings
+Viewers, such as Webknossos, Neuroglancer, MoBIE and OMERO.figure, are capable of visualizing multiple OME-Zarr images ("layers") in a view.
+To share such a view, metadata serialization is required that contains not only links to the images, but also attached metadata of the rendering state.
+The rendering state of a collection might contain locations, rotation angles, coordinate systems as well as rendering state of individual layers.
+The rendering state of layers might contain pixel transformations (e.g. min/max scaling, colors, shaders), coordinate transformation overrides, visibility settings.
+
+Some of these rendering state attributes might be compatible across implementations, but others might not.
+This proposal does not intend to provide a specification for the rendering state itself, but provide metadata containers to store such viewer-specific state.
+
+
+#### 8. Grouping together remote images
+
+When building upon images that have been published by others, it might be useful to create virtual groupings of multiple remotely stored images.
+For example, a lab might create automatic segmentations of a large image that has been published by another lab.
+While the segmentation would now be published on its own, it could still be published with a link to the original images so that viewers are able to show the segmentation as an overlay on the original data.
+
+#### 9. Adding other datatypes to images
+When processing images in the OME-Zarr format, a diversity of derived data like segmentation, probability maps, meshes, tables and other formats can be generated.
+This proposal does not intend to provide a specification to all these datatypes, but to define the metadata of how related data in Zarr or other formats can be linked to OME-Zarr images.
+
+Because there is already a specification for labels in the spec, the label definition is broadened by this spec.
+For other datatypes like tables, [past proposals](https://github.com/ome/ngff/pull/64) have focused on how tables can be serialised to OME-Zarr.
+As these proposals did not proceed to become part of the OME-Zarr spec, different implementers have built their own sub-specs for tables (see e.g. the [ngio table definition](https://fractal-analytics-platform.github.io/ngio/v0.3.2/table_specs/overview/) coming from the Fractal project or the [label table](https://mobie.github.io/specs/mobie_spec.html#table-data) in MoBIE).
+While future proposals and extensions may define datatypes like tables more strictly, this proposal offers a general way to make such additional data types discoverable.
+
+#### 10. Gallery / grid views
+
+It is useful to visualise similar images in a grid view where all images are visible as "thumbnails", which in the case of OME-Zarr can simply be the lowest resolution version of the data. Like this, users can have an overview of all the data and can then decide to "zoom in" on some datasets to explore them in higher resolution.
+
+Implementations of this concept include:
+- [Zarrcade](https://github.com/JaneliaSciComp/zarrcade)
+- [BioFile Finder](https://bff.allencell.org/)
+- [MoBIE grid views](https://mobie.github.io/tutorials/image_grids_and_tables.html)
+- [OME2024 NGFF challenge](https://ome.github.io/ome2024-ngff-challenge/)
+
+For example, [this table](https://docs.google.com/spreadsheets/d/1t5xB0p0zd2-a6ynV-JAuLJqs-mg-pFFikhfmQGZwRpI/edit?usp=sharing) defines a MoBIE grid view of three OpenOrganelle vEM images along with label images of mitochondria segmentation. It can be opened in MoBIE via the "Open Simple Collection Table" menu entry: 
+
+![MoBIE grid view](./assets/mobie_grid_view.jpg)
 
 
 ## Requirements
