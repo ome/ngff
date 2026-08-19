@@ -190,6 +190,8 @@ See the [Security](#security) section for guidance on access restrictions.
 
 #### `Reference` interface
 
+The [Reference interface](#reference-interface) is a consistent system for referring to local and remote OME-Zarr metadata objects.
+
 Referenced objects MUST have an `id` field.
 
 A reference MUST be an object with the following fields:
@@ -202,6 +204,8 @@ A reference MUST be an object with the following fields:
 For external references, the `path` field MUST be present.
 
 #### Extensibility
+
+* [Extension system](#extensibility): namespacing within Nodes' types and fields within their attributes to allow extension of the OME-Zarr by specific vendors or for specific use cases
 
 Adding collections to OME-Zarr provides an opportunity to define extension points.
 Extension points allow the specification to be extended in a controlled manner, enabling custom functionality while maintaining interoperability.
@@ -260,6 +264,9 @@ Implementations that do not recognize an axis type MAY treat it as an opaque dim
 
 
 
+### Abstract structure
+
+
 - Collections can be used to group together images, including segmentations, prediction maps and other derived images as well as other data types ("nodes"). 
 - Collections can be nested. 
 - Collections can have metadata attached. Within collections, nodes can also have metadata, which complements or overrides the nodes' own metadata.
@@ -275,11 +282,8 @@ Implementations that do not recognize an axis type MAY treat it as an opaque dim
   * [Label maps](#label-maps-and-other-derived-images)
   * [HCS layout](#high-content-screening-hcs-metadata)
 
-* [Reference interface](#path-interface): a consistent system for referring to local and remote OME-Zarr metadata objects
-* [Extension system](#extensibility): namespacing within Nodes' types and fields within their attributes to allow extension of the OME-Zarr by specific vendors or for specific use cases
 * Integration of [coordinate transformations](#coordinate-transformations) (RFC-5) metadata
 
-### Abstract structure
 
 
 This proposal adds collections to the OME-Zarr specification.
@@ -290,8 +294,6 @@ Nodes reference images or collections that are stored locally relative to the co
 Arbitrary user or implementation metadata may be added to collections or nodes, which is an opportunity to add metadata that is only valid for a node in the context of a collection (e.g. rendering settings).
 Images may be added as nodes to multiple collections.
 
-
-### Metadata
 
 #### `Node`
 
@@ -311,6 +313,86 @@ Future RFCs might add more Node types, including custom Node types.
 
 A `Node` object may be used as the root object of the `ome` key, in which case a `version` field, as defined in previous spec versions, is also required.
 Non-root `Node` objects SHOULD NOT have a `version` field and MUST NOT have a different `version` value than the root `Node`.
+
+#### Attributes
+
+Each `Node` has an `attributes` field that can be populated with JSON metadata.
+A primary use case for the `attributes` field is the specialization of collections and nodes through additional metadata.
+
+Attribute keys follow the naming scheme described in [Extensibility](#extensibility): unprefixed keys are reserved for the core specification, while prefixed keys (e.g., `mobie:`, `neuroglancer:`, `fractal:`, `webknossos:`) allow custom metadata.
+
+Custom-prefixed keys can also be used to add additional sub-keys or behavior to existing unprefixed keys.
+This can be thought of as a way of achieving inheritance.
+For example, the `well` key could be specialized by a `fractal:well` key that adds additional sub-keys or alters behavior.
+It is out-of-scope of this RFC to fully define the inheritance behavior.
+That is left to be defined on a case-by-case basis for individual key specifications and may be standardized in a future RFC.
+
+Unprefixed attribute keys that are defined as part of this RFC are:
+- `coordinateSystems`
+- `coordinateTransformations`
+- `labels`, as well as `labelValue` and `color` in label attributes
+- `plate`, `well`, `acquisition` for HCS metadata
+
+#### Metadata storage
+
+##### OME-Zarr group
+
+Collection metadata may be stored in the `ome` key of the `attributes` container in a `zarr.json` file of a Zarr group.
+This is particularly useful for defining the nodes that are stored within a Zarr group. However, there is no limitation to only reference nodes within the Zarr group.
+
+```jsonc
+{
+    "zarr_format": 3,
+    "node_type": "group",
+    "attributes": {
+        "ome": {
+            "version": "0.x",
+            "type": "collection",
+            "name": "zarr.json-example",
+            "nodes": [{
+                "type": "multiscale",
+                "name": "image1",
+                "path": {
+                  "type": "zarr",
+                  "path": "./image1.img.zarr"  // reference to a Zarr group
+                }
+            }, ...]
+        }
+    }
+}
+```
+
+##### Standalone JSON
+
+Collection metadata may also be stored in standalone JSON files that are stored in arbitrary locations and have a file name ending in `.json`.
+Here, the metadata is stored in the `ome` key of the root object.
+Standalone files are useful for persisting groupings of images that may or may not be stored in the same folder hierarchy.
+
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "collection",
+        "name": "standalone-example",
+        "nodes": [{
+            "type": "multiscale",
+            "name": "image1",
+            "path": {
+              "type": "zarr",
+              "path": "https://example.com/image1.img.zarr"
+            }
+        }, ...]
+    }
+}
+```
+
+
+### New and modified core classes
+
+TODO
+
+
+
 
 #### `Collection` node
 
@@ -364,26 +446,6 @@ This new interface replaces the dataset metadata defined in the previous version
 - contain and only contain a single `scale` transformation, or a `sequence` of a `scale` transformation followed by a `translation` transformation.
 - The `input` field of these transformations references the `id` of the  `Singlescale` node itself.
 - The `output` field references the `id` of a coordinate system defined under `coordinateSystems` in a `Multiscale` node.
-
-
-#### Attributes
-
-Each `Node` has an `attributes` field that can be populated with JSON metadata.
-A primary use case for the `attributes` field is the specialization of collections and nodes through additional metadata.
-
-Attribute keys follow the naming scheme described in [Extensibility](#extensibility): unprefixed keys are reserved for the core specification, while prefixed keys (e.g., `mobie:`, `neuroglancer:`, `fractal:`, `webknossos:`) allow custom metadata.
-
-Custom-prefixed keys can also be used to add additional sub-keys or behavior to existing unprefixed keys.
-This can be thought of as a way of achieving inheritance.
-For example, the `well` key could be specialized by a `fractal:well` key that adds additional sub-keys or alters behavior.
-It is out-of-scope of this RFC to fully define the inheritance behavior.
-That is left to be defined on a case-by-case basis for individual key specifications and may be standardized in a future RFC.
-
-Unprefixed attribute keys that are defined as part of this RFC are:
-- `coordinateSystems`
-- `coordinateTransformations`
-- `labels`, as well as `labelValue` and `color` in label attributes
-- `plate`, `well`, `acquisition` for HCS metadata
 
 
 
@@ -1165,60 +1227,6 @@ The `scene` attribute MUST be an object with the following fields:
 A `scene` metadata object can be defined in the `attributes` of a collection to enrich the collection with spatial information of the nodes within the collection.
 The `scene` field allows to clearly distinguish between the spatial information pertaining to an individual multiscale image (which is stored in the `attributes` of the multiscale)
 and the spatial information pertaining to the collection of images (which is stored in the `attributes` of the collection).
-
-
-### Metadata storage
-
-#### OME-Zarr group
-
-Collection metadata may be stored in the `ome` key of the `attributes` container in a `zarr.json` file of a Zarr group.
-This is particularly useful for defining the nodes that are stored within a Zarr group. However, there is no limitation to only reference nodes within the Zarr group.
-
-```jsonc
-{
-    "zarr_format": 3,
-    "node_type": "group",
-    "attributes": {
-        "ome": {
-            "version": "0.x",
-            "type": "collection",
-            "name": "zarr.json-example",
-            "nodes": [{
-                "type": "multiscale",
-                "name": "image1",
-                "path": {
-                  "type": "zarr",
-                  "path": "./image1.img.zarr"  // reference to a Zarr group
-                }
-            }, ...]
-        }
-    }
-}
-```
-
-#### Standalone JSON
-
-Collection metadata may also be stored in standalone JSON files that are stored in arbitrary locations and have a file name ending in `.json`.
-Here, the metadata is stored in the `ome` key of the root object.
-Standalone files are useful for persisting groupings of images that may or may not be stored in the same folder hierarchy.
-
-```jsonc
-{
-    "ome": {
-        "version": "0.x",
-        "type": "collection",
-        "name": "standalone-example",
-        "nodes": [{
-            "type": "multiscale",
-            "name": "image1",
-            "path": {
-              "type": "zarr",
-              "path": "https://example.com/image1.img.zarr"
-            }
-        }, ...]
-    }
-}
-```
 
 ## User stories
 
