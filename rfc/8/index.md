@@ -51,14 +51,91 @@ reading this paragraph(s).
 
 -->
 
+This proposal introduces a general extensibility mechanism for OME-Zarr
+metadata. It defines a common Node interface, a system for referencing nodes
+locally and remotely, and a naming scheme that allows OME-Zarr to be extended
+with new node types and metadata while maintaining interoperability.
+
+The mechanism also provides a general way to represent collections: groups of
+images and other data objects that can be nested, referenced, and enriched with
+additional metadata. Existing concepts such as multiscales, labels, HCS
+layouts, and coordinate transformations can be represented within this
+framework, while future extensions can introduce additional data types and use
+cases.
+
+This proposal does not aim to define all possible extensions or metadata types.
+Instead, it establishes the building blocks and extension points through which
+OME-Zarr can evolve in a controlled and interoperable manner.
+
 ## Background
 
 ### The Why
-* **Viewing**. Many viewers need to visualize multiple images at the same time. There is no generic way of defining this group of images.
-* **Discoverability**. Zarr doesn't have a way of discovering groups within a group, which requires file system scans to discover images within a group.
-* **Unifying concepts**. OME-Zarr has a few collection types already, e.g. high-content screening, bioformats2raw.layout. This is an opportunity to unify them.
-* **Extensibility**. OME-Zarr does not have representations for adding other objects, e.g. tables, meshes, to a hierarchy. Through new metadata, collections offer a path to add new object types.
-* **Metadata**. Collections allow attaching metadata to images or other objects without altering the original object (think: overriding). While this proposal does not specify the semantics of such metadata, it provides means for storing them.
+
+Scientific imaging increasingly involves collections of related data rather
+than isolated images. A single experiment may produce multiple images of the
+same sample, images acquired with different modalities or from different views,
+derived images such as segmentations and prediction maps, and additional data
+such as tables or meshes. These data may have relationships that are important
+for interpreting them: they may share a coordinate space, originate from the
+same acquisition, represent different stages of a processing workflow, or
+need to be visualized together.
+
+OME-Zarr already provides mechanisms for several of these use cases. For
+example, labels can be associated with images, high-content screening data can
+be organized into plates and wells, and RFC-5 provides coordinate systems and
+transformations for relating images in a common coordinate space. The
+bioformats2raw.layout metadata provides another way of organizing series of
+images. However, these mechanisms have developed around individual use cases
+and consequently provide different structures and conventions for representing
+related data.
+
+At the same time, applications have developed their own metadata formats for
+grouping images and describing their relationships. Viewers such as Webknossos,
+Neuroglancer, MoBIE and OMERO.figure can display multiple images together and
+have developed JSON-based metadata to describe those collections, including
+path references, coordinate transformations and rendering settings. Workflow
+systems may need to associate input images with derived outputs without
+modifying the original data. Archives need to describe collections of images
+during both deposition and subsequent access. Similar needs arise for gallery
+and grid views, correlative imaging, and images published at remote locations.
+
+This fragmentation makes it difficult to exchange collections of scientific
+data between tools. Users may need to maintain tool-specific metadata for the
+same underlying relationships, while archives and other data providers may need
+to produce multiple representations of the same collection for different
+consumers. A general mechanism for describing related objects would allow these
+use cases to be represented consistently while leaving application-specific
+metadata to the applications that need it.
+
+Extensibility is important because the range of scientific data and workflows
+cannot be anticipated in a single specification. In addition to images and
+segmentations, workflows may produce prediction maps, tables, meshes and other
+derived data. Similarly, different applications may need to attach metadata
+describing rendering state, processing context, or other relationships between
+objects. Rather than defining a separate top-level mechanism for every new use
+case, OME-Zarr should provide well-defined extension points through which new
+node types and metadata can be introduced while maintaining interoperability.
+
+Several existing standards could potentially be used to represent such
+collections. For example, Research Object Crate (RO-Crate) provides a general
+mechanism for describing collections of research artifacts and their
+relationships, while JSON-LD provides standardized mechanisms for types,
+identifiers and extensibility. These approaches provide useful capabilities,
+but they also introduce requirements and complexity that are not well matched
+to the requirements of OME-Zarr. In particular, path-based references to Zarr
+and JSON metadata, including relative paths and different path types, are
+central to this proposal. A purpose-built mechanism can retain the
+human-readable and storage-oriented characteristics of OME-Zarr while providing
+the extensibility needed by its users.
+
+The goal of this proposal is therefore not simply to introduce another
+collection format. It is to provide a common and extensible foundation for
+representing OME-Zarr objects and their relationships. Collections are an
+important application of this foundation: they allow images and other objects
+to be grouped, nested, referenced locally or remotely, and enriched with
+additional metadata. The same mechanism can also provide a path for
+incorporating existing OME-Zarr structures and future data types into a more
+consistent framework.
 
 ### User stories
 
