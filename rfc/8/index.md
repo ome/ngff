@@ -389,9 +389,9 @@ Standalone files are useful for persisting groupings of images that may or may n
 
 ### New and modified core classes
 
-TODO
-
-
+The following sections define the concrete node types and metadata structures
+built on the core framework, including collections, single-scale and multiscale
+images, and coordinate metadata.
 
 
 #### `Collection` node
@@ -407,22 +407,6 @@ Collections MAY be nested.
 | `"nodes"` | array | no | Value MUST be an array of `Node` objects. |
 | `"path"` | object | no | Value MUST be a `Path` object. |
 | `"attributes"` | object | no | Value MUST be a dictionary. [See attributes section](#attributes). |
-
-Either `"nodes"` or `"path"` MUST be present, but not both.
-
-#### `Multiscale` node
-
-A `Multiscale` node represents an OME-Zarr multiscale image.
-This new interface replaces the multiscale metadata defined in the previous versions of the OME-Zarr specification.
-
-| Field | Type | Required? | Notes |
-| - | - | - | - |
-| `"type"` | string | yes | Value MUST be `"multiscale"`. |
-| `"id"` | string | no | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
-| `"name"` | string | yes | Value MUST be a non-empty string intended for human-readable display. Names MUST be unique within the enclosing collection. |
-| `"nodes"` | array | no | Value MUST be an array of `Singlescale` objects. |
-| `"path"` | object | no | Value MUST be a `Path` object. |
-| `"attributes"` | object | yes | Value MUST be a dictionary. [See attributes section](#attributes). Required because it MUST contain `coordinateSystems`.|
 
 Either `"nodes"` or `"path"` MUST be present, but not both.
 
@@ -446,6 +430,172 @@ This new interface replaces the dataset metadata defined in the previous version
 - contain and only contain a single `scale` transformation, or a `sequence` of a `scale` transformation followed by a `translation` transformation.
 - The `input` field of these transformations references the `id` of the  `Singlescale` node itself.
 - The `output` field references the `id` of a coordinate system defined under `coordinateSystems` in a `Multiscale` node.
+
+#### `Multiscale` node
+
+A `Multiscale` node represents an OME-Zarr multiscale image.
+This new interface replaces the multiscale metadata defined in the previous versions of the OME-Zarr specification.
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"type"` | string | yes | Value MUST be `"multiscale"`. |
+| `"id"` | string | no | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
+| `"name"` | string | yes | Value MUST be a non-empty string intended for human-readable display. Names MUST be unique within the enclosing collection. |
+| `"nodes"` | array | no | Value MUST be an array of `Singlescale` objects. |
+| `"path"` | object | no | Value MUST be a `Path` object. |
+| `"attributes"` | object | yes | Value MUST be a dictionary. [See attributes section](#attributes). Required because it MUST contain `coordinateSystems`.|
+
+Either `"nodes"` or `"path"` MUST be present, but not both.
+
+### Coordinate transformations
+
+Coordinate systems and transformations can be stored in two distinct locations:
+
+- For single multiscale or singlescale images, they can be stored in the `ome` key of the `attributes` container in a `zarr.json` file of the multiscales zarr group.
+- For collections of two or more images in a common coordinate system, RFC-5 defines a parent-level metadata format.
+  In this layout, `coordinateTransformations` define relationships between different `coordinateSystems`,
+  which may be associated to multiscale images:
+
+```jsonc
+{
+  "coordinateTransformations": [
+    {
+      "type": "translation",
+      "translation": [0, 0, 100],
+      "input": {"id": "physical", "path": "./image_1"}, // references collection node ID
+      "output": {"id": "world"} // references coordinate system ID
+    }
+  ]
+}
+```
+
+In a change from the previous specification, coordinate systems are referenced using the [Reference mechanism](#reference-interface), i.e. via IDs, and not via names.
+
+```jsonc
+{
+  "ome": {
+    "version": "0.x",
+    "type": "collection",
+    "name": "Tiles",
+    "id": "tiles",
+    "attributes": {
+      "scene": {
+        "coordinateSystems": [
+          {
+            "id": "world",
+            "axes": [...]
+          }
+        ],
+        "coordinateTransformations": [
+          {
+            "type": "translation",
+            "translation": [0, 0, 100],
+            "input": {
+              "path": {
+                "type": "zarr",
+                "path": "./tile_0.zarr"
+              },
+              "id": "physical"
+            },  // references coordinate system "physical" defined in tile_0
+            "output": {"id": "world"}  // references coordinate system "world" defined in same node
+          },
+          {
+            "type": "translation",
+            "translation": [100, 0, 0],
+            "input": {
+              "path": {
+                "type": "zarr",
+                "path": "./tile_1.zarr"
+              },
+              "id": "physical"
+            },  // references coordinate system "physical" defined in tile_1
+            "output": {"id": "world"}  // references coordinate system "world" defined in same node
+          }
+        ]
+      }
+    },
+    "nodes": [
+      {
+        "type": "multiscale",
+        "id": "tile_0",
+        "name": "Tile 0",
+        "path": {
+          "type": "zarr",
+          "path": "./tile_0.zarr"
+        }
+      }, 
+      {
+        "type": "multiscale",
+        "id": "tile_1",
+        "name": "Tile 1",
+        "path": {
+          "type": "zarr",
+          "path": "./tile_1.zarr"
+        }
+      }
+    ]
+  }
+}
+```
+
+#### `Coordinate System` interface
+
+The `Coordinate System` objects have the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. ID to use when referencing the coordinate system from a transformation. IDs MUST be unique within the JSON document. |
+| `"name"` | string | no | More descriptive name for the coordinate system, if needed. |
+| `"axes"` | array of strings | yes | Value MUST be an array of axes, as defined in RFC-5. |
+
+
+#### `Coordinate Transformation` interface
+
+The `Coordinate Transformation` objects have the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"type"` | string | yes | Value MUST be a valid coordinate transform type, as defined in RFC-5. |
+| `"input"` | object | yes | Value MUST be a [`Reference`](#reference-interface) to the input [`Coordinate System`](#coordinate-system-interface). |
+| `"output"` | object | yes | Value MUST be a [`Reference`](#reference-interface) to the output [`Coordinate System`](#coordinate-system-interface). |
+
+Additional fields MAY be added as required by the transform type.
+
+Depending on the context, different fields are required:
+
+| Context | `input` | `output` |
+| - | - | - |
+| **scene** | {"id": "imageA", "name": "physical" } | { "id": "imageB", "name": "physical" } |
+| **Multiscale > attributes > coordinateTransformations** | { "id": "scale0"} | { "id": "image", "name": "physical" } |
+
+**Multiscale > attributes > coordinateTransformations**: In the context of multiscales transformations, the following requirements apply:
+- The `input` field MUST reference a [singlescale node](#singlescale-node).
+- The `id` field MUST be present.
+- The `path` field MAY be omitted or null.
+- The `output` fields of all transformations MUST reference the same coordinate system via the `id` field.
+
+**Node/Multiscales > attributes > scene > coordinateTransformations**:
+In the context of node-level transformations between different multiscale collections,
+the following requirements apply:
+- The `input` field MUST reference a coordinate system via the `id` field.
+- The `output` field MUST reference a coordinate system via the `id` field.
+- If the referenced coordinate system is in the same metadata document, the `path` field MAY be omitted or null.
+  If the referenced coordinate system is in a different metadata document, both the `id` and `path` fields MUST be present.
+
+
+#### `Scene` attribute
+
+The `scene` attribute MUST be an object with the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"coordinateSystems"` | array | no | Values MUST be valid instances of [`Coordinate System`](#coordinate-system-interface) objects. |
+| `"coordinateTransformations"` | array | yes | Values MUST be valid instances of [`Coordinate transformation`](#coordinate-transformation-interface) objects |
+
+A `scene` metadata object can be defined in the `attributes` of a collection to enrich the collection with spatial information of the nodes within the collection.
+The `scene` field allows to clearly distinguish between the spatial information pertaining to an individual multiscale image (which is stored in the `attributes` of the multiscale)
+and the spatial information pertaining to the collection of images (which is stored in the `attributes` of the collection).
+
 
 
 
@@ -1078,155 +1228,6 @@ While inlined plate collections are shown above for simplicity, an on-disk plate
 
 The `bioformats2raw.layout` metadata is replaced by this proposal.
 A series of images can now be represented as a collection of multiscale images.
-
-### Coordinate transformations
-
-Coordinate systems and transformations can be stored in two distinct locations:
-
-- For single multiscale or singlescale images, they can be stored in the `ome` key of the `attributes` container in a `zarr.json` file of the multiscales zarr group.
-- For collections of two or more images in a common coordinate system, RFC-5 defines a parent-level metadata format.
-  In this layout, `coordinateTransformations` define relationships between different `coordinateSystems`,
-  which may be associated to multiscale images:
-
-```jsonc
-{
-  "coordinateTransformations": [
-    {
-      "type": "translation",
-      "translation": [0, 0, 100],
-      "input": {"id": "physical", "path": "./image_1"}, // references collection node ID
-      "output": {"id": "world"} // references coordinate system ID
-    }
-  ]
-}
-```
-
-In a change from the previous specification, coordinate systems are referenced using the [Reference mechanism](#reference-interface), i.e. via IDs, and not via names.
-
-```jsonc
-{
-  "ome": {
-    "version": "0.x",
-    "type": "collection",
-    "name": "Tiles",
-    "id": "tiles",
-    "attributes": {
-      "scene": {
-        "coordinateSystems": [
-          {
-            "id": "world",
-            "axes": [...]
-          }
-        ],
-        "coordinateTransformations": [
-          {
-            "type": "translation",
-            "translation": [0, 0, 100],
-            "input": {
-              "path": {
-                "type": "zarr",
-                "path": "./tile_0.zarr"
-              },
-              "id": "physical"
-            },  // references coordinate system "physical" defined in tile_0
-            "output": {"id": "world"}  // references coordinate system "world" defined in same node
-          },
-          {
-            "type": "translation",
-            "translation": [100, 0, 0],
-            "input": {
-              "path": {
-                "type": "zarr",
-                "path": "./tile_1.zarr"
-              },
-              "id": "physical"
-            },  // references coordinate system "physical" defined in tile_1
-            "output": {"id": "world"}  // references coordinate system "world" defined in same node
-          }
-        ]
-      }
-    },
-    "nodes": [
-      {
-        "type": "multiscale",
-        "id": "tile_0",
-        "name": "Tile 0",
-        "path": {
-          "type": "zarr",
-          "path": "./tile_0.zarr"
-        }
-      }, 
-      {
-        "type": "multiscale",
-        "id": "tile_1",
-        "name": "Tile 1",
-        "path": {
-          "type": "zarr",
-          "path": "./tile_1.zarr"
-        }
-      }
-    ]
-  }
-}
-```
-
-#### `Coordinate System` interface
-
-The `Coordinate System` objects have the following fields:
-
-| Field | Type | Required? | Notes |
-| - | - | - | - |
-| `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. ID to use when referencing the coordinate system from a transformation. IDs MUST be unique within the JSON document. |
-| `"name"` | string | no | More descriptive name for the coordinate system, if needed. |
-| `"axes"` | array of strings | yes | Value MUST be an array of axes, as defined in RFC-5. |
-
-
-#### `Coordinate Transformation` interface
-
-The `Coordinate Transformation` objects have the following fields:
-
-| Field | Type | Required? | Notes |
-| - | - | - | - |
-| `"type"` | string | yes | Value MUST be a valid coordinate transform type, as defined in RFC-5. |
-| `"input"` | object | yes | Value MUST be a [`Reference`](#reference-interface) to the input [`Coordinate System`](#coordinate-system-interface). |
-| `"output"` | object | yes | Value MUST be a [`Reference`](#reference-interface) to the output [`Coordinate System`](#coordinate-system-interface). |
-
-Additional fields MAY be added as required by the transform type.
-
-Depending on the context, different fields are required:
-
-| Context | `input` | `output` |
-| - | - | - |
-| **scene** | {"id": "imageA", "name": "physical" } | { "id": "imageB", "name": "physical" } |
-| **Multiscale > attributes > coordinateTransformations** | { "id": "scale0"} | { "id": "image", "name": "physical" } |
-
-**Multiscale > attributes > coordinateTransformations**: In the context of multiscales transformations, the following requirements apply:
-- The `input` field MUST reference a [singlescale node](#singlescale-node).
-- The `id` field MUST be present.
-- The `path` field MAY be omitted or null.
-- The `output` fields of all transformations MUST reference the same coordinate system via the `id` field.
-
-**Node/Multiscales > attributes > scene > coordinateTransformations**:
-In the context of node-level transformations between different multiscale collections,
-the following requirements apply:
-- The `input` field MUST reference a coordinate system via the `id` field.
-- The `output` field MUST reference a coordinate system via the `id` field.
-- If the referenced coordinate system is in the same metadata document, the `path` field MAY be omitted or null.
-  If the referenced coordinate system is in a different metadata document, both the `id` and `path` fields MUST be present.
-
-
-#### `Scene` attribute
-
-The `scene` attribute MUST be an object with the following fields:
-
-| Field | Type | Required? | Notes |
-| - | - | - | - |
-| `"coordinateSystems"` | array | no | Values MUST be valid instances of [`Coordinate System`](#coordinate-system-interface) objects. |
-| `"coordinateTransformations"` | array | yes | Values MUST be valid instances of [`Coordinate transformation`](#coordinate-transformation-interface) objects |
-
-A `scene` metadata object can be defined in the `attributes` of a collection to enrich the collection with spatial information of the nodes within the collection.
-The `scene` field allows to clearly distinguish between the spatial information pertaining to an individual multiscale image (which is stored in the `attributes` of the multiscale)
-and the spatial information pertaining to the collection of images (which is stored in the `attributes` of the collection).
 
 ## User stories
 
