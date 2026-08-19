@@ -1957,9 +1957,18 @@ is still a design), how will you track that these will be created?
 ## Compatibility
 
 ### Backwards compatible
-This proposal deprecates the labels, HCS and bioformats2raw.layout parts of the OME-Zarr specification.
-The core multiscale metadata is unchanged and remains backwards compatible.
-Existing images can be wrapped in collections with additional metadata attached.
+
+This proposal is intended to replace the existing labels, HCS and
+bioformats2raw.layout structures with the new extensibility framework. The
+proposed structures do not yet provide full backwards-compatible coverage of
+all information represented by these existing formats. For example, some
+information currently represented by HCS or bioformats2raw.layout is not yet
+represented in the proposed structures.
+
+These gaps are intended to be addressed through further discussion and, where
+appropriate, through extensions to the framework. The community is encouraged
+to contribute such extensions so that existing metadata can be represented
+without loss, together with appropriate upgrade mechanisms for existing data.
 
 ### Forward compatible
 Existing implementations need to be updated to be able to understand the new collection objects.
