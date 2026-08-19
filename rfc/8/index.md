@@ -60,8 +60,6 @@ OME-Zarr can evolve in a controlled and interoperable manner.
 
 ## Background
 
-### The Why
-
 Scientific imaging increasingly involves collections of related data rather
 than isolated images. A single experiment may produce multiple images of the
 same sample, images acquired with different modalities or from different views,
@@ -232,38 +230,24 @@ and requirements are defined.
 
 ### Abstract structure
 
-
-- Collections can be used to group together images, including segmentations, prediction maps and other derived images as well as other data types ("nodes"). 
-- Collections can be nested. 
-- Collections can have metadata attached. Within collections, nodes can also have metadata, which complements or overrides the nodes' own metadata.
-- Nodes within collections are referenced by paths instead of relying on a file system hierarchy. Paths may also be absolute and point to remote storage.
-
-
-* [Node interface](#node): a consistent JSON structure for several different types of OME-Zarr metadata object, where fields specific to the node type are inside an attributes field, and the root only stores information used for identifying and referencing the object.
-* [Collections](#collection-node): arbitrary collections of nodes which can be specialised for different use cases.
-* Reworking existing structures to a Node/Collection-based framework:
-
-  * [Single-scale image](#singlescale-node) arrays
-  * [Multiscale image](#multiscale-node) groups, bioformats2raw.layout
-  * [Label maps](#label-maps-and-other-derived-images)
-  * [HCS layout](#high-content-screening-hcs-metadata)
-
-* Integration of [coordinate transformations](#coordinate-transformations) (RFC-5) metadata
-
-
-
-This proposal adds collections to the OME-Zarr specification.
-"Collections" are groupings of "nodes".
-Nodes represent OME-Zarr images (multiscales, singlescales) or collections, either inline or via a path reference.
-Nested collections and multiscales can be inlined in the metadata.
-Nodes reference images or collections that are stored locally relative to the collection or remotely (using URLs).
-Arbitrary user or implementation metadata may be added to collections or nodes, which is an opportunity to add metadata that is only valid for a node in the context of a collection (e.g. rendering settings).
-Images may be added as nodes to multiple collections.
-
+The proposal introduces a common Node structure for different types of OME-Zarr
+metadata objects. Nodes can represent images or collections, and can be nested
+or referenced by path. Collections provide a mechanism for grouping nodes and
+may have metadata attached to them, while nodes may carry additional metadata
+describing their role within a collection. Nodes can be referenced locally or
+remotely, without relying on a file system hierarchy. Images may be added as
+nodes to multiple collections. Arbitrary user or implementation metadata may be
+added to collections or nodes, which is an opportunity to add metadata that is
+only valid for a node in the context of a collection (e.g. rendering settings).
 
 #### `Node`
 
-This RFC defines a basic interface for an OME-Zarr metadata object, which we name `Node`.
+This RFC defines a basic interface for an OME-Zarr metadata object, which we
+name `Node`. The [Node interface](#node) is a consistent JSON structure for
+several different types of OME-Zarr metadata object, where fields specific to
+the node type are inside an attributes field, and the root only stores
+information used for identifying and referencing the object.
+
 Objects that implement `Node` have the following fields:
 
 | Field | Type | Required? | Notes |
@@ -359,15 +343,22 @@ Standalone files are useful for persisting groupings of images that may or may n
 
 ### New and modified core classes
 
-The following sections define the concrete node types and metadata structures
-built on the core framework, including collections, single-scale and multiscale
-images, and coordinate metadata.
-
+Building on the core building blocks and the abstract structure, the following
+sections define concrete node types for collections, single-scale images, and
+multiscale images, and integrates coordinate systems and transformations from
+RFC-5. Existing OME-Zarr structures such as multiscales and
+bioformats2raw.layout are reworked within the Node/Collection-based framework.
 
 #### `Collection` node
 
-A `Collection` node groups together one or more `Node`s.
-Collections MAY be nested.
+[Collections](#collection-node) are arbitrary groups of `Node`s` which can be
+specialised for different use cases. Collections can be used to group together
+images, including segmentations, prediction maps and other derived images as
+well as other data types ("nodes"). Collections can be nested. Collections can
+have metadata attached. Within collections, nodes can also have metadata, which
+complements or overrides the nodes' own metadata. Nodes within collections are
+referenced by paths instead of relying on a file system hierarchy. Paths may
+also be absolute and point to remote storage.
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
