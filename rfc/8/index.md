@@ -597,6 +597,350 @@ The `scene` field allows to clearly distinguish between the spatial information 
 and the spatial information pertaining to the collection of images (which is stored in the `attributes` of the collection).
 
 
+### Extensions
+
+The following sections describe how existing specialized metadata structures
+are represented as extensions within the new framework, including labels, label
+attributes, and high-content screening (HCS) metadata.
+
+#### Label maps and other derived images
+
+Previous versions of the OME-Zarr specification defined a mechanism for associating label images with a single multiscale image.
+This was achieved by using a `labels` Zarr group that had to be a direct child of the multiscale Zarr group with some specific metadata. 
+This proposal replaces this mechanism.
+
+To denote a multiscale image as a label map, the `labels` attribute MUST be present.
+If present, the value of the `labels` attribute MUST be an object with the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"labelAttributes"` | array of objects | no | Attributes for individual labels. Each object MUST be a [`Label Attributes` object](#label-attributes-interface).
+| `"source"` | array of strings | no | An array with [`Reference`s](#reference-interface) to the source multiscales. |
+
+Because no fields are required, an empty object MAY be used.
+
+In this proposal, the previous `colors` and `properties` fields are combined into a single `labelAttributes` field.
+The `rgba` field in the `colors` objects has been renamed to `color`.
+
+##### `Label Attributes` interface
+
+The `labelAttributes` field is an array of objects with the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"labelValue"` | number | yes | Value MUST be the label value. |
+| `"color"` | array of number | no | Value MUST be a color in array format. | 
+
+If present, the `color` field MUST have an array with four integers between 0 and 255, inclusive. These integers represent the uint8 values of red, green, blue and alpha.
+
+Additional keys MAY be added, [following the attribute key naming rules](#extensibility).
+
+The previous `label-value` key is now renamed to `labelValue` for consistency.
+
+
+##### Example
+
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "collection",
+        "name": "label-example",
+        "attributes": { ... },
+        "nodes": [{
+            "id": "raw",
+            "name": "raw",
+            "type": "multiscale",
+            "nodes": [ ... ]
+        }, {
+            "name": "nuclei",
+            "type": "multiscale",
+            "nodes": [ ... ],
+            "attributes": {
+                "labels": {
+                    "source": [ {"id": "raw"} ],
+                    "labelAttributes": [{
+                        "labelValue": 1,
+                        "color": [ 255, 0, 0, 255 ]
+                    }, {
+                        "labelValue": 2,
+                        "color": [ 0, 255, 0, 255 ]
+                    }]
+                }
+            }
+        }]
+    }
+}
+```
+
+#### High-content screening (HCS) metadata
+
+High-content screening data is typically organized as a grid of wells on a plate, where each well contains one or more multiscale images from one or more acquisition rounds.
+This section introduces additional metadata for organizing wells on a plate.
+
+This proposal changes the HCS references from numeric IDs and names to string-based ID references, consistent with the [References mechanism](#reference-interface) defined above.
+
+##### `Plate` attribute
+
+A `collection` node representing a plate MUST have a `plate` attribute with the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"acquisitions"` | array of objects | no | List of acquisitions performed on the plate. Each object MUST be [`Acquisition` objects](#acquisition-interface). |
+| `"columns"` | array of objects | yes | List of columns in the plate. Each object MUST be [`Column` objects](#column-interface). |
+| `"rows"` | array of objects | yes | List of rows in the plate. Each object MUST be [`Row` objects](#row-interface). |
+
+##### `Acquisition` interface
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
+| `"name"` | string | no | A human-readable name for the acquisition. |
+
+##### `Column` interface
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
+| `"name"` | string | no | A human-readable name for the acquisition. |
+
+##### `Row` interface
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
+| `"name"` | string | no | A human-readable name for the acquisition. |
+
+##### `Well` attribute
+
+A `collection` node representing a well MUST have a `well` attribute with the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"column"` | string | yes | Value MUST be a [`Reference`](#reference-interface) to one of the columns listed in the `plate` attribute on the enclosing plate-level collection. |
+| `"row"` | string | yes | Value MUST be a [`Reference`](#reference-interface) to one of the rows listed in the `plate` attribute on the enclosing plate-level collection. |
+
+##### `Acquisition` attribute
+
+The `acquisition` attribute MUST be a [`Reference`](#reference-interface) to one of the acquisitions.
+It MAY be set on individual `multiscale` nodes within a well or on a `collection` sub-node grouping all images from a single acquisition.
+
+We suggest two possible layouts for HCS data, which are not mutually exclusive and can be used in combination: a "wide" layout where all images are direct children of the well collection and a "tall" layout where images are grouped in sub-collections by acquisition. 
+
+##### Wide example (acquisitions flat in the well)
+
+In this layout, all multiscale nodes are direct children of the well collection.
+Each node carries an `acquisition` attribute.
+Derived images such as label maps are siblings of their source image and can still be linked via the `source` reference in their `labels` attribute. This layout is more compact but can become cluttered when there are multiple acquisitions and derived nodes.
+
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "collection",
+        "name": "hcs-plate-001",
+        "attributes": {
+            "plate": {
+                "acquisitions": [
+                    {
+                        "id": "acq_0",
+                        "name": "Acquisition Round 1"
+                    }
+                ],
+                "columns": [
+                    {
+                        "id": "1",
+                        "name": "1"
+                    }
+                ],
+                "rows": [
+                    {
+                        "id": "A",
+                        "name": "A"
+                    }
+                ]
+            }
+        },
+        "nodes": [
+            {
+                "type": "collection",
+                "name": "well A01",
+                "attributes": {
+                    "well": {
+                        "column": {"id": "1"},
+                        "row": {"id": "A"}
+                    }
+                },
+                "nodes": [
+                    {
+                        "id": "A01_0",
+                        "type": "multiscale",
+                        "name": "A01_0",
+                        "path": {
+                            "type": "zarr",
+                            "path": "./A/01/001.img"
+                        },
+                        "attributes": {
+                            "acquisition": {"id": "acq_0"}
+                        }
+                    },
+                    {
+                        "type": "multiscale",
+                        "name": "A01_0_ill_corrected",
+                        "path": {
+                            "type": "zarr",
+                            "path": "./A/01/001_ill_corrected.img"
+                        },
+                        "attributes": {
+                            "acquisition": {"id": "acq_0"},
+                            "source": [{"id": "A01_0"}]
+                        }
+                    },
+                    {
+                        "type": "multiscale",
+                        "name": "A01_0_nuclei",
+                        "path": {
+                            "type": "zarr",
+                            "path": "./A/01/001_nuclei.img"
+                        },
+                        "attributes": {
+                            "acquisition": {"id": "acq_0"},
+                            "labels": {
+                              "source": [{"id": "A01_0"}]
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+
+##### Tall example (acquisitions as sub-collections)
+
+In this layout, each acquisition is wrapped in a sub-collection inside the well.
+The `acquisition` attribute is set on the sub-collection rather than on individual nodes.
+This serves as an example that wells can consist of collections, not just multiscales. 
+
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "collection",
+        "name": "hcs-plate-001",
+        "attributes": {
+            "plate": {
+                "acquisitions": [
+                    {
+                        "id": "acq_0",
+                        "name": "Acquisition Round 1"
+                    },
+                    {
+                        "id": "acq_1",
+                        "name": "Acquisition Round 2"
+                    }
+                ],
+                "columns": [
+                    {
+                        "id": "1",
+                        "name": "1"
+                    }
+                ],
+                "rows": [
+                    {
+                        "id": "A",
+                        "name": "A"
+                    }
+                ]
+            }
+        },
+        "nodes": [
+            {
+                "type": "collection",
+                "name": "well A01",
+                "attributes": {
+                    "well": {
+                        "column": {"id": "1"},
+                        "row": {"id": "A"}
+                    }
+                },
+                "nodes": [
+                    {
+                        "type": "collection",
+                        "name": "A01_acq0",
+                        "attributes": {
+                            "acquisition": {"id": "acq_0"}
+                        },
+                        "nodes": [
+                            {
+                                "id": "A01_0",
+                                "type": "multiscale",
+                                "name": "A01_0",
+                                "path": {
+                                    "type": "zarr",
+                                    "path": "./A/01/001.img"
+                                }
+                            },
+                            {
+                                "type": "multiscale",
+                                "name": "A01_0_nuclei",
+                                "path": {
+                                    "type": "zarr",
+                                    "path": "./A/01/001_nuclei.img"
+                                },
+                                "attributes": {
+                                    "labels": {
+                                        "source": ["A01_0"]
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "collection",
+                        "name": "A01_acq1",
+                        "attributes": {
+                            "acquisition": {"id": "acq_1"}
+                        },
+                        "nodes": [
+                            {
+                                "id": "A01_1",
+                                "type": "multiscale",
+                                "name": "A01_1",
+                                "path": {
+                                    "type": "zarr",
+                                    "path": "./A/01/002.img"
+                                }
+                            },
+                            {
+                                "type": "multiscale",
+                                "name": "A01_1_nuclei",
+                                "path": {
+                                    "type": "zarr",
+                                    "path": "./A/01/002_nuclei.img"
+                                },
+                                "attributes": {
+                                    "labels": {
+                                        "source": [{"id": "A01_1"}]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+
+While inlined plate collections are shown above for simplicity, an on-disk plate collection could still refer to separate on-disk collections within each well that carry a `well` attribute.
+
+#### `bioformats2raw.layout` metadata
+
+The `bioformats2raw.layout` metadata is replaced by this proposal.
+A series of images can now be represented as a collection of multiscale images.
 
 
 ### Examples
@@ -889,345 +1233,6 @@ Also note some MoBIE specific attributes:
     }
 }
 ```
-
-### Label maps and other derived images
-
-Previous versions of the OME-Zarr specification defined a mechanism for associating label images with a single multiscale image.
-This was achieved by using a `labels` Zarr group that had to be a direct child of the multiscale Zarr group with some specific metadata. 
-This proposal replaces this mechanism.
-
-To denote a multiscale image as a label map, the `labels` attribute MUST be present.
-If present, the value of the `labels` attribute MUST be an object with the following fields:
-
-| Field | Type | Required? | Notes |
-| - | - | - | - |
-| `"labelAttributes"` | array of objects | no | Attributes for individual labels. Each object MUST be a [`Label Attributes` object](#label-attributes-interface).
-| `"source"` | array of strings | no | An array with [`Reference`s](#reference-interface) to the source multiscales. |
-
-Because no fields are required, an empty object MAY be used.
-
-In this proposal, the previous `colors` and `properties` fields are combined into a single `labelAttributes` field.
-The `rgba` field in the `colors` objects has been renamed to `color`.
-
-#### `Label Attributes` interface
-
-The `labelAttributes` field is an array of objects with the following fields:
-
-| Field | Type | Required? | Notes |
-| - | - | - | - |
-| `"labelValue"` | number | yes | Value MUST be the label value. |
-| `"color"` | array of number | no | Value MUST be a color in array format. | 
-
-If present, the `color` field MUST have an array with four integers between 0 and 255, inclusive. These integers represent the uint8 values of red, green, blue and alpha.
-
-Additional keys MAY be added, [following the attribute key naming rules](#extensibility).
-
-The previous `label-value` key is now renamed to `labelValue` for consistency.
-
-
-#### Example
-
-```jsonc
-{
-    "ome": {
-        "version": "0.x",
-        "type": "collection",
-        "name": "label-example",
-        "attributes": { ... },
-        "nodes": [{
-            "id": "raw",
-            "name": "raw",
-            "type": "multiscale",
-            "nodes": [ ... ]
-        }, {
-            "name": "nuclei",
-            "type": "multiscale",
-            "nodes": [ ... ],
-            "attributes": {
-                "labels": {
-                    "source": [ {"id": "raw"} ],
-                    "labelAttributes": [{
-                        "labelValue": 1,
-                        "color": [ 255, 0, 0, 255 ]
-                    }, {
-                        "labelValue": 2,
-                        "color": [ 0, 255, 0, 255 ]
-                    }]
-                }
-            }
-        }]
-    }
-}
-```
-
-### High-content screening (HCS) metadata
-
-High-content screening data is typically organized as a grid of wells on a plate, where each well contains one or more multiscale images from one or more acquisition rounds.
-This section introduces additional metadata for organizing wells on a plate.
-
-This proposal changes the HCS references from numeric IDs and names to string-based ID references, consistent with the [References mechanism](#reference-interface) defined above.
-
-#### `Plate` attribute
-
-A `collection` node representing a plate MUST have a `plate` attribute with the following fields:
-
-| Field | Type | Required? | Notes |
-| - | - | - | - |
-| `"acquisitions"` | array of objects | no | List of acquisitions performed on the plate. Each object MUST be [`Acquisition` objects](#acquisition-interface). |
-| `"columns"` | array of objects | yes | List of columns in the plate. Each object MUST be [`Column` objects](#column-interface). |
-| `"rows"` | array of objects | yes | List of rows in the plate. Each object MUST be [`Row` objects](#row-interface). |
-
-#### `Acquisition` interface
-
-| Field | Type | Required? | Notes |
-| - | - | - | - |
-| `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
-| `"name"` | string | no | A human-readable name for the acquisition. |
-
-#### `Column` interface
-
-| Field | Type | Required? | Notes |
-| - | - | - | - |
-| `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
-| `"name"` | string | no | A human-readable name for the acquisition. |
-
-#### `Row` interface
-
-| Field | Type | Required? | Notes |
-| - | - | - | - |
-| `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
-| `"name"` | string | no | A human-readable name for the acquisition. |
-
-#### `Well` attribute
-
-A `collection` node representing a well MUST have a `well` attribute with the following fields:
-
-| Field | Type | Required? | Notes |
-| - | - | - | - |
-| `"column"` | string | yes | Value MUST be a [`Reference`](#reference-interface) to one of the columns listed in the `plate` attribute on the enclosing plate-level collection. |
-| `"row"` | string | yes | Value MUST be a [`Reference`](#reference-interface) to one of the rows listed in the `plate` attribute on the enclosing plate-level collection. |
-
-#### `Acquisition` attribute
-
-The `acquisition` attribute MUST be a [`Reference`](#reference-interface) to one of the acquisitions.
-It MAY be set on individual `multiscale` nodes within a well or on a `collection` sub-node grouping all images from a single acquisition.
-
-We suggest two possible layouts for HCS data, which are not mutually exclusive and can be used in combination: a "wide" layout where all images are direct children of the well collection and a "tall" layout where images are grouped in sub-collections by acquisition. 
-
-#### Wide example (acquisitions flat in the well)
-
-In this layout, all multiscale nodes are direct children of the well collection.
-Each node carries an `acquisition` attribute.
-Derived images such as label maps are siblings of their source image and can still be linked via the `source` reference in their `labels` attribute. This layout is more compact but can become cluttered when there are multiple acquisitions and derived nodes.
-
-```jsonc
-{
-    "ome": {
-        "version": "0.x",
-        "type": "collection",
-        "name": "hcs-plate-001",
-        "attributes": {
-            "plate": {
-                "acquisitions": [
-                    {
-                        "id": "acq_0",
-                        "name": "Acquisition Round 1"
-                    }
-                ],
-                "columns": [
-                    {
-                        "id": "1",
-                        "name": "1"
-                    }
-                ],
-                "rows": [
-                    {
-                        "id": "A",
-                        "name": "A"
-                    }
-                ]
-            }
-        },
-        "nodes": [
-            {
-                "type": "collection",
-                "name": "well A01",
-                "attributes": {
-                    "well": {
-                        "column": {"id": "1"},
-                        "row": {"id": "A"}
-                    }
-                },
-                "nodes": [
-                    {
-                        "id": "A01_0",
-                        "type": "multiscale",
-                        "name": "A01_0",
-                        "path": {
-                            "type": "zarr",
-                            "path": "./A/01/001.img"
-                        },
-                        "attributes": {
-                            "acquisition": {"id": "acq_0"}
-                        }
-                    },
-                    {
-                        "type": "multiscale",
-                        "name": "A01_0_ill_corrected",
-                        "path": {
-                            "type": "zarr",
-                            "path": "./A/01/001_ill_corrected.img"
-                        },
-                        "attributes": {
-                            "acquisition": {"id": "acq_0"},
-                            "source": [{"id": "A01_0"}]
-                        }
-                    },
-                    {
-                        "type": "multiscale",
-                        "name": "A01_0_nuclei",
-                        "path": {
-                            "type": "zarr",
-                            "path": "./A/01/001_nuclei.img"
-                        },
-                        "attributes": {
-                            "acquisition": {"id": "acq_0"},
-                            "labels": {
-                              "source": [{"id": "A01_0"}]
-                            }
-                        }
-                    }
-                ]
-            }
-        ]
-    }
-}
-```
-
-#### Tall example (acquisitions as sub-collections)
-
-In this layout, each acquisition is wrapped in a sub-collection inside the well.
-The `acquisition` attribute is set on the sub-collection rather than on individual nodes.
-This serves as an example that wells can consist of collections, not just multiscales. 
-
-```jsonc
-{
-    "ome": {
-        "version": "0.x",
-        "type": "collection",
-        "name": "hcs-plate-001",
-        "attributes": {
-            "plate": {
-                "acquisitions": [
-                    {
-                        "id": "acq_0",
-                        "name": "Acquisition Round 1"
-                    },
-                    {
-                        "id": "acq_1",
-                        "name": "Acquisition Round 2"
-                    }
-                ],
-                "columns": [
-                    {
-                        "id": "1",
-                        "name": "1"
-                    }
-                ],
-                "rows": [
-                    {
-                        "id": "A",
-                        "name": "A"
-                    }
-                ]
-            }
-        },
-        "nodes": [
-            {
-                "type": "collection",
-                "name": "well A01",
-                "attributes": {
-                    "well": {
-                        "column": {"id": "1"},
-                        "row": {"id": "A"}
-                    }
-                },
-                "nodes": [
-                    {
-                        "type": "collection",
-                        "name": "A01_acq0",
-                        "attributes": {
-                            "acquisition": {"id": "acq_0"}
-                        },
-                        "nodes": [
-                            {
-                                "id": "A01_0",
-                                "type": "multiscale",
-                                "name": "A01_0",
-                                "path": {
-                                    "type": "zarr",
-                                    "path": "./A/01/001.img"
-                                }
-                            },
-                            {
-                                "type": "multiscale",
-                                "name": "A01_0_nuclei",
-                                "path": {
-                                    "type": "zarr",
-                                    "path": "./A/01/001_nuclei.img"
-                                },
-                                "attributes": {
-                                    "labels": {
-                                        "source": ["A01_0"]
-                                    }
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "type": "collection",
-                        "name": "A01_acq1",
-                        "attributes": {
-                            "acquisition": {"id": "acq_1"}
-                        },
-                        "nodes": [
-                            {
-                                "id": "A01_1",
-                                "type": "multiscale",
-                                "name": "A01_1",
-                                "path": {
-                                    "type": "zarr",
-                                    "path": "./A/01/002.img"
-                                }
-                            },
-                            {
-                                "type": "multiscale",
-                                "name": "A01_1_nuclei",
-                                "path": {
-                                    "type": "zarr",
-                                    "path": "./A/01/002_nuclei.img"
-                                },
-                                "attributes": {
-                                    "labels": {
-                                        "source": [{"id": "A01_1"}]
-                                    }
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
-}
-```
-
-While inlined plate collections are shown above for simplicity, an on-disk plate collection could still refer to separate on-disk collections within each well that carry a `well` attribute.
-
-### `bioformats2raw.layout` metadata
-
-The `bioformats2raw.layout` metadata is replaced by this proposal.
-A series of images can now be represented as a collection of multiscale images.
 
 ## User stories
 
