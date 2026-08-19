@@ -130,23 +130,6 @@ consistent framework.
 
 ## Proposal
 
-### tl;dr
-
-* [Node interface](#node): a consistent JSON structure for several different types of OME-Zarr metadata object, where fields specific to the node type are inside an attributes field, and the root only stores information used for identifying and referencing the object.
-* [Collections](#collection-node): arbitrary collections of nodes which can be specialised for different use cases.
-* Reworking existing structures to a Node/Collection-based framework:
-
-  * [Single-scale image](#singlescale-node) arrays
-  * [Multiscale image](#multiscale-node) groups, bioformats2raw.layout
-  * [Label maps](#label-maps-and-other-derived-images)
-  * [HCS layout](#high-content-screening-hcs-metadata)
-
-* [Reference interface](#path-interface): a consistent system for referring to local and remote OME-Zarr metadata objects
-* [Extension system](#extensibility): namespacing within Nodes' types and fields within their attributes to allow extension of the OME-Zarr by specific vendors or for specific use cases
-* Integration of [coordinate transformations](#coordinate-transformations) (RFC-5) metadata
-
-## Proposal
-
 The following sections describe the proposed metadata framework in detail. They
 define the building blocks, the abstract structure, and the core classes in
 order. Each section includes schemas and small illustrative examples intended
@@ -217,6 +200,62 @@ A reference MUST be an object with the following fields:
 | `"path"` | object | no | Value MUST be a `Path` object. |
 
 For external references, the `path` field MUST be present.
+
+#### Extensibility
+
+Adding collections to OME-Zarr provides an opportunity to define extension points.
+Extension points allow the specification to be extended in a controlled manner, enabling custom functionality while maintaining interoperability.
+
+##### Naming scheme
+
+Extension identifiers follow a prefixed vs unprefixed convention:
+
+- **Unprefixed identifiers** are reserved for the core specification and can only be added or modified through the RFC process.
+- **Prefixed identifiers** (separated by `:`) can be freely introduced by custom extensions without requiring an RFC. The prefix identifies the user or organization that introduces and maintains the extension. Prefixes SHOULD be registered in a central registry (a Github repository under the `ome` organization). Registration of a prefix claims maintainership for that prefix and provides a discoverable location for the specification of custom extensions.
+- The `ome:` prefix is reserved for official extensions that have not yet been incorporated into the core specification.
+
+This naming scheme applies uniformly to all extension points listed below.
+
+Implementations SHOULD ignore extension identifiers they do not recognize, allowing graceful degradation when encountering unknown extensions.
+
+##### Extension points
+
+The extension system defines several points at which OME-Zarr can be extended
+while maintaining a common framework. These include node types, attribute keys,
+path types, coordinate transformation types, and coordinate system axis
+types. Each extension point is described in more detail in the
+corresponding sections of this proposal, where its structure, semantics,
+and requirements are defined.
+
+TODO: MOVE DOWN
+
+##### Node types
+
+The `type` field of a `Node` defines its structure and semantics. This RFC defines three unprefixed node types: `collection`, `multiscale`, and `singlescale`. Custom extensions can add prefixed node types (e.g., `mobie:table`, `fractal:roi`).
+
+Implementations that do not recognize a node type SHOULD treat it as an opaque node and MAY skip it or display it with a generic representation.
+
+##### Attribute keys
+
+Attribute keys within the `attributes` dictionary of nodes are an extension point. Custom extensions can add prefixed keys (e.g., `neuroglancer:shader`, `webknossos:settings`). See [Attributes](#attributes) for more details.
+
+##### Path types
+
+The `type` field of a `Path` object defines how the path is interpreted. This RFC defines two unprefixed path types: `zarr` and `json`. Custom extensions can add prefixed path types for other storage protocols or access patterns (e.g., `myorg:s3`, `myorg:zip`).
+
+Implementations that do not recognize a path type SHOULD treat the referenced node as opaque and MAY skip it or display it with a generic representation.
+
+##### Coordinate transformation types
+
+The `type` field of a coordinate transformation defines its mathematical operation. RFC-5 defines several unprefixed transformation types including `identity`, `scale`, `translation`, and others. Custom extensions can add prefixed transformation types (e.g., `myorg:nonlinear`).
+
+Implementations that do not recognize a transformation type SHOULD report an error or skip the transformation, as applying an unknown transformation could lead to incorrect spatial interpretation.
+
+##### Coordinate system axis types
+
+The `type` field of an axis in a coordinate system defines its semantics. RFC-5 defines unprefixed axis types including `space`, `time`, and `channel`. Custom extensions can add prefixed axis types (e.g., `myorg:wavelength`).
+
+Implementations that do not recognize an axis type MAY treat it as an opaque dimension.
 
 
 
@@ -346,54 +385,6 @@ Unprefixed attribute keys that are defined as part of this RFC are:
 - `labels`, as well as `labelValue` and `color` in label attributes
 - `plate`, `well`, `acquisition` for HCS metadata
 
-### Extensibility
-
-Adding collections to OME-Zarr provides an opportunity to define extension points.
-Extension points allow the specification to be extended in a controlled manner, enabling custom functionality while maintaining interoperability.
-
-#### Naming scheme
-
-Extension identifiers follow a prefixed vs unprefixed convention:
-
-- **Unprefixed identifiers** are reserved for the core specification and can only be added or modified through the RFC process.
-- **Prefixed identifiers** (separated by `:`) can be freely introduced by custom extensions without requiring an RFC. The prefix identifies the user or organization that introduces and maintains the extension. Prefixes SHOULD be registered in a central registry (a Github repository under the `ome` organization). Registration of a prefix claims maintainership for that prefix and provides a discoverable location for the specification of custom extensions.
-- The `ome:` prefix is reserved for official extensions that have not yet been incorporated into the core specification.
-
-This naming scheme applies uniformly to all extension points listed below.
-
-Implementations SHOULD ignore extension identifiers they do not recognize, allowing graceful degradation when encountering unknown extensions.
-
-#### Extension points
-
-The following extension points are defined:
-
-##### Node types
-
-The `type` field of a `Node` defines its structure and semantics. This RFC defines three unprefixed node types: `collection`, `multiscale`, and `singlescale`. Custom extensions can add prefixed node types (e.g., `mobie:table`, `fractal:roi`).
-
-Implementations that do not recognize a node type SHOULD treat it as an opaque node and MAY skip it or display it with a generic representation.
-
-##### Attribute keys
-
-Attribute keys within the `attributes` dictionary of nodes are an extension point. Custom extensions can add prefixed keys (e.g., `neuroglancer:shader`, `webknossos:settings`). See [Attributes](#attributes) for more details.
-
-##### Path types
-
-The `type` field of a `Path` object defines how the path is interpreted. This RFC defines two unprefixed path types: `zarr` and `json`. Custom extensions can add prefixed path types for other storage protocols or access patterns (e.g., `myorg:s3`, `myorg:zip`).
-
-Implementations that do not recognize a path type SHOULD treat the referenced node as opaque and MAY skip it or display it with a generic representation.
-
-##### Coordinate transformation types
-
-The `type` field of a coordinate transformation defines its mathematical operation. RFC-5 defines several unprefixed transformation types including `identity`, `scale`, `translation`, and others. Custom extensions can add prefixed transformation types (e.g., `myorg:nonlinear`).
-
-Implementations that do not recognize a transformation type SHOULD report an error or skip the transformation, as applying an unknown transformation could lead to incorrect spatial interpretation.
-
-##### Coordinate system axis types
-
-The `type` field of an axis in a coordinate system defines its semantics. RFC-5 defines unprefixed axis types including `space`, `time`, and `channel`. Custom extensions can add prefixed axis types (e.g., `myorg:wavelength`).
-
-Implementations that do not recognize an axis type MAY treat it as an opaque dimension.
 
 
 ### Examples
