@@ -704,14 +704,14 @@ A `collection` node representing a plate MUST have a `plate` attribute with the 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
 | `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
-| `"name"` | string | no | A human-readable name for the acquisition. |
+| `"name"` | string | no | A human-readable name for the column. |
 
 ##### `Row` interface
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
 | `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. IDs MUST be unique within the JSON document. |
-| `"name"` | string | no | A human-readable name for the acquisition. |
+| `"name"` | string | no | A human-readable name for the row. |
 
 ##### `Well` attribute
 
