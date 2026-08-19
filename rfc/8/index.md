@@ -1,4 +1,4 @@
-# RFC-8: Collections
+# RFC-8: An Extensible Metadata Framework for OME-Zarr
 
 ```{toctree}
 :hidden:
@@ -6,7 +6,7 @@
 comments/index
 ```
 
-Adding groupings of images and other objects to OME-Zarr.
+Extending OME-Zarr with new metadata types, references, and collections
 
 ## Status
 
