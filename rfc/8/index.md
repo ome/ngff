@@ -1,4 +1,4 @@
-# RFC-8: An Extensible Metadata Framework for OME-Zarr
+# RFC-8: Collections and Extensibility
 
 ```{toctree}
 :hidden:
