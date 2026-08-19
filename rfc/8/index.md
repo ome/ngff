@@ -154,11 +154,11 @@ This new interface replaces the paths defined in the previous versions of the OM
 | `"type"` | string | yes | Value MUST be a valid path type. |
 | `"path"` | string | yes | Value MUST be a string containing a path. See below. |
 
-The `type` field defines how the path is interpreted.
-Currently, the `zarr` and `json` types are supported. 
-
+The `type` field of a `Path` object defines how the path is interpreted. This RFC defines two unprefixed path types: `zarr` and `json`:
 - The `"zarr"` type is used for paths that reference nodes in a Zarr array or group. Implementations MUST append `zarr.json` to the path to access the metadata of the referenced node.
 - The `"json"` type is used for paths that reference nodes in a JSON file.
+Custom extensions can add prefixed path types for other storage protocols or access patterns (e.g., `myorg:s3`, `myorg:zip`).
+Implementations that do not recognize a path type SHOULD treat the referenced node as opaque and MAY skip it or display it with a generic representation.
 
 The `path` string can be one of the following types:
 
@@ -186,7 +186,6 @@ The `path` string can be one of the following types:
 
 Future RFCs may propose additional path types, such as S3 URLs or chained paths (e.g. for referencing files within a zip file).
 See the [Security](#security) section for guidance on access restrictions.
-
 
 #### `Reference` interface
 
@@ -231,39 +230,6 @@ types. Each extension point is described in more detail in the
 corresponding sections of this proposal, where its structure, semantics,
 and requirements are defined.
 
-TODO: MOVE DOWN
-
-##### Node types
-
-The `type` field of a `Node` defines its structure and semantics. This RFC defines three unprefixed node types: `collection`, `multiscale`, and `singlescale`. Custom extensions can add prefixed node types (e.g., `mobie:table`, `fractal:roi`).
-
-Implementations that do not recognize a node type SHOULD treat it as an opaque node and MAY skip it or display it with a generic representation.
-
-##### Attribute keys
-
-Attribute keys within the `attributes` dictionary of nodes are an extension point. Custom extensions can add prefixed keys (e.g., `neuroglancer:shader`, `webknossos:settings`). See [Attributes](#attributes) for more details.
-
-##### Path types
-
-The `type` field of a `Path` object defines how the path is interpreted. This RFC defines two unprefixed path types: `zarr` and `json`. Custom extensions can add prefixed path types for other storage protocols or access patterns (e.g., `myorg:s3`, `myorg:zip`).
-
-Implementations that do not recognize a path type SHOULD treat the referenced node as opaque and MAY skip it or display it with a generic representation.
-
-##### Coordinate transformation types
-
-The `type` field of a coordinate transformation defines its mathematical operation. RFC-5 defines several unprefixed transformation types including `identity`, `scale`, `translation`, and others. Custom extensions can add prefixed transformation types (e.g., `myorg:nonlinear`).
-
-Implementations that do not recognize a transformation type SHOULD report an error or skip the transformation, as applying an unknown transformation could lead to incorrect spatial interpretation.
-
-##### Coordinate system axis types
-
-The `type` field of an axis in a coordinate system defines its semantics. RFC-5 defines unprefixed axis types including `space`, `time`, and `channel`. Custom extensions can add prefixed axis types (e.g., `myorg:wavelength`).
-
-Implementations that do not recognize an axis type MAY treat it as an opaque dimension.
-
-
-
-
 ### Abstract structure
 
 
@@ -307,9 +273,11 @@ Objects that implement `Node` have the following fields:
 | `"name"` | string | yes | Value MUST be a non-empty string intended for human-readable display. Names MUST be unique within the enclosing collection. |
 | `"attributes"` | object | no | Value MUST be a dictionary. [See attributes section](#attributes) |
 
-The `type` field of a `Node` defines the additional fields, if any, it has. 
-This RFC defines three `Node` types: `Collection`, `Multiscale`, and `Singlescale`.
+The `type` field of a `Node` defines its structure and semantics, including any additional fields it might have.
+This RFC defines three unprefixed node types: `collection`, `multiscale`, and `singlescale`. Custom extensions can add prefixed node types (e.g., `mobie:table`, `fractal:roi`).
 Future RFCs might add more Node types, including custom Node types.
+
+Implementations that do not recognize a node type SHOULD treat it as an opaque node and MAY skip it or display it with a generic representation.
 
 A `Node` object may be used as the root object of the `ome` key, in which case a `version` field, as defined in previous spec versions, is also required.
 Non-root `Node` objects SHOULD NOT have a `version` field and MUST NOT have a different `version` value than the root `Node`.
@@ -318,6 +286,8 @@ Non-root `Node` objects SHOULD NOT have a `version` field and MUST NOT have a di
 
 Each `Node` has an `attributes` field that can be populated with JSON metadata.
 A primary use case for the `attributes` field is the specialization of collections and nodes through additional metadata.
+
+Attribute keys within the `attributes` dictionary of nodes are an extension point. Custom extensions can add prefixed keys (e.g., `neuroglancer:shader`, `webknossos:settings`). See [Attributes](#attributes) for more details.
 
 Attribute keys follow the naming scheme described in [Extensibility](#extensibility): unprefixed keys are reserved for the core specification, while prefixed keys (e.g., `mobie:`, `neuroglancer:`, `fractal:`, `webknossos:`) allow custom metadata.
 
@@ -538,6 +508,11 @@ In a change from the previous specification, coordinate systems are referenced u
 }
 ```
 
+
+The `type` field of a coordinate transformation defines its mathematical operation. RFC-5 defines several unprefixed transformation types including `identity`, `scale`, `translation`, and others. Custom extensions can add prefixed transformation types (e.g., `myorg:nonlinear`).
+
+Implementations that do not recognize a transformation type SHOULD report an error or skip the transformation, as applying an unknown transformation could lead to incorrect spatial interpretation.
+
 #### `Coordinate System` interface
 
 The `Coordinate System` objects have the following fields:
@@ -548,6 +523,9 @@ The `Coordinate System` objects have the following fields:
 | `"name"` | string | no | More descriptive name for the coordinate system, if needed. |
 | `"axes"` | array of strings | yes | Value MUST be an array of axes, as defined in RFC-5. |
 
+The `type` field of an axis in a coordinate system defines its semantics. RFC-5 defines unprefixed axis types including `space`, `time`, and `channel`. Custom extensions can add prefixed axis types (e.g., `myorg:wavelength`).
+
+Implementations that do not recognize an axis type MAY treat it as an opaque dimension.
 
 #### `Coordinate Transformation` interface
 
