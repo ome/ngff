@@ -134,9 +134,33 @@ order. Each section includes schemas and small illustrative examples intended
 to explain the structure and relationships between the different components.
 
 The examples in these sections are deliberately minimal and focus on
-illustrating individual aspects of the proposal. More complete examples showing
-how these components can be combined to support the use cases described in the
-Background are provided later in the document.
+illustrating individual aspects of the proposal, e.g.:
+
+
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "multiscale",
+        "name": "our_first_example",
+        "nodes": [
+          {
+            "id": "s0",
+            "name": "s0",
+            "type": "singlescale",
+            "path": {
+              "type": "zarr",
+              "path": "./s0"
+            },
+          }
+        ]
+    }
+}
+```
+
+More complete examples showing how these components can be combined to support
+the use cases described in the Background are provided later in the document.
+
 
 ### Building blocks
 
@@ -145,7 +169,16 @@ extended, including paths, references, and the extension system.
 
 #### `Path` interface
 
-This new interface replaces the paths defined in the previous versions of the OME-Zarr specification.
+This new interface replaces the paths defined in the previous versions of the
+OME-Zarr specification. From our first example, this is the lowest level type
+is used to build up the definition of an image.
+
+```jsonc
+    "path": {
+        "type": "zarr",
+        "path": "./s0"
+    }
+```
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
