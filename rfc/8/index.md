@@ -441,7 +441,7 @@ This new interface replaces the multiscale metadata defined in the previous vers
 
 Either `"nodes"` or `"path"` MUST be present, but not both.
 
-### Coordinate transformations
+#### Coordinate transformations
 
 Coordinate systems and transformations can be stored in two distinct locations:
 
@@ -537,7 +537,7 @@ The `type` field of a coordinate transformation defines its mathematical operati
 
 Implementations that do not recognize a transformation type SHOULD report an error or skip the transformation, as applying an unknown transformation could lead to incorrect spatial interpretation.
 
-#### `Coordinate System` interface
+##### `Coordinate System` interface
 
 The `Coordinate System` objects have the following fields:
 
@@ -551,7 +551,7 @@ The `type` field of an axis in a coordinate system defines its semantics. RFC-5 
 
 Implementations that do not recognize an axis type MAY treat it as an opaque dimension.
 
-#### `Coordinate Transformation` interface
+##### `Coordinate Transformation` interface
 
 The `Coordinate Transformation` objects have the following fields:
 
@@ -585,7 +585,7 @@ the following requirements apply:
   If the referenced coordinate system is in a different metadata document, both the `id` and `path` fields MUST be present.
 
 
-#### `Scene` attribute
+##### `Scene` attribute
 
 The `scene` attribute MUST be an object with the following fields:
 
