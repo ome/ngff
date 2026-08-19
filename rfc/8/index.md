@@ -2045,9 +2045,11 @@ stored, or processed by your system. From there, consider the lifecycle of such
 data and any data protection techniques that may be employed.
 -->
 
-### UI/UX
 
 <!--
+
+### UI/UX
+
 If there are user- or frontend-impacting changes by this RFC, it is important
 to have a "UI/UX" section. User-impacting changes might include changes in how
 images will be rendered. Frontend-impacting changes might include the need to
