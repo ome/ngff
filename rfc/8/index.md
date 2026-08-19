@@ -911,298 +911,6 @@ While inlined plate collections are shown above for simplicity, an on-disk plate
 The `bioformats2raw.layout` metadata is replaced by this proposal.
 A series of images can now be represented as a collection of multiscale images.
 
-
-### Examples
-
-See more examples at https://github.com/normanrz/ngff-rfc8-collection-examples/.
-
-#### A multiscale group with a single, inlined resolution level
-```jsonc
-{
-    "ome": {
-        "version": "0.x",
-        "type": "multiscale",
-        "name": "multiscales_example",
-        "id": "image_0",
-        "nodes": [
-          {
-            "id": "s0",
-            "name": "s0",
-            "type": "singlescale",
-            "path": {
-              "type": "zarr",
-              "path": "./s0"
-            },
-            "attributes": {
-              "coordinateTransformations": [
-                {
-                  "type": "scale",
-                  "scale": [1, 1, 1],
-                  "input": {"id": "s0"},
-                  "output": {"id": "physical"}
-                }
-              ]
-            }
-          }
-        ],
-        "attributes": {
-          "coordinateSystems": [
-            {
-              "id": "physical",
-              "axes": [...]
-            }
-          ]
-        }
-    }
-}
-```
-
-#### A multiscale group with a single resolution level
-
-The multiscale group contains the following metadata:
-```jsonc
-{
-    "ome": {
-        "version": "0.x",
-        "type": "multiscale",
-        "name": "multiscales_example",
-        "id": "image_0",
-        "nodes": [
-          {
-            "id": "s0",
-            "name": "s0",
-            "type": "singlescale",
-            "path": {
-              "type": "zarr",
-              "path": "./s0"
-            },
-          }
-        ],
-        "attributes": {
-          "coordinateSystems": [
-            {
-              "id": "physical",
-              "name": "The physical coordinate system",
-              "axes": [...]
-            }
-          ]
-        }
-    }
-}
-```
-
-And the `zarr.json` at the location of the resolution level (`./s0/zarr.json`) contains the following metadata:
-```jsonc
-{
-    "ome": {
-        "version": "0.x",
-        "type": "singlescale",
-        "name": "s0",
-        "id": "s0",
-        "attributes": {
-          "coordinateTransformations": [
-            {
-              "type": "scale",
-              "scale": [1, 1, 1],
-              "input": {"id": "s0"},
-              "output": {
-                "id": "physical",
-                "path": {
-                  "type": "json",
-                  "path": "../zarr.json"
-                }
-              }
-            }
-          ]
-        }
-    }
-}
-```
-
-#### A collection with a multiscale and a nested collection
-```jsonc
-{
-    "ome": {
-        "version": "0.x",
-        "type": "collection",
-        "name": "jrc_hela-1",
-        "nodes": [
-          {
-            "name": "raw",
-            "type": "multiscale",
-            "path": {
-              "type": "zarr",
-              "path": "./raw", // a relative or absolute path
-            },
-            "attributes": {    
-                "example-viewer:settings": {
-                    "isDisabled": true
-                },
-                ... // arbitrary user-defined metadata
-            },
-          },
-          {
-              "name": "nested_collection",
-              "type": "collection",
-              "path": {
-                "type": "json",
-                "path": "./nested_collection.json"
-              }
-          }, ... 
-        ],
-        "attributes": {
-            ...
-        }
-    }
-}
-```
-
-
-#### A collection with an inlined multiscale
-```jsonc
-{
-    "ome": {
-        "version": "0.x",
-        "type": "collection",
-        "name": "example",
-        "nodes": [
-          {
-            "name": "raw",
-            "id": "raw",
-            "type": "multiscale",
-            "nodes": [
-              {
-                "id": "raw_0",
-                "name": "raw_0",
-                "type": "singlescale",
-                "path": {
-                  "type": "zarr",
-                  "path": "./raw/0"
-                }
-              }
-            ],
-            "attributes": {
-              "coordinateTransformations": [
-                {
-                  "type": "scale",
-                  "scale": [1, 1, 1],
-                  "input": {"id": "raw_0"},
-                  "output": {"id": "physical"}
-                }
-              ],
-              "coordinateSystems": [
-                {
-                  "id": "physical",
-                  "axes": [...]
-                }
-              ]
-            }
-          }
-        ]
-    }
-}
-```
-
-#### A grid view gallery
-
-A gallery view could also be represented within the proposed collection JSON as shown in the below example.
-
-Note that the grid view is modelled here as a collection of collections, where the collection at each grid position includes the raw EM image and the mitochondria segmentation label mask image.
-
-Also note some MoBIE specific attributes:
-
-- `"mobie:grid": "true"` specifies that the data should be laid out in a grid.
-
-```jsonc
-{
-    "ome": {
-        "version": "0.x",
-        "type": "collection",
-        "name": "openorganelle-mito-gallery",
-        "attributes": {
-            "mobie:grid": "true"
-        },
-        "nodes": [
-            {
-                "name": "jrc_hela-3",
-                "type": "collection",
-                "nodes": [
-                    {
-                        "name": "fibsem-uint16",
-                        "type": "multiscale",
-                        "path": {
-                          "type": "zarr",
-                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_hela-3/jrc_hela-3.zarr/em/fibsem-uint16",
-                        }
-                    },
-                    {
-                        "name": "mito_seg",
-                        "type": "multiscale",
-                        "path": {
-                          "type": "zarr",
-                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_hela-3/jrc_hela-3.zarr/labels/mito_seg",
-                        },
-                        "attributes": {
-                            "labels": {}
-                        }
-                    }
-                ]
-            },
-            {
-                "name": "jrc_macrophage-2",
-                "type": "collection",
-                "nodes": [
-                    {
-                        "name": "fibsem-uint16",
-                        "type": "multiscale",
-                        "path": {
-                          "type": "zarr",
-                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_macrophage-2/jrc_macrophage-2.zarr/em/fibsem-uint16"
-                        }
-                    },
-                    {
-                        "name": "mito_seg",
-                        "type": "multiscale",
-                        "path": {
-                          "type": "zarr",
-                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_macrophage-2/jrc_macrophage-2.zarr/labels/mito_seg"
-                        },
-                        "attributes": {
-                            "labels": {}
-                        }
-                    }
-                ]
-            },
-            {
-                "name": "jrc_jurkat-1",
-                "type": "collection",
-                "nodes": [
-                    {
-                        "name": "fibsem-uint16",
-                        "type": "multiscale",
-                        "path": {
-                          "type": "zarr",
-                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_jurkat-1/jrc_jurkat-1.zarr/em/fibsem-uint16"
-                        }
-                    },
-                    {
-                        "name": "mito_seg",
-                        "type": "multiscale",
-                        "path": {
-                          "type": "zarr",
-                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_jurkat-1/jrc_jurkat-1.zarr/labels/mito_seg"
-                        },
-                        "attributes": {
-                            "labels": {}
-                        }
-                    }
-                ]
-            }
-        ]
-    }
-}
-```
-
 ## User stories
 
 ### 1. Visualize multiple images at once
@@ -1335,6 +1043,299 @@ For example, [this table](https://docs.google.com/spreadsheets/d/1t5xB0p0zd2-a6y
 
 ![MoBIE grid view](./assets/mobie_grid_view.jpg)
 
+#### Example: A grid view gallery
+
+A gallery view could also be represented within the proposed collection JSON as shown in the below example.
+
+Note that the grid view is modelled here as a collection of collections, where the collection at each grid position includes the raw EM image and the mitochondria segmentation label mask image.
+
+Also note some MoBIE specific attributes:
+
+- `"mobie:grid": "true"` specifies that the data should be laid out in a grid.
+
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "collection",
+        "name": "openorganelle-mito-gallery",
+        "attributes": {
+            "mobie:grid": "true"
+        },
+        "nodes": [
+            {
+                "name": "jrc_hela-3",
+                "type": "collection",
+                "nodes": [
+                    {
+                        "name": "fibsem-uint16",
+                        "type": "multiscale",
+                        "path": {
+                          "type": "zarr",
+                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_hela-3/jrc_hela-3.zarr/em/fibsem-uint16",
+                        }
+                    },
+                    {
+                        "name": "mito_seg",
+                        "type": "multiscale",
+                        "path": {
+                          "type": "zarr",
+                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_hela-3/jrc_hela-3.zarr/labels/mito_seg",
+                        },
+                        "attributes": {
+                            "labels": {}
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "jrc_macrophage-2",
+                "type": "collection",
+                "nodes": [
+                    {
+                        "name": "fibsem-uint16",
+                        "type": "multiscale",
+                        "path": {
+                          "type": "zarr",
+                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_macrophage-2/jrc_macrophage-2.zarr/em/fibsem-uint16"
+                        }
+                    },
+                    {
+                        "name": "mito_seg",
+                        "type": "multiscale",
+                        "path": {
+                          "type": "zarr",
+                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_macrophage-2/jrc_macrophage-2.zarr/labels/mito_seg"
+                        },
+                        "attributes": {
+                            "labels": {}
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "jrc_jurkat-1",
+                "type": "collection",
+                "nodes": [
+                    {
+                        "name": "fibsem-uint16",
+                        "type": "multiscale",
+                        "path": {
+                          "type": "zarr",
+                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_jurkat-1/jrc_jurkat-1.zarr/em/fibsem-uint16"
+                        }
+                    },
+                    {
+                        "name": "mito_seg",
+                        "type": "multiscale",
+                        "path": {
+                          "type": "zarr",
+                          "path": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_jurkat-1/jrc_jurkat-1.zarr/labels/mito_seg"
+                        },
+                        "attributes": {
+                            "labels": {}
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+
+
+## Other Examples
+
+The examples below demonstrate combinations of various features in this
+proposal. Further example can be found under
+https://github.com/normanrz/ngff-rfc8-collection-examples/.
+
+### A multiscale group with a single, inlined resolution level
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "multiscale",
+        "name": "multiscales_example",
+        "id": "image_0",
+        "nodes": [
+          {
+            "id": "s0",
+            "name": "s0",
+            "type": "singlescale",
+            "path": {
+              "type": "zarr",
+              "path": "./s0"
+            },
+            "attributes": {
+              "coordinateTransformations": [
+                {
+                  "type": "scale",
+                  "scale": [1, 1, 1],
+                  "input": {"id": "s0"},
+                  "output": {"id": "physical"}
+                }
+              ]
+            }
+          }
+        ],
+        "attributes": {
+          "coordinateSystems": [
+            {
+              "id": "physical",
+              "axes": [...]
+            }
+          ]
+        }
+    }
+}
+```
+
+### A multiscale group with a single resolution level
+
+The multiscale group contains the following metadata:
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "multiscale",
+        "name": "multiscales_example",
+        "id": "image_0",
+        "nodes": [
+          {
+            "id": "s0",
+            "name": "s0",
+            "type": "singlescale",
+            "path": {
+              "type": "zarr",
+              "path": "./s0"
+            },
+          }
+        ],
+        "attributes": {
+          "coordinateSystems": [
+            {
+              "id": "physical",
+              "name": "The physical coordinate system",
+              "axes": [...]
+            }
+          ]
+        }
+    }
+}
+```
+
+And the `zarr.json` at the location of the resolution level (`./s0/zarr.json`) contains the following metadata:
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "singlescale",
+        "name": "s0",
+        "id": "s0",
+        "attributes": {
+          "coordinateTransformations": [
+            {
+              "type": "scale",
+              "scale": [1, 1, 1],
+              "input": {"id": "s0"},
+              "output": {
+                "id": "physical",
+                "path": {
+                  "type": "json",
+                  "path": "../zarr.json"
+                }
+              }
+            }
+          ]
+        }
+    }
+}
+```
+
+### A collection with a multiscale and a nested collection
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "collection",
+        "name": "jrc_hela-1",
+        "nodes": [
+          {
+            "name": "raw",
+            "type": "multiscale",
+            "path": {
+              "type": "zarr",
+              "path": "./raw", // a relative or absolute path
+            },
+            "attributes": {    
+                "example-viewer:settings": {
+                    "isDisabled": true
+                },
+                ... // arbitrary user-defined metadata
+            },
+          },
+          {
+              "name": "nested_collection",
+              "type": "collection",
+              "path": {
+                "type": "json",
+                "path": "./nested_collection.json"
+              }
+          }, ... 
+        ],
+        "attributes": {
+            ...
+        }
+    }
+}
+```
+
+
+### A collection with an inlined multiscale
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "collection",
+        "name": "example",
+        "nodes": [
+          {
+            "name": "raw",
+            "id": "raw",
+            "type": "multiscale",
+            "nodes": [
+              {
+                "id": "raw_0",
+                "name": "raw_0",
+                "type": "singlescale",
+                "path": {
+                  "type": "zarr",
+                  "path": "./raw/0"
+                }
+              }
+            ],
+            "attributes": {
+              "coordinateTransformations": [
+                {
+                  "type": "scale",
+                  "scale": [1, 1, 1],
+                  "input": {"id": "raw_0"},
+                  "output": {"id": "physical"}
+                }
+              ],
+              "coordinateSystems": [
+                {
+                  "id": "physical",
+                  "axes": [...]
+                }
+              ]
+            }
+          }
+        ]
+    }
+}
+```
 
 ## Requirements
 
