@@ -33,15 +33,6 @@ This proposal is early. Status: D1
 
 ## Overview
 
-This proposal adds a new "collection" concept to OME-Zarr.
-
-- Collections can be used to group together images, including segmentations, prediction maps and other derived images as well as other data types ("nodes"). 
-- Collections can be nested. 
-- Collections can have metadata attached. Within collections, nodes can also have metadata, which complements or overrides the nodes' own metadata.
-- Nodes within collections are referenced by paths instead of relying on a file system hierarchy. Paths may also be absolute and point to remote storage.
-
-This proposal does not aim to invent new concepts, but unify approaches that the community has already adopted, in a standards-compliant and extensible manner.
-
 <!--
 The RFC begins with a brief overview. This section should be one or two
 paragraphs that just explains what the goal of this RFC is going to be, but
@@ -154,7 +145,103 @@ consistent framework.
 * [Extension system](#extensibility): namespacing within Nodes' types and fields within their attributes to allow extension of the OME-Zarr by specific vendors or for specific use cases
 * Integration of [coordinate transformations](#coordinate-transformations) (RFC-5) metadata
 
-### Intro
+## Proposal
+
+The following sections describe the proposed metadata framework in detail. They
+define the building blocks, the abstract structure, and the core classes in
+order. Each section includes schemas and small illustrative examples intended
+to explain the structure and relationships between the different components.
+
+The examples in these sections are deliberately minimal and focus on
+illustrating individual aspects of the proposal. More complete examples showing
+how these components can be combined to support the use cases described in the
+Background are provided later in the document.
+
+### Building blocks
+
+The building blocks define how objects are represented, referenced, and
+extended, including paths, references, and the extension system.
+
+#### `Path` interface
+
+This new interface replaces the paths defined in the previous versions of the OME-Zarr specification.
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"type"` | string | yes | Value MUST be a valid path type. |
+| `"path"` | string | yes | Value MUST be a string containing a path. See below. |
+
+The `type` field defines how the path is interpreted.
+Currently, the `zarr` and `json` types are supported. 
+
+- The `"zarr"` type is used for paths that reference nodes in a Zarr array or group. Implementations MUST append `zarr.json` to the path to access the metadata of the referenced node.
+- The `"json"` type is used for paths that reference nodes in a JSON file.
+
+The `path` string can be one of the following types:
+
+- **Relative paths.**
+  To reference nodes that are on the same file system namespace as the json file describing the collection, relative paths may be used.
+  Relative paths are interpreted relative to the json file describing the collection.
+  Relative paths follow the relative path notation defined in [IETF RFC1808](https://datatracker.ietf.org/doc/html/rfc1808).
+  Briefly, `.` and `..` are used to navigate the hierarchy and the hierarchy is separated by `/`.
+  Relative paths may be used for data stored on traditional file systems as well as other storage protocols, such as HTTP or S3.
+  Examples:
+  - `./image.ome.zarr`
+  - `../image.ome.zarr`
+- **Absolute file paths.**
+  On traditional file systems, absolute paths may be used with the `file` scheme as specified by [IETF RFC8089](https://datatracker.ietf.org/doc/html/rfc8089).
+  Please note that absolute file paths are generally not portable across operating systems or file systems.
+  Examples:
+  - `file:///home/user/data/image.ome.zarr`
+  - `file://C:/Users/user/data/image.ome.zarr`
+- **HTTP(S) URLs.** 
+  To reference nodes that are stored remotely, URLs with the `http` or `https` scheme may be used.
+  URLs follow the notation defined in [IETF RFC1738](https://datatracker.ietf.org/doc/html/rfc1738).
+  Examples:
+  - `https://example.com/image.ome.zarr`
+  - `http://example.com/image.ome.zarr`
+
+Future RFCs may propose additional path types, such as S3 URLs or chained paths (e.g. for referencing files within a zip file).
+See the [Security](#security) section for guidance on access restrictions.
+
+
+#### `Reference` interface
+
+Referenced objects MUST have an `id` field.
+
+A reference MUST be an object with the following fields:
+
+| Field | Type | Required? | Notes |
+| - | - | - | - |
+| `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. |
+| `"path"` | object | no | Value MUST be a `Path` object. |
+
+For external references, the `path` field MUST be present.
+
+
+
+
+- Collections can be used to group together images, including segmentations, prediction maps and other derived images as well as other data types ("nodes"). 
+- Collections can be nested. 
+- Collections can have metadata attached. Within collections, nodes can also have metadata, which complements or overrides the nodes' own metadata.
+- Nodes within collections are referenced by paths instead of relying on a file system hierarchy. Paths may also be absolute and point to remote storage.
+
+
+* [Node interface](#node): a consistent JSON structure for several different types of OME-Zarr metadata object, where fields specific to the node type are inside an attributes field, and the root only stores information used for identifying and referencing the object.
+* [Collections](#collection-node): arbitrary collections of nodes which can be specialised for different use cases.
+* Reworking existing structures to a Node/Collection-based framework:
+
+  * [Single-scale image](#singlescale-node) arrays
+  * [Multiscale image](#multiscale-node) groups, bioformats2raw.layout
+  * [Label maps](#label-maps-and-other-derived-images)
+  * [HCS layout](#high-content-screening-hcs-metadata)
+
+* [Reference interface](#path-interface): a consistent system for referring to local and remote OME-Zarr metadata objects
+* [Extension system](#extensibility): namespacing within Nodes' types and fields within their attributes to allow extension of the OME-Zarr by specific vendors or for specific use cases
+* Integration of [coordinate transformations](#coordinate-transformations) (RFC-5) metadata
+
+### Abstract structure
+
 
 This proposal adds collections to the OME-Zarr specification.
 "Collections" are groupings of "nodes".
@@ -164,13 +251,6 @@ Nodes reference images or collections that are stored locally relative to the co
 Arbitrary user or implementation metadata may be added to collections or nodes, which is an opportunity to add metadata that is only valid for a node in the context of a collection (e.g. rendering settings).
 Images may be added as nodes to multiple collections.
 
-### Goals
-
-- Define a mechanism for grouping images into (hierarchical) collections
-- Define a mechanism for referencing components of a collection (nodes, coordinate systems etc) internally and externally
-- Add extensibility to collections for user/implementation-specific metadata and new node types
-- Make a new home for HCS, bioformats2raw.layout, labels and scene metadata
-- Incorporate coordinate systems and transformations
 
 ### Metadata
 
@@ -245,62 +325,6 @@ This new interface replaces the dataset metadata defined in the previous version
 - contain and only contain a single `scale` transformation, or a `sequence` of a `scale` transformation followed by a `translation` transformation.
 - The `input` field of these transformations references the `id` of the  `Singlescale` node itself.
 - The `output` field references the `id` of a coordinate system defined under `coordinateSystems` in a `Multiscale` node.
-
-#### `Path` interface
-
-This new interface replaces the paths defined in the previous versions of the OME-Zarr specification.
-
-| Field | Type | Required? | Notes |
-| - | - | - | - |
-| `"type"` | string | yes | Value MUST be a valid path type. |
-| `"path"` | string | yes | Value MUST be a string containing a path. See below. |
-
-The `type` field defines how the path is interpreted.
-Currently, the `zarr` and `json` types are supported. 
-
-- The `"zarr"` type is used for paths that reference nodes in a Zarr array or group. Implementations MUST append `zarr.json` to the path to access the metadata of the referenced node.
-- The `"json"` type is used for paths that reference nodes in a JSON file.
-
-The `path` string can be one of the following types:
-
-- **Relative paths.**
-  To reference nodes that are on the same file system namespace as the json file describing the collection, relative paths may be used.
-  Relative paths are interpreted relative to the json file describing the collection.
-  Relative paths follow the relative path notation defined in [IETF RFC1808](https://datatracker.ietf.org/doc/html/rfc1808).
-  Briefly, `.` and `..` are used to navigate the hierarchy and the hierarchy is separated by `/`.
-  Relative paths may be used for data stored on traditional file systems as well as other storage protocols, such as HTTP or S3.
-  Examples:
-  - `./image.ome.zarr`
-  - `../image.ome.zarr`
-- **Absolute file paths.**
-  On traditional file systems, absolute paths may be used with the `file` scheme as specified by [IETF RFC8089](https://datatracker.ietf.org/doc/html/rfc8089).
-  Please note that absolute file paths are generally not portable across operating systems or file systems.
-  Examples:
-  - `file:///home/user/data/image.ome.zarr`
-  - `file://C:/Users/user/data/image.ome.zarr`
-- **HTTP(S) URLs.** 
-  To reference nodes that are stored remotely, URLs with the `http` or `https` scheme may be used.
-  URLs follow the notation defined in [IETF RFC1738](https://datatracker.ietf.org/doc/html/rfc1738).
-  Examples:
-  - `https://example.com/image.ome.zarr`
-  - `http://example.com/image.ome.zarr`
-
-Future RFCs may propose additional path types, such as S3 URLs or chained paths (e.g. for referencing files within a zip file).
-See the [Security](#security) section for guidance on access restrictions.
-
-
-#### `Reference` interface
-
-Referenced objects MUST have an `id` field.
-
-A reference MUST be an object with the following fields:
-
-| Field | Type | Required? | Notes |
-| - | - | - | - |
-| `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. |
-| `"path"` | object | no | Value MUST be a `Path` object. |
-
-For external references, the `path` field MUST be present.
 
 
 #### Attributes
