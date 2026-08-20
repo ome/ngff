@@ -109,7 +109,7 @@ conversion of proprietary datasets, usage by microscope vendors[^1], and usage
 by novel microscopy modalities[^2].
 
 This RFC removes these restrictions, opening NGFF to many more users within its
-target domain (and beyond). Because it _only_ removes restrictions, existing
+target domain (and beyond). Because it *only* removes restrictions, existing
 valid OME-Zarr datasets will remain valid after implementation of this
 proposal.
 
@@ -144,6 +144,7 @@ and,
 >   (`yx`) and images are stacked along the other (anisotropic) axis (`z`), the
 >   spatial axes SHOULD be ordered as `zyx`.
 
+
 and,
 
 > - Every Zarr array referred to by a `path` MUST have the same number of
@@ -157,9 +158,9 @@ hamper the adoption of OME-Zarr as an acquisition-time format due to
 performance concerns: many acquisitions happen in TZCYX order (all channels are
 acquired together for each z-slice), which violates the "axes must be ordered
 by type" requirement. In such cases, scientists must first acquire their data
-and _then_ transpose it — an expensive proposition for large datasets. (Note:
+and *then* transpose it — an expensive proposition for large datasets. (Note:
 Admittedly, Zarr transpose codecs, as well as the mapAxis transformation from
-RFC-5, already offer solutions to this problem. However, the _simplest_
+RFC-5, already offer solutions to this problem. However, the *simplest*
 solution of flexible array ordering with default codecs and only scale and
 translation transforms is only open after this RFC.)
 
@@ -218,7 +219,7 @@ important part of data quality checks. Currently, this kind of microscopy data
 cannot be stored in OME-Zarr.
 
 Within the same workflow, the crystal orientation is usually encoded as three
-_Euler angles_ or four _quaternion_ components stored at each pixel position.
+*Euler angles* or four *quaternion* components stored at each pixel position.
 Although it's possible to use the "custom" axis for this purpose, a dedicated
 axis with a clear naming convention is more ergonomic for scientists.
 
@@ -240,17 +241,17 @@ to save these intermediate image products for later reprocessing.
 
 ### Overlapping labels
 
-OME-Zarr can represent not only raw images, but also _label images_, or
+OME-Zarr can represent not only raw images, but also *label images*, or
 segmentations. Traditionally, segmentations assigned a single integer value to
 each pixel in the source image. However, newer segmentation methods produce
-_coarse-to-fine_ segmentations, with semantic meaning. For images spanning many
+*coarse-to-fine* segmentations, with semantic meaning. For images spanning many
 scales, as produced by modern microscopes, we may want to segment tissues,
 cells within those tissues, and organelles within those cells. These three
 levels of segmentations can be stacked along a new "coarseness" axis.
 
-Similarly, new segmentation methods can produce _overlapping binary masks_. Due
-to the overlap, they _cannot_ be stored as traditional integer masks (one value
-per pixel), but are typically instead stored as _n_ boolean masks. For this
+Similarly, new segmentation methods can produce *overlapping binary masks*. Due
+to the overlap, they *cannot* be stored as traditional integer masks (one value
+per pixel), but are typically instead stored as *n* boolean masks. For this
 mask, an extra "instance" axis is needed in addition to the [TCZ]YX axes of a
 source image.
 
@@ -289,8 +290,7 @@ After this specification change, tools may encounter OME-Zarr files that don't
 match the earlier expectations of containing a subset of the TCZYX axes. This
 proposal is agnostic as to what to do in those situations, and indeed the
 appropriate action depends on the tool, but some suggestions include:
-
-- fail with an informative error message. (i.e. _partial_ implementations are
+- fail with an informative error message. (i.e. *partial* implementations are
   OK, especially if well-documented.)
 - prompt the user about which axes to treat as spatial.
 - arbitrarily choose which axes to treat as spatial.
@@ -304,31 +304,36 @@ document, taking as base the current development version:
 > - The length of `axes` must be between 2 and 5 and MUST be equal to the
 >   dimensionality of the Zarr arrays storing the image data (see
 >   `datasets:path`).
+>
 > - `axes` MUST contain 2 or 3 entries of `type:space`
+>
 > - `axes` MAY contain one additional entry of `type:time`
+>
 > - `axes` MAY contain one additional entry of `type:channel` or a null /
 >   custom type.
+>
 > - `axes` entries MUST be ordered by `type` where the `time` axis must come
 >   first (if present), followed by the `channel` or custom axis (if present)
 >   and the axes of type `space`.
+>
 > - If there are three spatial axes where two correspond to the image plane
 >   (`yx`) and images are stacked along the other (anisotropic) axis (`z`), the
 >   spatial axes SHOULD be ordered as `zyx`.
 
-2. The following lines are _added_ to "multiscales metadata":
+2. The following lines are *added* to "multiscales metadata":
 
 > 0. The length of the axis names MUST match the number of axes of the array.
-> 1. _If_ a dataset contains exactly 2 spatial dimensions, those dimensions
+> 1. *If* a dataset contains exactly 2 spatial dimensions, those dimensions
 >    SHOULD be named `y` and `x`, except where rule 4 applies.
-> 2. _If_ a dataset contains exactly 3 spatial dimensions, those dimensions
+> 2. *If* a dataset contains exactly 3 spatial dimensions, those dimensions
 >    SHOULD be named 'z', 'y', and 'x', except where rule 4 applies.
-> 3. _If_ a dataset contains exactly 1 time dimension, it should be named `t`.
+> 3. *If* a dataset contains exactly 1 time dimension, it should be named `t`.
 > 4. When image data axes map straightforwardly to axes with common names in
 >    the relevant field of practice, those axes SHOULD be named according to
 >    such conventions. For example, spatial frequency axes resulting from a
 >    Fourier transformation of `z', 'y', and 'x' SHOULD be named 'w', 'v', and
-`u`, respectively. Similarly, a temporal frequency axis resulting from
-a Fourier transformation of the `t`axis SHOULD be named`w`or`ω`.
+>    `u`, respectively. Similarly, a temporal frequency axis resulting from
+>    a Fourier transformation of the `t` axis SHOULD be named `w` or `ω`.
 > 5. Axis names MUST NOT be repeated within a dataset, and SHOULD NOT be
 >    different only by upper/lower-case. For example, the same dataset SHOULD
 >    NOT have both an `X` and an `x` axis.
@@ -365,7 +370,7 @@ the RFC.
 
 Developers of visualization libraries and software are concerned that this PR
 may result in a "wild west" of OME-Zarr datasets that have little in common,
-making it difficult for tools to decide _which_ axes to display. More details
+making it difficult for tools to decide *which* axes to display. More details
 about these concerns are developed below in the "Drawbacks" section.
 
 ## Backwards Compatibility
@@ -421,21 +426,21 @@ have assuaged most implementation concerns][recap comment].
 ## Performance
 
 The current OME-Zarr specification ensures arrays are stored in order TCZYX.
-With C-order array data, this ensures efficient access for _some_ but not _all_
+With C-order array data, this ensures efficient access for *some* but not *all*
 access patterns. By removing restrictions on axis orderings, a new class of
 "mistake" is possible, as someone could save an array in order XYTCZ, which
 would combine poorly with C-order arrays to view XY planes. However, it is
-arguable that Zarr chunking is in fact more important here — XYTCZ _could_ be
+arguable that Zarr chunking is in fact more important here — XYTCZ *could* be
 a perfectly cromulent axis ordering for XY planes if the Zarr chunk size was
 (1024, 1024, 1, 1, 1).
 
 Moreover, imposing a fixed axis ordering can incur performance penalties at
-_write_ time (where performance is often critical) if the data is not already
+*write* time (where performance is often critical) if the data is not already
 in the expected order.
 
 Therefore, this proposal argues that any performance implications are better
 addressed through good documentation and good defaults. Indeed, more flexible
-dimension ordering could _improve_ performance in some scenarios, such as
+dimension ordering could *improve* performance in some scenarios, such as
 "pixel drilling", that is, extracting the value of a single x/y position over
 time.
 
@@ -470,6 +475,7 @@ an informative error message (e.g. "The given dataset contains an unknown axis
 
 This RFC is placed in the public domain.
 
+
 [nat methods paper]: https://www.nature.com/articles/s41592-021-01326-w
 [ome-model]: https://github.com/ome/ngff/pull/239/files#r1609781780
 [ngff 0.4]: https://ngff.openmicroscopy.org/specifications/0.4/index.html
@@ -496,12 +502,11 @@ This RFC is placed in the public domain.
 [zulip-rfc-3-thread]: https://imagesc.zulipchat.com/#narrow/channel/328251-NGFF/topic/RFC-3.3A.20remove.20dimension.20restrictions/near/568178521
 
 [^1]: https://github.com/ome/ngff/pull/239#issuecomment-2122809286
-
 [^2]: https://github.com/ome/ngff/pull/239#issuecomment-2149119404
 
 ## Changelog
 
-| Date       | Description                                                                                                  | Link                                                                         |
-| ---------- | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
-| 2024-10-08 | RFC assigned and published                                                                                   | [https://github.com/ome/ngff/pull/239](https://github.com/ome/ngff/pull/239) |
-| 2026-07-04 | Updated to address comments, elaborate on use cases, include specific changes to spec doc, and add test data | [https://github.com/ome/ngff/pull/560](https://github.com/ome/ngff/pull/560) |
+| Date       | Description                  | Link                                                                         |
+| ---------- | ---------------------------- | ---------------------------------------------------------------------------- |
+| 2024-10-08 | RFC assigned and published   | [https://github.com/ome/ngff/pull/239](https://github.com/ome/ngff/pull/239) |
+| 2026-07-04 | Updated to address comments, elaborate on use cases, include specific changes to spec doc, and add test data   | [https://github.com/ome/ngff/pull/560](https://github.com/ome/ngff/pull/560) |
