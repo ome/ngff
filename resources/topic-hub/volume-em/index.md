@@ -2,7 +2,7 @@
 
 # Volume EM
 
-Volume Electron Microscopy (vEM) includes a numbers of techniques for imaging large volumes of biological samples at high resolution. The OME-NGFF specification caters for this kind of big data nicely, and there are a number of resources that build upon OME-Zarr to provide additional support for vEM data.
+Volume Electron Microscopy (vEM) includes a number of techniques for imaging large volumes of biological samples at high resolution. The OME-NGFF specification caters for this kind of big data nicely, and there are a number of resources that build upon OME-Zarr to provide additional support for vEM data.
 
 ## Tools
 
