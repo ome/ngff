@@ -59,8 +59,66 @@ jobs:
 
       - name: Ensure no unexpected encoded HTML in output
         run: |
-<<<<<<< HEAD
           ! fgrep -R 'lt;blockquote' _build/html
-=======
+name: "Build and Lint Site"
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "specifications/**"
+      - "rfc/**"
+      - "resources/**"
+      - "community/**"
+      - "contributing/**"
+      - "help-desk/**"
+      - "_html_extra/**"
+      - "_static/**"
+      - "_ext/**"
+      - "images/**"
+      - "**/*.md"
+      - "conf.py"
+      - "requirements.txt"
+      - "readthedocs.yml"
+      - ".github/workflows/build-lint.yml"
+
+concurrency:
+  group: build-lint-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: recursive
+
+      # dependencies
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install specifications/dev
+          gem install html-proofer
+
+      - name: Build the site
+        run: sphinx-build -b html . _build/html
+
+      - name: Validate all links, enforce alt text
+        run: htmlproofer --ignore-files "/.*\/specifications\/(0\.[0-9]+|dev)\/.*/,/.*webpack-macros\.html/,/.*\/rfc\/4\/markdown\/.*/,/.*\/rfc\/5\/.*/,/.*\/rfc\/1\/.*/,/.*\/0\.[0-9]+(\.html|\/.*)/" --disable-external ./_build/html
+
+      - name: Ensure no unexpected encoded HTML in output
+        run: |
           ! fgrep -R 'lt;blockquote' _build/html
->>>>>>> 62f9f6d (adapt html-proofer action to this context)

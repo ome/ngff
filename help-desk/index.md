@@ -3,6 +3,9 @@
 - [Glossary](#glossary)
 - [FAQs](#faqs)
 - [Where to seek for help](#where-to-seek-for-help)
+- [Glossary](#glossary)
+- [FAQs](#faqs)
+- [Where to seek for help](#where-to-seek-for-help)
 
 ## Glossary
 
@@ -212,10 +215,7 @@ That is often the case. OME-Zarr include multiresolution data (i.e. pyramids), w
 
 Not yet fully. Some workarounds are possible (1D arrays, mesh formats), but this is an active area of development.
 
-<<<<<<< HEAD
 (where-to-seek-for-help)=
-=======
->>>>>>> 87eb2e6 (fix broken links in a-z)
 ## Where to look for help
 
 If you have questions or need help with OME-Zarr, you can reach out through the following channels:
