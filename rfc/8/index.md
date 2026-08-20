@@ -917,9 +917,8 @@ they are declared using a prefix naming scheme.
 The extension system defines several points at which OME-Zarr can be extended
 while maintaining a common framework. These include node types, attribute keys,
 path types, coordinate transformation types, and coordinate system axis
-types. Each extension point is described in more detail in the
-corresponding sections of this proposal, where its structure, semantics,
-and requirements are defined.
+types. Each extension point is identified and declared in the
+corresponding sections of this proposal.
 
 
 ### Naming scheme
