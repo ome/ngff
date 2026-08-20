@@ -241,7 +241,8 @@ See the [Security](#security) section for guidance on access restrictions.
 
 The `Reference` interface is a consistent system for referring to local and remote OME-Zarr metadata objects.
 
-Referenced objects MUST have an `id` field.
+<a id="reference-interface-schema"></a>
+##### Schema
 
 A reference MUST be an object with the following fields:
 
@@ -250,8 +251,10 @@ A reference MUST be an object with the following fields:
 | `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. |
 | `"path"` | object | no | Value MUST be a `Path` object. |
 
-For external references, the `path` field MUST be present.
+<a id="reference-interface-field-path"></a>
+##### Field: `path`
 
+For external references, the `path` field MUST be present.
 
 <a id="abstract-structure"></a>
 ### Abstract structure
@@ -266,6 +269,7 @@ nodes to multiple collections. Arbitrary user or implementation metadata may be
 added to collections or nodes, which is an opportunity to add metadata that is
 only valid for a node in the context of a collection (e.g. rendering settings).
 
+<a id="abstract-structure-node"></a>
 #### `Node`
 
 This RFC defines a basic interface for an OME-Zarr metadata object, which we
@@ -273,6 +277,9 @@ name `Node`. The [Node interface](#node) is a consistent JSON structure for
 several different types of OME-Zarr metadata object, where fields specific to
 the node type are inside an attributes field, and the root only stores
 information used for identifying and referencing the object.
+
+<a id="abstract-structure-node-schema"></a>
+##### Schema
 
 Objects that implement `Node` have the following fields:
 
@@ -283,14 +290,22 @@ Objects that implement `Node` have the following fields:
 | `"name"` | string | yes | Value MUST be a non-empty string intended for human-readable display. Names MUST be unique within the enclosing collection. |
 | `"attributes"` | object | no | Value MUST be a dictionary. [See attributes section](#attributes) |
 
+<a id="abstract-structure-node-field-type"></a>
+
+##### Field: `type`
+
 The `type` field of a `Node` defines its structure and semantics, including any additional fields it might have.
 This RFC defines three node types: `collection`, `multiscale`, and `singlescale`.
 
 The `type` field of a `Node` is an extension point. For detail on how to extend the `type` field with new values, see [Extensions](#extensions).
 
+<a id="abstract-structure-node-field-version"></a>
+##### Field: `version`
+
 A `Node` object may be used as the root object of the `ome` key, in which case a `version` field, as defined in previous spec versions, is also required.
 Non-root `Node` objects SHOULD NOT have a `version` field and MUST NOT have a different `version` value than the root `Node`.
 
+<a id="abstract-structure-attributes"></a>
 #### Attributes
 
 Each `Node` has an `attributes` field that can be populated with JSON metadata.
@@ -358,6 +373,7 @@ multiscale images, and integrate coordinate systems and transformations from
 RFC-5. Existing OME-Zarr structures such as multiscales and
 bioformats2raw.layout are reworked within the Node/Collection-based framework.
 
+<a id="collection-node"></a>
 #### `Collection` node
 
 [Collections](#collection-node) are arbitrary groups of `Node`s` which can be
@@ -368,6 +384,9 @@ have metadata attached. Within collections, nodes can also have metadata, which
 complements or overrides the nodes' own metadata. Nodes within collections are
 referenced by paths instead of relying on a file system hierarchy. Paths may
 also be absolute and point to remote storage.
+
+<a id="collection-node-schema"></a>
+##### Schema
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
@@ -398,10 +417,14 @@ Either `"nodes"` or `"path"` MUST be present, but not both.
 }
 ```
 
+<a id="singlescale-node"></a>
 #### `Singlescale` node
 
 A `Singlescale` node represents one resolution level of an OME-Zarr multiscale image.
 This new interface replaces the dataset metadata defined in the previous versions of the OME-Zarr specification.
+
+<a id="singlescale-node-schema"></a>
+##### Schema
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
@@ -412,6 +435,9 @@ This new interface replaces the dataset metadata defined in the previous version
 | `"attributes"` | object | yes | Value MUST be a dictionary. [See attributes section](#attributes). Required because it MUST contain `coordinateTransformations`.|
 
 `Singlescale` nodes represent resolution levels within a multiscale pyramid.
+
+<a id="singlescale-node-field-coordinateTransformations"></a>
+##### Field: `coordinateTransformations`
 
 `Singlescale` nodes MUST have a `coordinateTransformations` key in their `attributes`, which
 - is an array of transformation objects, that conform to the [coordinate transformations](#coordinate-transformations) specification
@@ -437,10 +463,14 @@ This new interface replaces the dataset metadata defined in the previous version
 }
 ```
 
+<a id="multiscale-node"></a>
 #### `Multiscale` node
 
 A `Multiscale` node represents an OME-Zarr multiscale image.
 This new interface replaces the multiscale metadata defined in the previous versions of the OME-Zarr specification.
+
+<a id="multiscale-node-schema"></a>
+##### Schema
 
 | Field | Type | Required? | Notes |
 | - | - | - | - |
