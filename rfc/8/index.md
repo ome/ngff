@@ -168,10 +168,16 @@ the use cases described in the Background are provided later in the document.
 The building blocks define how objects are represented, referenced, and
 extended, including paths, references, and the extension system.
 
+<a id="path-interface"></a>
 #### `Path` interface
 
 This new interface replaces the paths defined in the previous versions of the
-OME-Zarr specification. From our first example, this is the lowest level type
+OME-Zarr specification.
+
+<a id="path-interface-example"></a>
+##### Example
+
+From our first example, this is the lowest level type
 is used to build up the definition of an image.
 
 ```jsonc
@@ -181,16 +187,28 @@ is used to build up the definition of an image.
     }
 ```
 
+<a id="path-interface-schema"></a>
+##### Schema
+
 | Field | Type | Required? | Notes |
 | - | - | - | - |
 | `"type"` | string | yes | Value MUST be a valid path type. |
 | `"path"` | string | yes | Value MUST be a string containing a path. See below. |
 
+<a id="path-interface-field-type"></a>
+##### Field: `type`
+
 The `type` field of a `Path` object defines how the path is interpreted. This RFC defines two unprefixed path types: `zarr` and `json`:
-- The `"zarr"` type is used for paths that reference nodes in a Zarr array or group. Implementations MUST append `zarr.json` to the path to access the metadata of the referenced node.
+
+- The `"zarr"` type is used for paths that reference nodes in a Zarr array or
+  group. Implementations MUST append `zarr.json` to the path to access the
+  metadata of the referenced node.
 - The `"json"` type is used for paths that reference nodes in a JSON file.
 
 The `type` field of a `Path` object is an extension point. For detail on how to extend the `type` field with new values, see [Extensions](#extensions).
+
+<a id="path-interface-field-path"></a>
+##### Field: `path`
 
 The `path` string can be one of the following types:
 
@@ -219,9 +237,10 @@ The `path` string can be one of the following types:
 Future RFCs may propose additional path types, such as S3 URLs or chained paths (e.g. for referencing files within a zip file).
 See the [Security](#security) section for guidance on access restrictions.
 
+<a id="reference-interface"></a>
 #### `Reference` interface
 
-The [Reference interface](#reference-interface) is a consistent system for referring to local and remote OME-Zarr metadata objects.
+The `Reference` interface is a consistent system for referring to local and remote OME-Zarr metadata objects.
 
 Referenced objects MUST have an `id` field.
 
@@ -235,6 +254,7 @@ A reference MUST be an object with the following fields:
 For external references, the `path` field MUST be present.
 
 
+<a id="abstract-structure"></a>
 ### Abstract structure
 
 The proposal introduces a common Node structure for different types of OME-Zarr
