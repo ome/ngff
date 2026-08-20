@@ -918,14 +918,23 @@ A series of images can now be represented as a collection of multiscale images.
 
 ## Extensions
 
-#### Extensibility
+This section describes how existing classes and class attributes can be extended 
+in a controlled manner, enabling custom functionality while maintaining interoperability.
 
-* [Extension system](#extensibility): namespacing within Nodes' types and fields within their attributes to allow extension of the OME-Zarr by specific vendors or for specific use cases
+Extensions to the specification can be made at defined extension points, and
+they are declared using a prefix naming scheme.
 
-Adding collections to OME-Zarr provides an opportunity to define extension points.
-Extension points allow the specification to be extended in a controlled manner, enabling custom functionality while maintaining interoperability.
+### Extension points
 
-##### Naming scheme
+The extension system defines several points at which OME-Zarr can be extended
+while maintaining a common framework. These include node types, attribute keys,
+path types, coordinate transformation types, and coordinate system axis
+types. Each extension point is described in more detail in the
+corresponding sections of this proposal, where its structure, semantics,
+and requirements are defined.
+
+
+### Naming scheme
 
 Extension identifiers follow a prefixed vs unprefixed convention:
 
@@ -936,20 +945,6 @@ Extension identifiers follow a prefixed vs unprefixed convention:
 This naming scheme applies uniformly to all extension points listed below.
 
 Implementations SHOULD ignore extension identifiers they do not recognize, allowing graceful degradation when encountering unknown extensions.
-
-##### Extension points
-
-The extension system defines several points at which OME-Zarr can be extended
-while maintaining a common framework. These include node types, attribute keys,
-path types, coordinate transformation types, and coordinate system axis
-types. Each extension point is described in more detail in the
-corresponding sections of this proposal, where its structure, semantics,
-and requirements are defined.
-
-The following sections describe how existing specialized metadata structures
-are represented as extensions within the new framework, including labels, label
-attributes, and high-content screening (HCS) metadata.
-
 
 
 ## User stories
