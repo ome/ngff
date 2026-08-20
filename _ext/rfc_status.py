@@ -81,7 +81,6 @@ class RFCStatus(Directive):
         reviews = _collect_section(rfc_dir, "reviews")
         comments = _collect_section(rfc_dir, "comments")
         responses = _collect_section(rfc_dir, "responses")
-        n_versions = _count_versions(rfc_dir)
 
         all_dates = [
             str(m.get("date", ""))
@@ -100,13 +99,13 @@ class RFCStatus(Directive):
             f"{_thread_count(responses)} responses, "
         )
         result.append(summary)
-        result.append(nodes.Text("\n Authors and editors:"))
+        result.append(nodes.title(text="Authors, editors, and endorsers"))
         result.append(self._people_table(central))
-        result.append(nodes.Text("\n Reviews, comments, and responses:"))
+        result.append(nodes.title(text="Reviews, comments, and responses"))
         result.append(self._activity_table(reviews, comments, responses))
         return result
 
-    # ---- Table 1: Authors + Editors ----
+    # ---- Table 1: Authors + Editors + Endorsers----
 
     def _people_table(self, central):
         cols = ["Role", "Name", "GitHub", "Institution", "Date", "Status"]
@@ -115,17 +114,25 @@ class RFCStatus(Directive):
             tbody += self._person_row(person, "Author")
         for person in central.get("editors", []):
             tbody += self._person_row(person, "Editor")
+        for person in central.get("endorsers", []):
+            tbody += self._person_row(person, "Endorser")
         return table
 
     def _person_row(self, person, role):
         row = nodes.row()
-        row += self._text_entry(role)
+        row += self._text_entry(role, "bold")
         row += self._text_entry(person.get("name", ""))
         gh = person.get("github")
         row += self._github_entry([gh] if gh else [])
         row += self._text_entry(person.get("affiliation", ""))
         row += self._text_entry(str(person.get("date", "")))
-        row += self._text_entry(person.get("role", ""))
+        # For endorsers, a reference link to the endorsement document is added if available
+        # else, just the role as text
+        if role == "Endorser" and person.get("reference", ""):
+            row += self._linked_entry("endorse", person.get("reference", ""))
+        else:
+            row += self._text_entry(person.get("role", ""))
+
         return row
 
     # ---- Table 2: Reviews + Comments + Responses (one row per round) ----
@@ -159,7 +166,7 @@ class RFCStatus(Directive):
         recommendation = str(meta.get("recommendation", "")).replace("_", " ")
 
         row = nodes.row()
-        row += self._status_entry(link_text, link_target)
+        row += self._linked_entry(link_text, link_target)
         row += self._text_entry(names)
         row += self._github_entry(handles)
         row += self._text_entry(", ".join(affils))
@@ -185,10 +192,15 @@ class RFCStatus(Directive):
         tgroup += tbody
         return table, tbody
 
-    def _text_entry(self, text):
+    def _text_entry(self, text, style=None):
         entry = nodes.entry()
         para = nodes.paragraph()
-        para += nodes.Text(text or "")
+        if style == "bold":
+            para += nodes.strong("", nodes.Text(text or ""))
+        elif style == "italic":
+            para += nodes.emphasis("", nodes.Text(text or ""))
+        else:
+            para += nodes.Text(text or "")
         entry += para
         return entry
 
@@ -202,13 +214,18 @@ class RFCStatus(Directive):
         entry += para
         return entry
 
-    def _status_entry(self, text, target):
+    def _linked_entry(self, text, target, style=None):
         entry = nodes.entry()
         para = nodes.paragraph()
         if target:
             para += nodes.reference("", text, refuri=target)
         else:
-            para += nodes.Text(text or "")
+            if style == "bold":
+                para += nodes.strong("", nodes.Text(text or ""))
+            elif style == "italic":
+                para += nodes.emphasis("", nodes.Text(text or ""))
+            else:
+                para += nodes.Text(text or "")
         entry += para
         return entry
 
