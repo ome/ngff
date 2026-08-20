@@ -150,7 +150,7 @@ export enum AnatomicalOrientationValues {
 
 
 export interface Axes {
-    /** A list of axes. Although serialized as list, it MUST be dealt with as being a set as in the name of each axis MUST be unique. Furthermore, if the attribute orientation is defined for one axis of type space, it MUST be defined for all the axes of type space. In this case, the type of each orientation MUST be the same and the value MUST be unique.
+    /** A list of axes. Although serialized as list, it MUST be dealt with as being a set as in the name of each axis MUST be unique. The orientation attribute is OPTIONAL: it MAY be defined on any subset of the axes of type space, and it MUST NOT be defined on axes of any other type. Where it is defined, the type of each orientation MUST be one of the types defined by this specification, currently only "anatomical", and two axes MUST NOT describe the same anatomical axis: a set of axes MUST only have one of the set { "left-to-right", "right-to-left" } or { "anterior-to-posterior", "posterior-to-anterior" } or the remaining values.
  */
     axes?: string[],
 }
@@ -173,7 +173,8 @@ export interface SpaceAxis extends Axis {
     /** Physical unit for spatial measurement along the axis, selected from a standardized list of distance units (e.g., micrometer, nanometer).
  */
     unit: string,
-    /** The direction of an axis of type space. */
+    /** The direction of an axis of type space. This attribute is OPTIONAL. An axis with no orientation and an axis whose orientation is null are equivalent: in both cases the orientation of that axis is undefined, and neither implies a default value. Writers SHOULD omit the attribute rather than serialize a null value.
+ */
     orientation?: string,
 }
 
