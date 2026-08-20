@@ -8,6 +8,7 @@ It includes topics like "Whole Slide Imaging", "Volume EM", "Spatial Omics", and
 
 - [Volume EM](#topic-volume-em)
 - [CryoET](#topic-cryoet)
+- [High-Content Screening](#topic-hcs)
 - [Whole Slide Imaging](#topic-wsi)
 - [Spatial Omics](#topic-spatial-omics)
 - [Dynamics](#topic-dynamics)
