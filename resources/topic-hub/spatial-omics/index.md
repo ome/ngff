@@ -4,10 +4,9 @@
 
 The SpatialData format builds upon OME-Zarr to provide a standard for storing spatial omics data. There are a number of resources that build either on OME-Zarr directly or upon SpatialData.
 
-# Spatial proteomics
+## Spatial proteomics
 
-##  spora ecosystem
-
+### spora ecosystem
 A suite of resources for spatial proteomics that use OME-Zarr at multiple levels. Includes:
 
 * [A spora data formats specification](https://spora.epfl.ch/docs-data.html) used to harmonize datasets.

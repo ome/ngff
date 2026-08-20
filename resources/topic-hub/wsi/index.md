@@ -8,7 +8,7 @@ Resources related to Whole Slide Imaging (WSI) and its use in the context of the
 
 ## Lazyslide & WSIData
 
-- [wsidata: Efficient data structures and IO for whole slide image analysis](https://wsidata.readthedocs.io/en/latest/index.html#)
+- [wsidata: Efficient data structures and IO for whole slide image analysis](https://wsidata.readthedocs.io/en/latest/index.html)
 
 Storage backed by [SpatialData](https://spatialdata.scverse.org/), so OME-NGFF at the core.
 
