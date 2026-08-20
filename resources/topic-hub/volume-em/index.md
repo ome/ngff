@@ -23,5 +23,3 @@ Volume Electron Microscopy (vEM) includes a numbers of techniques for imaging la
 - [Chapter 14 - Toward scalable reuse of vEM data: OME-Zarr to the rescue](https://www.sciencedirect.com/science/chapter/bookseries/abs/pii/S0091679X23000262) - (paywalled) book chapter describing the value of OME-Zarr for volume EM data
 
 - [Webinar for CCP volumeEM: 'OME-Zarr: A Next Generation File Format for FAIR Bioimaging Data' with Chris Barnes](https://www.ccp-volumeem.ac.uk/showandtell/may-2026)
-
-- [Cryo-ET](https://cryoetdataportal.czscience.com/) - Cryo-ET data portal, with datasets shared as OME-Zarr (arguably EM and volumetric, but usually not considered 'volume EM' in the sense of serial sectioning or block-face imaging).
