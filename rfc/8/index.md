@@ -234,33 +234,6 @@ A reference MUST be an object with the following fields:
 
 For external references, the `path` field MUST be present.
 
-#### Extensibility
-
-* [Extension system](#extensibility): namespacing within Nodes' types and fields within their attributes to allow extension of the OME-Zarr by specific vendors or for specific use cases
-
-Adding collections to OME-Zarr provides an opportunity to define extension points.
-Extension points allow the specification to be extended in a controlled manner, enabling custom functionality while maintaining interoperability.
-
-##### Naming scheme
-
-Extension identifiers follow a prefixed vs unprefixed convention:
-
-- **Unprefixed identifiers** are reserved for the core specification and can only be added or modified through the RFC process.
-- **Prefixed identifiers** (separated by `:`) can be freely introduced by custom extensions without requiring an RFC. The prefix identifies the user or organization that introduces and maintains the extension. Prefixes SHOULD be registered in a central registry (a Github repository under the `ome` organization). Registration of a prefix claims maintainership for that prefix and provides a discoverable location for the specification of custom extensions.
-- The `ome:` prefix is reserved for official extensions that have not yet been incorporated into the core specification.
-
-This naming scheme applies uniformly to all extension points listed below.
-
-Implementations SHOULD ignore extension identifiers they do not recognize, allowing graceful degradation when encountering unknown extensions.
-
-##### Extension points
-
-The extension system defines several points at which OME-Zarr can be extended
-while maintaining a common framework. These include node types, attribute keys,
-path types, coordinate transformation types, and coordinate system axis
-types. Each extension point is described in more detail in the
-corresponding sections of this proposal, where its structure, semantics,
-and requirements are defined.
 
 ### Abstract structure
 
@@ -599,12 +572,10 @@ A `scene` metadata object can be defined in the `attributes` of a collection to 
 The `scene` field allows to clearly distinguish between the spatial information pertaining to an individual multiscale image (which is stored in the `attributes` of the multiscale)
 and the spatial information pertaining to the collection of images (which is stored in the `attributes` of the collection).
 
-
-### Extensions
-
-The following sections describe how existing specialized metadata structures
-are represented as extensions within the new framework, including labels, label
-attributes, and high-content screening (HCS) metadata.
+<!--
+These "new and modified core classes" could become concrete extensions
+under Damien's proposal
+-->
 
 #### Label maps and other derived images
 
@@ -944,6 +915,42 @@ While inlined plate collections are shown above for simplicity, an on-disk plate
 
 The `bioformats2raw.layout` metadata is replaced by this proposal.
 A series of images can now be represented as a collection of multiscale images.
+
+## Extensions
+
+#### Extensibility
+
+* [Extension system](#extensibility): namespacing within Nodes' types and fields within their attributes to allow extension of the OME-Zarr by specific vendors or for specific use cases
+
+Adding collections to OME-Zarr provides an opportunity to define extension points.
+Extension points allow the specification to be extended in a controlled manner, enabling custom functionality while maintaining interoperability.
+
+##### Naming scheme
+
+Extension identifiers follow a prefixed vs unprefixed convention:
+
+- **Unprefixed identifiers** are reserved for the core specification and can only be added or modified through the RFC process.
+- **Prefixed identifiers** (separated by `:`) can be freely introduced by custom extensions without requiring an RFC. The prefix identifies the user or organization that introduces and maintains the extension. Prefixes SHOULD be registered in a central registry (a Github repository under the `ome` organization). Registration of a prefix claims maintainership for that prefix and provides a discoverable location for the specification of custom extensions.
+- The `ome:` prefix is reserved for official extensions that have not yet been incorporated into the core specification.
+
+This naming scheme applies uniformly to all extension points listed below.
+
+Implementations SHOULD ignore extension identifiers they do not recognize, allowing graceful degradation when encountering unknown extensions.
+
+##### Extension points
+
+The extension system defines several points at which OME-Zarr can be extended
+while maintaining a common framework. These include node types, attribute keys,
+path types, coordinate transformation types, and coordinate system axis
+types. Each extension point is described in more detail in the
+corresponding sections of this proposal, where its structure, semantics,
+and requirements are defined.
+
+The following sections describe how existing specialized metadata structures
+are represented as extensions within the new framework, including labels, label
+attributes, and high-content screening (HCS) metadata.
+
+
 
 ## User stories
 
