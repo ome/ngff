@@ -1,13 +1,24 @@
+---
+authors:
+  - name: Melissa Linkert
+    github: melissalinkert
+    affiliation: Glencoe Software
+  - name: Sébastien Besson
+    github: sbesson
+    affiliation: Glencoe Software
+date: "2026-08-04"
+recommendation: accept
+---
+
 # RFC-3: Review 1
 
 (rfcs:rfc3:review1)=
 
 ## Review authors
 
-This review was written by the following members of the [Glencoe Software team](https://github.com/glencoesoftware):
+```{document-authors}
 
-- [Melissa Linkert](https://github.com/melissalinkert)
-- [Sébastien Besson](https://github.com/sbesson)
+```
 
 ## Conflicts of interest
 

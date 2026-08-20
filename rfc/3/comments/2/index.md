@@ -1,10 +1,22 @@
+---
+authors:
+  - name: Chris Barnes
+    email: chris.barnes@gerbi-gmb.de
+    github: clbarnes
+    affiliation: German BioImaging
+date: "2026-02-05"
+recommendation: accept
+---
+
 # RFC-3: Comment 2
 
 (rfcs:rfc3:comment2)=
 
 ## Comment authors
 
-Chris Barnes <chris.barnes@gerbi-gmb.de>
+```{document-authors}
+
+```
 
 ## Conflicts of interest
 

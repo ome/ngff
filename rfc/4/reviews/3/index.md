@@ -3,7 +3,7 @@ authors:
   - name: Dave Horsfall
     github: davehorsfall
     affiliation: Haniffa Lab
-    date: 2026-02-27
+    date: "2026-02-27"
 recommendation: minor_changes
 ---
 
