@@ -189,8 +189,8 @@ is used to build up the definition of an image.
 The `type` field of a `Path` object defines how the path is interpreted. This RFC defines two unprefixed path types: `zarr` and `json`:
 - The `"zarr"` type is used for paths that reference nodes in a Zarr array or group. Implementations MUST append `zarr.json` to the path to access the metadata of the referenced node.
 - The `"json"` type is used for paths that reference nodes in a JSON file.
-Custom extensions can add prefixed path types for other storage protocols or access patterns (e.g., `myorg:s3`, `myorg:zip`).
-Implementations that do not recognize a path type SHOULD treat the referenced node as opaque and MAY skip it or display it with a generic representation.
+
+The `type` field of a `Path` object is an extension point. For detail on how to extend the `type` field with new values, see [Extensions](#extensions).
 
 The `path` string can be one of the following types:
 
@@ -265,10 +265,9 @@ Objects that implement `Node` have the following fields:
 | `"attributes"` | object | no | Value MUST be a dictionary. [See attributes section](#attributes) |
 
 The `type` field of a `Node` defines its structure and semantics, including any additional fields it might have.
-This RFC defines three unprefixed node types: `collection`, `multiscale`, and `singlescale`. Custom extensions can add prefixed node types (e.g., `mobie:table`, `fractal:roi`).
-Future RFCs might add more Node types, including custom Node types.
+This RFC defines three unprefixed node types: `collection`, `multiscale`, and `singlescale`.
 
-Implementations that do not recognize a node type SHOULD treat it as an opaque node and MAY skip it or display it with a generic representation.
+The `type` field of a `Node` is an extension point. For detail on how to extend the `type` field with new values, see [Extensions](#extensions).
 
 A `Node` object may be used as the root object of the `ome` key, in which case a `version` field, as defined in previous spec versions, is also required.
 Non-root `Node` objects SHOULD NOT have a `version` field and MUST NOT have a different `version` value than the root `Node`.
@@ -278,15 +277,7 @@ Non-root `Node` objects SHOULD NOT have a `version` field and MUST NOT have a di
 Each `Node` has an `attributes` field that can be populated with JSON metadata.
 A primary use case for the `attributes` field is the specialization of collections and nodes through additional metadata.
 
-Attribute keys within the `attributes` dictionary of nodes are an extension point. Custom extensions can add prefixed keys (e.g., `neuroglancer:shader`, `webknossos:settings`). See [Attributes](#attributes) for more details.
-
-Attribute keys follow the naming scheme described in [Extensibility](#extensibility): unprefixed keys are reserved for the core specification, while prefixed keys (e.g., `mobie:`, `neuroglancer:`, `fractal:`, `webknossos:`) allow custom metadata.
-
-Custom-prefixed keys can also be used to add additional sub-keys or behavior to existing unprefixed keys.
-This can be thought of as a way of achieving inheritance.
-For example, the `well` key could be specialized by a `fractal:well` key that adds additional sub-keys or alters behavior.
-It is out-of-scope of this RFC to fully define the inheritance behavior.
-That is left to be defined on a case-by-case basis for individual key specifications and may be standardized in a future RFC.
+Attribute keys within the `attributes` dictionary of nodes are an extension point. Custom extensions can add prefixed keys (e.g., `neuroglancer:shader`, `webknossos:settings`). See [Extensions](#extensions) for more details.
 
 Unprefixed attribute keys that are defined as part of this RFC are:
 - `coordinateSystems`
@@ -506,10 +497,9 @@ In a change from the previous specification, coordinate systems are referenced u
 }
 ```
 
+The `type` field of a coordinate transformation defines its mathematical operation. RFC-5 defines several unprefixed transformation types including `identity`, `scale`, `translation`, and others. 
 
-The `type` field of a coordinate transformation defines its mathematical operation. RFC-5 defines several unprefixed transformation types including `identity`, `scale`, `translation`, and others. Custom extensions can add prefixed transformation types (e.g., `myorg:nonlinear`).
-
-Implementations that do not recognize a transformation type SHOULD report an error or skip the transformation, as applying an unknown transformation could lead to incorrect spatial interpretation.
+The `type` field of a `CoordinateTransformation` is an extension point. For detail on how to extend the `type` field with new values, see [Extensions](#extensions).
 
 ##### `Coordinate System` interface
 
@@ -521,9 +511,7 @@ The `Coordinate System` objects have the following fields:
 | `"name"` | string | no | More descriptive name for the coordinate system, if needed. |
 | `"axes"` | array of strings | yes | Value MUST be an array of axes, as defined in RFC-5. |
 
-The `type` field of an axis in a coordinate system defines its semantics. RFC-5 defines unprefixed axis types including `space`, `time`, and `channel`. Custom extensions can add prefixed axis types (e.g., `myorg:wavelength`).
-
-Implementations that do not recognize an axis type MAY treat it as an opaque dimension.
+The `type` field of an `Axis` object is an extension point. For detail on how to extend the `type` field with new values, see [Extensions](#extensions).
 
 ##### `Coordinate Transformation` interface
 
@@ -942,9 +930,42 @@ Extension identifiers follow a prefixed vs unprefixed convention:
 - **Prefixed identifiers** (separated by `:`) can be freely introduced by custom extensions without requiring an RFC. The prefix identifies the user or organization that introduces and maintains the extension. Prefixes SHOULD be registered in a central registry (a Github repository under the `ome` organization). Registration of a prefix claims maintainership for that prefix and provides a discoverable location for the specification of custom extensions.
 - The `ome:` prefix is reserved for official extensions that have not yet been incorporated into the core specification.
 
-This naming scheme applies uniformly to all extension points listed below.
+This naming scheme applies uniformly to all extension points. Implementations that do not recognize a prefixed extension point SHOULD treat the referenced value as opaque and MAY skip it or display it with a generic representation.
 
-Implementations SHOULD ignore extension identifiers they do not recognize, allowing graceful degradation when encountering unknown extensions.
+Custom-prefixed keys can also be used to add additional sub-keys or behavior to existing unprefixed keys.
+This can be thought of as a way of achieving inheritance.
+For example, the `well` key in a `Node`'s `attributes` could be specialized by a `fractal:well` key that adds additional sub-keys or alters behavior.
+It is out-of-scope of this RFC to fully define the inheritance behavior.
+That is left to be defined on a case-by-case basis for individual key specifications and may be standardized in a future RFC.
+
+### Examples
+
+#### A `Path` with an extension `type` value
+
+```jsonc
+    "path": {
+        "type": "myorg:zip",
+        "path": "./s0"
+    }
+```
+
+#### A `coordinateTransformation` with an extension `type` value
+
+```jsonc
+"coordinateTransformations": [
+  {
+    "type": "translation",
+    "translation": [0, 0, 100],
+    ...
+  },
+  {
+    "type": "myorg:nonlinear",
+    ...
+  }
+]
+```
+
+
 
 
 ## User stories
