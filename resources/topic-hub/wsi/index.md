@@ -2,9 +2,9 @@
 
 # Whole Slide Imaging
 
-Resources related to Whole Slide Imaging (WSI) and its use in the context of the NGFF.
+Resources related to Whole Slide Imaging (WSI) and its use in the context of the NGFF. Many of the examples come from the digital pathology community, but OME-Zarr may be used for other whole slide imaging applications.
 
-- [QuPath](https://qupath.github.io/) Open source software for digital pathology image analysis, with support for OME-Zarr.
+- [QuPath](https://qupath.github.io/) - Open source software for digital pathology image analysis, with support for OME-Zarr.
 
 ## Lazyslide & WSIData
 
