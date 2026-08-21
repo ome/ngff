@@ -165,8 +165,7 @@ the use cases described in the Background are provided later in the document.
 
 ### Building blocks
 
-The building blocks define how objects are represented, referenced, and
-extended, including paths, references, and the extension system.
+The building blocks define how objects are represented using paths and references.
 
 <a id="path-interface"></a>
 #### `Path` interface
@@ -178,7 +177,7 @@ OME-Zarr specification.
 ##### Example
 
 From our first example, this is the lowest level type
-is used to build up the definition of an image.
+used to build up the definition of an image.
 
 ```jsonc
     "path": {
@@ -285,7 +284,7 @@ Objects that implement `Node` have the following fields:
 | `"attributes"` | object | no | Value MUST be a dictionary. [See attributes section](#attributes) |
 
 The `type` field of a `Node` defines its structure and semantics, including any additional fields it might have.
-This RFC defines three unprefixed node types: `collection`, `multiscale`, and `singlescale`.
+This RFC defines three node types: `collection`, `multiscale`, and `singlescale`.
 
 The `type` field of a `Node` is an extension point. For detail on how to extend the `type` field with new values, see [Extensions](#extensions).
 
@@ -297,13 +296,13 @@ Non-root `Node` objects SHOULD NOT have a `version` field and MUST NOT have a di
 Each `Node` has an `attributes` field that can be populated with JSON metadata.
 A primary use case for the `attributes` field is the specialization of collections and nodes through additional metadata.
 
-Attribute keys within the `attributes` dictionary of nodes are an extension point. Custom extensions can add prefixed keys (e.g., `neuroglancer:shader`, `webknossos:settings`). See [Extensions](#extensions) for more details.
-
-Unprefixed attribute keys that are defined as part of this RFC are:
+Attribute keys that are defined as part of this RFC are:
 - `coordinateSystems`
 - `coordinateTransformations`
 - `labels`, as well as `labelValue` and `color` in label attributes
 - `plate`, `well`, `acquisition` for HCS metadata
+
+Attribute keys within the `attributes` dictionary of nodes are an extension point. Custom extensions can add prefixed keys (e.g., `neuroglancer:shader`, `webknossos:settings`). See [Extensions](#extensions) for more details.
 
 #### Metadata storage
 
