@@ -309,16 +309,19 @@ Unprefixed attribute keys that are defined as part of this RFC are:
 
 ##### OME-Zarr group
 
-Collection metadata may be stored in the `ome` key of the `attributes` container in a `zarr.json` file of a Zarr group.
+Node metadata may be stored in the `ome` key of the `attributes` container in a `zarr.json` file of a Zarr group.
 This is particularly useful for defining the nodes that are stored within a Zarr group. However, there is no limitation to only reference nodes within the Zarr group.
 
 ```jsonc
 {
+  # zarr.json
     "zarr_format": 3,
     "node_type": "group",
     "attributes": {
         "ome": {
             "version": "0.x",
+            # Our `collection`-typed node attributes
+            # are listed here
             "type": "collection",
             "name": "zarr.json-example",
             "nodes": [{
@@ -336,14 +339,17 @@ This is particularly useful for defining the nodes that are stored within a Zarr
 
 ##### Standalone JSON
 
-Collection metadata may also be stored in standalone JSON files that are stored in arbitrary locations and have a file name ending in `.json`.
+Node metadata may also be stored in standalone JSON files that are stored in arbitrary locations and have a file name ending in `.json`.
 Here, the metadata is stored in the `ome` key of the root object.
 Standalone files are useful for persisting groupings of images that may or may not be stored in the same folder hierarchy.
 
 ```jsonc
 {
+  # an arbitrary json
     "ome": {
         "version": "0.x",
+        # Our `collection`-typed node attributes
+        # are listed here
         "type": "collection",
         "name": "standalone-example",
         "nodes": [{
