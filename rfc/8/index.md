@@ -313,24 +313,17 @@ This is particularly useful for defining the nodes that are stored within a Zarr
 
 ```jsonc
 {
-  # zarr.json
+  // zarr.json
     "zarr_format": 3,
     "node_type": "group",
     "attributes": {
         "ome": {
             "version": "0.x",
-            # Our `collection`-typed node attributes
-            # are listed here
+            // Our `collection`-typed node attributes
+            // are listed here
             "type": "collection",
             "name": "zarr.json-example",
-            "nodes": [{
-                "type": "multiscale",
-                "name": "image1",
-                "path": {
-                  "type": "zarr",
-                  "path": "./image1.img.zarr"  // reference to a Zarr group
-                }
-            }, ...]
+            "nodes": [...]
         }
     }
 }
@@ -344,21 +337,14 @@ Standalone files are useful for persisting groupings of images that may or may n
 
 ```jsonc
 {
-  # an arbitrary json
+  // an arbitrary json
     "ome": {
         "version": "0.x",
-        # Our `collection`-typed node attributes
-        # are listed here
+        // Our `collection`-typed node attributes
+        // are listed here
         "type": "collection",
         "name": "standalone-example",
-        "nodes": [{
-            "type": "multiscale",
-            "name": "image1",
-            "path": {
-              "type": "zarr",
-              "path": "https://example.com/image1.img.zarr"
-            }
-        }, ...]
+        "nodes": [...]
     }
 }
 ```
@@ -368,7 +354,7 @@ Standalone files are useful for persisting groupings of images that may or may n
 
 Building on the core building blocks and the abstract structure, the following
 sections define concrete node types for collections, single-scale images, and
-multiscale images, and integrates coordinate systems and transformations from
+multiscale images, and integrate coordinate systems and transformations from
 RFC-5. Existing OME-Zarr structures such as multiscales and
 bioformats2raw.layout are reworked within the Node/Collection-based framework.
 
@@ -394,6 +380,24 @@ also be absolute and point to remote storage.
 
 Either `"nodes"` or `"path"` MUST be present, but not both.
 
+```jsonc
+{
+  "ome": {
+      "version": "0.x",
+      "type": "collection",
+      "name": "proj_gallery",
+      "nodes": [{
+          "type": "collection",
+          "name": "gallery1",
+          "path": {
+            "type": "json",
+            "path": "../gallery.json" 
+          }
+      }, ...]
+  }
+}
+```
+
 #### `Singlescale` node
 
 A `Singlescale` node represents one resolution level of an OME-Zarr multiscale image.
@@ -415,6 +419,24 @@ This new interface replaces the dataset metadata defined in the previous version
 - The `input` field of these transformations references the `id` of the  `Singlescale` node itself.
 - The `output` field references the `id` of a coordinate system defined under `coordinateSystems` in a `Multiscale` node.
 
+```jsonc
+{
+  "ome": {
+    "version": "0.x",
+    "type": "singlescale",
+    "id": "s0",
+    "name": "s0",
+    "path": {
+      "type": "zarr",
+      "path": "./s0"
+    },
+    "attributes": {
+      ...
+    }
+  }
+}
+```
+
 #### `Multiscale` node
 
 A `Multiscale` node represents an OME-Zarr multiscale image.
@@ -430,6 +452,31 @@ This new interface replaces the multiscale metadata defined in the previous vers
 | `"attributes"` | object | yes | Value MUST be a dictionary. [See attributes section](#attributes). Required because it MUST contain `coordinateSystems`.|
 
 Either `"nodes"` or `"path"` MUST be present, but not both.
+
+```jsonc
+{
+    "ome": {
+        "version": "0.x",
+        "type": "multiscale",
+        "name": "imagepyramid1",
+        "nodes": [
+          {
+            "id": "s0",
+            "name": "s0",
+            "type": "singlescale",
+            "path": {
+              "type": "zarr",
+              "path": "./s0"
+            },
+            "attributes": {
+              ...
+            }
+          },
+          ...
+        ]
+    }
+}
+```
 
 #### Coordinate transformations
 
@@ -969,7 +1016,7 @@ That is left to be defined on a case-by-case basis for individual key specificat
 ```jsonc
     "path": {
         "type": "myorg:zip",
-        "path": "./s0"
+        "path": "./mylab.zip"
     }
 ```
 
