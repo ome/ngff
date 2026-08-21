@@ -3,9 +3,6 @@
 - [Glossary](#glossary)
 - [FAQs](#faqs)
 - [Where to seek for help](#where-to-seek-for-help)
-- [Glossary](#glossary)
-- [FAQs](#faqs)
-- [Where to seek for help](#where-to-seek-for-help)
 
 ## Glossary
 
