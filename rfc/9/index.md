@@ -1,3 +1,30 @@
+---
+authors:
+  - name: Jonas Windhager
+    github: jwindhager
+    affiliation: SciLifeLab / Uppsala University, Sweden
+    role: Corresponding Author
+    date: "2025-07-02"
+  - name: Norman Rzepka
+    github: normanrz
+    affiliation: scalable minds GmbH, Germany
+    role: Co-author
+    date: "2025-08-27"
+  - name: Mark Kittisopikul
+    github: mkitti
+    affiliation: HHMI Janelia, United States
+    role: Co-author
+    date: "2025-08-27"
+editors:
+  - name: Josh Moore
+    github: joshmoore
+    affiliation: German BioImaging e.V.
+    role: Editor
+    date: "2025-11-05"
+reference_pr: https://github.com/ome/ngff/pull/316
+date: 2025-07-02
+---
+
 # RFC-9: Zipped OME-Zarr
 
 ```{toctree}
@@ -15,21 +42,9 @@ Add a specification for storing an OME-Zarr hierarchy within a ZIP archive.
 
 This RFC is currently in state `R2` (waiting on reviewers).
 
-| Role      | Name                                 | GitHub Handle                                                                 | Institution                              | Date       | Status                                                           |
-| --------- | ------------------------------------ | ----------------------------------------------------------------------------- | ---------------------------------------- | ---------- | ---------------------------------------------------------------- |
-| Author    | Jonas Windhager                      | [jwindhager](https://github.com/jwindhager)                                   | SciLifeLab / Uppsala University, Sweden  | 2025-07-02 | Corresponding Author [PR](https://github.com/ome/ngff/pull/316) |
-| Author    | Norman Rzepka                        | [normanrz](https://github.com/normanrz)                                       | scalable minds GmbH, Germany             | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316)            |
-| Author    | Mark Kittisopikul                    | [mkitti](https://github.com/mkitti)                                           | HHMI Janelia, United States              | 2025-08-27 | Co-author [PR](https://github.com/ome/ngff/pull/316)            |
-| Editor    | Josh Moore                           | [joshmoore](https://github.com/joshmoore)                                     | German BioImaging e.V.                   | 2025-11-05 | Editor                                                           |
-| Reviewer  | Pete Bankhead                        | [petebankhead](https://github.com/petebankhead)                               | University of Edinburgh, United Kingdom  | 2026-01-26 | [Review](./reviews/1/index)                                     |
-| Reviewer  | Kola Babalola, Matthew Hartley       | [kbab](https://github.com/kbab), [matthewh-ebi](https://github.com/matthewh-ebi) | BioImage Archive, EMBL-EBI               | 2026-01-29 | [Review](./reviews/2/index)                                     |
-| Reviewer  | Curtis Rueden                        | [ctrueden](https://github.com/ctrueden)                                       | University of Wisconsin-Madison, United States | 2026-01-30 | [Review](./reviews/3/index)                                     |
-| Commenter | Matt McCormick                       | [thewtex](https://github.com/thewtex)                                         | Fideus Labs LLC                          | 2025-11-15 | [Comment](./comments/1/index)                                   |
-| Commenter | Joost de Folter                      | [folterj](https://github.com/folterj)                                         | BioImaging-NL                            | 2025-12-03 | [Comment](./comments/2/index)                                   |
-| Commenter | Chris Barnes                         | [clbarnes](https://github.com/clbarnes)                                       | German BioImaging                        | 2025-12-12 | [Comment](./comments/3/index)                                   |
-| Commenter | Anna Kreshuk, Dominik Kutra, Benedikt Best | [k-dominik](https://github.com/k-dominik), [btbest](https://github.com/btbest) | ilastik                                  | 2026-01-09 | [Comment](./comments/5/index)                                   |
-| Commenter | Lenard Spiecker, Matthias Grunwald   | [l-spiecker](https://github.com/l-spiecker)                                   | Miltenyi Biotec B.V. & Co. KG            | 2026-02-05 | [Comment](./comments/4/index)                                   |
-| Commenter | Assa Diabira                         | [assadiab](https://github.com/assadiab)                                       | Institut Cochin (IMAG'IC / CID), Université Paris Cité, France | 2026-06-22 | [Comment](./comments/6/index)                                   |
+```{rfc-status}
+
+```
 
 ## Overview
 
@@ -166,13 +181,14 @@ The `centralDirectory` attribute MAY contain the following key:
 - `jsonFirst`: If `true`, this indicates that the `zarr.json` files are ordered breadth-first in the central directory and precede other content, as recommended above. This allows the hierarchical structure of the contents to be discovered without parsing the entire central directory, which could contain many entries of Zarr chunks. Implementations MAY assume that no further `zarr.json` files exist beyond the first non-`zarr.json` file if `jsonFirst` is `true`. If `jsonFirst` is omitted, the value defaults to `false`.
 
 For example,
+
 ```json
 {
   "ome": {
     "version": "XX.YY",
     "zipFile": {
       "centralDirectory": {
-        "jsonFirst": true,
+        "jsonFirst": true
       }
     }
   }
@@ -216,8 +232,6 @@ Socialization: see Prior art and references; the draft was further discussed amo
 - A first implementation has been [prototyped](https://github.com/ome/ngff/pull/316#issuecomment-3302456557) by one of the coauthors.
 - A [neuroglancer view](https://neuroglancer-demo.appspot.com/#!%7B%22dimensions%22:%7B%22x%22:%5B3.6039815346402084e-7%2C%22m%22%5D%2C%22y%22:%5B3.6039815346402084e-7%2C%22m%22%5D%2C%22z%22:%5B5.002025531914894e-7%2C%22m%22%5D%7D%2C%22position%22:%5B135%2C137%2C118%5D%2C%22crossSectionScale%22:1%2C%22projectionScale%22:512%2C%22layers%22:%5B%7B%22type%22:%22image%22%2C%22source%22:%22https://static.webknossos.org/misc/6001240.ozx%7Czip:%7Czarr3:%22%2C%22localDimensions%22:%7B%22c%27%22:%5B1%2C%22%22%5D%7D%2C%22localPosition%22:%5B0%5D%2C%22tab%22:%22source%22%2C%22opacity%22:1%2C%22blend%22:%22additive%22%2C%22shader%22:%22#uicontrol%20invlerp%20contrast%5Cn#uicontrol%20vec3%20color%20color%5Cnvoid%20main%28%29%20%7B%5Cn%20%20float%20contrast_value%20=%20contrast%28%29%3B%5Cn%20%20if%20%28VOLUME_RENDERING%29%20%7B%5Cn%20%20%20%20emitRGBA%28vec4%28color%20%2A%20contrast_value%2C%20contrast_value%29%29%3B%5Cn%20%20%7D%5Cn%20%20else%20%7B%5Cn%20%20%20%20emitRGB%28color%20%2A%20contrast_value%29%3B%5Cn%20%20%7D%5Cn%7D%5Cn%22%2C%22shaderControls%22:%7B%22contrast%22:%7B%22range%22:%5B7%2C927%5D%2C%22window%22:%5B0%2C1159%5D%7D%2C%22color%22:%22#ff0000%22%7D%2C%22volumeRenderingDepthSamples%22:256%2C%22name%22:%226001240.ozx%20c-0.5%22%7D%2C%7B%22type%22:%22image%22%2C%22source%22:%22https://static.webknossos.org/misc/6001240.ozx%7Czip:%7Czarr3:%22%2C%22localDimensions%22:%7B%22c%27%22:%5B1%2C%22%22%5D%7D%2C%22localPosition%22:%5B1%5D%2C%22tab%22:%22source%22%2C%22opacity%22:1%2C%22blend%22:%22additive%22%2C%22shader%22:%22#uicontrol%20invlerp%20contrast%5Cn#uicontrol%20vec3%20color%20color%5Cnvoid%20main%28%29%20%7B%5Cn%20%20float%20contrast_value%20=%20contrast%28%29%3B%5Cn%20%20if%20%28VOLUME_RENDERING%29%20%7B%5Cn%20%20%20%20emitRGBA%28vec4%28color%20%2A%20contrast_value%2C%20contrast_value%29%29%3B%5Cn%20%20%7D%5Cn%20%20else%20%7B%5Cn%20%20%20%20emitRGB%28color%20%2A%20contrast_value%29%3B%5Cn%20%20%7D%5Cn%7D%5Cn%22%2C%22shaderControls%22:%7B%22contrast%22:%7B%22range%22:%5B25%2C824%5D%2C%22window%22:%5B0%2C1025%5D%7D%2C%22color%22:%22#00ff00%22%7D%2C%22volumeRenderingDepthSamples%22:256%2C%22name%22:%226001240.ozx%20c0.5%22%7D%5D%2C%22selectedLayer%22:%7B%22visible%22:true%2C%22layer%22:%226001240.ozx%20c-0.5%22%7D%2C%22layout%22:%224panel-alt%22%2C%22helpPanel%22:%7B%22row%22:2%7D%2C%22settingsPanel%22:%7B%22row%22:3%7D%2C%22toolPalettes%22:%7B%22Shader%20controls%22:%7B%22side%22:%22left%22%2C%22row%22:1%2C%22query%22:%22type:shaderControl%22%7D%7D%7D) of the [generated data](https://static.webknossos.org/misc/6001240.ozx) has kindly been [made available](https://github.com/ome/ngff/pull/316#issuecomment-3302595684) by Davis Bennett.
 - [ozx-tck](https://github.com/clbarnes/ozx-tck) is a toolkit to validate existing .ozx files and generate valid, warning, and error test cases.
-
-
 
 ## Drawbacks, risks, alternatives, and unknowns
 

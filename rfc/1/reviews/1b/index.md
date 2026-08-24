@@ -1,3 +1,11 @@
+---
+authors:
+  - name: Joel Lüthi
+  - name: Virginie Uhlmann
+  - name: Kevin Yamauchi
+recommendation: accept
+date: 2024-10-03
+---
 # RFC-1: Review 1 Round 2
 
 ## Review authors

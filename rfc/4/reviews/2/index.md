@@ -1,8 +1,20 @@
+---
+authors:
+  - name: Juan Nunez-Iglesias
+    email: jni@fastmail.com
+    github: jni
+    affiliation: Monash University
+date: 2025-08-05
+recommendation: minor_changes
+---
+
 # RFC-4: Review 2
 
 ## Review authors
 
-Juan Nunez-Iglesias <jni@fastmail.com>
+```{document-authors}
+
+```
 
 ## Conflicts of interest
 
@@ -57,9 +69,10 @@ The namespacing issue can be resolved in two ways:
 
    (The [JSON LD](https://www.w3.org/TR/json-ld/#typed-values) equivalent would
    use `"@type"` and `"@value"`.)
-2. Use a *recommended* rather than a closed vocabulary. One could even "soft"
-   close it by saying, *if* the orientation maps directly to one of the
-   proposed terms, then orientation *must* be one of the controlled terms. This
+
+2. Use a _recommended_ rather than a closed vocabulary. One could even "soft"
+   close it by saying, _if_ the orientation maps directly to one of the
+   proposed terms, then orientation _must_ be one of the controlled terms. This
    would allow a controlled ecosystem with a mechanism for expansion of the
    vocabulary.
 
@@ -70,13 +83,13 @@ preferred.
 
 I believe it is a mistake to allow a default interpretation of the orientation.
 Since NGFF is used for data other than anatomical data, there will be many
-images that will not have anatomical orientation tags *and should not* be
+images that will not have anatomical orientation tags _and should not_ be
 interpreted as having any default orientation.
 
 Additionally, having a default orientation would encourage data producers to
 produce data without orientation metadata, since everything would silently
 "Just Work", while being implicit. Explicit is better than implicit, so I think
-in this case, there should be *no* default orientation. In the absence of
+in this case, there should be _no_ default orientation. In the absence of
 orientation metadata, clients MAY assume this default orientation, but SHOULD
 warn users that orientation metadata is expected but missing.
 
@@ -105,4 +118,3 @@ N/A
     users.
   - disallow a default
   - describe interaction with rfc-5
-

@@ -1,10 +1,24 @@
+---
+authors:
+  - name: Kola Babalola
+    affiliation: BioImage Archive, EMBL-EBI
+    github: kbab
+  - name: Matthew Hartley
+    affiliation: BioImage Archive, EMBL-EBI
+    github: matthewh-ebi
+date: 2026-01-29
+recommendation: minor_changes
+---
+
 # RFC-9: Review 2
 
 (rfcs:rfc9:review2)=
 
 ## Review authors
 
-Kola Babalola, Matthew Hartley, the BioImage Archive, EMBL-EBI.
+```{document-authors}
+
+```
 
 ## Conflicts of interest
 
@@ -17,10 +31,12 @@ This RFC represents highly valuable work, and we are in favour of adoption. The 
 ## Significant comments and questions
 
 ### Versions of OME Zarr
+
 The RFC only applies to OME-Zarrs with metadata in zarr.json (not .zattr / .zarray) which implies at least OME Zarr v0.5. Is it worth explicitly mentioning this in the RFC? This might make sense in the ‘Compatibility’ section.
 
 ### Recommendations on maximum archive size
-The RFC in places alludes to the size of OME Zarrs and explicitly mentions 4GiB in the recommendation to use ZIP64 in the Proposal section. In the User experience-related challenges subsection of the Background section “a few small images” is mentioned. Additionally, the recommendations prohibit multi-volume archives. 
+
+The RFC in places alludes to the size of OME Zarrs and explicitly mentions 4GiB in the recommendation to use ZIP64 in the Proposal section. In the User experience-related challenges subsection of the Background section “a few small images” is mentioned. Additionally, the recommendations prohibit multi-volume archives.
 
 However, no explicit guidance is given on size limitations associated with the single file format. Presumably the upper limit of size of a single file on filesystems is a hard limit, but there are practical limitations to the storage and transfer of extremely large files below the filesystem-imposed limit. Since the RFC explicitly prohibits multi-part archives, it would be useful to include a brief discussion of the limitations this imposes, and guidance for users with OME-Zarrs above this size.
 

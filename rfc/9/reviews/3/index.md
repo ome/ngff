@@ -1,10 +1,21 @@
+---
+authors:
+  - name: Curtis Rueden
+    affiliation: University of Wisconsin-Madison
+    github: ctrueden
+date: 2026-01-30
+recommendation: major_changes
+---
+
 # RFC-9: Review 3
 
 (rfcs:rfc9:review3)=
 
 ## Review authors
 
-Curtis Rueden, University of Wisconsin-Madison.
+```{document-authors}
+
+```
 
 ## Conflicts of interest
 
@@ -27,6 +38,7 @@ The proposal should articulate the technical requirements of a single-file OME-Z
 #### Conventional use cases
 
 The phrase "conventional use cases" is frequently used, but not fully defined. Examples are given:
+
 - Reasonably small images stored on the local desktop file system.
 - associate an OME-Zarr file type with their favorite image viewer (“double click” functionality)
 - effortlessly use their OME-Zarr images with existing file-centric tooling
@@ -38,6 +50,7 @@ But a clear bullet-list of community-gathered use cases would be clarifying.
 #### Streaming
 
 There is only one mention of streaming. Is ozx intended to be streamable from a remote source?
+
 - If not: this should be stated explicitly in the RFC that streamability is a non-goal.
 - Or if so: ZIP is not ideal out of the box, due to the central directory being at the end of the file.
   - From the beginning of the ZIP, you don't know how many ZIP entries you are going to receive.
@@ -49,7 +62,7 @@ There is only one mention of streaming. Is ozx intended to be streamable from a 
 
 A core use case of ZIP in general is the ability to modify the archive, adding and removing files after initial creation. Are the contents of a zipped OME-Zarr file intended to be mutable? Given that three of the five points in "Disadvantages of the ZIP archive file format" are about mutability concerns, I will assume yes -- although my tentative recommendation would actually be to disallow ZIP-specific mutation actions on .ozx files in favor of simply rewriting them cleanly when changes are needed, similar to most other image file formats. Of course, it ultimately depends on the community requirements around OME-Zarr, but for finite mutation-oriented scenarios, one can imagine extracting the ZIP contents, operating on the unzipped OME-Zarr directory structure, and then zipping it again after mutations are complete.
 
-If zipped OME-Zarr *is* intended to be mutable, that should be explicitly stated as a requirement, and the ramifications of that decision should be discussed on more depth. For example, mutation of data or metadata may necessitate corresponding modifications to the zarr.json entry. According to the ZIP specification, modifying zarr.json in this way will orphan the entry at the head of the file and append the revised version to the tail, spoiling the file's "zarr.json files come first" recommendation, and also potentially impacting streamability (see also "Streaming" above). Small adjustments to the proposal could potentially mitigate these issues: e.g., the addition of an optional fixed-sized header file as first entry with directory tree mutations directly overwriting those header bytes in place, or the inclusion of trailing padding to all ome.zarr entries like how the ID3v2 tag format supports a padded leading header to allow metadata room to grow. Of course, such mitigations also complicate the mutation operation logic, since general-purpose ZIP libraries do not normally perform such bookkeeping.
+If zipped OME-Zarr _is_ intended to be mutable, that should be explicitly stated as a requirement, and the ramifications of that decision should be discussed on more depth. For example, mutation of data or metadata may necessitate corresponding modifications to the zarr.json entry. According to the ZIP specification, modifying zarr.json in this way will orphan the entry at the head of the file and append the revised version to the tail, spoiling the file's "zarr.json files come first" recommendation, and also potentially impacting streamability (see also "Streaming" above). Small adjustments to the proposal could potentially mitigate these issues: e.g., the addition of an optional fixed-sized header file as first entry with directory tree mutations directly overwriting those header bytes in place, or the inclusion of trailing padding to all ome.zarr entries like how the ID3v2 tag format supports a padded leading header to allow metadata room to grow. Of course, such mitigations also complicate the mutation operation logic, since general-purpose ZIP libraries do not normally perform such bookkeeping.
 
 #### Encryption
 
@@ -71,10 +84,10 @@ Is fast performance a goal of this format? If so, how fast? In my view, efficien
 
 It would be good for the RFC to break this down more explicitly, with a short discussion of each of ZIP's relevant advantages. That is: how good are each of these advantages in practice for OME Zarr? For example:
 
-* Is it desirable/intended that users can feed a .ozx file to a general-purpose unzipping tool to produce a normal (non-zipped) ome-zarr dataset on disk?
-* Is it desirable/intended that zipped ome-zarr files have integrity checksums (CRC32) for file contents?
-* Is it desirable/intended that zipped ome-zarr files can be modified after initial creation? (See also "Mutability" above.)
-* How
+- Is it desirable/intended that users can feed a .ozx file to a general-purpose unzipping tool to produce a normal (non-zipped) ome-zarr dataset on disk?
+- Is it desirable/intended that zipped ome-zarr files have integrity checksums (CRC32) for file contents?
+- Is it desirable/intended that zipped ome-zarr files can be modified after initial creation? (See also "Mutability" above.)
+- How
 
 > Simplicity
 
@@ -87,6 +100,7 @@ If simplicity is a key requirement, ozx files might be better served defining th
 > Widespread adoption
 
 Why does this matter for OME-Zarr?
+
 - As a binary file, the .ozx file will be opaque to most users.
   - Savvy users could work with the file as a ZIP file, using ZIP-compatible tools.
   - But should they? Any naive modification to the ozx file would corrupt it, as discussed above.
@@ -99,6 +113,7 @@ Why does this matter for OME-Zarr?
 > on-board tooling of various operating systems
 
 When would this tooling come into play for users?
+
 - They could rename the file from .ozx to .zip and then use on-board tooling to extract the contents.
 - Any other benefits? Reconstruction of damaged/incomplete archives? Would users do this often?
 
@@ -117,10 +132,11 @@ For future-proofing, I suggest generalizing this field beyond only a boolean. It
 > This allows the hierarchical structure of the contents to be discovered without parsing the entire central directory, which could contain many entries of Zarr chunks.
 
 It would be helpful for the proposal to give an example of central directory size vs zarr.json size, to give a sense of performance gains here.
+
 - For the example ozx file?
 - For a larger file, e.g. tubhiswt.ome.tif converted to ozx with a reasonable sharding structure?
 
-Regardless: knowing the hierarchical structure unfortunately does not help with random access, due to compressed block size variability -- in what scenarios *does* it help to discover that structure up front?
+Regardless: knowing the hierarchical structure unfortunately does not help with random access, due to compressed block size variability -- in what scenarios _does_ it help to discover that structure up front?
 
 ## Minor comments and questions
 
@@ -157,6 +173,7 @@ And less crucial but still beneficial to the proposal:
 My specific recommendation would be to add language like the following to the RFC:
 
 > The following ZIP features MUST NOT be used in ozx files:
+>
 > - Encryption (any method)
 > - Compression at ZIP level (STORE method only)
 > - Extra fields containing non-Zarr data
@@ -176,7 +193,7 @@ Finally, as food for thought, here is my devil's-advocate pitch for a minimal bi
 
 - Existence of such files will necessitate demand for image software to support them.
 
-- To support them while also supporting recommendation-compliant ozx files efficiently, ozx readers will need to implement (at least) two branches of case logic: one case achieving good performance for the well-performing ozx files, and another more general case achieving support *at all* for the noncompliant files.
+- To support them while also supporting recommendation-compliant ozx files efficiently, ozx readers will need to implement (at least) two branches of case logic: one case achieving good performance for the well-performing ozx files, and another more general case achieving support _at all_ for the noncompliant files.
 
 - Such case logic will complexify ome-zarr reader implementations to such an extent that the gains in simplicity from using ZIP become outweighed by the losses (code complexity, maintainability) incurred by the case logic.
 

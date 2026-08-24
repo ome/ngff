@@ -1,3 +1,13 @@
+---
+authors:
+  - name: Davis Bennett
+  - name: John Bogovic
+  - name: Michael Innerberger
+  - name: Mark Kittisopikul
+  - name: Virginia Scarlett
+  - name: Yurii Zubov
+recommendation: major_changes
+---
 # RFC-1: Review 2
 
 ## Contributors

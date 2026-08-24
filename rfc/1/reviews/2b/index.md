@@ -1,3 +1,10 @@
+---
+authors:
+  - name: John Bogovic
+  - name: Michael Innerberger
+  - name: Virginia Scarlett
+recommendation: accept
+---
 # RFC-1: Review 2b
 
 ## Contributors
