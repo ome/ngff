@@ -1358,7 +1358,7 @@ Implementations of this concept include:
 
 For example, [this table](https://docs.google.com/spreadsheets/d/1t5xB0p0zd2-a6ynV-JAuLJqs-mg-pFFikhfmQGZwRpI/edit?usp=sharing) defines a MoBIE grid view of three OpenOrganelle vEM images along with label images of mitochondria segmentation. It can be opened in MoBIE via the "Open Simple Collection Table" menu entry: 
 
-![MoBIE grid view](./assets/mobie_grid_view.jpg)
+![MoBIE grid view](../../assets/mobie_grid_view.jpg)
 
 
 ## Requirements

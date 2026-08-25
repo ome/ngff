@@ -167,13 +167,13 @@ the use cases described in the Background are provided later in the document.
 
 The building blocks define how objects are represented using paths and references.
 
-<a id="path-interface"></a>
+(rfcs:rfc8:path-interface)=
 #### `Path` interface
 
 This new interface replaces the paths defined in the previous versions of the
 OME-Zarr specification.
 
-<a id="path-interface-example"></a>
+(rfcs:rfc8:path-interface-example)=
 ##### Example
 
 From our first example, this is the lowest level type
@@ -186,7 +186,7 @@ used to build up the definition of an image.
     }
 ```
 
-<a id="path-interface-schema"></a>
+(rfcs:rfc8:path-interface-schema)=
 ##### Schema
 
 | Field | Type | Required? | Notes |
@@ -194,7 +194,7 @@ used to build up the definition of an image.
 | `"type"` | string | yes | Value MUST be a valid path type. |
 | `"path"` | string | yes | Value MUST be a string containing a path. See below. |
 
-<a id="path-interface-field-type"></a>
+(rfcs:rfc8:path-interface-field-type)=
 ##### Field: `type`
 
 The `type` field of a `Path` object defines how the path is interpreted. This RFC defines two unprefixed path types: `zarr` and `json`:
@@ -206,7 +206,7 @@ The `type` field of a `Path` object defines how the path is interpreted. This RF
 
 The `type` field of a `Path` object is an extension point. For detail on how to extend the `type` field with new values, see [Extensions](#extensions).
 
-<a id="path-interface-field-path"></a>
+(rfcs:rfc8:path-interface-field-path)=
 ##### Field: `path`
 
 The `path` string can be one of the following types:
@@ -236,12 +236,12 @@ The `path` string can be one of the following types:
 Future RFCs may propose additional path types, such as S3 URLs or chained paths (e.g. for referencing files within a zip file).
 See the [Security](#security) section for guidance on access restrictions.
 
-<a id="reference-interface"></a>
+(rfcs:rfc8:reference-interface)=
 #### `Reference` interface
 
 The `Reference` interface is a consistent system for referring to local and remote OME-Zarr metadata objects.
 
-<a id="reference-interface-schema"></a>
+(rfcs:rfc8:reference-interface-schema)=
 ##### Schema
 
 A reference MUST be an object with the following fields:
@@ -251,12 +251,12 @@ A reference MUST be an object with the following fields:
 | `"id"` | string | yes | Value MUST be a string that matches `[a-zA-Z0-9-_.]+`. |
 | `"path"` | object | no | Value MUST be a `Path` object. |
 
-<a id="reference-interface-field-path"></a>
+(rfcs:rfc8:reference-interface-field-path)=
 ##### Field: `path`
 
 For external references, the `path` field MUST be present.
 
-<a id="abstract-structure"></a>
+(rfcs:rfc8:abstract-structure)=
 ### Abstract structure
 
 The proposal introduces a common Node structure for different types of OME-Zarr
@@ -269,7 +269,7 @@ nodes to multiple collections. Arbitrary user or implementation metadata may be
 added to collections or nodes, which is an opportunity to add metadata that is
 only valid for a node in the context of a collection (e.g. rendering settings).
 
-<a id="abstract-structure-node"></a>
+(rfcs:rfc8:abstract-structure-node)=
 #### `Node`
 
 This RFC defines a basic interface for an OME-Zarr metadata object, which we
@@ -278,7 +278,7 @@ several different types of OME-Zarr metadata object, where fields specific to
 the node type are inside an attributes field, and the root only stores
 information used for identifying and referencing the object.
 
-<a id="abstract-structure-node-schema"></a>
+(rfcs:rfc8:abstract-structure-node-schema)=
 ##### Schema
 
 Objects that implement `Node` have the following fields:
@@ -290,7 +290,7 @@ Objects that implement `Node` have the following fields:
 | `"name"` | string | yes | Value MUST be a non-empty string intended for human-readable display. Names MUST be unique within the enclosing collection. |
 | `"attributes"` | object | no | Value MUST be a dictionary. [See attributes section](#attributes) |
 
-<a id="abstract-structure-node-field-type"></a>
+(rfcs:rfc8:abstract-structure-node-field-type)=
 
 ##### Field: `type`
 
@@ -299,13 +299,13 @@ This RFC defines three node types: `collection`, `multiscale`, and `singlescale`
 
 The `type` field of a `Node` is an extension point. For detail on how to extend the `type` field with new values, see [Extensions](#extensions).
 
-<a id="abstract-structure-node-field-version"></a>
+(rfcs:rfc8:abstract-structure-node-field-version)=
 ##### Field: `version`
 
 A `Node` object may be used as the root object of the `ome` key, in which case a `version` field, as defined in previous spec versions, is also required.
 Non-root `Node` objects SHOULD NOT have a `version` field and MUST NOT have a different `version` value than the root `Node`.
 
-<a id="abstract-structure-attributes"></a>
+(rfcs:rfc8:abstract-structure-attributes)=
 #### Attributes
 
 Each `Node` has an `attributes` field that can be populated with JSON metadata.
@@ -373,7 +373,7 @@ multiscale images, and integrate coordinate systems and transformations from
 RFC-5. Existing OME-Zarr structures such as multiscales and
 bioformats2raw.layout are reworked within the Node/Collection-based framework.
 
-<a id="collection-node"></a>
+(rfcs:rfc8:collection-node)=
 #### `Collection` node
 
 [Collections](#collection-node) are arbitrary groups of `Node`s` which can be
@@ -385,7 +385,7 @@ complements or overrides the nodes' own metadata. Nodes within collections are
 referenced by paths instead of relying on a file system hierarchy. Paths may
 also be absolute and point to remote storage.
 
-<a id="collection-node-schema"></a>
+(rfcs:rfc8:collection-node-schema)=
 ##### Schema
 
 | Field | Type | Required? | Notes |
@@ -417,13 +417,13 @@ Either `"nodes"` or `"path"` MUST be present, but not both.
 }
 ```
 
-<a id="singlescale-node"></a>
+(rfcs:rfc8:singlescale-node)=
 #### `Singlescale` node
 
 A `Singlescale` node represents one resolution level of an OME-Zarr multiscale image.
 This new interface replaces the dataset metadata defined in the previous versions of the OME-Zarr specification.
 
-<a id="singlescale-node-schema"></a>
+(rfcs:rfc8:singlescale-node-schema)=
 ##### Schema
 
 | Field | Type | Required? | Notes |
@@ -436,7 +436,7 @@ This new interface replaces the dataset metadata defined in the previous version
 
 `Singlescale` nodes represent resolution levels within a multiscale pyramid.
 
-<a id="singlescale-node-field-coordinateTransformations"></a>
+(rfcs:rfc8:singlescale-node-field-coordinateTransformations)=
 ##### Field: `coordinateTransformations`
 
 `Singlescale` nodes MUST have a `coordinateTransformations` key in their `attributes`, which
@@ -463,7 +463,7 @@ This new interface replaces the dataset metadata defined in the previous version
 }
 ```
 
-<a id="multiscale-node"></a>
+(rfcs:rfc8:multiscale-node)=
 #### `Multiscale` node
 
 A `Multiscale` node represents an OME-Zarr multiscale image.
@@ -697,7 +697,7 @@ The `labelAttributes` field is an array of objects with the following fields:
 
 If present, the `color` field MUST have an array with four integers between 0 and 255, inclusive. These integers represent the uint8 values of red, green, blue and alpha.
 
-Additional keys MAY be added, [following the attribute key naming rules](#extensibility).
+Additional keys MAY be added, [following the attribute key naming rules](#extensions).
 
 The previous `label-value` key is now renamed to `labelValue` for consistency.
 
