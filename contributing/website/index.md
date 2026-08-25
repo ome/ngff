@@ -32,28 +32,15 @@ pip install specifications/dev
 ```
 
 Then, you can build the pages locally with:
-
 ```bash
 make html
 ```
-
-or 
-
-```bash
-python conf.py
-```
-
 You can then find the rendered pages under `_build/html/index.html`.
 
-## Previewing the pages locally
-```bash
-pip install sphinx-autobuild
-```
-
+Alternatively, to build and preview the pages locally:
 ```bash
 sphinx-autobuild . _build/html
 ```
-
 The website will then be served at http://127.0.0.1:8000.
 
 ## PR previews
