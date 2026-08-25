@@ -1,3 +1,5 @@
+(rfc-main)=
+
 # RFCs
 
 ```{toctree}
@@ -16,11 +18,11 @@ and additional details.
 The RFC process itself is defined as [RFC-1](1/index.md).
 Key sections include:
 
-* [Stakeholders](1/index.md#stakeholders)
-* [DRAFT](1/index.md#draft)
-* [RFC](1/index.md#rfc)
-* [SPEC](1/index.md#spec)
-* [Policies](1/index.md#policies)
+- [Stakeholders](1/index.md#stakeholders)
+- [DRAFT](1/index.md#draft)
+- [RFC](1/index.md#rfc)
+- [SPEC](1/index.md#spec)
+- [Policies](1/index.md#policies)
 
 If you are interested in submitting an RFC, start with the
 introduction under ["Proposal"](1/index.md#proposal). Once you
