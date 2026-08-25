@@ -1,4 +1,4 @@
-# RFC-8: Collections and Extensibility
+# v1 -- RFC-8: Collections and Extensibility
 
 ```{toctree}
 :hidden:
