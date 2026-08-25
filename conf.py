@@ -93,6 +93,7 @@ html_extra_path = [
     "_html_extra",
 ]
 
+html_show_sourcelink = False
 
 def build_served_html():
     import glob
