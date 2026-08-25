@@ -20,7 +20,6 @@ on:
       - "conf.py"
       - "requirements.txt"
       - "readthedocs.yml"
-      - ".github/workflows/build-lint.yml"
 
 concurrency:
   group: build-lint-${{ github.ref }}
@@ -29,29 +28,32 @@ concurrency:
 jobs:
   build-html:
     runs-on: ubuntu-latest
+    container: texlive/texlive:latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
           submodules: recursive
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
-          pip install specifications/dev
+          python3 -m venv /tmp/venv
+          /tmp/venv/bin/pip install -r requirements.txt
+          /tmp/venv/bin/pip install specifications/dev
+          echo "/tmp/venv/bin" >> $GITHUB_PATH
       - name: Build the site
         run: sphinx-build -T -b html -d _build/doctrees -D language=en . _build/html
+      - name: Build the PDF
+        run: |
+          sphinx-build -T -b latex -d _build/doctrees -D language=en . _build/latex
+          cd _build/latex && latexmk -pdf -dvi- -ps- -jobname=ngff -interaction=nonstopmode
       - uses: actions/upload-artifact@v4
         with:
           name: html
           path: _build/html
           retention-days: 1
-
   lint-html:
     needs: build-html
     runs-on: ubuntu-latest
