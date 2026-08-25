@@ -469,7 +469,7 @@ This new interface replaces the dataset metadata defined in the previous version
 A `Multiscale` node represents an OME-Zarr multiscale image.
 This new interface replaces the multiscale metadata defined in the previous versions of the OME-Zarr specification.
 
-<a id="multiscale-node-schema"></a>
+(rfcs:rfc8:multiscale-node-schema)=
 ##### Schema
 
 | Field | Type | Required? | Notes |
