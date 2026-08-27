@@ -45,7 +45,7 @@ A collection of resources for users and developers, including datasets, tools, p
 :::{grid-item-card} Publications 📢
 :link: resources-publications
 :link-type: ref
-:img-top: https://media.springernature.com/full/springer-static/image/art%3A10.1007%2Fs00418-023-02209-1/MediaObjects/418_2023_2209_Fig1_HTML.png?as=webp
+:img-top: ./images/ngff-paper-figure.png
 
 Papers and preprints written by the OME-NGFF community or using OME-Zarr.
 :::
