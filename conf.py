@@ -93,7 +93,7 @@ html_extra_path = [
 ]
 
 
-def build_served_html():
+def build_served_html(clean_up=True):
     import glob
     import subprocess
     import sys
@@ -137,7 +137,9 @@ def build_served_html():
             print(f"✅ Checked out schemas for {tag}")
         except Exception as e:
             print(f"⚠️  Could not checkout {tag}: {e}")
-    
+    if clean_up:
+        shutil.rmtree(repo_path, ignore_errors=True)
+
     # Build specifications from local submodules
     displayed_spec_versions = [
         d
