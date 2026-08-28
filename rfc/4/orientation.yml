@@ -130,6 +130,12 @@ classes:
 
   AnatomicalOrientation:
     is_a: Orientation
+    slot_usage:
+      type:
+        equals_string: anatomical
+        ifabsent: string(anatomical)
+      value:
+        range: AnatomicalOrientationValues
 slots:
   name:
   type:

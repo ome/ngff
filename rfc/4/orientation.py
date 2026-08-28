@@ -396,10 +396,18 @@ class Orientation(ConfiguredBaseModel):
 
 
 class AnatomicalOrientation(Orientation):
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/ome/ngff'})
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/ome/ngff',
+         'slot_usage': {'type': {'equals_string': 'anatomical',
+                                 'ifabsent': 'string(anatomical)',
+                                 'name': 'type'},
+                        'value': {'name': 'value',
+                                  'range': 'AnatomicalOrientationValues'}}})
 
-    type: str = Field(default=..., json_schema_extra = { "linkml_meta": {'alias': 'type', 'domain_of': ['Axis', 'Orientation']} })
-    value: str = Field(default=..., json_schema_extra = { "linkml_meta": {'alias': 'value', 'domain_of': ['Orientation']} })
+    type: Literal["anatomical"] = Field(default="anatomical", json_schema_extra = { "linkml_meta": {'alias': 'type',
+         'domain_of': ['Axis', 'Orientation'],
+         'equals_string': 'anatomical',
+         'ifabsent': 'string(anatomical)'} })
+    value: AnatomicalOrientationValues = Field(default=..., json_schema_extra = { "linkml_meta": {'alias': 'value', 'domain_of': ['Orientation']} })
 
 
 # Model rebuild
