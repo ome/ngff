@@ -133,7 +133,9 @@ def build_served_html(clean_up=True):
                 continue
 
             for schema_file in src_schemas:
-                shutil.copy2(schema_file, schema_dir)
+                dest_file = os.path.join(schema_dir, os.path.basename(schema_file))
+                shutil.copy2(schema_file, dest_file)
+                shutil.copy2(schema_file, dest_file + '.json')  # dual format
             print(f"✅ Checked out schemas for {tag}")
         except Exception as e:
             print(f"⚠️  Could not checkout {tag}: {e}")
@@ -178,7 +180,9 @@ def build_served_html(clean_up=True):
         for schema_file in schema_files:
             dest_dir = os.path.join("_html_extra", version, "schemas")
             os.makedirs(dest_dir, exist_ok=True)
-            shutil.copy2(schema_file, dest_dir)
+            dest_file = os.path.join(dest_dir, os.path.basename(schema_file))
+            shutil.copy2(schema_file, dest_file)
+            shutil.copy2(schema_file, dest_file + '.json')  # ponytail: dual format
 
         # build jupyter-book docs in specification submodules
         myst_file = glob.glob(f"specifications/{version}/**/myst.yml", recursive=True)[
