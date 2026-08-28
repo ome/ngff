@@ -105,43 +105,38 @@ def build_served_html():
     
     # Create .htaccess to serve schemas inline (not download)
     os.makedirs("_html_extra", exist_ok=True)
-    htaccess_content = """<FilesMatch "\\.schema$">
-    Header set Content-Disposition "inline"
-</FilesMatch>
-"""
-    with open("_html_extra/.htaccess", "w") as f:
-        f.write(htaccess_content)
-    print(f"✅ Created .htaccess to serve schemas inline")
-    
+
     # Fetch GitHub tags and download schemas
-    try:
-        result = subprocess.check_output([
-            "git", "ls-remote", "--tags", "https://github.com/ome/ngff-spec"
-        ], text=True, timeout=10)
-        tags = [line.split()[1].replace("refs/tags/", "").rstrip("^{}") for line in result.strip().split("\n") if line]
-        for tag in sorted(set(tags)):
-            schema_dir = f"_html_extra/{tag}/schemas"
-            os.makedirs(schema_dir, exist_ok=True)
-            # Download schemas from GitHub raw for this tag
-            gh_url = f"https://github.com/ome/ngff-spec/archive/refs/tags/{tag}.tar.gz"
-            try:
-                import tempfile, tarfile
-                with tempfile.NamedTemporaryFile(delete=False) as tmp:
-                    subprocess.check_call(["curl", "-sL", gh_url, "-o", tmp.name])
-                    with tarfile.open(tmp.name) as tar:
-                        for member in tar.getmembers():
-                            if "/schemas/" in member.name and member.name.endswith(".schema"):
-                                # Extract just the filename, flatten into schema_dir
-                                target = os.path.join(schema_dir, os.path.basename(member.name))
-                                tar.extract(member, path=tempfile.gettempdir())
-                                src = os.path.join(tempfile.gettempdir(), member.name)
-                                shutil.copy2(src, target)
-                    os.unlink(tmp.name)
-                print(f"✅ Downloaded schemas for {tag}")
-            except Exception as e:
-                print(f"⚠️  Could not download schemas for {tag}: {e}")
-    except Exception:
-        pass
+    result = subprocess.check_output([
+        "git", "ls-remote", "--tags", "https://github.com/ome/ngff-spec"
+    ], text=True, timeout=10)
+    tags = [
+        line.split()[1].replace("refs/tags/", "").rstrip("^{}")
+        for line in result.strip().split("\n") if line
+        ]
+
+    # Clone repo once, checkout each tag (faster than per-tag tarball download)
+    repo_path = "_temp_ngff_spec"
+    if not os.path.exists(repo_path):
+        subprocess.check_call(["git", "clone", "https://github.com/ome/ngff-spec", repo_path])
+    
+    for tag in sorted(set(tags)):
+        schema_dir = f"_html_extra/{tag}/schemas"
+        os.makedirs(schema_dir, exist_ok=True)
+        try:
+            subprocess.check_call(["git", "-C", repo_path, "checkout", tag], 
+                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            src_schemas = glob.glob(os.path.join(repo_path, "**", "*.schema"), recursive=True)
+
+            if len(src_schemas) == 0:
+                print(f"⚠️  No schemas found for {tag}")
+                continue
+
+            for schema_file in src_schemas:
+                shutil.copy2(schema_file, schema_dir)
+            print(f"✅ Checked out schemas for {tag}")
+        except Exception as e:
+            print(f"⚠️  Could not checkout {tag}: {e}")
     
     # Build specifications from local submodules
     displayed_spec_versions = [
@@ -175,6 +170,13 @@ def build_served_html():
 
         subprocess.check_call([sys.executable, script])
         print("✅ Built rendered examples/schemas for version", version)
+
+        # copy schemas to _html_extra for served html
+        schema_files = glob.glob(f"specifications/{version}/**/*.schema", recursive=True)
+        for schema_file in schema_files:
+            dest_dir = os.path.join("_html_extra", version, "schemas")
+            os.makedirs(dest_dir, exist_ok=True)
+            shutil.copy2(schema_file, dest_dir)
 
         # build jupyter-book docs in specification submodules
         myst_file = glob.glob(f"specifications/{version}/**/myst.yml", recursive=True)[
