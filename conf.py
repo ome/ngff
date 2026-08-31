@@ -182,7 +182,7 @@ def build_served_html(clean_up=True):
             os.makedirs(dest_dir, exist_ok=True)
             dest_file = os.path.join(dest_dir, os.path.basename(schema_file))
             shutil.copy2(schema_file, dest_file)
-            shutil.copy2(schema_file, dest_file + '.json')  # ponytail: dual format
+            shutil.copy2(schema_file, dest_file + '.json')  # dual format (json + schema)
 
         # build jupyter-book docs in specification submodules
         myst_file = glob.glob(f"specifications/{version}/**/myst.yml", recursive=True)[
