@@ -354,9 +354,7 @@ class SpaceAxis(Axis):
     unit: SpaceUnit = Field(default=..., description="""Physical unit for spatial measurement along the axis, selected from a standardized list of distance units (e.g., micrometer, nanometer).
 """, json_schema_extra = { "linkml_meta": {'alias': 'unit', 'domain_of': ['SpaceAxis', 'TimeAxis']} })
     orientation: Optional[AnatomicalOrientation] = Field(default=None, description="""The direction of an axis of type space. This attribute is OPTIONAL. An axis with no orientation and an axis whose orientation is null are equivalent: in both cases the orientation of that axis is undefined, and neither implies a default value. Writers SHOULD omit the attribute rather than serialize a null value.
-""", json_schema_extra = { "linkml_meta": {'alias': 'orientation',
-         'any_of': [{'range': 'AnatomicalOrientation'}],
-         'domain_of': ['SpaceAxis']} })
+""", json_schema_extra = { "linkml_meta": {'alias': 'orientation', 'domain_of': ['SpaceAxis']} })
     name: SpaceAxesNames = Field(default=..., json_schema_extra = { "linkml_meta": {'alias': 'name', 'domain_of': ['Axis']} })
     type: Literal["space"] = Field(default="space", json_schema_extra = { "linkml_meta": {'alias': 'type',
          'domain_of': ['Axis', 'Orientation'],
