@@ -23,14 +23,17 @@ Community Calls are added to the above calendar and announced on [image.sc](http
 
 ## Office Hours
 
-We host drop-in office hours on Wednesdays, rotating between
-APAC/AU/EU- and AMER/AU/EU-friendly times. We are happy to answer questions about:
-- OME-Zarr specification
+Want to learn more about Zarr but don't know where to start? We host drop-in
+office hours on Thursdays, rotating between Atlantic-, Indian-, and
+Pacific-friendly times. We are available to answer questions about:
+
+- the OME-Zarr specification
 - OME-Zarr tools and implementations
+- plans and roadmaps for OME-Zarr
 - how you can get involved in the community
 - ... and much more!
 
-Please see the [calendar](#ome-ngff-community-calendar) above for exact time to join at the [**Zoom link**](https://openmicroscopy-org.zoom.us/j/82526689042?pwd=ZIde7mcvZugQGmJ8Bm9piFo5Tzwdy1.1).
+Please see the [calendar](#ome-ngff-community-calendar) for time, date, and zoom link to join!
 
 ## Hackathons & Symposiums
 
