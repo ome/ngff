@@ -11,7 +11,7 @@ URI: [ngff:spaceAxis__orientation](https://w3id.org/ome/ngff/spaceAxis__orientat
 
 ## Domain and Range
 
-None &#8594;  <sub>0..1</sub> [String](types/String.md)
+None &#8594;  <sub>0..1</sub> [AnatomicalOrientation](AnatomicalOrientation.md)
 
 ## Parents
 
