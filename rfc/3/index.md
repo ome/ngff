@@ -73,8 +73,99 @@ stored in OME-Zarr arrays.
 This RFC is currently in RFC state `R1` (send for review).
 
 ```{rfc-status}
-
 ```
+
+*   - Role
+    - Name
+    - GitHub Handle
+    - Institution
+    - Date
+    - Status
+*   - Author
+    - Juan Nunez-Iglesias
+    - [jni](https://github.com/jni)
+    - Monash University
+    - 2024-05-21
+    -
+*   - Endorser
+    - Talley Lambert
+    - [tlambert03](https://github.com/tlambert03)
+    - Harvard Medical School
+    - 2024-05-21
+    - [Endorse](https://github.com/ome/ngff/pull/239#issuecomment-2122795327)
+*   - Endorser
+    - Norman Rzepka
+    - [normanrz](https://github.com/normanrz)
+    - Scalable Minds
+    - 2024-05-21
+    - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+*   - Endorser
+    - Davis Bennett
+    - [d-v-b](https://github.com/d-v-b)
+    -
+    - 2024-05-21
+    - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+*   - Endorser
+    - Doug Shepherd
+    - [dpshepherd](https://github.com/dpshepherd)
+    - Arizona State University
+    - 2024-05-22
+    - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+*   - Endorser
+    - John Bogovic
+    - [bogovicj](https://github.com/bogovicj)
+    - HHMI Janelia Research Campus
+    - 2024-05-22
+    - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+*   - Endorser
+    - Eric Perlman
+    - [perlman](https://github.com/perlman)
+    -
+    - 2024-05-22
+    - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+*   - Endorser
+    - Lachlan Deakin
+    - [LDeakin](https://github.com/LDeakin)
+    - Australian National University
+    - 2024-05-22
+    - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+*   - Endorser
+    - Sebastian Rhode
+    - [sebi06](https://github.com/sebi06)
+    - Carl Zeiss Microscopy GmbH
+    - 2024-06-05
+    - [Endorse](https://github.com/ome/ngff/pull/239#issue-2308436425)
+*   - Commenter
+    - Benedikt Best
+    - [btbest](https://github.com/btbest)
+    -
+    - 2026-02-02
+    - [Comment](./comments/1/index)
+*   - Commenter
+    - Chris Barnes
+    - [clbarnes](https://github.com/clbarnes)
+    - German BioImaging
+    - 2026-02-05
+    - [Comment](./comments/2/index)
+*   - Commenter
+    - Cornelia Wetzker
+    - [cwetzker](https://github.com/cwetzker)
+    - Technische Universität Dresden
+    - 2026-03-19
+    - [Comment](./comments/3/index)
+*   - Reviewer
+    - Melissa Linkert, Sébastien Besson
+    - [melissalinkert](https://github.com/melissalinkert), [sbesson](https://github.com/sbesson)
+    - [Glencoe Software](https://github.com/glencoesoftware)
+    - 2026-08-04
+    - [Review](#rfcs:rfc3:review1)
+*   - Reviewer
+    - Matthew McCormick, Valentin Boussot
+    - [thewtex](https://github.com/thewtex),
+      [vboussot](https://github.com/vboussot)
+    - [Fideus Labs](https://github.com/fideus-labs)
+    - 2026-08-28
+    - [Review](#rfcs:rfc3:review2)
 
 ## Overview
 

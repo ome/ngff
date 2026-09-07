@@ -7,3 +7,4 @@ sphinx-reredirects
 sphinxcontrib-bibtex
 sphinx-design
 pyyaml
+sphinx-autobuild

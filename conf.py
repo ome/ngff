@@ -92,6 +92,7 @@ html_static_path = ["_static"]
 html_css_files = [
     "https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css",
     "document_authors.css",
+    "custom.css",
 ]
 
 html_js_files = [
@@ -102,6 +103,8 @@ html_js_files = [
 html_extra_path = [
     "_html_extra",
 ]
+
+html_show_sourcelink = False
 
 
 def build_served_html():
