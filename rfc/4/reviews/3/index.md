@@ -1,4 +1,4 @@
-# **RFC-4: Review 3**
+# RFC-4: Review 3
 
 (rfcs:rfc4:review3)=
 
