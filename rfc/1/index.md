@@ -60,8 +60,6 @@ versions/index
 
 This RFC has been adopted (S4).
 
-Review 3 (Matthew Hartley, EMBL-EBI) was accepted by email on 2024-10-08.
-
 ```{rfc-status}
 ```
 
