@@ -1,4 +1,15 @@
+---
+authors:
+  - name: Josh Moore
+    affiliation: German BioImaging
+    github: joshmoore
+date: 2024-08-29
+---
+
 # RFC-1: Response 1 (2024-04-24 version)
+
+```{document-authors}
+```
 
 Many thanks to all of the reviewers of this first RFC. Creating a process like this in isolation is difficult and having your feedback is invaluable. In this response, I’ll begin with overall thoughts covering the entire process. Then per review, I’ll break the review texts into parts, respond to each in turn and point to the changes made to the final text to address raised issues.
 

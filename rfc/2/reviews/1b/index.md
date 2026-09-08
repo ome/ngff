@@ -1,10 +1,21 @@
+---
+authors:
+  - name: Sébastien Besson
+    affiliation: Glencoe Software
+    github: sbesson
+  - name: Melissa Linkert
+    affiliation: Glencoe Software
+    github: melissalinkert
+date: 2024-08-05
+recommendation: accept
+---
+
 # Review 1 (update)
 
 ## Review authors
-This review was written by the following Glencoe Software team members:
 
-- Sébastien Besson
-- Melissa Linkert
+```{document-authors}
+```
 
 ## Summary
 

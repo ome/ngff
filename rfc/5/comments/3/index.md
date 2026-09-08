@@ -1,8 +1,17 @@
+---
+authors:
+  - name: David Stansby
+    affiliation: University College London
+    github: dstansby
+date: 2025-10-10
+---
+
 # RFC-5: Comment 3
 
 ## Comment authors
 
-David Stansby
+```{document-authors}
+```
 
 ## Summary
 

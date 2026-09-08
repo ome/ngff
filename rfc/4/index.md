@@ -1,3 +1,23 @@
+---
+authors:
+  - name: David Feng
+    github: dyf
+    affiliation: Allen Institute for Neural Dynamics
+    role: Corresponding Author
+    date: "2023-07-26"
+  - name: Matthew McCormick
+    github: thewtex
+    affiliation: Fideus Labs
+    role: Co-author
+    date: "2024-07-27"
+  - name: Wouter-Michiel Vierdag
+    github: melonora
+    affiliation: EMBL
+    role: Co-author
+    date: "2025-07-16"
+date: 2023-07-26
+---
+
 # RFC-4: Axis Orientation
 
 ```{toctree}
@@ -15,59 +35,7 @@ Summary: An optional, explicit field for specification of imaging axis orientati
 
 This RFC is currently in RFC state `R4` (authors prepare responses).
 
-```{list-table} Record
-:widths: 8, 20, 20, 20, 15, 10
-:header-rows: 1
-:stub-columns: 1
-
-*   - Role
-    - Name
-    - GitHub Handle
-    - Institution
-    - Date
-    - Status
-*   - Author
-    - David Feng
-    - [dyf](https://github.com/dyf)
-    - Allen Institute for Neural Dynamics
-    - 2023-07-26
-    -
-*   - Author
-    - Matthew McCormick
-    - [thewtex](https://github.com/thewtex)
-    - Fideus Labs
-    - 2024-07-27
-    -
-*   - Author
-    - Wouter-Michiel Vierdag
-    - [melonora](https://github.com/melonora)
-    - EMBL
-    - 2025-07-16
-    -
-*   - Commenter
-    - David Stansby
-    - [dstansby](https://github.com/dstansby)
-    -
-    - 2025-04-02
-    - [Comment](./comments/1/index)
-*   - Reviewer
-    - Juan Nunez-Iglesias
-    - [jni](https://github.com/jni)
-    - Monash University
-    - 2025-08-05
-    - [Review](./reviews/2/index)
-*   - Commenter
-    - Chris Barnes
-    - [clbarnes](https://github.com/clbarnes)
-    - German BioImaging
-    - 2026-02-05
-    - [Comment](./comments/2/index)
-*   - Reviewer
-    - Dave Horsfall
-    - [davehorsfall](https://github.com/davehorsfall)
-    - Haniffa Lab
-    - 2026-02-27
-    - [Review](./reviews/3/index)
+```{rfc-status}
 ```
 
 ## Overview

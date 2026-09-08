@@ -1,4 +1,15 @@
+---
+authors:
+  - name: Johannes Soltwedel
+    affiliation: German BioImaging e.V.
+    github: jo-mueller
+date: 2025-11-18
+---
+
 # RFC-5: Response 2 (2025-11-18 version)
+
+```{document-authors}
+```
 
 We thank all reviewers and community members for their time and effort in reviewing and discussing our [updated proposal](rfcs:rfc5:version2).
 Please find below our point-by-point replies to reviews and a summary of discussion outcomes.

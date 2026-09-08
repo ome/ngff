@@ -1,18 +1,23 @@
 ---
 authors:
   - name: Joel Lüthi
+    affiliation: BioVisionCenter
+    github: jluethi
   - name: Virginie Uhlmann
+    affiliation: BioVisionCenter
+    github: vuhlmann
   - name: Kevin Yamauchi
+    affiliation: ETH
+    github: kevinyamauchi
 recommendation: accept
 date: 2024-10-03
 ---
 # RFC-1: Review 1 Round 2
 
 ## Review authors
-This review was written by:
-- Joel Lüthi
-- Virginie Uhlmann
-- Kevin Yamauchi
+
+```{document-authors}
+```
 
 ## Summary
 

@@ -1,13 +1,27 @@
+---
+authors:
+  - name: Daniel Toloudis
+    affiliation: Allen Institute for Cell Science
+    github: toloudis
+  - name: David Feng
+    affiliation: Allen Institute for Neural Dynamics
+    github: dyf
+  - name: Forrest Collman
+    affiliation: Allen Institute for Brain Science
+    github: fcollman
+  - name: Nathalie Gaudreault
+    affiliation: Allen Institute for Cell Science
+date: 2025-11-25
+recommendation: accept
+---
+
 # RFC-5: Review 1b
 (rfcs:rfc5:review1b)=
 
 ## Review authors
-This review was written by: Daniel Toloudis<sup>1</sup>, David Feng<sup>2</sup>, Forrest Collman<sup>3</sup>, Nathalie Gaudreault<sup>1</sup>
 
-<sup>1</sup> Allen Institute for Cell Science
-<sup>2</sup> Allen Institute for Neural Dynamics
-<sup>3</sup> Allen Institute for Brain Science
-
+```{document-authors}
+```
 
 ## Recommendation
 

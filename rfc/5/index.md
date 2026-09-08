@@ -1,3 +1,52 @@
+---
+authors:
+  - name: John Bogovic
+    github: bogovicj
+    affiliation: HHMI Janelia
+    role: Corresponding Author; Implemented
+    date: "2024-07-30"
+  - name: Davis Bennett
+    github: d-v-b
+    role: Implemented validation
+    date: "2024-07-30"
+  - name: Luca Marconato
+    github: LucaMarconato
+    affiliation: EMBL
+    role: Implemented
+    date: "2024-07-30"
+  - name: Matt McCormick
+    github: thewtex
+    affiliation: ITK
+    role: Implemented
+    date: "2024-07-30"
+  - name: Stephan Saalfeld
+    github: axtimwalde
+    affiliation: HHMI Janelia
+    role: Implemented (with JB)
+    date: "2024-07-30"
+  - name: Johannes Soltwedel
+    github: jo-mueller
+    affiliation: German BioImaging e.V.
+    role: Corresponding Author; Implemented
+    date: "2025-10-07"
+endorsers:
+  - name: Will Moore
+    github: will-moore
+    affiliation: University of Dundee
+    role: Implemented
+    date: "2025-10-23"
+  - name: David Stansby
+    github: dstansby
+    affiliation: University College London
+    role: Implemented
+    date: "2025-10-23"
+  - name: Norman Rzepka
+    github: normanrz
+    affiliation: Scalable Minds
+    date: "2024-08-22"
+date: 2024-07-30
+---
+
 # RFC-5: Coordinate Systems and Transformations
 (rfcs:rfc5:version3)=
 
@@ -16,22 +65,8 @@ Add named coordinate systems and expand and clarify coordinate transformations. 
 
 This RFC is currently in RFC state `S4` (Update implementations).
 
-| **Role** | Name | GitHub Handle | Institution | Date | Status |
-|----------|------|---------------|-------------|------|--------|
-| **Author** | John Bogovic | [bogovicj](https://github.com/bogovicj) | HHMI Janelia | 2024-07-30 | (Corresponding Author) Implemented |
-| **Author** | Davis Bennett | [d-v-b](https://github.com/d-v-b) | | 2024-07-30 | Implemented validation |
-| **Author** | Luca Marconato | [LucaMarconato](https://github.com/LucaMarconato) | EMBL | 2024-07-30 | Implemented |
-| **Author** | Matt McCormick | [thewtex](https://github.com/thewtex) | ITK | 2024-07-30 | Implemented |
-| **Author** | Stephan Saalfeld | [axtimwalde](https://github.com/axtimwalde) | HHMI Janelia | 2024-07-30 | Implemented (with JB) |
-| **Author** | Johannes Soltwedel | [jo-mueller](https://github.com/jo-mueller) | German Bioimaging e.V. | 2025-10-07 | (Corresponding Author) Implemented |
-| **Endorser** | Will Moore | [will-moore](https://github.com/will-moore) | University of Dundee | 2025-10-23 | Implemented |
-| **Endorser** | David Stansby | [dstansby](https://github.com/dstansby) | University College London | 2025-10-23 | Implemented |
-| **Endorser** | Norman Rzepka | [normanrz](https://github.com/normanrz) | Scalable Minds | 2024-08-22 | |
-| **Reviewer** | Dan Toloudis, David Feng, Forrest Collman, Nathalie Gaudreault, Gideon Dunster | [toloudis](https://github.com/toloudis), [dyf](https://github.com/dyf), [fcollman](https://github.com/fcollman) | Allen Institutes | 2024-11-28 | [Review](rfcs:rfc5:review1) |
-| **Reviewer** | Will Moore, Jean-Marie Burel, Jason Swedlow | [will-moore](https://github.com/will-moore), [jburel](https://github.com/jburel), [jrswedlow](https://github.com/jrswedlow) | University of Dundee | 2025-01-22 | [Review](rfcs:rfc5:review2)|
-| **Commenter** | Ilan Gold | [ilan-gold](https://github.com/ilan-gold) | | 2025-02-20 | [Comment](./comments/1/index) |
-| **Commenter** | Jeremy Maitin-Shephard | [jbms](https://github.com/jbms) | | 2025-02-20 | [Comment](./comments/2/index) |
-| **Commenter** | David Stansby | [dstansby](https://github.com/dstansby) | | 2025-10-10 | [Comment](./comments/3/index) |
+```{rfc-status}
+```
 
 ## Overview
 

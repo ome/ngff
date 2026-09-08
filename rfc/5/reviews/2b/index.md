@@ -1,10 +1,22 @@
+---
+authors:
+  - name: William Moore
+    affiliation: University of Dundee
+    github: will-moore
+  - name: Jean-Marie Burel
+    affiliation: University of Dundee
+    github: jburel
+date: 2025-11-19
+recommendation: accept
+---
+
 # RFC-5: Review 2b
 (rfcs:rfc5:review2b)=
 
 ## Review authors
-This review was written by: William Moore<sup>1</sup> and Jean-Marie Burel<sup>1</sup>
 
-<sup>1</sup> University of Dundee
+```{document-authors}
+```
 
 ## Summary
 

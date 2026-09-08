@@ -1,3 +1,13 @@
+---
+authors:
+  - name: Josh Moore
+    github: joshmoore
+    affiliation: German BioImaging, e.V.
+    role: Author
+    date: "2024-08-30"
+date: 2024-08-30
+---
+
 # RFC-0: Consensus model
 
 Original NGFF consensus process
@@ -7,22 +17,10 @@ Original NGFF consensus process
 This is a historical RFC, drafted after the fact, and has
 been outdated by [RFC-1][1].
 
-```{list-table} Record
-:widths: 20, 20, 20, 15, 10
-:header-rows: 1
-:stub-columns: 1
-
-*   - Name
-    - GitHub Handle
-    - Institution
-    - Date
-    - Status
-*   - Josh Moore
-    - [joshmoore](https://github.com/joshmoore)
-    - [German BioImaging, e.V.](https://ror.org/05tpnw772)
-    - 2022-07-11 ([issue-132](https://github.com/ome/ngff/issues/132)) / 2024-08-30 (RFC-0)
-    - Author
+```{rfc-status}
 ```
+
+This RFC was first captured as [issue-132](https://github.com/ome/ngff/issues/132) on 2022-07-11 and written up as RFC-0 on 2024-08-30.
 
 ## Overview
 

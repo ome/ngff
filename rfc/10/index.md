@@ -1,3 +1,18 @@
+---
+authors:
+  - name: Josh Moore
+    github: joshmoore
+    affiliation: German BioImaging e.V.
+    role: Corresponding Author
+    date: "2026-07-03"
+  - name: Virginie Uhlmann
+    github: vuhlmann
+    affiliation: University of Zürich
+    role: Corresponding Author
+    date: "2026-07-03"
+date: 2026-07-03
+---
+
 # RFC-10: NGFF Governance and the Editorial Board
 
 Define the composition and processes of NGFF governance bodies.
@@ -6,11 +21,8 @@ Define the composition and processes of NGFF governance bodies.
 
 This RFC is currently in state `D3` (Authors open PR).
 
-| Role      | Name             | GitHub Handle                             | Institution                              | Date       | Status  |
-| --------- | ---------------- | ----------------------------------------- | ---------------------------------------- | ---------- | ------- |
-| Author    | Josh Moore       | [joshmoore](https://github.com/joshmoore) | German BioImaging e.V.                   | 2026-07-03 | Author  |
-| Author    | Virginie Uhlmann | [vuhlmann](https://github.com/vuhlmann)   | University of Zürich                     | 2026-07-03 | Author  |
-
+```{rfc-status}
+```
 
 ```{toctree}
 :hidden:
@@ -166,11 +178,11 @@ deciding vote.
 
 Within the Editorial Board, the Managing Editor shall:
 
-* Schedule and chair recurring Editorial Board meetings.  
-* Maintain the agenda and track blocking RFCs.  
-* Determine when discussion has reached sufficient maturity to call a vote.  
-* Initiate formal votes when required.  
-* Ensure that votes and rationales are documented publicly.  
+* Schedule and chair recurring Editorial Board meetings.
+* Maintain the agenda and track blocking RFCs.
+* Determine when discussion has reached sufficient maturity to call a vote.
+* Initiate formal votes when required.
+* Ensure that votes and rationales are documented publicly.
 * Monitor timeline risks for delivery of NGFF versions.
 
 The ME is a voting member of the Editorial Board. The ME does not possess
@@ -204,10 +216,10 @@ The EB as a whole:
 
 EB Members are expected to:
 
-* Attend recurring Editorial Board meetings.  
-* Stay informed on the status of all RFCs.  
-* Participate in votes in a timely fashion.  
-* Engage constructively in consensus-building discussions.  
+* Attend recurring Editorial Board meetings.
+* Stay informed on the status of all RFCs.
+* Participate in votes in a timely fashion.
+* Engage constructively in consensus-building discussions.
 * Prioritize the stability and interoperability goals of NGFF.
 
 Membership on the Editorial Board implies an active and ongoing commitment of
@@ -230,7 +242,7 @@ reasonable opportunity for public review and community input.
 
 A formal vote may be called when:
 
-* Consensus has not emerged after reasonable discussion; or  
+* Consensus has not emerged after reasonable discussion; or
 * Timeline constraints require resolution.
 
 The Managing Editor determines when voting is appropriate. Quorum is defined as
@@ -240,14 +252,14 @@ quorum and abstentions do not count toward the majority calculation.
 
 In the event of a tied vote:
 
-* A follow-up discussion period may be initiated; or  
-* If still tied, the Managing Editor may cast a deciding vote; or  
+* A follow-up discussion period may be initiated; or
+* If still tied, the Managing Editor may cast a deciding vote; or
 * The matter may be escalated to the OMG (if procedural or structural).
 
 Board members who are primary authors of an RFC:
 
-* May participate in discussion.  
-* May vote (unless voluntarily recused).  
+* May participate in discussion.
+* May vote (unless voluntarily recused).
 * Must have authorship recorded in the decision log.
 
 The Board may adopt a norm encouraging voluntary abstention in cases of
@@ -258,9 +270,9 @@ policy.
 
 The following shall be publicly documented:
 
-* Meeting summaries.  
-* Votes and outcomes.  
-* Escalations, if any.  
+* Meeting summaries.
+* Votes and outcomes.
+* Escalations, if any.
 * Rationale for binary decisions in the form of a Board Review against the related RFC.
 
 The governance process shall remain consistent with NGFF’s existing public RFC model.
@@ -272,17 +284,17 @@ effect until either the RFC is withdrawn or is replaced by a subsequent RFC.
 
 The OMG may periodically initiate a review of:
 
-* Whether the Editorial Board should continue,  
-* Be reconstituted,  
+* Whether the Editorial Board should continue,
+* Be reconstituted,
 * Or be dissolved.
 
 ## Stakeholders
 
 A clear and stable editorial process is essential for all participants in the NGFF ecosystem. In particular:
 
-* **RFC authors** require predictable timelines and decision pathways to ensure that proposals can progress efficiently and reach resolution.  
-* **Reviewers** depend on a well-defined process to understand how their feedback will be incorporated and when decisions will be made.  
-* **Commenters** benefit from transparency and clarity in how discussions evolve into outcomes.  
+* **RFC authors** require predictable timelines and decision pathways to ensure that proposals can progress efficiently and reach resolution.
+* **Reviewers** depend on a well-defined process to understand how their feedback will be incorporated and when decisions will be made.
+* **Commenters** benefit from transparency and clarity in how discussions evolve into outcomes.
 * **NGFF implementers** rely on timely and unambiguous decisions to guide development, avoid fragmentation, and ensure interoperability across tools and platforms.
 
 Establishing a well-defined governance structure for NGFF 1.0 supports
@@ -293,15 +305,15 @@ progress toward a stable and widely adoptable specification.
 
 Alternatives
 
-* Continuing without a formal editorial board was considered but would risk delays in resolving critical blocking decisions.  
+* Continuing without a formal editorial board was considered but would risk delays in resolving critical blocking decisions.
 * Expanding the editorial board more widely was considered but deprioritized to
-  ensure that members reflect those with ongoing, investment-based involvement.  
+  ensure that members reflect those with ongoing, investment-based involvement.
 * Having a single editor was never a design goal
 
 Risks:
 
-* While learning how to function as an editorial board we postpone 1.0 (i.e. better to keep a sole-decision maker)  
-* Agreement was always an issue, but should make the spec stronger.  
+* While learning how to function as an editorial board we postpone 1.0 (i.e. better to keep a sole-decision maker)
+* Agreement was always an issue, but should make the spec stronger.
 * Time commitments; mitigation: rotation, or further funding
 
 ## Prior art and references
@@ -311,13 +323,13 @@ both open-source software and standards communities. Key references include:
 
 * **Apache Project Management Committees (PMCs)**: Clear delegation of
   authority, membership ratification, and escalation pathways serve as a model
-  for structured, accountable decision-making.  
+  for structured, accountable decision-making.
 * **W3C Process and Charter Guidelines**: Formal charters and defined roles
   provide a framework for transparency, membership expectations, and procedural
-  clarity.  
+  clarity.
 * **GitHub Minimal Viable Governance (MVG) Project**: Lightweight governance
   principles for small-to-medium communities inform approaches to
-  decision-making, rotation, and minimal bureaucracy.  
+  decision-making, rotation, and minimal bureaucracy.
 * **Contemporary open-source specification projects**: Projects such as Zarr
   and RO-Crate illustrate practical governance solutions for evolving data
   standards, including Editorial Boards, RFC-style proposals, and iterative
@@ -333,10 +345,10 @@ Looking beyond the finalization of NGFF 1.0, several governance refinements coul
 
 * **Time-limited bodies:** Editorial or decision-making boards could be
   established for specific milestones or releases, with automatic sunset or
-  re-evaluation periods to ensure flexibility and responsiveness.  
+  re-evaluation periods to ensure flexibility and responsiveness.
 * **Rotating schedules:** Membership or leadership roles could rotate
   periodically to balance workload, incorporate fresh perspectives, and broaden
-  community engagement.  
+  community engagement.
 * **Representatives from “member” bodies:** Where appropriate, members from
   contributing institutions or stakeholder groups could be formally represented
   on boards or committees, ensuring that diverse perspectives inform decisions

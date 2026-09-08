@@ -1,11 +1,23 @@
+---
+authors:
+  - name: Matthew McCormick
+    affiliation: Fideus Labs
+    github: thewtex
+  - name: Valentin Boussot
+    affiliation: Fideus Labs
+    github: vboussot
+date: 2026-08-28
+recommendation: minor_changes
+---
+
 # RFC-3: Review 2
 
 (rfcs:rfc3:review2)=
 
 ## Review authors
 
-- Matthew McCormick, Fideus Labs
-- Valentin Boussot, Fideus Labs
+```{document-authors}
+```
 
 ## Conflicts of interest (optional)
 

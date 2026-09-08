@@ -1,9 +1,16 @@
 ---
 authors:
   - name: John Bogovic
+    affiliation: HHMI Janelia
+    github: bogovicj
   - name: Michael Innerberger
+    affiliation: HHMI Janelia
+    github: minnerbe
   - name: Virginia Scarlett
+    affiliation: HHMI Janelia
+    github: virginiascarlett
 recommendation: accept
+date: 2024-10-11
 ---
 # RFC-1: Review 2b
 

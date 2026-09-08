@@ -1,3 +1,45 @@
+---
+authors:
+  - name: Josh Moore
+    github: joshmoore
+    affiliation: German BioImaging, e.V.
+    role: Corresponding Author
+    date: "2023-12-23"
+endorsers:
+  - name: Jean-Marie Burel
+    github: jburel
+    affiliation: University of Dundee
+    date: "2024-09-09"
+    reference: https://github.com/ome/ngff/pull/258
+  - name: Will Moore
+    github: will-moore
+    affiliation: University of Dundee
+    date: "2024-09-09"
+    reference: https://github.com/ome/ngff/pull/258
+  - name: Juan Nunez-Iglesias
+    github: jni
+    affiliation: Monash University
+    date: "2024-09-09"
+    reference: https://github.com/ome/ngff/pull/258
+  - name: Norman Rzepka
+    github: normanrz
+    affiliation: scalable minds GmbH
+    date: "2024-09-09"
+    reference: https://github.com/ome/ngff/pull/258
+  - name: Jan Eglinger
+    github: imagejan
+    affiliation: FMI Basel
+    date: "2024-09-09"
+    reference: https://github.com/ome/ngff/pull/258
+  - name: Joel Lüthi
+    github: jluethi
+    affiliation: BioVisionCenter, University of Zurich
+    date: "2024-09-10"
+    reference: https://github.com/ome/ngff/pull/258
+reference_pr: https://github.com/ome/ngff/pull/222
+date: 2023-12-23
+---
+
 # RFC-1: RFC Process
 
 (rfcs:rfc1)=
@@ -16,119 +58,11 @@ versions/index
 
 ## Status
 
-```{rfc-status}
-
-```
-
 This RFC has been adopted (S4).
 
-```{list-table} Record
-:widths: 8, 20, 20, 20, 15, 10
-:header-rows: 1
-:stub-columns: 1
+Review 3 (Matthew Hartley, EMBL-EBI) was accepted by email on 2024-10-08.
 
-*   - Role
-    - Name
-    - GitHub Handle
-    - Institution
-    - Date
-    - Status
-*   - Author
-    - Josh Moore
-    - [joshmoore](https://github.com/joshmoore)
-    - [German BioImaging, e.V.](https://ror.org/05tpnw772)
-    - 2023-12-23
-    - Author ([PR](https://github.com/ome/ngff/pull/222))
-*   - Reviewer
-    - Davis Bennett, John Bogovic, Michael Innerberger, Mark Kittisopikul, Virginia Scarlett, Yurii Zubov
-    - [d-v-b](https://github.com/d-v-b), [bogovicj](https://github.com/bogovicj), [minnerbe](https://github.com/minnerbe), [mkitti](https://github.com/mkitti), [virginiascarlett](https://github.com/virginiascarlett), [yuriyzubov](https://github.com/yuriyzubov)
-    - Janelia
-    - 2024-02-26
-    - [Review](./reviews/2/index)
-*   - Reviewer
-    - Kevin Yamauchi, Virginie Uhlmann
-    - [kevinyamauchi](https://github.com/kevinyamauchi), [vuhlmann](https://github.com/vuhlmann)
-    - ETH, BiovisionCenter
-    - 2024-03-05
-    - [Review](./reviews/1/index)
-*   - Reviewer
-    - Matthew Hartley
-    - [mrmh2](https://github.com/mrmh2)
-    - EMBL-EBI
-    - 2024-03-05
-    - [Review](./reviews/3/index)
-*   - Author
-    - Josh Moore
-    - [joshmoore](https://github.com/joshmoore)
-    - German BioImaging
-    - 2024-08-29
-    - [Response](./responses/1/index)
-*   - Endorser
-    - Jean-Marie Burel
-    - [jburel](https://github.com/jburel)
-    - University of Dundee
-    - 2024-09-09
-    - [Endorse](https://github.com/ome/ngff/pull/258)
-*   - Endorser
-    - Will Moore
-    - [will-moore](https://github.com/will-moore)
-    - University of Dundee
-    - 2024-09-09
-    - [Endorse](https://github.com/ome/ngff/pull/258)
-*   - Endorser
-    - Juan Nunez-Iglesias
-    - [jni](https://github.com/jni)
-    - Monash University
-    - 2024-09-09
-    - [Endorse](https://github.com/ome/ngff/pull/258)
-*   - Endorser
-    - Norman Rzepka
-    - [normanrz](https://github.com/normanrz)
-    - scalable minds GmbH
-    - 2024-09-09
-    - [Endorse](https://github.com/ome/ngff/pull/258)
-*   - Endorser
-    - Jan Eglinger
-    - [imagejan](https://github.com/imagejan)
-    - FMI Basel
-    - 2024-09-09
-    - [Endorse](https://github.com/ome/ngff/pull/258)
-*   - Endorser
-    - Joel Lüthi
-    - [jluethi](https://github.com/jluethi)
-    - BioVisionCenter, University of Zurich
-    - 2024-09-10
-    - [Endorse](https://github.com/ome/ngff/pull/258)
-*   - Reviewer
-    - Kevin Yamauchi, Joel Lüthi, Virginie Uhlmann
-    - [kevinyamauchi](https://github.com/kevinyamauchi), [jluethi](https://github.com/jluethi), [vuhlmann](https://github.com/vuhlmann)
-    - ETH, BiovisionCenter
-    - 2024-10-03
-    - [Accept](./reviews/1b/index)
-*   - Reviewer
-    - Matthew Hartley
-    - [mrmh2](https://github.com/mrmh2)
-    - EMBL-EBI
-    - 2024-10-08
-    - Accept (email)
-*   - Reviewer
-    - John Bogovic, Michael Innerberger, Virginia Scarlett
-    - [bogovicj](https://github.com/bogovicj), [minnerbe](https://github.com/minnerbe), [virginiascarlett](https://github.com/virginiascarlett)
-    - Janelia
-    - 2024-10-11
-    - [Accept](./reviews/2b/index)
-*   - Commenter
-    - Wouter-Michiel Vierdag, Luca Marconato
-    - [melonora](https://github.com/melonora), [LucaMarconato](https://github.com/LucaMarconato)
-    - EMBL
-    - 2024-01-13
-    - [Comment](./comments/1/index)
-*   - Commenter
-    - Matt McCormick
-    - [thewtex](https://github.com/thewtex)
-    - ITK
-    - 2024-01-09
-    - [Comment](./comments/2/index)
+```{rfc-status}
 ```
 
 ## Overview
