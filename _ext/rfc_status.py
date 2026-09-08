@@ -101,8 +101,9 @@ class RFCStatus(Directive):
         result.append(summary)
         result.append(nodes.title(text="Authors, editors, and endorsers"))
         result.append(self._people_table(central))
-        result.append(nodes.title(text="Reviews, comments, and responses"))
-        result.append(self._activity_table(reviews, comments, responses))
+        if reviews or comments or responses:
+            result.append(nodes.title(text="Reviews, comments, and responses"))
+            result.append(self._activity_table(reviews, comments, responses))
         return result
 
     # ---- Table 1: Authors + Editors + Endorsers----
@@ -163,7 +164,7 @@ class RFCStatus(Directive):
             aff = a.get("affiliation")
             if aff and aff not in affils:
                 affils.append(aff)
-        recommendation = str(meta.get("recommendation", "")).replace("_", " ")
+        recommendation = str(meta.get("recommendation") or "").replace("_", " ")
 
         row = nodes.row()
         row += self._linked_entry(link_text, link_target)
