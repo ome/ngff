@@ -3,7 +3,8 @@ authors:
   - name: Josh Moore
     github: joshmoore
     affiliation: German BioImaging, e.V.
-    role: Corresponding Author
+    affiliation_url: https://ror.org/05tpnw772
+    role: Author
     date: "2023-12-23"
 endorsers:
   - name: Jean-Marie Burel

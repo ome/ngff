@@ -3,6 +3,7 @@ authors:
   - name: Josh Moore
     github: joshmoore
     affiliation: German BioImaging, e.V.
+    affiliation_url: https://ror.org/05tpnw772
     role: Author
     date: "2024-08-30"
 date: 2024-08-30

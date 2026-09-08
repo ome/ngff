@@ -3,7 +3,8 @@ authors:
   - name: Norman Rzepka
     github: normanrz
     affiliation: scalable minds
-    role: Corresponding Author
+    affiliation_url: https://scalableminds.com
+    role: Author
     date: "2024-02-14"
 endorsers:
   - name: Davis Bennett
@@ -63,6 +64,7 @@ endorsers:
     affiliation: Australian National University
     date: "2024-03-14"
     reference: https://github.com/ome/ngff/pull/227#issuecomment-1998594492
+reference_pr: https://github.com/ome/ngff/pull/227
 date: 2024-02-14
 ---
 

@@ -3,12 +3,12 @@ authors:
   - name: Josh Moore
     github: joshmoore
     affiliation: German BioImaging e.V.
-    role: Corresponding Author
+    role: Co-author
     date: "2026-07-03"
   - name: Virginie Uhlmann
     github: vuhlmann
     affiliation: University of Zürich
-    role: Corresponding Author
+    role: Co-author
     date: "2026-07-03"
 date: 2026-07-03
 ---

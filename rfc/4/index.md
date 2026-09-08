@@ -3,7 +3,7 @@ authors:
   - name: David Feng
     github: dyf
     affiliation: Allen Institute for Neural Dynamics
-    role: Corresponding Author
+    role: Co-author
     date: "2023-07-26"
   - name: Matthew McCormick
     github: thewtex

@@ -4,6 +4,7 @@ authors:
     github: author1
     orcid: 0000-0000-0000-0000
     affiliation: Affiliation X
+    affiliation_url: https://ror.org/XXXXXXXXX
     role: Corresponding Author
     date: "YYYY-MM-DD"
   - name: Author 2
@@ -41,7 +42,7 @@ date: YYYY-MM-DD
 
 # How to use it
 
-Add the authors and editors to the YAML front matter above. ORCID and GitHub IDs are optional but recommended. Add also a date per author and editor, **quoted**, as new authors and editors may be added through the process.
+Add the authors and editors to the YAML front matter above. ORCID and GitHub IDs are optional but recommended, as is an `affiliation_url` (e.g. a ROR or homepage) which turns the institution into a link. Add also a date per author and editor, **quoted**, as new authors and editors may be added through the process.
 
 After opening a PR for the RFC, add the reference PR to the `reference_pr` field in the YAML front matter above.
 

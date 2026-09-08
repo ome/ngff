@@ -1,7 +1,9 @@
 import os
+import posixpath
 import yaml
 from docutils import nodes
 from docutils.parsers.rst import Directive
+from sphinx import addnodes
 
 
 def _read_front_matter(path):
@@ -91,6 +93,15 @@ class RFCStatus(Directive):
 
         result = []
 
+        reference_pr = str(central.get("reference_pr", "")).strip()
+        if reference_pr:
+            number = reference_pr.rstrip("/").rsplit("/", 1)[-1]
+            label = f"#{number}" if number.isdigit() else reference_pr
+            pr = nodes.paragraph(classes=["rfc-status-reference-pr"])
+            pr += nodes.Text("Reference PR: ")
+            pr += nodes.reference("", label, refuri=reference_pr)
+            result.append(pr)
+
         summary = nodes.paragraph(classes=["rfc-status-summary"])
         summary += nodes.Text(
             f"As of the last update, {last_update}: "
@@ -103,7 +114,11 @@ class RFCStatus(Directive):
         result.append(self._people_table(central))
         if reviews or comments or responses:
             result.append(nodes.title(text="Reviews, comments, and responses"))
-            result.append(self._activity_table(reviews, comments, responses))
+            result.append(
+                self._activity_table(
+                    reviews, comments, responses, posixpath.dirname(env.docname)
+                )
+            )
         return result
 
     # ---- Table 1: Authors + Editors + Endorsers----
@@ -125,12 +140,18 @@ class RFCStatus(Directive):
         row += self._text_entry(person.get("name", ""))
         gh = person.get("github")
         row += self._github_entry([gh] if gh else [])
-        row += self._text_entry(person.get("affiliation", ""))
+        row += self._affiliation_entry(
+            [(person.get("affiliation", ""), person.get("affiliation_url"))]
+        )
         row += self._text_entry(str(person.get("date", "")))
-        # For endorsers, a reference link to the endorsement document is added if available
-        # else, just the role as text
-        if role == "Endorser" and person.get("reference", ""):
-            row += self._linked_entry("endorse", person.get("reference", ""))
+        # Endorsers always read "endorse", linked to the endorsement document when
+        # a reference is given; everyone else shows their role as text.
+        if role == "Endorser":
+            reference = person.get("reference", "")
+            if reference:
+                row += self._linked_entry("endorse", reference)
+            else:
+                row += self._text_entry(person.get("role") or "endorse")
         else:
             row += self._text_entry(person.get("role", ""))
 
@@ -138,7 +159,7 @@ class RFCStatus(Directive):
 
     # ---- Table 2: Reviews + Comments + Responses (one row per round) ----
 
-    def _activity_table(self, reviews, comments, responses):
+    def _activity_table(self, reviews, comments, responses, rfc_docdir):
         cols = ["Link", "Name", "GitHub", "Institution", "Date", "Rec."]
         table, tbody = self._new_table(cols, (12, 22, 18, 20, 12, 16))
         for section, rows in (
@@ -151,26 +172,26 @@ class RFCStatus(Directive):
                 tbody += self._activity_row(
                     meta,
                     f"{link_label}\u00a0{label}",  # non-breaking space
-                    f"./{section}/{label}/index",
+                    f"{rfc_docdir}/{section}/{label}/index",
                 )
         return table
 
-    def _activity_row(self, meta, link_text, link_target):
+    def _activity_row(self, meta, link_text, link_docname):
         authors = meta.get("authors", [])
         names = ", ".join(a.get("name", "") for a in authors if a.get("name"))
         handles = [a["github"] for a in authors if a.get("github")]
         affils = []
         for a in authors:
             aff = a.get("affiliation")
-            if aff and aff not in affils:
-                affils.append(aff)
+            if aff and aff not in [x for x, _ in affils]:
+                affils.append((aff, a.get("affiliation_url")))
         recommendation = str(meta.get("recommendation") or "").replace("_", " ")
 
         row = nodes.row()
-        row += self._linked_entry(link_text, link_target)
+        row += self._doc_entry(link_text, link_docname)
         row += self._text_entry(names)
         row += self._github_entry(handles)
-        row += self._text_entry(", ".join(affils))
+        row += self._affiliation_entry(affils)
         row += self._text_entry(str(meta.get("date", "")))
         row += self._text_entry(recommendation)
         return row
@@ -202,6 +223,38 @@ class RFCStatus(Directive):
             para += nodes.emphasis("", nodes.Text(text or ""))
         else:
             para += nodes.Text(text or "")
+        entry += para
+        return entry
+
+    def _doc_entry(self, text, docname):
+        """Cell linking to another document, resolved by the builder so the URL
+        matches whatever suffix/layout it uses."""
+        entry = nodes.entry()
+        para = nodes.paragraph()
+        ref = addnodes.pending_xref(
+            "",
+            nodes.inline("", text),
+            refdomain="std",
+            reftype="doc",
+            reftarget="/" + docname,
+            refexplicit=True,
+            refwarn=True,
+        )
+        para += ref
+        entry += para
+        return entry
+
+    def _affiliation_entry(self, affiliations):
+        """Comma-separated institutions, linked when an `affiliation_url` is given."""
+        entry = nodes.entry()
+        para = nodes.paragraph()
+        for i, (name, uri) in enumerate(a for a in affiliations if a[0]):
+            if i:
+                para += nodes.Text(", ")
+            if uri:
+                para += nodes.reference("", name, refuri=uri)
+            else:
+                para += nodes.Text(name)
         entry += para
         return entry
 

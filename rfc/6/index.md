@@ -3,7 +3,7 @@ authors:
   - name: Norman Rzepka
     github: normanrz
     affiliation: scalable minds
-    role: Corresponding Author
+    role: Author
     date: "2024-12-03"
 endorsers:
   - name: David Stansby
@@ -32,6 +32,7 @@ endorsers:
     github: jo-mueller
     affiliation: German BioImaging e.V.
     date: "2025-10-22"
+reference_pr: https://github.com/ome/ngff/pull/285
 date: 2024-12-03
 ---
 

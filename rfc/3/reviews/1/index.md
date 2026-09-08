@@ -3,9 +3,11 @@ authors:
   - name: Melissa Linkert
     github: melissalinkert
     affiliation: Glencoe Software
+    affiliation_url: https://github.com/glencoesoftware
   - name: Sébastien Besson
     github: sbesson
     affiliation: Glencoe Software
+    affiliation_url: https://github.com/glencoesoftware
 date: "2026-08-04"
 recommendation: accept
 ---
