@@ -44,6 +44,9 @@ endorsers:
     github: normanrz
     affiliation: Scalable Minds
     date: "2024-08-22"
+manual_status: S4
+status_note: update implementations
+description: Coordinate systems and transformations
 date: 2024-07-30
 ---
 
@@ -62,8 +65,6 @@ versions/index
 Add named coordinate systems and expand and clarify coordinate transformations. This document represents the updated proposal following the [original RFC5 proposal](./versions/1/index.md) and incorporates feedback from reviewers and implementers.
 
 ## Status
-
-This RFC is currently in RFC state `S4` (Update implementations).
 
 ```{rfc-status}
 ```

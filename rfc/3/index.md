@@ -51,6 +51,9 @@ editors:
     role: Editor
     date: "2024-05-21"
 reference_pr: https://github.com/ome/ngff/pull/239
+manual_status: R1
+status_note: send for review
+description: Remove axis restrictions
 date: "2024-05-21"
 ---
 
@@ -69,8 +72,6 @@ Remove restrictions on the number, names, ordering, and type of dimensions
 stored in OME-Zarr arrays.
 
 ## Status
-
-This RFC is currently in RFC state `R1` (send for review).
 
 ```{rfc-status}
 ```

@@ -10,6 +10,9 @@ authors:
     affiliation: University of Zürich
     role: Co-author
     date: "2026-07-03"
+manual_status: D3
+status_note: authors open PR
+description: NGFF Governance and the Editorial Board
 date: 2026-07-03
 ---
 
@@ -18,8 +21,6 @@ date: 2026-07-03
 Define the composition and processes of NGFF governance bodies.
 
 ## Status
-
-This RFC is currently in state `D3` (Authors open PR).
 
 ```{rfc-status}
 ```

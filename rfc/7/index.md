@@ -1,3 +1,9 @@
+---
+manual_status: D1
+status_note: reserved, under preparation
+description: Channel provenance
+---
+
 # RFC-7: Channel provenance
 
 ```{toctree}

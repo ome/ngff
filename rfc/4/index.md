@@ -15,6 +15,9 @@ authors:
     affiliation: EMBL
     role: Co-author
     date: "2025-07-16"
+manual_status: R4
+status_note: authors prepare responses
+description: Axis Anatomical Orientation
 date: 2023-07-26
 ---
 
@@ -32,8 +35,6 @@ versions/index
 Summary: An optional, explicit field for specification of imaging axis orientation, with primary focus on anatomical orientation for bipeds or quadrupeds.
 
 ## Status
-
-This RFC is currently in RFC state `R4` (authors prepare responses).
 
 ```{rfc-status}
 ```

@@ -35,6 +35,9 @@ editors:
     role: Editor
     date: "YYYY-MM-DD"
 reference_pr: https://github.com/ome/ngff/pull/XXX
+manual_status: D3
+status_note: authors open PR
+description: A few words naming what the RFC changes, for the RFC listing
 date: YYYY-MM-DD
 ---
 
@@ -45,6 +48,8 @@ date: YYYY-MM-DD
 Add the authors and editors to the YAML front matter above. ORCID and GitHub IDs are optional but recommended, as is an `affiliation_url` (e.g. a ROR or homepage) which turns the institution into a link. Add also a date per author and editor, **quoted**, as new authors and editors may be added through the process.
 
 After opening a PR for the RFC, add the reference PR to the `reference_pr` field in the YAML front matter above.
+
+The `manual_status` field holds the [status code](/resources/rfc-status-codes/index) the RFC is currently in, and is updated by hand as the RFC moves through the process; `status_note` is an optional fragment explaining it, e.g. `superseded by RFC-8`. Together with `description` and `date` they also fill in this RFC's row of the [RFC listing](/rfc/index). Add `ome_zarr_version` once an RFC lands in a released version of the specification.
 
 There MUST be at least one "Corresponding Author", and at least one "Editor".
 

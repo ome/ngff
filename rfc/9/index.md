@@ -22,6 +22,9 @@ editors:
     role: Editor
     date: "2025-11-05"
 reference_pr: https://github.com/ome/ngff/pull/316
+manual_status: R2
+status_note: waiting on reviewers
+description: Zipped OME-Zarr
 date: 2025-07-02
 ---
 
@@ -39,8 +42,6 @@ versions/index
 Add a specification for storing an OME-Zarr hierarchy within a ZIP archive.
 
 ## Status
-
-This RFC is currently in state `R2` (waiting on reviewers).
 
 ```{rfc-status}
 

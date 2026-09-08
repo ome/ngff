@@ -33,6 +33,9 @@ endorsers:
     affiliation: German BioImaging e.V.
     date: "2025-10-22"
 reference_pr: https://github.com/ome/ngff/pull/285
+manual_status: R9
+status_note: superseded by RFC-8
+description: Flattening the multiscales array
 date: 2024-12-03
 ---
 
@@ -47,8 +50,6 @@ comments/index
 Turn the `multiscales` array into a single `multiscale` object.
 
 ## Status
-
-This RFC has been withdrawn (R9) since it is superseded by RFC-8.
 
 ```{rfc-status}
 ```

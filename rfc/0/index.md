@@ -6,6 +6,10 @@ authors:
     affiliation_url: https://ror.org/05tpnw772
     role: Author
     date: "2024-08-30"
+manual_status: N/A
+status_note: historical RFC, outdated by RFC-1
+description: Original consensus model for decision making
+ome_zarr_version: "N/A"
 date: 2024-08-30
 ---
 

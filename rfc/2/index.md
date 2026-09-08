@@ -65,6 +65,9 @@ endorsers:
     date: "2024-03-14"
     reference: https://github.com/ome/ngff/pull/227#issuecomment-1998594492
 reference_pr: https://github.com/ome/ngff/pull/227
+manual_status: S1
+description: Zarr V3 Support
+ome_zarr_version: "0.5"
 date: 2024-02-14
 ---
 
@@ -82,8 +85,6 @@ versions/index
 Adopt the version 3 of Zarr for OME-Zarr.
 
 ## Status
-
-This RFC is currently in SPEC state (S1).
 
 ```{rfc-status}
 ```

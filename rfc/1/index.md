@@ -38,6 +38,9 @@ endorsers:
     date: "2024-09-10"
     reference: https://github.com/ome/ngff/pull/258
 reference_pr: https://github.com/ome/ngff/pull/222
+manual_status: S4
+description: RFC Process
+ome_zarr_version: "N/A"
 date: 2023-12-23
 ---
 
@@ -58,8 +61,6 @@ versions/index
 ```
 
 ## Status
-
-This RFC has been adopted (S4).
 
 ```{rfc-status}
 ```

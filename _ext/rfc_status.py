@@ -5,6 +5,34 @@ from docutils import nodes
 from docutils.parsers.rst import Directive
 from sphinx import addnodes
 
+# Display-only labels for the state codes of the (non-normative) table under
+# resources/rfc-status-codes. The code in an RFC's front matter stays the source
+# of truth; this only spells it out for readers.
+STATE_LABELS = {
+    "D1": "Initial idea",
+    "D2": "Initial idea",
+    "D3": "PR open",
+    "D4": "PR open",
+    "D5": "Editor decision",
+    "D6": "Closed",
+    "R1": "Under review",
+    "R2": "Under review",
+    "R3": "Replying to reviews",
+    "R4": "Replying to reviews",
+    "R5": "Under review",
+    "R6": "Under review",
+    "R7": "Under review",
+    "R8": "Replying to reviews",
+    "R9": "Withdrawn",
+    "S0": "Accepted; SPEC updates",
+    "S1": "Accepted; SPEC updates",
+    "S2": "Clarification",
+    "S3": "Implementation",
+    "S4": "Adopted",
+}
+
+STATE_CODES_DOC = "/resources/rfc-status-codes/index"
+
 
 def _read_front_matter(path):
     try:
@@ -67,6 +95,44 @@ def _count_versions(rfc_dir):
     return sum(1 for _ in _numbered_subdirs(base)) if os.path.isdir(base) else 0
 
 
+def _status_text(meta):
+    """Spell out an RFC's state, e.g. "R9 (Withdrawn) — superseded by RFC-8".
+
+    Both parts come from the RFC's front matter: `manual_status` holds the state
+    code, `status_note` an optional sentence fragment explaining it. Editors set
+    the code by hand when they move an RFC along; it is never guessed here from
+    the reviews or responses that happen to be on disk. A code that is not in
+    STATE_LABELS (say "N/A" for the historical RFC-0) is shown on its own.
+    """
+    state = _state_text(meta)
+    note = str(meta.get("status_note", "")).strip()
+    if not state:
+        return ""
+    return f"{state}; {note}" if note else state
+
+
+def _state_text(meta):
+    """The state on its own, e.g. "R9 (Withdrawn)"; see _status_text."""
+    code = str(meta.get("manual_status", "")).strip()
+    if not code:
+        return ""
+    label = STATE_LABELS.get(code.upper())
+    return f"{code} ({label})" if label else code
+
+
+def _doc_reference(text, docname):
+    """Link to another page, resolved by the builder so the URL is always right."""
+    return addnodes.pending_xref(
+        "",
+        nodes.inline("", text),
+        refdomain="std",
+        reftype="doc",
+        reftarget=docname,
+        refexplicit=True,
+        refwarn=True,
+    )
+
+
 class RFCStatus(Directive):
     SECTION_LABELS = {
         "reviews": ("Reviewer", "Review"),
@@ -92,6 +158,12 @@ class RFCStatus(Directive):
         last_update = max(all_dates) if all_dates else str(central.get("date", ""))
 
         result = []
+
+        status = _status_text(central)
+        if status:
+            line = nodes.paragraph(classes=["rfc-status-state"])
+            line += nodes.strong("", nodes.Text("Status: "))
+            result.append(line)
 
         reference_pr = str(central.get("reference_pr", "")).strip()
         if reference_pr:
@@ -227,20 +299,10 @@ class RFCStatus(Directive):
         return entry
 
     def _doc_entry(self, text, docname):
-        """Cell linking to another document, resolved by the builder so the URL
-        matches whatever suffix/layout it uses."""
+        """Cell linking to another document."""
         entry = nodes.entry()
         para = nodes.paragraph()
-        ref = addnodes.pending_xref(
-            "",
-            nodes.inline("", text),
-            refdomain="std",
-            reftype="doc",
-            reftarget="/" + docname,
-            refexplicit=True,
-            refwarn=True,
-        )
-        para += ref
+        para += _doc_reference(text, "/" + docname)
         entry += para
         return entry
 
@@ -284,6 +346,42 @@ class RFCStatus(Directive):
         return entry
 
 
+class RFCListing(RFCStatus):
+    """The table of all RFCs, built from each RFC's own front matter.
+
+    Subclasses RFCStatus only to reuse its table builders; it renders the
+    overview table for rfc/index.md rather than a single RFC's record.
+    """
+
+    def run(self):
+        env = self.state.document.settings.env
+        base = os.path.dirname(env.doc2path(env.docname))
+        docdir = posixpath.dirname(env.docname)
+
+        rfcs = []
+        for name, subdir in _numbered_subdirs(base):
+            index_path = os.path.join(subdir, "index.md")
+            if name.isdigit() and os.path.isfile(index_path):
+                rfcs.append((int(name), _read_front_matter(index_path)))
+        rfcs.sort()
+
+        cols = ["RFC", "Description", "Date", "Status", "Note", "OME-Zarr Version"]
+        table, tbody = self._new_table(cols, (8, 26, 8, 20, 26, 12))
+        table.insert(0, nodes.title(text="RFC Listing"))
+        for number, meta in rfcs:
+            date = str(meta.get("date", ""))
+            row = nodes.row()
+            row += self._doc_entry(f"RFC-{number}", f"{docdir}/{number}/index")
+            row += self._text_entry(meta.get("description", ""))
+            row += self._text_entry(date[:4] if date else "TBD")
+            row += self._text_entry(_state_text(meta) or "TBD")
+            row += self._text_entry(str(meta.get("status_note", "")))
+            row += self._text_entry(str(meta.get("ome_zarr_version", "")))
+            tbody += row
+        return [table]
+
+
 def setup(app):
     app.add_directive("rfc-status", RFCStatus)
+    app.add_directive("rfc-listing", RFCListing)
     return {"parallel_read_safe": True, "parallel_write_safe": True}
