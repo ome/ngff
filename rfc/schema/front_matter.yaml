@@ -53,8 +53,10 @@ classes:
           "Corresponding Author", "Co-author", "Editor" or "Implemented".
       date:
         description: >-
-          Date the person joined the document, quoted so YAML keeps it a string; people
-          are added throughout the process, so this differs from the document's date.
+          Date the person joined the document; people are added throughout the process,
+          so this differs from the document's own date. Write it as YYYY-MM-DD, quoted
+          so YAML keeps it a string rather than parsing it into a date object.
+        range: date
       reference:
         description: >-
           Link backing an endorsement, e.g. the PR comment where it was given. Only
