@@ -12,7 +12,7 @@ It fits microscope acquisition software, analysis pipelines, standards and exten
 | Name | Link | Description | Status |
 | -------- | ------- | ------- | ------ |
 | SpatialData | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/scverse/spatialdata) | An open and universal framework for processing spatial omics data. | [published](https://www.nature.com/articles/s41592-024-02212-x) |
-| BIDS | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://bids-specification.readthedocs.io/en/stable/common-principles.html#imaging-files) | A community-developed standard for organizing and describing neuroscientific data, currently adding support for OME-Zarr. | [work in progress](https://github.com/bids-standard/bids-specification/pull/2392) |
+| BIDS | [![image](https://raw.githubusercontent.com/bids-standard/bids-specification/refs/heads/master/src/images/favicon.png)](https://bids-specification.readthedocs.io/en/stable/common-principles.html#imaging-files) | A community-developed standard for organizing and describing neuroscientific data. | [merged](https://github.com/bids-standard/bids-specification/pull/2392) |
 
 
 ## Gallery-like displays
