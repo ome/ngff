@@ -13,7 +13,7 @@ Summary: An optional, explicit field for specification of imaging axis orientati
 
 ## Status
 
-This RFC is currently in RFC state `R4` (authors prepare responses).
+This RFC is currently in RFC state `S1` (Accepted).
 
 ```{list-table} Record
 :widths: 8, 20, 20, 20, 15, 10
