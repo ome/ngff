@@ -55,6 +55,7 @@ Platforms with dedicated support for sharing OME-Zarr datasets, open to public d
 | Name | Link | Description |
 | -------- | ------- | ------- |
 | BioImage Archive | [<img src="https://beta.bioimagearchive.org/bioimage-archive/_astro/BIA_new_logo.CiA2OZZw.png" alt="BioImage Archive logo" width="30" height="30">](https://www.ebi.ac.uk/bioimage-archive/) | A public repository for bioimaging data, with support for submissions of OME-Zarr datasets. |
+| DANDI Archive | [<img src="https://raw.githubusercontent.com/dandi/artwork/3f287d3ae53154a66f8b50711549740719a23fdb/pics/dandi-logo-square.svg" alt="DANDI Archive logo" width="30" height="30">](https://dandiarchive.org/) | A [NIH BRAIN Initiative](https://www.nih.gov/brain) archive for publishing and sharing neurophysiology and microscopy data, with support for OME-Zarr datasets. |
 | HuggingFace Hub | [<img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://huggingface.co/" alt="HuggingFace Hub logo" width="30" height="30">](https://huggingface.co/datasets) | A platform for sharing machine-learning datasets, with [ongoing updates](https://github.com/huggingface/datasets/pull/8135) for first-class support for OME-Zarr datasets. |
 
 Of course, many other platforms support sharing OME-Zarr datasets, but don't necessarily parse the OME metadata or provide any kind of custom support.One may share OME-Zarr datasets and get a DOI (but no S3-like access) in platforms like [Zenodo](https://zenodo.org), [Figshare](https://figshare.com), [Dryad](https://datadryad.org), etc.
