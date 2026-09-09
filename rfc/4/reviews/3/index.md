@@ -8,7 +8,7 @@ recommendation: minor_changes
 date: 2026-02-27
 ---
 
-# **RFC-4: Review 3**
+# RFC-4: Review 3
 
 (rfcs:rfc4:review3)=
 
