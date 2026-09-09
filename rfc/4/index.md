@@ -13,7 +13,7 @@ Summary: An optional, explicit field for specification of imaging axis orientati
 
 ## Status
 
-This RFC is currently in RFC state `R1` (send for review).
+This RFC is currently in RFC state `R4` (authors prepare responses).
 
 ```{list-table} Record
 :widths: 8, 20, 20, 20, 15, 10
@@ -50,12 +50,24 @@ This RFC is currently in RFC state `R1` (send for review).
     -
     - 2025-04-02
     - [Comment](./comments/1/index)
+*   - Reviewer
+    - Juan Nunez-Iglesias
+    - [jni](https://github.com/jni)
+    - Monash University
+    - 2025-08-05
+    - [Review](./reviews/2/index)
 *   - Commenter
     - Chris Barnes
     - [clbarnes](https://github.com/clbarnes)
     - German BioImaging
     - 2026-02-05
     - [Comment](./comments/2/index)
+*   - Reviewer
+    - Dave Horsfall
+    - [davehorsfall](https://github.com/davehorsfall)
+    - Haniffa Lab
+    - 2026-02-27
+    - [Review](./reviews/3/index)
 ```
 
 ## Overview
@@ -88,6 +100,16 @@ The `orientation` field MUST only be used on spatial axes (axes with `type` fiel
 This metadata MUST only be used in cases where there is a single subject in the acquired volume or extracted image region-of-interest and the subject is roughly aligned to the imaging axes.
 
 The `orientation` field is structured as an object and MUST have a `type` field that specifies the orientation domain (e.g., "anatomical") and MUST have a `value` field that specifies the specific orientation within that domain. Valid `type` strings are defined in this document -- currently only `"anatomical"`.
+
+### Subject-Local vs. Subject-Global Orientation
+
+The "subject" referenced above need not be a whole organism. It MAY be a local anatomical structure, such as a tissue biopsy, histology slide, or dissected organ. The `orientation` field describes the orientation of whatever structure is present in the acquired image or extracted region-of-interest, at whatever spatial scale.
+
+This distinction matters for fields such as spatial transcriptomics and histopathology, where the sample is frequently a tissue specimen whose position and orientation relative to the whole donor (its "patient-global" orientation) is unknown, but whose internal ("subject-local") orientation is well defined. For example, the depth axis of a skin biopsy is `superficial-to-deep` regardless of where on the body the biopsy was taken or how the specimen happened to be placed on the slide. In these cases the requirement that the subject be "roughly aligned to the imaging axes" applies to the local tissue structure rather than to a whole-organism coordinate frame.
+
+Supporting subject-local orientation makes this metadata applicable to the tissue-profiling community without requiring registration of the specimen to a whole-organism or atlas coordinate system. When such a registration is available, it can be expressed with RFC-5 coordinate transformations relating the subject-local axes to a patient-global or atlas coordinate system (see the *Interaction with RFC-5* section below).
+
+A single subject may carry more than one meaningful orientation. For example, a biopsy taken from a whole-body cleared specimen has both a local tissue orientation and a secondary orientation within the donor's whole body. The `orientation` field defined here describes a single, *primary* orientation of the structure in the image. Additional (secondary) orientations are not supported at this time. If a generic vector data structure is added to the OME-Zarr standard in the future, these orientation annotations could be applied to such vectors, allowing multiple orientations to be expressed where anatomical orientation only makes sense locally (for example, an image containing multiple organs or multiple organisms).
 
 ### Coordinate Direction Convention
 
@@ -135,7 +157,6 @@ This RFC focuses on anatomical orientation as the primary use case, but the stru
 - engineering/microfluidics: upstream/downstream (flow direction)
 - geographical: north/south, east/west
 - oceanographic: increasing-depth
-- histological: basal/apical
 
 For anatomical orientation, the controlled vocabulary for the `orientation` field's `value` will include:
 
@@ -163,6 +184,14 @@ For anatomical orientation, the controlled vocabulary for the `orientation` fiel
 - `dorsal-to-ventral` (back/top-to-belly/bottom)
 - `ventral-to-dorsal` (belly/bottom-to-back/top)
 
+**For layered and polarized tissues (subject-local):**
+- `superficial-to-deep` (outer surface to inner depth, e.g. skin, gut, cortex)
+- `deep-to-superficial` (inner depth to outer surface)
+- `apical-to-basal` (apical to basal surface, e.g. epithelial layers, polarized cells)
+- `basal-to-apical` (basal to apical surface)
+- `apex-to-base` (tip to broad base, e.g. heart, lungs)
+- `base-to-apex` (broad base to tip)
+
 Note: In bipeds, the terms rostral/caudal and dorsal/ventral are ambiguous because their orientation depends on the anatomical structure. For example, these directions are orthogonal when describing the human brain versus the spinal cord. Therefore, the unambiguous terms anterior/posterior and inferior/superior (sometimes referred to as head/foot) are generally preferred for bipeds.
 
 A set of NGFF `axes` MUST only have one of the set `{ "left-to-right", "right-to-left" }` or `{ "anterior-to-posterior", "posterior-to-anterior" }` or the remaining values.
@@ -172,6 +201,8 @@ A set of NGFF `axes` MUST only have one of the set `{ "left-to-right", "right-to
 For images of biped or quadruped subjects, anatomical `orientation` SHOULD be explicitly specified.
 
 If no orientation is specified, there is no implicit default value. Applications MAY assume a default orientation but SHOULD warn users that orientation metadata is expected but missing.
+
+An axis with no `orientation` field and an axis whose `orientation` is `null` are equivalent: in both cases the orientation of that axis is undefined. Consistent with the OME-Zarr convention that only fields which are present carry meaning, there is no semantic difference between an absent `orientation` and an explicit `null`, and neither implies a default value. Writers SHOULD omit the field rather than serialize `"orientation": null`.
 
 ## Coding Scheme
 
@@ -204,6 +235,12 @@ Anatomical orientation refers to the specific arrangement and directional alignm
 | caudal-to-cranial | Describes the directional orientation from the tail (caudal) to the head (cranial) end of an anatomical structure or body. |  |  |
 | proximal-to-distal | Describes the directional orientation from the center of the body to the periphery of an anatomical structure or limb. |  |  |
 | distal-to-proximal | Describes the directional orientation from the periphery of an anatomical structure or limb to the center of the body. |  |  |
+| superficial-to-deep | Describes the directional orientation from the outer surface (superficial) to the inner depth (deep) of a layered tissue such as skin, gut, or cortex. |  |  |
+| deep-to-superficial | Describes the directional orientation from the inner depth (deep) to the outer surface (superficial) of a layered tissue such as skin, gut, or cortex. |  |  |
+| apical-to-basal | Describes the directional orientation from the apical surface (apical) to the basal surface (basal) of an epithelial layer or polarized cell structure. |  |  |
+| basal-to-apical | Describes the directional orientation from the basal surface (basal) to the apical surface (apical) of an epithelial layer or polarized cell structure. |  |  |
+| apex-to-base | Describes the directional orientation from the tip (apex) to the broad base (base) of an organ such as the heart or lung. |  |  |
+| base-to-apex | Describes the directional orientation from the broad base (base) to the tip (apex) of an organ such as the heart or lung. |  |  |
 
 ## Requirements
 
@@ -291,7 +328,13 @@ In JSON-Schema:
                         "cranial-to-caudal",
                         "caudal-to-cranial",
                         "proximal-to-distal",
-                        "distal-to-proximal"
+                        "distal-to-proximal",
+                        "superficial-to-deep",
+                        "deep-to-superficial",
+                        "apical-to-basal",
+                        "basal-to-apical",
+                        "apex-to-base",
+                        "base-to-apex"
                     ]
                 }
             },
@@ -355,6 +398,18 @@ class AnatomicalOrientationValue(str, Enum):
     proximal_to_distal = "proximal-to-distal"
     # Describes the directional orientation from the periphery of an anatomical structure or limb to the center of the body.
     distal_to_proximal = "distal-to-proximal"
+    # Describes the directional orientation from the outer surface (superficial) to the inner depth (deep) of a layered tissue such as skin, gut, or cortex.
+    superficial_to_deep = "superficial-to-deep"
+    # Describes the directional orientation from the inner depth (deep) to the outer surface (superficial) of a layered tissue such as skin, gut, or cortex.
+    deep_to_superficial = "deep-to-superficial"
+    # Describes the directional orientation from the apical surface (apical) to the basal surface (basal) of an epithelial layer or polarized cell structure.
+    apical_to_basal = "apical-to-basal"
+    # Describes the directional orientation from the basal surface (basal) to the apical surface (apical) of an epithelial layer or polarized cell structure.
+    basal_to_apical = "basal-to-apical"
+    # Describes the directional orientation from the tip (apex) to the broad base (base) of an organ such as the heart or lung.
+    apex_to_base = "apex-to-base"
+    # Describes the directional orientation from the broad base (base) to the tip (apex) of an organ such as the heart or lung.
+    base_to_apex = "base-to-apex"
 
 class Orientation(BaseModel):
     """
@@ -421,6 +476,18 @@ enum AnatomicalOrientationValue {
     proximal_to_distal = "proximal-to-distal",
     /** Describes the directional orientation from the periphery of an anatomical structure or limb to the center of the body. */
     distal_to_proximal = "distal-to-proximal",
+    /** Describes the directional orientation from the outer surface (superficial) to the inner depth (deep) of a layered tissue such as skin, gut, or cortex. */
+    superficial_to_deep = "superficial-to-deep",
+    /** Describes the directional orientation from the inner depth (deep) to the outer surface (superficial) of a layered tissue such as skin, gut, or cortex. */
+    deep_to_superficial = "deep-to-superficial",
+    /** Describes the directional orientation from the apical surface (apical) to the basal surface (basal) of an epithelial layer or polarized cell structure. */
+    apical_to_basal = "apical-to-basal",
+    /** Describes the directional orientation from the basal surface (basal) to the apical surface (apical) of an epithelial layer or polarized cell structure. */
+    basal_to_apical = "basal-to-apical",
+    /** Describes the directional orientation from the tip (apex) to the broad base (base) of an organ such as the heart or lung. */
+    apex_to_base = "apex-to-base",
+    /** Describes the directional orientation from the broad base (base) to the tip (apex) of an organ such as the heart or lung. */
+    base_to_apex = "base-to-apex",
 }
 ```
 
@@ -429,6 +496,7 @@ enum AnatomicalOrientationValue {
 - **Costs:** This will add another field to the axes metadata. While some implementers do not deal with anatomical orientation, this field is optional.
 - **Risks:** Incorrect implementation or interpretation of the new field could lead to data misalignment.
 - **Alternatives:** Continue using existing methods with assumed or undefined orientations, which is error-prone.
+- **Primary vs. secondary orientation:** Modeling a subject as carrying both a primary (subject-local) and a secondary (e.g. patient-global) orientation simultaneously was considered. A single subject can have more than one meaningful orientation — for example, a biopsy taken from a whole-body cleared specimen has a local tissue orientation as well as a secondary orientation within the donor's whole body. Supporting multiple orientations per axis was judged to be overkill for the current emerging use cases, so the `orientation` field describes only a single, primary orientation and additional orientations are not supported at this time. If a generic vector data structure is added to the OME-Zarr standard in the future, these orientation annotations could instead be applied to such vectors, allowing multiple orientations to be expressed where anatomical orientation only makes sense locally (for example, an image containing multiple organs or multiple organisms).
 
 ## Abandoned Ideas
 
@@ -507,3 +575,8 @@ End-user applications SHOULD display the encoded information with, for example, 
 | 2025-07-23 | Clarify that the type fields are MUST's and the only currently defined value is "anatomical". | [https://github.com/ome/ngff/pull/329](https://github.com/ome/ngff/pull/329) |
 | 2025-07-23 | Use a Pydantic Literal for anatomical type | [https://github.com/ome/ngff/pull/330](https://github.com/ome/ngff/pull/330) |
 | 2026-01-20 | Clarify coordinate direction convention | [https://github.com/ome/ngff/pull/428](https://github.com/ome/ngff/pull/428) |
+| 2026-06-03 | Clarify subject-local vs. patient-global orientation and expand the controlled vocabulary with layered- and polarized-tissue terms (superficial/deep, apical/basal, apex/base), per [review 3](./reviews/3/index). | [https://github.com/ome/ngff/pull/435](https://github.com/ome/ngff/pull/435) |
+| 2026-06-04 | Clarify that an absent `orientation` and an explicit `null` `orientation` are equivalent and leave the orientation undefined. | [https://github.com/fideus-labs/ngff-zarr/pull/523](https://github.com/fideus-labs/ngff-zarr/pull/523) |
+| 2026-06-12 | Clarify that `orientation` describes a single, primary orientation; note that secondary orientations are not supported and could be expressed via a future generic vector data structure, and record the primary-vs-secondary alternative considered. | [https://github.com/ome/ngff/pull/528](https://github.com/ome/ngff/pull/528) |
+| 2026-08-27 | Take the `type` constant and the `AnatomicalOrientationValues` range back into the generated artifacts, which had stopped enforcing the vocabulary this document defines. | [https://github.com/ome/ngff/pull/595](https://github.com/ome/ngff/pull/595) |
+| 2026-09-01 | Give the `orientation` slot its range directly, so the generated schema stops emitting a stray `type: string` beside the `AnatomicalOrientation` reference and the TypeScript interface types the attribute. | [https://github.com/ome/ngff/pull/599](https://github.com/ome/ngff/pull/599) |

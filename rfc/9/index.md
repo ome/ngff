@@ -29,6 +29,7 @@ This RFC is currently in state `R2` (waiting on reviewers).
 | Commenter | Chris Barnes                         | [clbarnes](https://github.com/clbarnes)                                       | German BioImaging                        | 2025-12-12 | [Comment](./comments/3/index)                                   |
 | Commenter | Anna Kreshuk, Dominik Kutra, Benedikt Best | [k-dominik](https://github.com/k-dominik), [btbest](https://github.com/btbest) | ilastik                                  | 2026-01-09 | [Comment](./comments/5/index)                                   |
 | Commenter | Lenard Spiecker, Matthias Grunwald   | [l-spiecker](https://github.com/l-spiecker)                                   | Miltenyi Biotec B.V. & Co. KG            | 2026-02-05 | [Comment](./comments/4/index)                                   |
+| Commenter | Assa Diabira                         | [assadiab](https://github.com/assadiab)                                       | Institut Cochin (IMAG'IC / CID), Université Paris Cité, France | 2026-06-22 | [Comment](./comments/6/index)                                   |
 
 ## Overview
 

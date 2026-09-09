@@ -6,14 +6,14 @@ request for comment (RFC) documents.
 
 In the future we will flesh out this page with a guide to RFCs, but in the
 meantime the RFC process is outlined in the
-[Implementation section of RFC 1](../rfc/1/index.md#implementation).
+[Implementation section of RFC 1](rfc1-implementation).
 
 ## Comment on a Request For Comment (RFC)
 
 If you want to leave a suggestion or comment on an RFC that is under review,
 please leave a comment in a new page under the "comments/" directory for the
 relevant RFC. A template is also available for formatting your comment:
-[template](../rfc/1/templates/review_template).
+[template](rfc1-review-template).
 
 ## How to change the specification
 
@@ -143,7 +143,7 @@ Other useful admonitions and directives (e.g., `hint`, `note`) can be found [her
 
 ## Building *only* the spec document
 
-The spec document under the [ngff-spec](github.com/ome/ngff-spec) repository can be built as a standalone document to make writing and rendering a smoother experience.
+The spec document under the [ngff-spec](https://github.com/ome/ngff-spec) repository can be built as a standalone document to make writing and rendering a smoother experience.
 To build the spec document, you first need to install the necessary dependencies:
 
 After cloning the ngff-spec repo, navigate into the repository on your machine and install the dependencies using pip:

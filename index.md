@@ -1,73 +1,72 @@
-# Next-Generation File Formats (NGFF) + OME-Zarr
+(main-page)=
 
-Welcome to the Next-Generation File Formats (NGFF) main page! This site is dedicated to providing resources for the NGFF community and those that are interested in getting started with OME-Zarr.
+# OME-Zarr
 
-In summary, OME-Zarr allows you to store, share and stream large images. You can browse samples of such data from the Image Data Resource at <https://idr.github.io/ome-ngff-samples/>.
+:::{div} ome-hero
 
-## NGFF vs OME-Zarr, what is the difference?
+A cloud-friendly, FAIR, AI-ready, community-driven open format for bioimaging data.
+:::
 
-**OME-Zarr** is the file format that the NGFF community has settled on to address issues of scalability and interoperability described below.
+::::{grid} 1 2 2 3
+:gutter: 3
 
-**NGFF** is the community-driven process for designing the next generation of bioimaging formats. NGFF brings together the community to define shared specifications, metadata standards, and best practices. OME-Zarr implements those decisions, providing a practical, open, and scalable way to store and share modern microscopy data. As the NGFF specifications evolve, OME-Zarr evolves with them — ensuring the format reflects the needs and experience of the wider community.
+:::{grid-item-card} Community 💬
+:link: community-main
+:link-type: ref
+:img-top: ./images/contributors-map-light.png
 
-## What is an OME-Zarr?
+A global community of developers and users working together to streamline bioimaging data management and analysis.
+:::
 
-An OME-Zarr is a file format optimized for storying, viewing, & sharing large images.
-There are two parts to an OME-Zarr:
+:::{grid-item-card} Specifications 📜
+:link: specifications-main
+:link-type: ref
+:img-top: ./images/spec-screenshot.png
 
-* **The "Zarr" part describes how the pixel data for the images are laid out**
-* The "OME", which stands for [Open Microscopy Environment](https://www.openmicroscopy.org/), part describes metadata about the pixel data. This includes metadata such as:
-   * spatial relationships
-   * high content screening data
-   * well data
-   * [and more](/specifications/index.html)!
+Details for developers and implementers of OME-Zarr on the stable and development releases of the specification.
+:::
 
-## Why would I use OME-Zarr?
+:::{grid-item-card} RFCs ❗
+:link: rfc-main
+:link-type: ref
+:img-top: ./rfc/1/drawing.png
 
-OME-Zarr files have two major benefits:
+The documents and discussions through which the community shapes the development of OME-Zarr. Anyone can participate.
+:::
 
-* Chunking is inherent to "Zarr" files. This means "Zarr" files are stored in independently-accessible blocks.
-   * **Storage**: Microscopy images can be quite large and can therefore reach Cloud system storage limits for individual files; the chunked nature of a Zarr can alleviate this issue. Some storage systems may also duplicate byte-equivalent files, so a chunked file like Zarr may save storage space.
-   * **Viewing**: Viewers can target specific chunks to load based upon the current view, reducing lag, & enabling massive images to be viewed within browsers.
-   * **Cost**: When viewing or reading data, the total cost of accessing a Zarr file on the cloud may be less than a more monolithic file format due to the more efficient data access patterns. Ex. A viewer can just access the chunks of the image it needs to display rather than the entire image.
-* "OME-Zarr" is a "Zarr" with embedded standardized metadata in the Open Microscopy Environment (OME) format.
-   * **Sharing**: A standardized imaging metadata format can ease cross-organization file sharing and can therefore aid organizational collaboration and data sharing.
-   * **Interoperability**: Standardized metadata can also enable the interoperability of tools.
+:::{grid-item-card} Resources 📚
+:link: resources-main
+:link-type: ref
+:img-top: ./images/resources-screenshot.png
 
-## When would I not use OME-Zarr?
+A collection of resources for users and developers, including datasets, tools, publications, and learning materials.
+:::
 
-* If your file isn't very big and you're working with local data, the current specification of OME-Zarr can be less convenient than a single-file format and the benefits are limited. Planned expansions to the OME-Zarr specification will make it more convenient to work with it in these scenarios (e.g. single-file Zarrs) and add features that might make it beneficial to use OME-Zarr even in these scenarios (e.g. transformations).
-* If your original file is lossy compressed, you will see a large increase in file size as the images are decompressed into OME-Zarr. There is not yet support for transferring lossy compressed image tiles to OME-Zarr. This currently impacts most whole slide image (WSI) formats such as SVS, CZI, and NDPI, which are lossy JPEG compressed by default and see about a 10x size increase into OME-Zarr.
+:::{grid-item-card} Publications 📢
+:link: resources-publications
+:link-type: ref
+:img-top: ./images/ngff-paper-figure.png
 
-## Who is using OME-Zarr?
+Papers and preprints written by the OME-NGFF community or using OME-Zarr.
+:::
 
-These are *some* of the organizations (and their dataset pages) that are using OME-Zarr for their data.
+:::{grid-item-card} Help Desk ☎️
+:link: help-desk-main
+:link-type: ref
+:img-top: ./images/hackathons/IMG_9605.jpeg
 
-- [Allen Institute](https://bff.allencell.org/datasets)
-- biohub
-- [Broad Institute](https://broadinstitute.github.io/cellpainting-gallery/overview.html)
-- [EMBL - Image Data Resource (IDR)](https://idr.openmicroscopy.org/)
-- [Howard Hughes Medical Institute, Janelia (HHMI)](https://openorganelle.janelia.org/)
-- [Jackson Laboratory (JAX)](https://images.jax.org/)
-- ... [and more](/data/index.html)
+FAQs and directions on getting support with OME-Zarr.
+:::
 
-Additionally, the [BIDS specification supports OME-Zarr](https://bids-specification.readthedocs.io/en/stable/common-principles.html#imaging-files) as a storage format for imaging data.
+::::
 
-## How do I use OME-Zarr?
+OME-Zarr is a combination of the [Zarr](https://zarr.dev) format for cloud-optimized storage of scientific arrays and a custom [Open Microscopy Environment (OME)](https://www.openmicroscopy.org/) metadata model, tailored for modern bioimaging needs.
 
-* Already have a Zarr?
-   * Check out the [tools section](/tools/index.html)!
-* Want to create a Zarr?
-   * Check out the [tools section](/tools/index.html)!
-* Want to see or download a Zarr?
-   * Check out the [data section](/data/index.html)!
-
-## Have other questions?
-
-Check out the pages below, including the [FAQ](help-desk/index.md#faqs) page.
+It is the technical choice for a Next Generation File Format (NGFF) for bioimaging data. For the background, see _Moore, J., Allan, C., Besson, S. et al. OME-NGFF: a next-generation file format for expanding bioimaging data-access strategies. Nature Methods 18, 1496–1498 (2021). [doi:10.1038/s41592-021-01326-w](https://doi.org/10.1038/s41592-021-01326-w)_
 
 ```{toctree}
 :maxdepth: 1
+:hidden:
 
 community/index
 contributing/index

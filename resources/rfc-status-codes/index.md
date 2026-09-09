@@ -2,7 +2,7 @@ RFC status codes
 ============
 
 
-[RFC 1](../../rfc/1) defined a Request for Comments process for the NGFF community, which is used to drive changes. The text listed a set of codes used to define how a change progresses from an idea to actual adoption.
+[RFC 1](#rfcs:rfc1) defined a Request for Comments process for the NGFF community, which is used to drive changes. The text listed a set of codes used to define how a change progresses from an idea to actual adoption.
 
 
 ![State diagram of the RFC process](../../rfc/1/diagram.png)

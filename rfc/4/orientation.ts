@@ -133,12 +133,24 @@ export enum AnatomicalOrientationValues {
     proximal_to_distal = "proximal-to-distal",
     /** Describes the directional orientation from the periphery of an anatomical structure or limb to the center of the body. */
     distal_to_proximal = "distal-to-proximal",
+    /** Describes the directional orientation from the outer surface (superficial) to the inner depth (deep) of a layered tissue such as skin, gut, or cortex. */
+    superficial_to_deep = "superficial-to-deep",
+    /** Describes the directional orientation from the inner depth (deep) to the outer surface (superficial) of a layered tissue such as skin, gut, or cortex. */
+    deep_to_superficial = "deep-to-superficial",
+    /** Describes the directional orientation from the apical surface (apical) to the basal surface (basal) of an epithelial layer or polarized cell structure. */
+    apical_to_basal = "apical-to-basal",
+    /** Describes the directional orientation from the basal surface (basal) to the apical surface (apical) of an epithelial layer or polarized cell structure. */
+    basal_to_apical = "basal-to-apical",
+    /** Describes the directional orientation from the tip (apex) to the broad base (base) of an organ such as the heart or lung. */
+    apex_to_base = "apex-to-base",
+    /** Describes the directional orientation from the broad base (base) to the tip (apex) of an organ such as the heart or lung. */
+    base_to_apex = "base-to-apex",
 };
 
 
 
 export interface Axes {
-    /** A list of axes. Although serialized as list, it MUST be dealt with as being a set as in the name of each axis MUST be unique. Furthermore, if the attribute orientation is defined for one axis of type space, it MUST be defined for all the axes of type space. In this case, the type of each orientation MUST be the same and the value MUST be unique.
+    /** A list of axes. Although serialized as list, it MUST be dealt with as being a set as in the name of each axis MUST be unique. The orientation attribute is OPTIONAL: it MAY be defined on any subset of the axes of type space, and it MUST NOT be defined on axes of any other type. Where it is defined, the type of each orientation MUST be one of the types defined by this specification, currently only "anatomical", and two axes MUST NOT describe the same anatomical axis: a set of axes MUST only have one of the set { "left-to-right", "right-to-left" } or { "anterior-to-posterior", "posterior-to-anterior" } or the remaining values.
  */
     axes?: string[],
 }
@@ -161,8 +173,9 @@ export interface SpaceAxis extends Axis {
     /** Physical unit for spatial measurement along the axis, selected from a standardized list of distance units (e.g., micrometer, nanometer).
  */
     unit: string,
-    /** The direction of an axis of type space. */
-    orientation?: string,
+    /** The direction of an axis of type space. This attribute is OPTIONAL. An axis with no orientation and an axis whose orientation is null are equivalent: in both cases the orientation of that axis is undefined, and neither implies a default value. Writers SHOULD omit the attribute rather than serialize a null value.
+ */
+    orientation?: AnatomicalOrientation,
 }
 
 

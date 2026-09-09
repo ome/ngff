@@ -3,4 +3,4 @@
 skip = .git,.codespellrc,references.bib
 check-hidden = true
 # ignore-regex = 
-ignore-words-list = commend,Fuchsia
+ignore-words-list = commend,Fuchsia,theT

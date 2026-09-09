@@ -1,123 +1,100 @@
+(help-desk-main)=
+
 # Help Desk
 
-* [Glossary](#glossary)
-* [FAQs](#faqs)
-* [Where to seek for help](#where-to-seek-for-help)
+- [Where to seek for help](#where-to-seek-for-help)
+- [FAQs](#faqs)
+- [Glossary](#glossary)
 
-## Glossary
+(where-to-seek-for-help)=
 
-Jump to:
-[A](#a) · [B](#b) · [C](#c) · [D](#d) · [E](#e) · [F](#f) · [G](#g) · [H](#h) · [I](#i) · [J](#j) · [K](#k) · [L](#l) · [M](#m) · [N](#n) · [O](#o) · [P](#p) · [Q](#q) · [R](#r) · [S](#s) · [T](#t) · [U](#u) · [V](#v) · [W](#w) · [X](#x) · [Y](#y) · [Z](#z)
+## Where to look for help
 
----
+If you have questions or need help with OME-Zarr, you can get the most up-to-date information through the following channels:
 
-### A
+| Where | Description | When to use |
+|-------|-------------| --------------|
+| [Image.sc Forum](https://forum.image.sc) | A community forum for image analysis and bioimaging. | To know when to use the tags [ngff](https://forum.image.sc/tag/ngff), [ome-ngff](https://forum.image.sc/tag/ome-ngff), and [ome-zarr](https://forum.image.sc/tag/ome-zarr) in the forum please read [Landing Page](https://ngff.openmicroscopy.org/index.html), Glossary and FAQs in this page. |
+| [ome/ngff GitHub Issues](https://github.com/ome/ngff/issues) | The official repository for OME-NGFF specifications and related discussions. | For reporting bugs, suggesting features, or discussing technical aspects of the OME-NGFF specifications. |
+| Office Hours | Regularly scheduled virtual meetings where you can ask questions and get help from the NGFF community | Office hours rotate between APAC/AU/EU- and AMER/AU/EU-friendly times. Join them when you want to chat about OME-Zarr. Read more in the [Community](../community/index.md) page. |
+| OME-Zarr libraries GitHub Issues| Various repositories for OME-Zarr libraries. | For issues specific to a particular OME-Zarr library, use the respective GitHub repository's issue. |
+| In person events | Conferences, workshops, and meetups where you can connect with the NGFF community. | To network, learn, and discuss OME-Zarr in person. Check the [Community](../community/index.md) page for upcoming events. |
 
-**Array** - A collection (or list) or multiple items. For example, OME-Zarr files store image data as multi-dimensional arrays (meaning lists of lists of numbers).
-
-[Back to top](#glossary)
-
-### B
-
-**BIDS** - Brain Imaging Data Structure (BIDS) is a community-developed standard for organizing and describing neuroscientific data. The [BIDS specification supports OME-Zarr](https://bids-specification.readthedocs.io/en/stable/common-principles.html#imaging-files) as a storage format for imaging data.
-
-[Back to top](#glossary)
-
-### C
-
-**Chunk** - A chunk in OME-Zarr is an independent section of pixel data that has been separated so that it can be accessed separately from other pixel data.
-
-**Codecs** - Codecs are the algorithms that compress and decompress chunks. They shrink the data to save space and speed up loading, and then restore it when you read it. Different codecs offer different trade-offs between size, speed, and image quality, but NGFF lets you choose the one that works best for your data.
-
-[Back to top](#glossary)
-
-### G
-
-[Back to top](#glossary)
-
-### H 
-
-**HCS** - Dedicated layout of OME-Zarr files representing the used wells and plates for High Content Screening (HCS). The layout allows a user to efficiently address and analyze specific data from specific wells.
-
-**HDF5** - Hierarchical Data Format version 5 (HDF5). It is a data model, file format, and library for organizing, storing, and managing large and complex data.
-
-[Back to top](#glossary)
-
-### J
-
-**JSON file** - A simple standardized human-readable data format for sharing data using nested key-value pairs.
-
-[Back to top](#glossary)
-
-### M
-
-**Multiscale** - Multiscale means storing the same image at multiple resolutions (full size, half size, quarter size, etc.). This makes it easy for tools to zoom and navigate very large images quickly—just like how map apps load lower-resolution versions first, then sharpen the view as you zoom in.
-
-[Back to top](#glossary)
-
-### N
-**NGFF** - Next Generation File Format (NGFF) is a community for solving problems related to producing open-source software for microscopy data.
-
-[Back to top](#glossary)
-
-### O
-
-**OME** - Open Microscopy Environment is a consortium of universities, research labs, industry and developers producing open-source software and format standards for microscopy data.
-
-**OMERO** - OMERO is a data management platform for storing, organizing, and sharing microscopy images. To learn more about OMERO, visit the [OMERO guides](https://omero-guides.readthedocs.io/en/latest) webpage.
-
-**OME-NGFF** - OME-NGFF refers to the resulting efforts of the OME & NGFF communities.
-
-**OME-Zarr** - An OME-Zarr is a standardized file format for microscopy images. More details on the [main page](#../).
-
-[Back to top](#glossary)
-
-### P
-
-**Processing Unit** - A Processing Unit is an independent section of data that a process (like image analysis) can be run on separately. For OME-Zarr images, a processing unit could be a sub-set of the image, the entire image, or multiple images.
-
-[Back to top](#glossary)
-
-### R
-
-**RFC** - Request For Comments (RFC) is a process for proposing a change to the standardized specification for OME-Zarr files.
-
-[Back to top](#glossary)
-
-### S
-
-**Shard/ing** - Like [Chunks](#c), sharding is a way of breaking up pixel data for more efficient access. Shards are groups of chunks with headers in front of them for describing the chunks inside.
-
-[Back to top](#glossary)
-
-### T
-
-**Transformation** - Transformations describe how to place one array in the same coordinate space as another—for example, how a label mask lines up with its image, or how a lower-resolution level relates to the full-resolution one. They provide the mathematical rules (like shifts, scaling, or rotations) that let software correctly align and overlay different pieces of data.
-
-[Back to top](#glossary)
-
-### U
-
-
-[Back to top](#glossary)
-
-### W
-
-**Workflow** - A structured sequence of tasks designed to achieve a specific goal. In the case of OME-Zarr, a workflow is some sequence of tasks usually used for performing some type of analysis on the image data.
-
-[Back to top](#glossary)
-
-### Z
-
-**Zarr** -- A file format, see the [main page](#../) for more information about what a Zarr is and the benefits of using Zarr.
-
-**Zarr Group** - A Zarr group is like a folder inside a dataset. It can hold arrays, metadata, or other groups, helping organize complex data into a clear hierarchy. Think of it as a way to keep all related images and information neatly together.
-
-[Back to top](#glossary)
-
-If you think any term is missing or needs to be updated, please open a PR to the [ngff-website repository](https://github.com/ome/ngff).
 
 ## FAQs
+
+First, we are sharing some high-value questions, that once lived in the NGFF landing page, to then proceed with a more comprehensive list of FAQs.
+
+### NGFF vs OME-Zarr, what is the difference?
+
+**OME-Zarr** is the file format that the NGFF community has settled on to address issues of scalability and interoperability described below.
+
+**NGFF** is the community-driven process for designing the next generation of bioimaging formats. NGFF brings together the community to define shared specifications, metadata standards, and best practices. OME-Zarr implements those decisions, providing a practical, open, and scalable way to store and share modern microscopy data. As the NGFF specifications evolve, OME-Zarr evolves with them — ensuring the format reflects the needs and experience of the wider community.
+
+### What is an OME-Zarr?
+
+An OME-Zarr is a file format optimized for storing, viewing, & sharing large images.
+There are two parts to an OME-Zarr:
+
+- **The "Zarr" part describes how the pixel data for the images are laid out**. [Zarr](https://zarr.dev) is a next-generation data format used for scientific datasets in multiple domains.
+- **The "OME" part describes metadata about the pixel data.** OME stands for [Open Microscopy Environment](https://www.openmicroscopy.org/). This includes metadata such as:
+  - spatial relationships
+  - high content screening data
+  - well data
+  - [and more](#specifications-main)!
+
+### Why would I use OME-Zarr?
+
+In general, OME-Zarr is growing as a default [FAIR](https://en.wikipedia.org/wiki/FAIR_data) choice for storing and sharing microscopy images.
+
+OME-Zarr files have two major benefits:
+
+- **Standardization:** "OME-Zarr" is a "Zarr" with embedded standardized metadata in the Open Microscopy Environment (OME) format.
+  - **_Sharing_**: It eases cross-organization file sharing, aiding organizational collaboration and data sharing. Repositories like the [Image Data Resource](https://idr.openmicroscopy.org/) and [BioImage Archive](https://www.ebi.ac.uk/bioimage-archive/) are currently migrating to having OME-Zarr as a standard format for _all_ their data.
+  - **_Interoperability_**: Standardized metadata enables the ability to "mix and match" tools from different organizations, benefiting from the strengths of multiple tools as needed.
+
+- **Parallel access**: Chunking is inherent to "Zarr" files. This means "Zarr" files are stored in independently-accessible blocks.
+  - **_Storage_**: Microscopy images can be quite large and can therefore reach Cloud system storage limits for individual files; the chunked nature of a Zarr can alleviate this issue. Some storage systems may also duplicate byte-equivalent files, so a chunked file like Zarr may save storage space.
+  - **_Viewing_**: Viewers can target specific chunks to load based upon the current view, reducing lag, & enabling massive images to be viewed within browsers.
+  - **_Cost_**: When viewing or reading data, the total cost of accessing a Zarr file on the cloud may be less than a more monolithic file format due to the more efficient data access patterns. Ex. A viewer can just access the chunks of the image it needs to display rather than the entire image.
+
+Of note, both benefits contribute to **_AI-readiness_**: the standardized metadata & access patterns provide a common layer for machine-learning workflows, reducing the friction for developers to build and test models.
+
+The [tools](#resources-tools), [data](#resources-data), and [ecosystem](#resources-ecosystem) may provide a better sense of the range of scientific use cases that may benefit from OME-Zarr. The [publications](#resources-publications) page provides a list of publications that have used OME-Zarr in their work.
+
+### When would I not use OME-Zarr?
+
+While the format matures, it may be frustrating to use OME-Zarr in some cases, for example:
+
+- If you are working with small images, not planning to share them and your current tools already work well, then using OME-Zarr may not be necessary. Planned expansions to the specification (such as single-file Zarrs) will make it more convenient in these scenarios.
+
+- If you need specific conditions for which OME-Zarr support is not mature, you may need to use a different file format.
+  - Particularly, if your original file is lossy compressed, you will see a large increase in file size (about an order of magnitude) as the images are decompressed into OME-Zarr, since transferring lossy compressed tiles is not yet supported. This currently impacts most whole slide image (WSI) formats such as SVS, CZI, and NDPI, which are lossy JPEG compressed by default.
+
+### Who is using OME-Zarr?
+
+These are _some_ of the organizations (and their dataset pages) that are using OME-Zarr for their data.
+
+- [Allen Institute](https://bff.allencell.org/datasets)
+- biohub
+- [Broad Institute](https://broadinstitute.github.io/cellpainting-gallery/overview.html)
+- [EMBL - Image Data Resource (IDR)](https://idr.openmicroscopy.org/)
+- [Howard Hughes Medical Institute, Janelia (HHMI)](https://openorganelle.janelia.org/)
+- [Jackson Laboratory (JAX)](https://images.jax.org/)
+- ... [and more](#resources-data)
+
+### How do I use OME-Zarr?
+
+- Already have a Zarr?
+  - Check out the [tools section](#resources-tools)!
+- Want to create a Zarr?
+  - Check out the [tools section](#resources-tools)!
+- Want to see or download a Zarr?
+  - Check out the [data section](#resources-data)!
+- Want to cite OME-Zarr/NGFF in your work?
+  - Check out the [publications section](#resources-publications)!
+
+### Other FAQs
 
 **1. Why OME-Zarr as a format?**
 
@@ -174,15 +151,153 @@ That is often the case. OME-Zarr include multiresolution data (i.e. pyramids), w
 
 Not yet fully. Some workarounds are possible (1D arrays, mesh formats), but this is an active area of development.
 
+## Glossary
 
+Jump to:
+[A](#a) · [B](#b) · [C](#c) · [D](#d) · [E](#e) · [F](#f) · [G](#g) · [H](#h) · [I](#i) · [J](#j) · [K](#k) · [L](#l) · [M](#m) · [N](#n) · [O](#o) · [P](#p) · [Q](#q) · [R](#r) · [S](#s) · [T](#t) · [U](#u) · [V](#v) · [W](#w) · [X](#x) · [Y](#y) · [Z](#z)
 
-## Where to look for help
-If you have questions or need help with OME-Zarr, you can reach out through the following channels:
-| Where | Description | When to use  |
-|-------|-------------| --------------|
-| [Image.sc Forum](https://forum.image.sc) | A community forum for image analysis and bioimaging. | To know when to use the tags [ngff](https://forum.image.sc/tag/ngff), [ome-ngff](https://forum.image.sc/tag/ome-ngff),  and [ome-zarr](https://forum.image.sc/tag/ome-zarr) in the forum please read [Landing Page](https://ngff.openmicroscopy.org/index.html), Glossary and FAQs in this page. |
-| [ome/ngff GitHub Issues](https://github.com/ome/ngff/issues) | The official repository for OME-NGFF specifications and related discussions. | For reporting bugs, suggesting features, or discussing technical aspects of the OME-NGFF specifications. |
-| Office Hours | Regularly scheduled virtual meetings where you can ask questions and get help from the NGFF community | Office hours rotate between APAC/AU/EU- and AMER/AU/EU-friendly times. Join them when you want to chat about OME-Zarr. Read more in the [Community](../community/index.md) page. |
-| OME-Zarr libraries GitHub Issues| Various repositories for OME-Zarr libraries. | For issues specific to a particular OME-Zarr library, use the respective GitHub repository's issue. |
-| In person events | Conferences, workshops, and meetups where you can connect with the NGFF community. | To network, learn, and discuss OME-Zarr in person. Check the [Community](../community/index.md) page for upcoming events. |
+---
 
+### A
+
+**Array** - A collection (or list) or multiple items. For example, OME-Zarr files store image data as multi-dimensional arrays (meaning lists of lists of numbers).
+
+[Back to top](#glossary)
+
+### B
+
+[Back to top](#glossary)
+
+### C
+
+**Chunk** - A chunk in OME-Zarr is an independent section of pixel data that has been separated so that it can be accessed separately from other pixel data.
+
+**Codecs** - Codecs are the algorithms that compress and decompress chunks. They shrink the data to save space and speed up loading, and then restore it when you read it. Different codecs offer different trade-offs between size, speed, and image quality, but NGFF lets you choose the one that works best for your data.
+
+[Back to top](#glossary)
+
+### D
+
+[Back to top](#glossary)
+
+### E
+
+[Back to top](#glossary)
+
+### F
+
+[Back to top](#glossary)
+
+### G
+
+[Back to top](#glossary)
+
+### H
+
+**HCS** - Dedicated layout of OME-Zarr files representing the used wells and plates for High Content Screening (HCS). The layout allows a user to efficiently address and analyze specific data from specific wells.
+
+**HDF5** - Hierarchical Data Format version 5 (HDF5). It is a data model, file format, and library for organizing, storing, and managing large and complex data.
+
+[Back to top](#glossary)
+
+### I
+
+[Back to top](#glossary)
+
+### J
+
+**JSON file** - A simple standardized human-readable data format for sharing data using nested key-value pairs.
+
+[Back to top](#glossary)
+
+### K
+
+[Back to top](#glossary)
+
+### L
+
+[Back to top](#glossary)
+
+### M
+
+**Multiscale** - Multiscale means storing the same image at multiple resolutions (full size, half size, quarter size, etc.). This makes it easy for tools to zoom and navigate very large images quickly—just like how map apps load lower-resolution versions first, then sharpen the view as you zoom in.
+
+[Back to top](#glossary)
+
+### N
+
+**NGFF** - Next Generation File Format (NGFF) is a community for solving problems related to producing open-source software for microscopy data.
+
+[Back to top](#glossary)
+
+### O
+
+**OME** - Open Microscopy Environment is a consortium of universities, research labs, industry and developers producing open-source software and format standards for microscopy data.
+
+**OMERO** - OMERO is a data management platform for storing, organizing, and sharing microscopy images. To learn more about OMERO, visit the [OMERO guides](https://omero-guides.readthedocs.io/en/latest) webpage.
+
+**OME-NGFF** - OME-NGFF refers to the resulting efforts of the OME & NGFF communities.
+
+**OME-Zarr** - An OME-Zarr is a standardized file format for microscopy images. More details on the [main page](#main-page).
+
+[Back to top](#glossary)
+
+### P
+
+**Processing Unit** - A Processing Unit is an independent section of data that a process (like image analysis) can be run on separately. For OME-Zarr images, a processing unit could be a sub-set of the image, the entire image, or multiple images.
+
+[Back to top](#glossary)
+
+### Q
+
+[Back to top](#glossary)
+
+### R
+
+**RFC** - Request For Comments (RFC) is a process for proposing a change to the standardized specification for OME-Zarr files.
+
+[Back to top](#glossary)
+
+### S
+
+**Shard/ing** - Like [Chunks](#c), sharding is a way of breaking up pixel data for more efficient access. Shards are groups of chunks in a single object with headers describing the chunks inside.
+
+[Back to top](#glossary)
+
+### T
+
+**Transformation** - Transformations describe how to place one array in the same coordinate space as another—for example, how a label mask lines up with its image, or how a lower-resolution level relates to the full-resolution one. They provide the mathematical rules (like shifts, scaling, or rotations) that let software correctly align and overlay different pieces of data.
+
+[Back to top](#glossary)
+
+### U
+
+[Back to top](#glossary)
+
+### V
+
+[Back to top](#glossary)
+
+### W
+
+**Workflow** - A structured sequence of tasks designed to achieve a specific goal. In the case of OME-Zarr, a workflow is some sequence of tasks usually used for performing some type of analysis on the image data.
+
+[Back to top](#glossary)
+
+### X
+
+[Back to top](#glossary)
+
+### Y
+
+[Back to top](#glossary)
+
+### Z
+
+**Zarr** -- A file format, see the [main page](#main-page) for more information about what a Zarr is and the benefits of using Zarr.
+
+**Zarr Group** - A Zarr group is like a folder inside a dataset. It can hold arrays, metadata, or other groups, helping organize complex data into a clear hierarchy. Think of it as a way to keep all related images and information neatly together.
+
+[Back to top](#glossary)
+
+If you think any term is missing or needs to be updated, please open a PR to the [ngff-website repository](https://github.com/ome/ngff).
