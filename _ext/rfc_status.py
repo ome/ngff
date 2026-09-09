@@ -95,24 +95,31 @@ def _count_versions(rfc_dir):
     return sum(1 for _ in _numbered_subdirs(base)) if os.path.isdir(base) else 0
 
 
-def _status_text(meta):
-    """Spell out an RFC's state, e.g. "R9 (Withdrawn) — superseded by RFC-8".
+def _status_nodes(meta):
+    """The status line of an RFC, e.g. "S4 – Adopted (update implementations)".
 
-    Both parts come from the RFC's front matter: `manual_status` holds the state
-    code, `status_note` an optional sentence fragment explaining it. Editors set
-    the code by hand when they move an RFC along; it is never guessed here from
-    the reviews or responses that happen to be on disk. A code that is not in
-    STATE_LABELS (say "N/A" for the historical RFC-0) is shown on its own.
+    Everything comes from the RFC's front matter: `manual_status` holds the state
+    code, `status_note` an optional fragment explaining it. Editors set the code
+    by hand when they move an RFC along; it is never guessed here from the
+    reviews or responses that happen to be on disk. The code links to the table
+    of status codes; a code that is not in STATE_LABELS (say "N/A" for the
+    historical RFC-0) is shown without a label.
     """
-    state = _state_text(meta)
+    code = str(meta.get("manual_status", "")).strip()
+    if not code:
+        return []
+    result = [_doc_reference(code, STATE_CODES_DOC)]
+    label = STATE_LABELS.get(code.upper())
+    if label:
+        result.append(nodes.Text(f" \u2013 {label}"))
     note = str(meta.get("status_note", "")).strip()
-    if not state:
-        return ""
-    return f"{state}; {note}" if note else state
+    if note:
+        result.append(nodes.Text(f" ({note})"))
+    return result
 
 
 def _state_text(meta):
-    """The state on its own, e.g. "R9 (Withdrawn)"; see _status_text."""
+    """The state as plain text, e.g. "S4 (Adopted)", for the RFC listing."""
     code = str(meta.get("manual_status", "")).strip()
     if not code:
         return ""
@@ -159,13 +166,11 @@ class RFCStatus(Directive):
 
         result = []
 
-        status = _status_text(central)
+        status = _status_nodes(central)
         if status:
             line = nodes.paragraph(classes=["rfc-status-state"])
             line += nodes.strong("", nodes.Text("Status: "))
-            line += nodes.Text(status + " (")
-            line += _doc_reference("status codes", STATE_CODES_DOC)
-            line += nodes.Text(")")
+            line.extend(status)
             result.append(line)
 
         reference_pr = str(central.get("reference_pr", "")).strip()

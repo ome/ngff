@@ -22,8 +22,7 @@ editors:
     role: Editor
     date: "2025-11-05"
 reference_pr: https://github.com/ome/ngff/pull/316
-manual_status: R2
-status_note: waiting on reviewers
+manual_status: R4
 description: Zipped OME-Zarr
 date: 2025-07-02
 ---

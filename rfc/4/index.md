@@ -15,8 +15,7 @@ authors:
     affiliation: EMBL
     role: Co-author
     date: "2025-07-16"
-manual_status: R4
-status_note: authors prepare responses
+manual_status: S1
 description: Axis Anatomical Orientation
 date: 2023-07-26
 ---

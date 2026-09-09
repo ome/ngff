@@ -65,7 +65,7 @@ endorsers:
     date: "2024-03-14"
     reference: https://github.com/ome/ngff/pull/227#issuecomment-1998594492
 reference_pr: https://github.com/ome/ngff/pull/227
-manual_status: S1
+manual_status: S4
 description: Zarr V3 Support
 ome_zarr_version: "0.5"
 date: 2024-02-14
@@ -229,7 +229,7 @@ Preliminary work of this RFC has been discussed in:
 
 ## Implementation
 
-OME-Zarr implementations can rely on existing Zarr libraries to implement the adoption of Zarr v3. 
+OME-Zarr implementations can rely on existing Zarr libraries to implement the adoption of Zarr v3.
 See [Background](#background) for a list of v3-capable Zarr libraries.
 
 Support for the OME-Zarr 0.5 metadata is under development in [ome-zarr-py](https://github.com/ome/ome-zarr-py/pull/383/files) and other implementations.

@@ -10,8 +10,7 @@ authors:
     affiliation: University of Zürich
     role: Co-author
     date: "2026-07-03"
-manual_status: D3
-status_note: authors open PR
+manual_status: D4
 description: NGFF Governance and the Editorial Board
 date: 2026-07-03
 ---

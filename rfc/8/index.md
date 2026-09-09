@@ -35,8 +35,7 @@ authors:
     affiliation: German BioImaging e.V.
     role: Co-author
     date: "2025-10-28"
-manual_status: D1
-status_note: this proposal is early
+manual_status: R1
 description: Collections
 date: 2024-11-20
 ---
