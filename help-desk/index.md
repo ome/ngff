@@ -166,6 +166,8 @@ Jump to:
 
 ### B
 
+**BIDS** - Brain Imaging Data Structure (BIDS) is a community-developed standard for organizing and describing neuroscientific data. The [BIDS specification supports OME-Zarr](https://bids-specification.readthedocs.io/en/stable/common-principles.html#imaging-files) as a storage format for large imaging data.
+
 [Back to top](#glossary)
 
 ### C
