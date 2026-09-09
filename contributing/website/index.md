@@ -43,6 +43,16 @@ sphinx-autobuild . _build/html
 ```
 The website will then be served at http://127.0.0.1:8000.
 
+## Checking RFC front matter
+
+The RFC documents have some information rendered from the YAML front matter at the top of each document.
+The front matter is validated against a LinkML schema. To check it locally:
+
+```bash
+pip install linkml
+python rfc/schema/validate.py           # or pass the files you changed
+```
+
 ## PR previews
 Each PR receives a unique preview URL of the format `https://ngff--<PR#>.org.readthedocs.build/` where `<PR#>` is the PR number. This link is also posted to each PR by the Github actions bot in an "Automated Review URLs" comment as the "Readthedocs" link.
 

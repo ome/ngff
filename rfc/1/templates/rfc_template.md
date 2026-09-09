@@ -51,6 +51,11 @@ After opening a PR for the RFC, add the reference PR to the `reference_pr` field
 
 The `manual_status` field holds the [status code](/resources/rfc-status-codes/index) the RFC is currently in, and is updated by hand as the RFC moves through the process; `status_note` is an optional fragment explaining it, e.g. `superseded by RFC-8`. Together with `description` and `date` they also fill in this RFC's row of the [RFC listing](/rfc/index). Add `ome_zarr_version` once an RFC lands in a released version of the specification.
 
+The full list of fields is described by the LinkML schema in
+[`rfc/schema/front_matter.yaml`](https://github.com/ome/ngff/blob/main/rfc/schema/front_matter.yaml),
+which is what CI checks every RFC against. To check a draft yourself, run
+`pip install linkml` and then `python rfc/schema/validate.py` from the root of the repository.
+
 There MUST be at least one "Corresponding Author", and at least one "Editor".
 
 There MAY be multiple "Co-author" and "Co-editor".

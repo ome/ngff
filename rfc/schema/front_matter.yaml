@@ -1,0 +1,191 @@
+id: https://w3id.org/ome/ngff/rfc-front-matter
+name: NGFF_RFC_Front_Matter
+version: 0.1.0
+description: >-
+  This schema describes the YAML front matter of the NGFF RFC documents. Every RFC page
+  carries a block of metadata at the top of its `index.md`, and so does every review,
+  comment and response filed against it. The website renders the record tables, the
+  status line and the RFC listing from those blocks (see `_ext/rfc_status.py` and
+  `_ext/document_authors.py`), so a misspelt key or an invalid status code silently
+  turns into a missing entry on the published page. This schema is what
+  `rfc/schema/validate.py` checks each document against.
+
+prefixes:
+  ome: https://w3id.org/ome/
+  ngff: https://w3id.org/ome/ngff/
+  linkml: https://w3id.org/linkml/
+  orcid: https://orcid.org/
+imports:
+  - linkml:types
+default_range: string
+default_prefix: ngff
+
+created_on: "2026-09-09"
+
+classes:
+
+  Person:
+    description: >-
+      Somebody listed on an RFC or on one of its reviews, comments or responses. Only
+      the name is required; the remaining fields enrich the rendered tables, and each
+      one that is present is turned into a link or a column entry.
+    attributes:
+      name:
+        description: Full name, written as the person wishes to be credited.
+        required: true
+      github:
+        description: GitHub handle, without the leading "@" or the profile URL.
+      orcid:
+        description: ORCID identifier, either bare (0000-0000-0000-0000) or as a URL.
+      email:
+        description: Contact e-mail address.
+      affiliation:
+        description: Institution the person is credited under, as plain text.
+      affiliation_url:
+        description: Link for the institution, e.g. a ROR record or its homepage.
+        range: uri
+      role:
+        description: >-
+          The person's role on this RFC, shown in the "Status" column, e.g.
+          "Corresponding Author", "Co-author", "Editor" or "Implemented".
+      date:
+        description: >-
+          Date the person joined the document, quoted so YAML keeps it a string; people
+          are added throughout the process, so this differs from the document's date.
+      reference:
+        description: >-
+          Link backing an endorsement, e.g. the PR comment where it was given. Only
+          meaningful for entries under `endorsers`.
+        range: uri
+
+  RFCFrontMatter:
+    description: The front matter of an RFC itself, i.e. of `rfc/<number>/index.md`.
+    tree_root: true
+    attributes:
+      manual_status:
+        description: >-
+          The status code the RFC currently sits at. Editors set it by hand as the RFC
+          moves through the process; it is never inferred from the reviews or responses
+          present in the directory.
+        range: StatusCode
+        required: true
+      description:
+        description: >-
+          A few words naming what the RFC changes, used as its row in the RFC listing.
+        required: true
+      status_note:
+        description: >-
+          Optional fragment explaining the status, e.g. "superseded by RFC-8". Shown in
+          parentheses after the status and in the listing's "Note" column.
+      ome_zarr_version:
+        description: >-
+          The OME-Zarr version this RFC landed in, once it has landed in a release.
+      date:
+        description: >-
+          Date the RFC moved from DRAFT to RFC status, ideally that of the reference
+          PR's merge. Its year is the listing's "Date" column.
+        range: date
+      reference_pr:
+        description: The pull request that introduced the RFC.
+        range: uri
+      authors:
+        description: The RFC's authors, in the order they should be credited.
+        range: Person
+        multivalued: true
+        inlined_as_list: true
+      editors:
+        description: The editors shepherding the RFC.
+        range: Person
+        multivalued: true
+        inlined_as_list: true
+      endorsers:
+        description: >-
+          Community members who have publicly endorsed the RFC. Optional, and each may
+          carry a `reference` link to where the endorsement was made.
+        range: Person
+        multivalued: true
+        inlined_as_list: true
+
+  ReviewFrontMatter:
+    description: >-
+      The front matter of a review, comment or response, i.e. of
+      `rfc/<number>/{reviews,comments,responses}/<label>/index.md`.
+    tree_root: true
+    attributes:
+      authors:
+        description: Who wrote this review, comment or response.
+        range: Person
+        multivalued: true
+        required: true
+        minimum_cardinality: 1
+        inlined_as_list: true
+      date:
+        description: Date of submission.
+        range: date
+        required: true
+      recommendation:
+        description: >-
+          The reviewers' recommendation. Left empty on comments and responses, which
+          carry no recommendation.
+        range: Recommendation
+
+enums:
+
+  StatusCode:
+    description: >-
+      The states of the RFC process, as tabulated (non-normatively) under
+      resources/rfc-status-codes. `_ext/rfc_status.py` maps each one to the wording
+      shown on the page, so the two lists are kept in step.
+    permissible_values:
+      D1:
+        description: AUTHORS propose idea
+      D2:
+        description: AUTHORS gather support and ENDORSEMENTS
+      D3:
+        description: AUTHORS open/update DRAFT PR
+      D4:
+        description: Questions raised during PR review
+      D5:
+        description: EDITORS approve?
+      D6:
+        description: PR closed
+      R1:
+        description: EDITORS assign RFC number, merge PR, and contact REVIEWERS
+      R2:
+        description: REVIEWERS submit REVIEWS with recommendations
+      R3:
+        description: EDITORS merge REVIEWS and send to AUTHOR for RESPONSE
+      R4:
+        description: AUTHORS prepare RESPONSE and changes to RFC
+      R5:
+        description: EDITORS merge RESPONSE and changes, contact REVIEWERS
+      R6:
+        description: REVIEWERS approve?
+      R7:
+        description: EDITORS approve?
+      R8:
+        description: AUTHORS prepare further changes
+      R9:
+        description: RFC withdrawn
+      S0:
+        description: REVIEWERS overridden, EDITORS add RESPONSE
+      S1:
+        description: RFC accepted, SPEC being updated
+      S2:
+        description: Clarifications needed
+      S3:
+        description: Update implementations
+      S4:
+        description: SPEC adopted
+      N/A:
+        description: >-
+          No state applies. Used by RFC-0, which was written up after the fact to
+          record the pre-RFC-1 consensus process.
+
+  Recommendation:
+    description: The recommendation a review closes with.
+    permissible_values:
+      accept:
+      minor_changes:
+      major_changes:
+      reject:

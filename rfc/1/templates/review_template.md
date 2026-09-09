@@ -30,6 +30,12 @@ For a Comment, the `recommendation` field may be left blank. Please also change 
 
 The document-authors directive will automatically pull the information from the YAML front matter and display it in a table.
 
+The fields are described by the LinkML schema in
+[`rfc/schema/front_matter.yaml`](https://github.com/ome/ngff/blob/main/rfc/schema/front_matter.yaml),
+which is what CI checks every review, comment and response against. To check yours
+yourself, run `pip install linkml` and then `python rfc/schema/validate.py` from the
+root of the repository.
+
 ## Authors
 
 ```{document-authors}
