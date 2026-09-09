@@ -6,8 +6,7 @@ description: >-
   carries a block of metadata at the top of its `index.md`, and so does every review,
   comment and response filed against it. The website renders the record tables, the
   status line and the RFC listing from those blocks (see `_ext/rfc_status.py` and
-  `_ext/document_authors.py`), so a misspelt key or an invalid status code silently
-  turns into a missing entry on the published page. This schema is what
+  `_ext/document_authors.py`). This schema is what
   `rfc/schema/validate.py` checks each document against.
 
 prefixes:
@@ -36,7 +35,11 @@ classes:
       github:
         description: GitHub handle, without the leading "@" or the profile URL.
       orcid:
-        description: ORCID identifier, either bare (0000-0000-0000-0000) or as a URL.
+        description: >-
+          ORCID identifier in its bare 0000-0000-0000-0000 form, without the
+          https://orcid.org/ prefix. The final character may be an X, which ORCID
+          uses as a checksum digit.
+        pattern: "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[0-9X]$"
       email:
         description: Contact e-mail address.
       affiliation:
