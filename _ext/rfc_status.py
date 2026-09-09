@@ -163,6 +163,9 @@ class RFCStatus(Directive):
         if status:
             line = nodes.paragraph(classes=["rfc-status-state"])
             line += nodes.strong("", nodes.Text("Status: "))
+            line += nodes.Text(status + " (")
+            line += _doc_reference("status codes", STATE_CODES_DOC)
+            line += nodes.Text(")")
             result.append(line)
 
         reference_pr = str(central.get("reference_pr", "")).strip()
