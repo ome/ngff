@@ -1,8 +1,16 @@
+---
+authors:
+  - name: Ilan Gold
+    github: ilan-gold
+date: 2025-02-20
+---
+
 # RFC-5: Comment 1
 
-## Comment author
+## Comment authors
 
-Ilan Gold
+```{document-authors}
+```
 
 ## Conflicts of interest (optional)
 

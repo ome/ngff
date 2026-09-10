@@ -1,8 +1,15 @@
+---
+authors:
+  - name: Matt McCormick
+    affiliation: ITK
+    github: thewtex
+date: 2024-01-09
+---
+
 # RFC-1: Comment 2
 
-| Name                   | GitHub Handle | Institution          |
-|------------------------|---------------|----------------------|
-| Matt McCormick         | thewtex       | ITK                  |
+```{document-authors}
+```
 
 ## Comments from the original issue
 

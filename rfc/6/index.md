@@ -1,3 +1,44 @@
+---
+authors:
+  - name: Norman Rzepka
+    github: normanrz
+    affiliation: scalable minds
+    role: Author
+    date: "2024-12-03"
+endorsers:
+  - name: David Stansby
+    github: dstansby
+    affiliation: University College London
+    date: "2024-12-03"
+  - name: Davis Bennett
+    github: d-v-b
+    date: "2024-12-12"
+  - name: Will Moore
+    github: will-moore
+    affiliation: OME, University of Dundee
+    date: "2024-12-12"
+  - name: Lachlan Deakin
+    github: LDeakin
+    affiliation: Australian National University
+    date: "2024-12-17"
+  - name: Joel Lüthi
+    github: jluethi
+    affiliation: BioVisionCenter, University of Zurich
+    date: "2024-12-18"
+  - name: Eric Perlman
+    github: perlman
+    date: "2024-12-18"
+  - name: Johannes Soltwedel
+    github: jo-mueller
+    affiliation: German BioImaging e.V.
+    date: "2025-10-22"
+reference_pr: https://github.com/ome/ngff/pull/285
+manual_status: R9
+status_note: superseded by RFC-8
+description: Flattening the multiscales array
+date: 2024-12-03
+---
+
 # RFC-6: Flattening the multiscales array
 
 ```{toctree}
@@ -10,73 +51,7 @@ Turn the `multiscales` array into a single `multiscale` object.
 
 ## Status
 
-This RFC has been withdrawn (R9) since it is superseded by RFC-8.
-
-```{list-table} Record
-:widths: 8, 20, 20, 20, 15, 10
-:header-rows: 1
-:stub-columns: 1
-
-*   - Role
-    - Name
-    - GitHub Handle
-    - Institution
-    - Date
-    - Status
-*   - Author
-    - Norman Rzepka
-    - [normanrz](https://github.com/normanrz)
-    - scalable minds
-    - 2024-12-03
-    - 
-*   - Endorser
-    - David Stansby
-    - [dstansby](https://github.com/dstansby)
-    - University College London
-    - 2024-12-03
-    - 
-*   - Endorser
-    - Davis Bennett
-    - [d-v-b](https://github.com/d-v-b)
-    - 
-    - 2024-12-12
-    -
-*   - Endorser
-    - Will Moore
-    - [will-moore](https://github.com/will-moore)
-    - OME, University of Dundee
-    - 2024-12-12
-    -
-*   - Endorser
-    - Lachlan Deakin
-    - [LDeakin](https://github.com/LDeakin)
-    - Australian National University
-    - 2024-12-17
-    -
-*   - Endorser
-    - Joel Lüthi
-    - [jluethi](https://github.com/jluethi)
-    - BioVisionCenter, University of Zurich
-    - 2024-12-18
-    -
-*   - Endorser
-    - Eric Perlman
-    - [perlman](https://github.com/perlman)
-    - 
-    - 2024-12-18
-    -
-*   - Endorser
-    - Johannes Soltwedel
-    - [jo-mueller](https://github.com/jo-mueller)
-    - German BioImaging e.V.
-    - 2025-10-22
-    -
-*   - Commenter
-    - Chris Barnes, Davis Bennett
-    - [clbarnes](https://github.com/clbarnes), [d-v-b](https://github.com/d-v-b)
-    -
-    - 2025-11-05
-    - [Comment](./comments/1/index)
+```{rfc-status}
 ```
 
 ## Overview

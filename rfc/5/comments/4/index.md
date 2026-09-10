@@ -1,10 +1,19 @@
+---
+authors:
+  - name: Benedikt Best
+    github: btbest
+    orcid: 0000-0001-6965-1117
+date: 2026-02-26
+---
+
 # RFC-5: Comment 4
 
 (rfcs:rfc5:comment4)=
 
 ## Comment authors
 
-Benedikt Best (https://orcid.org/0000-0001-6965-1117)
+```{document-authors}
+```
 
 ## Summary
 

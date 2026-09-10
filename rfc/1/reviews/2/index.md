@@ -1,3 +1,26 @@
+---
+authors:
+  - name: Davis Bennett
+    affiliation: HHMI Janelia
+    github: d-v-b
+  - name: John Bogovic
+    affiliation: HHMI Janelia
+    github: bogovicj
+  - name: Michael Innerberger
+    affiliation: HHMI Janelia
+    github: minnerbe
+  - name: Mark Kittisopikul
+    affiliation: HHMI Janelia
+    github: mkitti
+  - name: Virginia Scarlett
+    affiliation: HHMI Janelia
+    github: virginiascarlett
+  - name: Yurii Zubov
+    affiliation: HHMI Janelia
+    github: yuriyzubov
+recommendation: major_changes
+date: 2024-02-26
+---
 # RFC-1: Review 2
 
 ## Contributors

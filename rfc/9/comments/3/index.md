@@ -1,10 +1,20 @@
+---
+authors:
+  - name: Chris Barnes
+    affiliation: German BioImaging
+    github: clbarnes
+date: 2025-12-12
+---
+
 # RFC-9: Comment 3
 
 (rfcs:rfc9:comment2)=
 
 ## Comment authors
 
-This comment was written by: Chris Barnes, German BioImaging
+```{document-authors}
+
+```
 
 ## Conflicts of interest (optional)
 

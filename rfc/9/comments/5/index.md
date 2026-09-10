@@ -1,14 +1,28 @@
+---
+authors:
+  - name: Anna Kreshuk
+    orcid: 0000-0003-1334-6388
+    affiliation: ilastik
+  - name: Dominik Kutra
+    github: k-dominik
+    orcid: 0000-0003-4202-3908
+    affiliation: ilastik
+  - name: Benedikt Best
+    github: btbest
+    orcid: 0000-0001-6965-1117
+    affiliation: ilastik
+date: 2026-02-05
+---
+
 # RFC-9: Comment 5
 
 (rfcs:rfc9:comment5)=
 
 ## Comment authors
 
-This comment was written by the ilastik team:
+```{document-authors}
 
-* Anna Kreshuk, https://orcid.org/0000-0003-1334-6388
-* Dominik Kutra, https://orcid.org/0000-0003-4202-3908
-* Benedikt Best, https://orcid.org/0000-0001-6965-1117
+```
 
 ## Conflicts of interest (optional)
 
@@ -75,8 +89,8 @@ Alternatively, one could make this clear by adding an observation like the follo
 
 ## Minor comments and questions
 
-* The proposed new section of the specification uses the term "SHALL", which is so far not used elsewhere in the specification. Since according to IETF RFC 2119, SHALL is synonymous to MUST, and MUST is the term used in the rest of the specification, this should be replaced.
-* Duplication of "the" in "The ZIP file MUST contain the the OME-Zarr’s root-level zarr.json."
+- The proposed new section of the specification uses the term "SHALL", which is so far not used elsewhere in the specification. Since according to IETF RFC 2119, SHALL is synonymous to MUST, and MUST is the term used in the rest of the specification, this should be replaced.
+- Duplication of "the" in "The ZIP file MUST contain the the OME-Zarr’s root-level zarr.json."
 
 ## Recommendation
 

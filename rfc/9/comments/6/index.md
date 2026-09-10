@@ -1,10 +1,20 @@
+---
+authors:
+  - name: Assa Diabira
+    affiliation: Institut Cochin (IMAG'IC / CID), Université Paris Cité, France
+    github: assadiab
+date: 2026-06-22
+---
+
 # RFC-9: Comment 6
 
 (rfcs:rfc9:comment6)=
 
 ## Comment authors
 
-This comment was written by: Assa Diabira, Institut Cochin (IMAG'IC / Cochin Image Database), Université Paris Cité, Paris, France.
+```{document-authors}
+
+```
 
 ## Conflicts of interest (optional)
 

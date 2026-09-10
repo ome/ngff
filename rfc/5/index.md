@@ -1,3 +1,54 @@
+---
+authors:
+  - name: John Bogovic
+    github: bogovicj
+    affiliation: HHMI Janelia
+    role: Corresponding Author; Implemented
+    date: "2024-07-30"
+  - name: Davis Bennett
+    github: d-v-b
+    role: Implemented validation
+    date: "2024-07-30"
+  - name: Luca Marconato
+    github: LucaMarconato
+    affiliation: EMBL
+    role: Implemented
+    date: "2024-07-30"
+  - name: Matt McCormick
+    github: thewtex
+    affiliation: ITK
+    role: Implemented
+    date: "2024-07-30"
+  - name: Stephan Saalfeld
+    github: axtimwalde
+    affiliation: HHMI Janelia
+    role: Implemented (with JB)
+    date: "2024-07-30"
+  - name: Johannes Soltwedel
+    github: jo-mueller
+    affiliation: German BioImaging e.V.
+    role: Corresponding Author; Implemented
+    date: "2025-10-07"
+endorsers:
+  - name: Will Moore
+    github: will-moore
+    affiliation: University of Dundee
+    role: Implemented
+    date: "2025-10-23"
+  - name: David Stansby
+    github: dstansby
+    affiliation: University College London
+    role: Implemented
+    date: "2025-10-23"
+  - name: Norman Rzepka
+    github: normanrz
+    affiliation: Scalable Minds
+    date: "2024-08-22"
+manual_status: S3
+description: Coordinate systems and transformations
+date: 2024-07-30
+---
+
 # RFC-5: Coordinate Systems and Transformations
 (rfcs:rfc5:version3)=
 
@@ -14,24 +65,8 @@ Add named coordinate systems and expand and clarify coordinate transformations. 
 
 ## Status
 
-This RFC is currently in RFC state `S3` (Update implementations).
-
-| **Role** | Name | GitHub Handle | Institution | Date | Status |
-|----------|------|---------------|-------------|------|--------|
-| **Author** | John Bogovic | [bogovicj](https://github.com/bogovicj) | HHMI Janelia | 2024-07-30 | (Corresponding Author) Implemented |
-| **Author** | Davis Bennett | [d-v-b](https://github.com/d-v-b) | | 2024-07-30 | Implemented validation |
-| **Author** | Luca Marconato | [LucaMarconato](https://github.com/LucaMarconato) | EMBL | 2024-07-30 | Implemented |
-| **Author** | Matt McCormick | [thewtex](https://github.com/thewtex) | ITK | 2024-07-30 | Implemented |
-| **Author** | Stephan Saalfeld | [axtimwalde](https://github.com/axtimwalde) | HHMI Janelia | 2024-07-30 | Implemented (with JB) |
-| **Author** | Johannes Soltwedel | [jo-mueller](https://github.com/jo-mueller) | German Bioimaging e.V. | 2025-10-07 | (Corresponding Author) Implemented |
-| **Endorser** | Will Moore | [will-moore](https://github.com/will-moore) | University of Dundee | 2025-10-23 | Implemented |
-| **Endorser** | David Stansby | [dstansby](https://github.com/dstansby) | University College London | 2025-10-23 | Implemented |
-| **Endorser** | Norman Rzepka | [normanrz](https://github.com/normanrz) | Scalable Minds | 2024-08-22 | |
-| **Reviewer** | Dan Toloudis, David Feng, Forrest Collman, Nathalie Gaudreault, Gideon Dunster | [toloudis](https://github.com/toloudis), [dyf](https://github.com/dyf), [fcollman](https://github.com/fcollman) | Allen Institutes | 2024-11-28 | [Review](rfcs:rfc5:review1) |
-| **Reviewer** | Will Moore, Jean-Marie Burel, Jason Swedlow | [will-moore](https://github.com/will-moore), [jburel](https://github.com/jburel), [jrswedlow](https://github.com/jrswedlow) | University of Dundee | 2025-01-22 | [Review](rfcs:rfc5:review2)|
-| **Commenter** | Ilan Gold | [ilan-gold](https://github.com/ilan-gold) | | 2025-02-20 | [Comment](./comments/1/index) |
-| **Commenter** | Jeremy Maitin-Shephard | [jbms](https://github.com/jbms) | | 2025-02-20 | [Comment](./comments/2/index) |
-| **Commenter** | David Stansby | [dstansby](https://github.com/dstansby) | | 2025-10-10 | [Comment](./comments/3/index) |
+```{rfc-status}
+```
 
 ## Overview
 
@@ -49,7 +84,7 @@ for neuro and bio-imaging and broader scientific imaging practices to enable:
   transformations are applied consistently across different platforms and applications.
   This FAIR capability is a cornerstone of scientific research,
   and having standardized formats and tools facilitates verification of results by independent researchers.
-2. Integration with Analysis Workflows: 
+2. Integration with Analysis Workflows:
   Having spatial transformations as a first-class citizen within file formats
   allows for seamless integration with various image analysis workflows.
   Registration transformations can be used in subsequent image analysis steps
@@ -125,7 +160,7 @@ whereas microscopes scan the object of interest in a rasterized manner.
   Similarly, timelapse images or highly multiplexed data can be considered as a series of nd-tiled acquisition and thus allows on-the-fly OME-Zarr writing in such applications.
 - Multi-view acquisition: Some applications (large volumetric 3D microscopy) require the acquisition of multiple images of the same object from different angles to account for optical limitations of the microscope or the sample.
   Rotations, translations and affine transformations enable expression of these spatial relationships and low-cost fused view of large volumetric data using the existing OME-Zarr viewer ecosystem.
-  
+
 ### Acquisition artefacts
 
 In some cases, the acquired imaging data requires the provision of a particular transformation in order to be viewed correctly.
@@ -134,15 +169,15 @@ In some cases, the acquired imaging data requires the provision of a particular 
 - Oblique plane microscopy deskewing: This class of high-speed lightsheet microscopes acquires volumetric data, where the individual image planes are acquired under a skewed angle.
   Consequently, a deskewing step (e.g., transformation with an affine shear matrix) is necessary to view the data in its correct spatial arrangement.
 - Drift correction: During timelapse images, live samples may move in space.
-  This can be corrected with a drift correction, 
+  This can be corrected with a drift correction,
   which is represented by a per-timepoint linear transformation. Similarly, registration and alignment of timelapse images requires per-timepoint transformations.
 
 ### Annotation and analysis
 
-Image analysis tasks involving coordinates and transformations are often not explicit about 
+Image analysis tasks involving coordinates and transformations are often not explicit about
 what coordinate system they correspond to. Some examples
 
-* Is a coordinate that represents an annotation on an image in pixel or physical units? 
+* Is a coordinate that represents an annotation on an image in pixel or physical units?
 * Is a transformations inputs / outputs in pixel or physical units?;
 * Is a transformation obtained by image registration the "forward" or "inverse" transformation?
 
@@ -195,7 +230,7 @@ Coordinate Systems metadata example
 The axes of a coordinate system (see below) give information
 about the types, units, and other properties of the coordinate system's dimensions.
 Axis names may contain semantically meaningful information, but can be arbitrary.
-As a result, two coordinate systems that have identical axes in the same order 
+As a result, two coordinate systems that have identical axes in the same order
 may not be "the same" in the sense that measurements at the same point
 refer to different physical entities and therefore should not be analyzed jointly.
 Tasks that require images, annotations, regions of interest, etc.,
@@ -290,7 +325,7 @@ Then `dim_0` has length 4, `dim_1` has length 3, and `dim_2` has length 5.
 The axes and their order align with the shape of the corresponding Zarr array,
 and whose data depends on the byte order used to store chunks.
 As described in the [Zarr array metadata](https://Zarr.readthedocs.io/en/stable/spec/v3.html#arrays),
-the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded. 
+the last dimension of an array in "C" order are stored contiguously on disk or in-memory when directly loaded.
 
 The name and axes names MAY be customized by including a `arrayCoordinateSystem` field
 in the user-defined attributes of the array whose value is a coordinate system object.
@@ -349,7 +384,7 @@ The following transformations are supported:
 | [`byDimension`](#bydimension) | `"transformations":List[Transformation]`, <br> `"input_axes": List[str]`, <br> `"output_axes": List[str]` | A high dimensional transformation using lower dimensional transformations on subsets of dimensions. |
 
 Implementations SHOULD prefer to store transformations as a sequence of less expressive transformations where possible
-(e.g., sequence[translation, rotation], instead of affine transformation with translation/rotation). 
+(e.g., sequence[translation, rotation], instead of affine transformation with translation/rotation).
 
 ````{admonition} Example
 (example:coordinate_transformation_scale)=
@@ -360,7 +395,7 @@ Implementations SHOULD prefer to store transformations as a sequence of less exp
     { "name": "in", "axes": [{"name": "j"}, {"name": "i"}] },
     { "name": "out", "axes": [{"name": "y"}, {"name": "x"}] }
   ],
-  "coordinateTransformations": [ 
+  "coordinateTransformations": [
     {
       "type": "scale",
       "scale": [2, 3.12],
@@ -390,7 +425,7 @@ Conforming readers:
 - SHOULD be able to apply transformations to images;
 
 Coordinate transformations can be stored in multiple places to reflect different use cases.
-     
+
 - **Inside `multiscales > datasets`**: `coordinateTransformations` herein MUST be restricted
   to a single `scale`, `identity` or `sequence` of a scale followed by a translation transformation.
   For more information, see [multiscales section below](#multiscales-metadata).
@@ -398,7 +433,7 @@ Coordinate transformations can be stored in multiple places to reflect different
   The `coordinateTransformations` field MUST contain an array of valid [transformations](#transformation-types).
   The input to every one of these transformations MUST be the intrinsic coordinate system.
   The output can be another coordinate system defined under `multiscales > coordinateSystems`.
-  
+
 - **Inside `scene > coordinateTransformations`**: Transformations between two or more images
   MUST be stored in the attributes of a [`scene` dictionary](rfcs:rfc5:version3:scene) in a [scene Zarr group](rfcs:rfc5:version3:storage-format-scene).
   In this case, the `input` and `output` values are dictionaries
@@ -429,9 +464,9 @@ where a coordinate is the location/value of that point along its corresponding a
 The indexes of axis dimensions correspond to indexes into transformation parameter arrays (see examples).
 
 **Image rendering**: When rendering transformed images and interpolating,
-implementations may need the "inverse" transformation - from the fixed 
-image's to the source image's coordinate system. This transformation may 
-not explicitly exist, but might be the require computing the inverse 
+implementations may need the "inverse" transformation - from the fixed
+image's to the source image's coordinate system. This transformation may
+not explicitly exist, but might be the require computing the inverse
 (in closed form) of an explicitly specified forward transformation.
 
 Inverse transformations used for image rendering may be specified
@@ -444,8 +479,8 @@ that the requested operation is unsupported.
 
 ````{admonition} Example
 
-Implementations SHOULD be able to compute and apply the inverse of some coordinate 
-transformations when they are computable in closed-form (as the 
+Implementations SHOULD be able to compute and apply the inverse of some coordinate
+transformations when they are computable in closed-form (as the
 [Transformation types](#transformation-types) section below indicates).
 Implementations should be able to render the moving image into the fixed
 image by computing the inverse of this transformation.
@@ -458,10 +493,10 @@ image by computing the inverse of this transformation.
 }
 ```
 
-Software libraries that perform image registration often return the transformation 
-from fixed image coordinates to moving image coordinates, because this "inverse" 
+Software libraries that perform image registration often return the transformation
+from fixed image coordinates to moving image coordinates, because this "inverse"
 transformation is most often required when rendering the transformed moving image.
-Implementations should be able to render the moving image into the fixed image by 
+Implementations should be able to render the moving image into the fixed image by
 applying this transformation directly.
 
 ```json
@@ -472,7 +507,7 @@ applying this transformation directly.
 }
 ```
 
-Implementations are not expected to be able to to render the moving image 
+Implementations are not expected to be able to to render the moving image
 into the fixed image given this transformation. They may attempt
 to do so by estimating the transformations' inverse if they choose to.
 
@@ -498,7 +533,7 @@ When stored as a 2D json array, the inner array contains rows (e.g. `[[1,2,3], [
 #### Transformation types
 (transformation-types)=
 
-Input and output dimensionality may be determined by the coordinate system referred to by the `input` and `output` fields, respectively. 
+Input and output dimensionality may be determined by the coordinate system referred to by the `input` and `output` fields, respectively.
 If the value of `input` is a path to an array, its shape gives the input dimension,
 otherwise it is given by the length of `axes` for the coordinate system with the name of the `input`.
 If the value of `output` is an array, its shape gives the output dimension,
@@ -635,7 +670,7 @@ of the `i`th output axis. See the example below.
 
 `coordinates` and `displacements` transformations are not invertible in general,
 but implementations MAY approximate their inverses.
-Metadata for these coordinate transforms have the following fields: 
+Metadata for these coordinate transforms have the following fields:
 
 **path**
 :  The location of the coordinate array in this (or another) container.
@@ -919,7 +954,7 @@ that maps Zarr array coordinates for this resolution level to the "intrinsic" co
 The transformation is defined according to [transformations metadata](#transformation-types).
 The transformation MUST take as input points in the array coordinate system
 corresponding to the Zarr array at location `path`.
-The value of "input" MUST equal the value of `path`, 
+The value of "input" MUST equal the value of `path`,
 implementations should always treat the value of `input` as if it were equal to the value of `path`.
 The value of the transformation’s `output` coordinate system MUST be the same for every dataset in a single multiscales.
 This coordinate system (the "intrinsic" coordinate system) will generally be a representation of the image in its native physical coordinate system.
@@ -1109,7 +1144,7 @@ used by the libraries generally applies for 2D and 3D spatial transformations, b
 transformations of arbitrary dimension and axis type, where there is not a strong convention we are aware of.
 
 An early consideration was to use axis names to indicate correspondence across different coordinate systems (i.e. if two
-coordinate systems both have the "x" axis, then it is "the same" axis. We abandoned this for several reasons.  It was 
+coordinate systems both have the "x" axis, then it is "the same" axis. We abandoned this for several reasons.  It was
 restrictive - it is useful to have many coordinate systems with an "x" axis without requiring that they be "identical." Under our
 early idea, every set of spatial axes would need unique names ("x1", "x2", ...), and this seemed burdensome. As well, this
 approach would have also made transformations less explicit and likely would have required more complicated implementations.
@@ -1123,7 +1158,7 @@ Additional transformation types should be added in the future. Top candidates in
 * thin-plate spline
 * b-spline
 * velocity fields
-* by-coordinate 
+* by-coordinate
 * new-dimension
 
 ## Performance

@@ -1,8 +1,20 @@
+---
+authors:
+  - name: Jeremy Maitin-Shepard
+    affiliation: Google
+    github: jbms
+date: 2024-04-30
+recommendation:
+---
+
 # Review 3
 
 ## Review authors
 
-This review was submitted by Jeremy Maitin-Shepard (Google) via email.
+```{document-authors}
+```
+
+This review was submitted via email.
 
 ## Initial feedback
 

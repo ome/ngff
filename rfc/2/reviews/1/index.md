@@ -1,13 +1,28 @@
+---
+authors:
+  - name: Sébastien Besson
+    affiliation: Glencoe Software
+    github: sbesson
+  - name: Chris Allan
+    affiliation: Glencoe Software
+  - name: Marc Bruce
+    affiliation: Glencoe Software
+  - name: Jason Swedlow
+    affiliation: Glencoe Software
+    github: jrswedlow
+  - name: Melissa Linkert
+    affiliation: Glencoe Software
+    github: melissalinkert
+date: 2024-05-23
+recommendation: major_changes
+---
+
 # Review 1
 
 ## Review authors
-This review was written by the following Glencoe Software team members:
 
-- Sébastien Besson
-- Chris Allan
-- Marc Bruce
-- Jason Swedlow
-- Melissa Linkert
+```{document-authors}
+```
 
 ## Summary
 

@@ -1,10 +1,20 @@
+---
+authors:
+  - name: Joost de Folter
+    affiliation: BioImaging-NL
+    github: folterj
+date: 2025-12-03
+---
+
 # RFC-9: Comment 2
 
 (rfcs:rfc9:comment2)=
 
 ## Comment authors
 
-This comment was written by: Joost de Folter, BioImaging-NL
+```{document-authors}
+
+```
 
 ## Conflicts of interest (optional)
 

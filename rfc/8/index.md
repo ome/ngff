@@ -1,3 +1,45 @@
+---
+authors:
+  - name: Norman Rzepka
+    github: normanrz
+    affiliation: scalable minds
+    role: Co-author
+    date: "2024-11-20"
+  - name: Eric Perlman
+    github: perlman
+    affiliation: Yikes LLC
+    role: Co-author
+    date: "2024-11-20"
+  - name: Joel Lüthi
+    github: jluethi
+    affiliation: BioVisionCenter Zurich
+    role: Co-author
+    date: "2024-11-20"
+  - name: Lorenzo Cerrone
+    github: lorenzocerrone
+    affiliation: BioVisionCenter Zurich
+    role: Co-author
+    date: "2024-11-20"
+  - name: Christian Tischer
+    github: tischi
+    affiliation: EMBL
+    role: Co-author
+    date: "2025-02-01"
+  - name: Matthew Hartley
+    github: matthewh-ebi
+    affiliation: EMBL-EBI
+    role: Co-author
+    date: "2025-05-05"
+  - name: Johannes Soltwedel
+    github: jo-mueller
+    affiliation: German BioImaging e.V.
+    role: Co-author
+    date: "2025-10-28"
+manual_status: R1
+description: Collections
+date: 2024-11-20
+---
+
 # RFC-8: Collections and Extensibility
 
 ```{toctree}
@@ -11,26 +53,8 @@ Extending OME-Zarr with new metadata types, references, and collections
 
 ## Status
 
-This proposal is early. Status: D1
-
-| Name      | GitHub Handle | Institution | Date       | Status                                |
-| --------- | ------------- | ----------- | ---------- | ------------------------------------- |
-| Norman Rzepka | [normanrz](https://github.com/normanrz) | scalable minds | 2024-11-20 | Author |
-| Eric Perlman | [perlman](https://github.com/perlman) | Yikes LLC | 2024-11-20 | Author |
-| Joel Lüthi | [jluethi](https://github.com/jluethi) | BioVisionCenter Zurich | 2024-11-20 | Author |
-| Lorenzo Cerrone | [lorenzocerrone](https://github.com/lorenzocerrone) | BioVisionCenter Zurich | 2024-11-20 | Author |
-| Johannes Soltwedel | [jo-mueller](https://github.com/jo-mueller) | German BioImaging e.V. | 2025-10-28 | Author |
-| Christian Tischer | [tischi](https://github.com/tischi) | EMBL | 2025-02-01 | Author |
-| Matthew Hartley | [matthewh-ebi](https://github.com/matthewh-ebi) |  EMBL-EBI | 2025-05-05 | Author |
-
-<!-- 
-| Author    | N/A           | N/A         | xxxx-xx-xx | Author; Implemented (link to release) |
-| Commenter | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
-| Commenter | N/A           | N/A         | xxxx-xx-xx | Not yet (link to comment)             |
-| Endorser  | N/A           | N/A         | xxxx-xx-xx | Endorse (no link needed)              |
-| Endorser  | N/A           | N/A         | xxxx-xx-xx | Implementing (link to branch/PR)      |
-| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
-| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Requested by editor                   |-->
+```{rfc-status}
+```
 
 ## Overview
 
@@ -226,7 +250,7 @@ The `path` string can be one of the following types:
   Examples:
   - `file:///home/user/data/image.ome.zarr`
   - `file://C:/Users/user/data/image.ome.zarr`
-- **HTTP(S) URLs.** 
+- **HTTP(S) URLs.**
   To reference nodes that are stored remotely, URLs with the `http` or `https` scheme may be used.
   URLs follow the notation defined in [IETF RFC1738](https://datatracker.ietf.org/doc/html/rfc1738).
   Examples:
@@ -410,7 +434,7 @@ Either `"nodes"` or `"path"` MUST be present, but not both.
           "name": "gallery1",
           "path": {
             "type": "json",
-            "path": "../gallery.json" 
+            "path": "../gallery.json"
           }
       }, ...]
   }
@@ -584,7 +608,7 @@ In a change from the previous specification, coordinate systems are referenced u
           "type": "zarr",
           "path": "./tile_0.zarr"
         }
-      }, 
+      },
       {
         "type": "multiscale",
         "id": "tile_1",
@@ -599,7 +623,7 @@ In a change from the previous specification, coordinate systems are referenced u
 }
 ```
 
-The `type` field of a coordinate transformation defines its mathematical operation. RFC-5 defines several unprefixed transformation types including `identity`, `scale`, `translation`, and others. 
+The `type` field of a coordinate transformation defines its mathematical operation. RFC-5 defines several unprefixed transformation types including `identity`, `scale`, `translation`, and others.
 
 The `type` field of a `CoordinateTransformation` is an extension point. For detail on how to extend the `type` field with new values, see [Extensions](#extensions).
 
@@ -670,7 +694,7 @@ under Damien's proposal
 #### Label maps and other derived images
 
 Previous versions of the OME-Zarr specification defined a mechanism for associating label images with a single multiscale image.
-This was achieved by using a `labels` Zarr group that had to be a direct child of the multiscale Zarr group with some specific metadata. 
+This was achieved by using a `labels` Zarr group that had to be a direct child of the multiscale Zarr group with some specific metadata.
 This proposal replaces this mechanism.
 
 To denote a multiscale image as a label map, the `labels` attribute MUST be present.
@@ -693,7 +717,7 @@ The `labelAttributes` field is an array of objects with the following fields:
 | Field | Type | Required? | Notes |
 | - | - | - | - |
 | `"labelValue"` | number | yes | Value MUST be the label value. |
-| `"color"` | array of number | no | Value MUST be a color in array format. | 
+| `"color"` | array of number | no | Value MUST be a color in array format. |
 
 If present, the `color` field MUST have an array with four integers between 0 and 255, inclusive. These integers represent the uint8 values of red, green, blue and alpha.
 
@@ -789,7 +813,7 @@ A `collection` node representing a well MUST have a `well` attribute with the fo
 The `acquisition` attribute MUST be a [`Reference`](#reference-interface) to one of the acquisitions.
 It MAY be set on individual `multiscale` nodes within a well or on a `collection` sub-node grouping all images from a single acquisition.
 
-We suggest two possible layouts for HCS data, which are not mutually exclusive and can be used in combination: a "wide" layout where all images are direct children of the well collection and a "tall" layout where images are grouped in sub-collections by acquisition. 
+We suggest two possible layouts for HCS data, which are not mutually exclusive and can be used in combination: a "wide" layout where all images are direct children of the well collection and a "tall" layout where images are grouped in sub-collections by acquisition.
 
 ##### Wide example (acquisitions flat in the well)
 
@@ -885,7 +909,7 @@ Derived images such as label maps are siblings of their source image and can sti
 
 In this layout, each acquisition is wrapped in a sub-collection inside the well.
 The `acquisition` attribute is set on the sub-collection rather than on individual nodes.
-This serves as an example that wells can consist of collections, not just multiscales. 
+This serves as an example that wells can consist of collections, not just multiscales.
 
 ```jsonc
 {
@@ -1008,7 +1032,7 @@ A series of images can now be represented as a collection of multiscale images.
 
 ## Extensions
 
-This section describes how existing classes and class attributes can be extended 
+This section describes how existing classes and class attributes can be extended
 in a controlled manner, enabling custom functionality while maintaining interoperability.
 
 Extensions to the specification can be made at defined extension points, and
@@ -1094,14 +1118,14 @@ Let's assume the example of a pixel classification task. This task would take an
 ```
 ├─ input_image.zarr
 │  ├─ zarr.json # OME-Zarr multiscale
-│  ├─ 0 
-│  └─ ... 
+│  ├─ 0
+│  └─ ...
 └─ output_collection.zarr
    │  # includes collection metadata and link to "../input_image.zarr"
-   ├─ zarr.json 
+   ├─ zarr.json
    └─ prediction.zarr
       ├─ zarr.json # OME-Zarr multiscale
-      ├─ 0 
+      ├─ 0
       └─ ...
 ```
 
@@ -1123,7 +1147,7 @@ Examples of such applications are (among others) the following:
   lightsheet microscopes acquire multiple views of the same object from different angles.
   A set of coordinate transformations is used to map between the different views.
 - Multimodal medical imaging: Different imaging modalities (e.g., CT, MRI, PET, etc),
-  are often used either in conjunction or at different timepoints to observe the same object or anatomical structure. 
+  are often used either in conjunction or at different timepoints to observe the same object or anatomical structure.
 
 Such applications require the storage of collections of images and their mutual relationships,
 the metadata for which has already been defined by RFC-5 (Coordinate Transformations in OME-NGFF).
@@ -1197,7 +1221,7 @@ Implementations of this concept include:
 - [MoBIE grid views](https://mobie.github.io/tutorials/image_grids_and_tables.html)
 - [OME2024 NGFF challenge](https://ome.github.io/ome2024-ngff-challenge/)
 
-For example, [this table](https://docs.google.com/spreadsheets/d/1t5xB0p0zd2-a6ynV-JAuLJqs-mg-pFFikhfmQGZwRpI/edit?usp=sharing) defines a MoBIE grid view of three OpenOrganelle vEM images along with label images of mitochondria segmentation. It can be opened in MoBIE via the "Open Simple Collection Table" menu entry: 
+For example, [this table](https://docs.google.com/spreadsheets/d/1t5xB0p0zd2-a6ynV-JAuLJqs-mg-pFFikhfmQGZwRpI/edit?usp=sharing) defines a MoBIE grid view of three OpenOrganelle vEM images along with label images of mitochondria segmentation. It can be opened in MoBIE via the "Open Simple Collection Table" menu entry:
 
 ![MoBIE grid view](./assets/mobie_grid_view.jpg)
 
@@ -1426,7 +1450,7 @@ And the `zarr.json` at the location of the resolution level (`./s0/zarr.json`) c
               "type": "zarr",
               "path": "./raw", // a relative or absolute path
             },
-            "attributes": {    
+            "attributes": {
                 "example-viewer:settings": {
                     "isDisabled": true
                 },
@@ -1440,7 +1464,7 @@ And the `zarr.json` at the location of the resolution level (`./s0/zarr.json`) c
                 "type": "json",
                 "path": "./nested_collection.json"
               }
-          }, ... 
+          }, ...
         ],
         "attributes": {
             ...
@@ -1501,7 +1525,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 <!--
 For the problem(s) solved by this RFC, what constrains the possible solutions?
-List other RFCs, or standards (ISO, etc.) which are applicable. 
+List other RFCs, or standards (ISO, etc.) which are applicable.
 -->
 
 
@@ -1557,7 +1581,7 @@ It is also expected that programming libraries will support this new metadata fo
 Many RFCs have an "implementation" section which details how the implementation
 will work. This section should explain the rough specification changes. The
 goal is to give an idea to reviewers about the subsystems that require change
-and the surface area of those changes. 
+and the surface area of those changes.
 
 This knowledge can result in recommendations for alternate approaches that
 perhaps are idiomatic to the project or result in less packages touched. Or, it
@@ -1582,7 +1606,7 @@ For example, a collection can contain inlined metadata for multiscale images and
 This redundant metadata can go out of sync.
 It is the responsibility of implementations to ensure consistency where required.
 
-For reading, implementations SHOULD parse the metadata as available to the implementation from the user-supplied entry point in the OME-Zarr hierarchy. 
+For reading, implementations SHOULD parse the metadata as available to the implementation from the user-supplied entry point in the OME-Zarr hierarchy.
 
 
 ### New Multiscale/Singlescale metadata
@@ -1770,9 +1794,9 @@ Shortened version from https://fafb-ffn1.storage.googleapis.com/landing.html
 
 The MoBIE collection table allows users to specify a collection of images and segmentations (label mask images) and configure their rendering.
 
-Each row in the table corresponds to one (single-channel) image or segmentation. 
+Each row in the table corresponds to one (single-channel) image or segmentation.
 
-To open multi-channel images the image URI must be added several times and a `channel` column must be added to specify which channel to load. 
+To open multi-channel images the image URI must be added several times and a `channel` column must be added to specify which channel to load.
 
 One can specify an affine transformation for each image.
 
@@ -2135,7 +2159,7 @@ It is strongly recommended to provide as many examples as possible of what both 
 ## Additional considerations
 
 <!--
-Most RFCs will not need to consider all the following issues. They are included here as a checklist 
+Most RFCs will not need to consider all the following issues. They are included here as a checklist
 -->
 
 ### Security

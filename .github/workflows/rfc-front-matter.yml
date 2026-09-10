@@ -1,0 +1,33 @@
+name: "Validate RFC front matter"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "rfc/**"
+      - ".github/workflows/rfc-front-matter.yml"
+
+concurrency:
+  group: rfc-front-matter-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install linkml pyyaml
+
+      - name: Validate against rfc/schema/front_matter.yaml
+        run: python rfc/schema/validate.py

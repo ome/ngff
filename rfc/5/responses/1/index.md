@@ -1,4 +1,18 @@
+---
+authors:
+  - name: John Bogovic
+    affiliation: HHMI Janelia
+    github: bogovicj
+  - name: Johannes Soltwedel
+    affiliation: German BioImaging e.V.
+    github: jo-mueller
+date: 2025-10-07
+---
+
 # RFC-5: Response 1 (2025-10-07 version)
+
+```{document-authors}
+```
 
 The authors extend their most sincere thanks and appreciation to all the reviewers of this RFC.
 

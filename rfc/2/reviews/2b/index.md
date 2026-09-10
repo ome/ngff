@@ -1,8 +1,18 @@
+---
+authors:
+  - name: Yaroslav O. Halchenko
+    affiliation: Dartmouth College, DANDI Project
+    github: yarikoptic
+date: 2024-09-11
+recommendation: accept
+---
+
 # Review 2 (update)
 
 ## Review authors
-This review was written by:
-- Yaroslav O. Halchenko (Dartmouth College, DANDI Project)
+
+```{document-authors}
+```
 
 ## Summary
 

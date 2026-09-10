@@ -1,9 +1,46 @@
+---
+authors:
+  - name: Author 1
+    affiliation: Affiliation X
+    orcid: 0000-0000-0000-0000
+    github: author1
+  - name: Author 2
+    affiliation: Affiliation Y
+    orcid: 0000-0000-0000-0000
+    github: author2
+date: YYYY-MM-DD
+recommendation: accept
+---
+
+# RFC-X: Review X
+
+or
+
+# RFC-X: Comment X
+
+(rfcs:rfcX:reviewX)=
+
+(rfcs:rfcX:commentX)=
+
 (rfc1-review-template)=
-# Review Template
 
-Replace the title above of this file with “RFC-NUM: Review NUM”
+Replace the title above of this file with “RFC-NUM: Review NUM”. Update the tag to `(rfcs:rfcNUM:reviewNUM)` and remove the `(rfc1-review-template)` tag. Add your names and affiliations to the **authors** section above (and optionally ORCID and GitHub username) as well as the date of submission and your recommendation (`accept`, `major_changes`, `minor_changes`, `reject`).
 
-## Review authors
+For a Comment, the `recommendation` field may be left blank. Please also change the mentions of "review" to "comment" where appropriate, including the MyST target anchor, and the title of the file.
+
+The document-authors directive will automatically pull the information from the YAML front matter and display it in a table.
+
+The fields are described by the LinkML schema in
+[`rfc/schema/front_matter.yaml`](https://github.com/ome/ngff/blob/main/rfc/schema/front_matter.yaml),
+which is what CI checks every review, comment and response against. To check yours
+yourself, run `pip install linkml` and then `python rfc/schema/validate.py` from the
+root of the repository.
+
+## Authors
+
+```{document-authors}
+
+```
 
 ## Conflicts of interest (optional)
 
@@ -15,7 +52,7 @@ This section should be included if authors feel that there is any background inf
 
 ### Subheadings
 
-Structure any subheadings as necessary. 
+Structure any subheadings as necessary.
 
 ## Minor comments and questions
 
@@ -26,4 +63,3 @@ Similarly, add any subheadings necessary
 Adopt, major changes, minor changes, reject (as last resort)
 
 See [the list of recommendations under “RFC” in RFC-1](../index.md#rfc-recommendations).
-

@@ -1,5 +1,80 @@
-@: template
-# RFC Template
+---
+authors:
+  - name: Author 1
+    github: author1
+    orcid: 0000-0000-0000-0000
+    affiliation: Affiliation X
+    affiliation_url: https://ror.org/XXXXXXXXX
+    role: Corresponding Author
+    date: "YYYY-MM-DD"
+  - name: Author 2
+    github: author2
+    orcid: 0000-0000-0000-0000
+    affiliation: Affiliation Y
+    role: Co-author
+    date: "YYYY-MM-DD"
+  - name: Author 3
+    orcid: 0000-0000-0000-0000
+    github: author3
+    affiliation: Affiliation Z
+    role: Co-author
+    date: "YYYY-MM-DD"
+endorsers:
+  - name: Endorser 1
+    github: endorser1
+    orcid: 0000-0000-0000-0000
+    affiliation: Affiliation A
+    role: Endorser
+    date: "YYYY-MM-DD"
+    reference: https://example.com
+editors:
+  - name: Josh Moore
+    github: joshmoore
+    orcid: 0000-0000-0000-0000
+    affiliation: German BioImaging e.V.
+    role: Editor
+    date: "YYYY-MM-DD"
+reference_pr: https://github.com/ome/ngff/pull/XXX
+manual_status: D3
+status_note: authors open PR
+description: A few words naming what the RFC changes, for the RFC listing
+date: YYYY-MM-DD
+---
+
+(rfc-template)=
+
+# How to use it
+
+Add the authors and editors to the YAML front matter above. ORCID and GitHub IDs are optional but recommended, as is an `affiliation_url` (e.g. a ROR or homepage) which turns the institution into a link. Add also a date per author and editor, **quoted**, as new authors and editors may be added through the process.
+
+After opening a PR for the RFC, add the reference PR to the `reference_pr` field in the YAML front matter above.
+
+The `manual_status` field holds the [status code](/resources/rfc-status-codes/index) the RFC is currently in, and is updated by hand as the RFC moves through the process; `status_note` is an optional fragment explaining it, e.g. `superseded by RFC-8`. Together with `description` and `date` they also fill in this RFC's row of the [RFC listing](/rfc/index). Add `ome_zarr_version` once an RFC lands in a released version of the specification.
+
+The full list of fields is described by the LinkML schema in
+[`rfc/schema/front_matter.yaml`](https://github.com/ome/ngff/blob/main/rfc/schema/front_matter.yaml),
+which is what CI checks every RFC against. To check a draft yourself, run
+`pip install linkml` and then `python rfc/schema/validate.py` from the root of the repository.
+
+There MUST be at least one "Corresponding Author", and at least one "Editor".
+
+There MAY be multiple "Co-author" and "Co-editor".
+
+There MAY be multiple explicit "endorsers", but that is not required. An external link may be provided in the `reference` field for each endorser.
+
+Add also a reference date before merging the RFC, to indicate when the RFC was moved from DRAFT to RFC status. Ideally it should be the date of the reference PR merge, but it can be an approximation.
+
+A MyST target anchor should be added to the rfc, in the form
+
+`(rfcs:rfcX:versionY)=`, to indicate a particular version
+
+or
+
+`(rfcs:rfcX)=`, to indicate the main document
+
+# RFC X: The RFC Title
+
+(rfcs:rfcX)=
 
 Summary: Sentence fragment summary
 
@@ -7,16 +82,11 @@ Summary: Sentence fragment summary
 
 Brief description of status, including the state identifier, e.g. `R4`
 
-| Name      | GitHub Handle | Institution | Date       | Status                                |
-| --------- | ------------- | ----------- | ---------- | ------------------------------------- |
-| Author    | N/A           | N/A         | xxxx-xx-xx | Author                                |
-| Author    | N/A           | N/A         | xxxx-xx-xx | Author; Implemented (link to release) |
-| Commenter | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
-| Commenter | N/A           | N/A         | xxxx-xx-xx | Not yet (link to comment)             |
-| Endorser  | N/A           | N/A         | xxxx-xx-xx | Endorse (no link needed)              |
-| Endorser  | N/A           | N/A         | xxxx-xx-xx | Implementing (link to branch/PR)      |
-| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
-| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Requested by editor                   |
+Then, this magic that will pull information from the YAML front matters and display it in a table:
+
+```{rfc-status}
+
+```
 
 ## Overview
 
@@ -32,7 +102,7 @@ The next section is the "Background" section. This section should be at least
 two paragraphs and can take up to a whole page in some cases. The \*\*guiding goal
 of the background section\*\* is: as a newcomer to this project (new employee, team
 transfer), can I read the background section and follow any links to get the
-full context of why this change is necessary? 
+full context of why this change is necessary?
 
 If you can't show a random engineer the background section and have them
 acquire nearly full context on the necessity for the RFC, then the background
@@ -72,18 +142,18 @@ interpreted as described in [IETF RFC 2119](https://tools.ietf.org/html/rfc2119)
 
 Who has a stake in whether this RFC is accepted?
 
-* Facilitator: The person appointed to shepherd this RFC through the RFC
+- Facilitator: The person appointed to shepherd this RFC through the RFC
   process.
-* Reviewers: List people whose vote (+1 or -1) will be taken into consideration
+- Reviewers: List people whose vote (+1 or -1) will be taken into consideration
   by the editor when deciding whether this RFC is accepted or rejected. Where
   applicable, also list the area they are expected to focus on. In some cases
   this section may be initially left blank and stakeholder discovery completed
   after an initial round of socialization. Care should be taken to keep the
   number of reviewers manageable, although the exact number will depend on the
   scope of the RFC in question.
-* Consulted: List people who should review the RFC, but whose approval is not
+- Consulted: List people who should review the RFC, but whose approval is not
   required.
-* Socialization: This section may be used to describe how the design was
+- Socialization: This section may be used to describe how the design was
   socialized before advancing to the "Iterate" stage of the RFC process. For
   example: "This RFC was discussed at a working group meetings from 20xx-20yy"
 
@@ -92,7 +162,7 @@ Who has a stake in whether this RFC is accepted?
 Many RFCs have an "implementation" section which details how the implementation
 will work. This section should explain the rough specification changes. The
 goal is to give an idea to reviewers about the subsystems that require change
-and the surface area of those changes. 
+and the surface area of those changes.
 
 This knowledge can result in recommendations for alternate approaches that
 perhaps are idiomatic to the project or result in less packages touched. Or, it
@@ -105,19 +175,19 @@ issues or unknown unknowns prior to writing any real code.
 
 ## Drawbacks, risks, alternatives, and unknowns (Recommended Header)
 
-* What are the costs of implementing this proposal?
-* What known risks exist? What factors may complicate your project? Include:
+- What are the costs of implementing this proposal?
+- What known risks exist? What factors may complicate your project? Include:
   security, complexity, compatibility, latency, service immaturity, lack of
   team expertise, etc.
-* What other strategies might solve the same problem?
-* What questions still need to be resolved, or details iterated upon, to accept
+- What other strategies might solve the same problem?
+- What questions still need to be resolved, or details iterated upon, to accept
   this proposal? Your answer to this is likely to evolve as the proposal
   evolves.
-* What parts of the design do you expect to resolve through the RFC process
+- What parts of the design do you expect to resolve through the RFC process
   before this gets merged?
-* What parts of the design do you expect to resolve through the implementation
+- What parts of the design do you expect to resolve through the implementation
   of this feature before stabilization?
-* What related issues do you consider out of scope for this RFC that could be
+- What related issues do you consider out of scope for this RFC that could be
   addressed in the future independently of the solution that comes out of this
   RFC?
 
@@ -212,11 +282,13 @@ example, creating a conformance test suite for this purpose.
 It is strongly recommended to provide as many examples as possible of what both users and developers can expect if the RFC were to be accepted. Sample data should be shared publicly. If longer-term is not available, contact the **Editors** for assistance.
 
 (additional-considerations)=
+
 ## Additional considerations (Optional Header)
 
-Most RFCs will not need to consider all the following issues. They are included here as a checklist 
+Most RFCs will not need to consider all the following issues. They are included here as a checklist
 
 ### Security
+
 What impact will this proposal have on security? Does the proposal require a
 security review?
 
@@ -274,9 +346,9 @@ a RFC goes beyond "Heading 4," and rare itself that "Heading 4" is reached.
 When making lists, it is common to bold the first phrase/sentence/word to bring
 some category or point to attention. For example, a list of API considerations:
 
-* *Format* should be widgets
-* *Protocol* should be widgets-rpc
-* *Backwards* compatibility should be considered.
+- _Format_ should be widgets
+- _Protocol_ should be widgets-rpc
+- _Backwards_ compatibility should be considered.
 
 ### Spelling
 
@@ -294,9 +366,8 @@ CLI output samples are similar to code samples but should be highlighted with
 the color they'll output if it is known so that the RFC could also cover
 formatting as part of the user experience.
 
-	    func example() {
-	      <-make(chan struct{})
-	    }
-
+        func example() {
+          <-make(chan struct{})
+        }
 
 Note: This template is based on the [RFC template from Hashicorp](https://works.hashicorp.com/articles/rfc-template) used with permission.

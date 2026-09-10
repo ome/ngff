@@ -1,10 +1,20 @@
+---
+authors:
+  - name: Chris Barnes
+    github: clbarnes
+  - name: Davis Bennett
+    github: d-v-b
+date: 2025-11-05
+---
+
 # RFC-6: Comment 1
 
 (rfcs:rfc6:comment1)=
 
 ## Comment authors
 
-This comment was written by: Chris Barnes, Davis Bennett.
+```{document-authors}
+```
 
 ## Summary
 
