@@ -375,7 +375,11 @@ document, taking as base the current development version:
 > Every Zarr array referred to by a path MUST have the same number of
 > dimensions and datatype.~~, and MUST NOT have more than 5 dimensions.~~
 
-No further changes to the specification document are proposed by this RFC.
+Examples in the schema text will also be updated to match the above descriptive
+changes, including any notes that prescribe a specific axis ordering.
+
+Further, axis and transformation schemas will be updated to remove the
+restrictions on number, type, and order.
 
 ## Stakeholders
 
