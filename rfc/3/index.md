@@ -335,24 +335,27 @@ document, taking as base the current development version:
 
 2. The following lines are *added* to "multiscales metadata":
 
-> 0. The length of the axis names MUST match the number of axes of the array.
-> 1. *If* a dataset contains exactly 2 spatial dimensions, those dimensions
->    SHOULD be named `y` and `x`, except where rule 4 applies.
-> 2. *If* a dataset contains exactly 3 spatial dimensions, those dimensions
->    SHOULD be named 'z', 'y', and 'x', except where rule 4 applies.
-> 3. *If* a dataset contains exactly 1 time dimension, it should be named `t`.
-> 4. When image data axes map straightforwardly to axes with common names in
+> 1. The length of the axis names MUST match the number of axes of the array.
+> 2. *If* a dataset contains exactly 2 spatial dimensions, those dimensions
+>    SHOULD be named 'y' and 'x', and have type "space", except where rule 5
+>    applies.
+> 3. *If* a dataset contains exactly 3 spatial dimensions, those dimensions
+>    SHOULD be named 'z', 'y', and 'x', and have type "space", except where
+>    rule 5 applies.
+> 4. *If* a dataset contains exactly 1 time dimension, it should be named 't'
+>    and have type "time", except where rule 5 applies.
+> 5. When image data axes map straightforwardly to axes with common names in
 >    the relevant field of practice, those axes SHOULD be named according to
 >    such conventions. For example, spatial frequency axes resulting from a
->    Fourier transformation of `z', 'y', and 'x' SHOULD be named 'w', 'v', and
+>    Fourier transformation of 'z', 'y', and 'x' SHOULD be named 'w', 'v', and
 >    `u`, respectively. Similarly, a temporal frequency axis resulting from
->    a Fourier transformation of the `t` axis SHOULD be named `w` or `ω`.
-> 5. Axis names MUST NOT be repeated within a dataset, and SHOULD NOT be
+>    a Fourier transformation of the 't' axis SHOULD be named 'w' or 'ω'.
+> 6. Axis names MUST NOT be repeated within a dataset, and SHOULD NOT be
 >    different only by upper/lower-case. For example, the same dataset SHOULD
->    NOT have both an `X` and an `x` axis.
-> 6. The order of the axes MUST match their ordering within the data if
->    applicable. For example, if the axes are ordered as `DZYX`, where `D` is a
->    field of displacement vectors, then the vectors must be ordered as `ZYX`
+>    NOT have both an 'X' and an 'x' axis.
+> 7. The order of the axes MUST match their ordering within the data if
+>    applicable. For example, if the axes are ordered as 'DZYX', where 'D' is a
+>    field of displacement vectors, then the vectors must be ordered as 'ZYX'
 >    within the array.
 
 3. The following lines are amended as noted:
