@@ -1,4 +1,6 @@
 components:
+  .github/:
+    - lubianat
   boilerplate/:
     - lubianat
   community/:
