@@ -342,7 +342,7 @@ document, taking as base the current development version:
 > 3. *If* a dataset contains exactly 3 spatial dimensions, those dimensions
 >    SHOULD be named 'z', 'y', and 'x', and have type "space", except where
 >    rule 5 applies.
-> 4. *If* a dataset contains exactly 1 time dimension, it should be named 't'
+> 4. *If* a dataset contains exactly 1 time dimension, it SHOULD be named 't'
 >    and have type "time", except where rule 5 applies.
 > 5. When image data axes map straightforwardly to axes with common names in
 >    the relevant field of practice, those axes SHOULD be named according to
