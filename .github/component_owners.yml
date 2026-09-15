@@ -1,0 +1,30 @@
+components:
+  boilerplate/:
+    - lubianat
+  community/:
+    - lubianat
+  contributing/:
+    - lubianat
+  help-desk/:
+    - lubianat
+  images/:
+    - lubianat
+  resources/:
+    - lubianat
+  specifications/:
+    - lubianat
+    - jo-mueller
+  rfc/3/:
+    - jni
+  rfc/4/:
+    - thewtex
+  rfc/9/:
+    - jwindhager
+
+ignored-authors:
+  - dependabot
+  - dependabot[bot]
+  - renovate-bot
+  - renovate[bot]
+  - github-actions[bot]
+  - pre-commit-ci[bot]
