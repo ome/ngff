@@ -409,13 +409,12 @@ This should be a small amount of work in most cases.
 
 ## Forward Compatibility
 
-A draft proposal for [coordinate transformations][trafo spec] already includes
-most of the changes proposed here, so we envision that this RFC is compatible
-with future plans for the format. The proposal does currently limit the number
-of dimensions of type "space" to at most 3, but that limit [could be
-removed][space dims comment]. If this RFC is approved, the transformation
-specification would need to be updated to reflect this. However, that is an easy
-change and there seems to be sufficient support in the community for this idea.
+An earlier version of this proposal described RFC-5 as a future change. As it
+happens, RFC-5 was accepted before this one and this section (detailing how
+RFC-5 would need to be modified) is no longer relevant: all the relevant
+changes are included in this RFC.
+
+We have identified no further forward compatibility concerns.
 
 ## Drawbacks, risks, alternatives, and unknowns
 
