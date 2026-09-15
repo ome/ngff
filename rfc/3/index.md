@@ -355,9 +355,10 @@ document, taking as base the current development version:
 >    be different only by upper/lower-case. For example, the same dataset
 >    SHOULD NOT have both an 'X' and an 'x' axis.
 > 7. The order of the axes MUST match their ordering within the data if
->    applicable. For example, if the axes are ordered as 'DZYX', where 'D' is a
->    field of displacement vectors, then the vectors must be ordered as 'ZYX'
->    within the array.
+>    applicable. For example, when representing a vector field representing
+>    particle if the axes are ordered as 'DZYX', where 'D' contains vector
+>    coordinates representing particle or fluid motion, then the vectors must
+>    be ordered as 'ZYX' within the array.
 
 3. The following lines are amended as noted:
 
