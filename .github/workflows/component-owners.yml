@@ -8,6 +8,7 @@ permissions:
 
 jobs:
   assign:
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'infra') }}
     runs-on: ubuntu-latest
     name: Request Owner Reviews
     steps:
