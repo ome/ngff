@@ -467,12 +467,15 @@ time.
 
 ## Testing
 
-Datasets conforming to the new specification can be found at:
+Datasets conforming to the proposed specification can be found at:
 
 https://github.com/clbarnes/ome-zarr-rfc3-data
 
-This includes three synthetic datasets and (in progress, pull request #1) two
-real (subsampled) datasets.
+which provides three synthetic datasets, and
+
+https://github.com/image-coop/ome-zarr-data
+
+which includes two real-world downsampled datasets.
 
 HTTP access to the datasets is currently available at:
 
@@ -486,11 +489,20 @@ https://test-bucket.image.coop/rfc3/flim-tmr31-3-reduced64.ome.zarr
 https://test-bucket.image.coop/rfc3/CP-Ti-abnormal-grains.zarr
 ```
 
-Implementations may check their compliance with this RFC using these datasets.
-As a reminder, this RFC explicitly takes the position that partial
-implementations are OK, and software is considered compliant if it provides
-an informative error message (e.g. "The given dataset contains an unknown axis
-'U', which is not supported by this viewer.").
+Implementations may check their compatibility with the proposed changes using
+the above datasets.
+
+Partial implementations that cannot support all the changes in this RFC are
+explicitly allowed, but they should provide an informative error message when
+rejecting a dataset; for example: "The given dataset contains an unknown axis
+'U', which is not supported by this viewer."
+
+Additional valid and invalid metadata JSONs can be found in versions [0.9.dev1]
+and the upcoming [0.9.dev2] (prospective link; not yet tagged) of [ngff-spec].
+
+[0.9.dev1]: https://github.com/ome/ngff-spec/releases/tag/0.9.dev1
+[0.9.dev2]: https://github.com/ome/ngff-spec/releases/tag/0.9.dev2
+[ngff-spec]: https://github.com/ome/ngff-spec
 
 ## License
 
