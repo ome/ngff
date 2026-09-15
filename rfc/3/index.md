@@ -351,9 +351,9 @@ document, taking as base the current development version:
 >    `u`, respectively. Similarly, a temporal frequency axis resulting from
 >    a Fourier transformation of a time axis SHOULD be named 'w' or, if 'w' is
 >    already in use in the given dataset, 'ω'. (See Rule 6.)
-> 6. Axis names MUST NOT be repeated within a dataset, and SHOULD NOT be
->    different only by upper/lower-case. For example, the same dataset SHOULD
->    NOT have both an 'X' and an 'x' axis.
+> 6. Axis names MUST NOT be repeated within a coordinate system, and SHOULD NOT
+>    be different only by upper/lower-case. For example, the same dataset
+>    SHOULD NOT have both an 'X' and an 'x' axis.
 > 7. The order of the axes MUST match their ordering within the data if
 >    applicable. For example, if the axes are ordered as 'DZYX', where 'D' is a
 >    field of displacement vectors, then the vectors must be ordered as 'ZYX'
