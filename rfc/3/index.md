@@ -349,7 +349,8 @@ document, taking as base the current development version:
 >    such conventions. For example, spatial frequency axes resulting from a
 >    Fourier transformation of 'z', 'y', and 'x' SHOULD be named 'w', 'v', and
 >    `u`, respectively. Similarly, a temporal frequency axis resulting from
->    a Fourier transformation of the 't' axis SHOULD be named 'w' or 'ω'.
+>    a Fourier transformation of a time axis SHOULD be named 'w' or, if 'w' is
+>    already in use in the given dataset, 'ω'. (See Rule 6.)
 > 6. Axis names MUST NOT be repeated within a dataset, and SHOULD NOT be
 >    different only by upper/lower-case. For example, the same dataset SHOULD
 >    NOT have both an 'X' and an 'x' axis.
