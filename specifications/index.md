@@ -18,5 +18,5 @@ dev/index.md
 0.2/index.md
 0.1/index.md
 
-dev/version_history
+0.6/version_history
 ```
