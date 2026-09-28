@@ -7,8 +7,24 @@ While the OME community comes from the bioimaging and microscopy world, the OME-
 The value of the specification includes the metadata for mapping voxels to physical space, and the ability to store large datasets in a chunked and compressed format, with multiscale support, that is suitable for cloud storage and analysis.
 
 ## Example
-
-<iframe src="https://volumeviewer.allencell.org/viewer?url=https://ome-zarr-scivis.s3.us-east-1.amazonaws.com/v0.5/96x0/stag_beetle.ome.zarr" width="100%" height="600px" style="border: none;"></iframe>
+<p><em>Note: expanding this loads real OME-Zarr data hosted on object storage.</em></p>
+<details id="tomography-example">
+<summary>Load example</summary>
+<div id="tomography-viewer-container"></div>
+</details>
+<script>
+document.getElementById("tomography-example").addEventListener("toggle", function () {
+  if (this.open && !this.dataset.loaded) {
+    this.dataset.loaded = "true";
+    var iframe = document.createElement("iframe");
+    iframe.src = "https://volumeviewer.allencell.org/viewer?url=https://ome-zarr-scivis.s3.us-east-1.amazonaws.com/v0.5/96x0/stag_beetle.ome.zarr";
+    iframe.width = "100%";
+    iframe.height = "600px";
+    iframe.style.border = "none";
+    document.getElementById("tomography-viewer-container").appendChild(iframe);
+  }
+});
+</script>
 
 ## Datasets
 

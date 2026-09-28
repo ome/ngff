@@ -6,6 +6,8 @@ OME-Zarr aids large-scale analysis of big data for dynamic processes, e.g. in 5D
 
 Here are some resources related to dynamic (i.e. over time) imaging data that take benefit of OME-Zarr and the NGFF.
 
+# Links
+
 ## Biohub
 
 - [Dynamic Cell Atlas](https://chanzuckerberg.github.io/dynamic-cell-atlas-specs/index.html) - A specification for storing dynamic cell atlas data internal to Biohub, building upon OME-Zarr.
