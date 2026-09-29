@@ -15,3 +15,4 @@ This section provides resources related to OME-Zarr for users from all experienc
 * [Learning and Teaching Resources](learning-and-teaching-material/index.md) - A collection of tutorials, guides, slides, notebooks and other materials for OME-Zarr.
 * [OME-Zarr Ambassador Toolkit](ambassador-toolkit/index.md) - Slides, talking points and FAQs for confidently giving talks about OME-Zarr.
 * [Ecosystem](ecosystem/index.md) - Workflows and data formats that adopt OME-Zarr and build upon it
+* [Use Cases](use-cases/index.md) - Use cases for OME-Zarr organized by scientific topic/modality, with examples and links.
