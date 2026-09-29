@@ -105,6 +105,13 @@ This RFC is currently in RFC state `R1` (send for review).
     - [Glencoe Software](https://github.com/glencoesoftware)
     - 2026-08-04
     - [Review](#rfcs:rfc3:review1)
+*   - Reviewer
+    - Matthew McCormick, Valentin Boussot
+    - [thewtex](https://github.com/thewtex),
+      [vboussot](https://github.com/vboussot)
+    - [Fideus Labs](https://github.com/fideus-labs)
+    - 2026-08-28
+    - [Review](#rfcs:rfc3:review2)
 ```
 
 ## Overview

@@ -18,8 +18,8 @@ None &#8594;  <sub>1..1</sub> [String](types/String.md)
 
 ## Children
 
+ *  [AnatomicalOrientation➞type](AnatomicalOrientation_type.md)
 
 ## Used by
 
- * [AnatomicalOrientation](AnatomicalOrientation.md)
  * [Orientation](Orientation.md)

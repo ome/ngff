@@ -36,7 +36,7 @@ which can be used for citation of the specification in publications and other wo
 
 To ensure the visibility of all contributions to the broader ecosystem that are not directly related to specification development,
 a list of contributors is maintained in the [ome-zarr-acknowledgements](https://github.com/german-BioImaging/ome-zarr-acknowledgments/) repository,
-which is displayed [here](community:contributors).
+which is displayed on the [community page](community:contributors).
 Any contribution to the NGFF ecosystem can be acknowledged in this repository, including but not limited to
 - Contribution to spec development
 - Maintenance of software implementations of ome-zarr

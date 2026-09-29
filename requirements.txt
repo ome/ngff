@@ -6,3 +6,4 @@ testresources
 sphinx-reredirects
 sphinxcontrib-bibtex
 sphinx-design
+sphinx-autobuild

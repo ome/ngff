@@ -1,0 +1,17 @@
+# People listed here only get a review request when a PR touches the path.
+# No special permissions are granted.
+files:
+  '.github/**': [lubianat]
+  'boilerplate/**': [lubianat]
+  'community/**': [lubianat]
+  'contributing/**': [lubianat]
+  'help-desk/**': [lubianat]
+  'images/**': [lubianat]
+  'resources/**': [lubianat]
+  'specifications/**': [lubianat, jo-mueller]
+  'rfc/3/**': [jni]
+  'rfc/4/**': [thewtex]
+  'rfc/9/**': [jwindhager]
+
+options:
+  ignore_draft: true

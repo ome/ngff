@@ -1,0 +1,44 @@
+/* hero */
+h1:has(+ .ome-hero) {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+.ome-hero {
+  text-align: center;
+  margin: 0 auto 3rem;
+}
+.ome-hero p {
+  font-size: 1.25rem;
+  color: var(--pst-color-text-muted);
+  max-width: 42rem;
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .ome-hero h1 { font-size: 2.5rem; }
+}
+
+/* cards */
+.sd-row { align-items: stretch; }
+.sd-col { display: flex; }
+.sd-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.sd-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.sd-card img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* The snippet below is needed as sphinx-design cards with links
+   and the RTD link-preview extension are not playing well together.
+   TODO: Remove this if moving away from RTD or disabling the link-preview extension.*/
+.tooltip[data-linkpreview-href] { display: none !important; pointer-events: none !important; }
+.tooltip[data-linkpreview-href] iframe { display: none !important; }

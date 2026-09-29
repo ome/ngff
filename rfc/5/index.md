@@ -14,7 +14,7 @@ Add named coordinate systems and expand and clarify coordinate transformations. 
 
 ## Status
 
-This RFC is currently in RFC state `S4` (Update implementations).
+This RFC is currently in RFC state `S3` (Update implementations).
 
 | **Role** | Name | GitHub Handle | Institution | Date | Status |
 |----------|------|---------------|-------------|------|--------|

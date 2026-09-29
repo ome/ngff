@@ -1,3 +1,5 @@
+(resources-main)=
+
 # Resources
 
 ```{toctree}
