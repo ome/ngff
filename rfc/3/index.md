@@ -335,25 +335,30 @@ document, taking as base the current development version:
 
 2. The following lines are *added* to "multiscales metadata":
 
-> 0. The length of the axis names MUST match the number of axes of the array.
-> 1. *If* a dataset contains exactly 2 spatial dimensions, those dimensions
->    SHOULD be named `y` and `x`, except where rule 4 applies.
-> 2. *If* a dataset contains exactly 3 spatial dimensions, those dimensions
->    SHOULD be named 'z', 'y', and 'x', except where rule 4 applies.
-> 3. *If* a dataset contains exactly 1 time dimension, it should be named `t`.
-> 4. When image data axes map straightforwardly to axes with common names in
+> 1. The length of the axis names MUST match the number of axes of the array.
+> 2. *If* a dataset contains exactly 2 spatial dimensions, those dimensions
+>    SHOULD be named 'y' and 'x', and have type "space", except where rule 5
+>    applies.
+> 3. *If* a dataset contains exactly 3 spatial dimensions, those dimensions
+>    SHOULD be named 'z', 'y', and 'x', and have type "space", except where
+>    rule 5 applies.
+> 4. *If* a dataset contains exactly 1 time dimension, it SHOULD be named 't'
+>    and have type "time", except where rule 5 applies.
+> 5. When image data axes map straightforwardly to axes with common names in
 >    the relevant field of practice, those axes SHOULD be named according to
 >    such conventions. For example, spatial frequency axes resulting from a
->    Fourier transformation of `z', 'y', and 'x' SHOULD be named 'w', 'v', and
+>    Fourier transformation of 'z', 'y', and 'x' SHOULD be named 'w', 'v', and
 >    `u`, respectively. Similarly, a temporal frequency axis resulting from
->    a Fourier transformation of the `t` axis SHOULD be named `w` or `ω`.
-> 5. Axis names MUST NOT be repeated within a dataset, and SHOULD NOT be
->    different only by upper/lower-case. For example, the same dataset SHOULD
->    NOT have both an `X` and an `x` axis.
-> 6. The order of the axes MUST match their ordering within the data if
->    applicable. For example, if the axes are ordered as `DZYX`, where `D` is a
->    field of displacement vectors, then the vectors must be ordered as `ZYX`
->    within the array.
+>    a Fourier transformation of a time axis SHOULD be named 'w' or, if 'w' is
+>    already in use in the given dataset, 'ω'. (See Rule 6.)
+> 6. Axis names MUST NOT be repeated within a coordinate system, and SHOULD NOT
+>    be different only by upper/lower-case. For example, the same dataset
+>    SHOULD NOT have both an 'X' and an 'x' axis.
+> 7. The order of the axes MUST match their ordering within the data if
+>    applicable. For example, when representing a vector field representing
+>    particle if the axes are ordered as 'DZYX', where 'D' contains vector
+>    coordinates representing particle or fluid motion, then the vectors must
+>    be ordered as 'ZYX' within the array.
 
 3. The following lines are amended as noted:
 
@@ -370,7 +375,11 @@ document, taking as base the current development version:
 > Every Zarr array referred to by a path MUST have the same number of
 > dimensions and datatype.~~, and MUST NOT have more than 5 dimensions.~~
 
-No further changes to the specification document are proposed by this RFC.
+Examples in the schema text will also be updated to match the above descriptive
+changes, including any notes that prescribe a specific axis ordering.
+
+Further, axis and transformation schemas will be updated to remove the
+restrictions on number, type, and order.
 
 ## Stakeholders
 
@@ -400,13 +409,12 @@ This should be a small amount of work in most cases.
 
 ## Forward Compatibility
 
-A draft proposal for [coordinate transformations][trafo spec] already includes
-most of the changes proposed here, so we envision that this RFC is compatible
-with future plans for the format. The proposal does currently limit the number
-of dimensions of type "space" to at most 3, but that limit [could be
-removed][space dims comment]. If this RFC is approved, the transformation
-specification would need to be updated to reflect this. However, that is an easy
-change and there seems to be sufficient support in the community for this idea.
+An earlier version of this proposal described RFC-5 as a future change. As it
+happens, RFC-5 was accepted before this one and this section (detailing how
+RFC-5 would need to be modified) is no longer relevant: all the relevant
+changes are included in this RFC.
+
+We have identified no further forward compatibility concerns.
 
 ## Drawbacks, risks, alternatives, and unknowns
 
@@ -459,12 +467,15 @@ time.
 
 ## Testing
 
-Datasets conforming to the new specification can be found at:
+Datasets conforming to the proposed specification can be found at:
 
 https://github.com/clbarnes/ome-zarr-rfc3-data
 
-This includes three synthetic datasets and (in progress, pull request #1) two
-real (subsampled) datasets.
+which provides three synthetic datasets, and
+
+https://github.com/image-coop/ome-zarr-data
+
+which includes two real-world downsampled datasets.
 
 HTTP access to the datasets is currently available at:
 
@@ -478,11 +489,20 @@ https://test-bucket.image.coop/rfc3/flim-tmr31-3-reduced64.ome.zarr
 https://test-bucket.image.coop/rfc3/CP-Ti-abnormal-grains.zarr
 ```
 
-Implementations may check their compliance with this RFC using these datasets.
-As a reminder, this RFC explicitly takes the position that partial
-implementations are OK, and software is considered compliant if it provides
-an informative error message (e.g. "The given dataset contains an unknown axis
-'U', which is not supported by this viewer.").
+Implementations may check their compatibility with the proposed changes using
+the above datasets.
+
+Partial implementations that cannot support all the changes in this RFC are
+explicitly allowed, but they should provide an informative error message when
+rejecting a dataset; for example: "The given dataset contains an unknown axis
+'U', which is not supported by this viewer."
+
+Additional valid and invalid metadata JSONs can be found in versions [0.9.dev1]
+and the upcoming [0.9.dev2] (prospective link; not yet tagged) of [ngff-spec].
+
+[0.9.dev1]: https://github.com/ome/ngff-spec/releases/tag/0.9.dev1
+[0.9.dev2]: https://github.com/ome/ngff-spec/releases/tag/0.9.dev2
+[ngff-spec]: https://github.com/ome/ngff-spec
 
 ## License
 
@@ -521,5 +541,6 @@ This RFC is placed in the public domain.
 
 | Date       | Description                  | Link                                                                         |
 | ---------- | ---------------------------- | ---------------------------------------------------------------------------- |
-| 2024-10-08 | RFC assigned and published   | [https://github.com/ome/ngff/pull/239](https://github.com/ome/ngff/pull/239) |
-| 2026-07-04 | Updated to address comments, elaborate on use cases, include specific changes to spec doc, and add test data   | [https://github.com/ome/ngff/pull/560](https://github.com/ome/ngff/pull/560) |
+| 2024-10-08 | RFC assigned and published   | [ome/ngff#239](https://github.com/ome/ngff/pull/239) |
+| 2026-07-04 | Updated to address comments, elaborate on use cases, include specific changes to spec doc, and add test data   | [ome/ngff#560](https://github.com/ome/ngff/pull/560) |
+| 2026-09-16 | Updated to address review 2: fix inconsistencies, clarify some recommendations, and update outdated text.  | [ome/ngff#614](https://github.com/ome/ngff/pull/614) |

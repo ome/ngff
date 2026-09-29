@@ -95,7 +95,7 @@ html_extra_path = [
 
 html_show_sourcelink = False
 
-def build_served_html():
+def build_served_html(clean_up=True):
     import glob
     import subprocess
     import sys
@@ -104,20 +104,54 @@ def build_served_html():
     from pathlib import Path
 
     os.chdir(Path(__file__).parent)
-    versions = [
+    
+    # Create .htaccess to serve schemas inline (not download)
+    os.makedirs("_html_extra", exist_ok=True)
+
+    # Fetch GitHub tags and download schemas
+    result = subprocess.check_output([
+        "git", "ls-remote", "--tags", "https://github.com/ome/ngff-spec"
+    ], text=True, timeout=10)
+    tags = [
+        line.split()[1].replace("refs/tags/", "").rstrip("^{}")
+        for line in result.strip().split("\n") if line
+        ]
+
+    # Clone repo once, checkout each tag (faster than per-tag tarball download)
+    repo_path = "_temp_ngff_spec"
+    if not os.path.exists(repo_path):
+        subprocess.check_call(["git", "clone", "https://github.com/ome/ngff-spec", repo_path])
+    
+    for tag in sorted(set(tags)):
+        schema_dir = f"_html_extra/{tag}/schemas"
+        os.makedirs(schema_dir, exist_ok=True)
+        try:
+            subprocess.check_call(["git", "-C", repo_path, "checkout", tag], 
+                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            src_schemas = glob.glob(os.path.join(repo_path, "**", "*.schema"), recursive=True)
+
+            if len(src_schemas) == 0:
+                print(f"⚠️  No schemas found for {tag}")
+                continue
+
+            for schema_file in src_schemas:
+                dest_file = os.path.join(schema_dir, os.path.basename(schema_file))
+                shutil.copy2(schema_file, dest_file)
+                shutil.copy2(schema_file, dest_file + '.json')  # dual format
+            print(f"✅ Checked out schemas for {tag}")
+        except Exception as e:
+            print(f"⚠️  Could not checkout {tag}: {e}")
+    if clean_up:
+        shutil.rmtree(repo_path, ignore_errors=True)
+
+    # Build specifications from local submodules
+    displayed_spec_versions = [
         d
         for d in os.listdir("specifications")
         if os.path.isdir(os.path.join("specifications", d))
     ]
 
-    for version in versions:
-
-        # copy schemas to _html_extra
-        os.makedirs(f"_html_extra/{version}/schemas", exist_ok=True)
-        schemas = glob.glob(f"specifications/{version}/**/*.schema", recursive=True)
-        for schema in schemas:
-            shutil.copy2(schema, f"_html_extra/{version}/schemas/")
-        print(f"✅ Copied schemas for version {version}")
+    for version in displayed_spec_versions:
 
         # find 'pre_build.py' in 'specifications' subdirectories
         script = glob.glob(f"specifications/{version}/**/pre_build.py", recursive=True)[
@@ -142,6 +176,15 @@ def build_served_html():
 
         subprocess.check_call([sys.executable, script])
         print("✅ Built rendered examples/schemas for version", version)
+
+        # copy schemas to _html_extra for served html
+        schema_files = glob.glob(f"specifications/{version}/**/*.schema", recursive=True)
+        for schema_file in schema_files:
+            dest_dir = os.path.join("_html_extra", version, "schemas")
+            os.makedirs(dest_dir, exist_ok=True)
+            dest_file = os.path.join(dest_dir, os.path.basename(schema_file))
+            shutil.copy2(schema_file, dest_file)
+            shutil.copy2(schema_file, dest_file + '.json')  # dual format (json + schema)
 
         # build jupyter-book docs in specification submodules
         myst_file = glob.glob(f"specifications/{version}/**/myst.yml", recursive=True)[
