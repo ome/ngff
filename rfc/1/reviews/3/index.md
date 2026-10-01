@@ -3,7 +3,7 @@ authors:
     - name: Matthew Hartley
       affiliation: BioImage Archive, EMBL-EBI
       github: matthewh-ebi
-recommendation: accept
+recommendation: minor_changes
 date: "2024-03-05"
 ---
 
