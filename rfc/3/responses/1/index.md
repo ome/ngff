@@ -1,4 +1,15 @@
+---
+authors:
+  - name: Juan Nunez-Iglesias
+    github: jni
+    affiliation: Monash University
+date: "2026-09-15"
+---
+
 # RFC-3: Response 1
+
+```{document-authors}
+```
 
 ## Summary of Changes
 
