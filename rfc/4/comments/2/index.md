@@ -8,7 +8,7 @@ date: "2026-02-05"
 recommendation: accept
 ---
 
-# RFC-4 comment 2
+# RFC-4: Comment 2
 
 (rfcs:rfc4:comment2)=
 
@@ -17,10 +17,6 @@ recommendation: accept
 ```{document-authors}
 
 ```
-
-# RFC-4: Comment 2
-
-(rfcs:rfc4:comment2)=
 
 ## Conflicts of interest
 

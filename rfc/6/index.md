@@ -36,7 +36,7 @@ reference_pr: https://github.com/ome/ngff/pull/285
 manual_status: R9
 status_note: superseded by RFC-8
 description: Flattening the multiscales array
-date: "2024-12-03"
+date: "2025-02-24"
 ---
 
 # RFC-6: Flattening the multiscales array

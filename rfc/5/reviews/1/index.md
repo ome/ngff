@@ -11,6 +11,7 @@ authors:
     github: fcollman
   - name: Nathalie Gaudreault
     affiliation: Allen Institute for Cell Science
+  - name: Gideon Dunster
 date: "2024-11-28"
 recommendation: major_changes
 ---

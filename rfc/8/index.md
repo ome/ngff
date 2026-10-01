@@ -37,7 +37,7 @@ authors:
     date: "2025-10-28"
 manual_status: R1
 description: Collections
-date: "2024-11-20"
+date: "2026-06-03"
 ---
 
 # RFC-8: Collections and Extensibility

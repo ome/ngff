@@ -41,7 +41,7 @@ reference_pr: https://github.com/ome/ngff/pull/222
 manual_status: S4
 description: RFC Process
 ome_zarr_version: "N/A"
-date: "2023-12-23"
+date: "2024-02-21"
 ---
 
 RFC-1: RFC Process
