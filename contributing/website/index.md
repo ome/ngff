@@ -53,6 +53,13 @@ pip install linkml
 python rfc/schema/validate.py           # or pass the files you changed
 ```
 
+The status tables on each RFC page are built from the front matter of its reviews, comments and responses.
+When you edit those locally, `sphinx-autobuild` may not refresh the RFC page. Run it with `-a` to rebuild everything:
+
+```bash
+sphinx-autobuild -a . _build/html
+```
+
 ## PR previews
 Each PR receives a unique preview URL of the format `https://ngff--<PR#>.org.readthedocs.build/` where `<PR#>` is the PR number. This link is also posted to each PR by the Github actions bot in an "Automated Review URLs" comment as the "Readthedocs" link.
 

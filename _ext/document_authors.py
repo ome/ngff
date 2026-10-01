@@ -36,12 +36,14 @@ class DocumentAuthors(Directive):
             raise self.error("rfc-authors: no 'authors' in front matter")
 
         # Number unique affiliations in first-seen order
-        affils, order = {}, []
+        affils, order, urls = {}, [], {}
         for a in authors:
             aff = a.get("affiliation")
             if aff and aff not in affils:
                 order.append(aff)
                 affils[aff] = len(order)
+            if aff and a.get("affiliation_url"):
+                urls.setdefault(aff, a["affiliation_url"])
 
         para = nodes.paragraph(classes=["rfc-authors"])
         for i, a in enumerate(authors):
@@ -81,7 +83,11 @@ class DocumentAuthors(Directive):
         for aff in order:
             p = nodes.paragraph(classes=["rfc-affiliation"])
             p += nodes.superscript(text=str(affils[aff]))
-            p += nodes.Text(" " + aff)
+            p += nodes.Text(" ")
+            if aff in urls:
+                p += nodes.reference("", aff, refuri=urls[aff])
+            else:
+                p += nodes.Text(aff)
             result.append(p)
 
         return result
