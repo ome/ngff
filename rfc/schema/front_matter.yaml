@@ -130,7 +130,7 @@ classes:
         required: true
       recommendation:
         description: >-
-          The reviewers' recommendation. Left empty on comments and responses, which
+          The reviewers' recommendation. Omitted on comments and responses, which
           carry no recommendation.
         range: Recommendation
 

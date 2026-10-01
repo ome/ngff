@@ -10,7 +10,7 @@ authors:
     affiliation: ETH
     github: kevinyamauchi
 recommendation: major_changes
-date: 2024-03-05
+date: "2024-03-05"
 ---
 # RFC-1: Review 1
 

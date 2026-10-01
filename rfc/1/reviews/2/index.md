@@ -19,7 +19,7 @@ authors:
     affiliation: HHMI Janelia
     github: yuriyzubov
 recommendation: major_changes
-date: 2024-02-26
+date: "2024-02-26"
 ---
 # RFC-1: Review 2
 

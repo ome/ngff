@@ -3,7 +3,7 @@ authors:
   - name: Yaroslav O. Halchenko
     affiliation: Dartmouth College, DANDI Project
     github: yarikoptic
-date: 2024-06-10
+date: "2024-06-10"
 recommendation: major_changes
 ---
 

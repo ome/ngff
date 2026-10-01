@@ -8,7 +8,7 @@ authors:
     affiliation: Fideus Labs
     affiliation_url: https://github.com/fideus-labs
     github: vboussot
-date: 2026-08-28
+date: "2026-08-28"
 recommendation: minor_changes
 ---
 

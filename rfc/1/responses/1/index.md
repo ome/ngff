@@ -3,7 +3,7 @@ authors:
   - name: Josh Moore
     affiliation: German BioImaging
     github: joshmoore
-date: 2024-08-29
+date: "2024-08-29"
 ---
 
 # RFC-1: Response 1 (2024-04-24 version)

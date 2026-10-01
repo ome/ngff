@@ -9,7 +9,7 @@ authors:
   - name: Jason Swedlow
     affiliation: University of Dundee
     github: jrswedlow
-date: 2025-01-22
+date: "2025-01-22"
 recommendation: minor_changes
 ---
 

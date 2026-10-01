@@ -17,7 +17,7 @@ authors:
     date: "2025-07-16"
 manual_status: S1
 description: Axis Anatomical Orientation
-date: 2023-07-26
+date: "2023-07-26"
 ---
 
 # RFC-4: Axis Orientation

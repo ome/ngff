@@ -46,7 +46,7 @@ endorsers:
     date: "2024-08-22"
 manual_status: S3
 description: Coordinate systems and transformations
-date: 2024-07-30
+date: "2024-07-30"
 ---
 
 # RFC-5: Coordinate Systems and Transformations

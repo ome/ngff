@@ -13,7 +13,7 @@ authors:
   - name: Melissa Linkert
     affiliation: Glencoe Software
     github: melissalinkert
-date: 2024-05-23
+date: "2024-05-23"
 recommendation: major_changes
 ---
 

@@ -12,7 +12,7 @@ authors:
     date: "2026-07-03"
 manual_status: D4
 description: NGFF Governance and the Editorial Board
-date: 2026-07-03
+date: "2026-07-03"
 ---
 
 # RFC-10: NGFF Governance and the Editorial Board

@@ -11,7 +11,7 @@ authors:
     github: fcollman
   - name: Nathalie Gaudreault
     affiliation: Allen Institute for Cell Science
-date: 2025-11-25
+date: "2025-11-25"
 recommendation: accept
 ---
 

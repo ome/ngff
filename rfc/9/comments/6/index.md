@@ -3,7 +3,7 @@ authors:
   - name: Assa Diabira
     affiliation: Institut Cochin (IMAG'IC / CID), Université Paris Cité, France
     github: assadiab
-date: 2026-06-22
+date: "2026-06-22"
 ---
 
 # RFC-9: Comment 6

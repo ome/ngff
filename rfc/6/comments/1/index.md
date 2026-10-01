@@ -4,7 +4,7 @@ authors:
     github: clbarnes
   - name: Davis Bennett
     github: d-v-b
-date: 2025-11-05
+date: "2025-11-05"
 ---
 
 # RFC-6: Comment 1

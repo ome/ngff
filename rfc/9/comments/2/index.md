@@ -3,7 +3,7 @@ authors:
   - name: Joost de Folter
     affiliation: BioImaging-NL
     github: folterj
-date: 2025-12-03
+date: "2025-12-03"
 ---
 
 # RFC-9: Comment 2

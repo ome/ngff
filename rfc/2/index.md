@@ -68,7 +68,7 @@ reference_pr: https://github.com/ome/ngff/pull/227
 manual_status: S4
 description: Zarr V3 Support
 ome_zarr_version: "0.5"
-date: 2024-02-14
+date: "2024-02-14"
 ---
 
 # RFC-2: Zarr v3

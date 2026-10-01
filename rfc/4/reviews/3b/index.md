@@ -5,7 +5,7 @@ authors:
     affiliation: Haniffa Lab
     date: "2026-09-09"
 recommendation: accept
-date: 2026-09-09
+date: "2026-09-09"
 ---
 
 # RFC-4: Review 3b

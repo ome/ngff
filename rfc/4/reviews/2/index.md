@@ -4,7 +4,7 @@ authors:
     email: jni@fastmail.com
     github: jni
     affiliation: Monash University
-date: 2025-08-05
+date: "2025-08-05"
 recommendation: minor_changes
 ---
 

@@ -6,7 +6,7 @@ authors:
   - name: Jean-Marie Burel
     affiliation: University of Dundee
     github: jburel
-date: 2025-11-19
+date: "2025-11-19"
 recommendation: accept
 ---
 

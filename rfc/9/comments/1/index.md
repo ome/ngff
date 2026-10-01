@@ -3,7 +3,7 @@ authors:
   - name: Matt McCormick
     affiliation: Fideus Labs LLC
     github: thewtex
-date: 2025-11-15
+date: "2025-11-15"
 ---
 
 # RFC-9: Comment 1

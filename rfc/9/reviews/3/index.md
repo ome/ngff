@@ -3,7 +3,7 @@ authors:
   - name: Curtis Rueden
     affiliation: University of Wisconsin-Madison
     github: ctrueden
-date: 2026-01-30
+date: "2026-01-30"
 recommendation: major_changes
 ---
 

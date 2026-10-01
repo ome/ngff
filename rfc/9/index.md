@@ -24,7 +24,7 @@ editors:
 reference_pr: https://github.com/ome/ngff/pull/316
 manual_status: R4
 description: Zipped OME-Zarr
-date: 2025-07-02
+date: "2025-07-02"
 ---
 
 # RFC-9: Zipped OME-Zarr

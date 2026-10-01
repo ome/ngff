@@ -3,7 +3,7 @@ authors:
   - name: Matt McCormick
     affiliation: ITK
     github: thewtex
-date: 2024-01-09
+date: "2024-01-09"
 ---
 
 # RFC-1: Comment 2

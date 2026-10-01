@@ -4,7 +4,7 @@ authors:
     email: chris.barnes@gerbi-gmb.de
     github: clbarnes
     affiliation: German BioImaging
-date: 2026-02-05
+date: "2026-02-05"
 recommendation: accept
 ---
 

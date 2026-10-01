@@ -2,7 +2,7 @@
 authors:
   - name: Jeremy Maitin-Shepard
     github: jbms
-date: 2025-02-20
+date: "2025-02-20"
 ---
 
 # RFC-5: Comment 2

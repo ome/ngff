@@ -3,7 +3,7 @@ authors:
   - name: Benedikt Best
     github: btbest
     orcid: 0000-0001-6965-1117
-date: 2026-02-26
+date: "2026-02-26"
 ---
 
 # RFC-5: Comment 4

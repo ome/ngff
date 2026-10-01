@@ -4,7 +4,7 @@ authors:
     affiliation: Miltenyi Biotec B.V. & Co. KG
   - name: Matthias Grunwald
     affiliation: Miltenyi Biotec B.V. & Co. KG
-date: 2026-01-09
+date: "2026-01-09"
 ---
 
 # RFC-9: Comment 4

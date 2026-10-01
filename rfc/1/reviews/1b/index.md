@@ -10,7 +10,7 @@ authors:
     affiliation: ETH
     github: kevinyamauchi
 recommendation: accept
-date: 2024-10-03
+date: "2024-10-03"
 ---
 # RFC-1: Review 1 Round 2
 

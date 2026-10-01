@@ -2,7 +2,7 @@
 authors:
   - name: David Stansby
     github: dstansby
-date: 2025-04-02
+date: "2025-04-02"
 ---
 
 # RFC-4 comment 1

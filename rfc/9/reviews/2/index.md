@@ -6,7 +6,7 @@ authors:
   - name: Matthew Hartley
     affiliation: BioImage Archive, EMBL-EBI
     github: matthewh-ebi
-date: 2026-01-29
+date: "2026-01-29"
 recommendation: minor_changes
 ---
 

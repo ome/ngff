@@ -4,7 +4,7 @@ authors:
       affiliation: BioImage Archive, EMBL-EBI
       github: matthewh-ebi
 recommendation: accept
-date: 2024-10-08
+date: "2024-10-08"
 ---
 
 # RFC-1: Review 3
