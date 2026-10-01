@@ -32,3 +32,4 @@ the metadata that supports all of the functionality I'm using?  Should I write
 multiple redundant versions of the metadata?  When reading the metadata, if I
 encounter a newer version than is known, should I just ignore it altogether or
 should I attempt to parse it as the latest known version anyway?
+

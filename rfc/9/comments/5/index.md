@@ -89,8 +89,8 @@ Alternatively, one could make this clear by adding an observation like the follo
 
 ## Minor comments and questions
 
-- The proposed new section of the specification uses the term "SHALL", which is so far not used elsewhere in the specification. Since according to IETF RFC 2119, SHALL is synonymous to MUST, and MUST is the term used in the rest of the specification, this should be replaced.
-- Duplication of "the" in "The ZIP file MUST contain the the OME-Zarr’s root-level zarr.json."
+* The proposed new section of the specification uses the term "SHALL", which is so far not used elsewhere in the specification. Since according to IETF RFC 2119, SHALL is synonymous to MUST, and MUST is the term used in the rest of the specification, this should be replaced.
+* Duplication of "the" in "The ZIP file MUST contain the the OME-Zarr’s root-level zarr.json."
 
 ## Recommendation
 

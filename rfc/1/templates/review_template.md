@@ -52,7 +52,7 @@ This section should be included if authors feel that there is any background inf
 
 ### Subheadings
 
-Structure any subheadings as necessary.
+Structure any subheadings as necessary. 
 
 ## Minor comments and questions
 
@@ -63,3 +63,4 @@ Similarly, add any subheadings necessary
 Adopt, major changes, minor changes, reject (as last resort)
 
 See [the list of recommendations under “RFC” in RFC-1](../index.md#rfc-recommendations).
+

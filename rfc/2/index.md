@@ -229,7 +229,7 @@ Preliminary work of this RFC has been discussed in:
 
 ## Implementation
 
-OME-Zarr implementations can rely on existing Zarr libraries to implement the adoption of Zarr v3.
+OME-Zarr implementations can rely on existing Zarr libraries to implement the adoption of Zarr v3. 
 See [Background](#background) for a list of v3-capable Zarr libraries.
 
 Support for the OME-Zarr 0.5 metadata is under development in [ome-zarr-py](https://github.com/ome/ome-zarr-py/pull/383/files) and other implementations.

@@ -6,8 +6,6 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-import os
-
 project = "NGFF"
 copyright = "2020-2025, NGFF Community"
 author = "NGFF Community"
@@ -105,7 +103,6 @@ html_extra_path = [
 ]
 
 html_show_sourcelink = False
-
 
 def build_served_html():
     import glob

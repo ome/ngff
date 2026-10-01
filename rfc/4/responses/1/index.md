@@ -34,7 +34,6 @@ We have implemented all three significant recommendations from Juan's review:
 ```
 
 This structure can support multiple orientation domains including:
-
 - **Anatomical**: left-to-right, anterior-to-posterior, etc.
 - **Engineering/Microfluidics**: upstream/downstream
 - **Geographical**: north/south, east/west
@@ -100,7 +99,7 @@ The RFC now includes concrete JSON examples showing the complete axis configurat
       "name": "x",
       "type": "space",
       "unit": "millimeter",
-      "orientation": { "type": "anatomical", "value": "left-to-right" }
+      "orientation": {"type": "anatomical", "value": "left-to-right"}
     }
   ]
 }

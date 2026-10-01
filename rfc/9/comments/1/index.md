@@ -33,7 +33,6 @@ We have implemented the specification, including reading, writing, and all the r
 We recommend including a concrete example of the expected file order for clarification. This would help implementers understand exactly how to order `zarr.json` files in breadth-first order.
 
 For instance, given a hierarchy like:
-
 ```
 /
 ├── zarr.json (root)
@@ -48,7 +47,6 @@ For instance, given a hierarchy like:
 ```
 
 The recommended ZIP entry order would be:
-
 1. `zarr.json` (root)
 2. `image/zarr.json`
 3. `labels/zarr.json`
