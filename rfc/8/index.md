@@ -1,3 +1,45 @@
+---
+authors:
+  - name: Norman Rzepka
+    github: normanrz
+    affiliation: scalable minds
+    role: Co-author
+    date: "2024-11-20"
+  - name: Eric Perlman
+    github: perlman
+    affiliation: Yikes LLC
+    role: Co-author
+    date: "2024-11-20"
+  - name: Joel Lüthi
+    github: jluethi
+    affiliation: BioVisionCenter Zurich
+    role: Co-author
+    date: "2024-11-20"
+  - name: Lorenzo Cerrone
+    github: lorenzocerrone
+    affiliation: BioVisionCenter Zurich
+    role: Co-author
+    date: "2024-11-20"
+  - name: Christian Tischer
+    github: tischi
+    affiliation: EMBL
+    role: Co-author
+    date: "2025-02-01"
+  - name: Matthew Hartley
+    github: matthewh-ebi
+    affiliation: EMBL-EBI
+    role: Co-author
+    date: "2025-05-05"
+  - name: Johannes Soltwedel
+    github: jo-mueller
+    affiliation: German BioImaging e.V.
+    role: Co-author
+    date: "2025-10-28"
+manual_status: R1
+description: Collections
+date: "2026-06-03"
+---
+
 # RFC-8: Collections and Extensibility
 
 ```{toctree}
@@ -11,26 +53,8 @@ Extending OME-Zarr with new metadata types, references, and collections
 
 ## Status
 
-This proposal is early. Status: D1
-
-| Name      | GitHub Handle | Institution | Date       | Status                                |
-| --------- | ------------- | ----------- | ---------- | ------------------------------------- |
-| Norman Rzepka | [normanrz](https://github.com/normanrz) | scalable minds | 2024-11-20 | Author |
-| Eric Perlman | [perlman](https://github.com/perlman) | Yikes LLC | 2024-11-20 | Author |
-| Joel Lüthi | [jluethi](https://github.com/jluethi) | BioVisionCenter Zurich | 2024-11-20 | Author |
-| Lorenzo Cerrone | [lorenzocerrone](https://github.com/lorenzocerrone) | BioVisionCenter Zurich | 2024-11-20 | Author |
-| Johannes Soltwedel | [jo-mueller](https://github.com/jo-mueller) | German BioImaging e.V. | 2025-10-28 | Author |
-| Christian Tischer | [tischi](https://github.com/tischi) | EMBL | 2025-02-01 | Author |
-| Matthew Hartley | [matthewh-ebi](https://github.com/matthewh-ebi) |  EMBL-EBI | 2025-05-05 | Author |
-
-<!-- 
-| Author    | N/A           | N/A         | xxxx-xx-xx | Author; Implemented (link to release) |
-| Commenter | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
-| Commenter | N/A           | N/A         | xxxx-xx-xx | Not yet (link to comment)             |
-| Endorser  | N/A           | N/A         | xxxx-xx-xx | Endorse (no link needed)              |
-| Endorser  | N/A           | N/A         | xxxx-xx-xx | Implementing (link to branch/PR)      |
-| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
-| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Requested by editor                   |-->
+```{rfc-status}
+```
 
 ## Overview
 

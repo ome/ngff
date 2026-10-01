@@ -1,10 +1,21 @@
+---
+authors:
+  - name: Curtis Rueden
+    affiliation: University of Wisconsin-Madison
+    github: ctrueden
+date: "2026-01-30"
+recommendation: major_changes
+---
+
 # RFC-9: Review 3
 
 (rfcs:rfc9:review3)=
 
 ## Review authors
 
-Curtis Rueden, University of Wisconsin-Madison.
+```{document-authors}
+
+```
 
 ## Conflicts of interest
 

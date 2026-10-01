@@ -1,12 +1,22 @@
+---
+authors:
+  - name: Lenard Spiecker
+    github: l-spiecker
+    affiliation: Miltenyi Biotec B.V. & Co. KG
+  - name: Matthias Grunwald
+    affiliation: Miltenyi Biotec B.V. & Co. KG
+date: "2026-02-05"
+---
+
 # RFC-9: Comment 4
 
 (rfcs:rfc9:comment4)=
 
 ## Comment authors
 
-This comment was written by: Lenard Spiecker<sup>1</sup> and Matthias Grunwald<sup>1</sup>
+```{document-authors}
 
-<sup>1</sup> Miltenyi Biotec B.V. & Co. KG
+```
 
 ## Conflicts of interest
 

@@ -1,5 +1,80 @@
-@: template
-# RFC Template
+---
+authors:
+  - name: Author 1
+    github: author1
+    orcid: 0000-0000-0000-0000
+    affiliation: Affiliation X
+    affiliation_url: https://ror.org/XXXXXXXXX
+    role: Corresponding Author
+    date: "YYYY-MM-DD"
+  - name: Author 2
+    github: author2
+    orcid: 0000-0000-0000-0000
+    affiliation: Affiliation Y
+    role: Co-author
+    date: "YYYY-MM-DD"
+  - name: Author 3
+    orcid: 0000-0000-0000-0000
+    github: author3
+    affiliation: Affiliation Z
+    role: Co-author
+    date: "YYYY-MM-DD"
+endorsers:
+  - name: Endorser 1
+    github: endorser1
+    orcid: 0000-0000-0000-0000
+    affiliation: Affiliation A
+    role: Endorser
+    date: "YYYY-MM-DD"
+    reference: https://example.com
+editors:
+  - name: Josh Moore
+    github: joshmoore
+    orcid: 0000-0000-0000-0000
+    affiliation: German BioImaging e.V.
+    role: Editor
+    date: "YYYY-MM-DD"
+reference_pr: https://github.com/ome/ngff/pull/XXX
+manual_status: D3
+status_note: authors open PR
+description: A few words naming what the RFC changes, for the RFC listing
+date: YYYY-MM-DD
+---
+
+(rfc-template)=
+
+# How to use it
+
+Add the authors and editors to the YAML front matter above. ORCID and GitHub IDs are optional but recommended, as is an `affiliation_url` (e.g. a ROR or homepage) which turns the institution into a link. Add also a date per author and editor, **quoted**, as new authors and editors may be added through the process.
+
+After opening a PR for the RFC, add the reference PR to the `reference_pr` field in the YAML front matter above.
+
+The `manual_status` field holds the [status code](/resources/rfc-status-codes/index) the RFC is currently in, and is updated by hand as the RFC moves through the process; `status_note` is an optional fragment explaining it, e.g. `superseded by RFC-8`. Together with `description` and `date` they also fill in this RFC's row of the [RFC listing](/rfc/index). Add `ome_zarr_version` once an RFC lands in a released version of the specification.
+
+The full list of fields is described by the LinkML schema in
+[`rfc/schema/front_matter.yaml`](https://github.com/ome/ngff/blob/main/rfc/schema/front_matter.yaml),
+which is what CI checks every RFC against. To check a draft yourself, run
+`pip install linkml` and then `python rfc/schema/validate.py` from the root of the repository.
+
+There MUST be at least one "Corresponding Author", and at least one "Editor".
+
+There MAY be multiple "Co-author" and "Co-editor".
+
+There MAY be multiple explicit "endorsers", but that is not required. An external link may be provided in the `reference` field for each endorser.
+
+Add also a reference date before merging the RFC, to indicate when the RFC was moved from DRAFT to RFC status. Ideally it should be the date of the reference PR merge, but it can be an approximation.
+
+A MyST target anchor should be added to the rfc, in the form
+
+`(rfcs:rfcX:versionY)=`, to indicate a particular version
+
+or
+
+`(rfcs:rfcX)=`, to indicate the main document
+
+# RFC X: The RFC Title
+
+(rfcs:rfcX)=
 
 Summary: Sentence fragment summary
 
@@ -7,16 +82,11 @@ Summary: Sentence fragment summary
 
 Brief description of status, including the state identifier, e.g. `R4`
 
-| Name      | GitHub Handle | Institution | Date       | Status                                |
-| --------- | ------------- | ----------- | ---------- | ------------------------------------- |
-| Author    | N/A           | N/A         | xxxx-xx-xx | Author                                |
-| Author    | N/A           | N/A         | xxxx-xx-xx | Author; Implemented (link to release) |
-| Commenter | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
-| Commenter | N/A           | N/A         | xxxx-xx-xx | Not yet (link to comment)             |
-| Endorser  | N/A           | N/A         | xxxx-xx-xx | Endorse (no link needed)              |
-| Endorser  | N/A           | N/A         | xxxx-xx-xx | Implementing (link to branch/PR)      |
-| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Endorse (link to comment)             |
-| Reviewer  | N/A           | N/A         | xxxx-xx-xx | Requested by editor                   |
+Then, this magic that will pull information from the YAML front matters and display it in a table:
+
+```{rfc-status}
+
+```
 
 ## Overview
 
