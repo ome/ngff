@@ -1,4 +1,4 @@
-# RFC-3: more dimensions for thee
+# RFC-3 2026-07-17
 
 ```{toctree}
 :hidden:
