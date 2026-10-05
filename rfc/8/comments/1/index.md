@@ -99,7 +99,7 @@ The RFC requires every node to have a non-empty human-readable `name`, and requi
 
 It is unclear what use case requires either constraint.
 
-Many nodes will not have a meaningful human-readable name, so writers will be required to generate names such as `multiscale_353`. The RFC contains examples itself: The HCS plates have to manufacture names noone needs for every well node. If a UI requires every node to have a display name, the reader can generate one for unnamed nodes. Readers will need this fallback anyway, to support older OME-Zarr versions that had no mandatory names.
+Many nodes will not have a meaningful human-readable name, so writers will be required to generate names such as `multiscale_353`. The RFC contains examples itself: The HCS plates have to manufacture names no one needs for every well node. If a UI requires every node to have a display name, the reader can generate one for unnamed nodes. Readers will need this fallback anyway, to support older OME-Zarr versions that had no mandatory names.
 
 The uniqueness requirement is more problematic. With the new absolute-path referencing, it will be impossible to infer from a given zarr or OME-Zarr object what other OME-Zarr metadata reference it. This means writers will be technically unable to guarantee the validity of anything they write: There could be another OME-Zarr object in some unknown location that references the path where the new object is being written, and that now becomes invalid due to duplicate names introduced by the new object, whose writer was strictly unable to be aware of this other OME-Zarr object.
 
