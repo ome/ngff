@@ -18,21 +18,30 @@ The RFC also contains several internal inconsistencies and ambiguities. Some can
 
 ## Issues
 
-(Ordered from most to least significant)
+This comment applies to "v1" of the RFC, i.e. the first revision after its initial publication ("v0"), at https://ngff.openmicroscopy.org/rfc/8/versions/v1-2026-08/index.html
+
+Issues below are ordered from most to least significant.
 
 ### 1. Node `path` references can reference anything
 
 A node containing a `path` can currently point to essentially any referenced document, without requiring that the referenced document represent the same node type.
 
-For example, a node with `type="multiscale"` can point to a document whose root node is actually a collection or singlescale. Likewise, a singlescale can point to a collection. These appear to be valid according to the current specification.
+For example, a node with `type="multiscale"` can point to a document whose root node is actually a collection or singlescale.
+Likewise, a singlescale can point to a collection.
+These appear to be valid according to the current proposal.
 
-It is also unclear how metadata in the referencing node relates to metadata in the referenced document. Presumably, the intent is that `nodes` and `attributes` are effectively outsourced to the referenced document, but this is not stated clearly.
+It is also unclear how metadata in the referencing node relates to metadata in the referenced document.
+Presumably, the intent is that `nodes` and `attributes` are effectively outsourced to the referenced document, but this is not stated clearly.
 
-Allowing outsourcing introduces a synchronization problem, which the RFC acknowledges, assigning responsibility for consistency to implementations. It does not define which copy takes precedence when they disagree.
+Allowing outsourcing introduces a synchronization problem, which the RFC acknowledges, assigning responsibility for consistency to implementations.
+The description of the collection node suggests that its metadata "complements or overrides the nodes' own metadata", but the phrasing is not explicitly about local vs. external metadata, and there are no similar statements for other node types.
 
-Unrestricted references also appear to permit chains of references and potentially circular references. A collection could reference another collection whose `path` references back to the former.
+Unrestricted references also appear to permit chains of references and potentially circular references.
+A collection could reference another collection whose `path` references back to the former.
 
-There is also an internal inconsistency here: some node types require `attributes` even when they contain a `path`. This makes complete outsourcing impossible. For example, multiscales require a coordinate system and singlescales require coordinate transformations, even though an example later in the RFC shows a singlescale containing only a `path`.
+There is also an internal inconsistency here: some node types require `attributes` even when they contain a `path`.
+This makes complete outsourcing impossible.
+For example, multiscales require a coordinate system and singlescales require coordinate transformations, even though an example later in the RFC shows a singlescale containing only a `path`.
 
 ### 2. The node type system does not consistently describe the semantic type of a node
 
@@ -42,56 +51,67 @@ This weakens the usefulness of having an explicit node type in the first place.
 
 For example, a plate may contain a child with `type="collection"` and a `path`, but nothing in that child tells a reader whether it represents a row, column, well, or some other collection, without retrieving and inspecting another metadata document.
 
-Similarly, `plate`, `well`, and `scene` behave like semantic specialisations of collections, encoded as reserved keys inside `attributes`. Their current specification causes two issues:
+Similarly, `plate`, `well`, and `scene` behave like semantic specialisations of collections, encoded as reserved keys inside `attributes`.
+Their current specification causes two issues:
 
 1. It permits combinations such as a single collection simultaneously having `plate`, `well`, and `scene` attributes. Some of this composability may be desirable - a well could define its geometry as a scene - but e.g. combined plate and well attributes in one node seem undesirable.
 2. It is unclear which reserved attribute keys are valid for which node types. The individual `scene`, `plate`, and `well` sections imply that these attributes are specific to collections, while `acquisition` is explicitly permitted on multiscales. The generic attributes definition does not constrain any key by node type. It is undefined, for example, whether `plate` or `scene` is valid on a multiscale or singlescale node. The `acquisition` key leaks HCS semantics into multiscale metadata for the first time.
 
-This creates an awkward split between syntactic and semantic type. The `type` field distinguishes only `collection`, `multiscale`, and `singlescale`, while important semantic distinctions such as scene, plate, well, and label image have to be discovered by inspecting `attributes`.Conversely, the presence of a particular attribute is not in general sufficient to infer the node type: for example, `coordinateTransformations` can occur on singlescale and multiscale.
+This creates an awkward split between syntactic and semantic type. The `type` field distinguishes only `collection`, `multiscale`, and `singlescale`, while important semantic distinctions such as scene, plate, well, and label image have to be discovered by inspecting `attributes`.
+Conversely, the presence of a particular attribute is not in general sufficient to infer the node type: for example, `coordinateTransformations` can occur on singlescale and multiscale.
 
 As a result, implementations cannot rely on `type` to determine the metadata interface of an object, and due to extensions, the permitted attribute interface for each `type` is infinite.
 
 ### 3. The singlescale node introduces substantial complexity without a clear use case
 
-The RFC does not explain why singlescale needs to become a first-class node type.
+Introducing the singlescale as a first-class node type is a significant structural change to the multiscale model, but it is unclear which use case requires it or what capability it enables that cannot be achieved with the existing multiscale/dataset structure (plus the new `Path` mechanism).
 
-This is a significant structural change to the multiscale model, but it is unclear which use case requires it or what capability it enables that cannot be achieved with the existing multiscale/dataset structure (plus the new `Path` mechanism).
+The RFC only states: "This also allows specifying images that only contain a single resolution level".
+Existing versions already have this capability by simply specifying only a single `datasets` entry.
 
-Conversely, it introduces several problems.
+Conversely, its current definition contains several issues.
 
-First, a singlescale's `path` is optional. This means a multiscale can be valid without containing paths to any Zarr arrays at all. Providing the paths to the actual image scales is arguably the most fundamental responsibility of OME-Zarr multiscale metadata.
+First, a singlescale's `path` is optional.
+This means a multiscale can be syntactically valid without containing paths to any concrete data (Zarr array) at all.
+Providing the paths to data is arguably the most fundamental responsibility of OME-Zarr multiscale metadata.
 
 Other required/optional fields are also surprising: `name` is mandatory, while `id` is optional (even though `id` becomes effectively mandatory because transformations need it to reference the singlescale).
 
-Second, being a separate node type by default allows outsourcing the node's metadata into a separate document. This would make it possible for the multiscale metadata to contain no pixel-size information (or any information at all) about its children.
+These are simple to resolve by changing the respective attributes' requiredness, but there is a more substantial tension:
 
-Transformations are required in singlescale attributes, and these must reference the parent multiscale's coordinate system, which means outsourcing a multiscale requires a circular reference by design where parent and child both need to know about each other's storage location, and are mostly uninformative documents on their own (the parent does not know its grid spacing and the child does not know its axes).
+Being a separate node type by default allows outsourcing the node's metadata into a separate document.
 
-Overall, the current singlescale design appears to have a negative cost/benefit ratio unless there is an important use case that is not currently explained by the RFC.
+Currently, transformations are required in singlescale attributes, and these must reference the parent multiscale's coordinate system.
+This means outsourcing a multiscale's singlescales requires bidirectional coupling by design, where parent and child both need to know about each other's storage location.
+The child ends up mostly uninformative on its own (it does not know its axes, only its grid spacing), and the parent must duplicate all child metadata.
+
+Overall, the current singlescale design appears to have a negative cost/benefit ratio, unless there is an important use case that is not currently explained by the RFC to establish the necessity of the proposed architectural change.
 
 ### 4. The coordinate transformation model is internally inconsistent and removes existing multiscale transformation semantics
 
-The sections defining coordinate systems and coordinate transformations appear to contradict each other.
+Singlescale nodes are required to contain coordinate transformations, while the multiscale transformation rules require the `input` of a multiscale transformation to reference a singlescale node. This appears to relocate the semantics currently represented by `multiscales[].datasets[].coordinateTransformations` into `multiscale.attributes.coordinateTransformations`.
 
-The RFC says that coordinate systems and transformations can be stored in "two distinct locations", but then describes multiscales/singlescales and collections, which appear to constitute three contexts.
+This leaves no obvious place for existing OME-Zarr 0.6 multiscale-level transformations under `multiscales[].coordinateTransformations`, i.e. transformations between a multiscale's own coordinate systems or transformations between a multiscale and its child label multiscales.
 
-More importantly, singlescale nodes are required to contain coordinate transformations, while the multiscale transformation rules require the `input` of a multiscale transformation to reference a singlescale node. This appears to relocate the semantics currently represented by `multiscales[].datasets[].coordinateTransformations` into `multiscale > attributes > coordinateTransformations`.
-
-At the same time, this restriction leaves no obvious place for existing OME-Zarr 0.6 multiscale-level transformations: for example, transformations between a multiscale's coordinate systems or transformations between a multiscale and its child label multiscales.
-
-Consequently, `multiscale > attributes > coordinateTransformations` appears to become dedicated to singlescale-to-multiscale transformations, eliminating the previous meaning of multiscale transformations without an obvious replacement.
+In other words, `multiscale.attributes.coordinateTransformations` appears to become dedicated to singlescale-to-multiscale transformations, eliminating the previous meaning of multiscale-level transformations without an obvious replacement.
 
 This is a severe breaking change to core multiscale semantics, and I do not see what benefit it provides.
 
-The examples add to the ambiguity. The "collection with an inlined multiscale" example places a scale transformation from a singlescale to the multiscale coordinate system in the multiscale's attributes, while the singlescale itself lacks the transformations that the singlescale definition says are mandatory.
+The context adds to the ambiguity:
+* The "collection with an inlined multiscale" example places a scale transformation from a singlescale to the multiscale coordinate system in the multiscale's attributes, while the singlescale itself lacks the transformations that the singlescale definition says are mandatory. 
+* The start of the transformations section says they can be stored in "two distinct locations", but then describes multiscales/singlescales and collections, which appear to constitute three contexts.
 
 ### 5. The proposed label structure may not provide a complete migration path from existing label structures
 
 The RFC examples place the raw multiscale and label multiscales underneath a new parent collection.
+Existing OME-Zarr structures instead have the raw multiscale as the parent and labels as children.
 
-Existing OME-Zarr structures instead have the raw multiscale as the parent and labels as children. It is not clear that all existing structures can be migrated to the proposed RFC-8 representation without losing information or changing semantics.
+The RFC does not seem to acknowledge the architectural shift this represents: it seems this nesting under a common parent is not only an option, but remains the only way to describe a "multiscale with labels" under the current proposal.
 
-More fundamentally, the new parent should probably be a scene rather than a generic collection. Raw data and its label maps have an inherent spatial relationship. Representing the parent as a scene would make that relationship explicit and would allow arbitrary label masks to be positioned relative to the source image using coordinate transformations.
+The required change in folder structure means migrating existing multiscales with labels requires either re-writing the raw data, label data, or migrating all consumers to a new entry path at a parent level to access the same dataset.
+
+There is then nothing to distinguish such a collection that replaces a multiscale with labels from any arbitrary collection of multiscale images with no semantic relationship between them, until all attributes have been deep-resolved, and the absence of "labels" markers identifies the raw data.
+This presents a brittle migration pathway for any semantics (and potential custom logic) attached to the "multiscale with labels" structure.
 
 ### 6. Requiring globally present, unique human-readable node names adds writer complexity without a technical benefit
 
@@ -99,9 +119,15 @@ The RFC requires every node to have a non-empty human-readable `name`, and requi
 
 It is unclear what use case requires either constraint.
 
-Many nodes will not have a meaningful human-readable name, so writers will be required to generate names such as `multiscale_353`. The RFC contains examples itself: The HCS plates have to manufacture names no one needs for every well node. If a UI requires every node to have a display name, the reader can generate one for unnamed nodes. Readers will need this fallback anyway, to support older OME-Zarr versions that had no mandatory names.
+Many nodes will not have a meaningful human-readable name, so writers will be required to generate names such as `multiscale_353`.
+The RFC contains examples itself: The HCS plates have to manufacture names no one needs for every well node.
+If a UI requires every node to have a display name, the reader can generate one for unnamed nodes.
+Readers will need this fallback anyway, to support older OME-Zarr versions that had no mandatory names.
 
-The uniqueness requirement is more problematic. With the new absolute-path referencing, it will be impossible to infer from a given zarr or OME-Zarr object what other OME-Zarr metadata reference it. This means writers will be technically unable to guarantee the validity of anything they write: There could be another OME-Zarr object in some unknown location that references the path where the new object is being written, and that now becomes invalid due to duplicate names introduced by the new object, whose writer was strictly unable to be aware of this other OME-Zarr object.
+The uniqueness requirement is particularly problematic for independently maintained, path-referenced objects.
+A writer modifying a referenced object cannot know all external collections that reference it, and therefore cannot guarantee that changing its name will preserve the validity of those collections.
+
+This introduces a non-local constraint on metadata modifications that is incompatible with the goal of independently reusable OME-Zarr objects.
 
 ### 7. The new labelAttributes structure cannot preserve custom color metadata from 0.6
 OME-Zarr 0.6 introduced an explicit permission for additional keys on individual entries under label-image `colors`. This allows implementations to attach custom metadata specifically to the representation of a label's color, independently of other custom properties associated with the label itself.
@@ -155,17 +181,22 @@ The RFC appears to replace the current plate structure, but does not say what ha
 
 Presumably these are intended to remain supported, but that should be specified explicitly.
 
-### 9. References and IDs do not have sufficiently clear semantics
+The RFC acknowledges that the proposed structures do not yet provide complete coverage of existing HCS metadata, but it should not omit metadata older versions of OME-Zarr explicitly define.
 
-The RFC would benefit from explicitly defining what a `Reference` is allowed to reference.
+### 9. References and IDs have unclear semantics
 
-There are at least five distinct "kinds" of IDs (node ID, coordinate system ID, row, column and acquisition ID), but the `Reference` interface itself does not encode or constrain the kind of object being referenced. Valid targets are instead imposed contextually by the fields using `Reference`.
+The RFC would benefit from explicitly defining what a `Reference` is allowed to reference depending on context.
 
-Without a clearer definition of the reference namespace and valid reference targets, it is difficult when reading the specification to understand which objects can reference which other objects and when an `id` is actually required.
+There are at least five distinct "kinds" of IDs (node ID, coordinate system ID, row, column and acquisition ID), but the `Reference` interface itself does not encode or constrain the kind of object being referenced.
+Valid targets are instead imposed contextually by some fields using `Reference`.
 
-There are also apparent inconsistencies in the coordinate transformation section. Its generic interface says that both `input` and `output` MUST be References to Coordinate Systems, but the multiscale-specific requirements then say that `input` MUST reference a singlescale node. The context table also shows Reference objects containing a `name` field even though the Reference interface defines only `id` and `path`. Finally, the multiscale requirements say that "the `id` field MUST be present" without clearly stating that this refers to the `input` Reference rather than to the Coordinate Transformation itself.
+This is technically fine, but without a clear definition of the reference namespace and valid reference targets, it is difficult when reading the specification to understand which objects can reference which other objects and when an `id` is actually required.
 
-Context-dependent requirements like this were also hard for readers to trace for coordinateTransformation input/output in RFC-5. The solution in RFC-5 was to explicitly write out the requirements in every context immediately where the input/output interface is defined. It would be helpful to do the same here.
+Context-dependent requirements like this were also hard for readers to trace for coordinateTransformation input/output in RFC-5.
+The solution in RFC-5 was to explicitly write out the requirements in every context immediately where the input/output interface is defined.
+It would be helpful to do the same here.
+
+This central section on context-dependent Reference specifics should also point out the unique exception in the multiscale transformation context: The generic transformation interface says that both `input` and `output` MUST be References to Coordinate Systems, but the multiscale-specific requirements then say that `input` MUST reference a singlescale *node* ID.
 
 ## Suggested solutions
 
@@ -219,19 +250,20 @@ Minor: singlescale `id` needs to be stated as mandatory, given that a singlescal
 
 ### 4. Preserve the distinction between dataset-level and multiscale-level transformations
 
-Transformations locating individual scales within a multiscale should remain semantically distinct from transformations involving the multiscale itself.
+Transformations locating individual scales within a multiscale (current `multiscales[].datasets[].coordinateTransformations`) should remain semantically distinct from transformations involving the multiscale itself.
 
-The specification should retain an explicit place for existing multiscale-level transformations, including transformations between coordinate systems and transformations relating a multiscale to derived/label multiscales.
+The specification should retain an explicit place for existing multiscale-level transformations (current `multiscales[].coordinateTransformations`), including transformations between coordinate systems and transformations relating a multiscale to derived/label multiscales.
 
-The RFC should then state unambiguously where each class of transformation belongs and provide a migration mapping from the corresponding 0.6 fields.
+The RFC should state unambiguously where each class of transformation belongs and provide a migration mapping from the corresponding 0.6 fields.
 
-### 5. Represent an image and its labels as a scene
+### 5. Represent multiscales with labels as a scene and provide migration guidance
 
-Rather than introducing a generic collection above a raw multiscale and its labels, represent this relationship as a scene with explicit spatial relationships between its child multiscales.
+Raw data and its label maps have an inherent spatial relationship.
+Rather than introducing a generic collection above a raw multiscale and its labels, represent the "multiscale with labels" relationship as a scene, with explicit spatial relationships between the raw data and its child multiscales.
 
 This would both preserve the semantic relationship between the images and provide a natural place for transformations positioning arbitrary label masks relative to their source images.
 
-The RFC should probably include a concrete migration example of how existing labels structures are expected to be converted, rather than a simple new syntax example.
+The RFC should probably include a concrete migration example of how existing labels structures are expected to be converted, rather than a simplified metadata syntax example.
 
 ### 6. Make `name` optional and remove the uniqueness requirement
 
@@ -266,11 +298,18 @@ The examples and interface tables should then be made consistent with this defin
 - Relative path notation: The description of RFC1808 appears slightly misleading. RFC1808 allows relative paths without a leading `./`; the leading `./` in `./subdir` is explicitly unnecessary.
 - Windows file URL example: The Windows example should use `file:///C:/Users/user/data/image.ome.zarr` rather than: `file://C:/Users/user/data/image.ome.zarr` (The slash preceding the drive letter is still required when the authority component is empty as per RFC8089)
 - Terminology: "node" suggests fairly general graph semantics. The structure defined by RFC-8 appears, in practice, to be a much simpler one-parent/many-children hierarchy. A more specific term might make the intended structural semantics clearer.
-- Row and column metadata: The RFC does not appear to define a way to write row or column metadata into the corresponding zarr groups themselves. Consequently, if a reader opens a path such as `/experiments/plate1.zarr/A` directly, there is no metadata at that location identifying it as part of a plate. This problem already exists in current OME-Zarr versions, but the new collection model seems like a good opportunity to solve it.
-- Well interface types: The tables defining the Well interfaces describe some properties as strings when they appear to actually be `Reference`s.
-- Label `source`: Why is `source` a list? What is the intended meaning of a label multiscale with multiple sources?
-- Coordinate-system storage wording: The section saying that coordinate systems and transformations can be stored in "two distinct locations" needs clarification. Based on the rest of the RFC, there appear to be three relevant contexts: multiscales, singlescales, and collections.
-- Example consistency: The "collection with an inlined multiscale" example appears inconsistent with the singlescale definition because its singlescale does not contain the required transformation attributes. More generally, this example seems to confirm an intent to move the semantics of existing `multiscales[].datasets[].coordinateTransformations` into `multiscale > attributes > coordinateTransformations`. If that is indeed the intent, the RFC should explain why this breaking restructuring is necessary and what benefit it provides.
+
+Related to coordinate systems and transformations:
+- The start of the transformations section says they can be "stored in two distinct locations", but currently transformations can appear in singlescale attributes, multiscale attributes and scene attributes (three locations); it also presents the "two locations" as though only one was part of `ome` attributes, but this is of course not the case. This should be rewritten now that RFC-5 is stable and RFC-8's proposed changes target 0.9.dev2.
+- The transformations "Depending on the context" table shows Reference objects containing `id` and `name` fields even though the Reference interface defines `id` and `path`.
+- The transformations "In the context of multiscales transformations" list says that "the `id` field MUST be present" and "the `path` field MAY be omitted or null", but transformations don't have these fields (presumably it refers to the transformation's `input`/`output` References, but it should say so)
+- Example consistency: The "collection with an inlined multiscale" example is inconsistent with the singlescale definition because its singlescale does not contain the required transformation attributes.
+
+Related to HCS and labels:
+- HCS Row and column metadata: The RFC does not appear to define a way to write row or column metadata into the corresponding zarr groups themselves. Consequently, if a reader opens a path such as `/experiments/plate1.zarr/A` directly, there is no metadata at that location identifying it as part of a plate. This problem already exists in current OME-Zarr versions, but the new collection model seems like a good opportunity to solve it.
+- HCS Well interface types: The tables defining the Well interfaces describe some properties as strings when they appear to actually be `Reference`s.
+- Label `source`: The table describes it as a "array of strings" but it's a list of References
+- Label `source`: The RFC makes `source` a list so that a label image can reference multiple raw datasets it might apply to. A segmentation can only have one "source" dataset that it was segmented from, so changing the name "source" to e.g. "appliesTo" would make the intended meaning clearer. More importantly, as pointed out in suggestion #5: The "applies to" relationship is expressed more precisely (and more powerfully) via a transform inside a scene. Arguably, given that the "source" name's provenance semantics ("was segmented from <raw data>") seem to be unimportant, the attribute can be dropped entirely from the specification. The "labels" attribute already sufficiently identifies the image as a segmentation inside a scene, and this "source" introduces yet another accidental graph structure.
 
 ## Recommendation
 
