@@ -9,7 +9,7 @@ gathered from numerous individuals at many organisations. In September 2026,
 representatives from the following institutions:
 
 - Biohub
-- Bio Vision Center
+- BioVisionCenter
 - Fideus Labs
 - German BioImaging
 - Glencoe Software
