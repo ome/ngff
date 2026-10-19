@@ -50,7 +50,8 @@ The feedback can be summarised into six points:
 
 ## Recommendation
 
-RFC-8 needs the above significant revisions before review and acceptance.
+[RFC-8 v1](https://ngff.openmicroscopy.org/rfc/8/versions/v1-2026-08/)
+needs the above significant revisions before review and acceptance.
 
 ------
 
