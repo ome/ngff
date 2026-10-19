@@ -1,6 +1,6 @@
-# RFC-8: Comment 1
+# RFC-8: Comment 2
 
-(rfcs:rfc8:comment1)=
+(rfcs:rfc8:comment2)=
 
 ## Comment authors
 
