@@ -18,7 +18,7 @@ The RFC also contains several internal inconsistencies and ambiguities. Some can
 
 ## Issues
 
-This comment applies to "v1" of the RFC, i.e. the first revision after its initial publication ("v0"), at https://ngff.openmicroscopy.org/rfc/8/versions/v1-2026-08/index.html
+This comment applies to "v1" of the RFC, i.e. the first revision after its initial publication ("v0"), [https://ngff.openmicroscopy.org/rfc/8/versions/v1-2026-08](https://ngff.openmicroscopy.org/rfc/8/versions/v1-2026-08)
 
 Issues below are ordered from most to least significant.
 
