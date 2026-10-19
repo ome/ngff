@@ -46,7 +46,7 @@ The feedback can be summarised into six points:
   rather than constraints on generic nodes.
 - Disentagle names and IDs. IDs should be UUIDs to ensure uniqueness, while
   names are for human readability and need not be unique (but *should* be
-  unique when it aids readibility and usability!).
+  unique when it aids readability and usability!).
 
 ## Recommendation
 
@@ -169,7 +169,7 @@ in zarr & geozarr communities.
   * valid attributes have have keys coexisting in the same space, which would
     be tricky/brittle/annoying to implement.
 
-However, some support for implementing as much as possible thruogh extensions,
+However, some support for implementing as much as possible through extensions,
 e.g. HCS is an extension of a Collection, so that core specification is small.
 Extensions *could* be marked as such by using the ome: prefix.
 
