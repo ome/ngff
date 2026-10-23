@@ -1,10 +1,20 @@
+---
+authors:
+  - name: Matt McCormick
+    affiliation: Fideus Labs LLC
+    github: thewtex
+date: "2025-11-15"
+---
+
 # RFC-9: Comment 1
 
 (rfcs:rfc9:comment1)=
 
 ## Comment authors
 
-This comment was written by: Matt McCormick, Fideus Labs LLC.
+```{document-authors}
+
+```
 
 ## Conflicts of interest (optional)
 

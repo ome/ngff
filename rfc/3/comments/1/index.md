@@ -1,10 +1,21 @@
+---
+authors:
+  - name: Benedikt Best
+    github: btbest
+    orcid: 0000-0001-6965-1117
+date: "2026-02-02"
+recommendation: accept
+---
+
 # RFC-3: Comment 1
 
 (rfcs:rfc3:comment1)=
 
 ## Comment authors
 
-This comment was written by Benedikt Best (https://orcid.org/0000-0001-6965-1117)
+```{document-authors}
+
+```
 
 ## Conflicts of interest (optional)
 

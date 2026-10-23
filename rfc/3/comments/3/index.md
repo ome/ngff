@@ -1,10 +1,21 @@
+---
+authors:
+  - name: Cornelia Wetzker
+    github: cwetzker
+    orcid: 0000-0002-8367-5163
+    affiliation: Technische Universität Dresden
+date: "2026-03-19"
+---
+
 # RFC-3: Comment 3
 
 (rfcs:rfc3:comment3)=
 
-| **Role** | Name | GitHub Handle | Institution | 
-|----------|------|---------------|-------------|
-| **Author** | [Cornelia Wetzker](https://orcid.org/0000-0002-8367-5163) | [cwetzker](https://github.com/cwetzker) | TU Dresden | 
+```{document-authors}
+
+```
+
+
 
 I would like to contribute a further imaging modality to be considered in the current and future changes of the OME-Zarr format. Fluorescence lifetime imaging microscopy (FLIM) is an imaging setup that detects the fluorescence lifetime of fluorophores as an additional axis of data using specialized laser, detector and electronics setups. This lifetime is assessed by detection of photon arrival times relative to the latest pulse of a pulsed laser. This creates so called decay histograms for each pixel/voxel of a dataset that can be considered an additional dimension or axis of the dataset and allows the calculation of the specific lifetime(s) of fluorescence.
 

@@ -1,8 +1,20 @@
+---
+authors:
+  - name: Juan Nunez-Iglesias
+    email: jni@fastmail.com
+    github: jni
+    affiliation: Monash University
+date: "2025-08-05"
+recommendation: minor_changes
+---
+
 # RFC-4: Review 2
 
 ## Review authors
 
-Juan Nunez-Iglesias <jni@fastmail.com>
+```{document-authors}
+
+```
 
 ## Conflicts of interest
 

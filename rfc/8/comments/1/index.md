@@ -1,8 +1,20 @@
+---
+authors:
+  - name: Juan Nunez-Iglesias
+    github: jni
+    affiliation: Image Cooperative (on behalf of multiple institutions)
+date: "2026-10-19"
+recommendation: major_changes
+---
+
 # RFC-8: Comment 1
 
 (rfcs:rfc8:comment1)=
 
 ## Comment authors
+
+```{document-authors}
+```
 
 This comment was written by Juan Nunez-Iglesias but represents feedback
 gathered from numerous individuals at many organisations. In September 2026,

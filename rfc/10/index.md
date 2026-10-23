@@ -1,16 +1,28 @@
+---
+authors:
+  - name: Josh Moore
+    github: joshmoore
+    affiliation: German BioImaging e.V.
+    role: Co-author
+    date: "2026-07-03"
+  - name: Virginie Uhlmann
+    github: vuhlmann
+    affiliation: University of Zürich
+    role: Co-author
+    date: "2026-07-03"
+manual_status: D4
+description: NGFF Governance and the Editorial Board
+date: "2026-07-03"
+---
+
 # RFC-10: NGFF Governance and the Editorial Board
 
 Define the composition and processes of NGFF governance bodies.
 
 ## Status
 
-This RFC is currently in state `D3` (Authors open PR).
-
-| Role      | Name             | GitHub Handle                             | Institution                              | Date       | Status  |
-| --------- | ---------------- | ----------------------------------------- | ---------------------------------------- | ---------- | ------- |
-| Author    | Josh Moore       | [joshmoore](https://github.com/joshmoore) | German BioImaging e.V.                   | 2026-07-03 | Author  |
-| Author    | Virginie Uhlmann | [vuhlmann](https://github.com/vuhlmann)   | University of Zürich                     | 2026-07-03 | Author  |
-
+```{rfc-status}
+```
 
 ```{toctree}
 :hidden:

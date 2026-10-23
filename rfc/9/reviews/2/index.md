@@ -1,10 +1,24 @@
+---
+authors:
+  - name: Kola Babalola
+    affiliation: BioImage Archive, EMBL-EBI
+    github: kbab
+  - name: Matthew Hartley
+    affiliation: BioImage Archive, EMBL-EBI
+    github: matthewh-ebi
+date: "2026-01-29"
+recommendation: minor_changes
+---
+
 # RFC-9: Review 2
 
 (rfcs:rfc9:review2)=
 
 ## Review authors
 
-Kola Babalola, Matthew Hartley, the BioImage Archive, EMBL-EBI.
+```{document-authors}
+
+```
 
 ## Conflicts of interest
 

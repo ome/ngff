@@ -1,10 +1,21 @@
+---
+authors:
+  - name: Pete Bankhead
+    affiliation: University of Edinburgh
+    github: petebankhead
+date: "2026-01-26"
+recommendation: accept
+---
+
 # RFC-9: Review 1
 
 (rfcs:rfc9:review1)=
 
 ## Comment authors
 
-This comment was written by: Pete Bankhead, University of Edinburgh
+```{document-authors}
+
+```
 
 ## Conflicts of interest (optional)
 

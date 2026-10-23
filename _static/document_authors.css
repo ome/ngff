@@ -1,0 +1,17 @@
+.rfc-author-icon {
+    height: 1em;
+    width: 1em;
+    vertical-align: -0.15em;
+    margin: 0 0.05em;
+    display: inline;
+}
+
+.rfc-authors {
+    font-size: 1.05em;
+}
+
+.rfc-affiliation {
+    font-size: 0.85em;
+    color: var(--pst-color-text-muted, #666);
+    margin: 0.1em 0;
+}

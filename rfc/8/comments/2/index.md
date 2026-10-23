@@ -1,10 +1,20 @@
+---
+authors:
+  - name: Benedikt Best
+    github: btbest
+    orcid: 0000-0001-6965-1117
+date: "2026-10-19"
+recommendation: major_changes
+---
+
 # RFC-8: Comment 2
 
 (rfcs:rfc8:comment2)=
 
 ## Comment authors
 
-Benedikt Best (https://orcid.org/0000-0001-6965-1117)
+```{document-authors}
+```
 
 ## Summary
 
