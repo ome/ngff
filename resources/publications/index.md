@@ -52,7 +52,7 @@ This feed is generated live from Europe PMC and will show the most recent public
 
 <script>
 (async function () {
-  const QUERY = '"NGFF" OR "OME-Zarr" OR cites:34845388_MED OR cites:37428210_MED';
+  const QUERY = '"OME-NGFF" OR "OME-Zarr" OR cites:34845388_MED OR cites:37428210_MED';
   const PAGE = 25;
   const BASE = "https://www.ebi.ac.uk/europepmc/webservices/rest/search";
 
