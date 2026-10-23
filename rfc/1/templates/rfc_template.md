@@ -38,12 +38,14 @@ reference_pr: https://github.com/ome/ngff/pull/XXX
 manual_status: D3
 status_note: authors open PR
 description: A few words naming what the RFC changes, for the RFC listing
-date: YYYY-MM-DD
+date: "YYYY-MM-DD"
 ---
 
 (rfc-template)=
 
-# How to use it
+# RFC Template
+
+## How to use it
 
 Add the authors and editors to the YAML front matter above. ORCID and GitHub IDs are optional but recommended, as is an `affiliation_url` (e.g. a ROR or homepage) which turns the institution into a link. Add also a date per author and editor, **quoted**, as new authors and editors may be added through the process.
 

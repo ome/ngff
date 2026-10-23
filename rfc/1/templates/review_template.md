@@ -8,7 +8,7 @@ authors:
     affiliation: Affiliation Y
     orcid: 0000-0000-0000-0000
     github: author2
-date: YYYY-MM-DD
+date: "YYYY-MM-DD"
 recommendation: accept
 ---
 
