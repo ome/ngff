@@ -90,11 +90,6 @@ def _thread_count(rows):
     return len({_thread_stem(label) for label, _ in rows})
 
 
-def _count_versions(rfc_dir):
-    base = os.path.join(rfc_dir, "versions")
-    return sum(1 for _ in _numbered_subdirs(base)) if os.path.isdir(base) else 0
-
-
 def _status_nodes(meta):
     """The status line of an RFC, e.g. "S4 – Adopted (update implementations)".
 
@@ -142,9 +137,9 @@ def _doc_reference(text, docname):
 
 class RFCStatus(Directive):
     SECTION_LABELS = {
-        "reviews": ("Reviewer", "Review"),
-        "comments": ("Commenter", "Comment"),
-        "responses": ("Author", "Response"),
+        "reviews": "Review",
+        "comments": "Comment",
+        "responses": "Response",
     }
 
     def run(self):
@@ -183,15 +178,18 @@ class RFCStatus(Directive):
             result.append(pr)
 
         summary = nodes.paragraph(classes=["rfc-status-summary"])
-        summary += nodes.Text(
-            f"As of the last update, {last_update}: "
+        counts = (
             f"{_thread_count(comments)} comments, "
             f"{_thread_count(reviews)} reviews, "
-            f"{_thread_count(responses)} responses, "
+            f"{_thread_count(responses)} responses."
         )
+        if last_update:
+            counts = f"As of the last update, {last_update}: {counts}"
+        summary += nodes.Text(counts)
         result.append(summary)
-        result.append(nodes.title(text="Authors, editors, and endorsers"))
-        result.append(self._people_table(central))
+        if any(central.get(k) for k in ("authors", "editors", "endorsers")):
+            result.append(nodes.title(text="Authors, editors, and endorsers"))
+            result.append(self._people_table(central))
         if reviews or comments or responses:
             result.append(nodes.title(text="Reviews, comments, and responses"))
             result.append(
@@ -247,7 +245,7 @@ class RFCStatus(Directive):
             ("comments", comments),
             ("responses", responses),
         ):
-            _, link_label = self.SECTION_LABELS[section]
+            link_label = self.SECTION_LABELS[section]
             for label, meta in rows:
                 tbody += self._activity_row(
                     meta,
@@ -338,18 +336,10 @@ class RFCStatus(Directive):
         entry += para
         return entry
 
-    def _linked_entry(self, text, target, style=None):
+    def _linked_entry(self, text, target):
         entry = nodes.entry()
         para = nodes.paragraph()
-        if target:
-            para += nodes.reference("", text, refuri=target)
-        else:
-            if style == "bold":
-                para += nodes.strong("", nodes.Text(text or ""))
-            elif style == "italic":
-                para += nodes.emphasis("", nodes.Text(text or ""))
-            else:
-                para += nodes.Text(text or "")
+        para += nodes.reference("", text, refuri=target)
         entry += para
         return entry
 
