@@ -13,7 +13,8 @@ import sys
 from pathlib import Path
 
 import yaml
-from linkml.validator import validate
+from linkml.validator import Validator
+from linkml.validator.plugins import JsonschemaValidationPlugin
 
 SCHEMA = Path(__file__).with_name("front_matter.yaml")
 RFC_DIR = SCHEMA.parent.parent
@@ -47,23 +48,27 @@ def front_matter(path):
         return f"front matter is not valid YAML: {error}"
 
 
-def check(path, target_class):
+def check(validator, path, target_class):
     """Problems found in one document, as a list of strings."""
     meta = front_matter(path)
     if isinstance(meta, str):
         return [meta]
-    report = validate(meta, str(SCHEMA), target_class, strict=False)
+    report = validator.validate(meta, target_class)
     return [result.message for result in report.results]
 
 
 def main(argv):
     wanted = {Path(a).resolve() for a in argv}
+    # Built once: loading the schema per document is slow.
+    validator = Validator(
+        str(SCHEMA), validation_plugins=[JsonschemaValidationPlugin(closed=True)]
+    )
     checked = failed = 0
     for path, target_class in documents():
         if wanted and path.resolve() not in wanted:
             continue
         checked += 1
-        problems = check(path, target_class)
+        problems = check(validator, path, target_class)
         failed += bool(problems)
         for problem in problems:
             print(f"{path}: {problem}")
