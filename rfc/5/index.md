@@ -45,7 +45,7 @@ endorsers:
     affiliation: Scalable Minds
     date: "2024-08-22"
 manual_status: S3
-ome-zarr-version: 0.6
+ome_zarr_version: "0.6"
 description: Coordinate systems and transformations
 date: "2024-07-30"
 ---
