@@ -1,6 +1,6 @@
 ---
 manual_status: D1
-status_note: reserved, under preparation
+status_note: under preparation
 description: Channel provenance
 ---
 
@@ -12,7 +12,7 @@ description: Channel provenance
 comments/index
 ```
 
-RFC-7 has been reserved a number and a topic (channel provenance), but is yet under preparation. 
+RFC-7 has been reserved a number and a topic (channel provenance), but is yet under preparation.
 
 ## Status
 
