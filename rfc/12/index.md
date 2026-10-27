@@ -12,7 +12,7 @@ description: Future Metadata RFC
 comments/index
 ```
 
-RFC-12 has been reserved a number and the general topic of "Metadata", but is yet under preparation.
+RFC-12 has been reserved for the general topic of "Metadata", but is still under preparation.
 
 ## Status
 
