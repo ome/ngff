@@ -12,7 +12,7 @@ description: Core Concepts
 comments/index
 ```
 
-RFC-11 has been reserved a number and a topic (Core Concepts), but is yet under preparation.
+RFC-11 has been reserved for the topic (Core Concepts), but is still under preparation.
 
 ## Status
 
