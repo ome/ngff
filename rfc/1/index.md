@@ -475,9 +475,13 @@ model of other RFC-using communities, e.g., IETF's [IAB](https://www.ietf.org/ab
 
 ### Editorial Board
 
-The Editorial Board consists of all current **Editors** and can be reached at \<mailto:ngff-editors@openmicroscopy.org\>. Josh Moore, as the author of this RFC, is the sole initial member.
+:::{note}
+**Deprecated.** This section is superseded by [RFC-10](../10/index.md), which defines the Editorial Board, the Managing Editor and NGFF governance. The original text is kept below for the record.
+:::
 
-This proposal does not try to define how **Editors** are chosen. Therefore, the use of "Editors" in this document is intended as a placeholder. A future RFC will define the selection and removal of editors.
+~~The Editorial Board consists of all current **Editors** and can be reached at \<mailto:ngff-editors@openmicroscopy.org\>. Josh Moore, as the author of this RFC, is the sole initial member.~~
+
+~~This proposal does not try to define how **Editors** are chosen. Therefore, the use of "Editors" in this document is intended as a placeholder. A future RFC will define the selection and removal of editors.~~
 
 ### Editorial Workflow
 
