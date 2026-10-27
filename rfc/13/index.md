@@ -20,6 +20,7 @@ authors:
     affiliation: German BioImaging e.V.
     role: Contributor
     date: "2026-09-29"
+editors:
   - name: Virginie Uhlmann
     github: vuhlmann
     affiliation: BioVisionCenter
