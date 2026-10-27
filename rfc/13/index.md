@@ -28,9 +28,12 @@ editors:
     date: "2026-10-05"
 manual_status: D1
 description: Versioning and Support Lifecycle
+date: "2026-10-27"
 ---
 
 # RFC-13: OME-Zarr Versioning and Support Lifecycle
+
+(rfcs:rfc13)=
 
 ```{toctree}
 :hidden:
