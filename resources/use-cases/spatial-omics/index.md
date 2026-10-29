@@ -10,10 +10,13 @@ The SpatialData format builds upon OME-Zarr to provide a standard for storing sp
 
 ### spora ecosystem
 
-* [A spora data formats specification](https://spora.epfl.ch/docs-data.html) used to harmonize datasets. It stores structured tabular data as `.parquet`, all whole-slide images as `.ome.zarr`, and  segmentation masks as `.npz`.
-* [spora[data]](https://spora.epfl.ch/datasets.html) a resource containing multiple harmonized spatial proteomics datasets
+* [A spora data formats specification](https://spora.epfl.ch/docs/io/format.html) used to harmonize datasets. It stores structured tabular data as `.parquet`, all spatial proteomics and histopathology whole-slide images as `.ome.zarr`, and segmentation and tissue masks as `.npz`.
+* [spora[data]](https://spora.bioimagearchive.org/projects/spora) a resource containing multiple harmonized spatial proteomics datasets
 * [spora [io]](https://github.com/bunnelab/spora-io) a Python library for accessing spora datasets
-* Wenckstern, J., Jain, E., von Querfurth, B. et al. [The Virtual Tissues foundation model resolves spatial proteomics across scales](https://doi.org/10.1038/s41586-026-10884-y). Nature (2026). https://doi.org/10.1038/s41586-026-10884-y ([github repo](https://github.com/bunnelab/virtues#datasets))
+* von Querfurth, B., Wenckstern, J., Jain, E. et al. [spora: A Unified Multimodal Dataset and Platform for Spatial Proteomics](
+https://doi.org/10.48550/arXiv.2610.24002). NeurIPS Evaluations & Datasets (2026). [https://doi.org/10.48550/arXiv.2610.24002](
+https://doi.org/10.48550/arXiv.2610.24002). A technical report on spora, alongside a benchmark of spatial proteomics computational methods and foundation models.
+* Wenckstern, J., Jain, E., von Querfurth, B. et al. [The Virtual Tissues foundation model resolves spatial proteomics across scales](https://doi.org/10.1038/s41586-026-10884-y). Nature (2026). https://doi.org/10.1038/s41586-026-10884-y ([github repo](https://github.com/bunnelab/virtues#datasets)). A spatial proteomics foundation model "VirTues", pre-trained on parts of the spora data corpus using the spora [io] dataloaders.
 
 ## other
 
