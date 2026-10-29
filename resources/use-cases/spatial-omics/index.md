@@ -11,7 +11,7 @@ The SpatialData format builds upon OME-Zarr to provide a standard for storing sp
 ### spora ecosystem
 
 * [A spora data formats specification](https://spora.epfl.ch/docs/io/format.html) used to harmonize datasets. It stores structured tabular data as `.parquet`, all spatial proteomics and histopathology whole-slide images as `.ome.zarr`, and segmentation and tissue masks as `.npz`.
-* [spora[data]](https://spora.bioimagearchive.org) a resource containing multiple harmonized spatial proteomics datasets
+* [spora[data]](https://spora.bioimagearchive.org/projects/spora) a resource containing multiple harmonized spatial proteomics datasets
 * [spora [io]](https://github.com/bunnelab/spora-io) a Python library for accessing spora datasets
 * von Querfurth, B., Wenckstern, J., Jain, E. et al. [spora: A Unified Multimodal Dataset and Platform for Spatial Proteomics](
 https://doi.org/10.48550/arXiv.2610.24002). NeurIPS Evaluations & Datasets (2026). [https://doi.org/10.48550/arXiv.2610.24002](
