@@ -14,8 +14,7 @@ The SpatialData format builds upon OME-Zarr to provide a standard for storing sp
 * [spora[data]](https://spora.bioimagearchive.org/projects/spora) a resource containing multiple harmonized spatial proteomics datasets
 * [spora [io]](https://github.com/bunnelab/spora-io) a Python library for accessing spora datasets
 * von Querfurth, B., Wenckstern, J., Jain, E. et al. [spora: A Unified Multimodal Dataset and Platform for Spatial Proteomics](
-https://doi.org/10.48550/arXiv.2610.24002). NeurIPS Evaluations & Datasets (2026). [https://doi.org/10.48550/arXiv.2610.24002](
-https://doi.org/10.48550/arXiv.2610.24002). A technical report on spora, alongside a benchmark of spatial proteomics computational methods and foundation models.
+https://doi.org/10.48550/arXiv.2610.24002). NeurIPS Evaluations & Datasets (2026). https://doi.org/10.48550/arXiv.2610.24002 A technical report on spora, alongside a benchmark of spatial proteomics computational methods and foundation models.
 * Wenckstern, J., Jain, E., von Querfurth, B. et al. [The Virtual Tissues foundation model resolves spatial proteomics across scales](https://doi.org/10.1038/s41586-026-10884-y). Nature (2026). https://doi.org/10.1038/s41586-026-10884-y ([github repo](https://github.com/bunnelab/virtues#datasets)). A spatial proteomics foundation model "VirTues", pre-trained on parts of the spora data corpus using the spora [io] dataloaders.
 
 ## other
