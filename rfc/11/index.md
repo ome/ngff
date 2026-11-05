@@ -214,6 +214,8 @@ A tool that translates image data and metadata between formats or specification 
 
 A tool that checks an OME-Zarr against the requirements it implements for a specified version and reports detected errors or inconsistencies.
 
+![Image describing types of tools](./images/types_of_tools.png)
+
 ## 4. Coordinate transformations (RFC 5)
 
 Coordinate systems and transformations were introduced to the OME-Zarr specification in [OME.Zarr v0.6](https://ngff.openmicroscopy.org/specifications/0.6/index.html). The following concepts, along with a basic understanding of linear algebra, will be helpful to read that specification. For more information on motivation and specific types of transformations, see [RFC-5](https://ngff.openmicroscopy.org/rfc/5/index.html).
@@ -265,9 +267,9 @@ Defined points for adding non-essential functionality and features.
 
 Collections are arbitrary groups of nodes which can be specialised for different use cases. Collections can be segmentations, prediction maps and other derived images as well as other data types ("nodes").
 
-> [!tip] Info
-> A grouping of images or other data that can contain nested collections independently of physical storage layout.
-> Collection = grouping; scene metadata = spatial relationships within that grouping.
+:::{tip}
+Collection = grouping; scene metadata = spatial relationships within that grouping.
+:::
 
 ### Path
 
@@ -285,9 +287,10 @@ A set of metadata that describes a node's role or properties, such as identifyin
 
 An image whose pixel or voxel values are non-negative integers representing labels with defined meanings, such as individual object identifiers or classes. It is spatially associated with a corresponding multiscale image.
 
-> [!tip] Labels and segmentation
->- In *instance segmentation*, a label value typically identifies an individual object. In *semantic segmentation*, a label value identifies a class and may occur across multiple objects.
->- One value may cover several disconnected regions, but one pixel in one label image cannot hold two independent object IDs simultaneously.
+:::{admonition} Labels and segmentation
+- In *instance segmentation*, a label value typically identifies an individual object. In *semantic segmentation*, a label value identifies a class and may occur across multiple objects.
+- One value may cover several disconnected regions, but one pixel in one label image cannot hold two independent object IDs simultaneously.
+:::
 
 
 ## 7. High-content screening (HCS)
@@ -310,8 +313,9 @@ A well is an individual sample-holding compartment within a plate, identified by
 
 The two grid coordinates used to locate a well within a plate, such as row A and column 1 for well A1.
 
-> [!tip] Indexing
-> Indices are zero-based positions of a well's row and column in the plate's declared `rows` and `columns` lists; for example, well A1 has `rowIndex: 0` and `columnIndex: 0` when A and 1 are the first entries in those lists.
+:::{admonition} Indexing
+Indices are zero-based positions of a well's row and column in the plate's declared `rows` and `columns` lists; for example, well A1 has `rowIndex: 0` and `columnIndex: 0` when A and 1 are the first entries in those lists.
+:::
 
 ### Field and field of view (FOV)
 
@@ -325,8 +329,9 @@ An acquisition is a distinct imaging run covering some or all wells of a plate, 
 
 A grid is a two-dimensional arrangement of positions organized into rows and columns, used to locate samples, sample regions, or images without requiring wells or every position to be occupied.
 
-> [!tip] Use cases
-> A grid can organize sample-holding wells in a multiwell plate or tissue cores in a tissue/tumor microarray (TMA) section, where no separate sample-holding compartments are present.
+:::{tip}
+A grid can organize sample-holding wells in a multiwell plate or tissue cores in a tissue/tumor microarray (TMA) section, where no separate sample-holding compartments are present.
+:::
 
 ## 8. Single file packaging
 
