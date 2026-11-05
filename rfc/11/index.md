@@ -40,10 +40,6 @@ endorsers:
     github: bogovicj
     affiliation: HHMI Janelia
     date: "2026-11-05"
-reviewers:
-  - name: Kimberly Meechan
-    affiliation: UCL
-    date: "2026-11-05"
 manual_status: D3
 description: Core Concepts
 date: "2026-11-05"
