@@ -92,8 +92,9 @@ A container for arrays and other groups, enabling hierarchical organization of d
 
 JSON (JavaScript Object Notation) is a lightweight data-interchange format. A key-value pair in a JSON object is called a "property" or a "field".
 
-> [!warning] 
-> "Field" is used often in the OME-Zarr to refer to a JSON property, but may also appear in the context of HCS as a "field" or "field of view".
+:::{caution}
+"Field" is used often in the OME-Zarr to refer to a JSON property, but may also appear in the context of HCS as a "field" or "field of view".
+:::
 
 ### `zarr.json`
 
@@ -175,16 +176,19 @@ Pyramidal image files (also known as multiscale images) store the same image at 
 
 A channel is a layer that contains a single readout for each positional element (pixel) of the image array. An array may combine multiple channels along a dedicated axis.
 
-> [!warning]
-> - A single-channel image may omit the channel axis or retain it with a length of one.
-> - For RGB images, each color is saved as a separate channel in OME-Zarr.
+:::{note}
+- A single-channel image may omit the channel axis or retain it with a length of one.
+- For RGB images, each color is saved as a separate channel in OME-Zarr.
+:::
 
-> [!tip] Example
-> | Channel index | Example signal | What it helps show |
-> | :---: | :---: | :---: |
-> | 0 | A DNA stain | Cell Nuclei |
-> | 1 | A membrane stain | Cell Boundaries |
-> | 2 | A fluorescent protein marker | Marker's distribution |
+:::{tip}
+Example
+| Channel index | Example signal | What it helps show |
+| :---: | :---: | :---: |
+| 0 | A DNA stain | Cell Nuclei |
+| 1 | A membrane stain | Cell Boundaries |
+| 2 | A fluorescent protein marker | Marker's distribution |
+:::
 
 ### Axis
 
@@ -218,8 +222,11 @@ Coordinate systems and transformations were introduced to the OME-Zarr specifica
 
 A coordinate transformation is a function that describes the relationship between two coordinate systems. Coordinate transformations operate as a rule in the forward direction, that is from one input coordinate system to an output coordinate system. If the inverse transformation exists (output → input), the coordinate transformation is invertible.
 
-> [!tip] Types of coordinate transforms
-> Different kinds of coordinate transformations can be specified in OME-Zarr. Common families are *matrix transformations* (rotation and affine transformations), that are parametrized by matrices, and *displacement transformations*, where the coordinate transformation is represented by a vector field.
+:::{admonition} Types of coordinate transforms
+:class: tip
+
+Different kinds of coordinate transformations can be specified in OME-Zarr. Common families are *matrix transformations* (rotation and affine transformations), that are parametrized by matrices, and *displacement transformations*, where the coordinate transformation is represented by a vector field.
+:::
 
 ### Array space
 
@@ -237,12 +244,18 @@ An ordered list of transformations applied first to last, with each output feedi
 
 A scene groups spatially related images and describes their relative placement through transformations between coordinate systems. Its metadata must include coordinate transformations and may define additional coordinate systems, such as a shared reference frame.
 
-> [!warning]
-> If adopted as currently proposed, RFC-8 would represent scene metadata as an attribute of a collection, enriching that collection with spatial relationships between its images.
+:::{caution}
+If adopted as currently proposed, RFC-8 would represent scene metadata as an attribute of a collection, enriching that collection with spatial relationships between its images.
+:::
+
 
 ## 5. Extensions and Collections
 
 OME-Zarr defines extension points and a generic definition of collections to accommodate collections of related data that result from scientific imaging and workflows. See [RFC-8](https://ngff.openmicroscopy.org/rfc/8/index.html) for more information, motivation, and user stories.
+
+:::{danger}
+The below content is subject to change as RFC-8 is revised and added to the spec. It is currently phrased with present tense implying that the concepts are in the spec, with the expectation that it will be relevant with OME-Zarr v1.
+:::
 
 ### Extension
 
