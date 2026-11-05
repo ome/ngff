@@ -94,6 +94,7 @@ Want to read or write a Zarr? Use one of these tools.
 
 | Name    | Link | Description |
 | -------- | ------- | ------- |
+| acquire-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/acquire-project/acquire-zarr) | Streams image data to chunked, compressed, multiscale OME-Zarr through C and Python APIs, using filesystem or S3-compatible storage. Random-access writing is not supported. |
 | bfio | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/PolusAI/bfio) | A Python interface to Bioformats using jpype for direct access to the library. |
 | bia-zarr | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/BioImage-Archive/bia-zarr) | A Python library for reading, writing, and manipulating OME-Zarr datasets, including thumbnail generation and OME-Zarr type detection. |
 | Bio-Formats | [![image](https://github.githubassets.com/favicons/favicon.svg)](https://github.com/ome/bioformats) | A standalone Java library for reading and writing life sciences image file formats. Requires [OMEZarrReader](https://github.com/ome/ZarrReader) |
