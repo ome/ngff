@@ -190,6 +190,8 @@ Example
 | 2 | A fluorescent protein marker | Marker's distribution |
 :::
 
+![Image with examples of what channels may represent](./images/channels.png)
+
 ### Axis
 
 Image arrays in OME-Zarr are arrays of 2 or more dimensions. Each dimension is described in the `axes` metadata, which also provides extra information about what each dimension represents. For example, a name, a type (e.g., space, time, channel), and a unit (e.g., micrometer, nanometer, millisecond).
@@ -214,7 +216,7 @@ A tool that translates image data and metadata between formats or specification 
 
 A tool that checks an OME-Zarr against the requirements it implements for a specified version and reports detected errors or inconsistencies.
 
-![Image describing types of tools](./images/types_of_tools.png)
+![Image describing types of tools](./images/readers_etc.png)
 
 ## 4. Coordinate transformations (RFC 5)
 
@@ -249,6 +251,8 @@ A scene groups spatially related images and describes their relative placement t
 :::{caution}
 If adopted as currently proposed, RFC-8 would represent scene metadata as an attribute of a collection, enriching that collection with spatial relationships between its images.
 :::
+
+![Image diagram of a scene](./images/scenes.png)
 
 
 ## 5. Extensions and Collections
@@ -332,6 +336,8 @@ A grid is a two-dimensional arrangement of positions organized into rows and col
 :::{tip}
 A grid can organize sample-holding wells in a multiwell plate or tissue cores in a tissue/tumor microarray (TMA) section, where no separate sample-holding compartments are present.
 :::
+
+![Image diagram of an HCS plate including wells and fields](./images/HCS.png)
 
 ## 8. Single file packaging
 
