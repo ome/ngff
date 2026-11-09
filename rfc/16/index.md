@@ -54,7 +54,6 @@ Further extensions are registered in the [zarr-extensions](https://github.com/za
 According to its README, the Zarr Format Working Group "aim[s] to be very open about registering extensions" and reviews them mainly to avoid confusing names and malicious activity.
 This is the right policy for Zarr, which is a general-purpose format.
 The registry has grown quickly: at the time of writing it lists more than 50 data types, 18 codecs, 2 chunk grids and 3 chunk key encodings.
-Implementations may also use extension names that are not registered at all, such as the `numcodecs.*` codecs written by zarr-python.
 
 For OME-Zarr, this openness becomes a problem for interoperability:
 
@@ -112,26 +111,18 @@ The MUST entries are deliberately limited to extensions that are simple to imple
 | Names | Readers | Source | Description |
 | --- | --- | --- | --- |
 | `bool` | MUST | [core](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#data-types) | Boolean |
-| `int8`, `int16`, `int32`, `int64` | MUST | [core](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#data-types) | Signed integers |
-| `uint8`, `uint16`, `uint32`, `uint64` | MUST | [core](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#data-types) | Unsigned integers |
+| `int8`, `int16`, `int32` | MUST | [core](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#data-types) | Signed integers |
+| `int64` | SHOULD | [core](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#data-types) | Signed integers |
+| `uint8`, `uint16`, `uint32` | MUST | [core](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#data-types) | Unsigned integers |
+| `uint64` | SHOULD | [core](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#data-types) | Unsigned integers |
 | `float32`, `float64` | MUST | [core](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#data-types) | IEEE 754 single- and double-precision floating-point numbers |
 | `float16` | SHOULD | [core](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#data-types) | IEEE 754 half-precision floating-point numbers |
-| `complex64`, `complex128` | SHOULD | [core](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#data-types) | Complex numbers with `float32` / `float64` components |
-| `r8`, `r16`, `r24`, … (`r<N>`, N a multiple of 8) | SHOULD | [core](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#data-types) | Raw bits |
-| [`int2`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/int2), [`int4`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/int4) | SHOULD | registry | Signed sub-byte integers |
-| [`uint2`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/uint2), [`uint4`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/uint4) | SHOULD | registry | Unsigned sub-byte integers |
-| [`bfloat16`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/bfloat16) | SHOULD | registry | bfloat16 floating-point numbers |
-| [`float4_e2m1fn`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float4_e2m1fn), [`float6_e2m3fn`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float6_e2m3fn), [`float6_e3m2fn`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float6_e3m2fn), [`float8_e3m4`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e3m4), [`float8_e4m3`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e4m3), [`float8_e4m3b11fnuz`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e4m3b11fnuz), [`float8_e4m3fnuz`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e4m3fnuz), [`float8_e5m2`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e5m2), [`float8_e5m2fnuz`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e5m2fnuz), [`float8_e8m0fnu`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e8m0fnu) | SHOULD | registry | Low-precision floating-point numbers |
-| [`complex_float32`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float32), [`complex_float64`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float64) | SHOULD | registry | Alternative names of the core `complex64` / `complex128` |
-| [`complex_bfloat16`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_bfloat16), [`complex_float16`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float16), [`complex_float4_e2m1fn`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float4_e2m1fn), [`complex_float6_e2m3fn`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float6_e2m3fn), [`complex_float6_e3m2fn`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float6_e3m2fn), [`complex_float8_e3m4`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e3m4), [`complex_float8_e4m3`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e4m3), [`complex_float8_e4m3b11fnuz`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e4m3b11fnuz), [`complex_float8_e4m3fnuz`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e4m3fnuz), [`complex_float8_e5m2`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e5m2), [`complex_float8_e5m2fnuz`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e5m2fnuz), [`complex_float8_e8m0fnu`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e8m0fnu) | SHOULD | registry | Complex numbers with low-precision floating-point components |
-| [`string`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/string) | SHOULD | registry | Variable-length UTF-8 strings |
-| [`bytes`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/bytes) | SHOULD | registry | Variable-length byte strings |
-| [`fixed_length_utf32`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/fixed_length_utf32) | SHOULD | registry | Fixed-length UTF-32 strings |
-| [`numpy.datetime64`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/numpy.datetime64), [`numpy.timedelta64`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/numpy.timedelta64) | SHOULD | registry | NumPy-compatible date/time and time span values |
-| [`struct`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/struct) | SHOULD | registry | Structured elements with named fields |
-
-The registry also contains [`structured`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/structured), a read-only legacy alias of `struct`.
-It is not on the allowlist: writers MUST NOT write it, and readers MAY accept it.
+| [`int2`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/int2), [`int4`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/int4) | MAY | registry | Signed sub-byte integers |
+| [`uint2`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/uint2), [`uint4`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/uint4) | MAY | registry | Unsigned sub-byte integers |
+| [`bfloat16`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/bfloat16) | MAY | registry | bfloat16 floating-point numbers |
+| [`float4_e2m1fn`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float4_e2m1fn), [`float6_e2m3fn`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float6_e2m3fn), [`float6_e3m2fn`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float6_e3m2fn), [`float8_e3m4`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e3m4), [`float8_e4m3`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e4m3), [`float8_e4m3b11fnuz`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e4m3b11fnuz), [`float8_e4m3fnuz`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e4m3fnuz), [`float8_e5m2`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e5m2), [`float8_e5m2fnuz`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e5m2fnuz), [`float8_e8m0fnu`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/float8_e8m0fnu) | MAY | registry | Low-precision floating-point numbers |
+| [`complex_float32`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float32), [`complex_float64`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float64) | MAY | registry | Alternative names of the core `complex64` / `complex128` |
+| [`complex_bfloat16`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_bfloat16), [`complex_float16`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float16), [`complex_float4_e2m1fn`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float4_e2m1fn), [`complex_float6_e2m3fn`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float6_e2m3fn), [`complex_float6_e3m2fn`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float6_e3m2fn), [`complex_float8_e3m4`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e3m4), [`complex_float8_e4m3`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e4m3), [`complex_float8_e4m3b11fnuz`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e4m3b11fnuz), [`complex_float8_e4m3fnuz`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e4m3fnuz), [`complex_float8_e5m2`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e5m2), [`complex_float8_e5m2fnuz`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e5m2fnuz), [`complex_float8_e8m0fnu`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/complex_float8_e8m0fnu) | MAY | registry | Complex numbers with low-precision floating-point components |
 
 Other parts of the OME-Zarr specification can restrict the data types further for particular arrays.
 For example, the pixels of label images MUST use an integer data type.
@@ -151,13 +142,10 @@ These restrictions continue to apply.
 | [`cast_value`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/cast_value) | SHOULD | array → array | registry | Converts values to another numeric data type |
 | [`conditional`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/conditional) | SHOULD | bytes → bytes | registry | Enables or disables wrapped codecs per chunk |
 | [`jpeg`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/jpeg) | SHOULD | array → bytes | registry | Lossy baseline JPEG for `uint8` image data |
-| [`n5_default`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/n5_default) | SHOULD | array → bytes | registry | Compatibility with N5 blocks in "default" mode |
-| [`packbits`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/packbits) | SHOULD | array → bytes | registry | Packs values whose bit width is not a multiple of 8 |
+| [`packbits`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/packbits) | MAY | array → bytes | registry | Packs values whose bit width is not a multiple of 8 |
 | [`reshape`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/reshape) | SHOULD | array → array | registry | Reshapes a chunk while keeping C order |
 | [`scale_offset`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/scale_offset) | SHOULD | array → array | registry | Subtracts an offset and multiplies by a scale factor |
-| [`vlen-bytes`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/vlen-bytes) | SHOULD | array → bytes | registry | Variable-length byte strings |
-| [`vlen-utf8`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/vlen-utf8) | SHOULD | array → bytes | registry | Variable-length UTF-8 strings |
-| [`zfp`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/zfp) | SHOULD | array → bytes | registry | ZFP floating-point compression |
+| [`zfp`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/zfp) | MAY | array → bytes | registry | ZFP floating-point compression |
 | [`zstd`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/zstd) | MUST | bytes → bytes | registry | Zstandard compression |
 
 The codec "Type" column is informative only and is taken from the specification of each codec.
@@ -168,7 +156,7 @@ Whether a codec can be used with a given data type, and in which position of the
 | Name | Readers | Source | Description |
 | --- | --- | --- | --- |
 | [`regular`](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html#regular-grids) | MUST | core | Chunks of identical shape |
-| [`rectilinear`](https://github.com/zarr-developers/zarr-extensions/tree/main/chunk-grids/rectilinear) | SHOULD | registry | Variable chunk edge lengths per axis |
+| [`rectilinear`](https://github.com/zarr-developers/zarr-extensions/tree/main/chunk-grids/rectilinear) | MAY | registry | Variable chunk edge lengths per axis |
 
 ### Chunk key encodings
 
@@ -176,7 +164,7 @@ Whether a codec can be used with a given data type, and in which position of the
 | --- | --- | --- | --- |
 | [`default`](https://zarr-specs.readthedocs.io/en/latest/v3/chunk-key-encodings/default/) | MUST | core | `c/0/1/2`-style keys with configurable separator |
 | [`v2`](https://zarr-specs.readthedocs.io/en/latest/v3/chunk-key-encodings/v2/) | MUST | core | Zarr v2-style `0.1.2` keys |
-| [`template`](https://github.com/zarr-developers/zarr-extensions/tree/main/chunk-key-encodings/template) | SHOULD | registry | Keys built from a format-string template |
+| [`template`](https://github.com/zarr-developers/zarr-extensions/tree/main/chunk-key-encodings/template) | MAY | registry | Keys built from a format-string template |
 
 ### Storage transformers
 
@@ -202,7 +190,7 @@ Implementations can safely ignore them, so they do not affect interoperability.
 ## Extending the allowlist
 
 A new entry is added to the allowlist through an RFC.
-New entries are normally added with the reader level SHOULD.
+New entries are normally added with the reader level SHOULD or MAY.
 To keep the process lightweight, a single RFC can add several entries, and the RFC can be short.
 It SHOULD:
 
@@ -212,13 +200,12 @@ It SHOULD:
 * list at least one open-source implementation that can read and write the extension, and preferably implementations in more than one programming language;
 * provide example data.
 
-An entry can be promoted from SHOULD to MUST through an RFC once it is widely supported by implementations.
-Because this makes readers that do not support the entry non-conforming, a promotion only takes effect with a new version of the specification.
+Promoting an entry from SHOULD to MUST through an RFC is only possible in a new version of the specification.
 
 Entries are not removed from the allowlist in minor versions, because removing them would make existing data non-conforming.
 The specification MAY mark an entry as deprecated, meaning that writers SHOULD NOT use it for new data, and remove it in the next major version.
 
-If the specification of an extension in the zarr-extensions registry changes after it is added to the allowlist, the change applies to OME-Zarr automatically, as long as it stays compatible with existing data.
+If the specification of an extension in the zarr-extensions registry changes after it is added to the allowlist, the change applies to OME-Zarr automatically, as long as it stays compatible with existing data. TODO: We should maybe pin to commits?
 The ZFWG reviews changes to registered extensions.
 Incompatible changes are expected to be published under a new extension name, which would need its own RFC.
 
@@ -265,24 +252,10 @@ Writers that allow users to choose arbitrary codecs or data types (e.g. any code
 
 ### The initial allowlist is broad
 
-The initial allowlist contains every registered extension, including some that are rarely used in bioimaging today (e.g. `n5_default`, `vlen-bytes`, `vlen-utf8`, `numpy.timedelta64`) or that only few implementations support yet (e.g. `rectilinear`, `conditional`, `template`, the sub-byte integers and the low-precision floating-point data types used in machine learning).
+The initial allowlist contains every registered extension, including some that are rarely used in bioimaging today or that only few implementations support yet (e.g. `rectilinear`, `conditional`, `template`, the sub-byte integers and the low-precision floating-point data types used in machine learning).
 It is unlikely that implementations will support all of them within a reasonable time after this RFC is accepted.
 This is why only a small set of entries is marked MUST, and all other entries are marked SHOULD.
 An alternative is to start with a smaller allowlist (e.g. only the MUST entries) and to add other extensions through follow-up RFCs as soon as there is demand and implementation support.
-
-### Choice of the MUST entries
-
-The split between MUST and SHOULD is the part of this RFC where feedback from implementers is most needed.
-Open questions include:
-
-* Should `float16` be MUST?
-  It is part of the Zarr core specification, but not every programming language has a native half-precision type.
-* Should `complex64` and `complex128` be MUST?
-  They are part of the Zarr core specification, but rarely used for bioimaging data.
-* Should `v2` be MUST?
-  It is trivial to implement, but rarely needed for new data.
-* Is `blosc` reasonable as MUST for implementations in all languages, in particular for JavaScript in the browser?
-* Should `string` and `vlen-utf8` be MUST, e.g. for tables or annotations stored next to images?
 
 ### Existing data
 
