@@ -189,7 +189,7 @@ A multiscale image's group metadata before and after this RFC:
 
 * Socialization: 
   * OME-Zarr Hackathon 2027
-    * NGFF issue tracker since October 2025 ([#347](https://github.com/ome/ngff/issues/347))
+  * NGFF issue tracker since October 2025 ([#347](https://github.com/ome/ngff/issues/347))
 ## Implementation
 
 ### Specification
