@@ -36,9 +36,10 @@ OME-Zarr currently permits *all* features of Zarr v3, including any data type, c
 Because the set of Zarr extensions is open-ended and growing, no OME-Zarr implementation can claim to read every conforming OME-Zarr dataset.
 
 This RFC replaces the open-ended permission with a closed **allowlist** that is part of the OME-Zarr specification.
-The initial allowlist contains every data type, codec, chunk grid, chunk key encoding and storage transformer that is defined in the Zarr v3 core specification or registered in the [zarr-extensions](https://github.com/zarr-developers/zarr-extensions) repository at the time of writing.
+The initial allowlist is drawn from the data types, codecs, chunk grids, chunk key encodings and storage transformers that are defined in the Zarr v3 core specification or registered in the [zarr-extensions](https://github.com/zarr-developers/zarr-extensions) repository at the time of writing.
+It contains the extensions that are relevant for storing bioimaging data and leaves out the others.
 OME-Zarr data MUST only use entries from the allowlist.
-Each entry states whether readers MUST or SHOULD support it, which gives writers a well-defined set of extensions that every conforming reader can open.
+Each entry states whether readers MUST, SHOULD or MAY support it, which gives writers a well-defined set of extensions that every conforming reader can open.
 The allowlist can be extended through the RFC process, including after OME-Zarr 1.0.
 
 ## Background
@@ -78,10 +79,11 @@ After 1.0, any restriction would invalidate data that was conforming when it was
 1. The OME-Zarr specification gains a normative **allowlist** of Zarr v3 extensions for five extension points: data types, codecs, chunk grids, chunk key encodings and storage transformers.
 2. OME-Zarr data MUST only use extensions that are on the allowlist.
    This applies to every Zarr array in an OME-Zarr hierarchy, including arrays nested in codecs (e.g. the inner codecs and index codecs of `sharding_indexed`, or the codecs wrapped by `conditional`).
-3. The initial allowlist contains every extension in the Zarr v3 core specification plus every extension registered in the zarr-extensions repository at the time of writing (see [below](#initial-allowlist)).
+3. The initial allowlist is a selection of the extensions in the Zarr v3 core specification and the zarr-extensions repository at the time of writing (see [below](#initial-allowlist)).
+   Extensions that are not relevant for bioimaging data are left out (see [Extensions not on the allowlist](#extensions-not-on-the-allowlist)).
 4. Each allowlist entry has a reader support level.
-   Readers MUST support the entries marked MUST and SHOULD support the entries marked SHOULD.
-   Readers MAY support extensions that are not on the allowlist.
+   Readers MUST support the entries marked MUST, SHOULD support the entries marked SHOULD and MAY support the entries marked MAY.
+   Readers MAY also support extensions that are not on the allowlist.
 5. Each allowlist entry refers to the specification of the extension, either in the Zarr v3 core specification or in the zarr-extensions repository.
    The OME-Zarr specification does not redefine any extension.
 6. The allowlist can be extended through the RFC process at any time, including after OME-Zarr 1.0.
@@ -102,6 +104,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 ## Initial allowlist
 
 The tables below are the proposed initial allowlist.
+All entries are permitted in OME-Zarr data, regardless of their reader level.
 The "Readers" column gives the level of support that is expected from readers (see [Conformance](#conformance)).
 The MUST entries are deliberately limited to extensions that are simple to implement or widely available as libraries in all major programming languages, and that cover the large majority of existing OME-Zarr data.
 "Source" is either the [Zarr v3 core specification](https://zarr-specs.readthedocs.io/en/latest/v3/core/v3.0.html) ("core") or the [zarr-extensions](https://github.com/zarr-developers/zarr-extensions) registry ("registry"), as of commit [`c42403b`](https://github.com/zarr-developers/zarr-extensions/tree/c42403b7302c4d4826cb3651a36466a99077cf07) (2026-11-05).
@@ -127,6 +130,20 @@ The MUST entries are deliberately limited to extensions that are simple to imple
 Other parts of the OME-Zarr specification can restrict the data types further for particular arrays.
 For example, the pixels of label images MUST use an integer data type.
 These restrictions continue to apply.
+
+(extensions-not-on-the-allowlist)=
+
+### Extensions not on the allowlist
+
+The following extensions are defined in the Zarr v3 core specification or registered in the zarr-extensions repository, but are deliberately not on the initial allowlist:
+
+* **Data types:** `complex64`, `complex128`, raw bits `r<N>`, [`string`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/string), [`bytes`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/bytes), [`fixed_length_utf32`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/fixed_length_utf32), [`numpy.datetime64`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/numpy.datetime64), [`numpy.timedelta64`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/numpy.timedelta64), [`struct`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/struct) and its legacy alias [`structured`](https://github.com/zarr-developers/zarr-extensions/tree/main/data-types/structured).
+* **Codecs:** [`n5_default`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/n5_default), [`vlen-bytes`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/vlen-bytes) and [`vlen-utf8`](https://github.com/zarr-developers/zarr-extensions/tree/main/codecs/vlen-utf8).
+
+Strings, byte strings, dates, time spans, structured records and raw bits are not used to store image pixels, and there is currently no OME-Zarr metadata that refers to arrays of these types.
+`vlen-bytes` and `vlen-utf8` only serve the variable-length `bytes` and `string` data types.
+`n5_default` exists for compatibility with N5 and is not needed for OME-Zarr data.
+Any of these extensions can be added later through the RFC process, e.g. when OME-Zarr starts to store tables or other non-image data in Zarr arrays.
 
 ### Codecs
 
@@ -177,10 +194,11 @@ The proposed rules for writers and readers are:
 
 * **Writers** MUST only write arrays whose data type, codecs, chunk grid, chunk key encoding and storage transformers are on the allowlist.
   They MUST use the name of the extension given in the allowlist.
-  Aliases, including deprecated aliases listed in an extension specification (such as `numcodecs.bitround` or `structured`), MUST NOT be written.
-  Writers SHOULD only use entries marked MUST, unless an entry marked SHOULD is needed for the data at hand (e.g. a lossy codec, or a data type that the MUST entries cannot represent).
-* **Readers** MUST support all entries marked MUST and SHOULD support all entries marked SHOULD.
-  Readers MAY support aliases and extensions that are not on the allowlist.
+  Aliases, including deprecated aliases listed in an extension specification (such as `numcodecs.bitround`), MUST NOT be written.
+  Writers SHOULD only use entries marked MUST, unless an entry marked SHOULD or MAY is needed for the data at hand (e.g. a lossy codec, or a data type that the MUST entries cannot represent).
+  Writers SHOULD prefer entries marked SHOULD over entries marked MAY.
+* **Readers** MUST support all entries marked MUST, SHOULD support all entries marked SHOULD and MAY support entries marked MAY.
+  Readers MAY also support aliases and extensions that are not on the allowlist.
   A reader that encounters an extension it does not support SHOULD fail with an error message that names the unsupported extension, rather than failing silently or returning wrong data.
 * **Validators** SHOULD report the use of an extension that is not on the allowlist as an error.
 
@@ -200,7 +218,8 @@ It SHOULD:
 * list at least one open-source implementation that can read and write the extension, and preferably implementations in more than one programming language;
 * provide example data.
 
-Promoting an entry from SHOULD to MUST through an RFC is only possible in a new version of the specification.
+Promoting an entry to a stricter reader level (from MAY to SHOULD, or from SHOULD or MAY to MUST) also requires an RFC.
+Because it makes readers that do not support the entry non-conforming, a promotion is only possible in a new version of the specification.
 
 Entries are not removed from the allowlist in minor versions, because removing them would make existing data non-conforming.
 The specification MAY mark an entry as deprecated, meaning that writers SHOULD NOT use it for new data, and remove it in the next major version.
@@ -231,7 +250,7 @@ is replaced with:
 > All Zarr arrays in an OME-Zarr hierarchy MUST only use the data types, codecs, chunk grids, chunk key encodings and storage transformers listed in the [Zarr extensions](#zarr-extensions) section.
 > This includes codecs nested in the configuration of other codecs.
 > Other sections of this specification MAY restrict the permitted data types further.
-> Readers MUST support the entries marked MUST and SHOULD support the entries marked SHOULD.
+> Readers MUST support the entries marked MUST, SHOULD support the entries marked SHOULD and MAY support the entries marked MAY.
 
 A new subsection "Zarr extensions" is added to the "Storage format" section.
 It contains the tables of the [initial allowlist](#initial-allowlist), the [conformance](#conformance) rules for writers and readers, and a short note on how the allowlist is extended.
@@ -245,23 +264,23 @@ The conformance test suite SHOULD gain negative test cases, i.e. arrays that use
 
 ### Implementations
 
-Writers that only use the core codecs (`bytes`, `blosc`, `gzip`, `transpose`, `crc32c`, `sharding_indexed`) and `zstd`, the core data types, the `regular` chunk grid and the `default` chunk key encoding already conform and need no changes.
+Writers that only use the core codecs (`bytes`, `blosc`, `gzip`, `transpose`, `crc32c`, `sharding_indexed`) and `zstd`, the core integer and floating-point data types, the `regular` chunk grid and the `default` chunk key encoding already conform and need no changes.
 Writers that allow users to choose arbitrary codecs or data types (e.g. any codec in numcodecs, or any NumPy dtype) need to restrict that choice, or warn about it, when writing OME-Zarr.
 
 ## Drawbacks, risks, alternatives, and unknowns
 
 ### The initial allowlist is broad
 
-The initial allowlist contains every registered extension, including some that are rarely used in bioimaging today or that only few implementations support yet (e.g. `rectilinear`, `conditional`, `template`, the sub-byte integers and the low-precision floating-point data types used in machine learning).
+The initial allowlist contains many extensions, including some that only few implementations support yet (e.g. `rectilinear`, `conditional`, `template`, the sub-byte integers and the low-precision floating-point data types used in machine learning).
 It is unlikely that implementations will support all of them within a reasonable time after this RFC is accepted.
-This is why only a small set of entries is marked MUST, and all other entries are marked SHOULD.
+This is why only a small set of entries is marked MUST, and the other entries are marked SHOULD or MAY.
 An alternative is to start with a smaller allowlist (e.g. only the MUST entries) and to add other extensions through follow-up RFCs as soon as there is demand and implementation support.
 
 ### Existing data
 
-Data written with OME-Zarr 0.5 or later that uses extensions outside the allowlist (e.g. `numcodecs.*` codecs written by zarr-python, or the legacy `structured` data type name) does not conform to the version of the specification that contains the allowlist.
+Data written with OME-Zarr 0.5 or later that uses extensions outside the allowlist (e.g. `numcodecs.*` codecs written by zarr-python, or the `string` data type) does not conform to the version of the specification that contains the allowlist.
 It remains valid data of the version it was written with.
-Because the allowlist covers everything in the Zarr core specification and the registry, the affected data uses unregistered extensions, which are hard to read with any implementation other than the one that wrote them.
+The affected data either uses unregistered extensions, which are hard to read with any implementation other than the one that wrote them, or one of the [extensions not on the allowlist](#extensions-not-on-the-allowlist), which are rarely used for image data.
 The impact is therefore expected to be small.
 Migration tools can re-encode such arrays.
 
