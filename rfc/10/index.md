@@ -27,6 +27,7 @@ Define the composition and processes of NGFF governance bodies.
 ```{toctree}
 :hidden:
 :maxdepth: 1
+comments/index
 ```
 
 
