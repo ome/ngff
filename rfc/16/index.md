@@ -11,6 +11,7 @@ authors:
     affiliation: HHMI Janelia Research Campus
     role: Co-author
     date: "2026-11-06"
+reference_pr: https://github.com/ome/ngff/pull/663
 manual_status: D3
 status_note: authors open PR
 description: Allowlist of Zarr data types, codecs, chunk grids, chunk key encodings and storage transformers
