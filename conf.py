@@ -113,7 +113,11 @@ def build_served_html(clean_up=True):
     from pathlib import Path
 
     os.chdir(Path(__file__).parent)
-    
+
+    # Keep specifications/* submodules in sync regardless of entry point
+    # (make, make.bat, sphinx-autobuild all import this file).
+    subprocess.check_call(["git", "submodule", "update", "--init", "--depth", "1"])
+
     # Create .htaccess to serve schemas inline (not download)
     os.makedirs("_html_extra", exist_ok=True)
 

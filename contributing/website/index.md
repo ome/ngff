@@ -6,19 +6,18 @@ Contributions to these pages are welcome as issues or PRs.
 To do so, create a fork of the ``ome/ngff`` repository, make your changes,
 and submit a pull request (PR) against the `main` branch.
 
-## Setting up the repository
-Create a fork of the ``ome/ngff`` repository.
-
-When cloning your fork locally, you will need to pull the submodules in `specifications/`:
-```bash
-git submodule init
-git submodule update
-```
-
 ## Configuration
 Edit [conf.py](https://github.com/ome/ngff/blob/main/conf.py) with options from the [PyData Theme](https://pydata-sphinx-theme.readthedocs.io/en/stable/). The [PyData Sphinx Theme](https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/index.html) user guide may also have more up to date instructions for configuration properties.
 
 ## Building the pages locally
+
+Create a fork of the ``ome/ngff`` repository.
+Then. clone the forked repository to your local machine.
+
+```bash
+git clone https://github.com/<your-username>/ngff.git
+cd ngff
+```
 
 Before submitting changes to the ngff website,
 please build the pages locally and make sure that everything renders correctly.
@@ -32,9 +31,18 @@ pip install specifications/dev
 ```
 
 Then, you can build the pages locally with:
+::::{tab-set}
+:::{tab-item} Windows
+```bash
+.\make html
+```
+:::
+:::{tab-item} Linux
 ```bash
 make html
 ```
+:::
+::::
 You can then find the rendered pages under `_build/html/index.html`.
 
 Alternatively, to build and preview the pages locally:
