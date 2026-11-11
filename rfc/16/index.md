@@ -246,7 +246,7 @@ The paragraph in the [Storage format](https://ngff.openmicroscopy.org/specificat
 
 is replaced with:
 
-> All Zarr arrays in an OME-Zarr hierarchy MUST only use the data types, codecs, chunk grids, chunk key encodings and storage transformers listed in the [Zarr extensions](#zarr-extensions) section.
+> All Zarr arrays in an OME-Zarr hierarchy MUST only use the data types, codecs, chunk grids, chunk key encodings and storage transformers listed in the Zarr extensions section.
 > This includes codecs nested in the configuration of other codecs.
 > Other sections of this specification MAY restrict the permitted data types further.
 > Readers MUST support the entries marked MUST, SHOULD support the entries marked SHOULD and MAY support the entries marked MAY.
