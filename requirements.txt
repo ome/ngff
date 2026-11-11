@@ -2,6 +2,7 @@ bikeshed
 myst-parser
 pydata-sphinx-theme
 json-schema-for-humans
+json-with-comments
 testresources
 sphinx-reredirects
 sphinxcontrib-bibtex
