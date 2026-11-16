@@ -163,6 +163,10 @@ def build_served_html(clean_up=True):
     for version in displayed_spec_versions:
 
         # find 'pre_build.py' in 'specifications' subdirectories
+        # skip if submodule hasn't been checked out.
+        if len(os.listdir(f"specifications/{version}")) == 0:
+            print(f"⚠️  No files found for version {version}")
+            continue
         script = glob.glob(f"specifications/{version}/**/pre_build.py", recursive=True)[
             0
         ]
