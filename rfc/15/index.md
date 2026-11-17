@@ -62,20 +62,20 @@ The keys that Zarr defines in that same document all use `snake_case`:
 }
 ```
 
-Zarr codec and extension names follow the same style, e.g. `sharding_indexed`, `index_codecs` and `index_location`.
-A group's `zarr.json` with OME-Zarr metadata therefore mixes `zarr_format` and `node_type` with `coordinateTransformations` and `coordinateSystems` in the same JSON object tree.
+Zarr codec and extension names also follow the same style, e.g. `sharding_indexed`, `index_codecs` and `index_location`.
+An OME-Zarr file's `zarr.json` therefore mixes Zarr identifiers like `zarr_format` and `node_type` with OME-Zarr identifiers like `coordinateTransformations` and `coordinateSystems` in the same JSON object tree.
 People who write and read these files by hand, and libraries that model them, have to remember which part of the document uses which style.
 
 ### The OME-Zarr metadata is not consistent with itself
 
-Within the OME-Zarr metadata itself, multi-word keys use several styles side by side: `camelCase` (e.g. `coordinateTransformations`), `snake_case` (e.g. `field_count`), run-together lowercase (e.g. `maximumfieldcount`), `kebab-case` (e.g. `label-value`) and dotted names (e.g. `bioformats2raw.layout`).
+Within the OME-Zarr metadata itself, multi-word keys use several styles side-by-side: `camelCase` (e.g. `coordinateTransformations`), `snake_case` (e.g. `field_count`), run-together lowercase (e.g. `maximumfieldcount`), `kebab-case` (e.g. `label-value`) and dotted names (e.g. `bioformats2raw.layout`).
 
 The naming-style section of the specification already admits this: "some parts of the specification don't obey this convention as they were added before this was adopted, but they should be updated in due course."
 This RFC does that update, but toward `snake_case` instead of `camelCase`.
 
 The specification has also moved in both directions.
 Version 0.6 renamed the `byDimension` fields `input_axes` and `output_axes` to `inputAxes` and `outputAxes`, to be consistent with the other transformations.
-A rule that holds for the whole document, including the Zarr part, would end this kind of churn.
+A rule that holds for the whole document, including the Zarr part, together with a pre-1.0 comprehensive renaming, would end this kind of churn.
 
 ### Implementations
 
@@ -95,7 +95,7 @@ N5 is one example of a related format that uses `camelCase` (`dataType`, `blockS
 
 ## Proposal
 
-1. All multi-word keys in the OME-Zarr metadata MUST be written in `snake_case`: lowercase ASCII letters and digits, with words separated by a single underscore, i.e. matching `^[a-z][a-z0-9]*(_[a-z0-9]+)*$`.
+1. All OME-Zarr metadata multi-word keys under the `ome` key in a `zarr.json` MUST be written in `snake_case`: lowercase ASCII letters and digits, with words separated by a single underscore, i.e. matching `^[a-z][a-z0-9]*(_[a-z0-9]+)*$`.
 2. The same rule applies to identifiers that the specification defines as values of discriminator fields, e.g. transformation `type` values.
 3. Existing keys and identifiers that don't follow this rule are renamed (see [Renaming](#renaming) for examples).
 4. The "Specification naming style" section of the specification is replaced with the rule in (1) and (2), using MUST instead of "should".
