@@ -426,7 +426,7 @@ only valid for a node in the context of a collection (e.g. rendering settings).
 #### `Node` interface
 
 This RFC defines a basic interface for an OME-Zarr metadata object, which we
-name `Node`. The [Node interface](#node) is a consistent JSON structure for
+name `Node`. The [Node interface](#node-interface) is a consistent JSON structure for
 several different types of OME-Zarr metadata object and the root only stores
 information used for identifying and referencing the object.
 
@@ -952,7 +952,7 @@ The `scene` trait MUST be an object with the following fields:
 | Field | Type | Required? | Notes |
 | - | - | - | - |
 | `"coordinateSystems"` | array | no | Values MUST be valid instances of [`Coordinate System`](#coordinate-system-interface) objects. |
-| `"coordinateTransformations"` | array | yes | Values MUST be valid instances of [`Coordinate transformation`](#coordinate-transformation) objects |
+| `"coordinateTransformations"` | array | yes | Values MUST be valid instances of [`Coordinate transformation`](#coordinate-transformation-interface) objects |
 
 A `scene` metadata object can be defined in the `traits` of a collection to enrich the collection with spatial information of the nodes within the collection.
 The `scene` trait allows to clearly distinguish between the spatial information pertaining to an individual multiscale image (which is stored in the `coordinateSystems` and `coordinateTransformations` fields of the multiscale node)
