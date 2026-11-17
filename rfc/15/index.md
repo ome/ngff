@@ -97,6 +97,7 @@ N5 is one example of a related format that uses `camelCase` (`dataType`, `blockS
 
 1. All OME-Zarr metadata multi-word keys under the `ome` key in a `zarr.json` MUST be written in `snake_case`: lowercase ASCII letters and digits, with words separated by a single underscore, i.e. matching `^[a-z][a-z0-9]*(_[a-z0-9]+)*$`.
 2. The same rule applies to identifiers that the specification defines as values of discriminator fields, e.g. transformation `type` values.
+   Identifiers defined by extensions are excluded (see [Not renamed](#not-renamed)).
 3. Existing keys and identifiers that don't follow this rule are renamed (see [Renaming](#renaming) for examples).
 4. The "Specification naming style" section of the specification is replaced with the rule in (1) and (2), using MUST instead of "should".
 5. Pending RFCs that add metadata (e.g. RFC-8) MUST use `snake_case` for their new keys.
@@ -128,6 +129,8 @@ The full list of renames will be part of the specification change.
   Renaming them would break existing data for no lasting benefit.
 - **Vocabulary values.** Values that are terms from a controlled vocabulary, such as RFC-4 orientation terms (`left-to-right`), interpolation methods (`bspline-cubic`) and units (`micrometer`), are not identifiers defined by the metadata structure, and keep their current spelling.
 - **User-defined keys.** Keys chosen by users, such as the per-label entries in `image-label > properties`, are not covered by this rule.
+- **Extension-defined keys and identifiers.** Keys and identifiers defined by extensions, such as custom transformation or axis types, are not defined by the specification and are not covered by this rule.
+  Extensions SHOULD follow the same `snake_case` style for consistency.
 
 ## Example
 
