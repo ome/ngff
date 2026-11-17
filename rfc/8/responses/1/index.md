@@ -70,7 +70,7 @@ This field contains the downsampling transformations in relative units between t
 This resolves the previous multiplicity of where (and what types of) transformations were allowed to be stored as multiscale transformations.
 The transformation that projects the base resolution into a coordinate system with physical units is then stored in a separate `coordinateTransformations` field.
 
-### Change 3: Clarification of node types and behavioral expectations
+### Change 3: attributes and traits: Clarification of node types and behavioral expectations
 
 In the previous version of RFC8, additional behavioral metadata for any given node was intended to be stored as fields in the `attributes` field.
 This has been critized as too unspecific, as it does not provide clear guidance on how behavioral metadata should be structured or interpreted.
@@ -125,3 +125,11 @@ the authors refrained from mandating UUIDs as the sole mechanism for ensuring un
 In the previous version of RFC8, the reference system used the `id` field as a field both for declaring and identifying references.
 in the current version, we disambiguate this into separate `ref` and `id` fields
 which are intended for the declaration and referencing of nodes, respectively.
+
+### Extension mechanism
+
+In this version of RFC8, we expand on the previously suggested extension mechanism system.
+In short, extensions are now required to be prefixed by an URI-based identifier as a source for
+sufficient uniqueness of possible extensions.
+Furthermore, extensions now need to be declared in an `extensionManifest` field at the root of the document,
+to allow implementations easier discovery of available extensions and their associated metadata.
