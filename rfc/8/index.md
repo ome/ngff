@@ -442,6 +442,8 @@ Objects that implement `Node` have the following fields:
 | `"type"` | string | yes | Value MUST be a string identifying the node type. |
 | `"id"` | string | yes | Value MUST be the identifier of the declared object. IDs MUST be unique within the JSON document where they are defined. IDs MUST follow the [ID rules](#ids). |
 | `"name"` | string | no | Value MUST be a non-empty string intended for human-readable display. |
+| `"version"` | string | root node only | Value MUST be the version of the OME-Zarr specification. Required on the root node of a metadata document. See [Field: `version`](#field-version). |
+| `"extensionManifest"` | array | root node only | Value MUST be an array of extension objects. Required on the root node of a metadata document that uses extensions. See [Extension manifest](#extension-manifest). |
 | `"traits"` | array | no | Value MUST be an array of `Trait` objects. [See traits section](#traits). |
 
 (rfcs:rfc8:abstract-structure-node-field-type)=
@@ -457,9 +459,16 @@ The `type` field of a `Node` is an extension point. For detail on how to extend 
 (rfcs:rfc8:abstract-structure-node-field-version)=
 ##### Field: `version`
 
-A `Node` object may be used as the root object of the `ome` key, in which case a `version` field, as defined in previous spec versions, is also required.
+The root node of a metadata document, i.e. the `Node` object stored directly under the `ome` key, MUST have a `version` field, as defined in previous spec versions.
 Non-root `Node` objects, e.g. those declared in the `nodes` field of a `collection` node,
 SHOULD NOT have a `version` field and MUST NOT have a different `version` value than the root `Node`.
+
+(rfcs:rfc8:abstract-structure-node-field-extensionManifest)=
+##### Field: `extensionManifest`
+
+The root node of a metadata document MUST have an `extensionManifest` field if the document uses extension-defined custom types.
+Non-root `Node` objects MUST NOT have an `extensionManifest` field.
+See [Extension manifest](#extension-manifest) for its contents.
 
 (rfcs:rfc8:abstract-structure-traits)=
 #### Traits
@@ -616,6 +625,8 @@ on a specific file system hierarchy.
 | `"type"` | string | yes | Value MUST be `"collection"`. |
 | `"id"` | string | yes | Value MUST be the identifier of the declared object. IDs MUST be unique within the JSON document where they are defined. IDs MUST follow the [ID rules](#ids). |
 | `"name"` | string | no | Value MUST be a non-empty string intended for human-readable display. |
+| `"version"` | string | root node only | Value MUST be the version of the OME-Zarr specification. Required on the root node of a metadata document. See [Field: `version`](#field-version). |
+| `"extensionManifest"` | array | root node only | Value MUST be an array of extension objects. Required on the root node of a metadata document that uses extensions. See [Extension manifest](#extension-manifest). |
 | `"nodes"` | array | no | Value MUST be an array of `Node` objects. |
 | `"path"` | object | no | Value MUST be a `Path` object. |
 | `"traits"` | array | no | Value MUST be an array of `Trait` objects. [See traits section](#traits). |
@@ -724,6 +735,8 @@ A `Multiscale` node is a leaf node: it has no child nodes. Its resolution levels
 | `"type"` | string | yes | Value MUST be `"multiscale"`. |
 | `"id"` | string | yes | Value MUST be the identifier of the declared object. IDs MUST be unique within the JSON document where they are defined. IDs MUST follow the [ID rules](#ids). |
 | `"name"` | string | no | Value MUST be a non-empty string intended for human-readable display. |
+| `"version"` | string | root node only | Value MUST be the version of the OME-Zarr specification. Required on the root node of a metadata document. See [Field: `version`](#field-version). |
+| `"extensionManifest"` | array | root node only | Value MUST be an array of extension objects. Required on the root node of a metadata document that uses extensions. See [Extension manifest](#extension-manifest). |
 | `"data"` | array | no | Value MUST be an array of `Array` objects. [See array object](#array-object). |
 | `"path"` | object | no | Value MUST be a `Path` object. |
 | `"coordinateSystems"` | array | yes | Value MUST be an array of `coordinateSystem` objects. |
