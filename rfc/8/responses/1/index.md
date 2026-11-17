@@ -133,3 +133,16 @@ In short, extensions are now required to be prefixed by an URI-based identifier 
 sufficient uniqueness of possible extensions.
 Furthermore, extensions now need to be declared in an `extensionManifest` field at the root of the document,
 to allow implementations easier discovery of available extensions and their associated metadata.
+
+## Deferred topics
+
+The authors have identified a series of topics, which are not adressed by RFC8,
+but are associated strongly to its concepts.
+The below-listed topics need to be adressed before the adoption of RFC8 and its eventual convergence into a first stable version of OME-Zarr,
+but do not need to be fully resolved before the agreement on the core concepts of RFC8.
+These include:
+- Expression of HCS metadata
+- Expression of labels metadata and their association with image data
+- transformation of the bioformats2raw standard into RFC8-coimpliant terms
+- `snake_case` vs. `camelCase` for field naming conventions
+- Introduction of a legacy multiscales node for backwards compatibility
