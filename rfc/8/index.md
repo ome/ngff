@@ -2531,3 +2531,48 @@ intolerable or there is a way to make a change while preserving compatibility,
 that should be explored.
 
 -->
+
+## Changelog
+
+| Date | Description | Link |
+| - | - | - |
+| 2026-06-03 | RFC assigned and published ([v0](./versions/v0-2026-07/index.md)) | [ome/ngff#343](https://github.com/ome/ngff/pull/343) |
+| 2026-08-25 | Restructured for readability ([v1](./versions/v1-2026-08/index.md)) | [ome/ngff#588](https://github.com/ome/ngff/pull/588) |
+| 2026-10-19 | [Comment 1](./comments/1/index.md) (J. Nunez-Iglesias) | [ome/ngff#632](https://github.com/ome/ngff/pull/632) |
+| 2026-10-19 | [Comment 2](./comments/2/index.md) (B. Best) | [ome/ngff#627](https://github.com/ome/ngff/pull/627) |
+| 2026-11-01 | [Comment 3](./comments/3/index.md) (C. Bevilacqua) | [ome/ngff#647](https://github.com/ome/ngff/pull/647) |
+| 2026-11-17 | Revised in response to the first round of comments ([v2](./versions/v2-2026-11/index.md)) | [ome/ngff#667](https://github.com/ome/ngff/pull/667) |
+
+### Changes from v0 to v1
+
+v1 restructured the document for readability, without changing the proposal.
+The RFC was renamed to "Collections and Extensibility", the Overview and Background were rewritten,
+and the content was regrouped into building blocks, abstract structure, core classes and a single Extensions section,
+followed by the user stories and examples.
+
+### Changes from v1 to v2
+
+v2 addresses the first round of comments, Damien Goutte-Gattat's extensibility proposal and [Comment 2](./comments/2/index.md).
+
+| Area | v1 | v2 |
+| - | - | - |
+| Node types | `collection`, `multiscale`, `singlescale` | `collection`, `multiscale`. `singlescale` is deferred to a sub-RFC. |
+| Type-specific metadata | `attributes` dictionary | `traits` list of typed objects |
+| Free-form metadata | `attributes` | Removed. Everything beyond the node fields is a trait. |
+| Extensions | Prefixed names (`myorg:foo`) | URI-based types, declared in an `extensionManifest` on the root node |
+| Type tiers | — | Built-in types are core (MUST), recommended (SHOULD) or optional (MAY); custom types start as optional |
+| IDs | Optional on nodes, unique per document | Required on every declaration, unique per document, restricted character set, UUIDv7 recommended if UUIDs are used |
+| Names | Required, unique within the collection | Optional, not required to be unique |
+| `version` | Required on a node used as the root of the `ome` key | Required on the root node only; listed in the node schemas |
+| References | `{"id": …}` | `{"type": …, "ref": …}` with an optional `path`, or a plain ID string where the field fixes the target type |
+| Paths | `{"type": "zarr", "path": …}` | `{"type": "zarr", "format": "relative", "href": …}` |
+| Multiscale layout | `singlescale` child nodes | `data` list of `array` objects with `downsamplingTransformations` |
+| Consolidated metadata | — | Non-normative section: an optional cache for IO performance |
+| HCS, labels, `bioformats2raw.layout`, remote references, snake_case, singlescale, legacy multiscales | In RFC-8 or not covered | Deferred to sub-RFCs |
+
+v2 also:
+
+- Defines the extension manifest, extension schemas (JSON Schema or LinkML) and the `mustUnderstand` flag.
+- Adds rules for path resolution, including cycle detection.
+- Adds user story 11 (training crops), new prior art and abandoned ideas, and future work on extensibility.
+- Adds Damien Goutte-Gattat, Draga Doncila Pop and Juan Nunez-Iglesias as co-authors.
