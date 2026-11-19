@@ -45,8 +45,8 @@ The proposal for RFC8 will continue to evolve based on the feedback received and
 until eventual formal submission of RFC8 into the NGFF review process that is overseen by the NGFF editorial board.
 
 The feedback gathered from [this version](#rfcs:rfc8:version2) will continue to shape the proposal for RFC8,
-which is planned to converge on a **ready-to-submit version v3** of RFC8 by the end of the year.
-In that respect, we continue to welcome feedback, comments, and contributions from the community to further refine and improve RFC8 towards its submission.
+which is planned to converge on a **ready-to-submit version v3** of RFC8.
+In that respect, we continue to welcome feedback, comments, and contributions from the community to finalize RFC8 towards its submission.
 
 ## Major changes
 
