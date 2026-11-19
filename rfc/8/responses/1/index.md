@@ -33,19 +33,31 @@ date: "2026-11-17"
 ```
 
 This response document refers to the [v2 version of RFC8](#rfcs:rfc8:version2).
-The authors extend their most sincere thanks and appreciation to all the reviewers of this RFC.
+The authors extend their most sincere thanks and appreciation to all commenters and feedback providers of this RFC.
 The state of RFC8 is the result of many discussions and approaches at implementations at several venues.
 The changes originating from these discussions shall be summarized in this response document.
 
 ## Major changes
 
-### Change 1: Singlescale removal
+### Extensions rebooted
+
+In this version of RFC8, the extension mechanism has been reworked from the ground up.
+In short, extensions are now required to be prefixed by an URI-based identifier as a source for
+sufficient uniqueness of possible extensions.
+Furthermore, extensions now need to be declared in an `extensionManifest` field at the root of the document,
+to allow implementations easier discovery of available extensions and their associated metadata.
+
+It has been a controversy in this RFC whether extensions should remain part of this document or not.
+The authors acknowledge this controversy and have decided to keep the extension mechanism within the main document for the time being,
+as long as decisions regarding the extension mechanism continue to shape the discussion around the collections proposal (and vice versa).
+
+### Singlescale removal
 
 As pointed out by several comments ([Comment 1](#rfcs:rfc8:comment1) and [Comment 2](#rfcs:rfc8:comment-)),
 the introduction of a dedicated `singlescale` node type was perceived to be controversial.
 Key concerns were:
 
-- Singlescale nodes as part of a multiscale node type complicate the parsing the coordinate transformations in a multiscale,
+- Singlescale nodes as part of a multiscale node type complicate parsing the coordinate transformations in a multiscale,
   as each singlescale node would be required to have its own coordinate system
 - It was not possible in the current proposal of RFC8 to "upgrade" a singlescale node into a multiscale node
   without a copy operation
@@ -58,38 +70,48 @@ Arguments in favor for the singlescale concept were:
   While singlescales can be realized as multiscale images with a single resolution level,
   the overhead of an additional zarr hierarchy (and the accompanying load of extra zarr.json files)
   solely needed for a single resolution level could be avoided by using singlescale nodes.
+- They would provided a consistent node interface down to the zarr array level.
+- Multiscales could be constructed more flexibly from reusing existing singlescale images
+  or by using existing, virtualized singlescale images and combining them with other resolution levels.
+  
 
 As a consequence, the `singlescale` node was removed.
-Its introduction may later be investigated as part of an exploratory extension.
+Its introduction may later be investigated as an extension;
+its adoption would then be subject to the promotion mechanism of community extensions into the core specification.
 
-### Change 2: Multiscale node without singlescales
+### Multiscale node without singlescales
 
 With the removal of the `singlescale` node, multiscale images now list their member resolution levels under a new `data` fields.
 This field contains a reference to a zarr array along with a new, dedicated field `downsamplingTransformations`.
 This field contains the downsampling transformations in relative units between the base resolution level and the respective resolution level.
 This resolves the previous multiplicity of where (and what types of) transformations were allowed to be stored as multiscale transformations.
+Moreover, these transformations do not bear the requirement of strict `input` and `output` definitions,
+which in this case can be inferred entirely from the `downsamplingTransformations` field being located in a multiscale `data` entry.
+
 The transformation that projects the base resolution into a coordinate system with physical units is then stored in a separate `coordinateTransformations` field.
 
-### Change 3: attributes and traits: Clarification of node types and behavioral expectations
+### Attributes and traits: Clarification of node types and behavioral expectations
 
 In the previous version of RFC8, additional behavioral metadata for any given node was intended to be stored as fields in the `attributes` field.
 This has been critized as too unspecific, as it does not provide clear guidance on how behavioral metadata should be structured or interpreted.
 To address this, the revised RFC8 document introduces the `traits` field.
 Each entry in the `traits` field represents a specific, typed behavioral characteristic of the node,
-providing clear guidance on how it should be interpreted and used.
+providing clear guidance on how it should be interpreted and used, as well as a mechanism for extensions and trait schemas.
 This streamlines free-form metadata into a clearer path for defining and interpreting node behavior.
 
-### Change 4: Type tiering
+### Type tiering
 
 A lot of discussion at several venues revolved around the question of which of the following two is preferable:
-- Option 1: Specific node types for particular kinds of collections (i.e., a `plate-collection`) instead of a `plate-collection` trait in a generic `collection` node.
-- Option 2: A single generic collection node defininig a collection's structure with traits which specify its behavioral characteristics (e.g., via a `plate-collection` trait).
+- Option 1: Specific node types for particular kinds of collections (i.e., a `plate-collection` node type).
+- Option 2: A single generic collection node defininig a collection's structure with traits which specify its behavioral characteristics (e.g., via a `plate` trait).
 
 The authors favor the second option, as it strengthens the `collection`'s role as a generic container in a collection graph than can only consist of such generic collection nodes and leaf node types.
 This has several implications:
 - It reduces the proliferation of potentially highly specified collection node types, which would require a defined inheritance protocol to make them compatible with the generic `collection` node.
 - It centralizes the definition of collection behavior within traits, making it easier to understand and maintain consistency across different collection instances.
-- It allows for more flexible and extensible collection structures, as new behaviors can be introduced via new traits without modifying the core node type.
+- It allows for more flexible, extensible and composable collection structures,
+  as new behaviors can be introduced via new traits without modifying the core node type
+  (I.e., a `plate` trait coexisting with `image-label` and `scene` metadata)
 - It lowers the overhead of promoting new collection behaviors into the core specification;
   Implementations must already understand the generic `collection` node and how to interpret its traits.
   A promotion of a new collection behavior into the core specification therefore only requires defining the new trait,
@@ -103,9 +125,11 @@ without additional context or knowledge about which traits are considered author
 For new node types, this decision gives clear guidance as to how extensions are expected to handle the desired behavior:
 - If an extension wants to introduce new behavior for a collection, it should introduce a new trait defining that behavior
   instead of defining a new collection node type.
-- If an extension wants to add a new data type to a collection (tables, graphs, etc.), it should define a new (leaf) node type representing that data type. Such a new leaf node type would be expected not to define collection behavior (nodes, etc.)
+- If an extension wants to add a new data type to a collection (tables, graphs, etc.),
+  it should define a new (leaf) node type representing that data type.
+  Such a new leaf node type would be expected not to define collection behavior (nodes, etc.)
 
-### Change 4: Unique IDS
+### Unique IDs
 
 Members of the community pointed out that the uniqueness of node identifiers within the same metadata document is hard to maintain,
 especially when metadata is inlined within larger documents.
@@ -119,20 +143,14 @@ If UUIDs are used, we recommend UUIDv7-compliant identifiers to ensure both uniq
 However, since requiring UUIDs introduce the need for a semantic compliance rule
 under what circumstances UUIDs would need to be (re-)generated,
 the authors refrained from mandating UUIDs as the sole mechanism for ensuring unique node IDs.
+Also, in circumstances of arrays containing a large number of JSON objects or small pieces of metadata,
+the overhead of assigning a UUID to each entry becomes disproportionate.
 
 ### Reference system
 
 In the previous version of RFC8, the reference system used the `id` field as a field both for declaring and identifying references.
 in the current version, we disambiguate this into separate `ref` and `id` fields
 which are intended for the declaration and referencing of nodes, respectively.
-
-### Extension mechanism
-
-In this version of RFC8, we expand on the previously suggested extension mechanism system.
-In short, extensions are now required to be prefixed by an URI-based identifier as a source for
-sufficient uniqueness of possible extensions.
-Furthermore, extensions now need to be declared in an `extensionManifest` field at the root of the document,
-to allow implementations easier discovery of available extensions and their associated metadata.
 
 ## Deferred topics
 
@@ -146,3 +164,7 @@ These include:
 - transformation of the bioformats2raw standard into RFC8-coimpliant terms
 - `snake_case` vs. `camelCase` for field naming conventions
 - Introduction of a legacy multiscales node for backwards compatibility
+
+## Next steps
+
+Publishing this version of RFC8 will eventually lead into a review-ready version of the RFC.
