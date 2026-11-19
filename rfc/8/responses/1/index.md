@@ -37,6 +37,17 @@ The authors extend their most sincere thanks and appreciation to all commenters 
 The state of RFC8 is the result of many discussions and approaches at implementations at several venues.
 The changes originating from these discussions shall be summarized in this response document.
 
+## Next steps
+
+Publicizing RFC versions has provided the authors with invaluable feedback
+and provides the community with a clear reference document for discussions and implementations arising from it.
+The proposal for RFC8 will continue to evolve based on the feedback received and the ongoing discussions within the community,
+until eventual formal submission of RFC8 into the NGFF review process that is overseen by the NGFF editorial board.
+
+The feedback gathered from [this version](#rfcs:rfc8:version2) will continue to shape the proposal for RFC8,
+which is planned to converge on a **ready-to-submit version v3** of RFC8 by the end of the year.
+In that respect, we continue to welcome feedback, comments, and contributions from the community to further refine and improve RFC8 towards its submission.
+
 ## Major changes
 
 ### Extensions rebooted
@@ -164,7 +175,3 @@ These include:
 - transformation of the bioformats2raw standard into RFC8-coimpliant terms
 - `snake_case` vs. `camelCase` for field naming conventions
 - Introduction of a legacy multiscales node for backwards compatibility
-
-## Next steps
-
-Publishing this version of RFC8 will eventually lead into a review-ready version of the RFC.
