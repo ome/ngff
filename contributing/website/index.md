@@ -22,19 +22,20 @@ cd ngff
 Before submitting changes to the ngff website,
 please build the pages locally and make sure that everything renders correctly.
 
-To do so, first install a few necessary (Python) dependencies:
+To do so, perform a first-time setup for the page to build correctly:
 
 ```bash
 cd path/to/ngff/repo
 pip install -r requirements.txt
+git submodule update --init --depth 1
 pip install specifications/dev
 ```
 
-For a first-time build, use the correct one of these commands to set up everything the page needs:
+Use the correct one of these commands to build the page on your platform:
 ::::{tab-set}
 :::{tab-item} Windows
 ```bash
-.\make html
+.\make.bat html
 ```
 :::
 :::{tab-item} Linux/macOS
