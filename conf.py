@@ -113,7 +113,7 @@ def build_served_html(clean_up=True):
     from pathlib import Path
 
     os.chdir(Path(__file__).parent)
-    
+
     # Create .htaccess to serve schemas inline (not download)
     os.makedirs("_html_extra", exist_ok=True)
 
@@ -163,6 +163,14 @@ def build_served_html(clean_up=True):
     for version in displayed_spec_versions:
 
         # find 'pre_build.py' in 'specifications' subdirectories
+        # skip if submodule hasn't been checked out.
+        if len(os.listdir(f"specifications/{version}")) == 0:
+            print(
+                f"⚠️  No files found for version {version}. "
+                "This indicates missing specification files or git submodules. "
+                "See https://ngff.openmicroscopy.org/contributing/website for help in debugging the build."
+                )
+            continue
         script = glob.glob(f"specifications/{version}/**/pre_build.py", recursive=True)[
             0
         ]
