@@ -30,14 +30,14 @@ pip install -r requirements.txt
 pip install specifications/dev
 ```
 
-Then, you can build the pages locally with:
+For a first-time build, use the correct one of these commands to set up everything the page needs:
 ::::{tab-set}
 :::{tab-item} Windows
 ```bash
 .\make html
 ```
 :::
-:::{tab-item} Linux
+:::{tab-item} Linux/macOS
 ```bash
 make html
 ```
@@ -45,7 +45,7 @@ make html
 ::::
 You can then find the rendered pages under `_build/html/index.html`.
 
-Alternatively, to build and preview the pages locally:
+After the first-time setup, build and preview the pages locally with:
 ```bash
 sphinx-autobuild . _build/html
 ```
