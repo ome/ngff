@@ -96,6 +96,12 @@ html_css_files = [
 html_js_files = [
     "https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js",
     "main.js",
+    ("https://gc.zgo.at/count.v5.js", {
+        "async": "async",
+        "crossorigin": "anonymous",
+        "integrity": "sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ",
+        "data-goatcounter": "https://ome-zarr.goatcounter.com/count",
+    }),
 ]
 
 html_extra_path = [
