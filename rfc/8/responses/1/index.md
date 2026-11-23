@@ -28,6 +28,7 @@ date: "2026-11-17"
 ---
 
 # RFC-8: Response 1 (2026-11-17 version)
+(rfcs:rfc8:response1)
 
 ```{document-authors}
 ```
@@ -175,3 +176,4 @@ These include:
 - transformation of the bioformats2raw standard into RFC8-coimpliant terms
 - `snake_case` vs. `camelCase` for field naming conventions
 - Introduction of a legacy multiscales node for backwards compatibility
+- Introduction of a singlescale node for representing single-scale image data
