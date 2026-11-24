@@ -2199,3 +2199,17 @@ intolerable or there is a way to make a change while preserving compatibility,
 that should be explored.
 
 -->
+
+## Changelog
+
+| Date | Description | Link |
+| - | - | - |
+| 2026-06-03 | RFC assigned and published ([v0](../v0-2026-07/index.md)) | [ome/ngff#343](https://github.com/ome/ngff/pull/343) |
+| 2026-08-25 | Restructured for readability ([v1](../v1-2026-08/index.md)) | [ome/ngff#588](https://github.com/ome/ngff/pull/588) |
+
+### Changes from v0 to v1
+
+v1 restructured the document for readability, without changing the proposal.
+The RFC was renamed to "Collections and Extensibility", the Overview and Background were rewritten,
+and the content was regrouped into building blocks, abstract structure, core classes and a single Extensions section,
+followed by the user stories and examples.
