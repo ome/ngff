@@ -10,12 +10,21 @@ A cloud-friendly, FAIR, AI-ready, community-driven open format for bioimaging da
 ::::{grid} 1 2 2 3
 :gutter: 3
 
-:::{grid-item-card} Community 💬
-:link: community-main
+:::{grid-item-card} Resources 📚
+:link: resources-main
 :link-type: ref
-:img-top: ./images/contributors-map-light.png
+:img-top: ./images/resources-screenshot.png
 
-A global community of developers and users working together to streamline bioimaging data management and analysis.
+A collection of learning materials, datasets and tools.
+
+:::
+
+:::{grid-item-card} Help Desk ☎️
+:link: help-desk-main
+:link-type: ref
+:img-top: ./images/hackathons/IMG_9605.jpeg
+
+FAQs and directions on getting support with OME-Zarr.
 :::
 
 :::{grid-item-card} Specifications 📜
@@ -26,20 +35,20 @@ A global community of developers and users working together to streamline bioima
 Details for developers and implementers of OME-Zarr on the stable and development releases of the specification.
 :::
 
+:::{grid-item-card} Community 💬
+:link: community-main
+:link-type: ref
+:img-top: ./images/contributors-map-light.png
+
+A global community of developers and users working together to streamline bioimaging data management and analysis.
+:::
+
 :::{grid-item-card} RFCs ❗
 :link: rfc-main
 :link-type: ref
 :img-top: ./rfc/1/drawing.png
 
 The documents and discussions through which the community shapes the development of OME-Zarr. Anyone can participate.
-:::
-
-:::{grid-item-card} Resources 📚
-:link: resources-main
-:link-type: ref
-:img-top: ./images/resources-screenshot.png
-
-A collection of resources for users and developers, including datasets, tools, publications, and learning materials.
 :::
 
 :::{grid-item-card} Publications 📢
@@ -50,13 +59,7 @@ A collection of resources for users and developers, including datasets, tools, p
 Papers and preprints written by the OME-NGFF community or using OME-Zarr.
 :::
 
-:::{grid-item-card} Help Desk ☎️
-:link: help-desk-main
-:link-type: ref
-:img-top: ./images/hackathons/IMG_9605.jpeg
 
-FAQs and directions on getting support with OME-Zarr.
-:::
 
 ::::
 

@@ -4,14 +4,18 @@
 
 OME-Zarr files have standardized metadata (that is the OME portion of "OME-Zarr") - each new version of OME-Zarr files has its own specification. Those specifications are listed below.
 
-The current released version of the OME-Zarr specification is [0.6](0.6/index.md).
+The current released version of the OME-Zarr specification is [0.6](0.6/index.md). The [development version](dev/index.md) is unreleased and subject to change.
+
+```{note}
+The specification is the normative technical reference for OME-Zarr. For an overview with explanations and examples, a good start is to see the [OME-Zarr book](https://ome-zarr-book.readthedocs.io/en/stable/).
+```
 
 ```{toctree}
 :maxdepth: 1
 :caption: available specifications
 
+0.6 (latest release) <0.6/index.md>
 dev/index.md
-0.6/index.md
 0.5/index.md
 0.4/index.md
 0.3/index.md
