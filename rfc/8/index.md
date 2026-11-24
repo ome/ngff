@@ -52,10 +52,11 @@ authors:
     date: "2026-11-10"
 manual_status: R1
 description: Collections
-date: "2026-06-03"
+date: "2026-11-17"
 ---
 
 # RFC-8: Collections and Extensibility
+(rfcs:rfc8:version2)
 
 ```{toctree}
 :hidden:
