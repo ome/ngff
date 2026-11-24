@@ -56,7 +56,7 @@ date: "2026-11-17"
 ---
 
 # RFC-8: Collections and Extensibility
-(rfcs:rfc8:version2)
+(rfcs:rfc8:version2)=
 
 ```{toctree}
 :hidden:

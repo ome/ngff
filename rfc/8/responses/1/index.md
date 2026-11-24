@@ -28,14 +28,14 @@ date: "2026-11-17"
 ---
 
 # RFC-8: Response 1 (2026-11-17 version)
-(rfcs:rfc8:response1)
+(rfcs:rfc8:response1)=
 
 ```{document-authors}
 ```
 
 This response document refers to the [v2 version of RFC8](#rfcs:rfc8:version2).
 The authors extend their most sincere thanks and appreciation to all commenters and feedback providers of this RFC.
-This version of RFC8 is the result of many discussions and approaches at implementations at several venues.
+This version of RFC8 is the result of many discussions and approaches to implementation at several venues.
 The changes originating from these discussions shall be summarized in this response document.
 
 ## Next steps
@@ -58,7 +58,6 @@ In short:
 * All an extension can do is to add _custom types_ to be used at pre-defined extension points.
 * Specifically, an extension cannot add arbitrary keys anywhere. Should an extension need to add custom metadata to any given object, the appropriate way to do so is to define a custom type of _trait_ to be added to the list of traits carried by the object.
 * Each extension has a unique identifier (strongly recommended to be a URI), and each custom type defined by an extension has its own identifier that is derived from the extension’s identifier.
-sufficient uniqueness of possible extensions.
 Furthermore, extensions now need to be declared in an `extensionManifest` field at the root of the document,
 to allow implementations easier discovery of available extensions and their associated metadata.
 
@@ -68,7 +67,7 @@ as long as decisions regarding the extension mechanism continue to shape the dis
 
 ### Singlescale removal
 
-As pointed out by several comments ([Comment 1](#rfcs:rfc8:comment1) and [Comment 2](#rfcs:rfc8:comment-)),
+As pointed out by several comments ([Comment 1](#rfcs:rfc8:comment1) and [Comment 2](#rfcs:rfc8:comment2)),
 the introduction of a dedicated `singlescale` node type was perceived to be controversial.
 Key concerns were:
 
@@ -80,12 +79,12 @@ Key concerns were:
   needed to be duplicated across all singlescale images if a multiscale image were to consist of several singlescale images.
 - It would introduce a sibling image concept of an image in the OME-Zarr specification.
 
-Arguments in favor for the singlescale concept were:
-- Extending the usability of OME-Zarr into domains with smaller images requires lowering the comlexity of the format.
+Arguments in favor of the singlescale concept were:
+- Extending the usability of OME-Zarr into domains with smaller images requires lowering the complexity of the format.
   While singlescales can be realized as multiscale images with a single resolution level,
   the overhead of an additional zarr hierarchy (and the accompanying load of extra zarr.json files)
   solely needed for a single resolution level could be avoided by using singlescale nodes.
-- They would provided a consistent node interface down to the zarr array level.
+- They would provide a consistent node interface down to the zarr array level.
 - Multiscales could be constructed more flexibly from reusing existing singlescale images
   or by using existing, virtualized singlescale images and combining them with other resolution levels.
   
@@ -95,7 +94,7 @@ Possible outcomes of this sub-RFC are that a `singlescale` node is introduced in
 
 ### Multiscale node without singlescales
 
-With the removal of the `singlescale` node, multiscale images now list their member resolution levels under a new `data` fields.
+With the removal of the `singlescale` node, multiscale images now list their member resolution levels under a new `data` field.
 This field contains a reference to a zarr array along with a new, dedicated field `downsamplingTransformations`.
 This field contains the downsampling transformations in relative units between the base resolution level and the respective resolution level.
 This resolves the previous multiplicity of where (and what types of) transformations were allowed to be stored as multiscale transformations.
@@ -116,8 +115,8 @@ This streamlines free-form metadata into a clearer path for defining and interpr
 ### Type tiering
 
 A lot of discussion at several venues revolved around the question of which of the following two is preferable:
-- Option 1: Specific node types for particular kinds of collections (i.e., a `plate-collection` node type).
-- Option 2: A single generic collection node defininig a collection's structure with traits which specify its behavioral characteristics (e.g., via a `plate` trait).
+- Option 1: Specific node types for particular kinds of collections (e.g., a `plate-collection` node type).
+- Option 2: A single generic collection node defining a collection's structure with traits which specify its behavioral characteristics (e.g., via a `plate` trait).
 
 The authors favor the second option, as it strengthens the `collection`'s role as a generic container in a collection graph that can only consist of such generic collection nodes and leaf node types.
 This has several implications:
@@ -125,14 +124,14 @@ This has several implications:
 - It centralizes the definition of collection behavior within traits, making it easier to understand and maintain consistency across different collection instances.
 - It allows for more flexible, extensible and composable collection structures,
   as new behaviors can be introduced via new traits without modifying the core node type
-  (I.e., a `plate` trait coexisting with `image-label` and `scene` metadata)
-- It lowers the overhead of promoting new collection behaviors into the core specification;
-  Implementations must already understand the generic `collection` node and how to interpret its traits.
+  (e.g., a `plate` trait coexisting with `image-label` and `scene` metadata)
+- It lowers the overhead of promoting new collection behaviors into the core specification:
+  implementations must already understand the generic `collection` node and how to interpret its traits.
   A promotion of a new collection behavior into the core specification therefore only requires defining the new trait,
   without altering the fundamental structure of the `collection` node.
 
 As a downside, while it is simple for validators (e.g. schema validators) to ensure that a node conforms to the generic `collection` structure,
-validating the behavioral correctness of a collection node requires iterating through its `traits` and validating it against all known trait definitions.
+validating the behavioral correctness of a collection node requires iterating through its `traits` and validating them against all known trait definitions.
 In the case of several failing or passing validations, it is therefore not possible to infer the intended behavior of the collection node
 without additional context or knowledge about which traits are considered authoritative over others.
 
@@ -163,19 +162,19 @@ the overhead of assigning a UUID to each entry becomes disproportionate.
 ### Reference system
 
 In the previous version of RFC8, the reference system used the `id` field as a field both for declaring and identifying references.
-In the current version, we disambiguate this into separate `ref` and `id` fields
+In the current version, we disambiguate this into separate `id` and `ref` fields
 which are intended for the declaration and referencing of nodes, respectively.
 
 ## Deferred topics
 
-The authors have identified a series of topics, which are not adressed by RFC8,
+The authors have identified a series of topics, which are not addressed by RFC8,
 but are associated strongly to its concepts.
-The below-listed topics need to be adressed before the adoption of RFC8 and its eventual convergence into a first stable version of OME-Zarr,
+The below-listed topics need to be addressed before the adoption of RFC8 and its eventual convergence into a first stable version of OME-Zarr,
 but do not need to be fully resolved before the agreement on the core concepts of RFC8.
 These include:
 - Expression of HCS metadata
 - Expression of labels metadata and their association with image data
-- transformation of the bioformats2raw standard into RFC8-coimpliant terms
+- Transformation of the bioformats2raw standard into RFC8-compliant terms
 - `snake_case` vs. `camelCase` for field naming conventions
 - Introduction of a legacy multiscales node for backwards compatibility
 - Introduction of a singlescale node for representing single-scale image data
