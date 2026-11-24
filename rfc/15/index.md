@@ -74,7 +74,7 @@ The naming-style section of the specification already admits this: "some parts o
 This RFC does that update, but toward `snake_case` instead of `camelCase`.
 
 The specification has also moved in both directions.
-Version 0.6 renamed the `byDimension` fields `input_axes` and `output_axes` to `inputAxes` and `outputAxes`, to be consistent with the other transformations.
+RFC-5 introduced the `byDimension` transformation with the fields `input_axes` and `output_axes`, and they were renamed to `inputAxes` and `outputAxes` when RFC-5 was merged into version 0.6, to be consistent with the other transformations.
 A rule that holds for the whole document, including the Zarr part, together with a pre-1.0 comprehensive renaming, would end this kind of churn.
 
 ### Implementations
@@ -266,9 +266,16 @@ Leaving it would keep the inconsistency in 1.0 for good.
 ## Compatibility
 
 This change is not backwards compatible.
-Documents written with the new version MUST use the new names.
-Readers SHOULD NOT accept the old names for the new version.
-Readers MAY keep reading older versions with their original names, and upgrade tools MAY convert older metadata to the new names.
+It applies only to the version that adopts it and later versions.
+The specifications of earlier versions (0.6 and older) are not changed.
+
+- For the new version, writers MUST write the new names only, and readers MUST read the new names.
+  Readers SHOULD NOT accept the old names for the new version.
+- For earlier versions, readers and writers MUST keep using the names defined by that version's specification.
+  Writers MUST NOT write the new names into documents of an earlier version.
+
+Readers that support several versions MUST choose the names based on `ome > version`.
+Upgrade tools that convert older metadata to the new version MUST rename the keys and identifiers to the new names.
 
 No data in arrays is affected.
 Only the JSON metadata changes.
