@@ -1,4 +1,5 @@
 # v2 -- RFC-8: Collections and Extensibility
+(rfcs:rfc8:version2)=
 
 Extending OME-Zarr with new metadata types, references, and collections
 
