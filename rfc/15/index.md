@@ -98,9 +98,12 @@ N5 is one example of a related format that uses `camelCase` (`dataType`, `blockS
 1. All OME-Zarr metadata multi-word keys under the `ome` key in a `zarr.json` MUST be written in `snake_case`: lowercase ASCII letters and digits, with words separated by a single underscore, i.e. matching `^[a-z][a-z0-9]*(_[a-z0-9]+)*$`.
 2. The same rule applies to identifiers that the specification defines as values of discriminator fields, e.g. transformation `type` values.
    Identifiers defined by extensions are excluded (see [Not renamed](#not-renamed)).
-3. Existing keys and identifiers that don't follow this rule are renamed (see [Renaming](#renaming) for examples).
-4. The "Specification naming style" section of the specification is replaced with the rule in (1) and (2), using MUST instead of "should".
-5. Pending RFCs that add metadata (e.g. RFC-8) MUST use `snake_case` for their new keys.
+3. Values that are terms from a controlled vocabulary defined by the specification, e.g. orientation terms and interpolation methods, are not discriminator identifiers in the sense of (2).
+   Multi-word vocabulary terms SHOULD be written in `kebab-case`: lowercase ASCII letters and digits, with words separated by a single hyphen, i.e. matching `^[a-z][a-z0-9]*(-[a-z0-9]+)*$`.
+   Units MUST be spelled according to SI conventions, i.e. as UDUNITS-2 unit names (e.g. `micrometer`, `millisecond`).
+4. Existing keys and identifiers that don't follow these rules are renamed (see [Renaming](#renaming) for examples).
+5. The "Specification naming style" section of the specification is replaced with the rules in (1), (2) and (3), using MUST instead of "should" for (1) and (2).
+6. Pending RFCs that add metadata (e.g. RFC-8) MUST use `snake_case` for their new keys.
 
 ## Requirements
 
@@ -127,7 +130,9 @@ The full list of renames will be part of the specification change.
 - **Transitional metadata.** `bioformats2raw.layout` and the keys inside `omero` (e.g. `defaultT` and `defaultZ` in `rdefs`) are marked as transitional.
   They describe data that bioformats2raw and OMERO already produce, and are expected to be replaced rather than developed further.
   Renaming them would break existing data for no lasting benefit.
-- **Vocabulary values.** Values that are terms from a controlled vocabulary, such as RFC-4 orientation terms (`left-to-right`), interpolation methods (`bspline-cubic`) and units (`micrometer`), are not identifiers defined by the metadata structure, and keep their current spelling.
+- **Vocabulary values.** Values that are terms from a controlled vocabulary, such as RFC-4 orientation terms (`left-to-right`), interpolation methods (`bspline-cubic`) and units (`micrometer`), are not identifiers defined by the metadata structure.
+  They follow the `kebab-case` and SI rules in [Proposal](#proposal) (3), which the existing terms already do, so none of them are renamed.
+  Unlike keys and `type` values, which implementations typically map to fields or classes, vocabulary terms are usually handled as plain strings, so they don't need to match the `snake_case` of the Zarr metadata.
 - **User-defined keys.** Keys chosen by users, such as the per-label entries in `image-label > properties`, are not covered by this rule.
 - **Extension-defined keys and identifiers.** Keys and identifiers defined by extensions, such as custom transformation or axis types, are not defined by the specification and are not covered by this rule.
   Extensions SHOULD follow the same `snake_case` style for consistency.
@@ -198,7 +203,8 @@ A multiscale image's group metadata before and after this RFC:
 ### Specification
 
 - Rename the keys and identifiers in the specification text, the tables of fields, and all examples.
-- Replace the "Specification naming style" section with the rule from the [Proposal](#proposal).
+- Replace the "Specification naming style" section with the rules from the [Proposal](#proposal).
+- Make the interpolation method names consistent with the vocabulary rule, e.g. `windowed sinc` becomes `windowed-sinc`.
 - Add an entry to the version history listing every rename.
 
 ### Schemas and tests
@@ -230,7 +236,6 @@ This cost is real, but:
 
 ### Open questions
 
-- Should the vocabulary values, such as RFC-4 orientation terms (`left-to-right`), interpolation methods (`bspline-cubic`) and units (`micrometer`), be renamed too?
 - Should the transitional `omero` and `bioformats2raw.layout` metadata be renamed too?
 
 ## Abandoned ideas
@@ -241,6 +246,12 @@ This is what the current naming-style section asks for.
 It would also be a breaking change: keys such as `field_count`, `maximumfieldcount` and `label-value` would need renaming.
 The size of the change is similar either way.
 `snake_case` was chosen because it matches the Zarr metadata that every OME-Zarr document is embedded in.
+
+### One style for keys and all values
+
+Using `snake_case` for vocabulary terms as well (e.g. `left_to_right`), or `kebab-case` for `type` values as well (e.g. `by-dimension`), would give a single style for every string the specification defines.
+Discriminator `type` values select which fields an object has and typically map to classes in implementations, like keys do, so they follow the key style, as Zarr's codec names (e.g. `sharding_indexed`) do.
+Vocabulary terms are plain string values, the existing terms are already `kebab-case`, and units follow established SI spelling, so renaming them would break data without a clear benefit.
 
 ### Accept both spellings
 
