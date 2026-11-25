@@ -7,6 +7,7 @@ The OME-Zarr caters for multiple scientific use cases. This is a collection orga
 - [Cryo-ET](#topic-cryo-et)
 - [Dynamics](#topic-dynamics)
 - [High-Content Screening](#topic-hcs)
+- [Private Access](#topic-private-access)
 - [Spatial Omics](#topic-spatial-omics)
 - [Tomography](#topic-tomography)
 - [Volume EM](#topic-volume-em)
