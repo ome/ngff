@@ -68,6 +68,10 @@ versions/index
 
 Extending OME-Zarr with new metadata types, references, and collections
 
+```{note}
+A new version of this RFC is under preparation at [https://github.com/ome/ngff-rfc8-revisions](https://github.com/ome/ngff-rfc8-revisions).
+```
+
 ## Status
 
 ```{rfc-status}
