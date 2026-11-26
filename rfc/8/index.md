@@ -62,6 +62,7 @@ date: "2026-11-17"
 :hidden:
 :maxdepth: 1
 comments/index
+responses/index
 versions/index
 ```
 
